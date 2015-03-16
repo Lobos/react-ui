@@ -1,0 +1,8 @@
+build
+lib-cov
+coverage.html
+.DS_Store
+node_modules
+*.sock
+*.swp
+/components
