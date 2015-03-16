@@ -11,6 +11,9 @@
     "laxbreak": true,
     "evil": true,
     "eqnull": true,
+    "scripturl":true,
+    "loopfunc": true,
+    "esnext": true, 
     "globals": {
         "console": true
     }
