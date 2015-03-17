@@ -19,5 +19,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-contrib-copy')
 
-  grunt.registerTask('build', ['jshint', 'browserify', 'uglify', 'less', 'copy'])
+  grunt.registerTask('publish', ['jshint:default', 'browserify:publish', 'uglify:publish', 'less:publish', 'copy:publish'])
+  grunt.registerTask('docs', ['jshint:docs', 'browserify:docs', 'uglify:docs', 'less:docs', 'copy:docsHtml', 'copy:docsAssets'])
 }

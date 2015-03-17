@@ -7,7 +7,10 @@ module.exports = {
   build: {
     src: ['./gruntfile.js', './grunt/**/*.js']
   },
-  src: {
+  default: {
     src: src
+  },
+  docs: {
+    src: [src, './docs/**/*.js', './docs/**/*.jsx', '!./docs/js/prettify.js']
   }
 }

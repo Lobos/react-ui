@@ -10,14 +10,18 @@ module.exports = {
     tasks: ['jshint:build']
   },
 
-  js: {
-    files: [jsList],
-    tasks: ['jshint', 'browserify']
+  docsJs: {
+    files: [jsList, './docs/js/**/*.js', './docs/js/**/*.jsx'],
+    tasks: ['jshint:docs', 'browserify:docs']
   },
 
-  less: {
-    files: [lessList],
-    tasks: ['less:admin']
-  }
+  docsLess: {
+    files: [lessList, './docs/less/**/*.less'],
+    tasks: ['less:docs']
+  },
 
+  docsHtml: {
+    files: ['./docs/**/*.html'],
+    tasks: ['copy:docsHtml']
+  }
 }

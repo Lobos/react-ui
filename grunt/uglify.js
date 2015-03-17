@@ -3,9 +3,15 @@ module.exports = {
     //sourceMap: true
   },
 
-  admin: {
+  publish: {
     files: {
-      './dist/js/react-ui.min.js':['./dist/js/react-ui.js']
+      './dist/publish/js/react-ui.min.js':['./dist/publish/js/react-ui.js']
+    }
+  },
+
+  docs: {
+    files: {
+      './dist/docs/js/app.min.js':['./dist/docs/js/app.js']
     }
   }
 }

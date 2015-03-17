@@ -4,10 +4,14 @@ module.exports = {
     browserifyOptions: {
       debug: false,
       standalone: 'App'
-    }
+    },
   },
-  admin: {
+  docs: {
+    src: './docs/js/app.jsx',
+    dest: './dist/docs/js/app.js'
+  },
+  publish: {
     src: './src/js/index.js',
-    dest: './dist/js/react-ui.js'
+    dest: './dist/publish/js/react-ui.js'
   }
 }

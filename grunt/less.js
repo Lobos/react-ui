@@ -4,9 +4,14 @@ module.exports = {
     yuicompress: true,
     optimization: 2
   },
-  admin: {
+  publish: {
     files: {
-      "./dist/css/style.css": "./src/less/react-ui.less"
+      "./dist/publish/css/style.css": "./src/less/react-ui.less"
+    }
+  },
+  docs: {
+    files: {
+      "./dist/docs/css/style.css": "./docs/less/style.less"
     }
   }
 }
