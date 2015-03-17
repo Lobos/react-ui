@@ -3,7 +3,7 @@ module.exports = {
     files: [
       {
         expand: true,
-        cwd: 'src/md-font/fonts', 
+        cwd: 'node_modules/font-awesome/fonts', 
         src: ['**'], 
         dest:'dist/fonts' 
       }

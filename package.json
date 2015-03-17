@@ -33,7 +33,8 @@
     "cortexjs": "^0.6.2",
     "react-router": "^0.11.6",
     "classnames": "^1.1.1",
-    "deepmerge": "^0.2.7"
+    "deepmerge": "^0.2.7",
+    "font-awesome": "^4.3.0"
   },
   "devDependencies": {
     "browserify": "^8.1.1",
