@@ -33,13 +33,12 @@ var Icon = React.createClass({
     if (this.props.icon)
       classes['icon-' + this.props.icon] = true
 
-    var size = this.props.size || 1
-    if (size > 5) size = 5 
-
-    if (size > 1)
-      classes['icon-' + size + 'x'] = true
-    else if (size === 'lg')
-      classes['icon-lg'] = true
+    var size = this.props.size
+    if (size) {
+      if ('number' === typeof size || size.length === 1)
+        size = size + 'x'
+      classes['icon-' + size] = true
+    }
 
     var className = this.getClasses(classes)
 

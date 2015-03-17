@@ -75,34 +75,58 @@ html, body {
 // copy from bootstrap
 
 .bs-callout {
-  margin: 20px 0;
+  margin: 40px 0;
   padding: 20px;
   border-left: 3px solid #eee;
-}
-.bs-callout h4 {
-  margin-top: 0;
-  margin-bottom: 5px;
-}
-.bs-callout p:last-child { margin-bottom: 0 }
-.bs-callout code {
-  background-color: #fff;
-  border-radius: 3px;
+  h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  code {
+    background-color: #fff;
+    border-radius: 3px;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  dl {
+    position: relative;
+    padding-left: 100px;
+    dt {
+      position: absolute;
+      width: 100px;
+      left: 0;
+      top: 0;
+    }
+
+    label {
+      margin-right: 40px;
+      font-weight: normal;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 .bs-callout-danger {
   background-color: #fdf7f7;
   border-color: #d9534f;
+  h4 { color: #d9534f }
 }
-.bs-callout-danger h4 { color: #d9534f }
 .bs-callout-warning {
   background-color: #fcf8f2;
   border-color: #f0ad4e;
+  h4 { color: #f0ad4e }
 }
-.bs-callout-warning h4 { color: #f0ad4e }
 .bs-callout-info {
   background-color: #f4f8fa;
   border-color: #5bc0de;
+  h4 { color: #5bc0de }
 }
-.bs-callout-info h4 { color: #5bc0de }
 
 .bs-example {
   position: relative;
