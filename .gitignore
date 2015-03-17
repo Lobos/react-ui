@@ -6,4 +6,6 @@ coverage.html
 node_modules
 *.sock
 *.swp
+*.bat
+*.sh
 /components
