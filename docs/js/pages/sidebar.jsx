@@ -6,7 +6,8 @@ var Icon = Libs.Icon
 var menus = [
   { route: 'icon', text: 'Icon' },
   { route: 'loading', text: 'Loading' },
-  { route: 'message', text: 'Message' }
+  { route: 'message', text: 'Message' },
+  { route: 'select', text: 'Select' },
 ]
 
 var Item = React.createClass({

@@ -2,10 +2,10 @@
 require('./polyfills/es5-shim')
 
 module.exports = {
+  Icon: require('./components/icon.jsx'),
   Loading: require('./components/loading.jsx'),
   Message: require('./components/message.jsx'),
-
-  Icon: require('./components/icon.jsx'),
+  Select: require('./components/select.jsx'),
   
   // mixins
   Mixins: {

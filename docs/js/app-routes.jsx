@@ -9,6 +9,7 @@ var Home = require('./pages/home.jsx')
 var Icon = require('./pages/icon.jsx')
 var Loading = require('./pages/loading.jsx')
 var Message = require('./pages/message.jsx')
+var Select = require('./pages/select.jsx')
 
 
 var AppRoutes = (
@@ -17,6 +18,7 @@ var AppRoutes = (
     <Route name="icon" handler={Icon} />
     <Route name="loading" handler={Loading} />
     <Route name="message" handler={Message} />
+    <Route name="select" handler={Select} />
 
     <DefaultRoute handler={Home} />
   </Route>
