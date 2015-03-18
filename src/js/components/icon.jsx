@@ -13,7 +13,6 @@ var Icon = React.createClass({
 
   propTypes: {
     icon: React.PropTypes.string,
-    size: React.PropTypes.number,
     spin: React.PropTypes.bool
   },
 

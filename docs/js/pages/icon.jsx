@@ -6,15 +6,28 @@ var Icon = require('../libs').Icon
 module.exports = React.createClass({
 
   render: function () {
+    var AI = Arguments.Item
     return (
       <div className="content">
         <h2 className="page-header">Icon</h2>
         <p>图标，来自 <a target="_blank" href="http://fontawesome.io/">fontawesome</a>。</p>
 
         <Arguments>
-          <Arguments.Item name="icon" type="string" text="必填， class，去除前缀，参见 fontawesome 文档。" />
-          <Arguments.Item name="size" type="string or int" text="可选值为 'lg 2x 3x 4x 5x'，或者只填写数字" />
-          <Arguments.Item name="spin" type="bool" def="false" text="可选值为 'lg 2x 3x 4x 5x'，或者只填写数字" />
+          <Arguments.Example>{'<Icon icon="icon-classname" spin={bool} size="lg" />'}</Arguments.Example>
+          <AI name="icon" require={true} type="string"> classname，不要加前缀，参见 <a target="_blank" href="http://fontawesome.io/icons/">fontawesome</a> 文档</AI>
+          <AI name="size" type="string or int">可选值为 [lg|2x|3x|4x|5x]，或者只填写数字</AI>
+          <AI name="spin" type="bool" def="false">是否旋转</AI>
+        </Arguments>
+
+        <h3>Motheds</h3>
+        <Arguments>
+          <Arguments.Example>{'spin()'}</Arguments.Example>
+          <p>开始旋转</p>
+        </Arguments>
+
+        <Arguments>
+          <Arguments.Example>{'unspin()'}</Arguments.Example>
+          <p>停止旋转</p>
         </Arguments>
 
         <Example title="Normal" text={'<Icon icon="home" />'}>
