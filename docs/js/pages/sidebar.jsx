@@ -1,9 +1,12 @@
 var React = require('react')
 var Router = require('react-router')
+var Libs = require('../libs')
+var Icon = Libs.Icon
 
 var menus = [
   { route: 'icon', text: 'Icon' },
-  { route: 'loading', text: 'Loading' }
+  { route: 'loading', text: 'Loading' },
+  { route: 'message', text: 'Message' }
 ]
 
 var Item = React.createClass({
@@ -19,10 +22,25 @@ var Item = React.createClass({
 })
 
 var Sidebar = React.createClass({
-  mixins: [Router.Navigation, Router.State],
+  mixins: [Router.Navigation, Router.State, Libs.Mixins.Classable],
+
+  getInitialState: function () {
+    return {
+      open: false
+    }
+  },
 
   onRouteChange: function (route) {
     this.transitionTo(route)  
+    this.close()
+  },
+
+  open: function () {
+    this.setState({ open: true })
+  },
+
+  close: function () {
+    this.setState({ open: false })
   },
 
   render: function () {
@@ -32,12 +50,18 @@ var Sidebar = React.createClass({
       )
     }.bind(this))
 
+    var className = this.getClasses('sidebar', {
+      open: this.state.open
+    })
+
     return (
-      <div className="sidebar">
+      <div className={className}>
+        <div className="menu-handle"><a onClick={this.open} href="javascript:;"><Icon icon="bars" />&nbsp; React UI</a></div>
         <div className="list">
           <h3>React UI</h3>
           <ul className="list-unstyled">{items}</ul>
         </div>
+        <div onClick={this.close} className="overlay"></div>
       </div>
     )
   }

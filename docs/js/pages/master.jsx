@@ -3,7 +3,7 @@ var Router = require('react-router')
 var RouteHandler = Router.RouteHandler
 
 var Libs = require('../libs')
-//var message = Libs.message
+var Message = Libs.Message
 var Loading = Libs.Loading
 
 var Sidebar = require('./sidebar.jsx')
@@ -22,6 +22,7 @@ var Master = React.createClass({
         <Sidebar />
 
         <Loading text="页面载入中，请稍候..." />
+        <Message />
         <RouteHandler />
       </div>
     )

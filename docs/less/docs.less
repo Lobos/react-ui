@@ -11,10 +11,17 @@ html, body {
   left: 0;
   top: 0;
   bottom: 0;
+  z-index: 1000;
+  background-color: #fff;
 
   .list {
     padding: 60px;
     font-size: 18px;
+    position: relative;
+    z-index: 1001;
+    height: 100%;
+    overflow: auto;
+    background-color: #fff;
     li {
       color: #999;
     }
@@ -27,21 +34,47 @@ html, body {
         font-size: 16px;
       }
     }
+
+    a {
+      color: #999;
+      text-decoration: none;
+      &:hover {
+        border-bottom: solid 2px @brand-primary;
+      }
+    }
   }
 
-  a {
-    color: #999;
-    text-decoration: none;
-    &:hover {
-      border-bottom: solid 2px @brand-primary;
+  .menu-handle {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    display: none;
+    padding: 10px;
+    background-color: #f1f1f1;
+    font-size: 24px;
+    a {
+      color: #666;
+      text-decoration: none;
     }
+  }
+
+  .overlay {
+    position: fixed;
+    display: none;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: rgba(0,0,0,0.2);
   }
 }
 
 .content {
   margin: 0 0 0 340px;
-  padding: 50px 0;
-  max-width: 800px;
+  padding: 60px 0;
+  width: 800px;
 }
 
 .page-header {
@@ -173,4 +206,38 @@ html, body {
   border-radius: 0;
   border: 1px solid #ddd;
   border-top-width: 0;
+}
+
+@media (max-width: 1200px) {
+  .content {
+    width: auto;
+    max-width: 800px;
+    padding: 60px 20px;
+    margin: 0 auto;
+  }
+
+  .sidebar {
+    width: 240px;
+    margin-left: -240px;
+    .transition(0.2s);
+
+    .menu-handle {
+      display: block;
+    }
+
+    .list {
+      padding: 30px;
+    }
+
+    &.open {
+      margin-left: 0;
+
+      .overlay {
+        display: block;
+      }
+      .menu-handle {
+        display: none;
+      }
+    }
+  }
 }
