@@ -2,6 +2,8 @@
 require('./polyfills/es5-shim')
 
 module.exports = {
+  Loading: require('./components/loading.jsx'),
+  Message: require('./components/message.jsx'),
 
   Icon: require('./components/icon.jsx'),
   

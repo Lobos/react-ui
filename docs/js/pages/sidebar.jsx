@@ -2,7 +2,8 @@ var React = require('react')
 var Router = require('react-router')
 
 var menus = [
-  { route: 'icon', text: 'Icon' }
+  { route: 'icon', text: 'Icon' },
+  { route: 'loading', text: 'Loading' }
 ]
 
 var Item = React.createClass({
