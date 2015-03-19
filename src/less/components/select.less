@@ -11,7 +11,8 @@
     width: 100%;
     .opacity(0);
     display: block;
-    .transition(0.4s ease);
+    visibility: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s, visibility 0s;
     max-height: 0;
     overflow: hidden;
     //padding: 0;
@@ -38,6 +39,7 @@
   &.active .dropdown-menu, &.active .mult-select-items {
     display: block;
     .opacity(1);
+    visibility: visible;
     padding: 5px 0;
     max-height: 300px;
   }

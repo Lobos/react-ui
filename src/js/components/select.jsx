@@ -47,13 +47,14 @@ var Select = React.createClass({
     var dropdown = this.refs.dropdown.getDOMNode()
     var self = this
     TransitionEnd(dropdown).bind(function () {
-      setTimeout(function () {
-        if (self.state.active) {
+      var of = dropdown.style.overflow
+      if (self.state.active) {
+        if (of !== 'auto')
           dropdown.style.overflow = 'auto'
-        } else {
+      } else {
+        if (of !== 'hidden')
           dropdown.style.overflow = 'hidden'
-        }
-      }, 500)
+      }
     })
   },
 
