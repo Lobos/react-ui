@@ -21,7 +21,7 @@ module.exports = {
   },
 
   docsHtml: {
-    files: ['./docs/**/*.html'],
+    files: ['./docs/**/*.html', './docs/**/*.json'],
     tasks: ['copy:docsHtml']
   }
 }

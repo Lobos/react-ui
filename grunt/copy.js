@@ -18,6 +18,12 @@ module.exports = {
 
   docsHtml: {
     files: [
+      {
+        expand: true,
+        cwd: 'docs/json',
+        src: ['**'],
+        dest: 'dist/docs/json'
+      },
       { 
         expand: true,
         cwd: 'docs/', 

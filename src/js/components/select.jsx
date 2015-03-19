@@ -1,6 +1,8 @@
 var React = require('react')
 var Icon = require('./icon.jsx')
 
+var TransitionEnd = require('../utils/transition-end')
+
 var Resourceable = require('../mixins/resourceable')
 var Classable = require('../mixins/classable')
 var ClickAwayable = require('../mixins/click-awayable')
@@ -38,6 +40,23 @@ var Select = React.createClass({
     }
   },
 
+  componentDidMount: function () {
+    if (this.state.value && this.state.data)
+      this.setValue(this.state.value)
+
+    var dropdown = this.refs.dropdown.getDOMNode()
+    var self = this
+    TransitionEnd(dropdown).bind(function () {
+      setTimeout(function () {
+        if (self.state.active) {
+          dropdown.style.overflow = 'auto'
+        } else {
+          dropdown.style.overflow = 'hidden'
+        }
+      }, 500)
+    })
+  },
+
   componentDidUpdate: function(prevProps, prevState) {
     if (prevState.data !== this.state.data || (prevState.value !== this.state.value && prevState.text === this.state.text)) {
       this.setValue(this.state.value)
@@ -57,6 +76,8 @@ var Select = React.createClass({
       active: false
     })
     this.validate(item.value)
+    if (this.props.onSelect)
+      this.props.onSelect(item)
   },
 
   setText: function (text) {
@@ -102,7 +123,7 @@ var Select = React.createClass({
           {!this.state.text && <span className="placeholder">{this.props.placeholder}</span>}
           {this.state.text}
         </div>
-        <ul className="dropdown-menu">{items}</ul>
+        <ul ref="dropdown" className="dropdown-menu">{items}</ul>
         <Icon icon="caret-down" />
       </div>
     )
