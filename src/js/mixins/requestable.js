@@ -1,19 +1,19 @@
 var request = require('../utils/request')
-var loading = require('../components/loading.jsx')
+var loadingActions = require('../actions/loading')
 
 module.exports = {
   getDataFromCache: function (url, success, fail) {
-    loading.start()
+    loadingActions.start()
     request.getCache(
       url,
       function (res) {
-        loading.end()
+        loadingActions.end()
         if ('function' === typeof success) {
           success(res)
         }
       },
       function () {
-        loading.end()
+        loadingActions.end()
         if ('function' === typeof fail) {
           fail()
         }
@@ -22,18 +22,18 @@ module.exports = {
   },
 
   getDataFromServer: function (url, success, fail) {
-    loading.start()
+    loadingActions.start()
     request.get(
       url, 
       null, 
       function (res) {
-        loading.end()
+        loadingActions.end()
         if ('function' === typeof success) {
           success(res)
         }
       },
       function () {
-        loading.end()
+        loadingActions.end()
         if ('function' === typeof fail) {
           fail()
         }
