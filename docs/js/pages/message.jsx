@@ -1,7 +1,7 @@
 var React = require('react')
 var Example = require('../components/example.jsx')
 var Arguments = require('../components/arguments.jsx')
-var Message = require('../libs').Message
+var MessageActions = require('../libs').Actions.Message
 
 module.exports = React.createClass({
   render: function () {
@@ -27,11 +27,11 @@ module.exports = React.createClass({
           <Arguments.Item name="title" type="string"></Arguments.Item>
         </Arguments>
 
-        <Example title="Example" text={'<a href="javascript:;" onClick={function () { Message.info("pop info") }}>info</a>\n<a href="javascript:;" onClick={function () { Message.success("pop success", "Success") }}>success</a>\n<a href="javascript:;" onClick={function () { Message.warn(<span>pop span warning</span>) }}>warning</a>\n<a href="javascript:;" onClick={function () { Message.error("pop error") }}>error</a>'}>
-          <a href="javascript:;" onClick={function () { Message.info("pop info") }}>info</a><br />
-          <a href="javascript:;" onClick={function () { Message.success("pop success", "Success") }}>success</a><br />
-          <a href="javascript:;" onClick={function () { Message.warn(<span>pop span warning</span>) }}>warning</a><br />
-          <a href="javascript:;" onClick={function () { Message.error("pop error") }}>error</a>
+        <Example title="Example" text={'<a href="javascript:;" onClick={function () { MessageActions.info("pop info") }}>info</a>\n<a href="javascript:;" onClick={function () { MessageActions.success("pop success", "Success") }}>success</a>\n<a href="javascript:;" onClick={function () { MessageActions.warn(<span>pop span warning</span>) }}>warning</a>\n<a href="javascript:;" onClick={function () { MessageActions.error("pop error") }}>error</a>'}>
+          <a href="javascript:;" onClick={function () { MessageActions.info("pop info") }}>info</a><br />
+          <a href="javascript:;" onClick={function () { MessageActions.success("pop success", "Success") }}>success</a><br />
+          <a href="javascript:;" onClick={function () { MessageActions.warn(<span>pop span warning</span>) }}>warning</a><br />
+          <a href="javascript:;" onClick={function () { MessageActions.error("pop error") }}>error</a>
         </Example>
       </div>
     )

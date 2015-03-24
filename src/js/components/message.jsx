@@ -1,105 +1,107 @@
 var React = require('react')
-var classnames = require('classnames')
-var Cortex = require("cortexjs")
-var ClickAwayable = require('../mixins/click-awayable')
+var Reflux = require('reflux')
 var Icon = require('./icon.jsx')
-var Dom = require('../utils/dom')
+var Overlay = require('./overlay.jsx')
 
-var cortex = new Cortex({ open: false })
+var messageStore = require('../store/message')
+var messageActions = require('../actions/message')
+var ClickAwayable = require('../mixins/click-awayable')
+var Classable = require('../mixins/classable')
 
 var Message = React.createClass({
-
-  mixins: [ClickAwayable],
-
-  dismiss: function() {
-    cortex.set({ open: false })
+  mixins: [ClickAwayable, Classable, Reflux.connect(messageStore, 'messages')],
+  
+  dismiss: function(index) {
+    messageActions.remove(index)
   },
 
+  clear: function () {
+    this.msgRefs.forEach(function (ref) {
+      this.refs[ref].dismiss()
+    }.bind(this))
+  },
+
+  /*
   componentClickAway: function () {
+    this._unbindClickAway()
     if (this.props.clickaway !== false)
-      this.dismiss();
+      this.clear()
   },
 
   componentDidMount: function () {
     this._unbindClickAway()
-    cortex.on('update', function () {
-      this.forceUpdate()
-    }.bind(this))
   },
 
-  componentDidUpdate: function(prevProps) {
-    var msg = cortex.getValue()
-    if (prevProps.open !== msg.open) {
-      if (msg.open) {
-        this._bindClickAway()
-      } else {
-        this._unbindClickAway()
-      }
-    }
-    if (msg.open) {
-      this.show()
+  componentDidUpdate: function() {
+    if (this.state.messages.length > 0) {
+      this._bindClickAway()
     } else {
-      this.close()
+      this._unbindClickAway()
     }
   },
-
-  show: function () {
-    var el = this.getDOMNode()
-    // wait dom ready ??
-    setTimeout(function () {
-      Dom.addClass(el, 'active')
-    }, 50)
-  },
-
-  close: function () {
-    var el = this.getDOMNode()
-    Dom.removeClass(el, 'active')
-    // wait transition end, use setTimeout instead of transitionend event
-    setTimeout(function () {
-      Dom.withoutTransition(el, function () {
-        Dom.removeClass(el, 'enter')
-      })
-    }, 450)
-  },
+ */
 
   render: function () {
-    // use global cortex value instead of Component.state
-    var msg = cortex.getValue()
-    var classes = classnames(msg.level, {
-      'top': this.props.top,
-      'message-container': true,
-      'enter': true
-    })
+    this.msgRefs = []
+    var items = this.state.messages.map(function (msg, i) {
+      var k = 'm' + i
+      this.msgRefs.push(k)
+      return (
+        <Item key={k} ref={k} onDismiss={this.dismiss} {...msg} />
+      )
+    }.bind(this))
 
-    return(
-      <div className={classes}>
-        <button type="button" onClick={this.dismiss} className="close"><Icon icon="close" /></button>
-        {msg.title && <h3>{msg.title}</h3>}
-        {msg.content}
+    var className = this.getClasses(
+      'message-container',
+      {
+        'top': this.props.top,
+        'has-message': this.state.messages.length > 0
+      }
+    )
+
+    return (
+      <div className={className}>
+        <Overlay onClick={this.clear} />
+        {items}
       </div>
     )
   }
-
 })
 
-Message.show = function (content, level, title) {
-  // add ramdon time to fire cortex update event
-  var msg = {
-    time: Date.now(),
-    open: true,
-    content: content,
-    level: level || 'info',
-    title: title
-  }
-  cortex.set(msg)
-}
+var Item = React.createClass({
+  mixins: [Classable],
 
-var methods = ['error', 'info', 'warn', 'success']
-methods.forEach(function (k) {
-  Message[k] = function (content, title) {
-    Message.show(content, k, title)
+  getInitialState: function () {
+    return {
+      dismissed: this.props.dismissed
+    }
+  },
+
+  dismiss: function () {
+    if (this.state.dismissed) return
+    this.setState({ dismissed: true })
+    setTimeout(function () {
+      this.props.onDismiss(this.props.index)
+    }.bind(this), 400)
+  },
+
+  render: function () {
+    var className = this.getClasses(
+      'message',
+      this.props.level,
+      {
+        'dismissed': this.state.dismissed
+      }
+    ) 
+
+    return (
+      <div className={className}>
+        <button type="button" onClick={this.dismiss} className="close"><Icon icon="close" /></button>
+        {this.props.title && <h3>{this.props.title}</h3>}
+        {this.props.content}
+      </div>
+    )
   }
 })
 
 module.exports = Message
-

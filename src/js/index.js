@@ -6,6 +6,10 @@ module.exports = {
   Loading: require('./components/loading.jsx'),
   Message: require('./components/message.jsx'),
   Select: require('./components/select.jsx'),
+
+  Actions: {
+    Message: require('./actions/message')
+  },
   
   // mixins
   Mixins: {
