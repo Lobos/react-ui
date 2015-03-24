@@ -21,26 +21,6 @@ var Message = React.createClass({
     }.bind(this))
   },
 
-  /*
-  componentClickAway: function () {
-    this._unbindClickAway()
-    if (this.props.clickaway !== false)
-      this.clear()
-  },
-
-  componentDidMount: function () {
-    this._unbindClickAway()
-  },
-
-  componentDidUpdate: function() {
-    if (this.state.messages.length > 0) {
-      this._bindClickAway()
-    } else {
-      this._unbindClickAway()
-    }
-  },
- */
-
   render: function () {
     this.msgRefs = []
     var items = this.state.messages.map(function (msg, i) {

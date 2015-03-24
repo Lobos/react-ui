@@ -1,54 +1,41 @@
 var React = require('react')
-var Cortex = require("cortexjs")
+var Reflux = require('reflux')
 var Icon = require('./icon.jsx')
 var Classable = require('../mixins/classable')
-var cortex = new Cortex({ count: 0 })
+
+//var loadingActions = require('../actions/loading')
+var loadingStore = require('../store/loading')
 
 var Loading = React.createClass({
+  mixins: [Classable, Reflux.listenTo(loadingStore, 'onChange')],
 
   getInitialState: function () {
     return {
-      defText: this.props.text || 'loading'
+      count: 0,
+      defText: this.props.text || 'loading...'
     }
   },
 
-  mixins: [Classable],
-
-  componentDidMount: function () {
-    cortex.on('update', function () {
-      this.forceUpdate()
-    }.bind(this))
+  onChange: function (count, text) {
+    this.setState({ count: count, text: text || this.state.defText })
   },
 
   render: function () {
-    var ctx = cortex.getValue()
-    var classes = {
-      'loading': true,
-      'active': ctx.count > 0
-    }
-    var className = this.getClasses(classes)
+    var className = this.getClasses(
+      'loading',
+      'overlay',
+      { 'active': this.state.count > 0 }
+    )
 
-    return(
+    return (
       <div className={className}>
         <div className="inner">
           <Icon ref="icon" icon="spinner" spin={true} />
-          <div>{ctx.text || this.state.defText}</div>
+          <div>{this.state.text}</div>
         </div>
       </div>
     )
   }
-
 })
-
-Loading.start = function (text) {
-  var count = cortex.count.getValue() + 1
-  cortex.set({ count: count, text: text })
-}
-
-Loading.end = function () {
-  var count = cortex.count.getValue() - 1
-  if (count < 0) { count = 0 }
-  cortex.set({ count: count })
-}
 
 module.exports = Loading

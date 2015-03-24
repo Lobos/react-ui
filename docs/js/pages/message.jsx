@@ -21,7 +21,7 @@ module.exports = React.createClass({
 
         <h3>Motheds</h3>
         <Arguments>
-          <Arguments.Example>{'Message.info(content, title)\nMessage.warn(content, title)\nMessage.success(content, title)\nMessage.error(content, title)\n'}</Arguments.Example>
+          <Arguments.Example>{'MessageActions.info(content, title)\nMessageActions.warn(content, title)\nMessageActions.success(content, title)\nMessageActions.error(content, title)\n'}</Arguments.Example>
           <p>静态方法</p><br />
           <Arguments.Item name="content" type="任意" require={true}>要显示的内容</Arguments.Item>
           <Arguments.Item name="title" type="string"></Arguments.Item>

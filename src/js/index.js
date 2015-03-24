@@ -8,6 +8,7 @@ module.exports = {
   Select: require('./components/select.jsx'),
 
   Actions: {
+    Loading: require('./actions/loading'),
     Message: require('./actions/message')
   },
   
