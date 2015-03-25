@@ -16,6 +16,7 @@ var Select = React.createClass({
       hasError: false,
       hasValue: this.props.value,
       text: '',
+      msg: '',
       value: this.props.value
     }
   },
@@ -25,7 +26,7 @@ var Select = React.createClass({
   },
 
   componentWillReceiveProps: function (nextProps) {
-    if (nextProps.value !== this.state.value) {
+    if (nextProps.value !== this.props.value) {
       this.setState({ value: nextProps.value })
     }
   },
@@ -39,14 +40,9 @@ var Select = React.createClass({
   },
 
   componentDidMount: function () {
+    // set value when load
     if (this.state.value && this.state.data)
       this.setValue(this.state.value)
-  },
-
-  componentDidUpdate: function(prevProps, prevState) {
-    if (prevState.data !== this.state.data || (prevState.value !== this.state.value && prevState.text === this.state.text)) {
-      this.setValue(this.state.value)
-    }
   },
 
   show: function () {
@@ -97,19 +93,21 @@ var Select = React.createClass({
       }
     )
 
-    console.log(className)
-
+    var text = this.state.text
     var items = this.state.data.map(function (item, i) {
+      if (!text && item.value === this.state.value) text = item.text
       return (
         <SelectItem key={i} data={item} onSelect={this.select} />
       )
     }.bind(this))
 
+    var placeholder = text ? "" : (this.state.data.length > 0 ? this.props.placeholder : this.state.msg)
+
     return (
       <div onClick={this.show} style={this.props.style} className={className}>
         <div className="inner">
-          {!this.state.text && <span className="placeholder">{this.props.placeholder}</span>}
-          {this.state.text}
+          {<span className="placeholder">{placeholder}</span>}
+          {text}
         </div>
         <div className="dropdown-wrap">
           <ul ref="dropdown" className="dropdown-menu">{items}</ul>

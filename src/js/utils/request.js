@@ -1,7 +1,7 @@
 var superagent = require('../superagent')
 var message = require('../actions/message')
 var loadingActions = require('../actions/loading')
-var lang = require('../utils/lang')
+var lang = require('../lang')
 var Strings = require('../utils/strings')
 
 var Caches = {}
@@ -88,7 +88,7 @@ function resolve(err, res, success, failure) {
       success(res.body)
     }
   } else {
-    message.error(lang.get('superagent.status')[res.status])
+    message.error(lang.get('request.status')[res.status])
     if ('function' === typeof failure) {
       failure(res)
     }

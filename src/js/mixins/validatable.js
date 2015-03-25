@@ -10,7 +10,7 @@ if (!String.prototype.format) {
   }
 }
 
-var Lang = require('../utils/lang')
+var Lang = require('../lang')
 
 var regs = {
   'email': /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i,

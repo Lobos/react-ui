@@ -1,5 +1,6 @@
 var request = require('../utils/request')
 var message = require('../components/message.jsx')
+var lang = require('../lang')
 
 var resourceable = {
   componentWillMount: function () {
@@ -15,7 +16,7 @@ var resourceable = {
     if (props.data) {
       this.setState({ data: props.data })
     } else if (props.src) {
-      this.setState({ data: [] })
+      this.setState({ msg: lang.get('request.loading'), data: [] })
       request.getData(props.src, {
         cache: true,
         success: function (res) {
@@ -25,6 +26,9 @@ var resourceable = {
             this.setState({ data: res })
           else if (res.msg)
             message.error(res.msg)
+        }.bind(this),
+        failure: function () {
+          this.setState({ msg: lang.get('request.error') })
         }.bind(this)
       })
     }

@@ -1,11 +1,16 @@
 // http://facebook.github.io/react/docs/working-with-the-browser.html#polyfills-needed-to-support-older-browsers
 require('./polyfills/es5-shim')
 
+var Lang = require('./lang')
+Lang.set(require('./lang/zh-cn'))
+
 module.exports = {
   Icon: require('./components/icon.jsx'),
   Loading: require('./components/loading.jsx'),
   Message: require('./components/message.jsx'),
   Select: require('./components/select.jsx'),
+
+  Lang: Lang,
 
   Actions: {
     Loading: require('./actions/loading'),
@@ -28,7 +33,6 @@ module.exports = {
     Datetime: require('./utils/date-time'),
     Dom: require('./utils/dom'),
     Events: require('./utils/events'),
-    Lang: require('./utils/lang'),
     //Request: require('./utils/request'),
     Superagent: require('./superagent')
   }
