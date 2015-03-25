@@ -1,74 +1,117 @@
-var request = require('../superagent')
-var message = require('../components/message.jsx')
-var caches = {}
+var superagent = require('../superagent')
+var message = require('../actions/message')
+var loadingActions = require('../actions/loading')
 var lang = require('../utils/lang')
+var Strings = require('../utils/strings')
+
+var Caches = {}
+var TIMESTAMP = "Timestamp"
 
 
-function resolve(err, res, success, fail) {
+// options: {
+//  success: function,
+//  failure: function,
+//  cache: bool,
+//  loading: bool
+// }
+function getData(url, options) {
+  options = options || {}
+  var hash = Strings.hashCode(url).toString()
+
+  // if options.cache is true, don't check timestamp, use Caches data
+  if (options.cache && Caches[hash]) {
+    options.success(Caches[hash])
+    return
+  }
+
+  // get localstorage item
+  var result
+  if (localStorage) {
+    result = localStorage.getItem(hash)
+    if (result) {
+      result = JSON.parse(result)
+    }
+  }
+
+  var req = superagent.get(url)
+  // set header
+  if (result) req.set(TIMESTAMP, result.timestamp || '')
+
+  // loading
+  if (options.loading) loadingActions.start()
+
+  req.end(function (err, res) {
+    if (options.loading) loadingActions.end()
+
+    if (res.body) {
+      // if res.body.cache is true, res.body.data should be null
+      if (res.body.cache) {
+        res.body.data = result.data
+      } else if(res.body.status === 1) {
+        // set Caches
+        Caches[hash] = res.body
+        // set localstorage
+        localStorage.setItem(hash, JSON.stringify(res.body))
+      }
+    }
+    resolve(err, res, options.success, options.failure)
+  })
+}
+
+function request(method, url, options) {
+  options = options || {}
+  var callback = function (err, res) {
+    if (options.loading) loadingActions.end()
+    resolve(err, res, options.success, options.failure)
+  }
+
+  if (options.loading) loadingActions.start()
+  var req = superagent[method](url)
+  var dd = method === 'get' ? 'send' : 'query'
+  if (options.data) req[dd](options.data)
+  req.end(callback)
+}
+
+
+function resolve(err, res, success, failure) {
   if (err !== null) {
-    message.show(err.message, 'error')
+    message.error(err.message)
     return
   }
 
   if (res.status === 200) {
     var body = res.body
     if (body && body.msg) {
-      message.show(body.msg, body.status ? 'info' : 'error')
+      message[body.status ? 'info' : 'error'](body.msg)
     }
     if ('function' === typeof success) {
       success(res.body)
     }
   } else {
-    message.show(lang.get('request.status')[res.status], 'error')
-    if ('function' === typeof fail) {
-      fail(res)
+    message.error(lang.get('superagent.status')[res.status])
+    if ('function' === typeof failure) {
+      failure(res)
     }
   }
 }
 
-function getCache(url, success, fail) {
-  if (caches[url]) {
-    success(caches[url])
-    return
-  }
-  request.get(url, function (err, res) {
-    resolve(err, res, success, fail)
-    if (err === null && res.status === 200)
-      caches[this.src] = res.body
-  }.bind(this))
-}
-
-function req(method, url, data, success, fail) {
-  var callback = function (err, res) {
-    resolve(err, res, success, fail)
-  }
-  if (method === 'del')
-    return request[method](url, callback)
-  else
-    return request[method](url, data, callback)
-}
-
 
 module.exports = {
-  getCache: getCache,
+  getData: getData,
 
-  setCache: function (url, data) {
-    caches[url] = data
+  get: function (url, options) {
+    request('get', url, options)
   },
 
-  get: function (url, data, success, fail) {
-    return req('get', url, data, success, fail)
+  post: function (url, options) {
+    request('post', url, options)
   },
 
-  post: function (url, data, success, fail) {
-    return req('post', url, data, success, fail)
+  put: function (url, options) {
+    request('put', url, options)
   },
 
-  put: function (url, data, success, fail) {
-    return req('put', url, data, success, fail)
-  },
-
-  del: function (url, success, fail) {
-    return req('del', url, null, success, fail)
+  del: function (url, options) {
+    request('del', url, options)
   }
 }

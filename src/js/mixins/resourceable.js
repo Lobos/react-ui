@@ -1,4 +1,4 @@
-var requestable = require('./requestable')
+var request = require('../utils/request')
 var message = require('../components/message.jsx')
 
 var resourceable = {
@@ -12,25 +12,23 @@ var resourceable = {
   },
 
   _getResource: function (props) {
-    this.setState({ data: [] })
     if (props.data) {
       this.setState({ data: props.data })
     } else if (props.src) {
-      this.getDataFromCache(props.src, function (res) {
-        if (res.status === 1)
-          this.setState({ data: res.data })
-        else if (res instanceof Array)
-          this.setState({ data: res })
-        else if (res.msg)
-          message.error(res.msg)
-      }.bind(this))
+      this.setState({ data: [] })
+      request.getData(props.src, {
+        cache: true,
+        success: function (res) {
+          if (res.status === 1)
+            this.setState({ data: res.data })
+          else if (res instanceof Array)
+            this.setState({ data: res })
+          else if (res.msg)
+            message.error(res.msg)
+        }.bind(this)
+      })
     }
   }
-}
-
-for (var attr in requestable) {
-    if (requestable.hasOwnProperty(attr)) 
-      resourceable[attr] = requestable[attr]
 }
 
 module.exports = resourceable

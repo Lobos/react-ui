@@ -8,7 +8,7 @@ npm install -g grunt-cli
 npm install
 
 
-# 数据缓存机制
+# 数据缓存
 服务端返回的数据格式为：
 {
     "status": number, // 值为1时表示成功

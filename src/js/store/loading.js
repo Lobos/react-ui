@@ -10,7 +10,6 @@ module.exports = Reflux.createStore({
 
   onStart: function (text) {
     this.count++
-    console.log(this.count, text)
     this.trigger(this.count, text)
   },
 

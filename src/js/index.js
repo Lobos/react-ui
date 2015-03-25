@@ -30,7 +30,6 @@ module.exports = {
     Events: require('./utils/events'),
     Lang: require('./utils/lang'),
     //Request: require('./utils/request'),
-    Superagent: require('./superagent'),
-    TransitionEnd: require('./utils/transition-end')
+    Superagent: require('./superagent')
   }
 }
