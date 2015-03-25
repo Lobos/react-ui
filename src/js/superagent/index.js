@@ -455,6 +455,7 @@ function Request(method, url) {
   this.url = url;
   this.header = {};
   this._header = {};
+  this._async = true;
   this.on('end', function(){
     var err = null;
     var res = null;
@@ -884,8 +885,12 @@ Request.prototype.withCredentials = function(){
  * @api public
  */
 
+Request.prototype.async = function(async) {
+  this._async = async
+}
 
-Request.prototype.end = function(fn, sync){
+
+Request.prototype.end = function(fn){
   var self = this;
   var xhr = this.xhr = getXHR();
   var query = this._query.join('&');
@@ -942,7 +947,7 @@ Request.prototype.end = function(fn, sync){
   }
 
   // initiate request
-  xhr.open(this.method, this.url, !sync);
+  xhr.open(this.method, this.url, this._async);
 
   // CORS
   if (this._withCredentials) xhr.withCredentials = true;

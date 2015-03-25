@@ -5,7 +5,7 @@ module.exports = {
       404: '所请求的地址不存在'
     },
     loading: '读取中...',
-    error: '资源获取失败.'
+    error: '获取失败.'
   },
   page: {
     buttons: {

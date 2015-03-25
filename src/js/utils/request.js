@@ -12,8 +12,10 @@ var TIMESTAMP = "Timestamp"
 //  success: function,
 //  failure: function,
 //  cache: bool,
+//  async: bool, 
 //  loading: bool
 // }
+// this function use caches
 function getData(url, options) {
   options = options || {}
   var hash = Strings.hashCode(url).toString()
@@ -36,6 +38,7 @@ function getData(url, options) {
   var req = superagent.get(url)
   // set header
   if (result) req.set(TIMESTAMP, result.timestamp || '')
+  if (options.async === false) req.async(false)
 
   // loading
   if (options.loading) loadingActions.start()
@@ -66,9 +69,12 @@ function request(method, url, options) {
   }
 
   if (options.loading) loadingActions.start()
-  var req = superagent[method](url)
-  var dd = method === 'get' ? 'send' : 'query'
-  if (options.data) req[dd](options.data)
+
+  var req = superagent(method, url)
+  if (options.async === false) req.async(async)
+
+  var sq = method === 'GET' ? 'query' : 'send'
+  if (options.data) req[sq](options.data)
   req.end(callback)
 }
 
@@ -100,18 +106,18 @@ module.exports = {
   getData: getData,
 
   get: function (url, options) {
-    request('get', url, options)
+    request('GET', url, options)
   },
 
   post: function (url, options) {
-    request('post', url, options)
+    request('POST', url, options)
   },
 
   put: function (url, options) {
-    request('put', url, options)
+    request('PUT', url, options)
   },
 
   del: function (url, options) {
-    request('del', url, options)
+    request('DELETE', url, options)
   }
 }
