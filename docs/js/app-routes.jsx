@@ -10,6 +10,8 @@ var Icon = require('./pages/icon.jsx')
 var Loading = require('./pages/loading.jsx')
 var Message = require('./pages/message.jsx')
 var Select = require('./pages/select.jsx')
+var Checkbox = require('./pages/checkbox.jsx')
+var CheckboxGroup = require('./pages/checkbox-group.jsx')
 
 
 var AppRoutes = (
@@ -19,6 +21,8 @@ var AppRoutes = (
     <Route name="loading" handler={Loading} />
     <Route name="message" handler={Message} />
     <Route name="select" handler={Select} />
+    <Route name="checkbox" handler={Checkbox} />
+    <Route name="checkbox-group" handler={CheckboxGroup} />
 
     <DefaultRoute handler={Home} />
   </Route>

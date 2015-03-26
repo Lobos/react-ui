@@ -7,6 +7,8 @@ var menus = [
   { route: 'icon', text: 'Icon' },
   { route: 'loading', text: 'Loading' },
   { route: 'message', text: 'Message' },
+  { route: 'checkbox', text: 'Checkbox' },
+  { route: 'checkbox-group', text: 'Checkbox group' },
   { route: 'select', text: 'Select' },
 ]
 

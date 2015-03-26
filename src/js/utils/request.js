@@ -54,7 +54,14 @@ function getData(url, options) {
         // set Caches
         Caches[hash] = res.body
         // set localstorage
-        localStorage.setItem(hash, JSON.stringify(res.body))
+        if (localStorage) {
+          try {
+            localStorage.setItem(hash, JSON.stringify(res.body))
+          } catch(e) {
+            // if localStorage is full, clear
+            if (e.code === 22) localStorage.clear()
+          }
+        }
       }
     }
     resolve(err, res, options.success, options.failure)
@@ -71,7 +78,7 @@ function request(method, url, options) {
   if (options.loading) loadingActions.start()
 
   var req = superagent(method, url)
-  if (options.async === false) req.async(async)
+  if (options.async === false) req.async(false)
 
   var sq = method === 'GET' ? 'query' : 'send'
   if (options.data) req[sq](options.data)

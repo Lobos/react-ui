@@ -18,7 +18,7 @@ module.exports = React.createClass({
     }
   },
 
-  onSelect: function (item) {
+  onChange: function (item) {
     var text = '第二个select选择了' + item.text + '，值为' + item.value
     this.setState({ selectedText: text })
   },
@@ -31,11 +31,12 @@ module.exports = React.createClass({
         <br />
 
         <Arguments>
-          <Arguments.Example>{'<Select src="text" data={array} placeholder="text" style={object} onSelect={function} />'}</Arguments.Example>
+          <Arguments.Example>{'<Select src="text" data={array} placeholder="text" style={object} onChange={function} />'}</Arguments.Example>
           <Arguments.Item name="data" type="Array">数据，格式为<code>{'[{"value":"", "text":""}]'}</code></Arguments.Item>
           <Arguments.Item name="src" type="String">数据源http地址，与data二选一，优先处理data</Arguments.Item>
           <Arguments.Item name="placeholder" type="String">占位文字</Arguments.Item>
-          <Arguments.Item name="onSelect" type="function">选择事件</Arguments.Item>
+          <Arguments.Item name="value" type="String">初始值</Arguments.Item>
+          <Arguments.Item name="onChange" type="function">选择事件</Arguments.Item>
         </Arguments>
 
         <h3>Mehtods</h3>
@@ -51,9 +52,9 @@ module.exports = React.createClass({
           <Arguments.Item name="value" require={true} type="String"></Arguments.Item>
         </Arguments>
 
-        <Example text={'<Select ref="s1" data={exampleItems} placeholder="选择一个城市" style={{width:200, display:"inline-block"}} className="form-control" />\n<Select src={exampleSrc} value="shanghai" placeholder="选择一个城市" style={{width:200, display:"inline-block"}} className="form-control" onSelect={this.onSelect} />\n<p><a onClick={function () { this.refs.s1.setValue("nanjing") }.bind(this)} href="javascript:;">设置第一个select值为nanjing</a></p>\n<p>{this.state.selectedText}</p>'}>
+        <Example text={'<Select ref="s1" data={exampleItems} placeholder="选择一个城市" style={{width:200, display:"inline-block"}} className="form-control" />\n<Select src={exampleSrc} value="shanghai" placeholder="选择一个城市" style={{width:200, display:"inline-block"}} className="form-control" onChange={this.onChange} />\n<p><a onClick={function () { this.refs.s1.setValue("nanjing") }.bind(this)} href="javascript:;">设置第一个select值为nanjing</a></p>\n<p>{this.state.selectedText}</p>'}>
           <Select ref="s1" data={exampleItems} placeholder="选择一个城市" style={{width:200, display:'inline-block'}} className="form-control" />
-          <Select src={exampleSrc} value="shanghai" placeholder="选择一个城市" style={{width:200, display:'inline-block'}} className="form-control" onSelect={this.onSelect} />
+          <Select src={exampleSrc} value="shanghai" placeholder="选择一个城市" style={{width:200, display:'inline-block'}} className="form-control" onChange={this.onChange} />
           <br />
           <br />
           <p><a onClick={function () { this.refs.s1.setValue('nanjing') }.bind(this)} href="javascript:;">设置第一个select值为nanjing</a></p>

@@ -40,7 +40,6 @@ var Select = React.createClass({
   },
 
   componentDidMount: function () {
-    // set value when load
     if (this.state.value && this.state.data)
       this.setValue(this.state.value)
   },
@@ -58,8 +57,8 @@ var Select = React.createClass({
       active: false
     })
     this.validate(item.value)
-    if (this.props.onSelect)
-      this.props.onSelect(item)
+    if (this.props.onChange)
+      this.props.onChange(item)
   },
 
   setText: function (text) {
@@ -97,7 +96,7 @@ var Select = React.createClass({
     var items = this.state.data.map(function (item, i) {
       if (!text && item.value === this.state.value) text = item.text
       return (
-        <SelectItem key={i} data={item} onSelect={this.select} />
+        <SelectItem key={i} data={item} onChange={this.select} />
       )
     }.bind(this))
 
@@ -120,7 +119,7 @@ var Select = React.createClass({
 
 var SelectItem = React.createClass({
   handleClick: function () {
-    this.props.onSelect(this.props.data)
+    this.props.onChange(this.props.data)
   },
 
   render: function () {
