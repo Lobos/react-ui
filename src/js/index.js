@@ -10,6 +10,7 @@ module.exports = {
   Icon: require('./components/icon.jsx'),
   Loading: require('./components/loading.jsx'),
   Message: require('./components/message.jsx'),
+  RadioGroup: require('./components/radio-group.jsx'),
   Select: require('./components/select.jsx'),
 
   Lang: Lang,

@@ -9,6 +9,7 @@ var menus = [
   { route: 'message', text: 'Message' },
   { route: 'checkbox', text: 'Checkbox' },
   { route: 'checkbox-group', text: 'Checkbox group' },
+  { route: 'radio-group', text: 'Radio group' },
   { route: 'select', text: 'Select' },
 ]
 

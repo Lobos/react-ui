@@ -29,7 +29,7 @@ module.exports = React.createClass({
           <Arguments.Item name="data" type="Array">数据，格式为<code>{'[{"value":"", "text":""}]'}</code></Arguments.Item>
           <Arguments.Item name="src" type="String">数据源http地址，与data二选一，优先处理data</Arguments.Item>
           <Arguments.Item name="flat" type="Bool" def="false">为<code>true</code>时，所有value作为string处理，getValue返回值为<code>,</code>分隔字符串</Arguments.Item>
-          <Arguments.Item name="value" type="String||Array">初始值</Arguments.Item>
+          <Arguments.Item name="value" type="String|Array">初始值</Arguments.Item>
         </Arguments>
 
         <h3>Mehtods</h3>

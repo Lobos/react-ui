@@ -12,6 +12,7 @@ var Message = require('./pages/message.jsx')
 var Select = require('./pages/select.jsx')
 var Checkbox = require('./pages/checkbox.jsx')
 var CheckboxGroup = require('./pages/checkbox-group.jsx')
+var RadioGroup = require('./pages/radio-group.jsx')
 
 
 var AppRoutes = (
@@ -23,6 +24,7 @@ var AppRoutes = (
     <Route name="select" handler={Select} />
     <Route name="checkbox" handler={Checkbox} />
     <Route name="checkbox-group" handler={CheckboxGroup} />
+    <Route name="radio-group" handler={RadioGroup} />
 
     <DefaultRoute handler={Home} />
   </Route>
