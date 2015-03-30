@@ -11,6 +11,7 @@ var menus = [
   { route: 'checkbox-group', text: 'Checkbox group' },
   { route: 'radio-group', text: 'Radio group' },
   { route: 'select', text: 'Select' },
+  { route: 'mult-select', text: 'Mult select' },
 ]
 
 var Item = React.createClass({

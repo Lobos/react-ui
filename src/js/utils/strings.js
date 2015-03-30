@@ -1,4 +1,4 @@
-var hashCode = function (str){
+function hashCode(str){
   var hash = 0
   var chr
   if (str.length === 0) return hash
@@ -10,7 +10,21 @@ var hashCode = function (str){
   return hash
 }
 
+function formatValue(value, flat) {
+  if (!value) value = []
+  if ('string' === typeof value) {
+    value = value.split(',')
+  } else if(flat) {
+    var temp = []
+    value.forEach(function (v) {
+      temp.push(v.toString())
+    })
+    value = temp
+  }
+  return value
+}
 
 module.exports = {
+  formatValue: formatValue, 
   hashCode: hashCode
 }

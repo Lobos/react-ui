@@ -82,6 +82,12 @@ var Select = React.createClass({
     return this.state.value
   },
 
+  handleClick: function (item) {
+    return function () {
+      this.select(item)
+    }.bind(this)
+  },
+
   render: function () {
     var className = this.getClasses(
       'select', 
@@ -96,7 +102,9 @@ var Select = React.createClass({
     var items = this.state.data.map(function (item, i) {
       if (!text && item.value === this.state.value) text = item.text
       return (
-        <SelectItem key={i} data={item} onChange={this.select} />
+        <li key={i} onClick={this.handleClick(item)}>
+          <a href="javascript:;">{item.text}</a>
+        </li>
       )
     }.bind(this))
 
@@ -113,20 +121,6 @@ var Select = React.createClass({
         </div>
         <Icon icon="caret-down" />
       </div>
-    )
-  }
-})
-
-var SelectItem = React.createClass({
-  handleClick: function () {
-    this.props.onChange(this.props.data)
-  },
-
-  render: function () {
-    return (
-      <li onClick={this.handleClick}>
-        <a href="javascript:;">{this.props.data.text}</a>
-      </li>
     )
   }
 })

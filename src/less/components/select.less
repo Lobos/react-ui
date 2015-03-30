@@ -5,6 +5,7 @@
 
   .inner {
     height: 100%;
+    overflow: hidden;
   }
 
   .dropdown-wrap {
@@ -36,6 +37,11 @@
     }
   }
 
+  .mult-select-items {
+    .opacity(0);
+    transition: opacity 0.4s ease;
+  }
+
   .placeholder {
     color: @placeholder-color;
   }
@@ -44,11 +50,14 @@
     visibility: visible;
   }
 
-  &.active .dropdown-menu, &.active .mult-select-items {
-    display: block;
+  &.active .dropdown-menu {
     max-height: 1500px;
     .opacity(1);
     padding: 5px 0;
+  }
+
+  &.active .mult-select-items {
+    .opacity(1);
   }
 
   & > .icon {
@@ -64,8 +73,8 @@
     min-width: 100%;
     max-height: 300px;
     overflow: auto;
-    width: 530px;
-    display: none;
+    width: 630px;
+    //display: none;
     left: 0;
     z-index: 1000;
     float: left;
@@ -98,21 +107,28 @@
   }
 }
 
-.make-select-columns(@width, @columns) {
-  .select-@{width}-@{columns} {
-    .mult-select-items {
-      width: @width * @columns + 30;
-      li {
-        width: @width;
-      }
+.make-select-columns(@columns) {
+  .select-cols-@{columns}.mult-select-items {
+    li {
+      width: percentage(1 / @columns);
     }
-
   }
 }
 
-.make-select-columns(100, 4);
-.make-select-columns(100, 5);
-.make-select-columns(100, 6);
-.make-select-columns(150, 3);
-.make-select-columns(150, 4);
-.make-select-columns(150, 5);
+.make-select-columns(1);
+.make-select-columns(2);
+.make-select-columns(3);
+.make-select-columns(4);
+.make-select-columns(5);
+.make-select-columns(6);
+
+@media (max-width: 767px) {
+  .select {
+    .mult-select-items {
+      width: 100%;
+      li {
+        min-width: 100%;
+      }
+    }
+  }
+}

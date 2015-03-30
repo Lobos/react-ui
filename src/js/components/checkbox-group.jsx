@@ -1,22 +1,9 @@
 var React = require('react')
 var Checkbox = require('./checkbox.jsx')
 
+var Strings = require('../utils/strings')
 var Classable = require('../mixins/classable')
 var Resourceable = require('../mixins/resourceable')
-
-function formatValue(value, flat) {
-  if (!value) value = []
-  if ('string' === typeof value) {
-    value = value.split(',')
-  } else if(flat) {
-    var temp = []
-    value.forEach(function (v) {
-      temp.push(v.toString())
-    })
-    value = temp
-  }
-  return value
-}
 
 var CheckboxGroup = React.createClass({
   mixins: [Classable, Resourceable],
@@ -24,7 +11,7 @@ var CheckboxGroup = React.createClass({
   getInitialState: function () {
     return {
       data: [],
-      value: formatValue(this.props.value, this.props.flat)
+      value: Strings.formatValue(this.props.value, this.props.flat)
     }
   },
 
@@ -53,7 +40,7 @@ var CheckboxGroup = React.createClass({
   },
 
   setValue: function (value) {
-    this.setState({value: formatValue(value)})
+    this.setState({value: Strings.formatValue(value)})
   },
 
   render: function () {

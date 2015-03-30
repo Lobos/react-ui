@@ -13,6 +13,7 @@ var Select = require('./pages/select.jsx')
 var Checkbox = require('./pages/checkbox.jsx')
 var CheckboxGroup = require('./pages/checkbox-group.jsx')
 var RadioGroup = require('./pages/radio-group.jsx')
+var MultSelect = require('./pages/mult-select.jsx')
 
 
 var AppRoutes = (
@@ -25,6 +26,7 @@ var AppRoutes = (
     <Route name="checkbox" handler={Checkbox} />
     <Route name="checkbox-group" handler={CheckboxGroup} />
     <Route name="radio-group" handler={RadioGroup} />
+    <Route name="mult-select" handler={MultSelect} />
 
     <DefaultRoute handler={Home} />
   </Route>

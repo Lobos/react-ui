@@ -3,11 +3,7 @@ var Example = require('../components/example.jsx')
 var Arguments = require('../components/arguments.jsx')
 var RadioGroup = require('../libs').RadioGroup
 
-var exampleItems = [
-  { "value": "nanjing", "text": "南京" },
-  { "value": "beijing", "text": "北京" },
-  { "value": "shanghai", "text": "上海" }
-]
+var exampleItems = require('../data/key-value')
 //var exampleSrc = window.location.pathname + 'json/select.json'
 
 module.exports = React.createClass({
