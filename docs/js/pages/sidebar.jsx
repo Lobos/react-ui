@@ -12,6 +12,7 @@ var menus = [
   { route: 'radio-group', text: 'Radio group' },
   { route: 'select', text: 'Select' },
   { route: 'mult-select', text: 'Mult select' },
+  { route: 'datetime', text: 'Datetime' },
 ]
 
 var Item = React.createClass({

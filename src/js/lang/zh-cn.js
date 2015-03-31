@@ -2,20 +2,32 @@ module.exports = {
   request: {
     status: {
       400: '',
-      404: '所请求的地址不存在'
+      403: '',
+      404: '所请求的地址不存在',
+      500: ''
     },
     loading: '读取中...',
     error: '获取失败.'
   },
-  page: {
-    buttons: {
-      add: '新建',
-      back: '返回',
-      fields: '字段',
-      filter: '筛选',
-      refresh: '刷新',
-      reset: '重置',
-      save: '保存'
+  buttons: {
+    add: '新建',
+    back: '返回',
+    fields: '字段',
+    filter: '筛选',
+    refresh: '刷新',
+    reset: '重置',
+    save: '保存'
+  },
+  date: {
+    year: '年',
+    month: '月',
+    fullMonth: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+    weekday: ['日','一','二','三','四','五','六'],
+    format: {
+      year: 'yyyy年',
+      month: 'MM月',
+      date: 'yyyy-MM-dd',
+      datetime: 'yyyy-MM-dd hh:mm:ss'
     }
   },
   validation: {

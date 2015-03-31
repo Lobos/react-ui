@@ -5,11 +5,10 @@ var Overlay = require('./overlay.jsx')
 
 var messageStore = require('../store/message')
 var messageActions = require('../actions/message')
-var ClickAwayable = require('../mixins/click-awayable')
 var Classable = require('../mixins/classable')
 
 var Message = React.createClass({
-  mixins: [ClickAwayable, Classable, Reflux.connect(messageStore, 'messages')],
+  mixins: [Classable, Reflux.connect(messageStore, 'messages')],
   
   dismiss: function(index) {
     messageActions.remove(index)
