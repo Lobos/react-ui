@@ -6,13 +6,14 @@ function getAngle(r, angle, x0, y0) {
   return [x1.toFixed(2), y1.toFixed(2)]
 }
 
-function getPostions(r, count, angle, x0, y0) {
+function getPostions(count, r, angle, x0, y0) {
+  r = r || 50
   angle = angle || 0
-  x0 = x0 || 0
-  y0 = y0 || 0
+  x0 = x0 || r
+  y0 = y0 || r
   var pos = []
   var step = 360 / count
-  for (i=0; i<count; i++) {
+  for (var i=0; i<count; i++) {
     pos.push(getAngle(r, step*i + angle, x0, y0))
   }
   return pos

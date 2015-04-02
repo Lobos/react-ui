@@ -34,6 +34,7 @@ module.exports = {
   },
 
   Utils: {
+    Circle: require('./utils/circle'),
     CssEvent: require('./utils/css-event'),
     Datetime: require('./utils/date-time'),
     Dom: require('./utils/dom'),

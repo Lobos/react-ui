@@ -1,7 +1,6 @@
 .date {
   width: 160px;
   position: relative;
-  cursor: pointer;
   display: inline-block;
 
   &.datetime {
@@ -21,6 +20,7 @@
 
   &.active .date-picker {
     visibility: visible;
+    max-height: 1000px;
     .opacity(1);
   }
 
@@ -28,12 +28,15 @@
     visibility: hidden;
     .opacity(0);
     z-index: @zindex-modal;
-    border: solid 1px #e3e3e3;
-    background-color: #f5f5f5;
+    border: solid 1px @datepicker-border;
+    background-color: @datepicker-bg;
     border-radius: 3px;
+    max-height: 0;
+    overflow: hidden;
     padding: 3px;
     width: 40px * 7;
     position: absolute;
+    margin-bottom: 20px;
     top: 35px;
     left: 0;
     .box-shadow(0px 6px 12px rgba(0,0,0,0.175));
@@ -48,7 +51,7 @@
       a {
         padding: 4px 6px;
         line-height: 12px;
-        color: #555;
+        color: @datepicker-color;
         display: inline-block;
         border: solid 1px #ddd;
         background-color: #fff;
@@ -92,24 +95,24 @@
       padding:2px;
       text-align: center;
 
-      button, div {
+      button, .week {
         width: 36px;
         padding: 4px 0;
         margin: 1px;
-        color: #555;
+        color: @datepicker-color;
         font-size: 14px;
         text-align: center;
         display: inline-block;
       }
 
       .day, .year, .month {
-        border: solid 1px #ddd;
+        border: solid 1px @datepicker-border;
         background-color: #fff;
         border-radius: 3px;
 
         &:hover {
-          background-color: #ddd;
-          color: #000;
+          background-color: @datepicker-hover-bg;
+          color: @datepicker-hover;
         }
 
         &:active {
@@ -142,6 +145,159 @@
       .gray {
         color: #ccc;
       }
+    }
+  }
+
+  .time-container {
+    .time-set {
+      position: relative;
+      width: 70px;
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      font-size: 16px;
+      font-family: Arial;
+      margin: 8px 5px;
+      background-color: #fff;
+      border-radius: 4px;
+      border: solid 1px #ccc;
+      .box-shadow(inset 0 1px 1px rgba(0,0,0,0.075));
+      padding-right: 24px;
+
+      .add, .sub {
+        position: absolute;
+        font-size: 16px;
+        width: 24px;
+        height: 15px;
+        line-height: 15px;
+        text-align: center;
+        display: block;
+        border-left: solid 1px #ccc;
+        background-color: #eee;
+        right: 0;
+        color: @datepicker-color;
+
+        .icon {
+          line-height: 15px;
+        }
+      }
+
+      .add {
+        top: 0;
+        border-bottom: solid 1px #ccc;
+      }
+
+      .sub {
+        bottom: 0;
+      }
+    }
+
+    .clock-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 45px;
+      visibility: hidden;
+
+      &.active {
+        visibility: visible;
+      }
+
+      .clock-overlay {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.01);
+      }
+
+      .clock-close {
+        position: absolute;
+        bottom: 155px;
+        left: 200px;
+        line-height: 30px;
+        height: 30px;
+        width: 30px;
+        font-size: 20px;
+        text-align: center;
+        border-radius: 50%;
+        border: solid 2px #fff;
+        background-color: #333;
+        color: #fff;
+        .box-shadow(3px 3px 6px rgba(0,0,0,0.275));
+        .opacity(1);
+
+        .icon {
+          position: relative;
+          top: -2px;
+          line-height: 30px;
+        }
+      }
+
+      .clock {
+        position: absolute;
+        //visibility: hidden;
+        left: 50%;
+        margin-left: -87px;
+        bottom: 5px;
+        width: 174px;
+        height: 174px;
+        padding: 5px;
+        border-radius: 50%;
+        border: solid 2px #fff;
+        background-color: #333;
+        .box-shadow(3px 3px 6px rgba(0,0,0,0.275));
+
+        .time-am, .time-pm {
+          position: absolute;
+          text-align: center;
+          width: 40px;
+          height: 25px;
+          line-height: 25px;
+          top: 50%;
+          left: 50%;
+          cursor: pointer;
+          margin-left: -20px;
+          color: #ccc;
+          font-weight: bold;
+          border-radius: 4px;
+
+          &.active {
+            background-color: @btn-info-bg;
+            color: #fff;
+          }
+        }
+
+        .time-am {
+          margin-top: -25px;
+        }
+
+        .clock-inner {
+          width: 130px;
+          height: 130px;
+          padding: 15px;
+          position: relative;
+
+          .clock-set {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            //background-color: #ccc;
+            color: #ccc;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 15px;
+            cursor: pointer;
+
+            &:hover, &:focus, &.active {
+              background-color: @btn-info-bg;
+              color: #fff;
+            }
+          }
+        }
+      }
+
     }
   }
 
