@@ -18,8 +18,12 @@ module.exports = React.createClass({
           <Arguments.Item name="value" type="String|Int(timestamp)"></Arguments.Item>
         </Arguments>
 
-        <Example text={'<Datetime placeholder="开始时间" className="form-control" />'}>
-          <Datetime placeholder="开始时间" className="form-control" />
+        <Example text={'<Datetime placeholder="开始日期" className="form-control" />'}>
+          <Datetime placeholder="开始日期" className="form-control" />
+        </Example> 
+
+        <Example text={'<Datetime  time={true} placeholder="日期和时间" className="form-control" />'}>
+          <Datetime time={true} placeholder="日期和时间" className="form-control" />
         </Example> 
       </div>
     )

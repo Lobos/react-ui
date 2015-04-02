@@ -4,6 +4,10 @@
   cursor: pointer;
   display: inline-block;
 
+  &.datetime {
+    width: 200px;
+  }
+
   .date-text {
     height: 15px;
     display: inline-block;
@@ -36,6 +40,7 @@
     .transition(opacity 0.45s);
 
     .date-picker-header {
+      position: relative;
       height: 30px;
       line-height: 30px;
       text-align: center;
@@ -67,6 +72,19 @@
 
       .month {
         padding-right: 30px;
+      }
+
+      .pre, .next {
+        position: absolute;
+        top: 3px;
+      }
+
+      .pre {
+        left: 4px;
+      }
+
+      .next {
+        right: 4px;
       }
     }
 

@@ -50,6 +50,19 @@ var Datetime = React.createClass({
       })
   },
 
+  _changeDate: function (obj) {
+    var c = this.state.current,
+        year    = obj.year || c.getFullYear(),
+        month   = obj.month || c.getMonth(),
+        day     = obj.day || c.getDate(),
+        hour    = obj.hour || c.getHours(),
+        minute  = obj.minute || c.getMinutes(),
+        second  = obj.second || c.getSeconds()
+
+    var d = new Date(year, month, day, hour, minute, second)
+    return d
+  },
+
   stateChange: function (state) {
     // setTimeout wait checkClickAway completed
     setTimeout(function () {
@@ -63,18 +76,23 @@ var Datetime = React.createClass({
 
   yearChange: function (year) {
     var d = this.state.current
-    d = new Date(year, d.getMonth(), 1)
+    d = this._changeDate({ year: year, day: 1 })
     this.stateChange({ stage: 'month', current: d })
   },
 
   monthChange: function (month) {
     var d = this.state.current
-    d = new Date(d.getFullYear(), month, 1)
+    d = this._changeDate({ month: month, day: 1 })
     this.stateChange({ stage: 'day', current: d })
   },
 
   dayChange: function (day) {
-    this.stateChange({ value: day, current: day })
+    var d = this._changeDate({ 
+      year: day.getFullYear(), 
+      month: day.getMonth(), 
+      day: day.getDate()
+    })
+    this.stateChange({ value: d, current: d })
   },
 
   getYears: function () {
@@ -130,17 +148,30 @@ var Datetime = React.createClass({
     })
   },
 
+  getTime: function () {
+    var value = this.state.current
+    console.log(value)
+
+    return (
+      <div className="time-container">
+        <TimeSet type="hour" value={value.getHours()} />
+        <TimeSet type="minute" value={value.getMinutes()} />
+        <TimeSet type="second" value={value.getSeconds()} />
+      </div>
+    )
+  },
+
   next: function () {
     var d = this.state.current
     switch (this.state.stage) {
       case 'year':
-        d = new Date(d.getFullYear() + 25, d.getMonth(), 1)
+        d = this._changeDate({ year: d.getFullYear() + 25, day: 1 })
         break
       case 'month':
-        d = new Date(d.getFullYear() + 1, d.getMonth(), 1)
+        d = this._changeDate({ year: d.getFullYear() + 1, day: 1 })
         break
       case 'day':
-        d = new Date(d.getFullYear(), d.getMonth() + 1, 1)
+        d = this._changeDate({ month: d.getMonth() + 1, day: 1 })
         break
     }
     this.stateChange({ current: d })
@@ -150,13 +181,13 @@ var Datetime = React.createClass({
     var d = this.state.current
     switch (this.state.stage) {
       case 'year':
-        d = new Date(d.getFullYear() - 25, d.getMonth(), 1)
+        d = this._changeDate({ year: d.getFullYear() - 25, day: 1 })
         break
       case 'month':
-        d = new Date(d.getFullYear() - 1, d.getMonth(), 1)
+        d = this._changeDate({ year: d.getFullYear() - 1, day: 1 })
         break
       case 'day':
-        d = new Date(d.getFullYear(), d.getMonth() - 1, 1)
+        d = this._changeDate({ month: d.getMonth() - 1, day: 1 })
         break
     }
     this.stateChange({ current: d })
@@ -165,11 +196,15 @@ var Datetime = React.createClass({
   render: function () {
     var className = this.getClasses(
       'date',
-      { 'active': this.state.active }
+      {
+        'active': this.state.active,
+        'datetime': this.props.time
+      }
     )
 
     var self = this,
         current = this.state.current,
+        stage = this.state.stage,
         inner,
         format = this.props.time ? datetime.getDatetime : datetime.getDate,
         text = this.state.value ? format(this.state.value) : ""
@@ -178,12 +213,13 @@ var Datetime = React.createClass({
       <span className="date-text">{text}</span> : 
       <span className="placeholder">{this.props.placeholder||""}</span>
 
-    if (this.state.stage === 'day') {
+    if (stage === 'day') {
       inner = <div className="inner">
         {weeks}
         {this.getDays()}
+        {this.getTime()}
       </div>
-    } else if (this.state.stage === 'month') {
+    } else if (stage === 'month') {
       inner = <div className="inner">{this.getMonths()}</div>
     } else {
       inner = <div className="inner">{this.getYears()}</div>
@@ -210,6 +246,50 @@ var Datetime = React.createClass({
           </div>
           {inner}
         </div>
+      </div>
+    )
+  }
+})
+
+
+var TimeSet = React.createClass({
+  getInitialState: function () {
+    return {
+      value: this.props.value || 0,
+      type: this.props.type || 'hour'
+    }
+  },
+
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({ value: nextProps.value })
+    }
+  },
+
+  add: function () {
+    var value = this.state.value,
+        max = this.state.type === 'hour' ? 24 : 60
+    value += 1
+    if (value >= max)
+      value = 0
+    this.setState({ value: value })
+  },
+
+  sub: function () {
+    var value = this.state.value,
+        max = this.state.type === 'hour' ? 23 : 59 
+    value -= 1
+    if (value < 0)
+      value = max
+    this.setState({ value: value })
+  },
+
+  render: function () {
+    return (
+      <div className="time-set">
+        <span>{this.state.value}</span>
+        <a href="javascript:;" onClick={this.add} className="add"><Icon icon="angle-up" /></a>
+        <a href="javascript:;" onClick={this.sub} className="sub"><Icon icon="angle-down" /></a>
       </div>
     )
   }
