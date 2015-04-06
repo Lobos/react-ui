@@ -27,7 +27,8 @@ module.exports = {
       year: 'yyyy年',
       month: 'MM月',
       date: 'yyyy-MM-dd',
-      datetime: 'yyyy-MM-dd hh:mm:ss'
+      datetime: 'yyyy-MM-dd hh:mm:ss',
+      time: 'hh:mm:ss'
     }
   },
   validation: {

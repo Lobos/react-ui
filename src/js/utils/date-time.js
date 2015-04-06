@@ -123,6 +123,33 @@ var datetime = {
 
   getFullYear: function (d) {
     return datetime.format(d, lang.get('date.format.year'))
+  },
+
+  getTime: function (d) {
+    return datetime.format(d, lang.get('date.format.time'))
+  },
+
+  // string, unixtimestamp convert to Date
+  convert: function (obj, def) {
+    if (def === undefined)
+      def = new Date()
+
+    if (!obj)
+      return def
+
+    if (obj instanceof Date)
+      return obj
+
+    if (/^[-+]?[0-9]+$/.test(obj))
+      obj = parseInt(obj) * 1000
+
+    try {
+      obj = new Date(obj)
+    } catch (e) {
+      console.log(e)
+      obj = def
+    }
+    return obj
   }
 
 }
