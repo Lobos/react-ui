@@ -20,6 +20,7 @@ module.exports = React.createClass({
           <Arguments.Item name="data" type="Array">数据，格式为<code>{'[{"value":"", "text":""}]'}</code></Arguments.Item>
           <Arguments.Item name="flat" type="Bool" def="false">为<code>true</code>时，所有value作为string处理，getValue返回值为<code>,</code>分隔字符串</Arguments.Item>
           <Arguments.Item name="src" type="String">数据源http地址，与data二选一，优先处理data</Arguments.Item>
+          <Arguments.Item name="single" type="Bool" def="false">为<code>true</code>时，单选</Arguments.Item>
           <Arguments.Item name="placeholder" type="String">占位文字</Arguments.Item>
           <Arguments.Item name="value" type="String|Array">初始值</Arguments.Item>
           <Arguments.Item name="onChange" type="function">选择事件</Arguments.Item>
@@ -35,8 +36,12 @@ module.exports = React.createClass({
           <MultSelect placeholder="选择一个城市" className="form-control" style={{width:400}} data={exampleItems} />
         </Example>
 
-        <Example text={'<MultSelect className="form-control" value={["shanghai", "beijing", "chengdu"]} style={{width:400}} src={exampleSrc} />'}>
+        <Example title="init value" text={'<MultSelect className="form-control" value={["shanghai", "beijing", "chengdu"]} style={{width:400}} src={exampleSrc} />'}>
           <MultSelect className="form-control" value={["shanghai", "beijing", "chengdu"]} style={{width:400}} src={exampleSrc} />
+        </Example>
+
+        <Example title="single" text={'<MultSelect className="form-control" cols={3} single={true} style={{width:400}} src={exampleSrc} />'}>
+          <MultSelect className="form-control" cols={3} single={true} style={{width:400}} src={exampleSrc} />
         </Example>
       </div>
     )

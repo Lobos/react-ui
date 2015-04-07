@@ -64,7 +64,13 @@ var MultSelect = React.createClass({
 
   select: function (item, index) {
     var data = this.state.data
-    data[index].$checked = !data[index].$checked
+    if (this.props.single) {
+      for (var i=0, count=data.length; i<count; i++) {
+        data[i].$checked = i === index
+      }
+    } else {
+      data[index].$checked = !data[index].$checked
+    }
     this.setState(data)
   },
 
@@ -74,7 +80,7 @@ var MultSelect = React.createClass({
       if (item.$checked)
         value.push(item.value)
     })
-    if (this.props.flat) {
+    if (this.props.flat || this.props.single) {
       value = value.join(',')
     }
     return value

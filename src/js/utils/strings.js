@@ -12,9 +12,13 @@ function hashCode(str){
 
 function formatValue(value, flat) {
   if (!value) value = []
-  if ('string' === typeof value) {
+  if ('string' === typeof value && flat) {
     value = value.split(',')
-  } else if(flat) {
+  } else if (!(value instanceof Array)) {
+    value = [value]
+  } 
+  
+  if(flat) {
     var temp = []
     value.forEach(function (v) {
       temp.push(v.toString())
