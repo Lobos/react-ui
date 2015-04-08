@@ -13,6 +13,7 @@ var menus = [
   { route: 'select', text: 'Select' },
   { route: 'mult-select', text: 'Mult select' },
   { route: 'datetime', text: 'Datetime' },
+  { route: 'tree', text: 'Tree' },
 ]
 
 var Item = React.createClass({
@@ -64,7 +65,7 @@ var Sidebar = React.createClass({
       <div className={className}>
         <div className="menu-handle"><a onClick={this.open} href="javascript:;"><Icon icon="bars" />&nbsp; React UI</a></div>
         <div className="list">
-          <h3>React UI</h3>
+          <h3 onClick={function(){this.onRouteChange('/')}.bind(this)}>React UI</h3>
           <ul className="list-unstyled">{items}</ul>
         </div>
         <div onClick={this.close} className="overlay"></div>

@@ -14,6 +14,7 @@ module.exports = {
   MultSelect: require('./components/mult-select.jsx'),
   RadioGroup: require('./components/radio-group.jsx'),
   Select: require('./components/select.jsx'),
+  Tree: require('./components/tree.jsx'),
 
   Lang: Lang,
 
@@ -39,7 +40,9 @@ module.exports = {
     Datetime: require('./utils/date-time'),
     Dom: require('./utils/dom'),
     Events: require('./utils/events'),
+    Objects: require('./utils/objects'),
     //Request: require('./utils/request'),
-    Superagent: require('./superagent')
+    Superagent: require('./superagent'),
+    Strings: require('./utils/strings')
   }
 }

@@ -15,6 +15,7 @@ var CheckboxGroup = require('./pages/checkbox-group.jsx')
 var RadioGroup = require('./pages/radio-group.jsx')
 var MultSelect = require('./pages/mult-select.jsx')
 var Datetime = require('./pages/datetime.jsx')
+var Tree = require('./pages/tree.jsx')
 
 
 var AppRoutes = (
@@ -29,6 +30,7 @@ var AppRoutes = (
     <Route name="datetime" handler={Datetime} />
     <Route name="radio-group" handler={RadioGroup} />
     <Route name="mult-select" handler={MultSelect} />
+    <Route name="tree" handler={Tree} />
 
     <DefaultRoute handler={Home} />
   </Route>

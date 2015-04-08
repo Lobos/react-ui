@@ -16,7 +16,7 @@ module.exports = React.createClass({
 
         <Arguments>
           <Arguments.Example>{'<MultSelect cols={int} flat={bool} src="string" data={array} placeholder="string" value={array} onChange={function} />'}</Arguments.Example>
-          <Arguments.Item name="cols" type="Int" def="4">选项column数量，可选值为<code>1-6</code>，默认为<code>4</code></Arguments.Item>
+          <Arguments.Item name="cols" type="Int" def="4">选项column数量，可选值为<code>1-6</code>，默认为<code>4</code>，<span className="label label-warning">屏幕宽度小于480，显示为1列</span></Arguments.Item>
           <Arguments.Item name="data" type="Array">数据，格式为<code>{'[{"value":"", "text":""}]'}</code></Arguments.Item>
           <Arguments.Item name="flat" type="Bool" def="false">为<code>true</code>时，所有value作为string处理，getValue返回值为<code>,</code>分隔字符串</Arguments.Item>
           <Arguments.Item name="src" type="String">数据源http地址，与data二选一，优先处理data</Arguments.Item>
@@ -33,15 +33,15 @@ module.exports = React.createClass({
         </Arguments>
 
         <Example text={'<MultSelect placeholder="选择一个城市" className="form-control" style={{width:400}} data={exampleItems} />'}>
-          <MultSelect placeholder="选择一个城市" className="form-control" style={{width:400}} data={exampleItems} />
+          <MultSelect placeholder="选择一个城市" className="form-control" style={{width:400,maxWidth:'100%'}} data={exampleItems} />
         </Example>
 
         <Example title="init value" text={'<MultSelect className="form-control" value={["shanghai", "beijing", "chengdu"]} style={{width:400}} src={exampleSrc} />'}>
-          <MultSelect className="form-control" value={["shanghai", "beijing", "chengdu"]} style={{width:400}} src={exampleSrc} />
+          <MultSelect className="form-control" value={["shanghai", "beijing", "chengdu"]} style={{width:400,maxWidth:'100%'}} src={exampleSrc} />
         </Example>
 
         <Example title="single" text={'<MultSelect className="form-control" cols={3} single={true} style={{width:400}} src={exampleSrc} />'}>
-          <MultSelect className="form-control" cols={3} single={true} style={{width:400}} src={exampleSrc} />
+          <MultSelect className="form-control" cols={3} single={true} style={{width:400,maxWidth:'100%'}} src={exampleSrc} />
         </Example>
       </div>
     )

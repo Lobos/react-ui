@@ -377,3 +377,20 @@
     bottom: 35px;
   }
 }
+
+@media (max-width: 767px) {
+  .datetime {
+    .date-picker {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin: -140px 0 0 -140px;
+      z-index: 1060;
+    } 
+
+    &.active .overlay {
+      left: 0;
+      .opacity(1);
+    }
+  }
+}

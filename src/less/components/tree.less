@@ -1,0 +1,41 @@
+.tree {
+  .icon {
+    width:19px;
+  }
+  ul {
+    display: none;
+    padding-left: 19px;
+  }
+
+  ul.open {
+    display: block;
+  }
+
+  a {
+    color: #333;
+  }
+
+  label {
+    font-weight: normal;
+    margin: 0;
+    display: block;
+    line-height: 22px;
+
+    span {
+      margin-right: 20px;
+    }
+
+    &.active {
+      background-color: @table-bg-active;
+
+      span {
+        font-weight: bold;
+      }
+      a {
+        margin-left: 5px;
+        //float: right;
+      }
+    }
+
+  }
+}

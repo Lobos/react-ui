@@ -32,9 +32,7 @@ var Datetime = React.createClass({
   },
 
   componentClickAway: function () {
-    this.setState({ active: false })
-    if (this.refs.clock)
-      this.refs.clock.close()
+    this.close()
   },
 
   componentWillUpdate: function(nextProps, nextState) {
@@ -97,6 +95,12 @@ var Datetime = React.createClass({
         this.refs.clock.changeTimeStage('hour')
       }
     }
+  },
+
+  close: function () {
+    this.setState({ active: false })
+    if (this.refs.clock)
+      this.refs.clock.close()
   },
 
   _changeDate: function (obj) {
@@ -314,6 +318,7 @@ var Datetime = React.createClass({
           {inner}
           {(stage === 'day' || stage === 'clock') && (!this.props.dateOnly) && this.getTime()}
         </div>
+        <div className="overlay" onClick={this.close} />
       </div>
     )
   }
@@ -367,7 +372,8 @@ var Clock = React.createClass({
         break
     }
 
-    return 'rotate(' + (value * 360 / max - 90) + 'deg)'
+    value = value * 360 / max - 90
+    return 'rotate(' + value + 'deg)'
   },
 
   getPointer: function () {
@@ -377,7 +383,7 @@ var Clock = React.createClass({
     var pointer = function (type) {
       var rotate = self.getRotate(type)
       return (
-        <div style={{transform: rotate, '-webkit-transform': rotate }} className={classnames(type, {active:stage===type})}></div>
+        <div style={{transform: rotate, WebkitTransform: rotate }} className={classnames(type, {active:stage===type})}></div>
       )
     }
 
