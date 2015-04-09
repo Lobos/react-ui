@@ -1,3 +1,5 @@
+// tree 可能破坏了react的一个原则，由于tree.state.data是一个array，当data值改变时，不经过setState，data的值也改变了
+// 所有的Item的data也因此改变
 var React = require('react')
 var classnames = require('classnames')
 var Icon = require('./icon.jsx')
@@ -15,6 +17,64 @@ var Tree = React.createClass({
       data: [],
       value: Strings.formatValue(this.props.value, this.props.flat)
     }
+  },
+
+  componentWillUpdate: function (nextProps, nextState) {
+    if (nextState.data !== this.state.data || nextState.value !== this.state.value) {
+      var data = nextState.data
+      this.initData(data, nextState.value)
+      // state.data是引用值，initData 之后已经改变，不需要再setState
+    } 
+  },
+
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({ value: nextProps.value })
+    }
+  },
+
+  initData: function (data, values) {
+    var key = this.props.checkKey || 'id'
+    var getStatus = function (d, last, deep) {
+      var v = d[key],
+          status,
+          newDeep,
+          nextDeep
+      if (deep === undefined) {
+        newDeep = []
+        nextDeep = []
+      } else {
+        newDeep = deep.slice()
+        newDeep.push(last ? 2 : 1)
+        nextDeep = deep.slice()
+        nextDeep.push(last ? 0 : 1)
+      }
+      if (d.children && d.children.length > 0) {
+        for (var i=0, count=d.children.length; i<count; i++) {
+          var sub = d.children[i],
+              subStatus = getStatus(sub, i===(count-1), nextDeep)
+          if (status === undefined) {
+            status = subStatus
+          } else if (status !== subStatus) {
+            status = 1
+          }
+        }
+      } else {
+        status = values.indexOf(v) >= 0 ? 2 : 0
+      }
+      d.$status = status
+      d.$deep = newDeep
+      return status
+    }
+    for (var i=0, count=data.length; i<count; i++) {
+      getStatus(data[i], i===(count-1))
+    }
+  },
+
+  toggleAll: function (open) {
+    Objects.forEach(this.refs, function (ref) {
+      ref.toggleAll(open)
+    })
   },
 
   getValue: function (key) {
@@ -36,6 +96,11 @@ var Tree = React.createClass({
     return value
   },
 
+  setValue: function (value) {
+    value = Strings.formatValue(value, this.props.flat)
+    this.setState({ value: value })
+  },
+
   handleChange: function () {
     if (this.props.onChange)
       this.props.onChange()
@@ -44,10 +109,12 @@ var Tree = React.createClass({
   render: function () {
     var self = this,
         checkAble = this.props.checkAble,
+        open = this.props.open,
+        checkKey = this.props.checkKey || 'id',
         value = this.state.value
 
     var items = this.state.data.map(function (item, i) {
-      return <Item ref={i} onStatusChange={self.handleChange} value={value} checkAble={checkAble} key={i} data={item} />
+      return <Item ref={i} open={open} checkKey={checkKey} onStatusChange={self.handleChange} value={value} checkAble={checkAble} key={i} data={item} />
     })
 
     var className = this.getClasses('tree', 'list-unstyled')
@@ -62,13 +129,26 @@ var Item = React.createClass({
   getInitialState: function () {
     return {
       open: this.props.open,
-      status: 0
+      status: this.props.data.$status || 0
     }
   },
 
   toggle: function () {
     var open = !this.state.open
-    this.setState({ open: open })
+    this.setState({open: open})
+  },
+
+  toggleAll: function (open) {
+    this.setState({open: open})
+    Objects.forEach(this.refs, function (ref) {
+      ref.toggleAll(open)
+    })
+  },
+
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({status: this.props.data.$status})
+    }
   },
 
   check: function () {
@@ -78,9 +158,7 @@ var Item = React.createClass({
 
     // setTimeout wait state changed
     setTimeout(function () {
-      if (this.props.onStatusChange) {
-        this.props.onStatusChange()
-      }
+      this.props.onStatusChange()
     }.bind(this), 0)
   },
 
@@ -112,9 +190,7 @@ var Item = React.createClass({
       }
     }
     this.setState({ status: status })
-    if (this.props.onStatusChange) {
-      this.props.onStatusChange()
-    }
+    this.props.onStatusChange()
   },
 
   getChecked: function (list, greedy) {
@@ -131,20 +207,24 @@ var Item = React.createClass({
     var self = this,
         data = this.props.data,
         checkAble = this.props.checkAble,
+        checkKey = this.props.checkKey,
+        open = this.props.open,
         value = this.props.value,
         children,
         handle,
         check,
-        type
+        checkClass,
+        type,
+        marks = []
 
     if (data.children) {
       var items = data.children.map(function (item, i) {
-        return (<Item ref={i} key={i} value={value} checkAble={checkAble} data={item} onStatusChange={self.updateStatus} />)
+        return (<Item ref={i} key={i} open={open} value={value} checkKey={checkKey} checkAble={checkAble} data={item} onStatusChange={self.updateStatus} />)
       })
       children = <ul className={classnames("list-unstyled", {open:this.state.open})}>{items}</ul>
-      type = "folder-o"
+      type = this.state.open ? "folder-open-o" : "folder-o"
       var hi = this.state.open ? "minus-square-o" : "plus-square-o"
-      handle =  <a onClick={this.toggle} href="javascript:;">
+      handle =  <a onClick={this.toggle} className="handle" href="javascript:;">
                   <Icon icon={hi} />
                 </a>
     } else {
@@ -153,13 +233,26 @@ var Item = React.createClass({
 
     if (checkAble) {
       check = ["square-o", "check-square-o", "check-square"][this.state.status]
+      checkClass = ["", "half-checked", "checked"][this.state.status]
     }
 
+    for (var i=0, count=data.$deep.length; i<count; i++) {
+      var d = data.$deep[i]
+      var mc = classnames("marks", {
+        "marks-h": d >= 1 && (count - 1 === i),
+        "marks-v": d === 1,
+        "marks-l": d === 2
+      })
+      marks.push(
+        <span key={i} className={mc}>&nbsp;</span>
+      )
+    }
     return (
       <li>
         <label>
+          {marks}
           {handle}
-          {checkAble && <a onClick={this.check} href="javascript:;"><Icon icon={check} /></a>}
+          {checkAble && <a className={checkClass} onClick={this.check} href="javascript:;"><Icon icon={check} /></a>}
           <Icon icon={type} />
           <span>{data.text}</span>
         </label>

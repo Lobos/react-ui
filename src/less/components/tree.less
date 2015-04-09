@@ -1,10 +1,10 @@
 .tree {
   .icon {
-    width:19px;
+    width:20px;
   }
   ul {
     display: none;
-    padding-left: 19px;
+    //padding-left: 19px;
   }
 
   ul.open {
@@ -15,15 +15,47 @@
     color: #333;
   }
 
+  .marks {
+    width: 20px;
+    height: 22px;
+    display: inline-block;
+    position: relative;
+
+    &:before {
+      content: '';
+      width: 0;
+      height: 0;
+      display: inline-block;
+      position: absolute;
+      left: 5px;
+      border-left: dotted 1px #666; 
+    }
+  }
+
+  .marks-v:before {
+    height: 21px;
+  }
+
+  .marks-l:before {
+    height: 9px;
+  }
+
+  .marks-h:after {
+    content: '';
+    width: 11px;
+    height: 0px;
+    display: inline-block;
+    position: absolute;
+    left: 5px;
+    top: 10px;
+    border-top: dotted 1px #666; 
+  }
+
   label {
     font-weight: normal;
     margin: 0;
     display: block;
     line-height: 22px;
-
-    span {
-      margin-right: 20px;
-    }
 
     &.active {
       background-color: @table-bg-active;
