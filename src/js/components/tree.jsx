@@ -15,6 +15,7 @@ var Tree = React.createClass({
   getInitialState: function () {
     return {
       data: [],
+      inited: false,
       value: Strings.formatValue(this.props.value, this.props.flat)
     }
   },
@@ -24,7 +25,12 @@ var Tree = React.createClass({
       var data = nextState.data
       this.initData(data, nextState.value)
       // state.data是引用值，initData 之后已经改变，不需要再setState
+      // 不能setState，会无限循环
     } 
+  },
+
+  componentWillMount: function () {
+    this.initData(this.state.data, this.state.value)
   },
 
   componentWillReceiveProps: function (nextProps) {
@@ -33,6 +39,7 @@ var Tree = React.createClass({
     }
   },
 
+  // 初始化数据，不在item里面判断，在元数据里加入deep和status，减少判断和item.setState次数
   initData: function (data, values) {
     var key = this.props.checkKey || 'id'
     var getStatus = function (d, last, deep) {
@@ -71,6 +78,13 @@ var Tree = React.createClass({
     }
   },
 
+  isInitialed: function () {
+    var data = this.state.data
+    if (data.length === 0)
+      return true
+    return !!data[0].$deep
+  },
+
   toggleAll: function (open) {
     Objects.forEach(this.refs, function (ref) {
       ref.toggleAll(open)
@@ -107,6 +121,11 @@ var Tree = React.createClass({
   },
 
   render: function () {
+    // 判断数据是否初始化过，当component重用时，react会重复使用第一次加载的data，不会触发componentwillupdate事件
+    // 因此数据不会初始化，没有deep和status属性
+    if (!this.isInitialed())
+      this.initData(this.state.data, this.state.value)
+
     var self = this,
         checkAble = this.props.checkAble,
         open = this.props.open,

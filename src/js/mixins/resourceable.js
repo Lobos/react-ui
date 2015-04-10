@@ -1,4 +1,5 @@
 var request = require('../utils/request')
+var Objects = require('../utils/objects')
 var message = require('../components/message.jsx')
 var lang = require('../lang')
 
@@ -21,9 +22,9 @@ var resourceable = {
         cache: true,
         success: function (res) {
           if (res.status === 1)
-            this.setState({ data: res.data })
+            this.setState({ data: Objects.clone(res.data), $time: new Date().getTime() })
           else if (res instanceof Array)
-            this.setState({ data: res })
+            this.setState({ data: Objects.clone(res) })
           else if (res.msg)
             message.error(res.msg)
         }.bind(this),

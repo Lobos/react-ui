@@ -33,7 +33,6 @@ module.exports = React.createClass({
 
   toggleCheckId: function () {
     var checkKey = this.state.checkKey === 'id' ? 'text': 'id'
-    console.log(checkKey, this.state.checkKey)
     this.setState({checkKey: checkKey})
     setTimeout(this.handleChange, 0)
   },
