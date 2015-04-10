@@ -794,7 +794,6 @@ module.exports = React.createClass({displayName: "exports",
 
   toggleCheckId: function () {
     var checkKey = this.state.checkKey === 'id' ? 'text': 'id'
-    console.log(checkKey, this.state.checkKey)
     this.setState({checkKey: checkKey})
     setTimeout(this.handleChange, 0)
   },
@@ -26998,6 +26997,7 @@ var Tree = React.createClass({displayName: "Tree",
   getInitialState: function () {
     return {
       data: [],
+      inited: false,
       value: Strings.formatValue(this.props.value, this.props.flat)
     }
   },
@@ -27007,7 +27007,12 @@ var Tree = React.createClass({displayName: "Tree",
       var data = nextState.data
       this.initData(data, nextState.value)
       // state.data是引用值，initData 之后已经改变，不需要再setState
+      // 不能setState，会无限循环
     } 
+  },
+
+  componentWillMount: function () {
+    this.initData(this.state.data, this.state.value)
   },
 
   componentWillReceiveProps: function (nextProps) {
@@ -27016,6 +27021,7 @@ var Tree = React.createClass({displayName: "Tree",
     }
   },
 
+  // 初始化数据，不在item里面判断，在元数据里加入deep和status，减少判断和item.setState次数
   initData: function (data, values) {
     var key = this.props.checkKey || 'id'
     var getStatus = function (d, last, deep) {
@@ -27054,6 +27060,13 @@ var Tree = React.createClass({displayName: "Tree",
     }
   },
 
+  isInitialed: function () {
+    var data = this.state.data
+    if (data.length === 0)
+      return true
+    return !!data[0].$deep
+  },
+
   toggleAll: function (open) {
     Objects.forEach(this.refs, function (ref) {
       ref.toggleAll(open)
@@ -27090,6 +27103,11 @@ var Tree = React.createClass({displayName: "Tree",
   },
 
   render: function () {
+    // 判断数据是否初始化过，当component重用时，react会重复使用第一次加载的data，不会触发componentwillupdate事件
+    // 因此数据不会初始化，没有deep和status属性
+    if (!this.isInitialed())
+      this.initData(this.state.data, this.state.value)
+
     var self = this,
         checkAble = this.props.checkAble,
         open = this.props.open,
@@ -27462,6 +27480,7 @@ module.exports = {
 
 },{"../utils/dom":269,"../utils/events":270}],257:[function(require,module,exports){
 var request = require('../utils/request')
+var Objects = require('../utils/objects')
 var message = require('../components/message.jsx')
 var lang = require('../lang')
 
@@ -27484,9 +27503,9 @@ var resourceable = {
         cache: true,
         success: function (res) {
           if (res.status === 1)
-            this.setState({ data: res.data })
+            this.setState({ data: Objects.clone(res.data), $time: new Date().getTime() })
           else if (res instanceof Array)
-            this.setState({ data: res })
+            this.setState({ data: Objects.clone(res) })
           else if (res.msg)
             message.error(res.msg)
         }.bind(this),
@@ -27501,7 +27520,7 @@ var resourceable = {
 module.exports = resourceable
 
 
-},{"../components/message.jsx":244,"../lang":252,"../utils/request":272}],258:[function(require,module,exports){
+},{"../components/message.jsx":244,"../lang":252,"../utils/objects":271,"../utils/request":272}],258:[function(require,module,exports){
 // add string proptype format
 if (!String.prototype.format) {
   String.prototype.format = function() {
@@ -30876,8 +30895,62 @@ function forEach(obj, fn, context) {
   }
 }
 
+function clone(item) {
+  if (!item) { return item } // null, undefined values check
+
+  var types = [ Number, String, Boolean ], 
+  result
+
+  // normalizing primitives if someone did new String('aaa'), or new Number('444')
+  types.forEach(function(type) {
+    if (item instanceof type) {
+      result = type( item )
+    }
+  })
+
+  if (typeof result === "undefined") {
+    if (Object.prototype.toString.call( item ) === "[object Array]") {
+      result = []
+      item.forEach(function(child, index) { 
+        result[index] = clone( child )
+      })
+    } else if (typeof item === "object") {
+      // testing that this is DOM
+      if (item.nodeType && typeof item.cloneNode === "function") {
+        result = item.cloneNode( true )    
+      } else if (!item.prototype) { // check that this is a literal
+        if (item instanceof Date) {
+          result = new Date(item)
+        } else {
+          // it is an object literal
+          result = {}
+          for (var i in item) {
+            result[i] = clone( item[i] )
+          }
+        }
+      } else {
+        // depending what you would like here,
+        // just keep the reference, or create new object
+        if (false && item.constructor) {
+          // would not advice to do that, reason? Read below
+          result = new item.constructor()
+        } else {
+          result = item
+        }
+      }
+    } else {
+      result = item
+    }
+  }
+
+  return result
+}
+
+
 module.exports = {
-  forEach: forEach
+  forEach: forEach,
+
+  clone: clone
 }
 
 },{}],272:[function(require,module,exports){
