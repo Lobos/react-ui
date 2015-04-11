@@ -14,6 +14,7 @@ var menus = [
   { route: 'mult-select', text: 'Mult select' },
   { route: 'datetime', text: 'Datetime' },
   { route: 'tree', text: 'Tree' },
+  { route: 'form', text: 'Form' },
 ]
 
 var Item = React.createClass({

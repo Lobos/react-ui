@@ -4,10 +4,9 @@ var Icon = require('./icon.jsx')
 var Resourceable = require('../mixins/resourceable')
 var Classable = require('../mixins/classable')
 var ClickAwayable = require('../mixins/click-awayable')
-var Validatable = require('../mixins/validatable')
 
 var Select = React.createClass({
-  mixins: [Classable, ClickAwayable, Resourceable, Validatable],
+  mixins: [Classable, ClickAwayable, Resourceable],
 
   getInitialState: function () {
     return {

@@ -8,6 +8,8 @@ module.exports = {
   Checkbox: require('./components/checkbox.jsx'),
   CheckboxGroup: require('./components/checkbox-group.jsx'),
   Datetime: require('./components/datetime.jsx'),
+  Form: require('./components/form.jsx'),
+  FormControl: require('./components/form-control.jsx'),
   Icon: require('./components/icon.jsx'),
   Loading: require('./components/loading.jsx'),
   Message: require('./components/message.jsx'),
