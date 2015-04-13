@@ -105,7 +105,7 @@ var Select = React.createClass({
           <a href="javascript:;">{item.text}</a>
         </li>
       )
-    }.bind(this))
+    }, this)
 
     var placeholder = text ? "" : (this.state.data.length > 0 ? this.props.placeholder : this.state.msg)
 

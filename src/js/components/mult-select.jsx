@@ -107,7 +107,7 @@ var MultSelect = React.createClass({
           <a className={active} href="javascript:;">{item.text}</a>
         </li>
       )
-    }.bind(this))
+    }, this)
 
     var placeholder = text.length > 0 ? "" : (this.state.data.length > 0 ? this.props.placeholder : this.state.msg)
 

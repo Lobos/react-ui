@@ -3,6 +3,7 @@ var Reflux = require('reflux')
 var Icon = require('./icon.jsx')
 var Overlay = require('./overlay.jsx')
 
+var Objects = require('../utils/objects')
 var messageStore = require('../store/message')
 var messageActions = require('../actions/message')
 var Classable = require('../mixins/classable')
@@ -15,20 +16,17 @@ var Message = React.createClass({
   },
 
   clear: function () {
-    this.msgRefs.forEach(function (ref) {
-      this.refs[ref].dismiss()
-    }.bind(this))
+    Objects.forEach(this.refs, function (ref) {
+      ref.dismiss()
+    })
   },
 
   render: function () {
-    this.msgRefs = []
     var items = this.state.messages.map(function (msg, i) {
-      var k = 'm' + i
-      this.msgRefs.push(k)
       return (
-        <Item key={k} ref={k} onDismiss={this.dismiss} {...msg} />
+        <Item key={i} ref={i} onDismiss={this.dismiss} {...msg} />
       )
-    }.bind(this))
+    }, this)
 
     var className = this.getClasses(
       'message-container',

@@ -6,8 +6,10 @@ var Form = React.createClass({
   mixins: [Classable],
 
   render: function () {
+    var className = this.getClasses('')
+
     return (
-      <form>{this.props.children}</form>
+      <form className={className}>{this.props.children}</form>
     )
   }
 })

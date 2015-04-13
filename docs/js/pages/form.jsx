@@ -8,12 +8,13 @@ module.exports = React.createClass({
   render: function () {
     return (
       <div className="content">
-        <h2 className="page-header">Form & Validatable</h2>
+        <h2 className="page-header">Form & Validation</h2>
         <p>表单，验证</p>
 
         <Example>
-          <Form>
-            <FormControl required={true} label="text" />
+          <Form className="form-horizontal">
+            <FormControl cols={[2, 5]} required={true} label="text" />
+            <FormControl required={true} label="text2" />
           </Form>
         </Example>
       </div>

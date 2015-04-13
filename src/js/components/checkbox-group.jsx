@@ -57,7 +57,7 @@ var CheckboxGroup = React.createClass({
       return (
         <Checkbox key={i} index={i} checked={checked} onChange={this.handleChange} text={item.text} value={item.value} />
       )
-    }.bind(this))
+    }, this)
 
     return (
       <div className={className}>{items}</div>

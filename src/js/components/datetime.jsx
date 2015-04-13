@@ -156,23 +156,21 @@ var Datetime = React.createClass({
   },
 
   getYears: function () {
-    var self = this,
-        year = this.state.current.getFullYear(),
+    var year = this.state.current.getFullYear(),
         years = []
     for (var i=year-12, j=year+12; i <= j; i++) {
       years.push(i)
     }
     
     return years.map(function (y, i) {
-      return <button onClick={ function () { self.yearChange(y) } } key={i} className="year">{y}</button>
-    })
+      return <button onClick={ function () { this.yearChange(y) } } key={i} className="year">{y}</button>
+    }, this)
   },
 
   getMonths: function () {
-    var self = this
     return lang.get('date.fullMonth').map(function (m, i) {
-      return <button onClick={ function () { self.monthChange(i) } } key={i} className="month">{m}</button>
-    })
+      return <button onClick={ function () { this.monthChange(i) } } key={i} className="month">{m}</button>
+    }, this)
   },
 
   getDays: function () {
@@ -205,7 +203,7 @@ var Datetime = React.createClass({
         }
       )
       return <button onClick={function () {self.dayChange(d)}} key={i} className={className}>{d.getDate()}</button>
-    })
+    }, this)
   },
 
   timeStageChange: function (type) {
@@ -431,7 +429,7 @@ var Clock = React.createClass({
       return (
         <div onClick={function () { self.setValue(step) }} className={className} key={i} style={{left:left, top:top}}>{step}</div>
       )
-    })
+    }, this)
 
     var className = classnames('clock-wrapper', { active: this.state.active })
 

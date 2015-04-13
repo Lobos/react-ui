@@ -38,7 +38,7 @@ var RadioGroup = React.createClass({
       return (
         <Radio key={i} onClick={this.handleChange} checked={this.state.value === item.value} text={item.text} value={item.value} />
       )
-    }.bind(this))
+    }, this)
 
     return (
       <div className={className}>{items}</div>
