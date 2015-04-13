@@ -23,9 +23,7 @@ var MultSelect = React.createClass({
   },
 
   handleClick: function (item, index) {
-    return function () {
-      this.select(item, index)
-    }.bind(this)
+    this.select(item, index)
   },
 
   componentClickAway: function () {
@@ -103,7 +101,7 @@ var MultSelect = React.createClass({
       if (item.$checked) text.push(item.text)
       var active = item.$checked ? "active" : ""
       return (
-        <li key={i} onClick={this.handleClick(item, i)}>
+        <li key={i} onClick={this.handleClick.bind(this, item, i)}>
           <a className={active} href="javascript:;">{item.text}</a>
         </li>
       )
