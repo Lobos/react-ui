@@ -35,14 +35,18 @@ module.exports = {
     hints: {
       required: '必填',
       maxlen: '最大长度 {0}',
+      maxlens: '最多选择 {0}个选项',
       minlen: '最小长度 {0}',
+      minlens: '最少选择 {0}个选项',
       password: '大写英文字符,小写英文字符,数字,特殊字符'
     },
     tips: {
       email: '格式不正确',
       required: '不能为空',
       maxlen: '最大长度不能超过 {0} 个字符',
+      maxlens: '最多选择 {0} 个选项',
       minlen: '最小长度不能少于 {0} 个字符',
+      minlens: '最少选择 {0} 个选项',
       password: '含有非法字符'
     }
   }

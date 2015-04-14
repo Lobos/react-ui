@@ -24,13 +24,19 @@ var regs = {
   'tel': /^[\d\s ().-]+$/
 }
 
+var multTypes = ['checkbox-group', 'mult-select']
+
 function getTip(key, value) {
   var text = Lang.get('validation.tips.' + key)
   text = text.format(value)
   return text
 }
 
-function getHint(hints, key, value) {
+function getHint(hints, key, value, isArray) {
+  key = ['minlen','maxlen'].indexOf(key) >= 0 ?
+        key + (isArray ? 's' : '') :
+        key
+
   var text = Lang.get('validation.hints.' + key)
   if (text) hints.push(text.format(value))
 }
@@ -45,11 +51,13 @@ module.exports = {
   },
 
   _setHint: function (props) {
-    var hints = []
-    var keys = ['required','minlen','maxlen','type']
+    var hints = [],
+        isArray = multTypes.indexOf(this.props.type) >= 0,
+        keys = ['required','minlen','maxlen','type']
+
     keys.forEach(function (key) {
       if (props[key])
-        getHint(hints, key, props[key])
+        getHint(hints, key, props[key], isArray)
     })
     if (props['tip']) {
       hints.push(props['tip'])
@@ -58,7 +66,8 @@ module.exports = {
   },
 
   validate: function (value) {
-    value = value || this.getValue()
+    value = value || this.getValue(true)
+    var isArray = multTypes.indexOf(this.props.type) >= 0
 
     var {
       required,
@@ -86,12 +95,12 @@ module.exports = {
     // length
     var length = value.length
     if (minlen && length > 0 && length < minlen) {
-      this._validateFail('minlen', minlen)
+      this._validateFail(isArray ? 'minlens' : 'minlen', minlen)
       return false
     }
 
     if (maxlen && length > maxlen) {
-      this._validateFail('maxlen', maxlen)
+      this._validateFail(isArray ? 'maxlens' : 'maxlen', maxlen)
       return false
     }
 

@@ -2,6 +2,7 @@ var React = require('react/addons')
 var Control = require('./form-control.jsx')
 var Submit = require('./form-submit.jsx')
 
+var Objects = require('../utils/objects')
 var Classable = require('../mixins/classable')
 
 var Form = React.createClass({
@@ -15,9 +16,10 @@ var Form = React.createClass({
 
   renderChildren: function () {
     var labelWidth = this.props.labelWidth || 2
-    return React.Children.map(this.props.children, function (child) {
+    return React.Children.map(this.props.children, function (child, i) {
       if (child.type === Control) {
         child = React.addons.cloneWithProps(child, {
+          ref: 'control-' + i,
           labelWidth: labelWidth,
           layout: this.props.layout
         })
@@ -36,6 +38,17 @@ var Form = React.createClass({
   handleSubmit: function (event) {
     this.setState({ locked: true })
     event.preventDefault() 
+    var success = true
+    Objects.forEach(this.refs, function (child) {
+      var suc = child.validate()
+      success = success && suc
+    })
+
+    if (!success) {
+      this.setState({ locked: false })
+      return
+    }
+
     console.log(event.target)
   },
 

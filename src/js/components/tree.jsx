@@ -92,6 +92,10 @@ var Tree = React.createClass({
   },
 
   getValue: function (key) {
+    // ignore validate raw
+    if ('boolean' === typeof key) 
+      key = undefined
+
     key = key || this.props.checkKey || 'id'
     var list = [],
         value = [],

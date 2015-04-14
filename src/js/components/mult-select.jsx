@@ -72,13 +72,13 @@ var MultSelect = React.createClass({
     this.setState(data)
   },
 
-  getValue: function () {
+  getValue: function (raw) {
     var value = []
     this.state.data.forEach(function (item) {
       if (item.$checked)
         value.push(item.value)
     })
-    if (this.props.flat || this.props.single) {
+    if ((this.props.flat || this.props.single) && raw !== true) {
       value = value.join(',')
     }
     return value

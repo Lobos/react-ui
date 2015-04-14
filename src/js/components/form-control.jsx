@@ -20,8 +20,25 @@ var Control = React.createClass({
   getInitialState: function () {
     return {
       hasError: false,
-      hintText: ''
+      hintText: '',
+      labelWidth: this.props.labelWidth || 2,
+      width: 0,
     }
+  },
+
+  componentWillMount: function () {
+    this.setWidth()
+  },
+
+  setWidth: function () {
+    var labelWidth = this.props.labelWidth || 2,
+        width = this.props.width || 12
+    if (labelWidth + width > 12)
+      width = 12 - labelWidth
+    this.setState({
+      labelWidth: labelWidth,
+      width: width
+    })
   },
 
   handleChange: function (value) {
@@ -37,31 +54,29 @@ var Control = React.createClass({
   getLabel: function () {
     var className
     if ('horizontal' === this.props.layout) {
-      className = 'control-label col-sm-' + (this.props.labelWidth || 2)
+      className = 'control-label col-sm-' + (this.state.labelWidth)
     }
 
     var label = <label className={className}>{this.props.label}</label>
     return label
   },
 
-  getWidth: function () {
-    var labelWidth = this.props.labelWidth,
-        width = this.props.width || 12
-    if (labelWidth + width > 12)
-      width = 12 - labelWidth
-    return width
-  },
-
   getHint: function () {
-    if (this.props.layout === 'inline')
+    var text = this.state.hintText
+    if (this.state.hasError) {
+      text = this.state.errorText
+    }
+
+    if (this.props.layout === 'inline' || !text)
       return null
+
     var className = "help-block"
     if ('horizontal' === this.props.layout) {
-      var labelWidth = this.props.labelWidth || 2,
-          width = 12 - labelWidth
-      className = classnames(className, "col-sm-offset-" + labelWidth, "col-sm-" + width)
+      var width = 12 - this.state.labelWidth
+      className = classnames(className, "col-sm-offset-" + this.state.labelWidth, "col-sm-" + width)
     }
-    return <p className={className}>{this.state.hintText}</p>
+
+    return <p className={className}>{text}</p>
   },
 
   getControl: function () {
@@ -94,8 +109,7 @@ var Control = React.createClass({
     }
 
     if ('horizontal' === this.props.layout) {
-      var width = this.getWidth() 
-      control = <div className={'col-sm-' + width}>{control}</div>
+      control = <div className={'col-sm-' + this.state.width}>{control}</div>
     }
     
     return control
@@ -136,7 +150,12 @@ var Control = React.createClass({
   },
 
   render: function () {
-    var className = this.getClasses("form-group")
+    var className = this.getClasses(
+      "form-group", 
+      {
+        "has-error": this.state.hasError
+      }
+    )
 
     return (
       <div className={className}>

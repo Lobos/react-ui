@@ -32,9 +32,9 @@ var CheckboxGroup = React.createClass({
     this.setState({ value: values })
   },
 
-  getValue: function () {
+  getValue: function (raw) {
     var value = this.state.value
-    if (this.props.flat)
+    if (this.props.flat && raw !== true)
       value = value.join(',')
     return value
   },

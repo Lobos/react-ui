@@ -23,6 +23,8 @@ var Input = React.createClass({
     var className = this.getClasses()
     return (
       <input readOnly={this.props.readOnly} 
+        placeholder={this.props.placeholder}
+        type={this.props.type || 'text'}
         className={className} 
         onChange={this.handleChange} 
         value={this.state.value} />
