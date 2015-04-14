@@ -10,7 +10,7 @@ module.exports = React.createClass({
   handleChange: function (ref) {
     return function () {
       var value = this.refs[ref].getValue()
-      this.refs[ref + 'p'].getDOMNode().innerHTML = value
+      React.findDOMNode(this.refs[ref + 'p']).innerHTML = value
     }.bind(this)
   },
 
@@ -34,7 +34,7 @@ module.exports = React.createClass({
           <p>获取当前选中项 <code>value</code> 值集合，如果flat为<code>true</code>，返回<code>String</code>，否则返回<code>Array</code></p>
         </Arguments>
 
-        <Example text={'<CheckboxGroup ref="checkgroup1" data={exampleItems} onChange={this.handleChange("checkgroup1")} />\n<p ref="checkgroup1p"></p>'}>
+        <Example text={'<CheckboxGroup ref="checkgroup1" data={exampleItems} onChange={this.handleChange.bind(this,"checkgroup1")} />\n<p ref="checkgroup1p"></p>'}>
           <CheckboxGroup ref="checkgroup1" data={exampleItems} onChange={this.handleChange('checkgroup1')} />
           <p ref="checkgroup1p"></p>
         </Example>

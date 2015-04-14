@@ -37,14 +37,14 @@ function getHint(hints, key, value) {
 
 module.exports = {
   componentWillMount: function () {
-    this.setHint(this.props)
+    this._setHint(this.props)
   },
 
   componentWillReceiveProps: function (nextProps) {
-    this.setHint(nextProps)
+    this._setHint(nextProps)
   },
 
-  setHint: function (props) {
+  _setHint: function (props) {
     var hints = []
     var keys = ['required','minlen','maxlen','type']
     keys.forEach(function (key) {
@@ -64,11 +64,11 @@ module.exports = {
       required,
       minlen,
       maxlen,
-      readonly,
+      readOnly,
       type
     } = this.props
 
-    if (readonly) {
+    if (readOnly) {
       return true
     }
 
@@ -84,12 +84,13 @@ module.exports = {
     }
 
     // length
-    if (minlen && value.length > 0 && value.length < minlen) {
+    var length = value.length
+    if (minlen && length > 0 && length < minlen) {
       this._validateFail('minlen', minlen)
       return false
     }
 
-    if (maxlen && value.length > maxlen) {
+    if (maxlen && length > maxlen) {
       this._validateFail('maxlen', maxlen)
       return false
     }

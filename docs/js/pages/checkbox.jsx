@@ -5,7 +5,7 @@ var Checkbox = require('../libs').Checkbox
 
 module.exports = React.createClass({
   handleChange: function () {
-    this.refs.msg.getDOMNode().innerHTML = this.refs.checkbox.getValue()
+    React.findDOMNode(this.refs.msg).innerHTML = this.refs.checkbox.getValue()
   },
 
   render: function () {

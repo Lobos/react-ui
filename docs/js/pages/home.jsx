@@ -2,7 +2,7 @@ var React = require('react')
 
 var Home = React.createClass({
   componentDidMount: function () {
-    window.prettyPrint(null, this.getDOMNode())
+    window.prettyPrint(null, React.findDOMNode(this))
   },
 
   render: function () {

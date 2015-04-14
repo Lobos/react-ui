@@ -1,64 +1,151 @@
 var React = require('react')
+var classnames = require('classnames')
+
+var Checkbox = require('./checkbox.jsx')
+var CheckboxGroup = require('./checkbox-group.jsx')
+var Datetime = require('./datetime.jsx')
+var RadioGroup = require('./radio-group.jsx')
+var Input = require('./input.jsx')
+var Select = require('./select.jsx')
+var MultSelect = require('./mult-select.jsx')
+var Tree = require('./tree.jsx')
 
 var Classable = require('../mixins/classable')
 var Validatable = require('../mixins/validatable')
 
-function formatCol(cols) {
-  cols = cols || [2, 10]
-  var t = typeof cols
-  switch (t) {
-    case 'string':
-      var sl = cols.split(',')
-      cols = []
-      sl.forEach(function (s) {
-        cols.push(parseInt(s))
-      })
-      break
-    case 'number':
-      cols = [cols]
-      break
-  }
-  if (cols.length === 1) {
-    cols[1] = 0
-  }
-  var c0 = cols[0]
-  if (isNaN(c0) || c0 < 1) {
-    c0 = cols[0] = 2
-  }
-  var c1 = cols[1]
-  if (isNaN(c1) || c1 < 1 || c0 + c1 > 12) {
-    cols[1] = 12 - c0
-  }
-  return cols
-}
 
-var FormControl = React.createClass({
+var Control = React.createClass({
   mixins: [Classable, Validatable],
 
   getInitialState: function () {
     return {
       hasError: false,
-      hintText: '',
-      cols: formatCol(this.props.cols)
+      hintText: ''
     }
   },
 
+  handleChange: function (value) {
+    if (this.props.onChange)
+      this.props.onChange(value)
+    this.validate(value)
+  },
+
   getValue: function () {
+    return this.refs.control.getValue()
+  },
+
+  getLabel: function () {
+    var className
+    if ('horizontal' === this.props.layout) {
+      className = 'control-label col-sm-' + (this.props.labelWidth || 2)
+    }
+
+    var label = <label className={className}>{this.props.label}</label>
+    return label
+  },
+
+  getWidth: function () {
+    var labelWidth = this.props.labelWidth,
+        width = this.props.width || 12
+    if (labelWidth + width > 12)
+      width = 12 - labelWidth
+    return width
+  },
+
+  getHint: function () {
+    if (this.props.layout === 'inline')
+      return null
+    var className = "help-block"
+    if ('horizontal' === this.props.layout) {
+      var labelWidth = this.props.labelWidth || 2,
+          width = 12 - labelWidth
+      className = classnames(className, "col-sm-offset-" + labelWidth, "col-sm-" + width)
+    }
+    return <p className={className}>{this.state.hintText}</p>
+  },
+
+  getControl: function () {
+    var control
+    switch (this.props.type) {
+      case 'checkbox':
+        control = <Checkbox {...this.copyProps()} />
+      break
+      case 'checkbox-group':
+        control = <CheckboxGroup {...this.copyProps()} />
+      break
+      case 'datetime':
+        control = <Datetime className="form-control" {...this.copyProps()} />
+      break
+      case 'radio-group':
+        control = <RadioGroup {...this.copyProps()} />
+      break
+      case 'select':
+        control = <Select className="form-control" {...this.copyProps()} />
+      break
+      case 'mult-select':
+        control = <MultSelect className="form-control" {...this.copyProps()} />
+      break
+      case 'tree':
+        control = <Tree {...this.copyProps()} />
+      break
+      default:
+        control = <Input className="form-control" {...this.copyProps()} />
+      break
+    }
+
+    if ('horizontal' === this.props.layout) {
+      var width = this.getWidth() 
+      control = <div className={'col-sm-' + width}>{control}</div>
+    }
+    
+    return control
+  },
+
+  copyProps: function () {
+    var keys = [
+      'checked',
+      'checkAble',
+      'checkKey',
+      'data',
+      'dateOnly',
+      'flat',
+      'greedy',
+      'inline',
+      'open',
+      'placeholder', 
+      'readOnly',
+      'single',
+      'src',
+      'text',
+      'timeOnly',
+      'type',
+      'unixtime',
+      'value',
+    ]
+
+    var props = { 
+      ref: "control",
+      onChange: this.handleChange,
+    }
+
+    keys.forEach(function (key) {
+      if (this.props.hasOwnProperty(key))
+        props[key] = this.props[key]
+    }.bind(this))
+    return props
   },
 
   render: function () {
-    var className = this.getClasses("form-group"),
-        cols = this.state.cols
+    var className = this.getClasses("form-group")
+
     return (
       <div className={className}>
-        <label className={"control-label col-sm-" + cols[0]}>{this.props.label}</label>
-        <div className={"col-sm-" + cols[1]}>
-          <input className="form-control" type="text" />
-          <span className="help-block">{this.state.hintText}</span>
-        </div>
+        {this.getLabel()}
+        {this.getControl()}
+        {this.getHint()}
       </div>
     )
   }
 })
 
-module.exports = FormControl
+module.exports = Control

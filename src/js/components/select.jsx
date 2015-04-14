@@ -55,7 +55,6 @@ var Select = React.createClass({
       hasValue: true,
       active: false
     })
-    this.validate(item.value)
     if (this.props.onChange)
       this.props.onChange(item)
   },

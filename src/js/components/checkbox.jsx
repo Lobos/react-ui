@@ -7,7 +7,7 @@ var Checkbox = React.createClass({
   },
 
   getValue: function () {
-    return this.refs.input.getDOMNode().checked ? (this.props.value || 'on') : null
+    return React.findDOMNode(this.refs.input).checked ? (this.props.value || 'on') : null
   },
 
   render: function () {

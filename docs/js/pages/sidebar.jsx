@@ -30,7 +30,7 @@ var Item = React.createClass({
 })
 
 var Sidebar = React.createClass({
-  mixins: [Router.Navigation, Router.State, Libs.Mixins.Classable],
+  mixins: [Router.State, Libs.Mixins.Classable],
 
   getInitialState: function () {
     return {
@@ -39,7 +39,7 @@ var Sidebar = React.createClass({
   },
 
   onRouteChange: function (route) {
-    this.transitionTo(route)  
+    this.context.router.transitionTo(route)  
     this.close()
   },
 
