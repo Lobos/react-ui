@@ -44,19 +44,19 @@ module.exports = {
   _setHint: function (props) {
     var hints = [],
         isArray = multTypes.indexOf(this.props.type) >= 0,
-        keys = ['required','minlen','maxlen']
+        keys = ['required','minlen','maxlen','max','min']
+
+    getHint(hints, this.props.type)
 
     keys.forEach(function (key) {
       if (props[key])
         getHint(hints, key, props[key], isArray)
     })
 
-    getHint(hints, this.props.type)
-
     if (props['tip']) {
       hints.push(props['tip'])
     }
-    this.setState({ hintText: hints.join(',') })
+    this.setState({ hintText: hints.join(', ') })
   },
 
   validate: function (value) {
@@ -67,6 +67,8 @@ module.exports = {
 
     var {
       required,
+      min,
+      max,
       minlen,
       maxlen,
       readOnly,
@@ -104,6 +106,16 @@ module.exports = {
     var reg = regs[type]
     if (reg && !reg.test(value)) {
       this._validateFail(type, value)
+      return false
+    }
+
+    if (max && parseInt(value) > max) {
+      this._validateFail('max', max)
+      return false
+    }
+
+    if (min && parseInt(value) < min) {
+      this._validateFail('min', min)
       return false
     }
 

@@ -43,7 +43,7 @@ module.exports = {
       maxlens: '最多选择 {0}个选项',
       minlen: '最小长度 {0}',
       minlens: '最少选择 {0}个选项',
-      number: '数字，包含小数部分',
+      number: '数字',
       password: '大写英文字符,小写英文字符,数字,特殊字符',
     },
     tips: {

@@ -80,6 +80,8 @@ function request(method, url, options) {
   var req = superagent(method, url)
   if (options.async === false) req.async(false)
 
+  if (options.type) req.type(options.type)
+
   var sq = method === 'GET' ? 'query' : 'send'
   if (options.data) req[sq](options.data)
   req.end(callback)

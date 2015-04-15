@@ -12,6 +12,11 @@ var Classable = require('../mixins/classable')
 var Form = React.createClass({
   mixins: [Classable],
 
+  propTypes: {
+    type: React.PropTypes.string,
+    action: React.PropTypes.string.isRequired
+  },
+
   getInitialState: function () {
     return {
       locked: false,
@@ -20,11 +25,18 @@ var Form = React.createClass({
   },
 
   componentWillMount: function () {
-    if (this.props.action && !this.props.delay)
-      this.getData(this.props.action)
+    if (this.props.action && this.props.autoload)
+      this.fetchData(this.props.action)
   },
 
-  getData: function (src) {
+  componentWillReceiveProps: function (nextProps) {
+    if (this.props.action !== this.props.action) {
+      this.fetchData(nextProps.action)
+    }
+  },
+
+  fetchData: function (src) {
+    src = src || this.props.action
     loading.start()
     request.getData(src, {
       success: function (res) {
@@ -39,9 +51,16 @@ var Form = React.createClass({
     })
   },
 
+  getValue: function () {
+    var data = this.state.data
+    Objects.forEach(this.refs, function (ref, k) {
+      data[k] = ref.getValue()
+    }, this)
+    return data
+  },
+
   renderChildren: function () {
     var labelWidth = this.props.labelWidth || 2
-    this.controls = {}
     return React.Children.map(this.props.children, function (child) {
       if (child.type === Control) {
         child = React.addons.cloneWithProps(child, {
@@ -63,7 +82,9 @@ var Form = React.createClass({
   },
 
   handleSubmit: function (event) {
+    if (this.state.locked) return
     this.setState({ locked: true })
+
     event.preventDefault() 
     var success = true
     Objects.forEach(this.refs, function (child) {
@@ -76,7 +97,19 @@ var Form = React.createClass({
       return
     }
 
-    console.log(event.target)
+    var data = this.getValue()
+    var type = this.props.type === 'form' ? 'form' : 'json'
+    request.post(this.props.action, {
+      data: data,
+      type: type,
+      success: function (res) {
+        this.setState({ locked: false })
+        console.log(res)
+      },
+      failure: function () {
+        this.setState({ locked: false })
+      }.bind(this)
+    })
   },
 
   render: function () {
