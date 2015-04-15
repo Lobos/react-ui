@@ -10,6 +10,16 @@ function hashCode(str){
   return hash
 }
 
+function format() {
+  var args = [].slice.call(arguments),
+      str = args.shift()
+  return str.replace(/{(\d+)}/g, function(match, number) { 
+    return typeof args[number] !== undefined
+      ? args[number]
+      : match
+  })
+}
+
 function formatValue(value, flat) {
   if (!value) value = []
   if ('string' === typeof value && flat) {
@@ -29,6 +39,7 @@ function formatValue(value, flat) {
 }
 
 module.exports = {
+  format,
   formatValue: formatValue, 
   hashCode: hashCode
 }

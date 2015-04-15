@@ -1,7 +1,7 @@
 var React = require('react')
 var Classable = require('../mixins/classable')
 
-var Input = React.createClass({
+var TextArea = React.createClass({
   mixins: [Classable],
 
   getInitialState: function () {
@@ -22,14 +22,15 @@ var Input = React.createClass({
   render: function () {
     var className = this.getClasses()
     return (
-      <input readOnly={this.props.readOnly} 
+      <textarea readOnly={this.props.readOnly} 
         placeholder={this.props.placeholder}
-        type="text"
         className={className} 
-        onChange={this.handleChange} 
-        value={this.state.value} />
+        rows={this.props.rows || 4}
+        onChange={this.handleChange}>
+        {this.state.value}
+      </textarea>
     )
   }
 })
 
-module.exports = Input
+module.exports = TextArea

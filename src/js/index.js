@@ -10,11 +10,13 @@ module.exports = {
   Datetime: require('./components/datetime.jsx'),
   Form: require('./components/form.jsx'),
   Icon: require('./components/icon.jsx'),
+  Input: require('./components/input.jsx'),
   Loading: require('./components/loading.jsx'),
   Message: require('./components/message.jsx'),
   MultSelect: require('./components/mult-select.jsx'),
   RadioGroup: require('./components/radio-group.jsx'),
   Select: require('./components/select.jsx'),
+  TextArea: require('./components/textarea.jsx'),
   Tree: require('./components/tree.jsx'),
 
   Lang: Lang,

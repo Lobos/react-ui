@@ -16,10 +16,10 @@ var Form = React.createClass({
 
   renderChildren: function () {
     var labelWidth = this.props.labelWidth || 2
-    return React.Children.map(this.props.children, function (child, i) {
+    return React.Children.map(this.props.children, function (child) {
       if (child.type === Control) {
         child = React.addons.cloneWithProps(child, {
-          ref: 'control-' + i,
+          ref: this.props.name,
           labelWidth: labelWidth,
           layout: this.props.layout
         })

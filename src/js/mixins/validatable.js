@@ -1,14 +1,5 @@
-// add string proptype format
-if (!String.prototype.format) {
-  String.prototype.format = function() {
-    var args = arguments
-    return this.replace(/{(\d+)}/g, function(match, number) { 
-      return typeof args[number] !== undefined
-        ? args[number]
-        : match
-    })
-  }
-}
+var Objects = require('../utils/objects')
+var Strings = require('../utils/strings')
 
 var Lang = require('../lang')
 
@@ -28,7 +19,7 @@ var multTypes = ['checkbox-group', 'mult-select']
 
 function getTip(key, value) {
   var text = Lang.get('validation.tips.' + key)
-  text = text.format(value)
+  text = Strings.format(text, value)
   return text
 }
 
@@ -38,7 +29,7 @@ function getHint(hints, key, value, isArray) {
         key
 
   var text = Lang.get('validation.hints.' + key)
-  if (text) hints.push(text.format(value))
+  if (text) hints.push(Strings.format(text, value))
 }
 
 module.exports = {
@@ -53,12 +44,15 @@ module.exports = {
   _setHint: function (props) {
     var hints = [],
         isArray = multTypes.indexOf(this.props.type) >= 0,
-        keys = ['required','minlen','maxlen','type']
+        keys = ['required','minlen','maxlen']
 
     keys.forEach(function (key) {
       if (props[key])
         getHint(hints, key, props[key], isArray)
     })
+
+    getHint(hints, this.props.type)
+
     if (props['tip']) {
       hints.push(props['tip'])
     }
@@ -68,6 +62,8 @@ module.exports = {
   validate: function (value) {
     value = value || this.getValue(true)
     var isArray = multTypes.indexOf(this.props.type) >= 0
+
+    this.setState({ hasValue: !Objects.isEmpty(value) })
 
     var {
       required,

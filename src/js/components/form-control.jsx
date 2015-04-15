@@ -8,6 +8,7 @@ var RadioGroup = require('./radio-group.jsx')
 var Input = require('./input.jsx')
 var Select = require('./select.jsx')
 var MultSelect = require('./mult-select.jsx')
+var TextArea = require('./textarea.jsx')
 var Tree = require('./tree.jsx')
 
 var Classable = require('../mixins/classable')
@@ -17,9 +18,15 @@ var Validatable = require('../mixins/validatable')
 var Control = React.createClass({
   mixins: [Classable, Validatable],
 
+  propTypes: {
+    name: React.PropTypes.string.isRequired 
+  },
+
   getInitialState: function () {
     return {
       hasError: false,
+      hasValue: this.props.value,
+      value: this.props.value,
       hintText: '',
       labelWidth: this.props.labelWidth || 2,
       width: 0,
@@ -51,6 +58,10 @@ var Control = React.createClass({
     return this.refs.control.getValue()
   },
 
+  setValue: function (value) {
+    this.setState({ value: value, hasValue: true })
+  },
+
   getLabel: function () {
     var className
     if ('horizontal' === this.props.layout) {
@@ -62,7 +73,7 @@ var Control = React.createClass({
   },
 
   getHint: function () {
-    var text = this.state.hintText
+    var text = this.state.hasValue ? "" : this.state.hintText
     if (this.state.hasError) {
       text = this.state.errorText
     }
@@ -103,6 +114,9 @@ var Control = React.createClass({
       case 'tree':
         control = <Tree {...this.copyProps()} />
       break
+      case 'textarea':
+        control = <TextArea className="form-control" {...this.copyProps()} />
+      break
       default:
         control = <Input className="form-control" {...this.copyProps()} />
       break
@@ -123,6 +137,7 @@ var Control = React.createClass({
       'data',
       'dateOnly',
       'flat',
+      'rows',
       'greedy',
       'inline',
       'open',
@@ -134,11 +149,11 @@ var Control = React.createClass({
       'timeOnly',
       'type',
       'unixtime',
-      'value',
     ]
 
     var props = { 
       ref: "control",
+      value: this.state.value,
       onChange: this.handleChange,
     }
 
