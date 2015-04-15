@@ -3,14 +3,14 @@ var Radio = require('./radio.jsx')
 
 var Classable = require('../mixins/classable')
 var Resourceable = require('../mixins/resourceable')
+var ReceiveValue = require('../mixins/receive-value')
 
 var RadioGroup = React.createClass({
-  mixins: [Classable, Resourceable],
+  mixins: [Classable, Resourceable, ReceiveValue],
 
   getInitialState: function () {
     return {
-      data: [],
-      value: this.props.value
+      data: []
     }
   },
 

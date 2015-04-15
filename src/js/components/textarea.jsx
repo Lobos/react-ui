@@ -1,22 +1,19 @@
 var React = require('react')
 var Classable = require('../mixins/classable')
+var ReceiveValue = require('../mixins/receive-value')
 
 var TextArea = React.createClass({
-  mixins: [Classable],
-
-  getInitialState: function () {
-    return {
-      value: this.props.value
-    }
-  },
+  mixins: [Classable, ReceiveValue],
 
   handleChange: function (event) {
+    var value = event.target.value
+    this.setState({value: value})
     if (this.props.onChange)
-      this.props.onChange(event.target.value)
+      this.props.onChange(value)
   },
 
   getValue: function () {
-    return React.findDOMNode(this).value
+    return this.state.value
   },
 
   render: function () {
@@ -26,9 +23,8 @@ var TextArea = React.createClass({
         placeholder={this.props.placeholder}
         className={className} 
         rows={this.props.rows || 4}
-        onChange={this.handleChange}>
-        {this.state.value}
-      </textarea>
+        onChange={this.handleChange} 
+        value={this.state.value} />
     )
   }
 })

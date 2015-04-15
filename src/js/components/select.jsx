@@ -4,30 +4,22 @@ var Icon = require('./icon.jsx')
 var Resourceable = require('../mixins/resourceable')
 var Classable = require('../mixins/classable')
 var ClickAwayable = require('../mixins/click-awayable')
+var ReceiveValue = require('../mixins/receive-value')
 
 var Select = React.createClass({
-  mixins: [Classable, ClickAwayable, Resourceable],
+  mixins: [Classable, ClickAwayable, Resourceable, ReceiveValue],
 
   getInitialState: function () {
     return {
       data: [],
       active: false,
-      hasError: false,
-      hasValue: this.props.value,
       text: '',
-      msg: '',
-      value: this.props.value
+      msg: ''
     }
   },
 
   componentClickAway: function () {
     this.setState({ active: false })
-  },
-
-  componentWillReceiveProps: function (nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setState({ value: nextProps.value })
-    }
   },
 
   componentWillUpdate: function(nextProps, nextState) {

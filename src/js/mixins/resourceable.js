@@ -1,6 +1,6 @@
 var request = require('../utils/request')
 var Objects = require('../utils/objects')
-var message = require('../components/message.jsx')
+var message = require('../actions/message')
 var lang = require('../lang')
 
 var resourceable = {
@@ -21,12 +21,24 @@ var resourceable = {
       request.getData(props.src, {
         cache: true,
         success: function (res) {
-          if (res.status === 1)
-            this.setState({ data: Objects.clone(res.data), $time: new Date().getTime() })
-          else if (res instanceof Array)
-            this.setState({ data: Objects.clone(res) })
-          else if (res.msg)
+          var data = res.status === 1 ?
+                     res.data :
+                     ( res instanceof Array ? res : undefined )
+
+          if (!data && res.msg) {
             message.error(res.msg)
+            return
+          }
+
+          data = Objects.clone(data)
+          
+          // initialize data
+          if (this.initData) {
+            this.initData(data)
+          } else {
+            this.setState({ data: data })
+          }
+
         }.bind(this),
         failure: function () {
           this.setState({ msg: lang.get('request.error') })

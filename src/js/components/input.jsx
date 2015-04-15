@@ -1,22 +1,19 @@
 var React = require('react')
 var Classable = require('../mixins/classable')
+var ReceiveValue = require('../mixins/receive-value')
 
 var Input = React.createClass({
-  mixins: [Classable],
-
-  getInitialState: function () {
-    return {
-      value: this.props.value
-    }
-  },
+  mixins: [Classable, ReceiveValue],
 
   handleChange: function (event) {
+    var value = event.target.value
+    this.setState({ value: value })
     if (this.props.onChange)
-      this.props.onChange(event.target.value)
+      this.props.onChange(value)
   },
 
   getValue: function () {
-    return React.findDOMNode(this).value
+    return this.state.value
   },
 
   render: function () {

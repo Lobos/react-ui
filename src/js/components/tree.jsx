@@ -8,39 +8,37 @@ var Strings = require('../utils/strings')
 var Objects = require('../utils/objects')
 var Classable = require('../mixins/classable')
 var Resourceable = require('../mixins/resourceable')
+var ReceiveValue = require('../mixins/receive-value')
 
 var Tree = React.createClass({
-  mixins: [Classable, Resourceable],
+  mixins: [Classable, Resourceable, ReceiveValue],
+
+  isMultValue: true,
 
   getInitialState: function () {
     return {
       data: [],
-      inited: false,
-      value: Strings.formatValue(this.props.value, this.props.flat)
+      inited: false
     }
   },
 
   componentWillUpdate: function (nextProps, nextState) {
-    if (nextState.data !== this.state.data || nextState.value !== this.state.value) {
-      var data = nextState.data
-      this.initData(data, nextState.value)
-      // state.data是引用值，initData 之后已经改变，不需要再setState
-      // 不能setState，会无限循环
+    // initValue 和 initData 分开处理
+    if (nextState.value !== this.state.value) {
+      this.initValue(nextState.value)
     } 
   },
 
-  componentWillMount: function () {
-    this.initData(this.state.data, this.state.value)
+  initValue: function (value) {
+    this.init(this.state.data, value)
   },
 
-  componentWillReceiveProps: function (nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setState({ value: nextProps.value })
-    }
+  initData: function (data) {
+    this.init(data, this.state.value)
   },
 
   // 初始化数据，不在item里面判断，在元数据里加入deep和status，减少判断和item.setState次数
-  initData: function (data, values) {
+  init: function (data, value) {
     var key = this.props.checkKey || 'id'
     var getStatus = function (d, last, deep) {
       var v = d[key],
@@ -67,7 +65,7 @@ var Tree = React.createClass({
           }
         }
       } else {
-        status = values.indexOf(v) >= 0 ? 2 : 0
+        status = value.indexOf(v) >= 0 ? 2 : 0
       }
       d.$status = status
       d.$deep = newDeep
@@ -76,6 +74,7 @@ var Tree = React.createClass({
     for (var i=0, count=data.length; i<count; i++) {
       getStatus(data[i], i===(count-1))
     }
+    this.setState({ data:data })
   },
 
   isInitialed: function () {
@@ -125,11 +124,6 @@ var Tree = React.createClass({
   },
 
   render: function () {
-    // 判断数据是否初始化过，当component重用时，react会重复使用第一次加载的data，不会触发componentwillupdate事件
-    // 因此数据不会初始化，没有deep和status属性
-    if (!this.isInitialed())
-      this.initData(this.state.data, this.state.value)
-
     var self = this,
         checkAble = this.props.checkAble,
         open = this.props.open,
@@ -246,9 +240,8 @@ var Item = React.createClass({
       })
       children = <ul className={classnames("list-unstyled", {open:this.state.open})}>{items}</ul>
       type = this.state.open ? "folder-open-o" : "folder-o"
-      var hi = this.state.open ? "minus-square-o" : "plus-square-o"
       handle =  <a onClick={this.toggle} className="handle" href="javascript:;">
-                  <Icon icon={hi} />
+                  <Icon icon={this.state.open ? "minus-square-o" : "plus-square-o"} />
                 </a>
     } else {
       type = "file-o"

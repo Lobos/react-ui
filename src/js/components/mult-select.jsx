@@ -1,13 +1,13 @@
 var React = require('react')
-var Strings = require('../utils/strings')
 
 var Resourceable = require('../mixins/resourceable')
 var Classable = require('../mixins/classable')
 var ClickAwayable = require('../mixins/click-awayable')
 var Validatable = require('../mixins/validatable')
+var ReceiveValue = require('../mixins/receive-value')
 
 var MultSelect = React.createClass({
-  mixins: [Classable, ClickAwayable, Resourceable, Validatable],
+  mixins: [Classable, ClickAwayable, Resourceable, Validatable, ReceiveValue],
 
   getInitialState: function () {
     return {
@@ -17,10 +17,11 @@ var MultSelect = React.createClass({
       hasValue: this.props.value,
       cols: this.props.cols || 4,
       text: [],
-      msg: '',
-      value: Strings.formatValue(this.props.value, this.props.flat)
+      msg: ''
     }
   },
+
+  isMultValue: true,
 
   handleClick: function (item, index) {
     this.select(item, index)
@@ -37,16 +38,25 @@ var MultSelect = React.createClass({
       this._unbindClickAway()
     }
 
-    if (nextState.data !== this.state.data || nextState.value !== this.state.value) {
-      this.initValue(nextState.data, nextState.value)
+    if (nextState.value !== this.state.value) {
+      this.initValue(nextState.value)
     }
   },
 
   componentWillMount: function () {
-    this.initValue(this.state.data, this.state.value)
+    this.init(this.state.data, this.state.value)
   },
 
-  initValue: function (data, value) {
+  initValue: function (value) {
+    this.init(this.state.data, value)
+  },
+
+  initData: function (data) {
+    this.init(data, this.state.value)
+  },
+
+  init: function (data, value) {
+    //data = data.slice()
     if (data.length === 0) return
     for (var i=0, count=data.length; i<count; i++) {
       var d = data[i]

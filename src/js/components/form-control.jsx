@@ -11,6 +11,7 @@ var MultSelect = require('./mult-select.jsx')
 var TextArea = require('./textarea.jsx')
 var Tree = require('./tree.jsx')
 
+var Objects = require('../utils/objects')
 var Classable = require('../mixins/classable')
 var Validatable = require('../mixins/validatable')
 
@@ -37,6 +38,12 @@ var Control = React.createClass({
     this.setWidth()
   },
 
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setValue(nextProps.value)
+    }
+  },
+
   setWidth: function () {
     var labelWidth = this.props.labelWidth || 2,
         width = this.props.width || 12
@@ -54,12 +61,12 @@ var Control = React.createClass({
     this.validate(value)
   },
 
-  getValue: function () {
-    return this.refs.control.getValue()
+  getValue: function (raw) {
+    return this.refs.control.getValue(raw)
   },
 
   setValue: function (value) {
-    this.setState({ value: value, hasValue: true })
+    this.setState({ value: value, hasValue: !Objects.isEmpty(value) })
   },
 
   getLabel: function () {
@@ -94,7 +101,7 @@ var Control = React.createClass({
     var control
     switch (this.props.type) {
       case 'checkbox':
-        control = <Checkbox {...this.copyProps()} />
+        control = <Checkbox checked={this.state.value === true || this.state.value === 1} {...this.copyProps()} />
       break
       case 'checkbox-group':
         control = <CheckboxGroup {...this.copyProps()} />
