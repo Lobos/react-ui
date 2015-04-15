@@ -47,6 +47,7 @@ module.exports = React.createClass({
           </Form>
 
           {!this.state.loaded && <a href="javascript:;" onClick={this.load}>加载数据</a>}
+          <div className="alert alert-warning">本文档无服务端程序，所以无法实际提交数据，会返回405错误</div>
         </Example>
       </div>
     )

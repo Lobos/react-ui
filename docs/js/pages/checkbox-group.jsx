@@ -34,12 +34,12 @@ module.exports = React.createClass({
           <p>获取当前选中项 <code>value</code> 值集合，如果flat为<code>true</code>，返回<code>String</code>，否则返回<code>Array</code></p>
         </Arguments>
 
-        <Example text={'<CheckboxGroup ref="checkgroup1" data={exampleItems} onChange={this.handleChange.bind(this,"checkgroup1")} />\n<p ref="checkgroup1p"></p>'}>
+        <Example text={'<CheckboxGroup data={exampleItems} onChange={func} />'}>
           <CheckboxGroup ref="checkgroup1" data={exampleItems} onChange={this.handleChange('checkgroup1')} />
           <p ref="checkgroup1p"></p>
         </Example>
 
-        <Example text={'<CheckboxGroup value="guangzhou,chengdu" ref="checkgroup2" src={exampleSrc} inline={true} onChange={this.handleChange("checkgroup2")} />\n<p ref="checkgroup2p"></p>'}>
+        <Example text={'<CheckboxGroup value="guangzhou,chengdu" src={exampleSrc} inline={true} onChange={func} />'}>
           <CheckboxGroup value="guangzhou,chengdu" ref="checkgroup2" src={exampleSrc} inline={true} onChange={this.handleChange('checkgroup2')} />
           <p ref="checkgroup2p"></p>
         </Example>

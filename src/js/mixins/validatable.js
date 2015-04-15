@@ -91,7 +91,7 @@ module.exports = {
     }
 
     // length
-    var length = value.length
+    var length = isArray ? Strings.formatValue(value, this.props.flat).length : value.length
     if (minlen && length > 0 && length < minlen) {
       this._validateFail(isArray ? 'minlens' : 'minlen', minlen)
       return false

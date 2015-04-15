@@ -41,6 +41,7 @@ var Control = React.createClass({
   componentWillReceiveProps: function (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value)
+      this.validate(nextProps.value)
     }
   },
 

@@ -47,7 +47,7 @@ module.exports = React.createClass({
           <Arguments.Item name="value" require={true} type="String"></Arguments.Item>
         </Arguments>
 
-        <Example text={'<Select ref="s1" data={exampleItems} placeholder="选择一个城市" style={{width:200, display:"inline-block"}} className="form-control" />\n<Select src={exampleSrc} value="shanghai" placeholder="选择一个城市" style={{width:200, display:"inline-block"}} className="form-control" onChange={this.onChange} />\n<p><a onClick={function () { this.refs.s1.setValue("nanjing") }.bind(this)} href="javascript:;">设置第一个select值为nanjing</a></p>\n<p>{this.state.selectedText}</p>'}>
+        <Example text={'<Select data={exampleItems} placeholder="选择一个城市" style={{width:200, display:"inline-block"}} className="form-control" />\n\n<Select src={exampleSrc} value="shanghai" placeholder="选择一个城市" style={{width:200, display:"inline-block"}} className="form-control" onChange={this.onChange} />'}>
           <Select ref="s1" data={exampleItems} placeholder="选择一个城市" style={{width:200, display:'inline-block'}} className="form-control" />
           <Select src={exampleSrc} value="shanghai" placeholder="选择一个城市" style={{width:200, display:'inline-block'}} className="form-control" onChange={this.onChange} />
           <br />
