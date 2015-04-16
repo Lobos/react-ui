@@ -4,7 +4,6 @@ var React = require('react')
 var classnames = require('classnames')
 var Icon = require('./icon.jsx')
 
-var Strings = require('../utils/strings')
 var Objects = require('../utils/objects')
 var Classable = require('../mixins/classable')
 var Resourceable = require('../mixins/resourceable')
@@ -111,11 +110,6 @@ var Tree = React.createClass({
       value = value.join(',')
     }
     return value
-  },
-
-  setValue: function (value) {
-    value = Strings.formatValue(value, this.props.flat)
-    this.setState({ value: value })
   },
 
   handleChange: function () {

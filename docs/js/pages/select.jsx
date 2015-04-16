@@ -34,7 +34,7 @@ module.exports = React.createClass({
           <Arguments.Item name="onChange" type="function">选择事件</Arguments.Item>
         </Arguments>
 
-        <h3>Mehtods</h3>
+        <h3>Methods</h3>
         <Arguments>
           <Arguments.Example>{'getValue()'}</Arguments.Example>
           <p>获取当前选中项 <code>value</code> 值</p>

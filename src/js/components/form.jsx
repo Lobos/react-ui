@@ -2,6 +2,7 @@ var React = require('react/addons')
 var Control = require('./form-control.jsx')
 var Submit = require('./form-submit.jsx')
 
+var lang = require('../lang')
 var request = require('../utils/request')
 var loading = require('../actions/loading')
 var message = require('../actions/message')
@@ -42,7 +43,8 @@ var Form = React.createClass({
       success: function (res) {
         loading.end()
         if (res.status === 1) {
-          this.setState({ data: res.data })
+          //this.setState({ data: res.data })
+          this.setValue(res.data)
         } else if (res.msg) {
           message.error(res.msg)
         }
@@ -54,31 +56,51 @@ var Form = React.createClass({
   getValue: function () {
     var data = this.state.data
     Objects.forEach(this.refs, function (ref, k) {
-      data[k] = ref.getValue()
+      if (!ref.props.ignore)
+        data[k] = ref.getValue()
     }, this)
     return data
+  },
+
+  setValue: function (data) {
+    Objects.forEach(this.refs, function (ref, k) {
+      ref.setValue(data[k])
+    })
   },
 
   renderChildren: function () {
     var labelWidth = this.props.labelWidth || 2
     return React.Children.map(this.props.children, function (child) {
+      var props = {
+        labelWidth: labelWidth,
+        showHint: this.props.showHint,
+        layout: this.props.layout
+      }
       if (child.type === Control) {
-        child = React.addons.cloneWithProps(child, {
-          ref: child.props.name,
-          value: this.state.data[child.props.name],
-          labelWidth: labelWidth,
-          layout: this.props.layout
-        })
+        props.ref = child.props.name
+        props.value = this.state.data[child.props.name]
+        if (child.props.equal)
+          props.onValidate = this.equalValidate(child.props.equal, child.props.name)
       } else if (child.type === Submit) {
-        child = React.addons.cloneWithProps(child, {
-          labelWidth: labelWidth,
-          locked: this.state.locked,
-          layout: this.props.layout
-        })
+        props.locked = this.state.locked
       }
 
+      child = React.addons.cloneWithProps(child, props)
       return child
     }, this)
+  },
+
+  equalValidate: function (targetRef, equalRef) {
+    var self = this
+    return function () {
+      var target = self.refs[targetRef]
+      if (!target) {
+        console.log('equal target is not existed')
+        return false
+      }
+      var equal = self.refs[equalRef] 
+      return target.getValue() === equal.getValue()
+    }
   },
 
   handleSubmit: function (event) {
@@ -104,7 +126,14 @@ var Form = React.createClass({
       type: type,
       success: function (res) {
         this.setState({ locked: false })
-        console.log(res)
+        if (res.status === 1) {
+          if (this.props.onSubmit)
+            this.props.onSubmit(res)
+          if (res.msg)
+            message.success(res.msg)
+        } else {
+          message.error(res.msg || lang.get('request.empty'))
+        }
       },
       failure: function () {
         this.setState({ locked: false })

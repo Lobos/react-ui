@@ -9,6 +9,7 @@ module.exports = {
       500: '服务器错误'
     },
     loading: '读取中...',
+    empty: '未知错误.',
     error: '获取失败.'
   },
   buttons: {

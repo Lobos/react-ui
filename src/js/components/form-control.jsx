@@ -67,7 +67,11 @@ var Control = React.createClass({
   },
 
   setValue: function (value) {
-    this.setState({ value: value, hasValue: !Objects.isEmpty(value) })
+    //this.setState({ value: value, hasValue: !Objects.isEmpty(value) })
+    if (this.refs.control.setValue)
+      this.refs.control.setValue(value)
+    this.validate(value)
+    this.setState({ hasValue: !Objects.isEmpty(value) })
   },
 
   getLabel: function () {
@@ -81,7 +85,7 @@ var Control = React.createClass({
   },
 
   getHint: function () {
-    var text = this.state.hasValue ? "" : this.state.hintText
+    var text = (this.state.hasValue && !this.props.showHint) ? "" : this.state.hintText
     if (this.state.hasError) {
       text = this.state.errorText
     }

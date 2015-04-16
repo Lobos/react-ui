@@ -19,7 +19,8 @@ var multTypes = ['checkbox-group', 'mult-select']
 
 function getTip(key, value) {
   var text = Lang.get('validation.tips.' + key)
-  text = Strings.format(text, value)
+  if (text)
+    text = Strings.format(text, value)
   return text
 }
 
@@ -85,6 +86,11 @@ module.exports = {
       return false
     }
 
+    if (this.props.onValidate && !this.props.onValidate()) {
+      this._validateFail('', value)
+      return false
+    }
+
     if (undefined === value || null === value || '' === value) {
       this._validatePass()
       return true
@@ -128,7 +134,7 @@ module.exports = {
   },
 
   _validateFail: function (type, value) {
-    var text = getTip(type, value)
+    var text = getTip(type, value) || this.props.tip
     this.setState({ hasError: true, errorText: text })
   }
 }

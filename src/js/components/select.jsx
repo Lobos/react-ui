@@ -28,6 +28,10 @@ var Select = React.createClass({
     } else {
       this._unbindClickAway()
     }
+
+    if (nextState.value !== this.state.value) {
+      this.selectValue(nextState.value)
+    }
   },
 
   componentDidMount: function () {
@@ -59,7 +63,7 @@ var Select = React.createClass({
     }.bind(this))
   },
 
-  setValue: function (value) {
+  selectValue: function (value) {
     value = value || ''
     this.state.data.forEach(function (item) {
       if (item.value.toString() === value.toString()) {

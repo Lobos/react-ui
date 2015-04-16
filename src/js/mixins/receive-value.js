@@ -13,6 +13,11 @@ module.exports = {
     }
   },
 
+  setValue: function (value) {
+    value = this._formatValue(value)
+    this.setState({ value: value })
+  },
+
   _formatValue: function (value) {
     if (this.isMultValue)
       value = Strings.formatValue(value, this.props.flat)

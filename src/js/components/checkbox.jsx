@@ -23,6 +23,11 @@ var Checkbox = React.createClass({
     return React.findDOMNode(this.refs.input).checked ? (this.props.value || true) : false
   },
 
+  setValue: function (value) {
+    var checked = value === true || value === 1 || value === this.state.value
+    this.setState({ checked: checked })
+  },
+
   render: function () {
     return (
       <div className="checkbox">
