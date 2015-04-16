@@ -17,6 +17,7 @@ var MultSelect = require('./pages/mult-select.jsx')
 var Datetime = require('./pages/datetime.jsx')
 var Tree = require('./pages/tree.jsx')
 var Form = require('./pages/form.jsx')
+var FormControl = require('./pages/form-control.jsx')
 
 
 var AppRoutes = (
@@ -33,6 +34,7 @@ var AppRoutes = (
     <Route name="mult-select" handler={MultSelect} />
     <Route name="tree" handler={Tree} />
     <Route name="form" handler={Form} />
+    <Route name="form-control" handler={FormControl} />
 
     <DefaultRoute handler={Home} />
   </Route>

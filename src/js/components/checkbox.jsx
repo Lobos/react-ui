@@ -14,6 +14,8 @@ var Checkbox = React.createClass({
   },
 
   handleChange: function (event) {
+    if (this.props.readOnly) return
+
     this.setState({ checked: event.target.checked })
     if (this.props.onChange)
       this.props.onChange(event.target.checked, this.props.value, this.props.index)
@@ -32,7 +34,7 @@ var Checkbox = React.createClass({
     return (
       <div className="checkbox">
         <label>
-          <input ref="input" type="checkbox" onChange={this.handleChange} checked={this.state.checked} value={this.props.value} />
+          <input ref="input" readOnly={this.props.readOnly} type="checkbox" onChange={this.handleChange} checked={this.state.checked} value={this.props.value} />
           {this.props.text}
         </label>
       </div>

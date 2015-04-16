@@ -7,6 +7,8 @@ var Input = React.createClass({
   mixins: [Classable, ReceiveValue],
 
   handleChange: function (event) {
+    if (this.props.readOnly) return
+
     var value = event.target.value
     this.setState({ value: value })
     if (this.props.onChange)

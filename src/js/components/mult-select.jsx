@@ -98,7 +98,8 @@ var MultSelect = React.createClass({
     var className = this.getClasses(
       'select', 
       {
-        'active': this.state.active,
+        'active': this.state.active && !this.props.readOnly,
+        'readonly': this.props.readOnly,
         'is-focused': this.state.active,
         'has-error': this.state.hasError
       }

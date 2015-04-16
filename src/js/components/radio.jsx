@@ -13,7 +13,7 @@ var Radio = React.createClass({
     return (
       <div className="radio">
         <label>
-          <input ref="input" type="radio" onChange={this.noop} onClick={this.handleClick} checked={this.props.checked} value={this.props.value} />
+          <input ref="input" type="radio" readOnly={this.props.readOnly} onChange={this.noop} onClick={this.handleClick} checked={this.props.checked} value={this.props.value} />
           {this.props.text}
         </label>
       </div>

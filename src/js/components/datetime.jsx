@@ -50,7 +50,7 @@ var Datetime = React.createClass({
   },
 
   getValue: function () {
-    var value = this.state.value
+    var value = this.value || this.state.value
     if (!value) 
       return null
 
@@ -117,12 +117,20 @@ var Datetime = React.createClass({
   },
 
   stateChange: function (state) {
+    // 使用value暂存值，解决checkClickAway的问题
+    if (state.value) this.value = state.value
+    this.setState(state)
+    if (this.props.onChange)
+      this.props.onChange()
+
     // setTimeout wait checkClickAway completed
+    /*
     setTimeout(function () {
       this.setState(state)
       if (this.props.onChange)
         this.props.onChange()
     }.bind(this), 10)
+   */
   },
 
   stageChange: function (stage) {
@@ -163,13 +171,13 @@ var Datetime = React.createClass({
     }
     
     return years.map(function (y, i) {
-      return <button onClick={ function () { this.yearChange(y) } } key={i} className="year">{y}</button>
+      return <button type="button" onClick={ function () { this.yearChange(y) } } key={i} className="year">{y}</button>
     }, this)
   },
 
   getMonths: function () {
     return lang.get('date.fullMonth').map(function (m, i) {
-      return <button onClick={ function () { this.monthChange(i) } } key={i} className="month">{m}</button>
+      return <button type="button" onClick={ function () { this.monthChange(i) } } key={i} className="month">{m}</button>
     }, this)
   },
 
@@ -202,7 +210,7 @@ var Datetime = React.createClass({
           today: isToday && value.getDate() === d.getDate() && value.getMonth() === d.getMonth()
         }
       )
-      return <button onClick={function () {self.dayChange(d)}} key={i} className={className}>{d.getDate()}</button>
+      return <button type="button" onClick={function () {self.dayChange(d)}} key={i} className={className}>{d.getDate()}</button>
     }, this)
   },
 
@@ -259,7 +267,8 @@ var Datetime = React.createClass({
     var className = this.getClasses(
       'datetime',
       {
-        'active': this.state.active,
+        'active': this.state.active && !this.props.readOnly,
+        'readonly': this.props.readOnly,
         'short': this.props.dateOnly || this.props.timeOnly
       }
     )

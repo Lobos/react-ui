@@ -21,10 +21,11 @@ module.exports = React.createClass({
         <br />
 
         <Arguments>
-          <Arguments.Example>{'<Form action="url" autoload={bool} type={form|json} onSubmit={function} layout={horizontal|inline} />'}</Arguments.Example>
+          <Arguments.Example>{'<Form action="url" autoload={bool} type={form|json} labelWidth={int} onSubmit={function} layout={horizontal|inline} />'}</Arguments.Example>
           <Arguments.Item name="action" type="String" require={true}>服务端地址。get与post使用同一个地址</Arguments.Item>
           <Arguments.Item name="autoload" type="Boolean" def="true">为<code>true</code>时，form加载时自动从服务端get数据，填充表单。</Arguments.Item>
           <Arguments.Item name="type" type="String" def="json">可选值为<code>json</code>，<code>form</code>。值为json时，数据以json格式提交，为form时，以<code>application/x-www-form-urlencoded</code>形式提交</Arguments.Item>
+          <Arguments.Item name="labelWidth" type="int" def="2">label宽度，1-12之间的整数(参见bootstrap <code>col-md-</code>)</Arguments.Item>
           <Arguments.Item name="layout" type="String" def="null">可选值为<code>null</code>，<code>horizontal</code>，<code>null</code>。对应bootstrap的<code>form-horizontal</code>，<code>form-inline</code></Arguments.Item>
           <Arguments.Item name="onSubmit" type="Function">提交<code>成功</code>后执行回调方法，参数为服务端返回数据</Arguments.Item>
         </Arguments>

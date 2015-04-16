@@ -109,6 +109,7 @@ var Form = React.createClass({
 
     event.preventDefault() 
     var success = true
+    console.log(111111111)
     Objects.forEach(this.refs, function (child) {
       var suc = child.validate()
       success = success && suc

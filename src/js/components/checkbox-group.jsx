@@ -52,7 +52,7 @@ var CheckboxGroup = React.createClass({
       var value = this.flat ? item.value.toString() : item.value
       var checked = values.indexOf(value) >= 0
       return (
-        <Checkbox key={i} index={i} checked={checked} onChange={this.handleChange} text={item.text} value={item.value} />
+        <Checkbox key={i} index={i} readOnly={this.props.readOnly} checked={checked} onChange={this.handleChange} text={item.text} value={item.value} />
       )
     }, this)
 

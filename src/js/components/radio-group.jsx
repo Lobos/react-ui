@@ -15,6 +15,8 @@ var RadioGroup = React.createClass({
   },
 
   handleChange: function (value) {
+    if (this.props.readOnly) return
+
     this.setState({ value: value })
     var change = this.props.onChange
     if (change)
@@ -36,7 +38,7 @@ var RadioGroup = React.createClass({
     )
     var items = this.state.data.map(function (item, i) {
       return (
-        <Radio key={i} onClick={this.handleChange} checked={this.state.value === item.value} text={item.text} value={item.value} />
+        <Radio key={i} onClick={this.handleChange} readOnly={this.props.readOnly} checked={this.state.value === item.value} text={item.text} value={item.value} />
       )
     }, this)
 

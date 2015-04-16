@@ -121,14 +121,17 @@ var Tree = React.createClass({
     var self = this,
         checkAble = this.props.checkAble,
         open = this.props.open,
+        readOnly = this.props.readOnly,
         checkKey = this.props.checkKey || 'id',
         value = this.state.value
 
     var items = this.state.data.map(function (item, i) {
-      return <Item ref={i} open={open} checkKey={checkKey} onStatusChange={self.handleChange} value={value} checkAble={checkAble} key={i} data={item} />
+      return <Item ref={i} open={open} readOnly={readOnly} checkKey={checkKey} onStatusChange={self.handleChange} value={value} checkAble={checkAble} key={i} data={item} />
     })
 
-    var className = this.getClasses('tree', 'list-unstyled')
+    var className = this.getClasses('tree', 'list-unstyled', {
+      readonly: this.props.readOnly
+    })
 
     return (
       <ul className={className}>{items}</ul>
@@ -163,6 +166,8 @@ var Item = React.createClass({
   },
 
   check: function () {
+    if (this.props.readOnly) return
+
     var status = this.state.status
     status = status < 2 ? 2 : 0
     this.setStatus(status)
@@ -219,6 +224,7 @@ var Item = React.createClass({
         data = this.props.data,
         checkAble = this.props.checkAble,
         checkKey = this.props.checkKey,
+        readOnly = this.props.readOnly,
         open = this.props.open,
         value = this.props.value,
         children,
@@ -230,7 +236,7 @@ var Item = React.createClass({
 
     if (data.children) {
       var items = data.children.map(function (item, i) {
-        return (<Item ref={i} key={i} open={open} value={value} checkKey={checkKey} checkAble={checkAble} data={item} onStatusChange={self.updateStatus} />)
+        return (<Item ref={i} key={i} open={open} readOnly={readOnly} value={value} checkKey={checkKey} checkAble={checkAble} data={item} onStatusChange={self.updateStatus} />)
       })
       children = <ul className={classnames("list-unstyled", {open:this.state.open})}>{items}</ul>
       type = this.state.open ? "folder-open-o" : "folder-o"
@@ -243,7 +249,7 @@ var Item = React.createClass({
 
     if (checkAble) {
       check = ["square-o", "check-square-o", "check-square"][this.state.status]
-      checkClass = ["", "half-checked", "checked"][this.state.status]
+      checkClass = classnames("check-handle", ["", "half-checked", "checked"][this.state.status])
     }
 
     for (var i=0, count=data.$deep.length; i<count; i++) {

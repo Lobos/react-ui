@@ -15,6 +15,7 @@ var menus = [
   { route: 'datetime', text: 'Datetime' },
   { route: 'tree', text: 'Tree' },
   { route: 'form', text: 'Form' },
+  { route: 'form-control', text: 'Form Control' },
 ]
 
 var Item = React.createClass({
