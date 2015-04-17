@@ -43,7 +43,6 @@ var Form = React.createClass({
       success: function (res) {
         loading.end()
         if (res.status === 1) {
-          //this.setState({ data: res.data })
           this.setValue(res.data)
         } else if (res.msg) {
           message.error(res.msg)
@@ -109,7 +108,6 @@ var Form = React.createClass({
 
     event.preventDefault() 
     var success = true
-    console.log(111111111)
     Objects.forEach(this.refs, function (child) {
       var suc = child.validate()
       success = success && suc

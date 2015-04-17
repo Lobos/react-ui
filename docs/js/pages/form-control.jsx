@@ -42,6 +42,15 @@ module.exports = React.createClass({
           <Arguments.Item name="rows" type="int">textarea高度</Arguments.Item>
           <p>其他参数参考各个component自定义</p>
         </Arguments>
+        <br />
+
+        <h2 className="page-header">Form.Submit</h2>
+        <p>表单提交按钮</p>
+        <br />
+        <Arguments>
+          <Arguments.Example>{'<Form.Submit text={String|Array} />'}</Arguments.Example>
+          <Arguments.Item name="text" type="String|Array">按钮文字。如果为数组，按钮提交锁定后，显示数组内第二个文字</Arguments.Item>
+        </Arguments>
       </div>
     )
   }

@@ -16,6 +16,7 @@ var menus = [
   { route: 'tree', text: 'Tree' },
   { route: 'form', text: 'Form' },
   { route: 'form-control', text: 'Form Control' },
+  { route: 'pagination', text: 'Pagination' },
 ]
 
 var Item = React.createClass({

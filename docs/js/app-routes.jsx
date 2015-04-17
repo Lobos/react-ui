@@ -18,6 +18,7 @@ var Datetime = require('./pages/datetime.jsx')
 var Tree = require('./pages/tree.jsx')
 var Form = require('./pages/form.jsx')
 var FormControl = require('./pages/form-control.jsx')
+var Pagination = require('./pages/pagination.jsx')
 
 
 var AppRoutes = (
@@ -35,6 +36,7 @@ var AppRoutes = (
     <Route name="tree" handler={Tree} />
     <Route name="form" handler={Form} />
     <Route name="form-control" handler={FormControl} />
+    <Route name="pagination" handler={Pagination} />
 
     <DefaultRoute handler={Home} />
   </Route>

@@ -20,6 +20,13 @@ function format() {
   })
 }
 
+function substitute(str, obj) {
+  return str.replace((/\\?\{([^{}]+)\}/g), function(match, name){
+    if (match.charAt(0) === '\\') return match.slice(1)
+    return (obj[name] !== null) ? obj[name] : ''
+  })
+}
+
 function formatValue(value, flat) {
   if (!value) value = []
   if ('string' === typeof value && flat) {
@@ -41,5 +48,6 @@ function formatValue(value, flat) {
 module.exports = {
   format,
   formatValue: formatValue, 
-  hashCode: hashCode
+  hashCode: hashCode,
+  substitute: substitute
 }

@@ -14,6 +14,7 @@ module.exports = {
   Loading: require('./components/loading.jsx'),
   Message: require('./components/message.jsx'),
   MultSelect: require('./components/mult-select.jsx'),
+  Pagination: require('./components/pagination.jsx'),
   RadioGroup: require('./components/radio-group.jsx'),
   Select: require('./components/select.jsx'),
   TextArea: require('./components/textarea.jsx'),
