@@ -16,7 +16,9 @@ module.exports = {
   MultSelect: require('./components/mult-select.jsx'),
   Pagination: require('./components/pagination.jsx'),
   RadioGroup: require('./components/radio-group.jsx'),
+  Rating: require('./components/rating.jsx'),
   Select: require('./components/select.jsx'),
+  Table: require('./components/table.jsx'),
   TextArea: require('./components/textarea.jsx'),
   Tree: require('./components/tree.jsx'),
 

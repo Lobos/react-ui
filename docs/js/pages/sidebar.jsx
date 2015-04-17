@@ -14,6 +14,7 @@ var menus = [
   { route: 'mult-select', text: 'Mult select' },
   { route: 'datetime', text: 'Datetime' },
   { route: 'tree', text: 'Tree' },
+  { route: 'rating', text: 'Rating' },
   { route: 'form', text: 'Form' },
   { route: 'form-control', text: 'Form Control' },
   { route: 'pagination', text: 'Pagination' },

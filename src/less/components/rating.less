@@ -1,0 +1,25 @@
+.rating {
+  position: relative;
+  display: inline-block;
+
+  .rating-front {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    height: 100%;
+    overflow: hidden;
+
+    .rating-inner {
+      width: 1000px;
+    }
+
+    .handle {
+      .opacity(0);
+    }
+
+    .active {
+      .opacity(1);
+    }
+  }
+}
