@@ -13,6 +13,7 @@
     "checkbox": true,
     "radiogroup": "shenzhen",
     "datetime": "2015-03-21 00:10:20",
+    "rating": 6,
     "select": "shanghai",
     "multselect": ["chongqin","shanghai"],
     "textarea": "long text",

@@ -4,44 +4,91 @@ var Icon = require('./icon.jsx')
 var Classable = require('../mixins/classable')
 var ReceiveValue = require('../mixins/receive-value')
 
+var themes = {
+  "star": ['star-o', 'star'],
+  "heart": ['heart-o', 'heart']
+}
+
 var Rating = React.createClass({
   mixins: [Classable, ReceiveValue],
 
   getInitialState: function () {
     return {
-      max: this.props.max || 5,
-      icons: this.props.icons || ['star-o', 'star']
+      hover: 0,
+      icons: this.props.icons || themes[this.props.theme || "star"]
     }
+  },
+
+  getMax: function () {
+    return this.props.maxValue || 5
+  },
+
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.theme !== this.props.theme) {
+      var icons = themes[nextProps.theme]
+      if (icons)
+        this.setState({icons: icons})
+    }
+  },
+
+  handleHover: function (value) {
+    return function () {
+      this.setState({ hover: value })
+    }.bind(this)
+  },
+
+  handleLeave: function () {
+    this.setState({ hover: 0 })
+  },
+
+  getValue: function () {
+    return this.state.value
   },
 
   getBackground: function () {
     var items = [],
         icon = this.state.icons[0]
-    for (var i=0; i<this.state.max; i++) {
-      items.push(<Icon key={i} icon={icon} />)
+    for (var i=0, max=this.getMax(); i<max; i++) {
+      items.push(<Icon size={this.props.size} key={i} icon={icon} />)
     }
 
     return <div className="rating-bg">{items}</div>
   },
 
   getHandle: function () {
-    var items = [],
-        icon = this.state.icons[1]
-    for (var i=0, active; i<this.state.max; i++) {
-      active = this.state.value > i
-      items.push(<Icon className={classnames('handle', { 'active': active })} key={i} icon={icon} />)
+    var self = this,
+        items = [],
+        icon = this.state.icons[1],
+        hover = this.state.hover,
+        value = hover > 0 ? hover : this.state.value
+
+    var set = function (val) {
+      return function () {
+        self.setValue(val)
+        if (self.props.onChange) 
+          self.props.onChange(val)
+      }
     }
 
-    return <div className="rating-front">{items}</div>
+    for (var i=0, active, max=this.getMax(); i<max; i++) {
+      active = value > i
+      items.push(
+        <span key={i} onMouseOver={this.handleHover(i+1)} className={classnames('handle', { 'active': active })} onClick={set(i+1)}>
+          <Icon size={this.props.size} icon={icon} />
+        </span>
+      )
+    }
+
+    return <div onMouseOut={this.handleLeave} className="rating-front">{items}</div>
   },
 
   getMute: function () {
     var items = [],
         icon = this.state.icons[1],
-        width = (this.state.value / this.state.max * 100) + '%'
+        width = (this.state.value / this.getMax() * 100) + '%'
 
-    for (var i=0; i<this.state.max; i++) {
-      items.push(<Icon key={i} icon={icon} />)
+    for (var i=0, max=this.getMax(); i<max; i++) {
+      items.push(<Icon size={this.props.size} key={i} icon={icon} />)
     }
 
     return (
@@ -54,8 +101,13 @@ var Rating = React.createClass({
   },
 
   render: function () {
+    var theme = this.props.theme,
+        className = this.getClasses("rating", {
+          'rating-star': theme === 'star',
+          'rating-heart': theme === 'heart'
+        })
     return (
-      <div style={this.props.style} className="rating">
+      <div style={this.props.style} className={className}>
         {this.getBackground()}
         { this.props.readOnly ? this.getMute() : this.getHandle() }
       </div>

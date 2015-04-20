@@ -56,6 +56,7 @@ module.exports = React.createClass({
             <Form.Control name="checkboxgroup" required minlen={2} maxlen={5} flat={true} type="checkbox-group" label="checkbox group" src={getSrc('select')} />
             <Form.Control name="radiogroup" type="radio-group" label="radio group" inline={true} src={getSrc('select')} />
             <Form.Control name="checkbox" type="checkbox" text="checkbox" />
+            <Form.Control name="rating" type="rating" label="rating" maxValue={10} theme="heart" />
             <Form.Control name="datetime" type="datetime" unixtime={true} label="datetime" />
             <Form.Control name="select" width={4} required={true} type="select" label="select" src={getSrc('select')} />
             <Form.Control name="multselect" width={6} type="mult-select" src={getSrc('select')} label="mult-select" />

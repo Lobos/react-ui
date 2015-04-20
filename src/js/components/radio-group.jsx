@@ -43,7 +43,7 @@ var RadioGroup = React.createClass({
     }, this)
 
     return (
-      <div className={className}>{items}</div>
+      <div style={this.props.style} className={className}>{items}</div>
     )
   }
 })

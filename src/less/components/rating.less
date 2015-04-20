@@ -2,6 +2,14 @@
   position: relative;
   display: inline-block;
 
+  &.rating-star {
+    color: gold;
+  }
+
+  &.rating-heart {
+    color: @brand-danger;
+  }
+
   .rating-front {
     position: absolute;
     left: 0;
@@ -15,11 +23,17 @@
     }
 
     .handle {
-      .opacity(0);
+      display: inline-block;
+      .opacity(0.01);
+      .transition(opacity 0.3s);
     }
 
     .active {
       .opacity(1);
     }
   }
+}
+
+.form-horizontal .rating {
+  margin-top: 7px;
 }

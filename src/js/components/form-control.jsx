@@ -10,6 +10,7 @@ var Select = require('./select.jsx')
 var MultSelect = require('./mult-select.jsx')
 var TextArea = require('./textarea.jsx')
 var Tree = require('./tree.jsx')
+var Rating = require('./rating.jsx')
 
 var Objects = require('../utils/objects')
 var Classable = require('../mixins/classable')
@@ -126,6 +127,9 @@ var Control = React.createClass({
       case 'tree':
         control = <Tree {...this.copyProps()} />
       break
+      case 'rating':
+        control = <Rating {...this.copyProps()} />
+      break
       case 'textarea':
         control = <TextArea className="form-control" {...this.copyProps()} />
       break
@@ -149,15 +153,19 @@ var Control = React.createClass({
       'data',
       'dateOnly',
       'flat',
-      'rows',
       'greedy',
       'inline',
+      'maxValue',
       'open',
       'placeholder', 
       'readOnly',
+      'rows',
       'single',
+      'size',
       'src',
+      'style',
       'text',
+      'theme',
       'timeOnly',
       'type',
       'unixtime',

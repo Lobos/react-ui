@@ -20,6 +20,7 @@ module.exports = React.createClass({
             <code>integer</code>,
             <code>number</code>,
             <code>url</code>,
+            <code>rating</code>,
             <code>password</code>,
             <code>checkbox</code>,
             <code>checkbox-group</code>,
