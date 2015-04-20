@@ -84,8 +84,18 @@ function clone(item) {
 }
 
 
+function toTextValue(arr) {
+  var kv = []
+  arr.forEach(function (s) {
+    kv.push({ text: s, value: s })
+  })
+  return kv
+}
+
+
 module.exports = {
   forEach: forEach,
   isEmpty: isEmpty,
-  clone: clone
+  clone: clone,
+  toTextValue: toTextValue
 }

@@ -6,6 +6,8 @@ var Libs = require('../libs')
 var Rating = Libs.Rating
 var Checkbox = Libs.Checkbox
 var RadioGroup = Libs.RadioGroup
+var toTextValue = Libs.Utils.Objects.toTextValue
+
 
 module.exports = React.createClass({
   getInitialState: function () {
@@ -74,13 +76,13 @@ module.exports = React.createClass({
         <Example text={'<Rating theme={this.state.theme} style={{color:this.state.color}} readOnly={this.state.readOnly} maxValue={this.state.maxValue} size={this.state.size} value={this.state.value} onChange={this.handleChange} />'}>
           <Rating theme={this.state.theme} style={{color:this.state.color}} readOnly={this.state.readOnly} maxValue={this.state.maxValue} size={this.state.size} value={this.state.value} onChange={this.handleChange} />
           <br />
-          Size: <RadioGroup style={{display:'inline-block'}} value={this.state.size} onChange={this.setSize} inline={true} data={[{text:"1", value:1}, {text:"2", value:2}, {text:"3", value:3}, {text:"4", value:4}, {text:"5", value:5}]} />
+          Size: <RadioGroup style={{display:'inline-block'}} value={this.state.size} onChange={this.setSize} inline={true} data={toTextValue([1,2,3,4,5])} />
           <br />
-          Theme: <RadioGroup style={{display:'inline-block'}} value={this.state.theme} onChange={this.setTheme} inline={true} data={[{text:"star", value:"star"}, {text:"heart", value:"heart"}]} />
+          Theme: <RadioGroup style={{display:'inline-block'}} value={this.state.theme} onChange={this.setTheme} inline={true} data={toTextValue(['star', 'heart'])} />
           <br />
-          Color: <RadioGroup style={{display:'inline-block'}} value={this.state.color} onChange={this.setColor} inline={true} data={[{text:"red", value:"red"}, {text:"gold", value:"gold"}, {text:"black", value:"black"}, {text:"#ccaa55", value:"#ccaa55"} ]} />
+          Color: <RadioGroup style={{display:'inline-block'}} value={this.state.color} onChange={this.setColor} inline={true} data={toTextValue(['red', 'gold', 'black', '#ccaa55'])} />
           <br />
-          Max: <RadioGroup style={{display:'inline-block'}} value={this.state.maxValue} onChange={this.setMax} inline={true} data={[{text:"5", value:5}, {text:"10", value:10}, {text:"15", value:15}, {text:"20", value:20}]} />
+          Max: <RadioGroup style={{display:'inline-block'}} value={this.state.maxValue} onChange={this.setMax} inline={true} data={toTextValue([5,10,15,20])} />
           <Checkbox onChange={this.setReadonly} value={this.state.readOnly} text="readOnly" />
           Value: <input onChange={this.setValue} value={this.state.value} />
           <br />

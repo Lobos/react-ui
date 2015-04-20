@@ -15,6 +15,7 @@ module.exports = {
   Message: require('./components/message.jsx'),
   MultSelect: require('./components/mult-select.jsx'),
   Pagination: require('./components/pagination.jsx'),
+  Progress: require('./components/progress.jsx'),
   RadioGroup: require('./components/radio-group.jsx'),
   Rating: require('./components/rating.jsx'),
   Select: require('./components/select.jsx'),

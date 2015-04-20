@@ -20,6 +20,7 @@ var Form = require('./pages/form.jsx')
 var FormControl = require('./pages/form-control.jsx')
 var Pagination = require('./pages/pagination.jsx')
 var Rating = require('./pages/rating.jsx')
+var Progress = require('./pages/progress.jsx')
 
 
 var AppRoutes = (
@@ -39,6 +40,7 @@ var AppRoutes = (
     <Route name="form-control" handler={FormControl} />
     <Route name="pagination" handler={Pagination} />
     <Route name="rating" handler={Rating} />
+    <Route name="progress" handler={Progress} />
 
     <DefaultRoute handler={Home} />
   </Route>

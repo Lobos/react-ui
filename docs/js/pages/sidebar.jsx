@@ -1,4 +1,5 @@
 var React = require('react')
+var classnames = require('classnames')
 var Router = require('react-router')
 var Libs = require('../libs')
 var Icon = Libs.Icon
@@ -15,6 +16,7 @@ var menus = [
   { route: 'datetime', text: 'Datetime' },
   { route: 'tree', text: 'Tree' },
   { route: 'rating', text: 'Rating' },
+  { route: 'progress', text: 'Progress' },
   { route: 'form', text: 'Form' },
   { route: 'form-control', text: 'Form Control' },
   { route: 'pagination', text: 'Pagination' },
@@ -27,7 +29,7 @@ var Item = React.createClass({
 
   render: function () {
     return (
-      <li><a onClick={this.routeChange} href="javascript:;">{this.props.text}</a></li>
+      <li className={this.props.className}><a onClick={this.routeChange} href="javascript:;">{this.props.text}</a></li>
     )
   }
 })
@@ -56,10 +58,11 @@ var Sidebar = React.createClass({
 
   render: function () {
     var items = menus.map(function (item, i) {
+      var active = classnames({ active: this.context.router.isActive(item.route) })
       return (
-        <Item text={item.text} route={item.route} key={i} onRouteChange={this.onRouteChange} />
+        <Item className={active} text={item.text} route={item.route} key={i} onRouteChange={this.onRouteChange} />
       )
-    }.bind(this))
+    }, this)
 
     var className = this.getClasses('sidebar', {
       open: this.state.open

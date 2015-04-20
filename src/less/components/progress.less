@@ -1,0 +1,58 @@
+.progress-wrap {
+  position: relative;
+  margin: 6px 0;
+  cursor: pointer;
+
+  &.progress-drag {
+    margin: 6px 25px;
+  }
+
+  .progress-handle {
+    display: block;
+    width: 40px;
+    height: 22px;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 0;
+    margin: -11px 0 0 -25px;
+    background-color: #fff;
+  }
+
+  .progress-tip {
+    position: absolute;
+    display: none;
+    top: -30px;
+    width: 80px;
+    margin-left: -40px;
+    text-align: center;
+    padding: 3px 0;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 7px;
+    .opacity(0.7);
+    background-color: #000;
+    z-index: 999;
+
+    &:before {
+      top: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-color: rgba(0, 0, 0, 0);
+      border-top-color: #000000;
+      border-width: 8px;
+      margin-left: -8px; 
+    }
+  }
+
+  &:hover .progress-tip {
+    display: block;
+  }
+}
