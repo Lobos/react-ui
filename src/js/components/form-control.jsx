@@ -11,6 +11,7 @@ var MultSelect = require('./mult-select.jsx')
 var TextArea = require('./textarea.jsx')
 var Tree = require('./tree.jsx')
 var Rating = require('./rating.jsx')
+var Progress = require('./progress.jsx')
 
 var Objects = require('../utils/objects')
 var Classable = require('../mixins/classable')
@@ -68,7 +69,6 @@ var Control = React.createClass({
   },
 
   setValue: function (value) {
-    //this.setState({ value: value, hasValue: !Objects.isEmpty(value) })
     if (this.refs.control.setValue)
       this.refs.control.setValue(value)
     this.validate(value)
@@ -115,6 +115,9 @@ var Control = React.createClass({
       case 'datetime':
         control = <Datetime className="form-control" {...this.copyProps()} />
       break
+      case 'progress':
+        control = <Progress {...this.copyProps()} />
+      break
       case 'radio-group':
         control = <RadioGroup {...this.copyProps()} />
       break
@@ -152,9 +155,11 @@ var Control = React.createClass({
       'checkKey',
       'data',
       'dateOnly',
+      'fixed',
       'flat',
       'greedy',
       'inline',
+      'minValue',
       'maxValue',
       'open',
       'placeholder', 
@@ -168,6 +173,7 @@ var Control = React.createClass({
       'theme',
       'timeOnly',
       'type',
+      'unit',
       'unixtime',
     ]
 

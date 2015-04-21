@@ -29,6 +29,7 @@ module.exports = React.createClass({
             <code>select</code>,
             <code>mult-select</code>,
             <code>tree</code>,
+            <code>progress</code>,
             <code>textarea</code>,
           </Arguments.Item>
           <Arguments.Item name="label" type="String">label文字</Arguments.Item>

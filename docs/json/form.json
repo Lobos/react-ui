@@ -17,6 +17,7 @@
     "select": "shanghai",
     "multselect": ["chongqin","shanghai"],
     "textarea": "long text",
-    "tree": "user_edit"
+    "tree": "user_edit",
+    "progress": 200
   }
 }

@@ -5,21 +5,21 @@ var Libs = require('../libs')
 var Icon = Libs.Icon
 
 var menus = [
+  { route: 'checkbox', text: 'Checkbox' },
+  { route: 'checkbox-group', text: 'Checkbox group' },
+  { route: 'datetime', text: 'Datetime' },
+  { route: 'form', text: 'Form' },
+  { route: 'form-control', text: 'Form Control' },
   { route: 'icon', text: 'Icon' },
   { route: 'loading', text: 'Loading' },
   { route: 'message', text: 'Message' },
-  { route: 'checkbox', text: 'Checkbox' },
-  { route: 'checkbox-group', text: 'Checkbox group' },
-  { route: 'radio-group', text: 'Radio group' },
-  { route: 'select', text: 'Select' },
   { route: 'mult-select', text: 'Mult select' },
-  { route: 'datetime', text: 'Datetime' },
-  { route: 'tree', text: 'Tree' },
-  { route: 'rating', text: 'Rating' },
-  { route: 'progress', text: 'Progress' },
-  { route: 'form', text: 'Form' },
-  { route: 'form-control', text: 'Form Control' },
   { route: 'pagination', text: 'Pagination' },
+  { route: 'progress', text: 'Progress' },
+  { route: 'radio-group', text: 'Radio group' },
+  { route: 'rating', text: 'Rating' },
+  { route: 'select', text: 'Select' },
+  { route: 'tree', text: 'Tree' },
 ]
 
 var Item = React.createClass({
