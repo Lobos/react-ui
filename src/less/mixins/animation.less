@@ -34,3 +34,25 @@
   overflow: hidden;
   .fade(fadeout, 1, 0, 2000px, 0, @duration);
 }
+
+.wink(@animation-name; @duration: 1s) {
+  @keyframes ~"@{animation-name}" {
+    0%, 100% {
+      .opacity(1);
+    }
+    50% {
+      .opacity(0);
+    }
+  }  
+
+  @-webkit-keyframes ~"@{animation-name}" {
+    0%, 100% {
+      .opacity(1);
+    }
+    50% {
+      .opacity(0);
+    }
+  } 
+
+  .animation(@animation-name @duration ease-in);
+}

@@ -15,6 +15,7 @@ var Rating = React.createClass({
   getInitialState: function () {
     return {
       hover: 0,
+      wink: false,
       icons: this.props.icons || themes[this.props.theme || "star"]
     }
   },
@@ -60,11 +61,17 @@ var Rating = React.createClass({
         items = [],
         icon = this.state.icons[1],
         hover = this.state.hover,
+        wink = this.state.wink,
         value = hover > 0 ? hover : this.state.value
 
     var set = function (val) {
       return function () {
         self.setValue(val)
+        self.setState({ wink: true })
+        setTimeout(function () {
+          self.setState({ wink: false })
+          console.log(val)
+        }, 1000)
         if (self.props.onChange) 
           self.props.onChange(val)
       }
@@ -73,7 +80,10 @@ var Rating = React.createClass({
     for (var i=0, active, max=this.getMax(); i<max; i++) {
       active = value > i
       items.push(
-        <span key={i} onMouseOver={this.handleHover(i+1)} className={classnames('handle', { 'active': active })} onClick={set(i+1)}>
+        <span key={i} 
+          onMouseOver={this.handleHover(i+1)} 
+          onClick={set(i+1)}
+          className={classnames('handle', { 'active': active, 'wink': active && wink })}>
           <Icon size={this.props.size} icon={icon} />
         </span>
       )
