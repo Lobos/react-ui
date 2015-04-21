@@ -70,7 +70,6 @@ var Rating = React.createClass({
         self.setState({ wink: true })
         setTimeout(function () {
           self.setState({ wink: false })
-          console.log(val)
         }, 1000)
         if (self.props.onChange) 
           self.props.onChange(val)
