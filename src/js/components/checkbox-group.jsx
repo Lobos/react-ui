@@ -1,6 +1,6 @@
 var React = require('react')
 var Checkbox = require('./checkbox.jsx')
-
+var Strings = require('../utils/strings')
 var Classable = require('../mixins/classable')
 var Resourceable = require('../mixins/resourceable')
 var ReceiveValue = require('../mixins/receive-value')
@@ -8,12 +8,14 @@ var ReceiveValue = require('../mixins/receive-value')
 var CheckboxGroup = React.createClass({
   mixins: [Classable, Resourceable, ReceiveValue],
 
-  isMultValue: true,
-
   getInitialState: function () {
     return {
       data: []
     }
+  },
+
+  formatValue: function (value) {
+    return Strings.formatValue(value, this.props.flat)
   },
 
   handleChange: function (checked, value) {

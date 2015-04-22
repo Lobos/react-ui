@@ -7,6 +7,7 @@ Lang.set(require('./lang/zh-cn'))
 module.exports = {
   Checkbox: require('./components/checkbox.jsx'),
   CheckboxGroup: require('./components/checkbox-group.jsx'),
+  ColorPicker: require('./components/color-picker.jsx'),
   Datetime: require('./components/datetime.jsx'),
   Form: require('./components/form.jsx'),
   Icon: require('./components/icon.jsx'),
@@ -43,6 +44,7 @@ module.exports = {
 
   Utils: {
     Circle: require('./utils/circle'),
+    Color: require('./utils/color'),
     CssEvent: require('./utils/css-event'),
     Datetime: require('./utils/date-time'),
     Dom: require('./utils/dom'),

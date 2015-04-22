@@ -1,5 +1,3 @@
-var Strings = require('../utils/strings')
-
 module.exports = {
   getInitialState: function () {
     return {
@@ -19,8 +17,8 @@ module.exports = {
   },
 
   _formatValue: function (value) {
-    if (this.isMultValue)
-      value = Strings.formatValue(value, this.props.flat)
+    if (this.formatValue)
+      value = this.formatValue(value)
     return value
   }
 }

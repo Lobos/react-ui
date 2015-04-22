@@ -4,6 +4,7 @@ var React = require('react')
 var classnames = require('classnames')
 var Icon = require('./icon.jsx')
 
+var Strings = require('../utils/strings')
 var Objects = require('../utils/objects')
 var Classable = require('../mixins/classable')
 var Resourceable = require('../mixins/resourceable')
@@ -12,13 +13,15 @@ var ReceiveValue = require('../mixins/receive-value')
 var Tree = React.createClass({
   mixins: [Classable, Resourceable, ReceiveValue],
 
-  isMultValue: true,
-
   getInitialState: function () {
     return {
       data: [],
       inited: false
     }
+  },
+
+  formatValue: function (value) {
+    return Strings.formatValue(value, this.props.flat)
   },
 
   componentWillUpdate: function (nextProps, nextState) {

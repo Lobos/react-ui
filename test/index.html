@@ -1,0 +1,38 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+</head>
+<body>
+  <div id="mocha"></div>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
+
+  <script>
+    mocha.setup('bdd')
+    //mocha.reporter('html')
+    var should  = chai.should(),
+        expect  = chai.expect
+  </script>
+
+  <script src="../dist/publish/js/react-ui.js"></script>
+  <!-- Tests -->
+  <script>
+    describe('main', function () {
+      it('react is an object', function () {
+        expect(ReactUI).to.be.a('object')
+      })
+    })
+  </script>
+
+  <script src="./specs/color.js"></script>
+
+  <script>
+    // Only tests run in real browser, injected script run if options.run == true
+    if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+      mocha.run()
+    }
+  </script>
+</body>
+</html>

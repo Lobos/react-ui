@@ -49,6 +49,9 @@
     "grunt-contrib-less": "^1.0.0",
     "react-tools": "^0.12.2",
     "grunt-contrib-copy": "^0.7.0",
-    "bootstrap": "^3.3.2"
+    "bootstrap": "^3.3.2",
+    "grunt-mocha": "^0.4.12",
+    "mocha": "^2.2.4",
+    "chai": "^2.2.0"
   }
 }

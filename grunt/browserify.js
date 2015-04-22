@@ -12,6 +12,12 @@ module.exports = {
   },
   publish: {
     src: './src/js/index.js',
-    dest: './dist/publish/js/react-ui.js'
+    dest: './dist/publish/js/react-ui.js',
+    options: {
+      browserifyOptions: {
+        debug: false,
+        standalone: 'ReactUI'
+      }
+    }
   }
 }

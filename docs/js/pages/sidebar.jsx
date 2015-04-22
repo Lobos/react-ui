@@ -7,6 +7,7 @@ var Icon = Libs.Icon
 var menus = [
   { route: 'checkbox', text: 'Checkbox' },
   { route: 'checkbox-group', text: 'Checkbox group' },
+  { route: 'color-picker', text: 'Color Picker' },
   { route: 'datetime', text: 'Datetime' },
   { route: 'form', text: 'Form' },
   { route: 'form-control', text: 'Form Control' },

@@ -1,5 +1,6 @@
 var React = require('react')
 
+var Strings = require('../utils/strings')
 var Resourceable = require('../mixins/resourceable')
 var Classable = require('../mixins/classable')
 var ClickAwayable = require('../mixins/click-awayable')
@@ -21,7 +22,9 @@ var MultSelect = React.createClass({
     }
   },
 
-  isMultValue: true,
+  formatValue: function (value) {
+    return Strings.formatValue(value, this.props.flat)
+  },
 
   handleClick: function (item, index) {
     this.select(item, index)
