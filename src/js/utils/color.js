@@ -4,12 +4,18 @@ var Color = function (r, g, b, a) {
     this.rgba(r, g, b, a)
   } else if (args === 2) {
     this.hex(r, g)
-  } else if (args === 1 && typeof r === 'string') {
-    if (r.indexOf('#') === 0) this.hex(r)
-    else if (r.indexOf('rgb') === 0) this.rgba(r)
-    else if (r.indexOf('hsv') === 0) this.hsv(r)
-  } else {
-    this.color = { r:0, g:0, b:0, a:1 }
+  } else if (args === 1) {
+    if (typeof r === 'string') {
+      if (r.indexOf('#') === 0) this.hex(r)
+      else if (r.indexOf('rgb') === 0) this.rgba(r)
+      else if (r.indexOf('hsv') === 0) this.hsv(r)
+    } else if (typeof r === 'object') {
+      if (r.r !== undefined) {
+        this.rgba(r.r, r.g, r.b, r.a)
+      } else if (r.h !== undefined) {
+        this.hsv(r.h, r.s, r.v)
+      }
+    }
   }
 }
 
@@ -79,6 +85,7 @@ function to01(n, max) {
 }
 
 proto.toString = function (type) {
+  if (!this.color) return null
   var str
   switch (type) {
     case 'rgba':
@@ -146,7 +153,10 @@ proto.hex = function (hex, a) {
 
 proto.hsv = function (h, s, v) {
   if (arguments.length === 0) {
-    return rgb2hsv(this.color.r, this.color.g, this.color.b)  
+    if (this.color)
+      return rgb2hsv(this.color.r, this.color.g, this.color.b)  
+    else
+      return null
   }
 
   if (typeof h === 'string' && h.indexOf('hsv') === 0) {
@@ -159,6 +169,22 @@ proto.hsv = function (h, s, v) {
   this.color = hsv2rgb(h, s, v)
   this.color.a = 1
   return this
+}
+
+var regs = {
+  'hex': /^#[0-9a-f]{6}?$/,
+  'rgb': new RegExp("^rgb\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*\\)$"),
+  'rgba': new RegExp("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[1-9]*)|[01])\\s*\\)$"),
+  'hsv': new RegExp("^hsv\\(\\s*(0|[1-9]\\d?|[12]\\d\\d|3[0-5]\\d)\\s*,\\s*((0|[1-9]\\d?|100)%)\\s*,\\s*((0|[1-9]\\d?|100)%)\\s*\\)$")
+}
+
+Color.check = function (value, type) {
+  if (!value) return false
+  type = type || 'hex'
+  value = value.replace(/\s/g, '')
+  var re = regs[type]
+  if (!re) return false
+  return re.test(value)
 }
 
 module.exports = Color

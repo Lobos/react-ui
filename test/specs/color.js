@@ -9,8 +9,12 @@ describe('utils Color', function() {
     color = new Color('#334455', 0.5)
     color.toString('rgba').should.equal('rgba(51,68,85,0.5)')
     color = new Color('rgba(51,68,85,0.5)')
-    color.toString().should.equal('#334455')
+    color.toString('hex').should.equal('#334455')
     color = new Color('hsv(210,40%,33%)')
+    color.toString('hex').should.equal('#324354')
+    color = new Color({r:255, g:255, b:255})
+    color.toString('hex').should.equal('#ffffff')
+    color = new Color({h:210, s:40, v:33})
     color.toString('hex').should.equal('#324354')
   })
 
@@ -20,6 +24,8 @@ describe('utils Color', function() {
     color.toString('rgb').should.equal('rgb(51,68,85)')
     color.toString('rgba').should.equal('rgba(51,68,85,1)')
     color.toString('hsv').should.equal('hsv(210,40%,33%)')
+    color = new Color()
+    expect(color.toString()).to.be.null
   })
 
   it('color.hex', function () {
@@ -96,6 +102,28 @@ describe('utils Color', function() {
     color.rgba().should.deep.equal({r:50, g:67, b:84, a:1})
     color = new Color('hsv(210,40%,33%)')
     color.rgba().should.deep.equal({r:50, g:67, b:84, a:1})
+  })
 
+  it('color check', function () {
+    Color.check('', 'hex').should.be.false
+    Color.check('#123', 'hex').should.be.false
+    Color.check('#123456', 'hex').should.be.ok
+    Color.check('#ff3456', 'hex').should.be.ok
+    Color.check('123456', 'hex').should.be.false
+    Color.check('', 'rgba').should.be.false
+    Color.check('rgba(0,1,2,2)', 'rgba').should.be.false
+    Color.check('rgba(0,1,2,1)', 'rgba').should.be.ok
+    Color.check('rgba(0,1,2,0.2)', 'rgba').should.be.ok
+    Color.check('rgba(0,1,256,1)', 'rgba').should.be.false
+    Color.check('', 'rgb').should.be.false
+    Color.check('rgb(255,1,2)', 'rgb').should.be.ok
+    Color.check('rgb(256,1,1)', 'rgb').should.be.false
+    Color.check('rgb(255,1)', 'rgb').should.be.false
+    Color.check('rgb(0,1,254,1)', 'rgb').should.be.false
+    Color.check('', 'hsv').should.be.false
+    Color.check('hsv(0,0%,1%)', 'hsv').should.be.ok
+    Color.check('hsv(256,100%,0%)', 'hsv').should.be.ok
+    Color.check('hsv(255,100,100)', 'hsv').should.be.false
+    Color.check('hsv(0,1%)', 'hsv').should.be.false
   })
 })
