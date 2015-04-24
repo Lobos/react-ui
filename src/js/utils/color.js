@@ -80,6 +80,7 @@ function hsv2rgb(h, s, v) {
 
 function to01(n, max) {
   n = parseFloat(n) || 0
+  if (n < 0.0000001) return 0
   if (n > max) return 1
   return n / max
 }

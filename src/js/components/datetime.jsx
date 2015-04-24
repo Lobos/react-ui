@@ -24,7 +24,7 @@ var Datetime = React.createClass({
   getInitialState: function () {
     return {
       active: false,
-      format: this.props.format,
+      //format: this.props.format,
       stage: this.props.timeOnly ? 'clock' : 'day',
       current: datetime.convert(this.props.value, new Date()),
       value: datetime.convert(this.props.value, null)

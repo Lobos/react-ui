@@ -24,7 +24,7 @@ module.exports = React.createClass({
         <br />
 
         <Example>
-          <ColorPicker type={this.state.type} />
+          <ColorPicker value="#ffee00" type={this.state.type} />
           Type: <RadioGroup style={{display:'inline-block'}} value={this.state.type} onChange={this.setType} inline={true} data={toTextValue(['hex', 'rgb', 'rgba', 'hsv'])} />
         </Example>
       </div>

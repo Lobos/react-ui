@@ -46,16 +46,23 @@
     right: 7px;
   }
 
+  &.active .color-container {
+    .opacity(1);
+    visibility: visible;
+  }
+
   .color-container {
+    .opacity(0);
+    visibility: hidden;
     border: solid 1px @color-picker-border;
     background-color: @color-picker-bg;
     position: absolute;
     top: 35px;
     left: 0;
-    width: 250px;
-    height: 202px;
+    width: 265px;
+    height: 222px;
     z-index: 1000;
-    padding: 10px;
+    padding: 20px;
     border-radius: 4px;
     .box-shadow(0 6px 12px rgba(0,0,0,.175));
 
@@ -64,8 +71,8 @@
       width: 30px;
       border: solid 1px #ccc;
       position: absolute;
-      right: 13px;
-      top: 10px;
+      right: 20px;
+      top: 20px;
 
       .sp-1 { height: 17%; #gradient.vertical(#ff0000, #ffff00); }
       .sp-2 { height: 16%; #gradient.vertical(#ffff00, #00ff00); }
@@ -74,12 +81,23 @@
       .sp-5 { height: 16%; #gradient.vertical(#0000ff, #ff00ff); }
       .sp-6 { height: 17%; #gradient.vertical(#ff00ff, #ff0000); }
 
-      .hue-handle {
+      .hue-wrap {
         position: absolute;
-        height: 4px;
-        width: 32px;
-        margin: -2px;
-        border: solid 1px #000;
+        top: 0;
+        left: 0;
+        height: 184px;
+        margin-top: -3px;
+
+        .hue-handle {
+          position: absolute;
+          cursor: pointer;
+          background-color: rgba(0, 0, 0, 0.01);
+          height: 6px;
+          width: 34px;
+          margin: 0 -3px;
+          border: solid 2px #000;
+          border-radius: 2px;
+        }
       }
     }
 
@@ -102,14 +120,21 @@
         #gradient.vertical(rgba(204, 154, 129, 0), #000);
       }
 
-      .pointer-handle {
+      .pointer {
         position: absolute;
-        width: 5px;
-        height: 5px;
-        border-radius: 2px;
-        background-color: #ffffff;
-        border: solid 1px #666;
-        margin: -3px -3px;
+        width: 187px;
+        height: 187px;
+        margin: -5px 0 0 -5px;
+
+        .pointer-handle {
+          position: absolute;
+          cursor: pointer;
+          width: 7px;
+          height: 7px;
+          border-radius: 4px;
+          background-color: #000;
+          border: solid 1px #fff;
+        }
       }
     }
   }
