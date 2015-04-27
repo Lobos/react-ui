@@ -12,6 +12,7 @@ var TextArea = require('./textarea.jsx')
 var Tree = require('./tree.jsx')
 var Rating = require('./rating.jsx')
 var Progress = require('./progress.jsx')
+var ColorPicker = require('./color-picker.jsx')
 
 var Objects = require('../utils/objects')
 var Classable = require('../mixins/classable')
@@ -135,6 +136,12 @@ var Control = React.createClass({
       break
       case 'textarea':
         control = <TextArea className="form-control" {...this.copyProps()} />
+      break
+      case 'hex':
+      case 'rgb':
+      case 'rgba':
+      case 'hsv':
+        control = <ColorPicker {...this.copyProps()} />
       break
       default:
         control = <Input className="form-control" {...this.copyProps()} />

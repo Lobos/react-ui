@@ -1,3 +1,5 @@
+var Regs = require('./regs')
+
 var Color = function (r, g, b, a) {
   var args = arguments.length
   if (args >= 3) {
@@ -172,18 +174,11 @@ proto.hsv = function (h, s, v) {
   return this
 }
 
-var regs = {
-  'hex': /^#[0-9a-f]{6}?$/,
-  'rgb': new RegExp("^rgb\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*\\)$"),
-  'rgba': new RegExp("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[1-9]*)|[01])\\s*\\)$"),
-  'hsv': new RegExp("^hsv\\(\\s*(0|[1-9]\\d?|[12]\\d\\d|3[0-5]\\d)\\s*,\\s*((0|[1-9]\\d?|100)%)\\s*,\\s*((0|[1-9]\\d?|100)%)\\s*\\)$")
-}
-
 Color.check = function (value, type) {
   if (!value) return false
   type = type || 'hex'
   value = value.replace(/\s/g, '')
-  var re = regs[type]
+  var re = Regs[type]
   if (!re) return false
   return re.test(value)
 }

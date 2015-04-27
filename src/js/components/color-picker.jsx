@@ -62,7 +62,12 @@ var ColorPicker = React.createClass({
   },
 
   getValue: function () {
-    return this.color.toString(this.props.type)
+    return this.state.color.toString(this.props.type)
+  },
+
+  handleChange: function (value) {
+    if (this.props.onChange)
+      this.props.onChange(value)
   },
 
   inputChange: function (event) {
@@ -75,10 +80,12 @@ var ColorPicker = React.createClass({
     } else {
       this.setState({ value: value })
     }
+    this.handleChange(text)
   },
 
   wrap: function (value) {
     if (!value) return ''
+    value = value.toLowerCase()
     switch (this.props.type) {
       case 'rgb':
         value = 'rgb(' + value + ')'
@@ -97,11 +104,8 @@ var ColorPicker = React.createClass({
 
   peel: function (value) {
     if (!value) return ''
-    if (this.isHexType()) {
-      value = value.replace('#', '')
-    } else {
-      value = value.substr(value.indexOf('(') + 1).replace(')','')
-    }
+    value = value.toLowerCase()
+    value = value.replace('#', '').substr(value.indexOf('(') + 1).replace(')','')
     return value
   },
 
@@ -114,8 +118,10 @@ var ColorPicker = React.createClass({
     var hsv = this.state.color.hsv() || { s:100, v:100 }
 
     hsv.h = Math.round(top / this.props.pickerHeight * 360)
-    var color = new Color(hsv)
-    this.setState({ color: color, hueBase: new Color().hsv(hsv.h, 100, 100), value: this.peel(color.toString(this.props.type)) })
+    var color = new Color(hsv),
+        text = color.toString(this.props.type)
+    this.setState({ color: color, hueBase: new Color().hsv(hsv.h, 100, 100), value: this.peel(text) })
+    this.handleChange(text)
   },
 
   hueClick: function (event) {
@@ -140,6 +146,7 @@ var ColorPicker = React.createClass({
 
     this.refs.huedrag.setPosition({ clientY: hueTop })
     this.refs.pointerdrag.setPosition({ clientY: pointerTop, clientX: pointerLeft })
+    this.setState({ color: color })
   },
 
   pointerClick: function (event) {
@@ -166,8 +173,10 @@ var ColorPicker = React.createClass({
     hsv.s = Math.round(left / width * 100)
     hsv.v = Math.round(100 - top / height * 100)
 
-    var color = new Color(hsv)
-    this.setState({ color: color, value: this.peel(color.toString(this.props.type)) })
+    var color = new Color(hsv),
+        text = color.toString(this.props.type)
+    this.setState({ color: color, value: this.peel(text) })
+    this.handleChange(text)
   },
 
 
@@ -207,9 +216,9 @@ var ColorPicker = React.createClass({
     })
 
     return (
-      <div onClick={this.active} className={className}>
+      <div onClick={!this.props.readOnly && this.active} className={className}>
         <div className="addon left">{ this.isHexType() ? '#' : type }</div>
-        <input onChange={this.inputChange} value={this.state.value} type="text"></input>
+        <input ref="input" onFocus={!this.props.readOnly && this.active} readOnly={this.props.readOnly} onChange={this.inputChange} value={this.state.value} type="text" />
         <div className="color-pre" style={{ backgroundColor: color.toString() }}></div>
 
         <div className="color-container">

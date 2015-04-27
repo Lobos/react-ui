@@ -31,6 +31,7 @@ module.exports = React.createClass({
             <code>tree</code>,
             <code>progress</code>,
             <code>textarea</code>,
+            <code>hex|rgb|rgba|hsv</code>,
           </Arguments.Item>
           <Arguments.Item name="label" type="String">label文字</Arguments.Item>
           <Arguments.Item name="tip" type="String">自定义提示文字</Arguments.Item>

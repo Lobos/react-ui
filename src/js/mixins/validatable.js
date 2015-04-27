@@ -1,19 +1,8 @@
 var Objects = require('../utils/objects')
 var Strings = require('../utils/strings')
+var Regs = require('../utils/regs')
 
 var Lang = require('../lang')
-
-var regs = {
-  'email': /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i,
-  'url': /^(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?$/,
-  'number': /^\s*(\-|\+)?(\d+|(\d*(\.\d*)))\s*$/,
-  //'date': /^(\d{4})-(\d{2})-(\d{2})$/,
-  'alpha': /^[a-z ._-]+$/i,
-  'alphanum': /^[a-z0-9_]+$/i,
-  'password': /^[\x00-\xff]+$/,
-  'integer': /^[-+]?[0-9]+$/,
-  'tel': /^[\d\s ().-]+$/
-}
 
 var multTypes = ['checkbox-group', 'mult-select']
 
@@ -109,7 +98,7 @@ module.exports = {
     }
 
     // validate type
-    var reg = regs[type]
+    var reg = Regs[type]
     if (reg && !reg.test(value)) {
       this._validateFail(type, value)
       return false

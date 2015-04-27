@@ -18,6 +18,7 @@
     "multselect": ["chongqin","shanghai"],
     "textarea": "long text",
     "tree": "user_edit",
-    "progress": 200
+    "progress": 200,
+    "colorpicker": "#33ff23"
   }
 }
