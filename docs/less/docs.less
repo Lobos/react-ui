@@ -212,6 +212,16 @@ html, body {
   border-top-width: 0;
 }
 
+.github-link {
+  position: fixed;
+  right: 0;
+  top: 0;
+  div {
+    display: none;
+  }
+  z-index: 1010;
+}
+
 @media (max-width: 1200px) {
   .content {
     width: auto;
@@ -245,4 +255,19 @@ html, body {
       }
     }
   }
+
+  .github-link {
+    color: #666;
+
+    div {
+      display: block;
+      padding: 15px 20px;
+    }
+
+    img {
+      display: none;
+    }
+  }
 }
+
+
