@@ -15,6 +15,7 @@ build docs: grunt docs
 build publish: grunt publish
 
 # Components
+```
 Checkbox
 Checkbox group
 Color Picker
@@ -31,7 +32,7 @@ Radio group
 Rating
 Select
 Tree
-
+```
 
 ## 数据缓存
 服务端返回统一的数据格式为：
