@@ -9,9 +9,33 @@ npm install -g grunt-cli
 
 npm install
 
+# build
+build docs: grunt docs
+
+build publish: grunt publish
+
+# Components
+Checkbox
+Checkbox group
+Color Picker
+Datetime
+Form
+Form Control
+Icon
+Loading
+Message
+Mult select
+Pagination
+Progress
+Radio group
+Rating
+Select
+Tree
+
 
 ## 数据缓存
-服务端返回的数据格式为：
+服务端返回统一的数据格式为：
+```js
 {
     "status": number, // 值为1时表示成功
     "msg": string, // 消息
@@ -19,6 +43,7 @@ npm install
     "cache": bool, // 是否使用当前缓存中的数据
     "data": object // 返回内容
 }
+```
 当key不为空时，调用localStorage.setItem，存入数据
 
 
