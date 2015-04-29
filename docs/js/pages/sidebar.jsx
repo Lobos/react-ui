@@ -14,6 +14,7 @@ var menus = [
   { route: 'icon', text: 'Icon' },
   { route: 'loading', text: 'Loading' },
   { route: 'message', text: 'Message' },
+  { route: 'modal', text: 'Modal' },
   { route: 'mult-select', text: 'Mult select' },
   { route: 'pagination', text: 'Pagination' },
   { route: 'progress', text: 'Progress' },

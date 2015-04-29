@@ -14,6 +14,7 @@ module.exports = {
   Input: require('./components/input.jsx'),
   Loading: require('./components/loading.jsx'),
   Message: require('./components/message.jsx'),
+  Modal: require('./components/modal.jsx'),
   MultSelect: require('./components/mult-select.jsx'),
   Pagination: require('./components/pagination.jsx'),
   Progress: require('./components/progress.jsx'),
@@ -28,7 +29,8 @@ module.exports = {
 
   Actions: {
     Loading: require('./actions/loading'),
-    Message: require('./actions/message')
+    Message: require('./actions/message'),
+    Modal: require('./actions/modal')
   },
   
   // mixins

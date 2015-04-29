@@ -5,6 +5,7 @@ var RouteHandler = Router.RouteHandler
 var Libs = require('../libs')
 var Message = Libs.Message
 var Loading = Libs.Loading
+var Modal = Libs.Modal
 var Icon = Libs.Icon
 
 var Sidebar = require('./sidebar.jsx')
@@ -25,6 +26,7 @@ var Master = React.createClass({
         <Loading text="页面载入中，请稍候..." />
         <Message />
         <RouteHandler />
+        <Modal />
 
         <a className="github-link" href="https://github.com/Lobos/react-ui">
           <div><Icon size="lg" icon="github" />&nbsp;{' '}github</div>
