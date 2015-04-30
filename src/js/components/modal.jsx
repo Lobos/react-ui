@@ -1,5 +1,6 @@
 var React = require('react')
 var Reflux = require('reflux')
+var classnames = require('classnames')
 
 var Lang = require('../lang')
 var Overlay = require('./overlay.jsx')
@@ -15,23 +16,20 @@ var Modal = React.createClass({
   },
 
   render: function () {
-    /*
-    var modals = this.state.modals.map(function (modal, i) {
-      return (
-        <div key={i}>{modal.content}</div>
-      )
-    })
-    */
-    if (this.state.modals.length === 0) {
+    var modals = this.state.modals,
+        len = modals.length,
+        className
+
+    if (len === 0) {
       return <div className="modal" />
     }
 
-    var modal = this.state.modals[0]
-
-    return (
-      <div className="modal open">
-        <Overlay className="active" onClick={this.dismiss} />
-        <div className="modal-dialog">
+    modals = modals.map(function (modal, i) {
+      className = classnames('modal-dialog', 'col-md-' + (modal.width || 6), {
+        active: len === i + 1
+      })
+      return (
+        <div key={i} className={className}>
           <div className="modal-content">
             <div className="modal-header">
               <button onClick={this.dismiss} type="button" className="close">&times;</button>
@@ -46,6 +44,13 @@ var Modal = React.createClass({
             </div>
           </div>
         </div>
+      )
+    }, this)
+
+    return (
+      <div className="modal open">
+        <Overlay className="active" onClick={this.dismiss} />
+        {modals}
       </div>
     )
   }

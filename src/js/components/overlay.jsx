@@ -11,7 +11,7 @@ var Overlay = React.createClass({
     var onClick = this.props.onClick || noop
 
     return (
-      <div className={className} onClick={onClick} />
+      <div style={this.props.style} className={className} onClick={onClick} />
     )
   }
 })

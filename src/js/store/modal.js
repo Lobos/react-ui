@@ -15,7 +15,9 @@ module.exports = Reflux.createStore({
   },
 
   onDismiss: function () {
-    this.modals.pop()
+    var modal = this.modals.pop()
+    if (modal.onClose)
+      modal.onClose()
     this.trigger(this.modals)
   },
 

@@ -26,6 +26,7 @@ module.exports = Reflux.createStore({
   onClear: function () {
     this.messages = []
     this.trigger(this.messages)
+    index = 0
   },
 
   onRemove: function (index) {
