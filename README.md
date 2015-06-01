@@ -1,6 +1,6 @@
 # react-ui
 
-A collection of components for React. Based on bootstrap.
+A collection of components for React. ~~Based on bootstrap.~~
 
 # install
 install nodejs
@@ -12,7 +12,11 @@ npm install
 # build
 build docs: grunt docs
 
-build publish: grunt publish
+build publish: grunt publish:
+
+# 0.2 版本计划变更
+使用bootstrap，但是不依赖bootstrap。
+所有组件可以单独使用，通过 require('rct-ui/component')。
 
 # Components
 ```

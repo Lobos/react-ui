@@ -1,7 +1,7 @@
 {
-  "name": "react-libs",
+  "name": "rct-ui",
   "author": "lobos841@gmail.com",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "a collection of components for React",
   "main": "",
   "scripts": {
