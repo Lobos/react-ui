@@ -31,17 +31,21 @@ var Modal = React.createClass({
       return (
         <div key={i} className={className}>
           <div className="modal-content">
-            <div className="modal-header">
+            {!this.props.noHeader && 
+             <div className="modal-header">
               <button onClick={this.dismiss} type="button" className="close">&times;</button>
               <h4 className="modal-title" id="myModalLabel">{modal.title}&nbsp;</h4>
-            </div>
+            </div>}
+
             <div className="modal-body">
               {modal.content}
             </div>
+
+            {!this.props.noFooter &&
             <div className="modal-footer">
              {modal.onCheck && <button onClick={function () { modal.onCheck() }} type="button" className="btn btn-primary">{Lang.get('buttons.ok')}</button>}
               <button onClick={this.dismiss} type="button" className="btn btn-default">{Lang.get('buttons.close')}</button>
-            </div>
+            </div>}
           </div>
         </div>
       )
