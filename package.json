@@ -29,29 +29,20 @@
     ]
   },
   "dependencies": {
-    "react": "^0.13.1",
-    "react-router": "^0.13.2",
-    "classnames": "^1.1.1",
-    "deepmerge": "^0.2.7",
+    "classnames": "^2.1.2",
+    "deepmerge": "^0.2.10",
     "font-awesome": "^4.3.0",
-    "reflux": "^0.2.7"
+    "purecss": "^0.6.0"
   },
   "devDependencies": {
-    "browserify": "^8.1.1",
-    "reactify": "^0.17.1",
-    "grunt": "^0.4.5",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-jsxhint": "^0.4.0",
-    "grunt-browserify": "^3.3.0",
-    "grunt-react": "^0.10.0",
-    "grunt-contrib-uglify": "^0.7.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-contrib-less": "^1.0.0",
-    "react-tools": "^0.12.2",
-    "grunt-contrib-copy": "^0.7.0",
-    "bootstrap": "^3.3.2",
-    "grunt-mocha": "^0.4.12",
-    "mocha": "^2.2.4",
-    "chai": "^2.2.0"
+    "babel-core": "^5.4.7",
+    "babel-loader": "^5.1.3",
+    "eslint": "^0.22.1",
+    "eslint-loader": "^0.12.0",
+    "react": "0.13.3",
+    "webpack": "^1.9.10"
+  },
+  "peerDependencies": {
+    "react": "0.13.3"
   }
 }
