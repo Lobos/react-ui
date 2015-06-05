@@ -6,6 +6,7 @@ var plugins = [
   })
 ];
 
+/*
 plugins.push(
   new webpack.optimize.UglifyJsPlugin({
     compressor: {
@@ -13,6 +14,7 @@ plugins.push(
     }
   })
 );
+*/
 
 module.exports = {
 
@@ -37,8 +39,10 @@ module.exports = {
 
   module: {
     loaders: [
+      { test: /\.css$/, loader: "css" },
+      { test: /\.less$/, loader: "style!css!less" },
       { test: /\.js$/, loader: 'babel-loader' },
-      { text: /\.js$/, loader: 'eslint-loader' }
+      { text: /\.js$/, loader: 'eslint-loader', exclude: /(node_modules|\.css$|\.less$)/ }
     ]
   },
 
