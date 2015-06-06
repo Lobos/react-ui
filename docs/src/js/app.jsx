@@ -6,9 +6,13 @@ require('../../../node_modules/purecss/build/base.css');
 require('../less/style.less');
 
 var React = require('react');
+var Router = require('react-router');
+var AppRoutes = require('./app-routes.jsx');
 
-React.render(
-  <h1>Hello, world!</h1>,
-  document.body
-);
-
+Router.create({
+  routes: AppRoutes,
+  scrollBehavior: Router.ScrollToTopBehavior
+})
+.run(function (Handler) {
+  React.render(<Handler />, document.body);
+});
