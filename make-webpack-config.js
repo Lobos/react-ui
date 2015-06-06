@@ -33,23 +33,23 @@ function loadersByExtension(obj) {
 };
 
 module.exports = function(options) {
+  var minimize = options.minimize || process.argv.indexOf('--min') > 0
 	var entry = options.entry;
 	var loaders = {
 		"jsx": options.hotComponents ? ["react-hot-loader", "babel-loader?stage=0"] : "babel-loader?stage=0",
 		"js": {
 			loader: "babel-loader?stage=0"//, include: path.join(__dirname, "app")
-		}
+		},
     //,
 		//"json": "json-loader",
 		//"txt": "raw-loader",
-		//"png|jpg|jpeg|gif|svg": "url-loader?limit=10000",
-		//"woff|woff2": "url-loader?limit=100000",
-		//"ttf|eot": "file-loader",
+		"png|jpg|jpeg|gif|svg": "url-loader?limit=10000",
+		"ttf|eot|woff|woff2|otf": "file-loader?prefix=font/"
 		//"wav|mp3": "file-loader",
 		//"html": "html-loader",
 		//"md|markdown": ["html-loader", "markdown-loader"]
 	};
-	var cssLoader = options.minimize ? "css-loader" : "css-loader?localIdentName=[path][name]---[local]---[hash:base64:5]";
+	var cssLoader = minimize ? "css-loader" : "css-loader?localIdentName=[path][name]---[local]---[hash:base64:5]";
 	var stylesheetLoaders = {
 		"css": cssLoader,
 		"less": [cssLoader, "less-loader"]
@@ -69,8 +69,8 @@ module.exports = function(options) {
 	var modulesDirectories = ["web_modules", "node_modules"];
 	var extensions = ["", ".web.js", ".js", ".jsx"];
 	var publicPath = options.devServer ?
-		"http://localhost:2992/_assets/" :
-		"/_assets/";
+		"http://localhost:2992/assets/" :
+		"/assets/";
 	var output = {
 		path: options.path || "./",
 		publicPath: publicPath,
@@ -89,7 +89,6 @@ module.exports = function(options) {
 		new webpack.PrefetchPlugin("react"),
 		new webpack.PrefetchPlugin("react/lib/ReactComponentBrowserEnvironment")
 	];
-  var plugins = []
 
   _.mapObject({"react":"React", "reflux":"Reflux", "react-router":"ReactRouter"}, function (val, key) {
     var ext = {}
@@ -109,7 +108,7 @@ module.exports = function(options) {
 	if(options.separateStylesheet) {
 		plugins.push(new ExtractTextPlugin("css/[name].css"));
 	}
-	if(options.minimize) {
+	if(minimize) {
 		plugins.push(
 			new webpack.optimize.UglifyJsPlugin({
 				compressor: {
@@ -138,12 +137,12 @@ module.exports = function(options) {
 		devtool: options.devtool,
 		debug: options.debug,
 		externals: externals,
-		plugins: plugins/*,
+		plugins: plugins,
 		devServer: {
 			stats: {
 				cached: false,
 				exclude: excludeFromStats
 			}
-		}*/
+		}
 	};
 };
