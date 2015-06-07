@@ -12,7 +12,7 @@ var menulist = [];
 _.forEach(require('./menulist'), function (menu) {
   if (menu.handler) {
     menulist.push(
-      <Route name={menu.key} handler={menu.handler} />
+      <Route name={menu.route} handler={menu.handler} />
     );
   }
 });

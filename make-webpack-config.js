@@ -43,8 +43,8 @@ module.exports = function(options) {
     //,
 		//"json": "json-loader",
 		//"txt": "raw-loader",
-		"png|jpg|jpeg|gif|svg": "url-loader?limit=10000",
-		"ttf|eot|woff|woff2|otf": "file-loader?prefix=font/"
+		"png|jpg|jpeg|gif|svg": "file-loader?name=./images/[name].[ext]",
+		"ttf|eot|woff|woff2|otf": "file-loader?name=./font/[name].[ext]"
 		//"wav|mp3": "file-loader",
 		//"html": "html-loader",
 		//"md|markdown": ["html-loader", "markdown-loader"]
@@ -73,7 +73,7 @@ module.exports = function(options) {
 		"/assets/";
 	var output = {
 		path: options.path || "./",
-		publicPath: publicPath,
+		//publicPath: publicPath,
 		filename: "js/[name].js",
 		//chunkFilename: (options.devServer ? "[id].js" : "[name].js") + (options.longTermCaching ? "?[chunkhash]" : ""),
 		sourceMapFilename: "js/[file].map",
@@ -100,7 +100,7 @@ module.exports = function(options) {
 		var stylesheetLoader = stylesheetLoaders[ext];
 		if(Array.isArray(stylesheetLoader)) stylesheetLoader = stylesheetLoader.join("!");
 		if(options.separateStylesheet) {
-			stylesheetLoaders[ext] = ExtractTextPlugin.extract("style-loader", stylesheetLoader);
+			stylesheetLoaders[ext] = ExtractTextPlugin.extract("style-loader", stylesheetLoader, { publicPath: '.' });
 		} else {
 			stylesheetLoaders[ext] = "style-loader!" + stylesheetLoader;
 		}

@@ -1,6 +1,6 @@
 "use strict";
 
 module.exports = [
-  { key: 'button', text: 'Button', handler: {} },
-  { key: 'icon', text: 'Icon', handler: {} }
+  { route: 'button', text: 'Button', handler: {} },
+  { route: 'icon', text: 'Icon', handler: {} }
 ];

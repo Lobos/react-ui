@@ -7,7 +7,7 @@
 		exports["app"] = factory(require("react"), require("react-router"));
 	else
 		root["app"] = factory(root["React"], root["ReactRouter"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_83__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_99__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -44,7 +44,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/assets/";
+/******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -58,13 +58,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	// static files
-	__webpack_require__(76);
-	__webpack_require__(77);
-	__webpack_require__(81);
+	__webpack_require__(92);
+	__webpack_require__(93);
+	__webpack_require__(97);
 
 	var React = __webpack_require__(2);
-	var Router = __webpack_require__(83);
-	var AppRoutes = __webpack_require__(84);
+	var Router = __webpack_require__(99);
+	var AppRoutes = __webpack_require__(100);
 
 	Router.create({
 	  routes: AppRoutes,
@@ -82,51 +82,51 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 76:
+/***/ 92:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "index.html"
 
 /***/ },
 
-/***/ 77:
+/***/ 93:
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 81:
+/***/ 97:
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 83:
+/***/ 99:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_83__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_99__;
 
 /***/ },
 
-/***/ 84:
+/***/ 100:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(85);
-	var Router = __webpack_require__(83);
+	var _ = __webpack_require__(101);
+	var Router = __webpack_require__(99);
 	var Route = Router.Route;
 	var DefaultRoute = Router.DefaultRoute;
 
-	var Master = __webpack_require__(86);
-	var Home = __webpack_require__(89);
+	var Master = __webpack_require__(102);
+	var Home = __webpack_require__(120);
 
 	var menulist = [];
-	_.forEach(__webpack_require__(88), function (menu) {
+	_.forEach(__webpack_require__(109), function (menu) {
 	  if (menu.handler) {
-	    menulist.push(React.createElement(Route, { name: menu.key, handler: menu.handler }));
+	    menulist.push(React.createElement(Route, { name: menu.route, handler: menu.handler }));
 	  }
 	});
 
@@ -142,7 +142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 85:
+/***/ 101:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -1713,14 +1713,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 86:
+/***/ 102:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var React = __webpack_require__(2);
-	var RouteHandler = __webpack_require__(83).RouteHandler;
-	var NavList = __webpack_require__(87);
+	var RouteHandler = __webpack_require__(99).RouteHandler;
+	var NavList = __webpack_require__(103);
 
 	module.exports = React.createClass({
 	  displayName: "Master",
@@ -1737,36 +1737,76 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 87:
+/***/ 103:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+	__webpack_require__(104);
+	__webpack_require__(106);
+
+	var classnames = __webpack_require__(108);
 	var React = __webpack_require__(2);
-	var menulist = __webpack_require__(88);
+	var Router = __webpack_require__(99);
+	var menulist = __webpack_require__(109);
+	var Icon = __webpack_require__(110);
 
 	module.exports = React.createClass({
 	  displayName: 'NavList',
+
+	  mixins: [Router.State],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      active: false
+	    };
+	  },
+
+	  getClasses: function getClasses(name, route) {
+	    return classnames(name, {
+	      active: this.context.router.isActive(route)
+	    });
+	  },
+
+	  routeChange: function routeChange(route) {
+	    this.context.router.transitionTo(route);
+	    this.setState({ active: false });
+	  },
+
+	  toggle: function toggle() {
+	    var active = !this.state.active;
+	    this.setState({ active: active });
+	  },
 
 	  render: function render() {
 	    var list = menulist.map(function (m) {
 	      return React.createElement(
 	        'li',
-	        null,
+	        { className: 'pure-menu-item' },
 	        React.createElement(
 	          'a',
-	          null,
+	          { onClick: this.routeChange.bind(this, m.route), className: this.getClasses('pure-menu-link', m.route) },
 	          m.text
 	        )
 	      );
-	    });
+	    }, this);
 
 	    return React.createElement(
 	      'div',
-	      { className: 'nav-list' },
+	      { className: classnames('nav-list pure-menu', { active: this.state.active }) },
+	      React.createElement(
+	        'a',
+	        { onClick: this.toggle, className: 'nav-handler' },
+	        React.createElement(Icon, { icon: 'navicon', size: 'lg' })
+	      ),
+	      React.createElement(
+	        'a',
+	        { onClick: this.routeChange.bind(this, '/'), className: this.getClasses('pure-menu-heading', 'root') },
+	        'React UI'
+	      ),
 	      React.createElement(
 	        'ul',
-	        null,
+	        { className: 'pure-menu-list' },
 	        list
 	      )
 	    );
@@ -1775,16 +1815,178 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 88:
+/***/ 104:
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 106:
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 108:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2015 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+
+	'use strict';
+
+	(function () {
+		'use strict';
+
+		function classNames() {
+
+			var classes = '';
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if ('string' === argType || 'number' === argType) {
+					classes += ' ' + arg;
+				} else if (Array.isArray(arg)) {
+					classes += ' ' + classNames.apply(null, arg);
+				} else if ('object' === argType) {
+					for (var key in arg) {
+						if (arg.hasOwnProperty(key) && arg[key]) {
+							classes += ' ' + key;
+						}
+					}
+				}
+			}
+
+			return classes.substr(1);
+		}
+
+		if (true) {
+			// AMD. Register as an anonymous module.
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else {
+			window.classNames = classNames;
+		}
+	})();
+
+/***/ },
+
+/***/ 109:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = [{ key: 'button', text: 'Button', handler: {} }, { key: 'icon', text: 'Icon', handler: {} }];
+	module.exports = [{ route: 'button', text: 'Button', handler: {} }, { route: 'icon', text: 'Icon', handler: {} }];
 
 /***/ },
 
-/***/ 89:
+/***/ 110:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(111);
+
+	var React = __webpack_require__(2);
+	var Classable = __webpack_require__(119);
+
+	var Icon = React.createClass({
+	  displayName: 'Icon',
+
+	  propTypes: {
+	    icon: React.PropTypes.string,
+	    size: React.PropTypes.number,
+	    spin: React.PropTypes.bool
+	  },
+
+	  mixins: [Classable],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      spin: this.props.spin
+	    };
+	  },
+
+	  spin: function spin() {
+	    this.setState({ spin: true });
+	  },
+
+	  unspin: function unspin() {
+	    this.setState({ spin: false });
+	  },
+
+	  render: function render() {
+	    var classes = {
+	      'icon': true,
+	      'icon-spin': this.state.spin
+	    };
+	    if (this.props.icon) {
+	      classes['icon-' + this.props.icon] = true;
+	    }
+
+	    var size = this.props.size;
+	    if (size) {
+	      if (typeof size === 'number' || size.length === 1) {
+	        size = size + 'x';
+	      }
+	      classes['icon-' + size] = true;
+	    }
+
+	    var className = this.getClasses(classes);
+
+	    return React.createElement('i', { className: className });
+	  }
+	});
+
+	module.exports = Icon;
+
+/***/ },
+
+/***/ 111:
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 119:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	var classnames = __webpack_require__(108);
+
+	module.exports = {
+
+	  propTypes: {
+	    className: React.PropTypes.string
+	  },
+
+	  getClasses: function getClasses() {
+	    var mainArguments = Array.prototype.slice.call(arguments);
+	    if (this.props.className) {
+	      mainArguments.push(this.props.className);
+	    }
+
+	    return classnames.apply(null, mainArguments);
+	  }
+	};
+
+/***/ },
+
+/***/ 120:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
