@@ -1,3 +1,88 @@
 body {
+  font-family: "微软雅黑" "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+a {
+  color: #3b8bba;
+  text-decoration: none;
+}
+
+.main {
+  margin-left: 200px;
+}
+
+.hero {
+  text-align: center;
+
+  .hero-title {
+    padding: 0 1em;
+    margin: 4em auto 2em;
+    max-width: 768px;
+    color: #555;
+    h1 {
+      font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 400%;
+      font-weight: 100;
+    }
+  }
+}
+
+.header {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 1em;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+  letter-spacing: 0.05em;
+
+  h1 {
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 300%;
+    font-weight: 100;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 125%;
+    font-weight: 100;
+    line-height: 1.5;
+    margin: 0;
+    color: #666;
+    letter-spacing: -0.02em;
+  }
+}
+
+.content {
+  margin: 0 auto 4em;
+  padding: 0 1em;
+  max-width: 768px;
+
+  p {
+    em {
+      color: rgb(202, 60, 60);
+    }
+  }
+
+  .subhead {
+    margin: 2em 0 1em 0;
+    font-weight: 300;
+    color: #888;
+    position: relative;
+  }
+}
+
+@media (min-width: 768px) {
+  .header, .content {
+    padding: 1em 2em;
+  }
+}
+
+@media (max-width: 992px) {
+  .main {
+    margin-left: 0;
+  }
 }

@@ -7,7 +7,7 @@
 		exports["app"] = factory(require("react"), require("react-router"));
 	else
 		root["app"] = factory(root["React"], root["ReactRouter"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_99__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_34__, __WEBPACK_EXTERNAL_MODULE_101__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -58,13 +58,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	// static files
-	__webpack_require__(92);
-	__webpack_require__(93);
-	__webpack_require__(97);
+	__webpack_require__(3);
+	__webpack_require__(1);
+	__webpack_require__(4);
+	__webpack_require__(7);
 
-	var React = __webpack_require__(2);
-	var Router = __webpack_require__(99);
-	var AppRoutes = __webpack_require__(100);
+	var React = __webpack_require__(34);
+	var Router = __webpack_require__(101);
+	var AppRoutes = __webpack_require__(102);
 
 	Router.create({
 	  routes: AppRoutes,
@@ -75,56 +76,63 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 2:
+/***/ 1:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 92:
+/***/ 3:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "index.html"
 
 /***/ },
 
-/***/ 93:
+/***/ 4:
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 97:
+/***/ 7:
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 99:
+/***/ 34:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_99__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_34__;
 
 /***/ },
 
-/***/ 100:
+/***/ 101:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_101__;
+
+/***/ },
+
+/***/ 102:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(101);
-	var Router = __webpack_require__(99);
+	var _ = __webpack_require__(103);
+	var Router = __webpack_require__(101);
 	var Route = Router.Route;
 	var DefaultRoute = Router.DefaultRoute;
 
-	var Master = __webpack_require__(102);
-	var Home = __webpack_require__(120);
+	var Master = __webpack_require__(104);
+	var Home = __webpack_require__(124);
 
 	var menulist = [];
-	_.forEach(__webpack_require__(109), function (menu) {
+	_.forEach(__webpack_require__(111), function (menu) {
 	  if (menu.handler) {
 	    menulist.push(React.createElement(Route, { name: menu.route, handler: menu.handler }));
 	  }
@@ -142,7 +150,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 101:
+/***/ 103:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -1713,14 +1721,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 102:
+/***/ 104:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var React = __webpack_require__(2);
-	var RouteHandler = __webpack_require__(99).RouteHandler;
-	var NavList = __webpack_require__(103);
+	var React = __webpack_require__(34);
+	var RouteHandler = __webpack_require__(101).RouteHandler;
+	var NavList = __webpack_require__(105);
 
 	module.exports = React.createClass({
 	  displayName: "Master",
@@ -1730,26 +1738,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	      "div",
 	      null,
 	      React.createElement(NavList, null),
-	      React.createElement(RouteHandler, null)
+	      React.createElement(
+	        "div",
+	        { className: "main" },
+	        React.createElement(RouteHandler, null)
+	      )
 	    );
 	  }
 	});
 
 /***/ },
 
-/***/ 103:
+/***/ 105:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(104);
 	__webpack_require__(106);
+	__webpack_require__(108);
 
-	var classnames = __webpack_require__(108);
-	var React = __webpack_require__(2);
-	var Router = __webpack_require__(99);
-	var menulist = __webpack_require__(109);
-	var Icon = __webpack_require__(110);
+	var classnames = __webpack_require__(110);
+	var React = __webpack_require__(34);
+	var Router = __webpack_require__(101);
+	var menulist = __webpack_require__(111);
+	var Icon = __webpack_require__(114);
 
 	module.exports = React.createClass({
 	  displayName: 'NavList',
@@ -1801,7 +1813,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      ),
 	      React.createElement(
 	        'a',
-	        { onClick: this.routeChange.bind(this, '/'), className: this.getClasses('pure-menu-heading', 'root') },
+	        { className: 'pure-menu-heading', onClick: this.routeChange.bind(this, '/') },
 	        'React UI'
 	      ),
 	      React.createElement(
@@ -1815,13 +1827,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 104:
-/***/ function(module, exports, __webpack_require__) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
 /***/ 106:
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1830,6 +1835,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 
 /***/ 108:
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 110:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -1883,24 +1895,234 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 109:
+/***/ 111:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = [{ route: 'button', text: 'Button', handler: {} }, { route: 'icon', text: 'Icon', handler: {} }];
+	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(112) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(113) }];
 
 /***/ },
 
-/***/ 110:
+/***/ 112:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(111);
+	var React = __webpack_require__(34);
 
-	var React = __webpack_require__(2);
-	var Classable = __webpack_require__(119);
+	module.exports = React.createClass({
+	  displayName: 'Pages/Button',
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Button'
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+
+/***/ 113:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(34);
+	var Prettify = __webpack_require__(126);
+	var Icon = __webpack_require__(114);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Icon',
+
+	  mixins: [Prettify],
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Icon'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '图标，使用',
+	          React.createElement(
+	            'a',
+	            { href: 'http://fontawesome.io/' },
+	            'font-awesome'
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="string" spin={bool} size={int|string} />'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'icon: '
+	          ),
+	          '图标名称，详见',
+	          React.createElement(
+	            'a',
+	            { href: 'http://fontawesome.io/icons/' },
+	            'fontawesome'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'spin: '
+	          ),
+	          '是否旋转。默认值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'size: '
+	          ),
+	          '图标尺寸，可选值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '[lg|2x|3x|4x|5x]'
+	          ),
+	          '，或者为数字 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '1-5'
+	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Normal'
+	        ),
+	        React.createElement(Icon, { icon: 'home' }),
+	        ' home',
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="camera-retro" /> camera-retro'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Spin'
+	        ),
+	        React.createElement(Icon, { icon: 'spinner', spin: true }),
+	        '   ',
+	        React.createElement(Icon, { icon: 'refresh', spin: true }),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="spinner" spin={true} />\r<Icon icon="refresh" spin={true} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Size'
+	        ),
+	        React.createElement(Icon, { icon: 'camera-retro' }),
+	        ' normal',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 'lg' }),
+	        ' lg',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 2 }),
+	        ' 2x',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 3 }),
+	        ' 3x',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 4 }),
+	        ' 4x',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 5 }),
+	        ' 5x',
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="camera-retro" />\r<Icon icon="camera-retro" size="lg" />\n<Icon icon="camera-retro" size="2x" />\n<Icon icon="camera-retro" size="3" />\n<Icon icon="camera-retro" size={4} />\n<Icon icon="camera-retro" size={5} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Method'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '有两个实例方法控制旋转，',
+	          React.createElement(
+	            'em',
+	            null,
+	            'spin'
+	          ),
+	          ' 和 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'unspin'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'icon.spin()\ricon.unspin()'
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+
+/***/ 114:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(115);
+
+	var React = __webpack_require__(34);
+	var Classable = __webpack_require__(123);
 
 	var Icon = React.createClass({
 	  displayName: 'Icon',
@@ -1954,19 +2176,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 111:
+/***/ 115:
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 119:
+/***/ 123:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var React = __webpack_require__(2);
-	var classnames = __webpack_require__(108);
+	var React = __webpack_require__(34);
+	var classnames = __webpack_require__(110);
 
 	module.exports = {
 
@@ -1986,12 +2208,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 120:
+/***/ 124:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var React = __webpack_require__(2);
+	var React = __webpack_require__(34);
 
 	module.exports = React.createClass({
 	  displayName: "Home",
@@ -2000,10 +2222,49 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return React.createElement(
 	      "div",
 	      null,
-	      "hello home"
+	      React.createElement(
+	        "div",
+	        { className: "hero" },
+	        React.createElement(
+	          "div",
+	          { className: "hero-title" },
+	          React.createElement(
+	            "h1",
+	            null,
+	            "React UI"
+	          ),
+	          React.createElement(
+	            "h2",
+	            null,
+	            "React组件库，样式基于yahoo的",
+	            React.createElement(
+	              "a",
+	              { href: "http://purecss.io/" },
+	              "purecss"
+	            ),
+	            "。"
+	          )
+	        )
+	      )
 	    );
 	  }
 	});
+
+/***/ },
+
+/***/ 126:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(34);
+
+	module.exports = {
+	  componentDidMount: function componentDidMount() {
+	    var node = React.findDOMNode(this);
+	    window.prettyPrint(null, node);
+	  }
+	};
 
 /***/ }
 

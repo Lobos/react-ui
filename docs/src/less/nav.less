@@ -6,7 +6,7 @@
   left: 0;
   bottom: 0;
   margin-left: 0;
-  width: 180px;
+  width: 200px;
   background-color: #181818;
 
   a { 
@@ -20,13 +20,14 @@
 
     &.active {
       color: #fff;
+      background-color: #1f8dd6;
     }
   }
 
   .nav-handler {
     display: none;
     position: absolute;
-    left: 180px;
+    left: 200px;
     top: 0;
     padding: 16px;
     background-color: #181818;
@@ -34,12 +35,13 @@
 
   .pure-menu-heading {
     font-size: 18px;
+    color: #fff;
     border-bottom: solid 1px #333;
   }
 
   .pure-menu-list {
     position: absolute;
-    top: 45px;
+    top: 51px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -51,9 +53,9 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 992px) {
   .nav-list {
-    margin-left: -180px;
+    margin-left: -200px;
     .transition(margin-left 0.4s);
 
     &.active {

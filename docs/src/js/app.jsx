@@ -3,6 +3,7 @@
 // static files
 require('file?name=index.html!../index.html');
 require('../../../node_modules/purecss/build/base.css');
+require('../less/prettify.css');
 require('../less/style.less');
 
 var React = require('react');

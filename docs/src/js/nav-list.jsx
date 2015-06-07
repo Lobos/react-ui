@@ -48,7 +48,7 @@ module.exports = React.createClass({
     return (
       <div className={classnames("nav-list pure-menu", {active: this.state.active})}>
         <a onClick={this.toggle} className="nav-handler"><Icon icon="navicon" size="lg" /></a>
-        <a onClick={this.routeChange.bind(this, '/')} className={this.getClasses("pure-menu-heading", "root")}>React UI</a>
+        <a className="pure-menu-heading" onClick={this.routeChange.bind(this, '/')}>React UI</a>
         <ul className="pure-menu-list">{list}</ul>
       </div>
     );

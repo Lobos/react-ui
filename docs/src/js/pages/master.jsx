@@ -11,7 +11,7 @@ module.exports = React.createClass({
     return (
       <div>
         <NavList />
-        <RouteHandler />
+        <div className="main"><RouteHandler /></div>
       </div>
     );
   }
