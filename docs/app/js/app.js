@@ -1925,6 +1925,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          'h1',
 	          null,
 	          'Button'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '按钮'
 	        )
 	      )
 	    );

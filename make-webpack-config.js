@@ -43,8 +43,8 @@ module.exports = function(options) {
     //,
 		//"json": "json-loader",
 		//"txt": "raw-loader",
-		"png|jpg|jpeg|gif|svg": "file-loader?name=./images/[name].[ext]",
-		"ttf|eot|woff|woff2|otf": "file-loader?name=./font/[name].[ext]"
+		"png|jpg|jpeg|gif": "file-loader?name=./images/[name].[ext]",
+		"ttf|eot|woff|woff2|otf|svg": "file-loader?name=./font/[name].[ext]"
 		//"wav|mp3": "file-loader",
 		//"html": "html-loader",
 		//"md|markdown": ["html-loader", "markdown-loader"]
@@ -74,7 +74,7 @@ module.exports = function(options) {
 	var output = {
 		path: options.path || "./",
 		//publicPath: publicPath,
-		filename: "js/[name].js",
+		filename: options.filename || "js/[name].js",
 		//chunkFilename: (options.devServer ? "[id].js" : "[name].js") + (options.longTermCaching ? "?[chunkhash]" : ""),
 		sourceMapFilename: "js/[file].map",
 		pathinfo: options.debug,

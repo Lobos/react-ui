@@ -73,6 +73,67 @@ a {
     margin-left: 0;
   }
 }
+.nav-list {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  margin-left: 0;
+  width: 200px;
+  background-color: #181818;
+  z-index: 999;
+}
+.nav-list a {
+  color: #999;
+  font-size: 16px;
+  padding: 10px 16px;
+}
+.nav-list a:hover,
+.nav-list a:focus {
+  background-color: #333;
+}
+.nav-list a.active {
+  color: #fff;
+  background-color: #1f8dd6;
+}
+.nav-list .nav-handler {
+  display: none;
+  position: absolute;
+  left: 200px;
+  top: 0;
+  padding: 12px 16px;
+  background-color: #181818;
+}
+.nav-list .pure-menu-heading {
+  font-size: 18px;
+  color: #fff;
+  border-bottom: solid 1px #333;
+}
+.nav-list .pure-menu-list {
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+}
+.nav-list .pure-menu-list .pure-menu-item {
+  height: auto;
+}
+@media (max-width: 992px) {
+  .nav-list {
+    margin-left: -200px;
+    -webkit-transition: margin-left 0.4s;
+    -o-transition: margin-left 0.4s;
+    transition: margin-left 0.4s;
+  }
+  .nav-list.active {
+    margin-left: 0;
+  }
+  .nav-list .nav-handler {
+    display: block;
+  }
+}
 /*!
 Pure v0.6.0
 Copyright 2014 Yahoo! Inc. All rights reserved.
@@ -749,66 +810,6 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 .pure-menu-selected .pure-menu-link,
 .pure-menu-selected .pure-menu-link:visited {
     color: #000;
-}
-.nav-list {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  margin-left: 0;
-  width: 200px;
-  background-color: #181818;
-}
-.nav-list a {
-  color: #999;
-  font-size: 16px;
-  padding: 14px 16px;
-}
-.nav-list a:hover,
-.nav-list a:focus {
-  background-color: #333;
-}
-.nav-list a.active {
-  color: #fff;
-  background-color: #1f8dd6;
-}
-.nav-list .nav-handler {
-  display: none;
-  position: absolute;
-  left: 200px;
-  top: 0;
-  padding: 16px;
-  background-color: #181818;
-}
-.nav-list .pure-menu-heading {
-  font-size: 18px;
-  color: #fff;
-  border-bottom: solid 1px #333;
-}
-.nav-list .pure-menu-list {
-  position: absolute;
-  top: 51px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow-y: auto;
-}
-.nav-list .pure-menu-list .pure-menu-item {
-  height: auto;
-}
-@media (max-width: 992px) {
-  .nav-list {
-    margin-left: -200px;
-    -webkit-transition: margin-left 0.4s;
-    -o-transition: margin-left 0.4s;
-    transition: margin-left 0.4s;
-  }
-  .nav-list.active {
-    margin-left: 0;
-  }
-  .nav-list .nav-handler {
-    display: block;
-  }
 }
 /*!
  *  Font Awesome 4.3.0 by @davegandy - http://fontawesome.io - @fontawesome
