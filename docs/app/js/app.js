@@ -7,7 +7,7 @@
 		exports["app"] = factory(require("react"), require("react-router"));
 	else
 		root["app"] = factory(root["React"], root["ReactRouter"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_34__, __WEBPACK_EXTERNAL_MODULE_101__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_101__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -63,7 +63,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__webpack_require__(4);
 	__webpack_require__(7);
 
-	var React = __webpack_require__(34);
+	var React = __webpack_require__(12);
 	var Router = __webpack_require__(101);
 	var AppRoutes = __webpack_require__(102);
 
@@ -104,10 +104,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 34:
+/***/ 12:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_34__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_12__;
 
 /***/ },
 
@@ -129,7 +129,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DefaultRoute = Router.DefaultRoute;
 
 	var Master = __webpack_require__(104);
-	var Home = __webpack_require__(124);
+	var Home = __webpack_require__(128);
 
 	var menulist = [];
 	_.forEach(__webpack_require__(111), function (menu) {
@@ -1726,7 +1726,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var React = __webpack_require__(34);
+	var React = __webpack_require__(12);
 	var RouteHandler = __webpack_require__(101).RouteHandler;
 	var NavList = __webpack_require__(105);
 
@@ -1758,10 +1758,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	__webpack_require__(108);
 
 	var classnames = __webpack_require__(110);
-	var React = __webpack_require__(34);
+	var React = __webpack_require__(12);
 	var Router = __webpack_require__(101);
 	var menulist = __webpack_require__(111);
-	var Icon = __webpack_require__(114);
+	var Icon = __webpack_require__(119);
 
 	module.exports = React.createClass({
 	  displayName: 'NavList',
@@ -1900,7 +1900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(112) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(113) }];
+	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(112) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(118) }];
 
 /***/ },
 
@@ -1909,10 +1909,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var React = __webpack_require__(34);
+	var React = __webpack_require__(12);
+	var Prettify = __webpack_require__(113);
+	var Button = __webpack_require__(114);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Button',
+
+	  mixins: [Prettify],
 
 	  render: function render() {
 	    return React.createElement(
@@ -1931,6 +1935,84 @@ return /******/ (function(modules) { // webpackBootstrap
 	          null,
 	          '按钮'
 	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Button type="submit|button" status="string" onClick={function}>{string|element}</Button>'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'type:'
+	          ),
+	          ' 按钮类型，可选值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'submit|button'
+	          ),
+	          ' ，不填默认值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'button'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'status:'
+	          ),
+	          ' 按钮类别，会为按钮添加 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'pure-button-[status]'
+	          ),
+	          ' 的className，purecss包含 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'primary'
+	          ),
+	          ' 这个值，可自行扩展 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'success|error'
+	          ),
+	          ' 等'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Example'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            Button,
+	            { status: 'primary' },
+	            'Primary Button'
+	          ),
+	          ' ',
+	          React.createElement(
+	            Button,
+	            null,
+	            'Button'
+	          )
+	        )
 	      )
 	    );
 	  }
@@ -1941,11 +2023,104 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ 113:
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var React = __webpack_require__(12);
+
+	module.exports = {
+	  componentDidMount: function componentDidMount() {
+	    var node = React.findDOMNode(this);
+	    window.prettyPrint(null, node);
+	  }
+	};
+
+/***/ },
+
+/***/ 114:
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
-	var React = __webpack_require__(34);
-	var Prettify = __webpack_require__(126);
-	var Icon = __webpack_require__(114);
+	__webpack_require__(115);
+
+	var React = __webpack_require__(12);
+	var Classable = __webpack_require__(117);
+
+	module.exports = React.createClass({
+	  displayName: 'Button',
+
+	  propTypes: {
+	    children: React.PropTypes.any,
+	    onClick: React.PropTypes.func,
+	    status: React.PropTypes.string,
+	    type: React.PropTypes.oneOf(['submit', 'button'])
+	  },
+
+	  mixins: [Classable],
+
+	  handleClick: function handleClick() {
+	    if (this.props.onClick) {
+	      this.props.onClick();
+	    }
+	  },
+
+	  render: function render() {
+	    var status = this.props.status;
+	    if (status) {
+	      status = 'pure-button-' + status;
+	    }
+	    var className = this.getClasses('pure-button', status, 'pure-button-extend');
+
+	    return React.createElement(
+	      'button',
+	      { onClick: this.handleClick, className: className, type: this.props.type || 'button' },
+	      this.props.children
+	    );
+	  }
+	});
+
+/***/ },
+
+/***/ 115:
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 117:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(12);
+	var classnames = __webpack_require__(110);
+
+	module.exports = {
+
+	  propTypes: {
+	    className: React.PropTypes.string
+	  },
+
+	  getClasses: function getClasses() {
+	    var mainArguments = Array.prototype.slice.call(arguments);
+	    if (this.props.className) {
+	      mainArguments.push(this.props.className);
+	    }
+
+	    return classnames.apply(null, mainArguments);
+	  }
+	};
+
+/***/ },
+
+/***/ 118:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(12);
+	var Prettify = __webpack_require__(113);
+	var Icon = __webpack_require__(119);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Icon',
@@ -2119,22 +2294,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 114:
+/***/ 119:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(115);
+	__webpack_require__(120);
 
-	var React = __webpack_require__(34);
-	var Classable = __webpack_require__(123);
+	var React = __webpack_require__(12);
+	var Classable = __webpack_require__(117);
 
 	var Icon = React.createClass({
 	  displayName: 'Icon',
 
 	  propTypes: {
 	    icon: React.PropTypes.string,
-	    size: React.PropTypes.number,
+	    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
 	    spin: React.PropTypes.bool
 	  },
 
@@ -2181,44 +2356,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 115:
+/***/ 120:
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 123:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(34);
-	var classnames = __webpack_require__(110);
-
-	module.exports = {
-
-	  propTypes: {
-	    className: React.PropTypes.string
-	  },
-
-	  getClasses: function getClasses() {
-	    var mainArguments = Array.prototype.slice.call(arguments);
-	    if (this.props.className) {
-	      mainArguments.push(this.props.className);
-	    }
-
-	    return classnames.apply(null, mainArguments);
-	  }
-	};
-
-/***/ },
-
-/***/ 124:
+/***/ 128:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var React = __webpack_require__(34);
+	var React = __webpack_require__(12);
 
 	module.exports = React.createClass({
 	  displayName: "Home",
@@ -2254,22 +2404,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    );
 	  }
 	});
-
-/***/ },
-
-/***/ 126:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var React = __webpack_require__(34);
-
-	module.exports = {
-	  componentDidMount: function componentDidMount() {
-	    var node = React.findDOMNode(this);
-	    window.prettyPrint(null, node);
-	  }
-	};
 
 /***/ }
 
