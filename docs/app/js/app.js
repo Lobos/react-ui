@@ -7,7 +7,7 @@
 		exports["app"] = factory(require("react"), require("react-router"));
 	else
 		root["app"] = factory(root["React"], root["ReactRouter"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_101__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_7__, __WEBPACK_EXTERNAL_MODULE_93__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -58,14 +58,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	// static files
-	__webpack_require__(3);
-	__webpack_require__(1);
-	__webpack_require__(4);
-	__webpack_require__(7);
+	__webpack_require__(2);
+	__webpack_require__(121);
 
-	var React = __webpack_require__(12);
-	var Router = __webpack_require__(101);
-	var AppRoutes = __webpack_require__(102);
+	var React = __webpack_require__(7);
+	var Router = __webpack_require__(93);
+	var AppRoutes = __webpack_require__(94);
 
 	Router.create({
 	  routes: AppRoutes,
@@ -76,63 +74,42 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 1:
-/***/ function(module, exports, __webpack_require__) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 3:
+/***/ 2:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "index.html"
 
 /***/ },
 
-/***/ 4:
-/***/ function(module, exports, __webpack_require__) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
 /***/ 7:
 /***/ function(module, exports, __webpack_require__) {
 
-	// removed by extract-text-webpack-plugin
+	module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
 
 /***/ },
 
-/***/ 12:
+/***/ 93:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_12__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_93__;
 
 /***/ },
 
-/***/ 101:
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_101__;
-
-/***/ },
-
-/***/ 102:
+/***/ 94:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(103);
-	var Router = __webpack_require__(101);
+	var _ = __webpack_require__(95);
+	var Router = __webpack_require__(93);
 	var Route = Router.Route;
 	var DefaultRoute = Router.DefaultRoute;
 
-	var Master = __webpack_require__(104);
-	var Home = __webpack_require__(128);
+	var Master = __webpack_require__(96);
+	var Home = __webpack_require__(120);
 
 	var menulist = [];
-	_.forEach(__webpack_require__(111), function (menu) {
+	_.forEach(__webpack_require__(105), function (menu) {
 	  if (menu.handler) {
 	    menulist.push(React.createElement(Route, { name: menu.route, handler: menu.handler }));
 	  }
@@ -150,7 +127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 103:
+/***/ 95:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -1721,14 +1698,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 104:
+/***/ 96:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var React = __webpack_require__(12);
-	var RouteHandler = __webpack_require__(101).RouteHandler;
-	var NavList = __webpack_require__(105);
+	var React = __webpack_require__(7);
+	var RouteHandler = __webpack_require__(93).RouteHandler;
+	var NavList = __webpack_require__(97);
 
 	module.exports = React.createClass({
 	  displayName: "Master",
@@ -1749,19 +1726,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 105:
+/***/ 97:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(106);
-	__webpack_require__(108);
+	__webpack_require__(98);
+	__webpack_require__(102);
 
-	var classnames = __webpack_require__(110);
-	var React = __webpack_require__(12);
-	var Router = __webpack_require__(101);
-	var menulist = __webpack_require__(111);
-	var Icon = __webpack_require__(119);
+	var classnames = __webpack_require__(104);
+	var React = __webpack_require__(7);
+	var Router = __webpack_require__(93);
+	var menulist = __webpack_require__(105);
+	var Icon = __webpack_require__(110);
 
 	module.exports = React.createClass({
 	  displayName: 'NavList',
@@ -1827,21 +1804,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 106:
+/***/ 98:
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 108:
+/***/ 102:
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 110:
+/***/ 104:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -1895,28 +1872,43 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 111:
+/***/ 105:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(112) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(118) }];
+	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(106) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(119) }];
 
 /***/ },
 
-/***/ 112:
+/***/ 106:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(12);
-	var Prettify = __webpack_require__(113);
-	var Button = __webpack_require__(114);
+	var React = __webpack_require__(7);
+	var Prettify = __webpack_require__(107);
+	var Button = __webpack_require__(108);
+	var Icon = __webpack_require__(110);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Button',
 
 	  mixins: [Prettify],
+
+	  disableExample: function disableExample(event) {
+	    var button = this.refs.button;
+	    if (event.target.checked) {
+	      button.disable(React.createElement(
+	        'span',
+	        null,
+	        React.createElement(Icon, { icon: 'lock' }),
+	        '我被禁用了'
+	      ));
+	    } else {
+	      button.enable('我又可以使用了');
+	    }
+	  },
 
 	  render: function render() {
 	    return React.createElement(
@@ -1942,7 +1934,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
-	          '<Button type="submit|button" status="string" onClick={function}>{string|element}</Button>'
+	          '<Button type="submit|button" disabled={bool} once={bool} status="string" onClick={function}>\r {string|element}\r</Button>'
 	        ),
 	        React.createElement(
 	          'p',
@@ -1994,9 +1986,68 @@ return /******/ (function(modules) { // webpackBootstrap
 	          ' 等'
 	        ),
 	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'once:'
+	          ),
+	          ' 值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' 时，当button点击过后，状态会变更为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'disabled'
+	          ),
+	          ' ，必须调用 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'enable'
+	          ),
+	          ' 方法激活才能再次使用。默认值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'disabled:'
+	          ),
+	          ' 与 button 的 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'disabled'
+	          ),
+	          ' 熟悉相同'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'onClick:'
+	          ),
+	          ' 点击事件'
+	        ),
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
-	          'Example'
+	          '普通按钮'
 	        ),
 	        React.createElement(
 	          'p',
@@ -2012,6 +2063,199 @@ return /******/ (function(modules) { // webpackBootstrap
 	            null,
 	            'Button'
 	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Button status="primary">Primary Button</Button>\r<Button>Button</Button>'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          '带图标按钮'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            Button,
+	            null,
+	            React.createElement(Icon, { icon: 'home' }),
+	            ' Home'
+	          ),
+	          ' ',
+	          React.createElement(
+	            Button,
+	            null,
+	            React.createElement(Icon, { icon: 'cog' }),
+	            ' Settings'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Button><Icon icon="home" /> Home</Button>\r<Button><Icon icon="cog" /> Settings</Button>'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          '扩展'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Button 默认会添加 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'button-extend'
+	          ),
+	          ' 类，如果需要给所有Button添加样式（如圆角，更改padding等），定义 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'button-extend'
+	          ),
+	          ' 即可。'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'em',
+	            null,
+	            '注意：本文档里的按钮受 ',
+	            React.createElement(
+	              'em',
+	              null,
+	              'button-extend'
+	            ),
+	            ' 影响，圆角已改变，purecss圆角只有2像素'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '.button-extend {\r  border-radius: 4px;\r}\r.button-success, .button-error, .button-warning, .button-info {\r  color: #fff;\r  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);\r}\r.button-success {\r  background: rgb(28, 184, 65);\r}\r.button-error {\r  background: rgb(202, 60, 60);\r}\r.button-warning {\r  background: rgb(223, 117, 20);\r}\r.button-info {\r  background: rgb(66, 184, 221);\r}\r.button-large {\r  font-size: 120%;\r}'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            Button,
+	            { status: 'success' },
+	            'Success Button'
+	          ),
+	          ' ',
+	          React.createElement(
+	            Button,
+	            { status: 'warning' },
+	            'Warning Button'
+	          ),
+	          ' ',
+	          React.createElement(
+	            Button,
+	            { status: 'error' },
+	            'Error Button'
+	          ),
+	          ' ',
+	          React.createElement(
+	            Button,
+	            { status: 'info' },
+	            'Info Button'
+	          ),
+	          React.createElement('br', null)
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Button status="success">Success Button</Button>\r<Button status="warning">Warning Button</Button>\r<Button status="error">Error Button</Button>\r<Button status="info">Info Button</Button>'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '也可以直接添加className'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            Button,
+	            { className: 'button-large' },
+	            'Large Button'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Button className="large-button">Large Button</Button>'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'once'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            Button,
+	            { once: true },
+	            '只能点击一次'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Button once={true}>只能点击一次</Button>'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'enable(elem)/disabled(elem)'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '两个实例方法 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'enable'
+	          ),
+	          '（启用） 和 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'disable'
+	          ),
+	          ' （禁用），可以传入一个参数（字符串或者element）替换按钮内容'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            Button,
+	            { ref: 'button' },
+	            'Button'
+	          ),
+	          ' ',
+	          React.createElement(
+	            'label',
+	            { className: 'pure-checkbox' },
+	            React.createElement('input', { onClick: this.disableExample, type: 'checkbox' }),
+	            ' 禁用'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Button ref="button">Button</Button>\r<label className="pure-checkbox">\r  <input onClick={this.disableExample} type="checkbox" /> 禁用\r</label>'
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'disableExample: function (event) {\r  var button = this.refs.button;\r  if (event.target.checked) {\r    button.disable(<span><Icon icon="lock" />我被禁用了</span>);\r  } else {\r    button.enable("我又可以使用了");\r  }\r}'
 	        )
 	      )
 	    );
@@ -2020,12 +2264,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 113:
+/***/ 107:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var React = __webpack_require__(12);
+	var React = __webpack_require__(7);
 
 	module.exports = {
 	  componentDidMount: function componentDidMount() {
@@ -2036,64 +2280,78 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 114:
+/***/ 108:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(115);
-
-	var React = __webpack_require__(12);
-	var Classable = __webpack_require__(117);
+	var React = __webpack_require__(7);
+	var Classable = __webpack_require__(109);
 
 	module.exports = React.createClass({
 	  displayName: 'Button',
 
 	  propTypes: {
 	    children: React.PropTypes.any,
+	    disabled: React.PropTypes.bool,
 	    onClick: React.PropTypes.func,
+	    once: React.PropTypes.bool,
 	    status: React.PropTypes.string,
 	    type: React.PropTypes.oneOf(['submit', 'button'])
 	  },
 
 	  mixins: [Classable],
 
+	  getInitialState: function getInitialState() {
+	    return {
+	      disabled: this.props.disabled,
+	      show: null
+	    };
+	  },
+
+	  disable: function disable(elem) {
+	    this.setState({ disabled: true, show: elem });
+	  },
+
+	  enable: function enable(elem) {
+	    this.setState({ disabled: false, show: elem });
+	  },
+
 	  handleClick: function handleClick() {
 	    if (this.props.onClick) {
 	      this.props.onClick();
+	    }
+	    if (this.props.once) {
+	      this.disable();
 	    }
 	  },
 
 	  render: function render() {
 	    var status = this.props.status;
 	    if (status) {
-	      status = 'pure-button-' + status;
+	      status = 'button-' + status;
 	    }
-	    var className = this.getClasses('pure-button', status, 'pure-button-extend');
+	    var className = this.getClasses('pure-button', status, { 'pure-button-primary': status === 'button-primary' }, 'button-extend');
+
+	    // use function disable argument first
+	    var show = this.state.show || this.props.children;
 
 	    return React.createElement(
 	      'button',
-	      { onClick: this.handleClick, className: className, type: this.props.type || 'button' },
-	      this.props.children
+	      { onClick: this.handleClick, disabled: this.state.disabled, className: className, type: this.props.type || 'button' },
+	      show
 	    );
 	  }
 	});
 
 /***/ },
 
-/***/ 115:
-/***/ function(module, exports, __webpack_require__) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 117:
+/***/ 109:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var React = __webpack_require__(12);
-	var classnames = __webpack_require__(110);
+	var React = __webpack_require__(7);
+	var classnames = __webpack_require__(104);
 
 	module.exports = {
 
@@ -2113,14 +2371,83 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 118:
+/***/ 110:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(12);
-	var Prettify = __webpack_require__(113);
-	var Icon = __webpack_require__(119);
+	__webpack_require__(111);
+
+	var React = __webpack_require__(7);
+	var Classable = __webpack_require__(109);
+
+	var Icon = React.createClass({
+	  displayName: 'Icon',
+
+	  propTypes: {
+	    icon: React.PropTypes.string,
+	    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+	    spin: React.PropTypes.bool
+	  },
+
+	  mixins: [Classable],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      spin: this.props.spin
+	    };
+	  },
+
+	  spin: function spin() {
+	    this.setState({ spin: true });
+	  },
+
+	  unspin: function unspin() {
+	    this.setState({ spin: false });
+	  },
+
+	  render: function render() {
+	    var classes = {
+	      'icon': true,
+	      'icon-spin': this.state.spin
+	    };
+	    if (this.props.icon) {
+	      classes['icon-' + this.props.icon] = true;
+	    }
+
+	    var size = this.props.size;
+	    if (size) {
+	      if (typeof size === 'number' || size.length === 1) {
+	        size = size + 'x';
+	      }
+	      classes['icon-' + size] = true;
+	    }
+
+	    var className = this.getClasses(classes);
+
+	    return React.createElement('i', { className: className });
+	  }
+	});
+
+	module.exports = Icon;
+
+/***/ },
+
+/***/ 111:
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+
+/***/ 119:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(7);
+	var Prettify = __webpack_require__(107);
+	var Icon = __webpack_require__(110);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Icon',
@@ -2294,81 +2621,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 
-/***/ 119:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	__webpack_require__(120);
-
-	var React = __webpack_require__(12);
-	var Classable = __webpack_require__(117);
-
-	var Icon = React.createClass({
-	  displayName: 'Icon',
-
-	  propTypes: {
-	    icon: React.PropTypes.string,
-	    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-	    spin: React.PropTypes.bool
-	  },
-
-	  mixins: [Classable],
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      spin: this.props.spin
-	    };
-	  },
-
-	  spin: function spin() {
-	    this.setState({ spin: true });
-	  },
-
-	  unspin: function unspin() {
-	    this.setState({ spin: false });
-	  },
-
-	  render: function render() {
-	    var classes = {
-	      'icon': true,
-	      'icon-spin': this.state.spin
-	    };
-	    if (this.props.icon) {
-	      classes['icon-' + this.props.icon] = true;
-	    }
-
-	    var size = this.props.size;
-	    if (size) {
-	      if (typeof size === 'number' || size.length === 1) {
-	        size = size + 'x';
-	      }
-	      classes['icon-' + size] = true;
-	    }
-
-	    var className = this.getClasses(classes);
-
-	    return React.createElement('i', { className: className });
-	  }
-	});
-
-	module.exports = Icon;
-
-/***/ },
-
 /***/ 120:
-/***/ function(module, exports, __webpack_require__) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 128:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var React = __webpack_require__(12);
+	var React = __webpack_require__(7);
 
 	module.exports = React.createClass({
 	  displayName: "Home",
@@ -2404,6 +2662,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    );
 	  }
 	});
+
+/***/ },
+
+/***/ 121:
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 
