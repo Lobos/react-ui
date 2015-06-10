@@ -5,14 +5,12 @@ A collection of components for React. Based on ~~bootstrap~~ pure.
 # install
 install nodejs
 
-npm install -g grunt-cli
+npm install -g webpack
 
 npm install
 
 # build
-build docs: grunt docs
-
-build publish: grunt publish:
+docs: webpack --config webpack-docs.config.js [--min]
 
 # 0.2 版本计划变更
 放弃bootstrap，使用yahoo/pure
