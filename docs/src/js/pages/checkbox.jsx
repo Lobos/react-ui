@@ -9,13 +9,6 @@ module.exports = React.createClass({
 
   mixins: [Prettify],
 
-  getInitialState: function () {
-    return {
-      checked: false,
-      readOnly: false
-    };
-  },
-
   render: function () {
     return (
       <div>
@@ -50,7 +43,7 @@ module.exports = React.createClass({
           <p>获取值，选中状态下如果有 <em>value</em>，返回 <em>value</em> ，否则返回 <em>true</em> ，未选中状态返回 <em>false</em></p>
 
           <h2 className="subhead">setValue(value)</h2>
-          <p>设置状态，如果 <em>value</em> 值为 <em>true</em> 或者 <em>1</em> ，直接选中不判断，其他值判断是否与 <em>props.value</em> 相等</p>
+          <p>如果 <em>value</em> 值与 <em>props.value</em> 相等，或者值为 <em>true</em> 或者 <em>1</em> ，设置为选中状态</p>
 
         </div>
       </div>

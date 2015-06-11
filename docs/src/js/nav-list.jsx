@@ -1,8 +1,5 @@
 "use strict";
 
-require('../../../node_modules/purecss/build/menus.css');
-require('../less/nav.less');
-
 var classnames = require('classnames');
 var React = require('react');
 var Router = require('react-router');

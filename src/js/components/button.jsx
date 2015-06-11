@@ -1,5 +1,6 @@
 "use strict";
 
+require('../../less/button.less');
 var React = require('react');
 var Classable = require('../mixins/classable');
 

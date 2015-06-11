@@ -1,0 +1,58 @@
+.fade(@animation-name; @start-opacity: 0; @end-opacity: 1; @start-height: 0; @end-height: 2000px; @duration: 0.45s) {
+   @keyframes ~"@{animation-name}" {
+    from { 
+      .opacity(@start-opacity);
+      max-height: @start-height;
+    }
+    to {
+      .opacity(@end-opacity);
+      max-height: @end-height;
+    }
+  }  
+
+  @-webkit-keyframes ~"@{animation-name}" {
+    from { 
+      .opacity(@start-opacity);
+      max-height: @start-height;
+    }
+    to {
+      .opacity(@end-opacity);
+      max-height: @end-height;
+    }
+  }
+ 
+  -webkit-animation: @animation-name @duration ease;
+  animation: @animation-name @duration ease;
+}
+
+.fadein(@duration: 0.45s) {
+  overflow: hidden;
+  .fade(fadein, 0, 1, 0, 2000px, @duration);
+}
+
+.fadeout(@duration: 0.45s) {
+  overflow: hidden;
+  .fade(fadeout, 1, 0, 2000px, 0, @duration);
+}
+
+.wink(@animation-name; @duration: 1s) {
+  @keyframes ~"@{animation-name}" {
+    0%, 100% {
+      .opacity(1);
+    }
+    50% {
+      .opacity(0);
+    }
+  }  
+
+  @-webkit-keyframes ~"@{animation-name}" {
+    0%, 100% {
+      .opacity(1);
+    }
+    50% {
+      .opacity(0);
+    }
+  } 
+
+  .animation(@animation-name @duration ease-in);
+}

@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-router"));
+		module.exports = factory(require("react"), require("react-router"), require("reflux"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react-router"], factory);
-	else if(typeof exports === 'object')
-		exports["app"] = factory(require("react"), require("react-router"));
-	else
-		root["app"] = factory(root["React"], root["ReactRouter"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_98__, __WEBPACK_EXTERNAL_MODULE_102__) {
+		define(["react", "react-router", "reflux"], factory);
+	else {
+		var a = typeof exports === 'object' ? factory(require("react"), require("react-router"), require("reflux")) : factory(root["React"], root["ReactRouter"], root["Reflux"]);
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(this, function(__WEBPACK_EXTERNAL_MODULE_88__, __WEBPACK_EXTERNAL_MODULE_105__, __WEBPACK_EXTERNAL_MODULE_144__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -50,20 +50,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	// static files
-	__webpack_require__(2);
-	__webpack_require__(3);
-
-	var React = __webpack_require__(98);
-	var Router = __webpack_require__(102);
-	var AppRoutes = __webpack_require__(103);
+	var React = __webpack_require__(88);
+	var Router = __webpack_require__(105);
+	var AppRoutes = __webpack_require__(106);
 
 	Router.create({
 	  routes: AppRoutes,
@@ -72,51 +67,140 @@ return /******/ (function(modules) { // webpackBootstrap
 	  React.render(React.createElement(Handler, null), document.body);
 	});
 
-/***/ },
+	// static files
+	__webpack_require__(147);
 
-/***/ 2:
+/***/ },
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "index.html"
+	module.exports = __WEBPACK_EXTERNAL_MODULE_88__;
 
 /***/ },
-
-/***/ 3:
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// removed by extract-text-webpack-plugin
+	module.exports = __WEBPACK_EXTERNAL_MODULE_105__;
 
 /***/ },
-
-/***/ 98:
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_98__;
-
-/***/ },
-
-/***/ 102:
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_102__;
-
-/***/ },
-
-/***/ 103:
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _ = __webpack_require__(104);
-	var Router = __webpack_require__(102);
+	var _ = __webpack_require__(107);
+	var Router = __webpack_require__(105);
 	var Route = Router.Route;
 	var DefaultRoute = Router.DefaultRoute;
 
-	var Master = __webpack_require__(105);
-	var Home = __webpack_require__(127);
+	var Master = __webpack_require__(108);
+	var Home = __webpack_require__(146);
 
 	var menulist = [];
-	_.forEach(__webpack_require__(112), function (menu) {
+	_.forEach(__webpack_require__(111), function (menu) {
 	  if (menu.handler) {
 	    menulist.push(React.createElement(Route, { name: menu.route, handler: menu.handler }));
 	  }
@@ -133,8 +217,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = AppRoutes;
 
 /***/ },
-
-/***/ 104:
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -1704,15 +1787,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	}).call(undefined);
 
 /***/ },
-
-/***/ 105:
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var React = __webpack_require__(98);
-	var RouteHandler = __webpack_require__(102).RouteHandler;
-	var NavList = __webpack_require__(106);
+	var React = __webpack_require__(88);
+	var RouteHandler = __webpack_require__(105).RouteHandler;
+	var NavList = __webpack_require__(109);
+	var Message = __webpack_require__(138);
 
 	module.exports = React.createClass({
 	  displayName: "Master",
@@ -1726,26 +1809,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	        "div",
 	        { className: "main" },
 	        React.createElement(RouteHandler, null)
-	      )
+	      ),
+	      React.createElement(Message, null)
 	    );
 	  }
 	});
 
 /***/ },
-
-/***/ 106:
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(107);
-	__webpack_require__(109);
-
-	var classnames = __webpack_require__(111);
-	var React = __webpack_require__(98);
-	var Router = __webpack_require__(102);
-	var menulist = __webpack_require__(112);
-	var Icon = __webpack_require__(117);
+	var classnames = __webpack_require__(110);
+	var React = __webpack_require__(88);
+	var Router = __webpack_require__(105);
+	var menulist = __webpack_require__(111);
+	var Icon = __webpack_require__(119);
 
 	module.exports = React.createClass({
 	  displayName: 'NavList',
@@ -1810,22 +1890,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-
-/***/ 107:
-/***/ function(module, exports, __webpack_require__) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 109:
-/***/ function(module, exports, __webpack_require__) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-
-/***/ 111:
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -1878,25 +1943,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	})();
 
 /***/ },
-
-/***/ 112:
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(113) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(128) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(126) }];
+	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(112) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(128) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(132) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(136) }, { route: 'message', text: 'Message', handler: __webpack_require__(137) }];
 
 /***/ },
-
-/***/ 113:
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(98);
-	var Prettify = __webpack_require__(114);
-	var Button = __webpack_require__(115);
-	var Icon = __webpack_require__(117);
+	var React = __webpack_require__(88);
+	var Prettify = __webpack_require__(113);
+	var Button = __webpack_require__(114);
+	var Icon = __webpack_require__(119);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Button',
@@ -2270,13 +2333,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-
-/***/ 114:
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var React = __webpack_require__(98);
+	var React = __webpack_require__(88);
 
 	module.exports = {
 	  componentDidMount: function componentDidMount() {
@@ -2286,14 +2348,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-
-/***/ 115:
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(98);
-	var Classable = __webpack_require__(116);
+	__webpack_require__(115);
+	var React = __webpack_require__(88);
+	var Classable = __webpack_require__(118);
 
 	module.exports = React.createClass({
 	  displayName: 'Button',
@@ -2352,13 +2414,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
+/* 115 */
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ 116:
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 116 */,
+/* 117 */,
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var React = __webpack_require__(98);
-	var classnames = __webpack_require__(111);
+	var React = __webpack_require__(88);
+	var classnames = __webpack_require__(110);
 
 	module.exports = {
 
@@ -2377,16 +2446,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-
-/***/ 117:
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(118);
+	__webpack_require__(120);
 
-	var React = __webpack_require__(98);
-	var Classable = __webpack_require__(116);
+	var React = __webpack_require__(88);
+	var Classable = __webpack_require__(118);
 
 	var Icon = React.createClass({
 	  displayName: 'Icon',
@@ -2439,22 +2507,550 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Icon;
 
 /***/ },
-
-/***/ 118:
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-
-/***/ 126:
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(98);
-	var Prettify = __webpack_require__(114);
-	var Icon = __webpack_require__(117);
+	var React = __webpack_require__(88);
+	var Prettify = __webpack_require__(113);
+	var Checkbox = __webpack_require__(129);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Checkbox',
+
+	  mixins: [Prettify],
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Checkbox'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '复选框'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Checkbox text="string" value={any} checked={bool} readOnly={bool} onChange={function} />'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'text: '
+	          ),
+	          '显示的文字信息'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'value: '
+	          ),
+	          '值，不填写 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'getValue'
+	          ),
+	          ' 得到的值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'bool'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'checked: '
+	          ),
+	          '是否选中，默认为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'readOnly: '
+	          ),
+	          '是否只读，默认为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'onChange: '
+	          ),
+	          '状态改变触发事件'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Example'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(Checkbox, { text: 'checkbox' })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Checkbox text="checkbox" />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Readonly'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(Checkbox, { checked: true, readOnly: true, text: 'readonly checkbox' })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Checkbox checked={true} readOnly={true} text="readonly checkbox" />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'getValue()'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '获取值，选中状态下如果有 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'value'
+	          ),
+	          '，返回 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'value'
+	          ),
+	          ' ，否则返回 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' ，未选中状态返回 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'setValue(value)'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '如果 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'value'
+	          ),
+	          ' 值与 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'props.value'
+	          ),
+	          ' 相等，或者值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' 或者 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '1'
+	          ),
+	          ' ，设置为选中状态'
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 129 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(130);
+	var React = __webpack_require__(88);
+
+	module.exports = React.createClass({
+	  displayName: 'Checkbox',
+
+	  propTypes: {
+	    checked: React.PropTypes.bool,
+	    index: React.PropTypes.number,
+	    onChange: React.PropTypes.func,
+	    readOnly: React.PropTypes.bool,
+	    text: React.PropTypes.text,
+	    value: React.PropTypes.any
+	  },
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      checked: !!this.props.checked
+	    };
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (nextProps.checked !== this.props.checked) {
+	      this.setState({ checked: nextProps.checked });
+	    }
+	  },
+
+	  handleChange: function handleChange(event) {
+	    if (this.props.readOnly) {
+	      return;
+	    }
+
+	    this.setState({ checked: event.target.checked });
+	    if (this.props.onChange) {
+	      this.props.onChange(event.target.checked, this.props.value, this.props.index);
+	    }
+	  },
+
+	  getValue: function getValue() {
+	    return React.findDOMNode(this.refs.input).checked ? this.props.value || true : false;
+	  },
+
+	  setValue: function setValue(value) {
+	    var checked = value === true || value === 1 || value === this.state.value;
+	    this.setState({ checked: checked });
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      'label',
+	      { className: 'pure-checkbox rui-checkbox' },
+	      React.createElement('input', { ref: 'input', type: 'checkbox', onChange: this.handleChange, checked: this.state.checked, value: this.props.value }),
+	      ' ' + this.props.text
+	    );
+	  }
+	});
+
+/***/ },
+/* 130 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 131 */,
+/* 132 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(88);
+	var Prettify = __webpack_require__(113);
+	var CheckboxGroup = __webpack_require__(133);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Checkbox',
+
+	  mixins: [Prettify],
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Checkbox Group'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '一组复选框'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<CheckboxGroup data={array} stringify={bool} inline={bool} onChange={function} readOnly={bool}\r  src="string" textKey="string" valueKey="string" value={any} />'
+	        )
+	      ),
+	      React.createElement(CheckboxGroup, null)
+	    );
+	  }
+	});
+
+/***/ },
+/* 133 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(88);
+	var Checkbox = __webpack_require__(129);
+	var Strings = __webpack_require__(134);
+	var Classable = __webpack_require__(118);
+	//var Resourceable = require('../mixins/resourceable')
+	var ReceiveValue = __webpack_require__(135);
+
+	module.exports = React.createClass({
+	  displayName: 'CheckboxGroup',
+
+	  propTypes: {
+	    data: React.PropTypes.array,
+	    inline: React.PropTypes.bool,
+	    onChange: React.PropTypes.func,
+	    readOnly: React.PropTypes.bool,
+	    src: React.PropTypes.string,
+	    stringify: React.PropTypes.bool,
+	    textKey: React.PropTypes.string,
+	    value: React.PropTypes.any,
+	    valueKey: React.PropTypes.string
+	  },
+
+	  mixins: [Classable, ReceiveValue],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      data: []
+	    };
+	  },
+
+	  formatValue: function formatValue(value) {
+	    return Strings.formatValue(value, this.props.stringify);
+	  },
+
+	  handleChange: function handleChange(checked, value) {
+	    if (typeof value !== 'string') {
+	      value = value.toString();
+	    }
+
+	    var values = this.state.value;
+	    if (checked) {
+	      values.push(value);
+	    } else {
+	      var i = values.indexOf(value);
+	      if (i >= 0) {
+	        values.splice(i, 1);
+	      }
+	    }
+
+	    if (this.props.onChange) {
+	      this.props.onChange(values);
+	    }
+
+	    this.setState({ value: values });
+	  },
+
+	  getValue: function getValue(raw) {
+	    var value = this.state.value;
+	    if (this.props.stringify && raw !== true) {
+	      value = value.join(',');
+	    }
+	    return value;
+	  },
+
+	  render: function render() {
+	    var className = this.getClasses('rui-checkbox-group', {
+	      'inline': this.props.inline
+	    });
+	    var values = this.state.value,
+	        valueKey = this.props.valueKey || 'value',
+	        textKey = this.props.textKey || 'text';
+
+	    var items = this.state.data.map(function (item, i) {
+	      //var value = this.stringify ? item.value.toString() : item.value;
+	      var value = item[valueKey];
+	      if (this.stringify) {
+	        value = value.toString();
+	      }
+	      var checked = values.indexOf(value) >= 0;
+	      return React.createElement(Checkbox, { key: i, index: i, readOnly: this.props.readOnly, checked: checked, onChange: this.handleChange, text: item[textKey], value: item[valueKey] });
+	    }, this);
+
+	    return React.createElement(
+	      'div',
+	      { className: className },
+	      items
+	    );
+	  }
+	});
+
+/***/ },
+/* 134 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	function hashCode(str) {
+	  var hash = 0;
+	  var chr;
+	  if (str.length === 0) {
+	    return hash;
+	  }
+	  for (var i = 0, count = str.length; i < count; i++) {
+	    chr = str.charCodeAt(i);
+	    hash = (hash << 5) - hash + chr;
+	    hash = hash & hash; // Convert to 32bit integer
+	  }
+	  return hash;
+	}
+
+	function format() {
+	  var args = [].slice.call(arguments),
+	      str = args.shift();
+	  return str.replace(/{(\d+)}/g, function (match, number) {
+	    return typeof args[number] !== undefined ? args[number] : match;
+	  });
+	}
+
+	function substitute(str, obj) {
+	  return str.replace(/\\?\{([^{}]+)\}/g, function (match, name) {
+	    if (match.charAt(0) === '\\') {
+	      return match.slice(1);
+	    }
+	    return obj[name] !== null ? obj[name] : '';
+	  });
+	}
+
+	function formatValue(value, stringify) {
+	  if (!value) {
+	    value = [];
+	  }
+	  if (typeof value === 'string' && stringify) {
+	    value = value.split(',');
+	  } else if (!(value instanceof Array)) {
+	    value = [value];
+	  }
+
+	  if (stringify) {
+	    var temp = [];
+	    value.forEach(function (v) {
+	      temp.push(v.toString());
+	    });
+	    value = temp;
+	  }
+	  return value;
+	}
+
+	module.exports = {
+	  format: format,
+	  formatValue: formatValue,
+	  hashCode: hashCode,
+	  substitute: substitute
+	};
+
+/***/ },
+/* 135 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = {
+	  getInitialState: function getInitialState() {
+	    return {
+	      value: this.$formatValue(this.props.value)
+	    };
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (nextProps.value !== this.props.value) {
+	      this.setState({ value: this.$formatValue(nextProps.value) });
+	    }
+	  },
+
+	  setValue: function setValue(value) {
+	    value = this.$formatValue(value);
+	    this.setState({ value: value });
+	  },
+
+	  $formatValue: function $formatValue(value) {
+	    if (this.formatValue) {
+	      value = this.formatValue(value);
+	    }
+	    return value;
+	  }
+	};
+
+/***/ },
+/* 136 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(88);
+	var Prettify = __webpack_require__(113);
+	var Icon = __webpack_require__(119);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Icon',
@@ -2627,13 +3223,590 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
+/* 137 */
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ 127:
+	'use strict';
+
+	var React = __webpack_require__(88);
+	var Prettify = __webpack_require__(113);
+	var Message = __webpack_require__(138);
+	var Icon = __webpack_require__(119);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Message',
+
+	  mixins: [Prettify],
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Message'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '通知 / 消息'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'p',
+	          null,
+	          '为了实现全局通知，使用了Reflux，需要加入Reflux引用。'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '首先，在页面的某个地方，加入一个',
+	          React.createElement(
+	            'em',
+	            null,
+	            'Message Compontent'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Message top={bool} clickaway={bool} />'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'top: '
+	          ),
+	          '显示位置，为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' 时显示在页面顶部， ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          ),
+	          ' 显示在页面左下角'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'clickaway: '
+	          ),
+	          '为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' 时，点击页面空白处关闭所有消息'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          '全局方法'
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.info(content, title)\rMessage.success(content, title)\rMessage.warn(content, title)\rMessage.error(content, title)\r'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'content: '
+	          ),
+	          '内容，必填，值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'string'
+	          ),
+	          ' 或 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'element'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'title: '
+	          ),
+	          '标题，可选，值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'string'
+	          ),
+	          ' 或 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'element'
+	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Example'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: Message.info.bind(null, 'Info message.', null) },
+	            'info message'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.info("info message.", null)'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: Message.error.bind(null, 'error message.', 'title') },
+	            'error message'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.error("error message.", "title")'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: Message.warn.bind(null, React.createElement(
+	                'span',
+	                null,
+	                'warning and span'
+	              ), 'title') },
+	            'warning message'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.warn(<span>warning and span</span>, "title")'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: Message.success.bind(null, React.createElement(
+	                'span',
+	                null,
+	                React.createElement(Icon, { icon: 'music' }),
+	                ' success and icon'
+	              ), 'title') },
+	            'success message'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.success(<span><Icon icon="music" /> success and icon</span>, "title")'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          '扩展'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '默认会添加 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'message-extend'
+	          ),
+	          ' 类，可以通过这个类进行扩展。'
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 138 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	__webpack_require__(142);
+
+	var React = __webpack_require__(88);
+	var Reflux = __webpack_require__(144);
+	var Overlay = __webpack_require__(139);
+	var Objects = __webpack_require__(145);
+	var Classable = __webpack_require__(118);
+
+	var Actions = Reflux.createActions(['error', 'info', 'remove', 'clear', 'success', 'warn']);
+
+	var Store = Reflux.createStore({
+	  listenables: [Actions],
+
+	  init: function init() {
+	    this.index = 0;
+	  },
+
+	  getInitialState: function getInitialState() {
+	    this.messages = [];
+	    return this.messages;
+	  },
+
+	  push: function push(content, level, title, clickaway) {
+	    this.messages.push({
+	      open: true,
+	      index: this.index++,
+	      content: content,
+	      level: level || 'info',
+	      title: title,
+	      clickaway: clickaway
+	    });
+	    this.trigger(this.messages);
+	  },
+
+	  onClear: function onClear() {
+	    this.messages = [];
+	    this.trigger(this.messages);
+	  },
+
+	  onRemove: function onRemove(index) {
+	    var si = -1;
+	    for (var i = 0, count = this.messages.length; i < count; i++) {
+	      if (this.messages[i].index === index) {
+	        si = i;
+	        break;
+	      }
+	    }
+	    this.messages.splice(si, 1);
+	    this.trigger(this.messages);
+	  },
+
+	  onSuccess: function onSuccess(content, title) {
+	    this.push(content, 'success', title, true);
+	  },
+
+	  onInfo: function onInfo(content, title) {
+	    this.push(content, 'info', title, true);
+	  },
+
+	  onWarn: function onWarn(content, title) {
+	    this.push(content, 'warning', title, true);
+	  },
+
+	  onError: function onError(content, title) {
+	    this.push(content, 'error', title, false);
+	  }
+	});
+
+	var Item = React.createClass({
+	  displayName: 'Message.Item',
+
+	  propTypes: {
+	    content: React.PropTypes.string,
+	    dismissed: React.PropTypes.dismissed,
+	    index: React.PropTypes.number,
+	    level: React.PropTypes.string,
+	    onDismiss: React.PropTypes.func,
+	    title: React.PropTypes.string
+	  },
+
+	  mixins: [Classable],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      dismissed: this.props.dismissed
+	    };
+	  },
+
+	  dismiss: function dismiss() {
+	    if (this.state.dismissed) {
+	      return;
+	    }
+	    this.setState({ dismissed: true });
+	    setTimeout((function () {
+	      this.props.onDismiss(this.props.index);
+	    }).bind(this), 400);
+	  },
+
+	  render: function render() {
+	    var className = this.getClasses('message', 'message-' + this.props.level, {
+	      'dismissed': this.state.dismissed
+	    });
+
+	    return React.createElement(
+	      'div',
+	      { className: className },
+	      React.createElement(
+	        'button',
+	        { type: 'button', onClick: this.dismiss, className: 'close' },
+	        '×'
+	      ),
+	      this.props.title && React.createElement(
+	        'h3',
+	        null,
+	        this.props.title
+	      ),
+	      this.props.content
+	    );
+	  }
+	});
+
+	var Message = React.createClass({
+	  displayName: 'Message',
+
+	  mixins: [Classable, Reflux.connect(Store, 'messages')],
+
+	  dismiss: function dismiss(index) {
+	    Actions.remove(index);
+	  },
+
+	  clear: function clear() {
+	    Objects.forEach(this.refs, function (ref) {
+	      ref.dismiss();
+	    });
+	  },
+
+	  render: function render() {
+	    var items = this.state.messages.map(function (msg, i) {
+	      return React.createElement(Item, _extends({ key: i, ref: i, onDismiss: this.dismiss }, msg));
+	    }, this);
+
+	    var className = this.getClasses('rui-message', 'message-extend', {
+	      'has-message': this.state.messages.length > 0
+	    });
+
+	    return React.createElement(
+	      'div',
+	      { className: className },
+	      React.createElement(Overlay, { onClick: this.clear }),
+	      items
+	    );
+	  }
+	});
+
+	// exports actions
+	Message.error = Actions.error;
+	Message.info = Actions.info;
+	Message.success = Actions.success;
+	Message.warn = Actions.warn;
+	//Message.remove = Actions.remove;
+	//Message.clear = Actions.clear;
+
+	module.exports = Message;
+
+/***/ },
+/* 139 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(140);
+	var React = __webpack_require__(88);
+	var Classable = __webpack_require__(118);
+
+	function noop() {}
+
+	module.exports = React.createClass({
+	  displayName: 'Overlay',
+
+	  propTypes: {
+	    onClick: React.PropTypes.func
+	  },
+
+	  mixins: [Classable],
+
+	  render: function render() {
+	    var className = this.getClasses('overlay');
+	    var onClick = this.props.onClick || noop;
+
+	    return React.createElement('div', { className: className, onClick: onClick });
+	  }
+	});
+
+/***/ },
+/* 140 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 141 */,
+/* 142 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 143 */,
+/* 144 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_144__;
+
+/***/ },
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var React = __webpack_require__(98);
+	// Speed up calls to hasOwnProperty
+	var hasProperty = Object.prototype.hasOwnProperty;
+
+	function isEmpty(obj) {
+
+	  // null and undefined are "empty"
+	  if (!obj) {
+	    return true;
+	  }
+
+	  if (typeof obj === "number") {
+	    return false;
+	  }
+
+	  // Assume if it has a length property with a non-zero value
+	  // that that property is correct.
+	  if (obj.length > 0) {
+	    return false;
+	  }
+	  if (obj.length === 0) {
+	    return true;
+	  }
+
+	  // Otherwise, does it have any properties of its own?
+	  // Note that this doesn't handle
+	  // toString and valueOf enumeration bugs in IE < 9
+	  for (var key in obj) {
+	    if (hasProperty.call(obj, key)) {
+	      return false;
+	    }
+	  }
+
+	  return true;
+	}
+
+	function forEach(obj, fn, context) {
+	  var key;
+	  for (key in obj) {
+	    if (hasProperty.call(obj, key)) {
+	      fn.call(context, obj[key], key);
+	    }
+	  }
+	}
+
+	function clone(item) {
+	  if (!item) {
+	    return item;
+	  } // null, undefined values check
+
+	  var types = [Number, String, Boolean],
+	      result;
+
+	  // normalizing primitives if someone did new String('aaa'), or new Number('444')
+	  types.forEach(function (type) {
+	    if (item instanceof type) {
+	      result = type(item);
+	    }
+	  });
+
+	  if (typeof result === "undefined") {
+	    if (Object.prototype.toString.call(item) === "[object Array]") {
+	      result = [];
+	      item.forEach(function (child, index) {
+	        result[index] = clone(child);
+	      });
+	    } else if (typeof item === "object") {
+	      // testing that this is DOM
+	      if (item.nodeType && typeof item.cloneNode === "function") {
+	        result = item.cloneNode(true);
+	      } else if (!item.prototype) {
+	        // check that this is a literal
+	        if (item instanceof Date) {
+	          result = new Date(item);
+	        } else {
+	          // it is an object literal
+	          result = {};
+	          for (var i in item) {
+	            result[i] = clone(item[i]);
+	          }
+	        }
+	      } else {
+	        // depending what you would like here,
+	        // just keep the reference, or create new object
+	        if (false) {
+	          // would not advice to do that, reason? Read below
+	          result = new item.constructor();
+	        } else {
+	          result = item;
+	        }
+	      }
+	    } else {
+	      result = item;
+	    }
+	  }
+
+	  return result;
+	}
+
+	function toTextValue(arr) {
+	  var kv = [];
+	  arr.forEach(function (s) {
+	    kv.push({ text: s, value: s });
+	  });
+	  return kv;
+	}
+
+	module.exports = {
+	  forEach: forEach,
+	  isEmpty: isEmpty,
+	  clone: clone,
+	  toTextValue: toTextValue
+	};
+
+/***/ },
+/* 146 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(88);
 
 	module.exports = React.createClass({
 	  displayName: "Home",
@@ -2671,292 +3844,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-
-/***/ 128:
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var React = __webpack_require__(98);
-	var Prettify = __webpack_require__(114);
-	var Checkbox = __webpack_require__(129);
-
-	module.exports = React.createClass({
-	  displayName: 'Pages/Checkbox',
-
-	  mixins: [Prettify],
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      checked: false,
-	      readOnly: false
-	    };
-	  },
-
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'header' },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Checkbox'
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          '复选框'
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'content' },
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Checkbox text="string" value={any} checked={bool} readOnly={bool} onChange={function} />'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'text: '
-	          ),
-	          '显示的文字信息'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'value: '
-	          ),
-	          '值，不填写 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'getValue'
-	          ),
-	          ' 得到的值为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'bool'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'checked: '
-	          ),
-	          '是否选中，默认为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'false'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'readOnly: '
-	          ),
-	          '是否只读，默认为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'false'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'onChange: '
-	          ),
-	          '状态改变触发事件'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Example'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(Checkbox, { text: 'checkbox' })
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Checkbox text="checkbox" />'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Readonly'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(Checkbox, { checked: true, readOnly: true, text: 'readonly checkbox' })
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Checkbox checked={true} readOnly={true} text="readonly checkbox" />'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'getValue()'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '获取值，选中状态下如果有 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'value'
-	          ),
-	          '，返回 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'value'
-	          ),
-	          ' ，否则返回 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'true'
-	          ),
-	          ' ，未选中状态返回 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'false'
-	          )
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'setValue(value)'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '设置状态，如果 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'value'
-	          ),
-	          ' 值为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'true'
-	          ),
-	          ' 或者 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            '1'
-	          ),
-	          ' ，直接选中不判断，其他值判断是否与 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'props.value'
-	          ),
-	          ' 相等'
-	        )
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-
-/***/ 129:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var React = __webpack_require__(98);
-
-	module.exports = React.createClass({
-	  displayName: "Checkbox",
-
-	  propTypes: {
-	    checked: React.PropTypes.bool,
-	    index: React.PropTypes.number,
-	    onChange: React.PropTypes.func,
-	    readOnly: React.PropTypes.bool,
-	    text: React.PropTypes.text,
-	    value: React.PropTypes.any
-	  },
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      checked: !!this.props.checked
-	    };
-	  },
-
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (nextProps.checked !== this.props.checked) {
-	      this.setState({ checked: nextProps.checked });
-	    }
-	  },
-
-	  handleChange: function handleChange(event) {
-	    if (this.props.readOnly) {
-	      return;
-	    }
-
-	    this.setState({ checked: event.target.checked });
-	    if (this.props.onChange) {
-	      this.props.onChange(event.target.checked, this.props.value, this.props.index);
-	    }
-	  },
-
-	  getValue: function getValue() {
-	    return React.findDOMNode(this.refs.input).checked ? this.props.value || true : false;
-	  },
-
-	  setValue: function setValue(value) {
-	    var checked = value === true || value === 1 || value === this.state.value;
-	    this.setState({ checked: checked });
-	  },
-
-	  render: function render() {
-	    return React.createElement(
-	      "label",
-	      { className: "pure-checkbox" },
-	      React.createElement("input", { ref: "input", type: "checkbox", onChange: this.handleChange, checked: this.state.checked, value: this.props.value }),
-	      " " + this.props.text
-	    );
-	  }
-	});
+	module.exports = __webpack_require__.p + "index.html"
 
 /***/ }
-
-/******/ })
+/******/ ])
 });
 ;

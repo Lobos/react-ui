@@ -33,6 +33,7 @@
     "deepmerge": "^0.2.10",
     "font-awesome": "^4.3.0",
     "purecss": "^0.6.0",
+    "superagent": "^1.2.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
