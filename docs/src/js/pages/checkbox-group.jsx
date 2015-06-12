@@ -50,7 +50,7 @@ module.exports = React.createClass({
           <p>可以使用一维数组，这种情况下，显示文字与值相同</p>
           <pre className="prettyprint">{'["北京","上海","广州"]'}</pre>
 
-          <h2 className="subhead">Example</h2>
+          <h2 className="subhead">Object Data</h2>
           <p>
             <CheckboxGroup inline={true} data={textValue} />
           </p>
@@ -66,15 +66,23 @@ data = [\r\
   { "value": "shanghai", "text": "上海" }\r\
 ]'}</pre>
 
+          <h2 className="subhead">Array Data</h2>
           <p>
-            <CheckboxGroup inline={true} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
+            <CheckboxGroup inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
           </p>
-          <pre className="prettyprint">{'<CheckboxGroup inline={true} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'}</pre>
+          <pre className="prettyprint">{'<CheckboxGroup inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'}</pre>
 
+          <h2 className="subhead">Readonly</h2>
           <p>
-            <CheckboxGroup inline={true} src="json/text-value.json" />
+            <CheckboxGroup readOnly={true} inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
           </p>
-          <pre className="prettyprint">{'<CheckboxGroup inline={true} src="json/text-value.json" />'}</pre>
+          <pre className="prettyprint">{'<CheckboxGroup readOnly={true} inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'}</pre>
+
+          <h2 className="subhead">Remote Data</h2>
+          <p>
+            <CheckboxGroup inline={true} stringify={true} value="shanghai,chengdu" src="json/text-value.json" />
+          </p>
+          <pre className="prettyprint">{'<CheckboxGroup inline={true} stringify={true} value="shanghai,chengdu" src="json/text-value.json" />'}</pre>
         </div>
       </div>
     );

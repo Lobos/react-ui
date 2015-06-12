@@ -3088,7 +3088,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
-	          'Example'
+	          'Object Data'
 	        ),
 	        React.createElement(
 	          'p',
@@ -3106,24 +3106,49 @@ return /******/ (function(modules) { // webpackBootstrap
 	          'data = [\r  { "value": "nanjing", "text": "南京" },\r  { "value": "beijing", "text": "北京" },\r  { "value": "guangzhou", "text": "广州" },\r  { "value": "shenzhen", "text": "深圳" },\r  { "value": "chengdu", "text": "成都" },\r  { "value": "chongqing", "text": "重庆" },\r  { "value": "shanghai", "text": "上海" }\r]'
 	        ),
 	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(CheckboxGroup, { inline: true, data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<CheckboxGroup inline={true} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
+	          'h2',
+	          { className: 'subhead' },
+	          'Array Data'
 	        ),
 	        React.createElement(
 	          'p',
 	          null,
-	          React.createElement(CheckboxGroup, { inline: true, src: 'json/text-value.json' })
+	          React.createElement(CheckboxGroup, { inline: true, value: ['北京', '广州'], data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
 	        ),
 	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
-	          '<CheckboxGroup inline={true} src="json/text-value.json" />'
+	          '<CheckboxGroup inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Readonly'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(CheckboxGroup, { readOnly: true, inline: true, value: ['北京', '广州'], data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<CheckboxGroup readOnly={true} inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Remote Data'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(CheckboxGroup, { inline: true, stringify: true, value: 'shanghai,chengdu', src: 'json/text-value.json' })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<CheckboxGroup inline={true} stringify={true} value="shanghai,chengdu" src="json/text-value.json" />'
 	        )
 	      )
 	    );
