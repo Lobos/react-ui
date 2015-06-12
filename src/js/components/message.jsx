@@ -3,77 +3,14 @@
 require('../../less/message.less');
 
 var React = require('react');
-var Reflux = require('reflux');
 var Overlay = require('./overlay.jsx');
 var Objects = require('../utils/objects');
 var Classable = require('../mixins/classable');
+var PubSub = require('pubsub-js');
 
-var Actions = Reflux.createActions([
-  "error",
-  "info",
-  "remove",
-  "clear",
-  "success",
-  "warn"
-]);
-
-var Store = Reflux.createStore({
-  listenables: [Actions],
-
-  init: function () {
-    this.index = 0;
-  },
-
-  getInitialState: function () {
-    this.messages = [];
-    return this.messages;
-  },
-
-  push: function (content, level, title, clickaway) {
-    this.messages.push({
-      open: true,
-      index: this.index++,
-      content: content,
-      level: level || 'info',
-      title: title,
-      clickaway: clickaway
-    });
-    this.trigger(this.messages);
-  },
-
-  onClear: function () {
-    this.messages = [];
-    this.trigger(this.messages);
-  },
-
-  onRemove: function (index) {
-    var si = -1;
-    for (var i = 0, count = this.messages.length; i < count; i++) {
-      if (this.messages[i].index === index) {
-        si = i;
-        break;
-      }
-    }
-    this.messages.splice(si, 1);
-    this.trigger(this.messages);
-  },
-
-  onSuccess: function (content, title) {
-    this.push(content, 'success', title, true);
-  },
-
-  onInfo: function (content, title) {
-    this.push(content, 'info', title, true);
-  },
-
-  onWarn: function (content, title) {
-    this.push(content, 'warning', title, true);
-  },
-
-  onError: function (content, title) {
-    this.push(content, 'error', title, false);
-  }
-});
+var messages = [],
+    ADD_MESSAGE = "EB3A79637B40",
+    REMOVE_MESSAGE = "73D4EF15DF50";
 
 var Item = React.createClass({
   displayName: 'Message.Item',
@@ -82,9 +19,8 @@ var Item = React.createClass({
     content: React.PropTypes.string,
     dismissed: React.PropTypes.dismissed,
     index: React.PropTypes.number,
-    level: React.PropTypes.string,
     onDismiss: React.PropTypes.func,
-    title: React.PropTypes.string
+    type: React.PropTypes.string
   },
 
   mixins: [Classable],
@@ -108,7 +44,7 @@ var Item = React.createClass({
   render: function () {
     var className = this.getClasses(
       'message',
-      'message-' + this.props.level,
+      'message-' + this.props.type,
       {
         'dismissed': this.state.dismissed
       }
@@ -117,7 +53,6 @@ var Item = React.createClass({
     return (
       <div className={className}>
         <button type="button" onClick={this.dismiss} className="close">&times;</button>
-        {this.props.title && <h3>{this.props.title}</h3>}
         {this.props.content}
       </div>
     );
@@ -127,10 +62,29 @@ var Item = React.createClass({
 var Message = React.createClass({
   displayName: 'Message',
 
-  mixins: [Classable, Reflux.connect(Store, 'messages')],
+  mixins: [Classable],
+
+  getInitialState: function () {
+    return {
+      messages: messages
+    };
+  },
+
+  componentDidMount: function () {
+    var self = this;
+    PubSub.subscribe(ADD_MESSAGE, function (topic, data) {
+      messages.push(data);
+      self.setState({ messages: messages });
+    });
+
+    PubSub.subscribe(REMOVE_MESSAGE, function (topic, index) {
+      messages.splice(index, 1);
+      self.setState({ messages: messages });
+    });
+  },
 
   dismiss: function(index) {
-    Actions.remove(index);
+    PubSub.publish(REMOVE_MESSAGE, index);
   },
 
   clear: function () {
@@ -142,16 +96,14 @@ var Message = React.createClass({
   render: function () {
     var items = this.state.messages.map(function (msg, i) {
       return (
-        <Item key={i} ref={i} onDismiss={this.dismiss} {...msg} />
+        <Item key={i} index={i} ref={i} onDismiss={this.dismiss} {...msg} />
       );
     }, this);
 
     var className = this.getClasses(
       'rui-message',
       'message-extend',
-      {
-        'has-message': this.state.messages.length > 0
-      }
+      { 'has-message': this.state.messages.length > 0 }
     );
 
     return (
@@ -163,12 +115,11 @@ var Message = React.createClass({
   }
 });
 
-// exports actions
-Message.error = Actions.error;
-Message.info = Actions.info;
-Message.success = Actions.success;
-Message.warn = Actions.warn;
-//Message.remove = Actions.remove;
-//Message.clear = Actions.clear;
+Message.show = function (content, type) {
+  PubSub.publish(ADD_MESSAGE, {
+    content: content,
+    type: type || 'info'
+  });
+};
 
 module.exports = Message;

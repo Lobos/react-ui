@@ -27,25 +27,22 @@ module.exports = React.createClass({
 
           <h2 className="subhead">全局方法</h2>
 <pre className="prettyprint">{'\
-Message.info(content, title)\r\
-Message.success(content, title)\r\
-Message.warn(content, title)\r\
-Message.error(content, title)\r\
+Message.show(content, type)\r\
 '}</pre>
-          <p><b>content: </b>内容，必填，值为 <em>string</em> 或 <em>element</em></p>
-          <p><b>title: </b>标题，可选，值为 <em>string</em> 或 <em>element</em></p>
+          <p><b>content:</b>内容，必填，值为 <em>string</em> 或 <em>element</em></p>
+          <p><b>type:</b>样式，会增加一个class <em>messsage-[type]</em>，默认值为 <em>info</em></p>
 
           <h2 className="subhead">Example</h2>
-          <p><a onClick={Message.info.bind(null, "Info message.", null)}>info message</a></p>
-          <pre className="prettyprint">{'Message.info("info message.", null)'}</pre>
+          <p><a onClick={Message.show.bind(null, "Info message.")}>info message</a></p>
+          <pre className="prettyprint">{'Message.show("info message.")'}</pre>
 
-          <p><a onClick={Message.error.bind(null, "error message.", "title")}>error message</a></p>
-          <pre className="prettyprint">{'Message.error("error message.", "title")'}</pre>
+          <p><a onClick={Message.show.bind(null, "error message.", "error")}>error message</a></p>
+          <pre className="prettyprint">{'Message.error("error message.", "error")'}</pre>
 
-          <p><a onClick={Message.warn.bind(null, <span>warning and span</span>, "title")}>warning message</a></p>
+          <p><a onClick={Message.show.bind(null, <div><h3>title</h3><span>span message</span></div>, "warn")}>element message</a></p>
           <pre className="prettyprint">{'Message.warn(<span>warning and span</span>, "title")'}</pre>
 
-          <p><a onClick={Message.success.bind(null, <span><Icon icon="music" /> success and icon</span>, "title")}>success message</a></p>
+          <p><a onClick={Message.show.bind(null, <span><Icon icon="music" /> success and icon</span>, "success")}>success message</a></p>
           <pre className="prettyprint">{'Message.success(<span><Icon icon="music" /> success and icon</span>, "title")'}</pre>
 
           <h2 className="subhead">扩展</h2>

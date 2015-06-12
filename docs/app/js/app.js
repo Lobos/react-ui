@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("react-router"), require("reflux"));
+		module.exports = factory(require("react"), require("react-router"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react", "react-router", "reflux"], factory);
+		define(["react", "react-router"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("react"), require("react-router"), require("reflux")) : factory(root["React"], root["ReactRouter"], root["Reflux"]);
+		var a = typeof exports === 'object' ? factory(require("react"), require("react-router")) : factory(root["React"], root["ReactRouter"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_52__, __WEBPACK_EXTERNAL_MODULE_106__, __WEBPACK_EXTERNAL_MODULE_148__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_52__, __WEBPACK_EXTERNAL_MODULE_106__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -4895,73 +4895,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	__webpack_require__(146);
+	__webpack_require__(143);
 
 	var React = __webpack_require__(52);
-	var Reflux = __webpack_require__(148);
-	var Overlay = __webpack_require__(143);
+	var Overlay = __webpack_require__(145);
 	var Objects = __webpack_require__(136);
 	var Classable = __webpack_require__(119);
+	var PubSub = __webpack_require__(148);
 
-	var Actions = Reflux.createActions(['error', 'info', 'remove', 'clear', 'success', 'warn']);
-
-	var Store = Reflux.createStore({
-	  listenables: [Actions],
-
-	  init: function init() {
-	    this.index = 0;
-	  },
-
-	  getInitialState: function getInitialState() {
-	    this.messages = [];
-	    return this.messages;
-	  },
-
-	  push: function push(content, level, title, clickaway) {
-	    this.messages.push({
-	      open: true,
-	      index: this.index++,
-	      content: content,
-	      level: level || 'info',
-	      title: title,
-	      clickaway: clickaway
-	    });
-	    this.trigger(this.messages);
-	  },
-
-	  onClear: function onClear() {
-	    this.messages = [];
-	    this.trigger(this.messages);
-	  },
-
-	  onRemove: function onRemove(index) {
-	    var si = -1;
-	    for (var i = 0, count = this.messages.length; i < count; i++) {
-	      if (this.messages[i].index === index) {
-	        si = i;
-	        break;
-	      }
-	    }
-	    this.messages.splice(si, 1);
-	    this.trigger(this.messages);
-	  },
-
-	  onSuccess: function onSuccess(content, title) {
-	    this.push(content, 'success', title, true);
-	  },
-
-	  onInfo: function onInfo(content, title) {
-	    this.push(content, 'info', title, true);
-	  },
-
-	  onWarn: function onWarn(content, title) {
-	    this.push(content, 'warning', title, true);
-	  },
-
-	  onError: function onError(content, title) {
-	    this.push(content, 'error', title, false);
-	  }
-	});
+	var messages = [],
+	    ADD_MESSAGE = 'EB3A79637B40',
+	    REMOVE_MESSAGE = '73D4EF15DF50';
 
 	var Item = React.createClass({
 	  displayName: 'Message.Item',
@@ -4970,9 +4914,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    content: React.PropTypes.string,
 	    dismissed: React.PropTypes.dismissed,
 	    index: React.PropTypes.number,
-	    level: React.PropTypes.string,
 	    onDismiss: React.PropTypes.func,
-	    title: React.PropTypes.string
+	    type: React.PropTypes.string
 	  },
 
 	  mixins: [Classable],
@@ -4994,7 +4937,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  render: function render() {
-	    var className = this.getClasses('message', 'message-' + this.props.level, {
+	    var className = this.getClasses('message', 'message-' + this.props.type, {
 	      'dismissed': this.state.dismissed
 	    });
 
@@ -5006,11 +4949,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        { type: 'button', onClick: this.dismiss, className: 'close' },
 	        '×'
 	      ),
-	      this.props.title && React.createElement(
-	        'h3',
-	        null,
-	        this.props.title
-	      ),
 	      this.props.content
 	    );
 	  }
@@ -5019,10 +4957,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Message = React.createClass({
 	  displayName: 'Message',
 
-	  mixins: [Classable, Reflux.connect(Store, 'messages')],
+	  mixins: [Classable],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      messages: messages
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    var self = this;
+	    PubSub.subscribe(ADD_MESSAGE, function (topic, data) {
+	      messages.push(data);
+	      self.setState({ messages: messages });
+	    });
+
+	    PubSub.subscribe(REMOVE_MESSAGE, function (topic, index) {
+	      messages.splice(index, 1);
+	      self.setState({ messages: messages });
+	    });
+	  },
 
 	  dismiss: function dismiss(index) {
-	    Actions.remove(index);
+	    PubSub.publish(REMOVE_MESSAGE, index);
 	  },
 
 	  clear: function clear() {
@@ -5033,12 +4990,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  render: function render() {
 	    var items = this.state.messages.map(function (msg, i) {
-	      return React.createElement(Item, _extends({ key: i, ref: i, onDismiss: this.dismiss }, msg));
+	      return React.createElement(Item, _extends({ key: i, index: i, ref: i, onDismiss: this.dismiss }, msg));
 	    }, this);
 
-	    var className = this.getClasses('rui-message', 'message-extend', {
-	      'has-message': this.state.messages.length > 0
-	    });
+	    var className = this.getClasses('rui-message', 'message-extend', { 'has-message': this.state.messages.length > 0 });
 
 	    return React.createElement(
 	      'div',
@@ -5049,13 +5004,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 
-	// exports actions
-	Message.error = Actions.error;
-	Message.info = Actions.info;
-	Message.success = Actions.success;
-	Message.warn = Actions.warn;
-	//Message.remove = Actions.remove;
-	//Message.clear = Actions.clear;
+	Message.show = function (content, type) {
+	  PubSub.publish(ADD_MESSAGE, {
+	    content: content,
+	    type: type || 'info'
+	  });
+	};
 
 	module.exports = Message;
 
@@ -5063,9 +5017,16 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 144 */,
+/* 145 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
-	__webpack_require__(144);
+	__webpack_require__(146);
 	var React = __webpack_require__(52);
 	var Classable = __webpack_require__(119);
 
@@ -5089,13 +5050,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 144 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 145 */,
 /* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -5106,7 +5060,252 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_148__;
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
+	Copyright (c) 2010,2011,2012,2013,2014 Morgan Roderick http://roderick.dk
+	License: MIT - http://mrgnrdrck.mit-license.org
+
+	https://github.com/mroderick/PubSubJS
+	*/
+	'use strict';
+
+	(function (root, factory) {
+		'use strict';
+
+		if (true) {
+			// AMD. Register as an anonymous module.
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof exports === 'object') {
+			// CommonJS
+			factory(exports);
+		} else {
+			// Browser globals
+			var PubSub = {};
+			root.PubSub = PubSub;
+			factory(PubSub);
+		}
+	})(typeof window === 'object' && window || undefined, function (PubSub) {
+		'use strict';
+
+		var messages = {},
+		    lastUid = -1;
+
+		function hasKeys(obj) {
+			var key;
+
+			for (key in obj) {
+				if (obj.hasOwnProperty(key)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/**
+	  *	Returns a function that throws the passed exception, for use as argument for setTimeout
+	  *	@param { Object } ex An Error object
+	  */
+		function throwException(ex) {
+			return function reThrowException() {
+				throw ex;
+			};
+		}
+
+		function callSubscriberWithDelayedExceptions(subscriber, message, data) {
+			try {
+				subscriber(message, data);
+			} catch (ex) {
+				setTimeout(throwException(ex), 0);
+			}
+		}
+
+		function callSubscriberWithImmediateExceptions(subscriber, message, data) {
+			subscriber(message, data);
+		}
+
+		function deliverMessage(originalMessage, matchedMessage, data, immediateExceptions) {
+			var subscribers = messages[matchedMessage],
+			    callSubscriber = immediateExceptions ? callSubscriberWithImmediateExceptions : callSubscriberWithDelayedExceptions,
+			    s;
+
+			if (!messages.hasOwnProperty(matchedMessage)) {
+				return;
+			}
+
+			for (s in subscribers) {
+				if (subscribers.hasOwnProperty(s)) {
+					callSubscriber(subscribers[s], originalMessage, data);
+				}
+			}
+		}
+
+		function createDeliveryFunction(message, data, immediateExceptions) {
+			return function deliverNamespaced() {
+				var topic = String(message),
+				    position = topic.lastIndexOf('.');
+
+				// deliver the message as it is now
+				deliverMessage(message, message, data, immediateExceptions);
+
+				// trim the hierarchy and deliver message to each level
+				while (position !== -1) {
+					topic = topic.substr(0, position);
+					position = topic.lastIndexOf('.');
+					deliverMessage(message, topic, data, immediateExceptions);
+				}
+			};
+		}
+
+		function messageHasSubscribers(message) {
+			var topic = String(message),
+			    found = Boolean(messages.hasOwnProperty(topic) && hasKeys(messages[topic])),
+			    position = topic.lastIndexOf('.');
+
+			while (!found && position !== -1) {
+				topic = topic.substr(0, position);
+				position = topic.lastIndexOf('.');
+				found = Boolean(messages.hasOwnProperty(topic) && hasKeys(messages[topic]));
+			}
+
+			return found;
+		}
+
+		function publish(message, data, sync, immediateExceptions) {
+			var deliver = createDeliveryFunction(message, data, immediateExceptions),
+			    hasSubscribers = messageHasSubscribers(message);
+
+			if (!hasSubscribers) {
+				return false;
+			}
+
+			if (sync === true) {
+				deliver();
+			} else {
+				setTimeout(deliver, 0);
+			}
+			return true;
+		}
+
+		/**
+	  *	PubSub.publish( message[, data] ) -> Boolean
+	  *	- message (String): The message to publish
+	  *	- data: The data to pass to subscribers
+	  *	Publishes the the message, passing the data to it's subscribers
+	 **/
+		PubSub.publish = function (message, data) {
+			return publish(message, data, false, PubSub.immediateExceptions);
+		};
+
+		/**
+	  *	PubSub.publishSync( message[, data] ) -> Boolean
+	  *	- message (String): The message to publish
+	  *	- data: The data to pass to subscribers
+	  *	Publishes the the message synchronously, passing the data to it's subscribers
+	 **/
+		PubSub.publishSync = function (message, data) {
+			return publish(message, data, true, PubSub.immediateExceptions);
+		};
+
+		/**
+	  *	PubSub.subscribe( message, func ) -> String
+	  *	- message (String): The message to subscribe to
+	  *	- func (Function): The function to call when a new message is published
+	  *	Subscribes the passed function to the passed message. Every returned token is unique and should be stored if
+	  *	you need to unsubscribe
+	 **/
+		PubSub.subscribe = function (message, func) {
+			if (typeof func !== 'function') {
+				return false;
+			}
+
+			// message is not registered yet
+			if (!messages.hasOwnProperty(message)) {
+				messages[message] = {};
+			}
+
+			// forcing token as String, to allow for future expansions without breaking usage
+			// and allow for easy use as key names for the 'messages' object
+			var token = 'uid_' + String(++lastUid);
+			messages[message][token] = func;
+
+			// return token for unsubscribing
+			return token;
+		};
+
+		/* Public: Clears all subscriptions
+	  */
+		PubSub.clearAllSubscriptions = function clearAllSubscriptions() {
+			messages = {};
+		};
+
+		/*Public: Clear subscriptions by the topic
+	 */
+		PubSub.clearSubscriptions = function clearSubscriptions(topic) {
+			var m;
+			for (m in messages) {
+				if (messages.hasOwnProperty(m) && m.indexOf(topic) === 0) {
+					delete messages[m];
+				}
+			}
+		};
+
+		/* Public: removes subscriptions.
+	  * When passed a token, removes a specific subscription.
+	  * When passed a function, removes all subscriptions for that function
+	  * When passed a topic, removes all subscriptions for that topic (hierarchy)
+	  *
+	  * value - A token, function or topic to unsubscribe.
+	  *
+	  * Examples
+	  *
+	  *		// Example 1 - unsubscribing with a token
+	  *		var token = PubSub.subscribe('mytopic', myFunc);
+	  *		PubSub.unsubscribe(token);
+	  *
+	  *		// Example 2 - unsubscribing with a function
+	  *		PubSub.unsubscribe(myFunc);
+	  *
+	  *		// Example 3 - unsubscribing a topic
+	  *		PubSub.unsubscribe('mytopic');
+	  */
+		PubSub.unsubscribe = function (value) {
+			var isTopic = typeof value === 'string' && messages.hasOwnProperty(value),
+			    isToken = !isTopic && typeof value === 'string',
+			    isFunction = typeof value === 'function',
+			    result = false,
+			    m,
+			    message,
+			    t;
+
+			if (isTopic) {
+				delete messages[value];
+				return;
+			}
+
+			for (m in messages) {
+				if (messages.hasOwnProperty(m)) {
+					message = messages[m];
+
+					if (isToken && message[value]) {
+						delete message[value];
+						result = value;
+						// tokens are unique, so we can just stop here
+						break;
+					}
+
+					if (isFunction) {
+						for (t in message) {
+							if (message.hasOwnProperty(t) && message[t] === value) {
+								delete message[t];
+								result = true;
+							}
+						}
+					}
+				}
+			}
+
+			return result;
+		};
+	});
 
 /***/ },
 /* 149 */
@@ -5517,7 +5716,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
-	          'Message.info(content, title)\rMessage.success(content, title)\rMessage.warn(content, title)\rMessage.error(content, title)\r'
+	          'Message.show(content, type)\r'
 	        ),
 	        React.createElement(
 	          'p',
@@ -5525,7 +5724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          React.createElement(
 	            'b',
 	            null,
-	            'content: '
+	            'content:'
 	          ),
 	          '内容，必填，值为 ',
 	          React.createElement(
@@ -5546,19 +5745,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	          React.createElement(
 	            'b',
 	            null,
-	            'title: '
+	            'type:'
 	          ),
-	          '标题，可选，值为 ',
+	          '样式，会增加一个class ',
 	          React.createElement(
 	            'em',
 	            null,
-	            'string'
+	            'messsage-[type]'
 	          ),
-	          ' 或 ',
+	          '，默认值为 ',
 	          React.createElement(
 	            'em',
 	            null,
-	            'element'
+	            'info'
 	          )
 	        ),
 	        React.createElement(
@@ -5571,40 +5770,49 @@ return /******/ (function(modules) { // webpackBootstrap
 	          null,
 	          React.createElement(
 	            'a',
-	            { onClick: Message.info.bind(null, 'Info message.', null) },
+	            { onClick: Message.show.bind(null, 'Info message.') },
 	            'info message'
 	          )
 	        ),
 	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
-	          'Message.info("info message.", null)'
+	          'Message.show("info message.")'
 	        ),
 	        React.createElement(
 	          'p',
 	          null,
 	          React.createElement(
 	            'a',
-	            { onClick: Message.error.bind(null, 'error message.', 'title') },
+	            { onClick: Message.show.bind(null, 'error message.', 'error') },
 	            'error message'
 	          )
 	        ),
 	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
-	          'Message.error("error message.", "title")'
+	          'Message.error("error message.", "error")'
 	        ),
 	        React.createElement(
 	          'p',
 	          null,
 	          React.createElement(
 	            'a',
-	            { onClick: Message.warn.bind(null, React.createElement(
-	                'span',
+	            { onClick: Message.show.bind(null, React.createElement(
+	                'div',
 	                null,
-	                'warning and span'
-	              ), 'title') },
-	            'warning message'
+	                React.createElement(
+	                  'h3',
+	                  null,
+	                  'title'
+	                ),
+	                React.createElement(
+	                  'span',
+	                  null,
+	                  'span message'
+	                )
+	              ), 'warn') },
+	            'element message'
 	          )
 	        ),
 	        React.createElement(
@@ -5617,12 +5825,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	          null,
 	          React.createElement(
 	            'a',
-	            { onClick: Message.success.bind(null, React.createElement(
+	            { onClick: Message.show.bind(null, React.createElement(
 	                'span',
 	                null,
 	                React.createElement(Icon, { icon: 'music' }),
 	                ' success and icon'
-	              ), 'title') },
+	              ), 'success') },
 	            'success message'
 	          )
 	        ),
