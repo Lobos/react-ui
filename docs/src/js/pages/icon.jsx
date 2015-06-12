@@ -19,9 +19,9 @@ module.exports = React.createClass({
 
         <div className="content">
           <pre className="prettyprint">{'<Icon icon="string" spin={bool} size={int|string} />'}</pre>
-          <p><b>icon: </b>图标名称，详见<a href="http://fontawesome.io/icons/">fontawesome</a></p>
-          <p><b>spin: </b>是否旋转。默认值为 <em>false</em></p>
-          <p><b>size: </b>图标尺寸，可选值为 <em>[lg|2x|3x|4x|5x]</em>，或者为数字 <em>1-5</em></p>
+          <p><b>icon:</b>图标名称，详见<a href="http://fontawesome.io/icons/">fontawesome</a></p>
+          <p><b>spin:</b>是否旋转。默认值为 <em>false</em></p>
+          <p><b>size:</b>图标尺寸，可选值为 <em>[lg|2x|3x|4x|5x]</em>，或者为数字 <em>1-5</em></p>
 
           <h2 className="subhead">Normal</h2>
           <Icon icon="home" /> home

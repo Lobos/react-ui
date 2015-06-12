@@ -55,16 +55,29 @@
 }
 
 @media (max-width: 992px) {
-  .nav-list {
-    margin-left: -200px;
-    .transition(margin-left 0.4s);
+  .nav {
+    .nav-list {
+      margin-left: -200px;
+      .transition(margin-left 0.4s);
 
-    &.active {
-      margin-left: 0;
+      .nav-handler {
+        display: block;
+      }
     }
 
-    .nav-handler {
-      display: block;
+    .overlay {
+      z-index: 998;
+      //background-color: rgba(255,255,255,0.3);
+    }
+
+    &.active {
+      .nav-list {
+        margin-left: 0;
+      }
+      .overlay {
+        .opacity(1);
+        left: 0;
+      }
     }
   }
 }

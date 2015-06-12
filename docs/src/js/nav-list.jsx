@@ -43,10 +43,13 @@ module.exports = React.createClass({
     }, this);
 
     return (
-      <div className={classnames("nav-list pure-menu", {active: this.state.active})}>
-        <a onClick={this.toggle} className="nav-handler"><Icon icon="navicon" size="lg" /></a>
-        <a className="pure-menu-heading" onClick={this.routeChange.bind(this, '/')}>React UI</a>
-        <ul className="pure-menu-list">{list}</ul>
+      <div className={classnames("nav", {active: this.state.active})}>
+        <div className="nav-list pure-menu">
+          <a onClick={this.toggle} className="nav-handler"><Icon icon="navicon" size="lg" /></a>
+          <a className="pure-menu-heading" onClick={this.routeChange.bind(this, '/')}>React UI</a>
+          <ul className="pure-menu-list">{list}</ul>
+        </div>
+        <div onClick={this.toggle} className="overlay"></div>
       </div>
     );
   }

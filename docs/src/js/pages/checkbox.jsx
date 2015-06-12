@@ -21,11 +21,11 @@ module.exports = React.createClass({
 
           <pre className="prettyprint">{'<Checkbox text="string" value={any} checked={bool} readOnly={bool} onChange={function} />'}</pre>
 
-          <p><b>text: </b>显示的文字信息</p>
-          <p><b>value: </b>值，不填写 <em>getValue</em> 得到的值为 <em>bool</em></p>
-          <p><b>checked: </b>是否选中，默认为 <em>false</em></p>
-          <p><b>readOnly: </b>是否只读，默认为 <em>false</em></p>
-          <p><b>onChange: </b>状态改变触发事件</p>
+          <p><b>text:</b>显示的文字信息</p>
+          <p><b>value:</b>值，不填写 <em>getValue</em> 得到的值为 <em>bool</em></p>
+          <p><b>checked:</b>是否选中，默认为 <em>false</em></p>
+          <p><b>readOnly:</b>是否只读，默认为 <em>false</em></p>
+          <p><b>onChange:</b>状态改变触发事件</p>
 
           <h2 className="subhead">Example</h2>
           <p>

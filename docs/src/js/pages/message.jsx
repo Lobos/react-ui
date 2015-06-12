@@ -22,8 +22,8 @@ module.exports = React.createClass({
           <p>为了实现全局通知，使用了Reflux，需要加入Reflux引用。</p>
           <p>首先，在页面的某个地方，加入一个<em>Message Compontent</em></p>
           <pre className="prettyprint">{'<Message top={bool} clickaway={bool} />'}</pre>
-          <p><b>top: </b>显示位置，为 <em>true</em> 时显示在页面顶部， <em>false</em> 显示在页面左下角</p>
-          <p><b>clickaway: </b>为 <em>true</em> 时，点击页面空白处关闭所有消息</p>
+          <p><b>top:</b>显示位置，为 <em>true</em> 时显示在页面顶部， <em>false</em> 显示在页面左下角</p>
+          <p><b>clickaway:</b>为 <em>true</em> 时，点击页面空白处关闭所有消息</p>
 
           <h2 className="subhead">全局方法</h2>
 <pre className="prettyprint">{'\

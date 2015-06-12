@@ -97,10 +97,16 @@ function clone(item) {
   return result;
 }
 
-function toTextValue(arr) {
+function toTextValue(arr, textKey, valueKey) {
   var kv = [];
+  textKey = textKey || 'text';
+  valueKey = valueKey || 'value';
   arr.forEach(function (s) {
-    kv.push({ text: s, value: s });
+    if (typeof s !== 'object') {
+      kv.push({ text: s, value: s });
+    } else {
+      kv.push({ text: s[textKey], value: s[valueKey] });
+    }
   });
   return kv;
 }

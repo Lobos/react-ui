@@ -4,7 +4,8 @@ var React = require('react');
 var Checkbox = require('./checkbox.jsx');
 var Strings = require('../utils/strings');
 var Classable = require('../mixins/classable');
-//var Resourceable = require('../mixins/resourceable')
+var Objects = require('../utils/objects');
+var Resource = require('../mixins/resource');
 var ReceiveValue = require('../mixins/receive-value');
 
 module.exports = React.createClass({
@@ -22,7 +23,7 @@ module.exports = React.createClass({
     valueKey: React.PropTypes.string
   },
 
-  mixins: [Classable, ReceiveValue],
+  mixins: [Classable, ReceiveValue, Resource],
 
   getInitialState: function () {
     return {
@@ -32,6 +33,11 @@ module.exports = React.createClass({
 
   formatValue: function (value) {
     return Strings.formatValue(value, this.props.stringify);
+  },
+
+  initData: function (data) {
+    data = Objects.toTextValue(data, this.props.textKey, this.props.valueKey);
+    this.setState({ data: data });
   },
 
   handleChange: function (checked, value) {
@@ -71,19 +77,19 @@ module.exports = React.createClass({
         'inline': this.props.inline
       }
     );
-    var values = this.state.value,
-        valueKey = this.props.valueKey || 'value',
-        textKey = this.props.textKey || 'text';
+    var values = this.state.value;
 
     var items = this.state.data.map(function (item, i) {
-      //var value = this.stringify ? item.value.toString() : item.value;
-      var value = item[valueKey];
+      var value = this.stringify ? item.value.toString() : item.value;
+      /*
+      var value = item.value;
       if (this.stringify) {
         value = value.toString();
       }
+      */
       var checked = values.indexOf(value) >= 0;
       return (
-        <Checkbox key={i} index={i} readOnly={this.props.readOnly} checked={checked} onChange={this.handleChange} text={item[textKey]} value={item[valueKey]} />
+        <Checkbox key={i} index={i} readOnly={this.props.readOnly} checked={checked} onChange={this.handleChange} text={item.text} value={item.value} />
       );
     }, this);
 
