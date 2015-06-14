@@ -1,6 +1,6 @@
 "use strict";
 
-var request = require('../utils/request');
+var Ajax = require('../utils/ajax');
 var Objects = require('../utils/objects');
 var lang = require('../lang');
 
@@ -24,8 +24,9 @@ module.exports = {
       }
     } else if (props.src) {
       this.setState({ msg: lang.get('request.loading'), data: [] });
-      request(props.src, {
-        success: function (res) {
+
+      new Ajax().get(props.src)
+        .done(function (res) {
           var data = res.status === 1 ?
                      res.data :
                      ( res instanceof Array ? res : undefined );
@@ -43,12 +44,10 @@ module.exports = {
           } else {
             this.setState({ data: data });
           }
-
-        }.bind(this),
-        failure: function () {
+        }.bind(this))
+        .error(function () {
           this.setState({ msg: lang.get('request.failure') });
-        }.bind(this)
-      });
+        }.bind(this));
     }
   }
 };

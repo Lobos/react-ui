@@ -61,7 +61,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var AppRoutes = __webpack_require__(107);
 
 	// load language
-	__webpack_require__(156);
+	__webpack_require__(153);
 
 	Router.create({
 	  routes: AppRoutes,
@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	// static files
-	__webpack_require__(157);
+	__webpack_require__(154);
 
 /***/ },
 /* 1 */,
@@ -201,7 +201,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DefaultRoute = Router.DefaultRoute;
 
 	var Master = __webpack_require__(109);
-	var Home = __webpack_require__(155);
+	var Home = __webpack_require__(152);
 
 	var menulist = [];
 	_.forEach(__webpack_require__(112), function (menu) {
@@ -1799,7 +1799,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(52);
 	var RouteHandler = __webpack_require__(106).RouteHandler;
 	var NavList = __webpack_require__(110);
-	var Message = __webpack_require__(142);
+	var Message = __webpack_require__(145);
 
 	module.exports = React.createClass({
 	  displayName: "Master",
@@ -1957,7 +1957,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(113) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(129) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(133) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(153) }, { route: 'message', text: 'Message', handler: __webpack_require__(154) }];
+	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(113) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(129) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(133) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(143) }, { route: 'message', text: 'Message', handler: __webpack_require__(144) }];
 
 /***/ },
 /* 113 */
@@ -2822,7 +2822,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Prettify = __webpack_require__(114);
 	var CheckboxGroup = __webpack_require__(134);
 
-	var textValue = __webpack_require__(152);
+	var textValue = __webpack_require__(142);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Checkbox',
@@ -3167,7 +3167,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Classable = __webpack_require__(119);
 	var Objects = __webpack_require__(136);
 	var Resource = __webpack_require__(137);
-	var ReceiveValue = __webpack_require__(151);
+	var ReceiveValue = __webpack_require__(141);
 
 	module.exports = React.createClass({
 	  displayName: 'CheckboxGroup',
@@ -3452,9 +3452,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var request = __webpack_require__(138);
+	var Ajax = __webpack_require__(138);
 	var Objects = __webpack_require__(136);
-	var lang = __webpack_require__(149);
+	var lang = __webpack_require__(139);
 
 	module.exports = {
 	  componentWillMount: function componentWillMount() {
@@ -3476,28 +3476,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    } else if (props.src) {
 	      this.setState({ msg: lang.get('request.loading'), data: [] });
-	      request(props.src, {
-	        success: (function (res) {
-	          var data = res.status === 1 ? res.data : res instanceof Array ? res : undefined;
 
-	          if (!data && res.msg) {
-	            this.setState({ msg: lang.get('request.failure') });
-	            return;
-	          }
+	      new Ajax().get(props.src).done((function (res) {
+	        var data = res.status === 1 ? res.data : res instanceof Array ? res : undefined;
 
-	          data = Objects.clone(data);
-
-	          // initialize data
-	          if (this.initData) {
-	            this.initData(data);
-	          } else {
-	            this.setState({ data: data });
-	          }
-	        }).bind(this),
-	        failure: (function () {
+	        if (!data && res.msg) {
 	          this.setState({ msg: lang.get('request.failure') });
-	        }).bind(this)
-	      });
+	          return;
+	        }
+
+	        data = Objects.clone(data);
+
+	        // initialize data
+	        if (this.initData) {
+	          this.initData(data);
+	        } else {
+	          this.setState({ data: data });
+	        }
+	      }).bind(this)).error((function () {
+	        this.setState({ msg: lang.get('request.failure') });
+	      }).bind(this));
 	    }
 	  }
 	};
@@ -3506,1402 +3504,668 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// from https://github.com/fdaciuk/ajax
 	'use strict';
 
-	var superagent = __webpack_require__(139);
-	var Message = __webpack_require__(142);
-	var lang = __webpack_require__(149);
+	function Ajax() {
+	  var $public = {};
+	  var $private = {};
 
-	function resolve(err, res, success, failure) {
-	  if (err !== null) {
-	    Message.error(err.message);
-	    return;
-	  }
-
-	  if (res.status === 200) {
-	    var body = res.body;
-
-	    if (body && body.msg) {
-	      Message[body.status ? 'info' : 'warn'](body.msg);
-	    }
-
-	    if (typeof success === 'function') {
-	      success(res.body);
-	    }
-	  } else {
-	    Message.error(lang.get('request.status')[res.status]);
-	    if (typeof failure === 'function') {
-	      failure(res);
-	    }
-	  }
-	}
-
-	function request(url, options) {
-	  options = options || {};
-	  if (options.loading) {
-	    options.loading.start();
-	  }
-
-	  var callback = function callback(err, res) {
-	    if (options.loading) {
-	      options.loading.end();
-	    }
-	    resolve(err, res, options.success, options.failure);
+	  $private.methods = {
+	    done: function done() {},
+	    error: function error() {},
+	    always: function always() {}
 	  };
 
-	  var method = options.method || 'GET';
-	  var req = superagent(method, url);
+	  $public.get = function get(url) {
+	    return $private.xhrConnection('GET', url, null);
+	  };
 
-	  if (options.type) {
-	    req.type(options.type);
-	  }
+	  $public.post = function post(url, data) {
+	    return $private.xhrConnection('POST', url, data);
+	  };
 
-	  if (options.data) {
-	    req[method === 'GET' ? 'query' : 'send'](options.data);
-	  }
+	  $public.put = function put(url, data) {
+	    return $private.promises('PUT', url, data);
+	  };
 
-	  req.end(callback);
+	  $public['delete'] = function del(url, data) {
+	    return $private.promises('DELETE', url, data);
+	  };
+
+	  $private.xhrConnection = function xhrConnection(type, url, data) {
+	    var xhr = new XMLHttpRequest();
+	    xhr.open(type, url || '', true);
+	    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    xhr.addEventListener('readystatechange', $private.handleReadyStateChange, false);
+	    xhr.send($private.convertObjectToQueryString(data));
+	    return $private.promises();
+	  };
+
+	  $private.handleReadyStateChange = function handleReadyStateChange() {
+	    var xhr = this;
+	    var DONE = 4;
+	    if (xhr.readyState === DONE) {
+	      $private.methods.always.apply($private.methods, $private.parseResponse(xhr));
+	      if (xhr.status >= 200 && xhr.status < 300) {
+	        return $private.methods.done.apply($private.methods, $private.parseResponse(xhr));
+	      }
+	      $private.methods.error.apply($private.methods, $private.parseResponse(xhr));
+	    }
+	  };
+
+	  $private.parseResponse = function parseResponse(xhr) {
+	    var result;
+	    try {
+	      result = JSON.parse(xhr.responseText);
+	    } catch (e) {
+	      result = xhr.responseText;
+	    }
+	    return [result, xhr];
+	  };
+
+	  $private.promises = function promises() {
+	    return {
+	      done: $private.generatePromise.call(this, 'done'),
+	      error: $private.generatePromise.call(this, 'error'),
+	      always: $private.generatePromise.call(this, 'always')
+	    };
+	  };
+
+	  $private.generatePromise = function generatePromise(method) {
+	    return function (callback) {
+	      return ($private.methods[method] = callback, this);
+	    };
+	  };
+
+	  $private.convertObjectToQueryString = function convertObjectToQueryString(data) {
+	    var convertedData = [];
+	    if (!$private.isObject(data)) {
+	      return data;
+	    }
+	    Object.keys(data).forEach(function (key) {
+	      convertedData.push(key + '=' + data[key]);
+	    });
+	    return convertedData.join('&');
+	  };
+
+	  $private.isObject = function isObject(data) {
+	    return Object.prototype.toString.call(data) === '[object Object]';
+	  };
+
+	  return $public;
 	}
 
-	module.exports = request;
+	module.exports = Ajax;
 
 /***/ },
 /* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Module dependencies.
-	 */
-
 	'use strict';
 
-	var Emitter = __webpack_require__(140);
-	var reduce = __webpack_require__(141);
+	var merge = __webpack_require__(140);
+	var lang = {};
 
-	/**
-	 * Root reference for iframes.
-	 */
+	module.exports = {
+	  set: function set(obj) {
+	    lang = merge(lang, obj);
+	  },
 
-	var root = 'undefined' == typeof window ? undefined || self : window;
-
-	/**
-	 * Noop.
-	 */
-
-	function noop() {};
-
-	/**
-	 * Check if `obj` is a host object,
-	 * we don't want to serialize these :)
-	 *
-	 * TODO: future proof, move to compoent land
-	 *
-	 * @param {Object} obj
-	 * @return {Boolean}
-	 * @api private
-	 */
-
-	function isHost(obj) {
-	  var str = ({}).toString.call(obj);
-
-	  switch (str) {
-	    case '[object File]':
-	    case '[object Blob]':
-	    case '[object FormData]':
-	      return true;
-	    default:
-	      return false;
-	  }
-	}
-
-	/**
-	 * Determine XHR.
-	 */
-
-	request.getXHR = function () {
-	  if (root.XMLHttpRequest && (!root.location || 'file:' != root.location.protocol || !root.ActiveXObject)) {
-	    return new XMLHttpRequest();
-	  } else {
-	    try {
-	      return new ActiveXObject('Microsoft.XMLHTTP');
-	    } catch (e) {}
-	    try {
-	      return new ActiveXObject('Msxml2.XMLHTTP.6.0');
-	    } catch (e) {}
-	    try {
-	      return new ActiveXObject('Msxml2.XMLHTTP.3.0');
-	    } catch (e) {}
-	    try {
-	      return new ActiveXObject('Msxml2.XMLHTTP');
-	    } catch (e) {}
-	  }
-	  return false;
-	};
-
-	/**
-	 * Removes leading and trailing whitespace, added to support IE.
-	 *
-	 * @param {String} s
-	 * @return {String}
-	 * @api private
-	 */
-
-	var trim = ''.trim ? function (s) {
-	  return s.trim();
-	} : function (s) {
-	  return s.replace(/(^\s*|\s*$)/g, '');
-	};
-
-	/**
-	 * Check if `obj` is an object.
-	 *
-	 * @param {Object} obj
-	 * @return {Boolean}
-	 * @api private
-	 */
-
-	function isObject(obj) {
-	  return obj === Object(obj);
-	}
-
-	/**
-	 * Serialize the given `obj`.
-	 *
-	 * @param {Object} obj
-	 * @return {String}
-	 * @api private
-	 */
-
-	function serialize(obj) {
-	  if (!isObject(obj)) return obj;
-	  var pairs = [];
-	  for (var key in obj) {
-	    if (null != obj[key]) {
-	      pairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]));
+	  get: function get(path) {
+	    if (!path || typeof path !== 'string') {
+	      return '';
 	    }
+	    var result = lang;
+	    path.split('.').forEach(function (p) {
+	      if (result) {
+	        result = result[p];
+	      }
+	    });
+
+	    return result;
 	  }
-	  return pairs.join('&');
-	}
-
-	/**
-	 * Expose serialization method.
-	 */
-
-	request.serializeObject = serialize;
-
-	/**
-	 * Parse the given x-www-form-urlencoded `str`.
-	 *
-	 * @param {String} str
-	 * @return {Object}
-	 * @api private
-	 */
-
-	function parseString(str) {
-	  var obj = {};
-	  var pairs = str.split('&');
-	  var parts;
-	  var pair;
-
-	  for (var i = 0, len = pairs.length; i < len; ++i) {
-	    pair = pairs[i];
-	    parts = pair.split('=');
-	    obj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
-	  }
-
-	  return obj;
-	}
-
-	/**
-	 * Expose parser.
-	 */
-
-	request.parseString = parseString;
-
-	/**
-	 * Default MIME type map.
-	 *
-	 *     superagent.types.xml = 'application/xml';
-	 *
-	 */
-
-	request.types = {
-	  html: 'text/html',
-	  json: 'application/json',
-	  xml: 'application/xml',
-	  urlencoded: 'application/x-www-form-urlencoded',
-	  'form': 'application/x-www-form-urlencoded',
-	  'form-data': 'application/x-www-form-urlencoded'
 	};
-
-	/**
-	 * Default serialization map.
-	 *
-	 *     superagent.serialize['application/xml'] = function(obj){
-	 *       return 'generated xml here';
-	 *     };
-	 *
-	 */
-
-	request.serialize = {
-	  'application/x-www-form-urlencoded': serialize,
-	  'application/json': JSON.stringify
-	};
-
-	/**
-	 * Default parsers.
-	 *
-	 *     superagent.parse['application/xml'] = function(str){
-	 *       return { object parsed from str };
-	 *     };
-	 *
-	 */
-
-	request.parse = {
-	  'application/x-www-form-urlencoded': parseString,
-	  'application/json': JSON.parse
-	};
-
-	/**
-	 * Parse the given header `str` into
-	 * an object containing the mapped fields.
-	 *
-	 * @param {String} str
-	 * @return {Object}
-	 * @api private
-	 */
-
-	function parseHeader(str) {
-	  var lines = str.split(/\r?\n/);
-	  var fields = {};
-	  var index;
-	  var line;
-	  var field;
-	  var val;
-
-	  lines.pop(); // trailing CRLF
-
-	  for (var i = 0, len = lines.length; i < len; ++i) {
-	    line = lines[i];
-	    index = line.indexOf(':');
-	    field = line.slice(0, index).toLowerCase();
-	    val = trim(line.slice(index + 1));
-	    fields[field] = val;
-	  }
-
-	  return fields;
-	}
-
-	/**
-	 * Return the mime type for the given `str`.
-	 *
-	 * @param {String} str
-	 * @return {String}
-	 * @api private
-	 */
-
-	function type(str) {
-	  return str.split(/ *; */).shift();
-	};
-
-	/**
-	 * Return header field parameters.
-	 *
-	 * @param {String} str
-	 * @return {Object}
-	 * @api private
-	 */
-
-	function params(str) {
-	  return reduce(str.split(/ *; */), function (obj, str) {
-	    var parts = str.split(/ *= */),
-	        key = parts.shift(),
-	        val = parts.shift();
-
-	    if (key && val) obj[key] = val;
-	    return obj;
-	  }, {});
-	};
-
-	/**
-	 * Initialize a new `Response` with the given `xhr`.
-	 *
-	 *  - set flags (.ok, .error, etc)
-	 *  - parse header
-	 *
-	 * Examples:
-	 *
-	 *  Aliasing `superagent` as `request` is nice:
-	 *
-	 *      request = superagent;
-	 *
-	 *  We can use the promise-like API, or pass callbacks:
-	 *
-	 *      request.get('/').end(function(res){});
-	 *      request.get('/', function(res){});
-	 *
-	 *  Sending data can be chained:
-	 *
-	 *      request
-	 *        .post('/user')
-	 *        .send({ name: 'tj' })
-	 *        .end(function(res){});
-	 *
-	 *  Or passed to `.send()`:
-	 *
-	 *      request
-	 *        .post('/user')
-	 *        .send({ name: 'tj' }, function(res){});
-	 *
-	 *  Or passed to `.post()`:
-	 *
-	 *      request
-	 *        .post('/user', { name: 'tj' })
-	 *        .end(function(res){});
-	 *
-	 * Or further reduced to a single call for simple cases:
-	 *
-	 *      request
-	 *        .post('/user', { name: 'tj' }, function(res){});
-	 *
-	 * @param {XMLHTTPRequest} xhr
-	 * @param {Object} options
-	 * @api private
-	 */
-
-	function Response(req, options) {
-	  options = options || {};
-	  this.req = req;
-	  this.xhr = this.req.xhr;
-	  // responseText is accessible only if responseType is '' or 'text' and on older browsers
-	  this.text = this.req.method != 'HEAD' && (this.xhr.responseType === '' || this.xhr.responseType === 'text') || typeof this.xhr.responseType === 'undefined' ? this.xhr.responseText : null;
-	  this.statusText = this.req.xhr.statusText;
-	  this.setStatusProperties(this.xhr.status);
-	  this.header = this.headers = parseHeader(this.xhr.getAllResponseHeaders());
-	  // getAllResponseHeaders sometimes falsely returns "" for CORS requests, but
-	  // getResponseHeader still works. so we get content-type even if getting
-	  // other headers fails.
-	  this.header['content-type'] = this.xhr.getResponseHeader('content-type');
-	  this.setHeaderProperties(this.header);
-	  this.body = this.req.method != 'HEAD' ? this.parseBody(this.text ? this.text : this.xhr.response) : null;
-	}
-
-	/**
-	 * Get case-insensitive `field` value.
-	 *
-	 * @param {String} field
-	 * @return {String}
-	 * @api public
-	 */
-
-	Response.prototype.get = function (field) {
-	  return this.header[field.toLowerCase()];
-	};
-
-	/**
-	 * Set header related properties:
-	 *
-	 *   - `.type` the content type without params
-	 *
-	 * A response of "Content-Type: text/plain; charset=utf-8"
-	 * will provide you with a `.type` of "text/plain".
-	 *
-	 * @param {Object} header
-	 * @api private
-	 */
-
-	Response.prototype.setHeaderProperties = function (header) {
-	  // content-type
-	  var ct = this.header['content-type'] || '';
-	  this.type = type(ct);
-
-	  // params
-	  var obj = params(ct);
-	  for (var key in obj) this[key] = obj[key];
-	};
-
-	/**
-	 * Parse the given body `str`.
-	 *
-	 * Used for auto-parsing of bodies. Parsers
-	 * are defined on the `superagent.parse` object.
-	 *
-	 * @param {String} str
-	 * @return {Mixed}
-	 * @api private
-	 */
-
-	Response.prototype.parseBody = function (str) {
-	  var parse = request.parse[this.type];
-	  return parse && str && (str.length || str instanceof Object) ? parse(str) : null;
-	};
-
-	/**
-	 * Set flags such as `.ok` based on `status`.
-	 *
-	 * For example a 2xx response will give you a `.ok` of __true__
-	 * whereas 5xx will be __false__ and `.error` will be __true__. The
-	 * `.clientError` and `.serverError` are also available to be more
-	 * specific, and `.statusType` is the class of error ranging from 1..5
-	 * sometimes useful for mapping respond colors etc.
-	 *
-	 * "sugar" properties are also defined for common cases. Currently providing:
-	 *
-	 *   - .noContent
-	 *   - .badRequest
-	 *   - .unauthorized
-	 *   - .notAcceptable
-	 *   - .notFound
-	 *
-	 * @param {Number} status
-	 * @api private
-	 */
-
-	Response.prototype.setStatusProperties = function (status) {
-	  // handle IE9 bug: http://stackoverflow.com/questions/10046972/msie-returns-status-code-of-1223-for-ajax-request
-	  if (status === 1223) {
-	    status = 204;
-	  }
-
-	  var type = status / 100 | 0;
-
-	  // status / class
-	  this.status = status;
-	  this.statusType = type;
-
-	  // basics
-	  this.info = 1 == type;
-	  this.ok = 2 == type;
-	  this.clientError = 4 == type;
-	  this.serverError = 5 == type;
-	  this.error = 4 == type || 5 == type ? this.toError() : false;
-
-	  // sugar
-	  this.accepted = 202 == status;
-	  this.noContent = 204 == status;
-	  this.badRequest = 400 == status;
-	  this.unauthorized = 401 == status;
-	  this.notAcceptable = 406 == status;
-	  this.notFound = 404 == status;
-	  this.forbidden = 403 == status;
-	};
-
-	/**
-	 * Return an `Error` representative of this response.
-	 *
-	 * @return {Error}
-	 * @api public
-	 */
-
-	Response.prototype.toError = function () {
-	  var req = this.req;
-	  var method = req.method;
-	  var url = req.url;
-
-	  var msg = 'cannot ' + method + ' ' + url + ' (' + this.status + ')';
-	  var err = new Error(msg);
-	  err.status = this.status;
-	  err.method = method;
-	  err.url = url;
-
-	  return err;
-	};
-
-	/**
-	 * Expose `Response`.
-	 */
-
-	request.Response = Response;
-
-	/**
-	 * Initialize a new `Request` with the given `method` and `url`.
-	 *
-	 * @param {String} method
-	 * @param {String} url
-	 * @api public
-	 */
-
-	function Request(method, url) {
-	  var self = this;
-	  Emitter.call(this);
-	  this._query = this._query || [];
-	  this.method = method;
-	  this.url = url;
-	  this.header = {};
-	  this._header = {};
-	  this.on('end', function () {
-	    var err = null;
-	    var res = null;
-
-	    try {
-	      res = new Response(self);
-	    } catch (e) {
-	      err = new Error('Parser is unable to parse the response');
-	      err.parse = true;
-	      err.original = e;
-	      return self.callback(err);
-	    }
-
-	    self.emit('response', res);
-
-	    if (err) {
-	      return self.callback(err, res);
-	    }
-
-	    if (res.status >= 200 && res.status < 300) {
-	      return self.callback(err, res);
-	    }
-
-	    var new_err = new Error(res.statusText || 'Unsuccessful HTTP response');
-	    new_err.original = err;
-	    new_err.response = res;
-	    new_err.status = res.status;
-
-	    self.callback(err || new_err, res);
-	  });
-	}
-
-	/**
-	 * Mixin `Emitter`.
-	 */
-
-	Emitter(Request.prototype);
-
-	/**
-	 * Allow for extension
-	 */
-
-	Request.prototype.use = function (fn) {
-	  fn(this);
-	  return this;
-	};
-
-	/**
-	 * Set timeout to `ms`.
-	 *
-	 * @param {Number} ms
-	 * @return {Request} for chaining
-	 * @api public
-	 */
-
-	Request.prototype.timeout = function (ms) {
-	  this._timeout = ms;
-	  return this;
-	};
-
-	/**
-	 * Clear previous timeout.
-	 *
-	 * @return {Request} for chaining
-	 * @api public
-	 */
-
-	Request.prototype.clearTimeout = function () {
-	  this._timeout = 0;
-	  clearTimeout(this._timer);
-	  return this;
-	};
-
-	/**
-	 * Abort the request, and clear potential timeout.
-	 *
-	 * @return {Request}
-	 * @api public
-	 */
-
-	Request.prototype.abort = function () {
-	  if (this.aborted) return;
-	  this.aborted = true;
-	  this.xhr.abort();
-	  this.clearTimeout();
-	  this.emit('abort');
-	  return this;
-	};
-
-	/**
-	 * Set header `field` to `val`, or multiple fields with one object.
-	 *
-	 * Examples:
-	 *
-	 *      req.get('/')
-	 *        .set('Accept', 'application/json')
-	 *        .set('X-API-Key', 'foobar')
-	 *        .end(callback);
-	 *
-	 *      req.get('/')
-	 *        .set({ Accept: 'application/json', 'X-API-Key': 'foobar' })
-	 *        .end(callback);
-	 *
-	 * @param {String|Object} field
-	 * @param {String} val
-	 * @return {Request} for chaining
-	 * @api public
-	 */
-
-	Request.prototype.set = function (field, val) {
-	  if (isObject(field)) {
-	    for (var key in field) {
-	      this.set(key, field[key]);
-	    }
-	    return this;
-	  }
-	  this._header[field.toLowerCase()] = val;
-	  this.header[field] = val;
-	  return this;
-	};
-
-	/**
-	 * Remove header `field`.
-	 *
-	 * Example:
-	 *
-	 *      req.get('/')
-	 *        .unset('User-Agent')
-	 *        .end(callback);
-	 *
-	 * @param {String} field
-	 * @return {Request} for chaining
-	 * @api public
-	 */
-
-	Request.prototype.unset = function (field) {
-	  delete this._header[field.toLowerCase()];
-	  delete this.header[field];
-	  return this;
-	};
-
-	/**
-	 * Get case-insensitive header `field` value.
-	 *
-	 * @param {String} field
-	 * @return {String}
-	 * @api private
-	 */
-
-	Request.prototype.getHeader = function (field) {
-	  return this._header[field.toLowerCase()];
-	};
-
-	/**
-	 * Set Content-Type to `type`, mapping values from `request.types`.
-	 *
-	 * Examples:
-	 *
-	 *      superagent.types.xml = 'application/xml';
-	 *
-	 *      request.post('/')
-	 *        .type('xml')
-	 *        .send(xmlstring)
-	 *        .end(callback);
-	 *
-	 *      request.post('/')
-	 *        .type('application/xml')
-	 *        .send(xmlstring)
-	 *        .end(callback);
-	 *
-	 * @param {String} type
-	 * @return {Request} for chaining
-	 * @api public
-	 */
-
-	Request.prototype.type = function (type) {
-	  this.set('Content-Type', request.types[type] || type);
-	  return this;
-	};
-
-	/**
-	 * Set Accept to `type`, mapping values from `request.types`.
-	 *
-	 * Examples:
-	 *
-	 *      superagent.types.json = 'application/json';
-	 *
-	 *      request.get('/agent')
-	 *        .accept('json')
-	 *        .end(callback);
-	 *
-	 *      request.get('/agent')
-	 *        .accept('application/json')
-	 *        .end(callback);
-	 *
-	 * @param {String} accept
-	 * @return {Request} for chaining
-	 * @api public
-	 */
-
-	Request.prototype.accept = function (type) {
-	  this.set('Accept', request.types[type] || type);
-	  return this;
-	};
-
-	/**
-	 * Set Authorization field value with `user` and `pass`.
-	 *
-	 * @param {String} user
-	 * @param {String} pass
-	 * @return {Request} for chaining
-	 * @api public
-	 */
-
-	Request.prototype.auth = function (user, pass) {
-	  var str = btoa(user + ':' + pass);
-	  this.set('Authorization', 'Basic ' + str);
-	  return this;
-	};
-
-	/**
-	* Add query-string `val`.
-	*
-	* Examples:
-	*
-	*   request.get('/shoes')
-	*     .query('size=10')
-	*     .query({ color: 'blue' })
-	*
-	* @param {Object|String} val
-	* @return {Request} for chaining
-	* @api public
-	*/
-
-	Request.prototype.query = function (val) {
-	  if ('string' != typeof val) val = serialize(val);
-	  if (val) this._query.push(val);
-	  return this;
-	};
-
-	/**
-	 * Write the field `name` and `val` for "multipart/form-data"
-	 * request bodies.
-	 *
-	 * ``` js
-	 * request.post('/upload')
-	 *   .field('foo', 'bar')
-	 *   .end(callback);
-	 * ```
-	 *
-	 * @param {String} name
-	 * @param {String|Blob|File} val
-	 * @return {Request} for chaining
-	 * @api public
-	 */
-
-	Request.prototype.field = function (name, val) {
-	  if (!this._formData) this._formData = new root.FormData();
-	  this._formData.append(name, val);
-	  return this;
-	};
-
-	/**
-	 * Queue the given `file` as an attachment to the specified `field`,
-	 * with optional `filename`.
-	 *
-	 * ``` js
-	 * request.post('/upload')
-	 *   .attach(new Blob(['<a id="a"><b id="b">hey!</b></a>'], { type: "text/html"}))
-	 *   .end(callback);
-	 * ```
-	 *
-	 * @param {String} field
-	 * @param {Blob|File} file
-	 * @param {String} filename
-	 * @return {Request} for chaining
-	 * @api public
-	 */
-
-	Request.prototype.attach = function (field, file, filename) {
-	  if (!this._formData) this._formData = new root.FormData();
-	  this._formData.append(field, file, filename);
-	  return this;
-	};
-
-	/**
-	 * Send `data`, defaulting the `.type()` to "json" when
-	 * an object is given.
-	 *
-	 * Examples:
-	 *
-	 *       // querystring
-	 *       request.get('/search')
-	 *         .end(callback)
-	 *
-	 *       // multiple data "writes"
-	 *       request.get('/search')
-	 *         .send({ search: 'query' })
-	 *         .send({ range: '1..5' })
-	 *         .send({ order: 'desc' })
-	 *         .end(callback)
-	 *
-	 *       // manual json
-	 *       request.post('/user')
-	 *         .type('json')
-	 *         .send('{"name":"tj"})
-	 *         .end(callback)
-	 *
-	 *       // auto json
-	 *       request.post('/user')
-	 *         .send({ name: 'tj' })
-	 *         .end(callback)
-	 *
-	 *       // manual x-www-form-urlencoded
-	 *       request.post('/user')
-	 *         .type('form')
-	 *         .send('name=tj')
-	 *         .end(callback)
-	 *
-	 *       // auto x-www-form-urlencoded
-	 *       request.post('/user')
-	 *         .type('form')
-	 *         .send({ name: 'tj' })
-	 *         .end(callback)
-	 *
-	 *       // defaults to x-www-form-urlencoded
-	  *      request.post('/user')
-	  *        .send('name=tobi')
-	  *        .send('species=ferret')
-	  *        .end(callback)
-	 *
-	 * @param {String|Object} data
-	 * @return {Request} for chaining
-	 * @api public
-	 */
-
-	Request.prototype.send = function (data) {
-	  var obj = isObject(data);
-	  var type = this.getHeader('Content-Type');
-
-	  // merge
-	  if (obj && isObject(this._data)) {
-	    for (var key in data) {
-	      this._data[key] = data[key];
-	    }
-	  } else if ('string' == typeof data) {
-	    if (!type) this.type('form');
-	    type = this.getHeader('Content-Type');
-	    if ('application/x-www-form-urlencoded' == type) {
-	      this._data = this._data ? this._data + '&' + data : data;
-	    } else {
-	      this._data = (this._data || '') + data;
-	    }
-	  } else {
-	    this._data = data;
-	  }
-
-	  if (!obj || isHost(data)) return this;
-	  if (!type) this.type('json');
-	  return this;
-	};
-
-	/**
-	 * Invoke the callback with `err` and `res`
-	 * and handle arity check.
-	 *
-	 * @param {Error} err
-	 * @param {Response} res
-	 * @api private
-	 */
-
-	Request.prototype.callback = function (err, res) {
-	  var fn = this._callback;
-	  this.clearTimeout();
-	  fn(err, res);
-	};
-
-	/**
-	 * Invoke callback with x-domain error.
-	 *
-	 * @api private
-	 */
-
-	Request.prototype.crossDomainError = function () {
-	  var err = new Error('Origin is not allowed by Access-Control-Allow-Origin');
-	  err.crossDomain = true;
-	  this.callback(err);
-	};
-
-	/**
-	 * Invoke callback with timeout error.
-	 *
-	 * @api private
-	 */
-
-	Request.prototype.timeoutError = function () {
-	  var timeout = this._timeout;
-	  var err = new Error('timeout of ' + timeout + 'ms exceeded');
-	  err.timeout = timeout;
-	  this.callback(err);
-	};
-
-	/**
-	 * Enable transmission of cookies with x-domain requests.
-	 *
-	 * Note that for this to work the origin must not be
-	 * using "Access-Control-Allow-Origin" with a wildcard,
-	 * and also must set "Access-Control-Allow-Credentials"
-	 * to "true".
-	 *
-	 * @api public
-	 */
-
-	Request.prototype.withCredentials = function () {
-	  this._withCredentials = true;
-	  return this;
-	};
-
-	/**
-	 * Initiate request, invoking callback `fn(res)`
-	 * with an instanceof `Response`.
-	 *
-	 * @param {Function} fn
-	 * @return {Request} for chaining
-	 * @api public
-	 */
-
-	Request.prototype.end = function (fn) {
-	  var self = this;
-	  var xhr = this.xhr = request.getXHR();
-	  var query = this._query.join('&');
-	  var timeout = this._timeout;
-	  var data = this._formData || this._data;
-
-	  // store callback
-	  this._callback = fn || noop;
-
-	  // state change
-	  xhr.onreadystatechange = function () {
-	    if (4 != xhr.readyState) return;
-
-	    // In IE9, reads to any property (e.g. status) off of an aborted XHR will
-	    // result in the error "Could not complete the operation due to error c00c023f"
-	    var status;
-	    try {
-	      status = xhr.status;
-	    } catch (e) {
-	      status = 0;
-	    }
-
-	    if (0 == status) {
-	      if (self.timedout) return self.timeoutError();
-	      if (self.aborted) return;
-	      return self.crossDomainError();
-	    }
-	    self.emit('end');
-	  };
-
-	  // progress
-	  var handleProgress = function handleProgress(e) {
-	    if (e.total > 0) {
-	      e.percent = e.loaded / e.total * 100;
-	    }
-	    self.emit('progress', e);
-	  };
-	  if (this.hasListeners('progress')) {
-	    xhr.onprogress = handleProgress;
-	  }
-	  try {
-	    if (xhr.upload && this.hasListeners('progress')) {
-	      xhr.upload.onprogress = handleProgress;
-	    }
-	  } catch (e) {}
-
-	  // timeout
-	  if (timeout && !this._timer) {
-	    this._timer = setTimeout(function () {
-	      self.timedout = true;
-	      self.abort();
-	    }, timeout);
-	  }
-
-	  // querystring
-	  if (query) {
-	    query = request.serializeObject(query);
-	    this.url += ~this.url.indexOf('?') ? '&' + query : '?' + query;
-	  }
-
-	  // initiate request
-	  xhr.open(this.method, this.url, true);
-
-	  // CORS
-	  if (this._withCredentials) xhr.withCredentials = true;
-
-	  // body
-	  if ('GET' != this.method && 'HEAD' != this.method && 'string' != typeof data && !isHost(data)) {
-	    // serialize stuff
-	    var serialize = request.serialize[this.getHeader('Content-Type')];
-	    if (serialize) data = serialize(data);
-	  }
-
-	  // set header fields
-	  for (var field in this.header) {
-	    if (null == this.header[field]) continue;
-	    xhr.setRequestHeader(field, this.header[field]);
-	  }
-
-	  // send stuff
-	  this.emit('request', this);
-	  xhr.send(data);
-	  return this;
-	};
-
-	/**
-	 * Expose `Request`.
-	 */
-
-	request.Request = Request;
-
-	/**
-	 * Issue a request:
-	 *
-	 * Examples:
-	 *
-	 *    request('GET', '/users').end(callback)
-	 *    request('/users').end(callback)
-	 *    request('/users', callback)
-	 *
-	 * @param {String} method
-	 * @param {String|Function} url or callback
-	 * @return {Request}
-	 * @api public
-	 */
-
-	function request(method, url) {
-	  // callback
-	  if ('function' == typeof url) {
-	    return new Request('GET', method).end(url);
-	  }
-
-	  // url first
-	  if (1 == arguments.length) {
-	    return new Request('GET', method);
-	  }
-
-	  return new Request(method, url);
-	}
-
-	/**
-	 * GET `url` with optional callback `fn(res)`.
-	 *
-	 * @param {String} url
-	 * @param {Mixed|Function} data or fn
-	 * @param {Function} fn
-	 * @return {Request}
-	 * @api public
-	 */
-
-	request.get = function (url, data, fn) {
-	  var req = request('GET', url);
-	  if ('function' == typeof data) fn = data, data = null;
-	  if (data) req.query(data);
-	  if (fn) req.end(fn);
-	  return req;
-	};
-
-	/**
-	 * HEAD `url` with optional callback `fn(res)`.
-	 *
-	 * @param {String} url
-	 * @param {Mixed|Function} data or fn
-	 * @param {Function} fn
-	 * @return {Request}
-	 * @api public
-	 */
-
-	request.head = function (url, data, fn) {
-	  var req = request('HEAD', url);
-	  if ('function' == typeof data) fn = data, data = null;
-	  if (data) req.send(data);
-	  if (fn) req.end(fn);
-	  return req;
-	};
-
-	/**
-	 * DELETE `url` with optional callback `fn(res)`.
-	 *
-	 * @param {String} url
-	 * @param {Function} fn
-	 * @return {Request}
-	 * @api public
-	 */
-
-	request.del = function (url, fn) {
-	  var req = request('DELETE', url);
-	  if (fn) req.end(fn);
-	  return req;
-	};
-
-	/**
-	 * PATCH `url` with optional `data` and callback `fn(res)`.
-	 *
-	 * @param {String} url
-	 * @param {Mixed} data
-	 * @param {Function} fn
-	 * @return {Request}
-	 * @api public
-	 */
-
-	request.patch = function (url, data, fn) {
-	  var req = request('PATCH', url);
-	  if ('function' == typeof data) fn = data, data = null;
-	  if (data) req.send(data);
-	  if (fn) req.end(fn);
-	  return req;
-	};
-
-	/**
-	 * POST `url` with optional `data` and callback `fn(res)`.
-	 *
-	 * @param {String} url
-	 * @param {Mixed} data
-	 * @param {Function} fn
-	 * @return {Request}
-	 * @api public
-	 */
-
-	request.post = function (url, data, fn) {
-	  var req = request('POST', url);
-	  if ('function' == typeof data) fn = data, data = null;
-	  if (data) req.send(data);
-	  if (fn) req.end(fn);
-	  return req;
-	};
-
-	/**
-	 * PUT `url` with optional `data` and callback `fn(res)`.
-	 *
-	 * @param {String} url
-	 * @param {Mixed|Function} data or fn
-	 * @param {Function} fn
-	 * @return {Request}
-	 * @api public
-	 */
-
-	request.put = function (url, data, fn) {
-	  var req = request('PUT', url);
-	  if ('function' == typeof data) fn = data, data = null;
-	  if (data) req.send(data);
-	  if (fn) req.end(fn);
-	  return req;
-	};
-
-	/**
-	 * Expose `request`.
-	 */
-
-	module.exports = request;
-
-	// Accessing xhr.upload fails in IE from a web worker, so just pretend it doesn't exist.
-	// Reported here:
-	// https://connect.microsoft.com/IE/feedback/details/837245/xmlhttprequest-upload-throws-invalid-argument-when-used-from-web-worker-context
 
 /***/ },
 /* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
-	/**
-	 * Expose `Emitter`.
-	 */
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
 
-	"use strict";
-
-	module.exports = Emitter;
-
-	/**
-	 * Initialize a new `Emitter`.
-	 *
-	 * @api public
-	 */
-
-	function Emitter(obj) {
-	  if (obj) return mixin(obj);
-	};
-
-	/**
-	 * Mixin the emitter properties.
-	 *
-	 * @param {Object} obj
-	 * @return {Object}
-	 * @api private
-	 */
-
-	function mixin(obj) {
-	  for (var key in Emitter.prototype) {
-	    obj[key] = Emitter.prototype[key];
-	  }
-	  return obj;
-	}
-
-	/**
-	 * Listen on the given `event` with `fn`.
-	 *
-	 * @param {String} event
-	 * @param {Function} fn
-	 * @return {Emitter}
-	 * @api public
-	 */
-
-	Emitter.prototype.on = Emitter.prototype.addEventListener = function (event, fn) {
-	  this._callbacks = this._callbacks || {};
-	  (this._callbacks[event] = this._callbacks[event] || []).push(fn);
-	  return this;
-	};
-
-	/**
-	 * Adds an `event` listener that will be invoked a single
-	 * time then automatically removed.
-	 *
-	 * @param {String} event
-	 * @param {Function} fn
-	 * @return {Emitter}
-	 * @api public
-	 */
-
-	Emitter.prototype.once = function (event, fn) {
-	  var self = this;
-	  this._callbacks = this._callbacks || {};
-
-	  function on() {
-	    self.off(event, on);
-	    fn.apply(this, arguments);
-	  }
-
-	  on.fn = fn;
-	  this.on(event, on);
-	  return this;
-	};
-
-	/**
-	 * Remove the given callback for `event` or all
-	 * registered callbacks.
-	 *
-	 * @param {String} event
-	 * @param {Function} fn
-	 * @return {Emitter}
-	 * @api public
-	 */
-
-	Emitter.prototype.off = Emitter.prototype.removeListener = Emitter.prototype.removeAllListeners = Emitter.prototype.removeEventListener = function (event, fn) {
-	  this._callbacks = this._callbacks || {};
-
-	  // all
-	  if (0 == arguments.length) {
-	    this._callbacks = {};
-	    return this;
-	  }
-
-	  // specific event
-	  var callbacks = this._callbacks[event];
-	  if (!callbacks) return this;
-
-	  // remove all handlers
-	  if (1 == arguments.length) {
-	    delete this._callbacks[event];
-	    return this;
-	  }
-
-	  // remove specific handler
-	  var cb;
-	  for (var i = 0; i < callbacks.length; i++) {
-	    cb = callbacks[i];
-	    if (cb === fn || cb.fn === fn) {
-	      callbacks.splice(i, 1);
-	      break;
+	(function (root, factory) {
+	    if (true) {
+	        !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else if (typeof exports === 'object') {
+	        module.exports = factory();
+	    } else {
+	        root.deepmerge = factory();
 	    }
-	  }
-	  return this;
-	};
+	})(undefined, function () {
 
-	/**
-	 * Emit `event` with the given args.
-	 *
-	 * @param {String} event
-	 * @param {Mixed} ...
-	 * @return {Emitter}
-	 */
+	    return function deepmerge(target, src) {
+	        var array = Array.isArray(src);
+	        var dst = array && [] || {};
 
-	Emitter.prototype.emit = function (event) {
-	  this._callbacks = this._callbacks || {};
-	  var args = [].slice.call(arguments, 1),
-	      callbacks = this._callbacks[event];
+	        if (array) {
+	            target = target || [];
+	            dst = dst.concat(target);
+	            src.forEach(function (e, i) {
+	                if (typeof dst[i] === 'undefined') {
+	                    dst[i] = e;
+	                } else if (typeof e === 'object') {
+	                    dst[i] = deepmerge(target[i], e);
+	                } else {
+	                    if (target.indexOf(e) === -1) {
+	                        dst.push(e);
+	                    }
+	                }
+	            });
+	        } else {
+	            if (target && typeof target === 'object') {
+	                Object.keys(target).forEach(function (key) {
+	                    dst[key] = target[key];
+	                });
+	            }
+	            Object.keys(src).forEach(function (key) {
+	                if (typeof src[key] !== 'object' || !src[key]) {
+	                    dst[key] = src[key];
+	                } else {
+	                    if (!target[key]) {
+	                        dst[key] = src[key];
+	                    } else {
+	                        dst[key] = deepmerge(target[key], src[key]);
+	                    }
+	                }
+	            });
+	        }
 
-	  if (callbacks) {
-	    callbacks = callbacks.slice(0);
-	    for (var i = 0, len = callbacks.length; i < len; ++i) {
-	      callbacks[i].apply(this, args);
-	    }
-	  }
-
-	  return this;
-	};
-
-	/**
-	 * Return array of callbacks for `event`.
-	 *
-	 * @param {String} event
-	 * @return {Array}
-	 * @api public
-	 */
-
-	Emitter.prototype.listeners = function (event) {
-	  this._callbacks = this._callbacks || {};
-	  return this._callbacks[event] || [];
-	};
-
-	/**
-	 * Check if this emitter has `event` handlers.
-	 *
-	 * @param {String} event
-	 * @return {Boolean}
-	 * @api public
-	 */
-
-	Emitter.prototype.hasListeners = function (event) {
-	  return !!this.listeners(event).length;
-	};
+	        return dst;
+	    };
+	});
 
 /***/ },
 /* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
-	/**
-	 * Reduce `arr` with `fn`.
-	 *
-	 * @param {Array} arr
-	 * @param {Function} fn
-	 * @param {Mixed} initial
-	 *
-	 * TODO: combatible error handling?
-	 */
-
 	"use strict";
 
-	module.exports = function (arr, fn, initial) {
-	  var idx = 0;
-	  var len = arr.length;
-	  var curr = arguments.length == 3 ? initial : arr[idx++];
+	module.exports = {
+	  getInitialState: function getInitialState() {
+	    return {
+	      value: this.$formatValue(this.props.value)
+	    };
+	  },
 
-	  while (idx < len) {
-	    curr = fn.call(null, curr, arr[idx], ++idx, arr);
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (nextProps.value !== this.props.value) {
+	      this.setState({ value: this.$formatValue(nextProps.value) });
+	    }
+	  },
+
+	  setValue: function setValue(value) {
+	    value = this.$formatValue(value);
+	    this.setState({ value: value });
+	  },
+
+	  $formatValue: function $formatValue(value) {
+	    if (this.formatValue) {
+	      value = this.formatValue(value);
+	    }
+	    return value;
 	  }
-
-	  return curr;
 	};
 
 /***/ },
 /* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	module.exports = [{ "value": "nanjing", "text": "南京" }, { "value": "beijing", "text": "北京" }, { "value": "guangzhou", "text": "广州" }, { "value": "shenzhen", "text": "深圳" }, { "value": "chengdu", "text": "成都" }, { "value": "chongqing", "text": "重庆" }, { "value": "shanghai", "text": "上海" }];
+
+/***/ },
+/* 143 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(114);
+	var Icon = __webpack_require__(120);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Icon',
+
+	  mixins: [Prettify],
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Icon'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '图标，使用',
+	          React.createElement(
+	            'a',
+	            { href: 'http://fontawesome.io/' },
+	            'font-awesome'
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="string" spin={bool} size={int|string} />'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'icon:'
+	          ),
+	          '图标名称，详见',
+	          React.createElement(
+	            'a',
+	            { href: 'http://fontawesome.io/icons/' },
+	            'fontawesome'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'spin:'
+	          ),
+	          '是否旋转。默认值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'size:'
+	          ),
+	          '图标尺寸，可选值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '[lg|2x|3x|4x|5x]'
+	          ),
+	          '，或者为数字 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '1-5'
+	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Normal'
+	        ),
+	        React.createElement(Icon, { icon: 'home' }),
+	        ' home',
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="camera-retro" /> camera-retro'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Spin'
+	        ),
+	        React.createElement(Icon, { icon: 'spinner', spin: true }),
+	        '   ',
+	        React.createElement(Icon, { icon: 'refresh', spin: true }),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="spinner" spin={true} />\r<Icon icon="refresh" spin={true} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Size'
+	        ),
+	        React.createElement(Icon, { icon: 'camera-retro' }),
+	        ' normal',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 'lg' }),
+	        ' lg',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 2 }),
+	        ' 2x',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 3 }),
+	        ' 3x',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 4 }),
+	        ' 4x',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 5 }),
+	        ' 5x',
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="camera-retro" />\r<Icon icon="camera-retro" size="lg" />\n<Icon icon="camera-retro" size="2x" />\n<Icon icon="camera-retro" size="3" />\n<Icon icon="camera-retro" size={4} />\n<Icon icon="camera-retro" size={5} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Method'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '有两个实例方法控制旋转，',
+	          React.createElement(
+	            'em',
+	            null,
+	            'spin'
+	          ),
+	          ' 和 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'unspin'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'icon.spin()\ricon.unspin()'
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 144 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(114);
+	var Message = __webpack_require__(145);
+	var Icon = __webpack_require__(120);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Message',
+
+	  mixins: [Prettify],
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Message'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '通知 / 消息'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'p',
+	          null,
+	          '为了实现全局通知，使用了Reflux，需要加入Reflux引用。'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '首先，在页面的某个地方，加入一个',
+	          React.createElement(
+	            'em',
+	            null,
+	            'Message Compontent'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Message top={bool} clickaway={bool} />'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'top:'
+	          ),
+	          '显示位置，为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' 时显示在页面顶部， ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          ),
+	          ' 显示在页面左下角'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'clickaway:'
+	          ),
+	          '为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' 时，点击页面空白处关闭所有消息'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          '全局方法'
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.show(content, type)\r'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'content:'
+	          ),
+	          '内容，必填，值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'string'
+	          ),
+	          ' 或 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'element'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'type:'
+	          ),
+	          '样式，会增加一个class ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'messsage-[type]'
+	          ),
+	          '，默认值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'info'
+	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Example'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: Message.show.bind(null, 'Info message.') },
+	            'info message'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.show("info message.")'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: Message.show.bind(null, 'error message.', 'error') },
+	            'error message'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.error("error message.", "error")'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: Message.show.bind(null, React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                  'h3',
+	                  null,
+	                  'title'
+	                ),
+	                React.createElement(
+	                  'span',
+	                  null,
+	                  'span message'
+	                )
+	              ), 'warn') },
+	            'element message'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.warn(<span>warning and span</span>, "title")'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: Message.show.bind(null, React.createElement(
+	                'span',
+	                null,
+	                React.createElement(Icon, { icon: 'music' }),
+	                ' success and icon'
+	              ), 'success') },
+	            'success message'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.success(<span><Icon icon="music" /> success and icon</span>, "title")'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          '扩展'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '默认会添加 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'message-extend'
+	          ),
+	          ' 类，可以通过这个类进行扩展。'
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 145 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	__webpack_require__(143);
+	__webpack_require__(146);
 
 	var React = __webpack_require__(52);
-	var Overlay = __webpack_require__(145);
+	var Overlay = __webpack_require__(148);
 	var Objects = __webpack_require__(136);
 	var Classable = __webpack_require__(119);
-	var PubSub = __webpack_require__(148);
+	var PubSub = __webpack_require__(151);
 
 	var messages = [],
 	    ADD_MESSAGE = 'EB3A79637B40',
@@ -5014,19 +4278,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Message;
 
 /***/ },
-/* 143 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 144 */,
-/* 145 */
+/* 147 */,
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(146);
+	__webpack_require__(149);
 	var React = __webpack_require__(52);
 	var Classable = __webpack_require__(119);
 
@@ -5050,14 +4314,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 146 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 147 */,
-/* 148 */
+/* 150 */,
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -5308,560 +4572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 149 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var merge = __webpack_require__(150);
-	var lang = {};
-
-	module.exports = {
-	  set: function set(obj) {
-	    lang = merge(lang, obj);
-	  },
-
-	  get: function get(path) {
-	    if (!path || typeof path !== 'string') {
-	      return '';
-	    }
-	    var result = lang;
-	    path.split('.').forEach(function (p) {
-	      if (result) {
-	        result = result[p];
-	      }
-	    });
-
-	    return result;
-	  }
-	};
-
-/***/ },
-/* 150 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
-
-	(function (root, factory) {
-	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	    } else if (typeof exports === 'object') {
-	        module.exports = factory();
-	    } else {
-	        root.deepmerge = factory();
-	    }
-	})(undefined, function () {
-
-	    return function deepmerge(target, src) {
-	        var array = Array.isArray(src);
-	        var dst = array && [] || {};
-
-	        if (array) {
-	            target = target || [];
-	            dst = dst.concat(target);
-	            src.forEach(function (e, i) {
-	                if (typeof dst[i] === 'undefined') {
-	                    dst[i] = e;
-	                } else if (typeof e === 'object') {
-	                    dst[i] = deepmerge(target[i], e);
-	                } else {
-	                    if (target.indexOf(e) === -1) {
-	                        dst.push(e);
-	                    }
-	                }
-	            });
-	        } else {
-	            if (target && typeof target === 'object') {
-	                Object.keys(target).forEach(function (key) {
-	                    dst[key] = target[key];
-	                });
-	            }
-	            Object.keys(src).forEach(function (key) {
-	                if (typeof src[key] !== 'object' || !src[key]) {
-	                    dst[key] = src[key];
-	                } else {
-	                    if (!target[key]) {
-	                        dst[key] = src[key];
-	                    } else {
-	                        dst[key] = deepmerge(target[key], src[key]);
-	                    }
-	                }
-	            });
-	        }
-
-	        return dst;
-	    };
-	});
-
-/***/ },
-/* 151 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	module.exports = {
-	  getInitialState: function getInitialState() {
-	    return {
-	      value: this.$formatValue(this.props.value)
-	    };
-	  },
-
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (nextProps.value !== this.props.value) {
-	      this.setState({ value: this.$formatValue(nextProps.value) });
-	    }
-	  },
-
-	  setValue: function setValue(value) {
-	    value = this.$formatValue(value);
-	    this.setState({ value: value });
-	  },
-
-	  $formatValue: function $formatValue(value) {
-	    if (this.formatValue) {
-	      value = this.formatValue(value);
-	    }
-	    return value;
-	  }
-	};
-
-/***/ },
 /* 152 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	module.exports = [{ "value": "nanjing", "text": "南京" }, { "value": "beijing", "text": "北京" }, { "value": "guangzhou", "text": "广州" }, { "value": "shenzhen", "text": "深圳" }, { "value": "chengdu", "text": "成都" }, { "value": "chongqing", "text": "重庆" }, { "value": "shanghai", "text": "上海" }];
-
-/***/ },
-/* 153 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(114);
-	var Icon = __webpack_require__(120);
-
-	module.exports = React.createClass({
-	  displayName: 'Pages/Icon',
-
-	  mixins: [Prettify],
-
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'header' },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Icon'
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          '图标，使用',
-	          React.createElement(
-	            'a',
-	            { href: 'http://fontawesome.io/' },
-	            'font-awesome'
-	          )
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'content' },
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Icon icon="string" spin={bool} size={int|string} />'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'icon:'
-	          ),
-	          '图标名称，详见',
-	          React.createElement(
-	            'a',
-	            { href: 'http://fontawesome.io/icons/' },
-	            'fontawesome'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'spin:'
-	          ),
-	          '是否旋转。默认值为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'false'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'size:'
-	          ),
-	          '图标尺寸，可选值为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            '[lg|2x|3x|4x|5x]'
-	          ),
-	          '，或者为数字 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            '1-5'
-	          )
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Normal'
-	        ),
-	        React.createElement(Icon, { icon: 'home' }),
-	        ' home',
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Icon icon="camera-retro" /> camera-retro'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Spin'
-	        ),
-	        React.createElement(Icon, { icon: 'spinner', spin: true }),
-	        '   ',
-	        React.createElement(Icon, { icon: 'refresh', spin: true }),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Icon icon="spinner" spin={true} />\r<Icon icon="refresh" spin={true} />'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Size'
-	        ),
-	        React.createElement(Icon, { icon: 'camera-retro' }),
-	        ' normal',
-	        React.createElement('br', null),
-	        React.createElement(Icon, { icon: 'camera-retro', size: 'lg' }),
-	        ' lg',
-	        React.createElement('br', null),
-	        React.createElement(Icon, { icon: 'camera-retro', size: 2 }),
-	        ' 2x',
-	        React.createElement('br', null),
-	        React.createElement(Icon, { icon: 'camera-retro', size: 3 }),
-	        ' 3x',
-	        React.createElement('br', null),
-	        React.createElement(Icon, { icon: 'camera-retro', size: 4 }),
-	        ' 4x',
-	        React.createElement('br', null),
-	        React.createElement(Icon, { icon: 'camera-retro', size: 5 }),
-	        ' 5x',
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Icon icon="camera-retro" />\r<Icon icon="camera-retro" size="lg" />\n<Icon icon="camera-retro" size="2x" />\n<Icon icon="camera-retro" size="3" />\n<Icon icon="camera-retro" size={4} />\n<Icon icon="camera-retro" size={5} />'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Method'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '有两个实例方法控制旋转，',
-	          React.createElement(
-	            'em',
-	            null,
-	            'spin'
-	          ),
-	          ' 和 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'unspin'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'icon.spin()\ricon.unspin()'
-	        )
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-/* 154 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(114);
-	var Message = __webpack_require__(142);
-	var Icon = __webpack_require__(120);
-
-	module.exports = React.createClass({
-	  displayName: 'Pages/Message',
-
-	  mixins: [Prettify],
-
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'header' },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Message'
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          '通知 / 消息'
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'content' },
-	        React.createElement(
-	          'p',
-	          null,
-	          '为了实现全局通知，使用了Reflux，需要加入Reflux引用。'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '首先，在页面的某个地方，加入一个',
-	          React.createElement(
-	            'em',
-	            null,
-	            'Message Compontent'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Message top={bool} clickaway={bool} />'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'top:'
-	          ),
-	          '显示位置，为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'true'
-	          ),
-	          ' 时显示在页面顶部， ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'false'
-	          ),
-	          ' 显示在页面左下角'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'clickaway:'
-	          ),
-	          '为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'true'
-	          ),
-	          ' 时，点击页面空白处关闭所有消息'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          '全局方法'
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'Message.show(content, type)\r'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'content:'
-	          ),
-	          '内容，必填，值为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'string'
-	          ),
-	          ' 或 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'element'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'type:'
-	          ),
-	          '样式，会增加一个class ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'messsage-[type]'
-	          ),
-	          '，默认值为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'info'
-	          )
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Example'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: Message.show.bind(null, 'Info message.') },
-	            'info message'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'Message.show("info message.")'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: Message.show.bind(null, 'error message.', 'error') },
-	            'error message'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'Message.error("error message.", "error")'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: Message.show.bind(null, React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                  'h3',
-	                  null,
-	                  'title'
-	                ),
-	                React.createElement(
-	                  'span',
-	                  null,
-	                  'span message'
-	                )
-	              ), 'warn') },
-	            'element message'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'Message.warn(<span>warning and span</span>, "title")'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: Message.show.bind(null, React.createElement(
-	                'span',
-	                null,
-	                React.createElement(Icon, { icon: 'music' }),
-	                ' success and icon'
-	              ), 'success') },
-	            'success message'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'Message.success(<span><Icon icon="music" /> success and icon</span>, "title")'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          '扩展'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '默认会添加 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'message-extend'
-	          ),
-	          ' 类，可以通过这个类进行扩展。'
-	        )
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5904,12 +4615,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 156 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var lang = __webpack_require__(149);
+	var lang = __webpack_require__(139);
 
 	var data = {
 	  request: {
@@ -5989,7 +4700,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	lang.set(data);
 
 /***/ },
-/* 157 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "index.html"
