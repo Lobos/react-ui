@@ -61,7 +61,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var AppRoutes = __webpack_require__(107);
 
 	// load language
-	__webpack_require__(153);
+	__webpack_require__(156);
 
 	Router.create({
 	  routes: AppRoutes,
@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	// static files
-	__webpack_require__(154);
+	__webpack_require__(157);
 
 /***/ },
 /* 1 */,
@@ -201,7 +201,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DefaultRoute = Router.DefaultRoute;
 
 	var Master = __webpack_require__(109);
-	var Home = __webpack_require__(152);
+	var Home = __webpack_require__(155);
 
 	var menulist = [];
 	_.forEach(__webpack_require__(112), function (menu) {
@@ -1829,7 +1829,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(52);
 	var Router = __webpack_require__(106);
 	var menulist = __webpack_require__(112);
-	var Icon = __webpack_require__(120);
+	var Icon = __webpack_require__(115);
 
 	module.exports = React.createClass({
 	  displayName: 'NavList',
@@ -1957,7 +1957,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(113) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(129) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(133) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(143) }, { route: 'message', text: 'Message', handler: __webpack_require__(144) }];
+	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(125) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(130) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(134) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(113) }, { route: 'message', text: 'Message', handler: __webpack_require__(144) }, { route: 'radio-group', text: 'Radio Group', handler: __webpack_require__(152) }];
 
 /***/ },
 /* 113 */
@@ -1967,8 +1967,301 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(52);
 	var Prettify = __webpack_require__(114);
-	var Button = __webpack_require__(115);
-	var Icon = __webpack_require__(120);
+	var Icon = __webpack_require__(115);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Icon',
+
+	  mixins: [Prettify],
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Icon'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '图标，使用',
+	          React.createElement(
+	            'a',
+	            { href: 'http://fontawesome.io/' },
+	            'font-awesome'
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="string" spin={bool} size={int|string} />'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'icon:'
+	          ),
+	          '图标名称，详见',
+	          React.createElement(
+	            'a',
+	            { href: 'http://fontawesome.io/icons/' },
+	            'fontawesome'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'spin:'
+	          ),
+	          '是否旋转。默认值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'size:'
+	          ),
+	          '图标尺寸，可选值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '[lg|2x|3x|4x|5x]'
+	          ),
+	          '，或者为数字 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '1-5'
+	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Normal'
+	        ),
+	        React.createElement(Icon, { icon: 'home' }),
+	        ' home',
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="camera-retro" /> camera-retro'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Spin'
+	        ),
+	        React.createElement(Icon, { icon: 'spinner', spin: true }),
+	        '   ',
+	        React.createElement(Icon, { icon: 'refresh', spin: true }),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="spinner" spin={true} />\r<Icon icon="refresh" spin={true} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Size'
+	        ),
+	        React.createElement(Icon, { icon: 'camera-retro' }),
+	        ' normal',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 'lg' }),
+	        ' lg',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 2 }),
+	        ' 2x',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 3 }),
+	        ' 3x',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 4 }),
+	        ' 4x',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 5 }),
+	        ' 5x',
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="camera-retro" />\r<Icon icon="camera-retro" size="lg" />\n<Icon icon="camera-retro" size="2x" />\n<Icon icon="camera-retro" size="3" />\n<Icon icon="camera-retro" size={4} />\n<Icon icon="camera-retro" size={5} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Method'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '有两个实例方法控制旋转，',
+	          React.createElement(
+	            'em',
+	            null,
+	            'spin'
+	          ),
+	          ' 和 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'unspin'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'icon.spin()\ricon.unspin()'
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 114 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(52);
+
+	module.exports = {
+	  componentDidMount: function componentDidMount() {
+	    var node = React.findDOMNode(this);
+	    window.prettyPrint(null, node);
+	  }
+	};
+
+/***/ },
+/* 115 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(116);
+
+	var React = __webpack_require__(52);
+	var Classable = __webpack_require__(124);
+
+	var Icon = React.createClass({
+	  displayName: 'Icon',
+
+	  propTypes: {
+	    icon: React.PropTypes.string,
+	    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+	    spin: React.PropTypes.bool
+	  },
+
+	  mixins: [Classable],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      spin: this.props.spin
+	    };
+	  },
+
+	  spin: function spin() {
+	    this.setState({ spin: true });
+	  },
+
+	  unspin: function unspin() {
+	    this.setState({ spin: false });
+	  },
+
+	  render: function render() {
+	    var classes = {
+	      'icon': true,
+	      'icon-spin': this.state.spin
+	    };
+	    if (this.props.icon) {
+	      classes['icon-' + this.props.icon] = true;
+	    }
+
+	    var size = this.props.size;
+	    if (size) {
+	      if (typeof size === 'number' || size.length === 1) {
+	        size = size + 'x';
+	      }
+	      classes['icon-' + size] = true;
+	    }
+
+	    var className = this.getClasses(classes);
+
+	    return React.createElement('i', { className: className });
+	  }
+	});
+
+	module.exports = Icon;
+
+/***/ },
+/* 116 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(52);
+	var classnames = __webpack_require__(111);
+
+	module.exports = {
+
+	  propTypes: {
+	    className: React.PropTypes.string
+	  },
+
+	  getClasses: function getClasses() {
+	    var mainArguments = Array.prototype.slice.call(arguments);
+	    if (this.props.className) {
+	      mainArguments.push(this.props.className);
+	    }
+
+	    return classnames.apply(null, mainArguments);
+	  }
+	};
+
+/***/ },
+/* 125 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(114);
+	var Button = __webpack_require__(126);
+	var Icon = __webpack_require__(115);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Button',
@@ -2342,29 +2635,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 114 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var React = __webpack_require__(52);
-
-	module.exports = {
-	  componentDidMount: function componentDidMount() {
-	    var node = React.findDOMNode(this);
-	    window.prettyPrint(null, node);
-	  }
-	};
-
-/***/ },
-/* 115 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(116);
+	__webpack_require__(127);
 	var React = __webpack_require__(52);
-	var Classable = __webpack_require__(119);
+	var Classable = __webpack_require__(124);
 
 	module.exports = React.createClass({
 	  displayName: 'Button',
@@ -2423,120 +2701,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 116 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 117 */,
-/* 118 */,
-/* 119 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(52);
-	var classnames = __webpack_require__(111);
-
-	module.exports = {
-
-	  propTypes: {
-	    className: React.PropTypes.string
-	  },
-
-	  getClasses: function getClasses() {
-	    var mainArguments = Array.prototype.slice.call(arguments);
-	    if (this.props.className) {
-	      mainArguments.push(this.props.className);
-	    }
-
-	    return classnames.apply(null, mainArguments);
-	  }
-	};
-
-/***/ },
-/* 120 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	__webpack_require__(121);
-
-	var React = __webpack_require__(52);
-	var Classable = __webpack_require__(119);
-
-	var Icon = React.createClass({
-	  displayName: 'Icon',
-
-	  propTypes: {
-	    icon: React.PropTypes.string,
-	    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-	    spin: React.PropTypes.bool
-	  },
-
-	  mixins: [Classable],
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      spin: this.props.spin
-	    };
-	  },
-
-	  spin: function spin() {
-	    this.setState({ spin: true });
-	  },
-
-	  unspin: function unspin() {
-	    this.setState({ spin: false });
-	  },
-
-	  render: function render() {
-	    var classes = {
-	      'icon': true,
-	      'icon-spin': this.state.spin
-	    };
-	    if (this.props.icon) {
-	      classes['icon-' + this.props.icon] = true;
-	    }
-
-	    var size = this.props.size;
-	    if (size) {
-	      if (typeof size === 'number' || size.length === 1) {
-	        size = size + 'x';
-	      }
-	      classes['icon-' + size] = true;
-	    }
-
-	    var className = this.getClasses(classes);
-
-	    return React.createElement('i', { className: className });
-	  }
-	});
-
-	module.exports = Icon;
-
-/***/ },
-/* 121 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 122 */,
-/* 123 */,
-/* 124 */,
-/* 125 */,
-/* 126 */,
-/* 127 */,
 /* 128 */,
-/* 129 */
+/* 129 */,
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(52);
 	var Prettify = __webpack_require__(114);
-	var Checkbox = __webpack_require__(130);
+	var Checkbox = __webpack_require__(131);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Checkbox',
@@ -2743,12 +2923,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 130 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(131);
+	__webpack_require__(132);
 	var React = __webpack_require__(52);
 
 	module.exports = React.createClass({
@@ -2806,23 +2986,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 131 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 132 */,
-/* 133 */
+/* 133 */,
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(52);
 	var Prettify = __webpack_require__(114);
-	var CheckboxGroup = __webpack_require__(134);
+	var CheckboxGroup = __webpack_require__(135);
 
-	var textValue = __webpack_require__(142);
+	var textValue = __webpack_require__(143);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Checkbox',
@@ -3156,18 +3336,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 134 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+	__webpack_require__(132);
+
 	var React = __webpack_require__(52);
-	var Checkbox = __webpack_require__(130);
-	var Strings = __webpack_require__(135);
-	var Classable = __webpack_require__(119);
-	var Objects = __webpack_require__(136);
-	var Resource = __webpack_require__(137);
-	var ReceiveValue = __webpack_require__(141);
+	var Checkbox = __webpack_require__(131);
+	var Strings = __webpack_require__(136);
+	var Classable = __webpack_require__(124);
+	var Objects = __webpack_require__(137);
+	var Resource = __webpack_require__(138);
+	var ReceiveValue = __webpack_require__(142);
 
 	module.exports = React.createClass({
 	  displayName: 'CheckboxGroup',
@@ -3232,7 +3414,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  render: function render() {
-	    var className = this.getClasses('rui-checkbox-group', {
+	    var className = this.getClasses('checkbox-group', {
 	      'inline': this.props.inline
 	    });
 	    var values = this.state.value;
@@ -3252,7 +3434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 135 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3316,7 +3498,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 136 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3441,14 +3623,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 137 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Ajax = __webpack_require__(138);
-	var Objects = __webpack_require__(136);
-	var lang = __webpack_require__(139);
+	var Ajax = __webpack_require__(139);
+	var Objects = __webpack_require__(137);
+	var lang = __webpack_require__(140);
 
 	module.exports = {
 	  componentWillMount: function componentWillMount() {
@@ -3498,7 +3680,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// from https://github.com/fdaciuk/ajax
@@ -3596,12 +3778,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Ajax;
 
 /***/ },
-/* 139 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var merge = __webpack_require__(140);
+	var merge = __webpack_require__(141);
 	var lang = {};
 
 	module.exports = {
@@ -3625,7 +3807,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 140 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -3682,7 +3864,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 141 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3714,192 +3896,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 142 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	module.exports = [{ "value": "nanjing", "text": "南京" }, { "value": "beijing", "text": "北京" }, { "value": "guangzhou", "text": "广州" }, { "value": "shenzhen", "text": "深圳" }, { "value": "chengdu", "text": "成都" }, { "value": "chongqing", "text": "重庆" }, { "value": "shanghai", "text": "上海" }];
-
-/***/ },
-/* 143 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(114);
-	var Icon = __webpack_require__(120);
-
-	module.exports = React.createClass({
-	  displayName: 'Pages/Icon',
-
-	  mixins: [Prettify],
-
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'header' },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Icon'
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          '图标，使用',
-	          React.createElement(
-	            'a',
-	            { href: 'http://fontawesome.io/' },
-	            'font-awesome'
-	          )
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'content' },
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Icon icon="string" spin={bool} size={int|string} />'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'icon:'
-	          ),
-	          '图标名称，详见',
-	          React.createElement(
-	            'a',
-	            { href: 'http://fontawesome.io/icons/' },
-	            'fontawesome'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'spin:'
-	          ),
-	          '是否旋转。默认值为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'false'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'size:'
-	          ),
-	          '图标尺寸，可选值为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            '[lg|2x|3x|4x|5x]'
-	          ),
-	          '，或者为数字 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            '1-5'
-	          )
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Normal'
-	        ),
-	        React.createElement(Icon, { icon: 'home' }),
-	        ' home',
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Icon icon="camera-retro" /> camera-retro'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Spin'
-	        ),
-	        React.createElement(Icon, { icon: 'spinner', spin: true }),
-	        '   ',
-	        React.createElement(Icon, { icon: 'refresh', spin: true }),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Icon icon="spinner" spin={true} />\r<Icon icon="refresh" spin={true} />'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Size'
-	        ),
-	        React.createElement(Icon, { icon: 'camera-retro' }),
-	        ' normal',
-	        React.createElement('br', null),
-	        React.createElement(Icon, { icon: 'camera-retro', size: 'lg' }),
-	        ' lg',
-	        React.createElement('br', null),
-	        React.createElement(Icon, { icon: 'camera-retro', size: 2 }),
-	        ' 2x',
-	        React.createElement('br', null),
-	        React.createElement(Icon, { icon: 'camera-retro', size: 3 }),
-	        ' 3x',
-	        React.createElement('br', null),
-	        React.createElement(Icon, { icon: 'camera-retro', size: 4 }),
-	        ' 4x',
-	        React.createElement('br', null),
-	        React.createElement(Icon, { icon: 'camera-retro', size: 5 }),
-	        ' 5x',
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Icon icon="camera-retro" />\r<Icon icon="camera-retro" size="lg" />\n<Icon icon="camera-retro" size="2x" />\n<Icon icon="camera-retro" size="3" />\n<Icon icon="camera-retro" size={4} />\n<Icon icon="camera-retro" size={5} />'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Method'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '有两个实例方法控制旋转，',
-	          React.createElement(
-	            'em',
-	            null,
-	            'spin'
-	          ),
-	          ' 和 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'unspin'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'icon.spin()\ricon.unspin()'
-	        )
-	      )
-	    );
-	  }
-	});
 
 /***/ },
 /* 144 */
@@ -3910,7 +3912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(52);
 	var Prettify = __webpack_require__(114);
 	var Message = __webpack_require__(145);
-	var Icon = __webpack_require__(120);
+	var Icon = __webpack_require__(115);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Message',
@@ -4160,8 +4162,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(52);
 	var Overlay = __webpack_require__(148);
-	var Objects = __webpack_require__(136);
-	var Classable = __webpack_require__(119);
+	var Objects = __webpack_require__(137);
+	var Classable = __webpack_require__(124);
 	var PubSub = __webpack_require__(151);
 
 	var messages = [],
@@ -4289,7 +4291,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	__webpack_require__(149);
 	var React = __webpack_require__(52);
-	var Classable = __webpack_require__(119);
+	var Classable = __webpack_require__(124);
 
 	function noop() {}
 
@@ -4572,6 +4574,433 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(114);
+	var RadioGroup = __webpack_require__(153);
+
+	var textValue = __webpack_require__(143);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Checkbox',
+
+	  mixins: [Prettify],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      inline: false
+	    };
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Radio Group'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '一组单选框'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<RadioGroup data={array} inline={bool} onChange={function} readOnly={bool}\r  src="string" textKey="string" valueKey="string" value={any} />'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'data:'
+	          ),
+	          '数据，与 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'src'
+	          ),
+	          ' 二选一'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'inline:'
+	          ),
+	          '为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' 时，各选项横向排列。默认为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'onChange:'
+	          ),
+	          '当选项改变时回调方法，参数为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'value'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'readOnly:'
+	          ),
+	          '为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' 时，只读。默认为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'src:'
+	          ),
+	          '后端数据地址，与 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'data'
+	          ),
+	          ' 二选一'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'textKey:'
+	          ),
+	          '数据结构中显示文字的key，不填默认为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'text'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'valueKey:'
+	          ),
+	          '数据结构中返回值的key，不填默认为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'value'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'value:'
+	          ),
+	          '选中值'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          '数据结构'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '标准结构为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'text'
+	          ),
+	          ', ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'value'
+	          ),
+	          ' key组成的数组'
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '[{"text":"北京","value":"beijing"},{"text":"上海", "value":"shanghai"}]'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '可以使用自定义数组，指定 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'textKey'
+	          ),
+	          ', ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'valueKey'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '[{"cn":"北京","py":"beijing"},{"cn":"上海", "py":"shanghai"}]'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '可以使用一维数组，这种情况下，显示文字与值相同'
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '["北京","上海","广州"]'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Object Data'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(RadioGroup, { inline: true, data: textValue })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<RadioGroup inline={true} data={data} />'
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'data = [\r  { "value": "nanjing", "text": "南京" },\r  { "value": "beijing", "text": "北京" },\r  { "value": "guangzhou", "text": "广州" },\r  { "value": "shenzhen", "text": "深圳" },\r  { "value": "chengdu", "text": "成都" },\r  { "value": "chongqing", "text": "重庆" },\r  { "value": "shanghai", "text": "上海" }\r]'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Array Data'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(RadioGroup, { inline: true, value: '北京', data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<RadioGroup inline={true} value="北京" data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Readonly'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(RadioGroup, { readOnly: true, inline: true, value: '北京', data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<RadioGroup readOnly={true} inline={true} value={"北京"} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Remote Data'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(RadioGroup, { inline: true, stringify: true, value: 'chengdu', src: 'json/text-value.json' })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<RadioGroup inline={true} stringify={true} value="chengdu" src="json/text-value.json" />'
+	        )
+	      )
+	    );
+	  }
+
+	});
+
+/***/ },
+/* 153 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(132);
+	var React = __webpack_require__(52);
+	var Classable = __webpack_require__(124);
+	var Objects = __webpack_require__(137);
+	var Resource = __webpack_require__(138);
+	var ReceiveValue = __webpack_require__(142);
+	var Radio = __webpack_require__(154);
+
+	module.exports = React.createClass({
+	  displayName: 'RadioGroup',
+
+	  propTypes: {
+	    data: React.PropTypes.array,
+	    inline: React.PropTypes.bool,
+	    onChange: React.PropTypes.func,
+	    readOnly: React.PropTypes.bool,
+	    src: React.PropTypes.string,
+	    style: React.PropTypes.object,
+	    textKey: React.PropTypes.string,
+	    value: React.PropTypes.any,
+	    valueKey: React.PropTypes.string
+	  },
+
+	  mixins: [Classable, Resource, ReceiveValue],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      data: []
+	    };
+	  },
+
+	  initData: function initData(data) {
+	    data = Objects.toTextValue(data, this.props.textKey, this.props.valueKey);
+	    this.setState({ data: data });
+	  },
+
+	  getValue: function getValue() {
+	    return this.state.value;
+	  },
+
+	  handleChange: function handleChange(value) {
+	    if (this.props.readOnly) {
+	      return;
+	    }
+
+	    this.setState({ value: value });
+	    var change = this.props.onChange;
+	    if (change) {
+	      setTimeout(function () {
+	        change(value);
+	      }, 0);
+	    }
+	  },
+
+	  render: function render() {
+	    var className = this.getClasses('radio-group', {
+	      'inline': this.props.inline
+	    });
+	    var items = this.state.data.map(function (item, i) {
+	      return React.createElement(Radio, { key: i, onClick: this.handleChange, readOnly: this.props.readOnly, checked: this.state.value === item.value, text: item.text, value: item.value });
+	    }, this);
+
+	    return React.createElement(
+	      'div',
+	      { style: this.props.style, className: className },
+	      items
+	    );
+	  }
+	});
+
+/***/ },
+/* 154 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(132);
+	var React = __webpack_require__(52);
+
+	module.exports = React.createClass({
+	  displayName: 'Radio',
+
+	  propTypes: {
+	    checked: React.PropTypes.bool,
+	    index: React.PropTypes.number,
+	    onClick: React.PropTypes.func,
+	    readOnly: React.PropTypes.bool,
+	    text: React.PropTypes.text,
+	    value: React.PropTypes.any
+	  },
+
+	  handleClick: function handleClick() {
+	    if (this.props.onClick) {
+	      this.props.onClick(this.props.value, this.props.index);
+	    }
+	  },
+
+	  // ignore react readonly warning
+	  noop: function noop() {},
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'pure-radio rui-radio' },
+	      React.createElement(
+	        'label',
+	        null,
+	        React.createElement('input', { ref: 'input', type: 'radio', readOnly: this.props.readOnly, onChange: this.noop, onClick: this.handleClick, checked: this.props.checked, value: this.props.value }),
+	        this.props.text
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 155 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	var React = __webpack_require__(52);
@@ -4612,12 +5041,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 153 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var lang = __webpack_require__(139);
+	var lang = __webpack_require__(140);
 
 	var data = {
 	  request: {
@@ -4697,7 +5126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	lang.set(data);
 
 /***/ },
-/* 154 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "index.html"

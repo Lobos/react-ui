@@ -1,5 +1,7 @@
 "use strict";
 
+require('../../less/checkbox.less');
+
 var React = require('react');
 var Checkbox = require('./checkbox.jsx');
 var Strings = require('../utils/strings');
@@ -72,7 +74,7 @@ module.exports = React.createClass({
 
   render: function () {
     var className = this.getClasses(
-      'rui-checkbox-group',
+      'checkbox-group',
       {
         'inline': this.props.inline
       }
