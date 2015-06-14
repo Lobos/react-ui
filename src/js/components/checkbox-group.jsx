@@ -81,12 +81,6 @@ module.exports = React.createClass({
 
     var items = this.state.data.map(function (item, i) {
       var value = this.stringify ? item.value.toString() : item.value;
-      /*
-      var value = item.value;
-      if (this.stringify) {
-        value = value.toString();
-      }
-      */
       var checked = values.indexOf(value) >= 0;
       return (
         <Checkbox key={i} index={i} readOnly={this.props.readOnly} checked={checked} onChange={this.handleChange} text={item.text} value={item.value} />
@@ -94,7 +88,7 @@ module.exports = React.createClass({
     }, this);
 
     return (
-      <div className={className}>{items}</div>
+      <div className={className}>{this.state.msg || items}</div>
     );
   }
 });

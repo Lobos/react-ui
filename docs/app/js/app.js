@@ -3239,12 +3239,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var items = this.state.data.map(function (item, i) {
 	      var value = this.stringify ? item.value.toString() : item.value;
-	      /*
-	      var value = item.value;
-	      if (this.stringify) {
-	        value = value.toString();
-	      }
-	      */
 	      var checked = values.indexOf(value) >= 0;
 	      return React.createElement(Checkbox, { key: i, index: i, readOnly: this.props.readOnly, checked: checked, onChange: this.handleChange, text: item.text, value: item.value });
 	    }, this);
@@ -3252,7 +3246,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return React.createElement(
 	      'div',
 	      { className: className },
-	      items
+	      this.state.msg || items
 	    );
 	  }
 	});
@@ -3458,16 +3452,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 	  componentWillMount: function componentWillMount() {
-	    this.getResource(this.props);
+	    this.$getResource(this.props);
 	  },
 
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    if (nextProps.src !== this.props.src || nextProps.data !== this.props.data) {
-	      this.getResource(nextProps);
+	      this.$getResource(nextProps);
 	    }
 	  },
 
-	  getResource: function getResource(props) {
+	  $getResource: function $getResource(props) {
 	    if (props.data) {
 	      if (this.initData) {
 	        this.initData(props.data);
@@ -3480,9 +3474,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	      new Ajax().get(props.src).done((function (res) {
 	        var data = res.status === 1 ? res.data : res instanceof Array ? res : undefined;
 
-	        if (!data && res.msg) {
-	          this.setState({ msg: lang.get('request.failure') });
+	        if (!data) {
+	          var msg = res.msg ? res.msg : lang.get('request.failure');
+	          this.setState({ msg: msg });
 	          return;
+	        } else {
+	          this.setState({ msg: null });
 	        }
 
 	        data = Objects.clone(data);
