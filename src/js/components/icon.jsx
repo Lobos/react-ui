@@ -1,9 +1,9 @@
-"use strict";
+"use strict"
 
-require('../../less/icon.less');
+require('../../less/icon.less')
 
-var React = require('react');
-var Classable = require('../mixins/classable');
+var React = require('react')
+var Classable = require('../mixins/classable')
 
 var Icon = React.createClass({
   displayName: 'Icon',
@@ -19,40 +19,40 @@ var Icon = React.createClass({
   getInitialState: function () {
     return {
       spin: this.props.spin
-    };
+    }
   },
 
   spin: function () {
-    this.setState({ spin: true });
+    this.setState({ spin: true })
   },
 
   unspin: function () {
-    this.setState({ spin: false });
+    this.setState({ spin: false })
   },
 
   render: function () {
     var classes = {
       'icon': true,
       'icon-spin': this.state.spin
-    };
+    }
     if (this.props.icon) {
-      classes['icon-' + this.props.icon] = true;
+      classes['icon-' + this.props.icon] = true
     }
 
-    var size = this.props.size;
+    var size = this.props.size
     if (size) {
       if (typeof size === 'number' || size.length === 1) {
-        size = size + 'x';
+        size = size + 'x'
       }
-      classes['icon-' + size] = true;
+      classes['icon-' + size] = true
     }
 
-    var className = this.getClasses(classes);
+    var className = this.getClasses(classes)
 
     return (
       <i className={className}></i>
-    );
+    )
   }
-});
+})
 
-module.exports = Icon;
+module.exports = Icon

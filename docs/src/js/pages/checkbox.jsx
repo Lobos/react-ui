@@ -1,8 +1,8 @@
-"use strict";
+"use strict"
 
-var React = require('react');
-var Prettify = require('../mixins/prettify');
-var Checkbox = require('../../../../src/js/components/checkbox.jsx');
+var React = require('react')
+var Prettify = require('../mixins/prettify')
+var Checkbox = require('../../../../src/js/components/checkbox.jsx')
 
 module.exports = React.createClass({
   displayName: 'Pages/Checkbox',
@@ -47,6 +47,6 @@ module.exports = React.createClass({
 
         </div>
       </div>
-    );
+    )
   }
-});
+})

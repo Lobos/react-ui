@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 module.exports = [
   { route: 'button', text: 'Button', handler: require('./pages/button.jsx') },
@@ -7,4 +7,4 @@ module.exports = [
   { route: 'icon', text: 'Icon', handler: require('./pages/icon.jsx') },
   { route: 'message', text: 'Message', handler: require('./pages/message.jsx') },
   { route: 'radio-group', text: 'Radio Group', handler: require('./pages/radio-group.jsx') }
-];
+]

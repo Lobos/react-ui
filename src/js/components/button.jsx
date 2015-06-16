@@ -1,10 +1,10 @@
-"use strict";
+"use strict"
 
-require('../../less/button.less');
-var React = require('react');
-var Classable = require('../mixins/classable');
+require('../../less/button.less')
+import React from 'react'
+import Classable from '../mixins/classable'
 
-module.exports = React.createClass({
+export default React.createClass({
   displayName: 'Button',
 
   propTypes: {
@@ -22,44 +22,44 @@ module.exports = React.createClass({
     return {
       disabled: this.props.disabled,
       show: null
-    };
+    }
   },
 
   disable: function (elem) {
-    this.setState({ disabled: true, show: elem });
+    this.setState({ disabled: true, show: elem })
   },
 
   enable: function (elem) {
-    this.setState({ disabled: false, show: elem });
+    this.setState({ disabled: false, show: elem })
   },
 
   handleClick: function () {
     if (this.props.onClick) {
-      this.props.onClick();
+      this.props.onClick()
     }
     if (this.props.once) {
-      this.disable();
+      this.disable()
     }
   },
 
   render: function () {
-    var status = this.props.status;
+    var status = this.props.status
     if (status) {
-      status = 'button-' + status;
+      status = 'button-' + status
     }
     var className = this.getClasses(
       'pure-button',
       status,
       { 'pure-button-primary': status === 'button-primary' },
       'button-extend'
-    );
+    )
 
     // use function disable argument first
-    var show = this.state.show || this.props.children;
+    var show = this.state.show || this.props.children
 
     return (
       <button onClick={this.handleClick} disabled={this.state.disabled} className={className} type={this.props.type || "button"}>{show}</button>
-    );
+    )
   }
-});
+})
 

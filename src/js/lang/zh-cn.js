@@ -1,6 +1,6 @@
-"use strict";
+"use strict"
 
-var lang = require('./index');
+import lang from './index'
 
 var data = {
   request: {
@@ -75,6 +75,6 @@ var data = {
       hsv: '格式不正确，应为色相(0-360)、彩度(0-100)、明度(0-100)组成的数组。例：hsv(360,100%,100%)'
     }
   }
-};
+}
 
-lang.set(data);
+lang.set(data)

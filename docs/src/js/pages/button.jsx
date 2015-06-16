@@ -1,9 +1,9 @@
-"use strict";
+"use strict"
 
-var React = require('react');
-var Prettify = require('../mixins/prettify');
-var Button = require('../../../../src/js/components/button.jsx');
-var Icon = require('../../../../src/js/components/icon.jsx');
+var React = require('react')
+var Prettify = require('../mixins/prettify')
+var Button = require('../../../../src/js/components/button.jsx')
+var Icon = require('../../../../src/js/components/icon.jsx')
 
 module.exports = React.createClass({
   displayName: 'Pages/Button',
@@ -11,11 +11,11 @@ module.exports = React.createClass({
   mixins: [Prettify],
 
   disableExample: function (event) {
-    var button = this.refs.button;
+    var button = this.refs.button
     if (event.target.checked) {
-      button.disable(<span><Icon icon="lock" />我被禁用了</span>);
+      button.disable(<span><Icon icon="lock" />我被禁用了</span>)
     } else {
-      button.enable('我又可以使用了');
+      button.enable('我又可以使用了')
     }
   },
 
@@ -133,6 +133,6 @@ disableExample: function (event) {\r\
 
         </div>
       </div>
-    );
+    )
   }
-});
+})

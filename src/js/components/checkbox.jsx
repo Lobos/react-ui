@@ -1,7 +1,7 @@
-"use strict";
+"use strict"
 
-require('../../less/checkbox.less');
-var React = require('react');
+require('../../less/checkbox.less')
+var React = require('react')
 
 module.exports = React.createClass({
   displayName: "Checkbox",
@@ -18,33 +18,33 @@ module.exports = React.createClass({
   getInitialState: function () {
     return {
       checked: !!this.props.checked
-    };
+    }
   },
 
   componentWillReceiveProps: function (nextProps) {
     if (nextProps.checked !== this.props.checked) {
-      this.setState({ checked: nextProps.checked });
+      this.setState({ checked: nextProps.checked })
     }
   },
 
   handleChange: function (event) {
     if (this.props.readOnly) {
-      return;
+      return
     }
 
-    this.setState({ checked: event.target.checked });
+    this.setState({ checked: event.target.checked })
     if (this.props.onChange) {
-      this.props.onChange(event.target.checked, this.props.value, this.props.index);
+      this.props.onChange(event.target.checked, this.props.value, this.props.index)
     }
   },
 
   getValue: function () {
-    return React.findDOMNode(this.refs.input).checked ? (this.props.value || true) : false;
+    return React.findDOMNode(this.refs.input).checked ? (this.props.value || true) : false
   },
 
   setValue: function (value) {
-    var checked = value === true || value === 1 || value === this.state.value;
-    this.setState({ checked: checked });
+    var checked = value === true || value === 1 || value === this.state.value
+    this.setState({ checked: checked })
   },
 
   render: function () {
@@ -53,6 +53,6 @@ module.exports = React.createClass({
         <input ref="input" type="checkbox" onChange={this.handleChange} checked={this.state.checked} value={this.props.value} />
         {' ' + this.props.text}
       </label>
-    );
+    )
   }
-});
+})

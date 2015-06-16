@@ -1,10 +1,10 @@
-"use strict";
+"use strict"
 
-var React = require('react');
-var Prettify = require('../mixins/prettify');
-var RadioGroup = require('../../../../src/js/components/radio-group.jsx');
+var React = require('react')
+var Prettify = require('../mixins/prettify')
+var RadioGroup = require('../../../../src/js/components/radio-group.jsx')
 
-var textValue = require('../data/text-value');
+var textValue = require('../data/text-value')
 
 module.exports = React.createClass({
   displayName: 'Pages/Checkbox',
@@ -14,7 +14,7 @@ module.exports = React.createClass({
   getInitialState: function () {
     return {
       inline: false
-    };
+    }
   },
 
   render: function () {
@@ -80,7 +80,7 @@ data = [\r\
           <pre className="prettyprint">{'<RadioGroup inline={true} stringify={true} value="chengdu" src="json/text-value.json" />'}</pre>
         </div>
       </div>
-    );
+    )
   }
 
-});
+})

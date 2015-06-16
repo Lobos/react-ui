@@ -1,7 +1,7 @@
-"use strict";
+"use strict"
 
-require('../../less/checkbox.less');
-var React = require('react');
+require('../../less/checkbox.less')
+var React = require('react')
 
 module.exports = React.createClass({
   displayName: "Radio",
@@ -17,7 +17,7 @@ module.exports = React.createClass({
 
   handleClick: function () {
     if (this.props.onClick) {
-      this.props.onClick(this.props.value, this.props.index);
+      this.props.onClick(this.props.value, this.props.index)
     }
   },
 
@@ -32,6 +32,6 @@ module.exports = React.createClass({
           {this.props.text}
         </label>
       </div>
-    );
+    )
   }
-});
+})

@@ -1,9 +1,9 @@
-"use strict";
+"use strict"
 
-var React = require('react');
-var Prettify = require('../mixins/prettify');
-var Message = require('../../../../src/js/components/message.jsx');
-var Icon = require('../../../../src/js/components/icon.jsx');
+var React = require('react')
+var Prettify = require('../mixins/prettify')
+var Message = require('../../../../src/js/components/message.jsx')
+var Icon = require('../../../../src/js/components/icon.jsx')
 
 module.exports = React.createClass({
   displayName: 'Pages/Message',
@@ -26,9 +26,7 @@ module.exports = React.createClass({
           <p><b>clickaway:</b>为 <em>true</em> 时，点击页面空白处关闭所有消息</p>
 
           <h2 className="subhead">全局方法</h2>
-<pre className="prettyprint">{'\
-Message.show(content, type)\r\
-'}</pre>
+<pre className="prettyprint">{'Message.show(content, type)'}</pre>
           <p><b>content:</b>内容，必填，值为 <em>string</em> 或 <em>element</em></p>
           <p><b>type:</b>样式，会增加一个class <em>messsage-[type]</em>，默认值为 <em>info</em></p>
 
@@ -49,6 +47,6 @@ Message.show(content, type)\r\
           <p>默认会添加 <em>message-extend</em> 类，可以通过这个类进行扩展。</p>
         </div>
       </div>
-    );
+    )
   }
-});
+})

@@ -1,10 +1,10 @@
-"use strict";
+"use strict"
 
-var classnames = require('classnames');
-var React = require('react');
-var Router = require('react-router');
-var menulist = require('./menulist');
-var Icon = require('../../../src/js/components/icon.jsx');
+var classnames = require('classnames')
+var React = require('react')
+var Router = require('react-router')
+var menulist = require('./menulist')
+var Icon = require('../../../src/js/components/icon.jsx')
 
 module.exports = React.createClass({
   displayName: 'NavList',
@@ -14,23 +14,23 @@ module.exports = React.createClass({
   getInitialState: function () {
     return {
       active: false
-    };
+    }
   },
 
   getClasses: function (name, route) {
     return classnames(name, {
       active: this.context.router.isActive(route)
-    });
+    })
   },
 
   routeChange: function (route) {
-    this.context.router.transitionTo(route);
-    this.setState({ active: false });
+    this.context.router.transitionTo(route)
+    this.setState({ active: false })
   },
 
   toggle: function () {
-    var active = !this.state.active;
-    this.setState({ active: active });
+    var active = !this.state.active
+    this.setState({ active: active })
   },
 
   render: function () {
@@ -39,8 +39,8 @@ module.exports = React.createClass({
         <li className="pure-menu-item">
           <a onClick={this.routeChange.bind(this, m.route)} className={this.getClasses("pure-menu-link", m.route)}>{m.text}</a>
         </li>
-      );
-    }, this);
+      )
+    }, this)
 
     return (
       <div className={classnames("nav", {active: this.state.active})}>
@@ -51,6 +51,6 @@ module.exports = React.createClass({
         </div>
         <div onClick={this.toggle} className="overlay"></div>
       </div>
-    );
+    )
   }
-});
+})

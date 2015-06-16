@@ -1,8 +1,8 @@
-"use strict";
+"use strict"
 
-var React = require('react');
-var Prettify = require('../mixins/prettify');
-var Icon = require('../../../../src/js/components/icon.jsx');
+var React = require('react')
+var Prettify = require('../mixins/prettify')
+var Icon = require('../../../../src/js/components/icon.jsx')
 
 module.exports = React.createClass({
   displayName: 'Pages/Icon',
@@ -29,7 +29,7 @@ module.exports = React.createClass({
 
           <h2 className="subhead">Spin</h2>
           <Icon icon="spinner" spin={true} />
-          &nbsp; &nbsp;
+          &nbsp; &nbsp
           <Icon icon="refresh" spin={true} />
           <pre className="prettyprint">{'<Icon icon="spinner" spin={true} />\r<Icon icon="refresh" spin={true} />'}</pre>
 
@@ -47,6 +47,6 @@ module.exports = React.createClass({
           <pre className="prettyprint">{'icon.spin()\ricon.unspin()'}</pre>
         </div>
       </div>
-    );
+    )
   }
-});
+})

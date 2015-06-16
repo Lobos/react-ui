@@ -1,26 +1,26 @@
-"use strict";
+"use strict"
 
 // Speed up calls to hasOwnProperty
-var hasProperty = Object.prototype.hasOwnProperty;
+var hasProperty = Object.prototype.hasOwnProperty
 
 function isEmpty(obj) {
 
   // null and undefined are "empty"
   if (!obj) {
-    return true;
+    return true
   }
 
   if (typeof obj === 'number') {
-    return false;
+    return false
   }
 
   // Assume if it has a length property with a non-zero value
   // that that property is correct.
   if (obj.length > 0) {
-    return false;
+    return false
   }
   if (obj.length === 0) {
-    return true;
+    return true
   }
 
   // Otherwise, does it have any properties of its own?
@@ -28,55 +28,55 @@ function isEmpty(obj) {
   // toString and valueOf enumeration bugs in IE < 9
   for (var key in obj) {
     if (hasProperty.call(obj, key)) {
-      return false;
+      return false
     }
   }
 
-  return true;
+  return true
 }
 
 function forEach(obj, fn, context) {
-  var key;
+  var key
   for (key in obj) {
     if (hasProperty.call(obj, key)) {
-      fn.call(context, obj[key], key);
+      fn.call(context, obj[key], key)
     }
   }
 }
 
 function clone(item) {
   if (!item) {
-    return item;
+    return item
   } // null, undefined values check
 
   var types = [ Number, String, Boolean ],
-      result;
+      result
 
   // normalizing primitives if someone did new String('aaa'), or new Number('444')
   types.forEach(function(type) {
     if (item instanceof type) {
-      result = type( item );
+      result = type( item )
     }
-  });
+  })
 
   if (typeof result === "undefined") {
     if (Object.prototype.toString.call( item ) === "[object Array]") {
-      result = [];
+      result = []
       item.forEach(function(child, index) {
-        result[index] = clone( child );
-      });
+        result[index] = clone( child )
+      })
     } else if (typeof item === "object") {
       // testing that this is DOM
       if (item.nodeType && typeof item.cloneNode === "function") {
-        result = item.cloneNode(true);
+        result = item.cloneNode(true)
       } else if (!item.prototype) { // check that this is a literal
         if (item instanceof Date) {
-          result = new Date(item);
+          result = new Date(item)
         } else {
           // it is an object literal
-          result = {};
+          result = {}
           for (var i in item) {
-            result[i] = clone(item[i]);
+            result[i] = clone(item[i])
           }
         }
       } else {
@@ -84,37 +84,31 @@ function clone(item) {
         // just keep the reference, or create new object
         if (false && item.constructor) {
           // would not advice to do that, reason? Read below
-          result = new item.constructor();
+          result = new item.constructor()
         } else {
-          result = item;
+          result = item
         }
       }
     } else {
-      result = item;
+      result = item
     }
   }
 
-  return result;
+  return result
 }
 
 function toTextValue(arr, textKey, valueKey) {
-  var kv = [];
-  textKey = textKey || 'text';
-  valueKey = valueKey || 'value';
+  var kv = []
+  textKey = textKey || 'text'
+  valueKey = valueKey || 'value'
   arr.forEach(function (s) {
     if (typeof s !== 'object') {
-      kv.push({ text: s, value: s });
+      kv.push({ text: s, value: s })
     } else {
-      kv.push({ text: s[textKey], value: s[valueKey] });
+      kv.push({ text: s[textKey], value: s[valueKey] })
     }
-  });
-  return kv;
+  })
+  return kv
 }
 
-
-module.exports = {
-  forEach: forEach,
-  isEmpty: isEmpty,
-  clone: clone,
-  toTextValue: toTextValue
-};
+export default { forEach, isEmpty, clone, toTextValue }

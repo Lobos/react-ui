@@ -2074,7 +2074,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          'Spin'
 	        ),
 	        React.createElement(Icon, { icon: 'spinner', spin: true }),
-	        '   ',
+	        '  &nbsp',
 	        React.createElement(Icon, { icon: 'refresh', spin: true }),
 	        React.createElement(
 	          'pre',
@@ -2640,23 +2640,34 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	__webpack_require__(127);
-	var React = __webpack_require__(52);
-	var Classable = __webpack_require__(124);
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
 
-	module.exports = React.createClass({
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(52);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _mixinsClassable = __webpack_require__(124);
+
+	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
+
+	__webpack_require__(127);
+	exports['default'] = _react2['default'].createClass({
 	  displayName: 'Button',
 
 	  propTypes: {
-	    children: React.PropTypes.any,
-	    disabled: React.PropTypes.bool,
-	    onClick: React.PropTypes.func,
-	    once: React.PropTypes.bool,
-	    status: React.PropTypes.string,
-	    type: React.PropTypes.oneOf(['submit', 'button'])
+	    children: _react2['default'].PropTypes.any,
+	    disabled: _react2['default'].PropTypes.bool,
+	    onClick: _react2['default'].PropTypes.func,
+	    once: _react2['default'].PropTypes.bool,
+	    status: _react2['default'].PropTypes.string,
+	    type: _react2['default'].PropTypes.oneOf(['submit', 'button'])
 	  },
 
-	  mixins: [Classable],
+	  mixins: [_mixinsClassable2['default']],
 
 	  getInitialState: function getInitialState() {
 	    return {
@@ -2692,13 +2703,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // use function disable argument first
 	    var show = this.state.show || this.props.children;
 
-	    return React.createElement(
+	    return _react2['default'].createElement(
 	      'button',
 	      { onClick: this.handleClick, disabled: this.state.disabled, className: className, type: this.props.type || 'button' },
 	      show
 	    );
 	  }
 	});
+	module.exports = exports['default'];
 
 /***/ },
 /* 127 */
@@ -3283,7 +3295,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
-	          'data = [\r  { "value": "nanjing", "text": "南京" },\r  { "value": "beijing", "text": "北京" },\r  { "value": "guangzhou", "text": "广州" },\r  { "value": "shenzhen", "text": "深圳" },\r  { "value": "chengdu", "text": "成都" },\r  { "value": "chongqing", "text": "重庆" },\r  { "value": "shanghai", "text": "上海" }\r]'
+	          'data = [\n  { "value": "nanjing", "text": "南京" },\n  { "value": "beijing", "text": "北京" },\n  { "value": "guangzhou", "text": "广州" },\n  { "value": "shenzhen", "text": "深圳" },\n  { "value": "chengdu", "text": "成都" },\n  { "value": "chongqing", "text": "重庆" },\n  { "value": "shanghai", "text": "上海" }\n]'
 	        ),
 	        React.createElement(
 	          'h2',
@@ -3341,32 +3353,56 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(52);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _checkboxJsx = __webpack_require__(131);
+
+	var _checkboxJsx2 = _interopRequireDefault(_checkboxJsx);
+
+	var _utilsStrings = __webpack_require__(137);
+
+	var _mixinsClassable = __webpack_require__(124);
+
+	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
+
+	var _utilsObjects = __webpack_require__(136);
+
+	var _utilsObjects2 = _interopRequireDefault(_utilsObjects);
+
+	var _mixinsResource = __webpack_require__(138);
+
+	var _mixinsResource2 = _interopRequireDefault(_mixinsResource);
+
+	var _mixinsReceiveValue = __webpack_require__(142);
+
+	var _mixinsReceiveValue2 = _interopRequireDefault(_mixinsReceiveValue);
+
 	__webpack_require__(132);
 
-	var React = __webpack_require__(52);
-	var Checkbox = __webpack_require__(131);
-	var Strings = __webpack_require__(136);
-	var Classable = __webpack_require__(124);
-	var Objects = __webpack_require__(137);
-	var Resource = __webpack_require__(138);
-	var ReceiveValue = __webpack_require__(142);
-
-	module.exports = React.createClass({
+	var CheckboxGroup = _react2['default'].createClass({
 	  displayName: 'CheckboxGroup',
 
 	  propTypes: {
-	    data: React.PropTypes.array,
-	    inline: React.PropTypes.bool,
-	    onChange: React.PropTypes.func,
-	    readOnly: React.PropTypes.bool,
-	    src: React.PropTypes.string,
-	    stringify: React.PropTypes.bool,
-	    textKey: React.PropTypes.string,
-	    value: React.PropTypes.any,
-	    valueKey: React.PropTypes.string
+	    data: _react2['default'].PropTypes.array,
+	    inline: _react2['default'].PropTypes.bool,
+	    onChange: _react2['default'].PropTypes.func,
+	    readOnly: _react2['default'].PropTypes.bool,
+	    src: _react2['default'].PropTypes.string,
+	    stringify: _react2['default'].PropTypes.bool,
+	    textKey: _react2['default'].PropTypes.string,
+	    value: _react2['default'].PropTypes.any,
+	    valueKey: _react2['default'].PropTypes.string
 	  },
 
-	  mixins: [Classable, ReceiveValue, Resource],
+	  mixins: [_mixinsClassable2['default'], _mixinsReceiveValue2['default'], _mixinsResource2['default']],
 
 	  getInitialState: function getInitialState() {
 	    return {
@@ -3375,11 +3411,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  formatValue: function formatValue(value) {
-	    return Strings.formatValue(value, this.props.stringify);
+	    return (0, _utilsStrings.formatValue)(value, this.props.stringify);
 	  },
 
 	  initData: function initData(data) {
-	    data = Objects.toTextValue(data, this.props.textKey, this.props.valueKey);
+	    data = _utilsObjects2['default'].toTextValue(data, this.props.textKey, this.props.valueKey);
 	    this.setState({ data: data });
 	  },
 
@@ -3422,10 +3458,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var items = this.state.data.map(function (item, i) {
 	      var value = this.stringify ? item.value.toString() : item.value;
 	      var checked = values.indexOf(value) >= 0;
-	      return React.createElement(Checkbox, { key: i, index: i, readOnly: this.props.readOnly, checked: checked, onChange: this.handleChange, text: item.text, value: item.value });
+	      return _react2['default'].createElement(_checkboxJsx2['default'], { key: i, index: i, readOnly: this.props.readOnly, checked: checked, onChange: this.handleChange, text: item.text, value: item.value });
 	    }, this);
 
-	    return React.createElement(
+	    return _react2['default'].createElement(
 	      'div',
 	      { className: className },
 	      this.state.msg || items
@@ -3433,76 +3469,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 
+	exports['default'] = CheckboxGroup;
+	module.exports = exports['default'];
+
 /***/ },
 /* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	function hashCode(str) {
-	  var hash = 0;
-	  var chr;
-	  if (str.length === 0) {
-	    return hash;
-	  }
-	  for (var i = 0, count = str.length; i < count; i++) {
-	    chr = str.charCodeAt(i);
-	    hash = (hash << 5) - hash + chr;
-	    hash = hash & hash; // Convert to 32bit integer
-	  }
-	  return hash;
-	}
-
-	function format() {
-	  var args = [].slice.call(arguments),
-	      str = args.shift();
-	  return str.replace(/{(\d+)}/g, function (match, number) {
-	    return typeof args[number] !== undefined ? args[number] : match;
-	  });
-	}
-
-	function substitute(str, obj) {
-	  return str.replace(/\\?\{([^{}]+)\}/g, function (match, name) {
-	    if (match.charAt(0) === '\\') {
-	      return match.slice(1);
-	    }
-	    return obj[name] !== null ? obj[name] : '';
-	  });
-	}
-
-	function formatValue(value, stringify) {
-	  if (!value) {
-	    value = [];
-	  }
-	  if (typeof value === 'string' && stringify) {
-	    value = value.split(',');
-	  } else if (!(value instanceof Array)) {
-	    value = [value];
-	  }
-
-	  if (stringify) {
-	    var temp = [];
-	    value.forEach(function (v) {
-	      temp.push(v.toString());
-	    });
-	    value = temp;
-	  }
-	  return value;
-	}
-
-	module.exports = {
-	  format: format,
-	  formatValue: formatValue,
-	  hashCode: hashCode,
-	  substitute: substitute
-	};
-
-/***/ },
-/* 137 */
-/***/ function(module, exports, __webpack_require__) {
-
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	// Speed up calls to hasOwnProperty
 	var hasProperty = Object.prototype.hasOwnProperty;
 
@@ -3615,12 +3593,56 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return kv;
 	}
 
-	module.exports = {
-	  forEach: forEach,
-	  isEmpty: isEmpty,
-	  clone: clone,
-	  toTextValue: toTextValue
-	};
+	exports["default"] = { forEach: forEach, isEmpty: isEmpty, clone: clone, toTextValue: toTextValue };
+	module.exports = exports["default"];
+
+/***/ },
+/* 137 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	function format() {
+	  var args = [].slice.call(arguments),
+	      str = args.shift();
+	  return str.replace(/{(\d+)}/g, function (match, number) {
+	    return typeof args[number] !== undefined ? args[number] : match;
+	  });
+	}
+
+	function substitute(str, obj) {
+	  return str.replace(/\\?\{([^{}]+)\}/g, function (match, name) {
+	    if (match.charAt(0) === '\\') {
+	      return match.slice(1);
+	    }
+	    return obj[name] !== null ? obj[name] : '';
+	  });
+	}
+
+	function formatValue(value, stringify) {
+	  if (!value) {
+	    value = [];
+	  }
+	  if (typeof value === 'string' && stringify) {
+	    value = value.split(',');
+	  } else if (!(value instanceof Array)) {
+	    value = [value];
+	  }
+
+	  if (stringify) {
+	    value = value.map(function (v) {
+	      return v.toString();
+	    });
+	  }
+	  return value;
+	}
+
+	exports.format = format;
+	exports.formatValue = formatValue;
+	exports.substitute = substitute;
 
 /***/ },
 /* 138 */
@@ -3629,7 +3651,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var Ajax = __webpack_require__(139);
-	var Objects = __webpack_require__(137);
+	var Objects = __webpack_require__(136);
 	var lang = __webpack_require__(140);
 
 	module.exports = {
@@ -3686,6 +3708,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	// from https://github.com/fdaciuk/ajax
 	'use strict';
 
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
 	function Ajax() {
 	  var $public = {};
 	  var $private = {};
@@ -3775,7 +3800,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return $public;
 	}
 
-	module.exports = Ajax;
+	exports['default'] = Ajax;
+	module.exports = exports['default'];
 
 /***/ },
 /* 140 */
@@ -4006,7 +4032,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
-	          'Message.show(content, type)\r'
+	          'Message.show(content, type)'
 	        ),
 	        React.createElement(
 	          'p',
@@ -4162,7 +4188,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var React = __webpack_require__(52);
 	var Overlay = __webpack_require__(148);
-	var Objects = __webpack_require__(137);
+	var Objects = __webpack_require__(136);
 	var Classable = __webpack_require__(124);
 	var PubSub = __webpack_require__(151);
 
@@ -4886,7 +4912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__webpack_require__(132);
 	var React = __webpack_require__(52);
 	var Classable = __webpack_require__(124);
-	var Objects = __webpack_require__(137);
+	var Objects = __webpack_require__(136);
 	var Resource = __webpack_require__(138);
 	var ReceiveValue = __webpack_require__(142);
 	var Radio = __webpack_require__(154);
@@ -5046,7 +5072,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var lang = __webpack_require__(140);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _index = __webpack_require__(140);
+
+	var _index2 = _interopRequireDefault(_index);
 
 	var data = {
 	  request: {
@@ -5123,7 +5153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 
-	lang.set(data);
+	_index2['default'].set(data);
 
 /***/ },
 /* 157 */

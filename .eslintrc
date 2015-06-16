@@ -3,14 +3,17 @@
         "react"
     ],
     "ecmaFeatures": {
-        "jsx": true
+        "ecmascript": 6,
+        "jsx": true,
+        "modules": true
     },
     "env": {
+        "es6": true,
         "browser": true,
         "node": true
     },
     "rules": {
-        "semi": 2,
+        "semi": [2, "never"],
         "quotes": [0],
         "react/display-name": 1,
         "react/jsx-boolean-value": 1,

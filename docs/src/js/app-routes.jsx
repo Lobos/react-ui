@@ -1,21 +1,21 @@
-"use strict";
+"use strict"
 
-var _ = require('underscore');
-var Router = require('react-router');
-var Route = Router.Route;
-var DefaultRoute = Router.DefaultRoute;
+var _ = require('underscore')
+var Router = require('react-router')
+var Route = Router.Route
+var DefaultRoute = Router.DefaultRoute
 
-var Master = require('./pages/master.jsx');
-var Home = require('./pages/home.jsx');
+var Master = require('./pages/master.jsx')
+var Home = require('./pages/home.jsx')
 
-var menulist = [];
+var menulist = []
 _.forEach(require('./menulist'), function (menu) {
   if (menu.handler) {
     menulist.push(
       <Route name={menu.route} handler={menu.handler} />
-    );
+    )
   }
-});
+})
 
 
 var AppRoutes = (
@@ -24,6 +24,6 @@ var AppRoutes = (
     {menulist}
     <DefaultRoute handler={Home} />
   </Route>
-);
+)
 
-module.exports = AppRoutes;
+module.exports = AppRoutes

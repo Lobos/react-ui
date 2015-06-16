@@ -1,53 +1,39 @@
 # react-ui
 
-A collection of components for React. Based on ~~bootstrap~~ pure.
+A collection of components for React.
 
-# install
+# Install
 install nodejs
 
 npm install -g webpack
 
 npm install
 
-# build
+# Build
 docs: webpack --config webpack-docs.config.js [--min]
 
-# 0.2 版本计划变更
-放弃bootstrap，使用yahoo/pure
-所有组件可以单独使用，通过 require('rct-ui/component')。
+# Change log
+使用webpack打包，剥离了 `react` 基础包。减少体积，去除了 `Reflux` 和 `superagent` 依赖。
+
+放弃bootstrap，使用yahoo/pure。
+
+在webpack中使用了`babel-loader`，所以用了部分es6语法，参考 [babel](https://babeljs.io/docs/learn-es2015/) 的文档，没有使用需要 polyfill 支持的部分（因为需要额外引入45KB左右的 polyfill 包）。不要忘记在页面中加入 [es5-shim](https://github.com/es-shims/es5-shim) 引用。
 
 # Components
-```
-Checkbox
-Checkbox group
-Color Picker
-Datetime
-Form
-Form Control
-Icon
-Loading
-Message
-Mult select
-Pagination
-Progress
-Radio group
-Rating
-Select
-Tree
-```
 
-## 数据缓存
-服务端返回统一的数据格式为：
-```js
-{
-    "status": number, // 值为1时表示成功
-    "msg": string, // 消息
-    "timestamp": string, // 时间戳
-    "cache": bool, // 是否使用当前缓存中的数据
-    "data": object // 返回内容
-}
-```
-当key不为空时，调用localStorage.setItem，存入数据
-
-
-客户端请求发生时，先从localstorage取数据，并将key作为参数发送到服务端，服务端先检测服务端当前缓存timestamp，如果一致，返回结果为 { "cache": true, "data": null, ... }，如果不一致，返回 { "cache": false, "timestamp": new timestamp, "data": object, ... }。
+*Checkbox
+*Checkbox group
+*Color Picker
+*Datetime
+*Form
+*Form Control
+*Icon
+*Loading
+*Message
+*Mult select
+*Pagination
+*Progress
+*Radio group
+*Rating
+*Select
+*Tree
