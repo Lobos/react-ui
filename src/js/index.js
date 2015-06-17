@@ -9,5 +9,7 @@ exports.RadioGroup = require('./components/radio-group.jsx')
 
 exports.Utils = {
   Objects: require('./utils/objects'),
+  Qwest: require('qwest'),
+  Request: require('qwest'), // alias
   Strings: require('./utils/strings')
 }

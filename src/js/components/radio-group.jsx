@@ -12,6 +12,7 @@ module.exports = React.createClass({
   displayName: "RadioGroup",
 
   propTypes: {
+    cache: React.PropTypes.bool,
     data: React.PropTypes.array,
     inline: React.PropTypes.bool,
     onChange: React.PropTypes.func,

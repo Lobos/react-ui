@@ -27,12 +27,13 @@ module.exports = React.createClass({
 
         <div className="content">
 
-          <pre className="prettyprint">{'<RadioGroup data={array} inline={bool} onChange={function} readOnly={bool}\r  src="string" textKey="string" valueKey="string" value={any} />'}</pre>
+          <pre className="prettyprint">{'<RadioGroup data={array} cache={bool} inline={bool} onChange={function} readOnly={bool}\r  src="string" textKey="string" valueKey="string" value={any} />'}</pre>
           <p><b>data:</b>数据，与 <em>src</em> 二选一</p>
           <p><b>inline:</b>为 <em>true</em> 时，各选项横向排列。默认为 <em>false</em></p>
           <p><b>onChange:</b>当选项改变时回调方法，参数为 <em>value</em></p>
           <p><b>readOnly:</b>为 <em>true</em> 时，只读。默认为 <em>false</em></p>
           <p><b>src:</b>后端数据地址，与 <em>data</em> 二选一</p>
+          <p><b>cache:</b>数据缓存，只有当数据为远程获取时有效。默认为 <em>true</em></p>
           <p><b>textKey:</b>数据结构中显示文字的key，不填默认为 <em>text</em></p>
           <p><b>valueKey:</b>数据结构中返回值的key，不填默认为 <em>value</em></p>
           <p><b>value:</b>选中值</p>

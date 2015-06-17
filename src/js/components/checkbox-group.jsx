@@ -14,6 +14,7 @@ const CheckboxGroup = React.createClass({
   displayName: "CheckboxGroup",
 
   propTypes: {
+    cache: React.PropTypes.bool,
     data: React.PropTypes.array,
     inline: React.PropTypes.bool,
     onChange: React.PropTypes.func,

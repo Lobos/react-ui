@@ -1,6 +1,6 @@
 "use strict"
 
-import Ajax from '../utils/ajax'
+import Qwest from 'qwest'
 import clone from '../utils/clone'
 import lang from '../lang'
 
@@ -25,8 +25,9 @@ module.exports = {
     } else if (props.src) {
       this.setState({ msg: lang.get('request.loading'), data: [] })
 
-      new Ajax().get(props.src)
-        .done(function (res) {
+      var cache = props.cache === undefined ? true : !!props.cache
+      Qwest.get(props.src, null, { cache: cache })
+        .then(function (res) {
           let data = res.status === 1 ?
                      res.data :
                      ( res instanceof Array ? res : undefined )
@@ -48,7 +49,7 @@ module.exports = {
             this.setState({ data: data })
           }
         }.bind(this))
-        .error(function () {
+        .catch(function () {
           this.setState({ msg: lang.get('request.failure') })
         }.bind(this))
     }

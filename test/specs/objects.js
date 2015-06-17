@@ -1,5 +1,5 @@
 describe('utils objects', function () {
-  var Objects = ReactUI.Utils.Objects
+  var Objects = require('../../src/js/utils/objects')
 
   it('isEmpty', function () {
     var isEmpty = Objects.isEmpty
@@ -26,17 +26,18 @@ describe('utils objects', function () {
     })
 
     keys.length.should.equal(3)
-    expect(keys).to.deep.equal(['a','b','c'])
+    keys.should.deep.equal(['a','b','c'])
     value.should.equal(6)
   })
 
   it('toTextValue', function () {
+    var _ = Objects.toTextValue
     var arr = [1, 2, 3, 4]
     var arrObj = arr.map(function (i) {
       return { text: i, value: i }
     })
-    var tv = Objects.toTextValue(arr)
-    expect(tv).to.deep.equal(arrObj)
+
+    _(arr).should.deep.equal(arrObj)
 
     var rawObj = [
       { cn: '南京', key: 'nanjing' },
@@ -48,10 +49,7 @@ describe('utils objects', function () {
       { text: '北京', value: 'beijing' },
       { text: '上海', value: 'shanghai' }
     ]
-    rawObj = Objects.toTextValue(rawObj, 'cn', 'key')
-    expect(rawObj).to.deep.equal(targetObj)
-
-    rawObj = Objects.toTextValue(targetObj)
-    expect(rawObj).to.deep.equal(targetObj)
+    _(rawObj, 'cn', 'key').should.deep.equal(targetObj)
+    _(targetObj).should.deep.equal(targetObj)
   })
 })

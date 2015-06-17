@@ -1,32 +1,29 @@
+var Strings = require('../../src/js/utils/strings')
+
 describe('utils strings', function () {
-  var Strings = ReactUI.Utils.Strings
 
   it('string format', function () {
-    str = '{0}-{1}!={2}'
-    var c = Strings.format(str, '3', '4', 2)
-    c.should.eql('3-4!=2')
+    var _ = Strings.format
+    var str = '{0}-{1}!={2}'
+    _(str, '3', '4', 2).should.equal('3-4!=2')
   })
 
   it('string substitute', function () {
-    var obj = { a:1, b:2 },
-    str = '{a}!={b}'
-
-    var c = Strings.substitute(str, obj)
-    c.should.eql('1!=2')
+    Strings.substitute('{a}!={b}', { a:1, b:2 }).should.equal('1!=2')
   })
 
   it('toArray', function () {
     var _ = Strings.toArray
     var raw = '1,2,3'
-    expect(_(raw, ',')).to.deep.equal(['1', '2', '3'])
+    _(raw, ',').should.deep.equal(['1', '2', '3'])
 
     raw = '1,2,3'
-    expect(_(raw)).to.deep.equal(['1,2,3'])
+    _(raw).should.deep.equal(['1,2,3'])
 
     raw = [1, 2, 3]
-    expect(_(raw, ',')).to.deep.equal(['1', '2', '3'])
+    _(raw, ',').should.deep.equal(['1', '2', '3'])
 
     raw = [1, 2, 3]
-    expect(_(raw)).to.deep.equal([1, 2, 3])
+    _(raw).should.deep.equal([1, 2, 3])
   })
 })

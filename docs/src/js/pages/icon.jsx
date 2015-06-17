@@ -29,7 +29,7 @@ module.exports = React.createClass({
 
           <h2 className="subhead">Spin</h2>
           <Icon icon="spinner" spin={true} />
-          &nbsp; &nbsp
+          &nbsp; &nbsp;
           <Icon icon="refresh" spin={true} />
           <pre className="prettyprint">{'<Icon icon="spinner" spin={true} />\r<Icon icon="refresh" spin={true} />'}</pre>
 
