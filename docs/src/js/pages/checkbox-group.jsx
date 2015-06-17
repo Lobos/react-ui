@@ -31,9 +31,9 @@ module.exports = React.createClass({
 
         <div className="content">
 
-          <pre className="prettyprint">{'<CheckboxGroup data={array} stringify={bool} inline={bool} onChange={function} readOnly={bool}\r  src="string" textKey="string" valueKey="string" value={any} />'}</pre>
+          <pre className="prettyprint">{'<CheckboxGroup data={array} sep={string||null} inline={bool} onChange={function} readOnly={bool}\r  src="string" textKey="string" valueKey="string" value={any} />'}</pre>
           <p><b>data:</b>数据，与 <em>src</em> 二选一</p>
-          <p><b>stringify:</b>为 <em>true</em> 时，结果以 <em>stirng</em> 形式返回 <em>,</em> 号分隔，否则以数组返回。默认为 <em>false</em></p>
+          <p><b>sep:</b>返回值分隔字符，默认值为 <em>,</em> 。值设为 <em>''</em> 或 <em>null</em> 时，返回值类型为 <em>array</em></p>
           <p><b>inline:</b>为 <em>true</em> 时，各选项横向排列。默认为 <em>false</em></p>
           <p><b>onChange:</b>当选项改变时回调方法，参数为 <em>value</em></p>
           <p><b>readOnly:</b>为 <em>true</em> 时，只读。默认为 <em>false</em></p>
@@ -81,9 +81,15 @@ module.exports = React.createClass({
 
           <h2 className="subhead">Remote Data</h2>
           <p>
-            <CheckboxGroup inline={true} stringify={true} value="shanghai,chengdu" src="json/text-value.json" />
+            <CheckboxGroup inline={true} value="shanghai,chengdu" src="json/text-value.json" />
           </p>
-          <pre className="prettyprint">{'<CheckboxGroup inline={true} stringify={true} value="shanghai,chengdu" src="json/text-value.json" />'}</pre>
+          <pre className="prettyprint">{'<CheckboxGroup inline={true} value="shanghai,chengdu" src="json/text-value.json" />'}</pre>
+
+          <h2 className="subhead">Data Sep</h2>
+          <p>
+            <CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" src="json/text-value.json" />
+          </p>
+          <pre className="prettyprint">{'<CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" src="json/text-value.json" />'}</pre>
         </div>
       </div>
     )

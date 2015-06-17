@@ -18,14 +18,20 @@ const CheckboxGroup = React.createClass({
     inline: React.PropTypes.bool,
     onChange: React.PropTypes.func,
     readOnly: React.PropTypes.bool,
+    sep: React.PropTypes.string,
     src: React.PropTypes.string,
-    stringify: React.PropTypes.bool,
     textKey: React.PropTypes.string,
     value: React.PropTypes.any,
     valueKey: React.PropTypes.string
   },
 
   mixins: [Classable, ReceiveValue, Resource],
+
+  getDefaultProps: function () {
+    return {
+      sep: ','
+    }
+  },
 
   getInitialState: function () {
     return {
@@ -34,7 +40,7 @@ const CheckboxGroup = React.createClass({
   },
 
   formatValue: function (value) {
-    return Strings.formatValue(value, this.props.stringify)
+    return Strings.toArray(value, this.props.sep)
   },
 
   initData: function (data) {
@@ -64,10 +70,11 @@ const CheckboxGroup = React.createClass({
     this.setState({ value: values })
   },
 
-  getValue: function (raw) {
+  getValue: function (sep) {
     let value = this.state.value
-    if (this.props.stringify && raw !== true) {
-      value = value.join(',')
+    sep = sep || this.props.sep
+    if (sep) {
+      value = value.join(sep)
     }
     return value
   },

@@ -19,20 +19,20 @@ function substitute(str, obj) {
   })
 }
 
-function formatValue(value, stringify) {
+function toArray(value, sep) {
   if (!value) {
     value = []
   }
-  if (typeof value === 'string' && stringify) {
-    value = value.split(',')
+  if (typeof value === 'string' && sep) {
+    value = value.split(sep)
   } else if (!(value instanceof Array)) {
     value = [value]
-  }
-
-  if (stringify) {
+  } else if (sep) {
+    // if use sep, convert every value to string
     value = value.map(v=>v.toString())
   }
+
   return value
 }
 
-export default { format, formatValue, substitute }
+export default { format, substitute, toArray }

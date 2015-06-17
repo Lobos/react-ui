@@ -1,8 +1,8 @@
 "use strict"
 
-var Ajax = require('../utils/ajax')
-var Objects = require('../utils/objects')
-var lang = require('../lang')
+import Ajax from '../utils/ajax'
+import clone from '../utils/clone'
+import lang from '../lang'
 
 module.exports = {
   componentWillMount: function () {
@@ -27,19 +27,19 @@ module.exports = {
 
       new Ajax().get(props.src)
         .done(function (res) {
-          var data = res.status === 1 ?
+          let data = res.status === 1 ?
                      res.data :
                      ( res instanceof Array ? res : undefined )
 
           if (!data) {
-            var msg = res.msg ? res.msg : lang.get('request.failure')
+            let msg = res.msg ? res.msg : lang.get('request.failure')
             this.setState({ msg: msg })
             return
           } else {
             this.setState({ msg: null })
           }
 
-          data = Objects.clone(data)
+          data = clone(data)
 
           // initialize data
           if (this.initData) {

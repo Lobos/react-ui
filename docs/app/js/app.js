@@ -61,7 +61,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var AppRoutes = __webpack_require__(107);
 
 	// load language
-	__webpack_require__(156);
+	__webpack_require__(158);
 
 	Router.create({
 	  routes: AppRoutes,
@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	// static files
-	__webpack_require__(157);
+	__webpack_require__(159);
 
 /***/ },
 /* 1 */,
@@ -201,7 +201,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DefaultRoute = Router.DefaultRoute;
 
 	var Master = __webpack_require__(109);
-	var Home = __webpack_require__(155);
+	var Home = __webpack_require__(157);
 
 	var menulist = [];
 	_.forEach(__webpack_require__(112), function (menu) {
@@ -1799,7 +1799,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(52);
 	var RouteHandler = __webpack_require__(106).RouteHandler;
 	var NavList = __webpack_require__(110);
-	var Message = __webpack_require__(145);
+	var Message = __webpack_require__(147);
 
 	module.exports = React.createClass({
 	  displayName: "Master",
@@ -1957,7 +1957,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(125) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(130) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(134) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(113) }, { route: 'message', text: 'Message', handler: __webpack_require__(144) }, { route: 'radio-group', text: 'Radio Group', handler: __webpack_require__(152) }];
+	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(125) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(130) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(134) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(113) }, { route: 'message', text: 'Message', handler: __webpack_require__(146) }, { route: 'radio-group', text: 'Radio Group', handler: __webpack_require__(154) }];
 
 /***/ },
 /* 113 */
@@ -3014,7 +3014,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Prettify = __webpack_require__(114);
 	var CheckboxGroup = __webpack_require__(135);
 
-	var textValue = __webpack_require__(143);
+	var textValue = __webpack_require__(145);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Checkbox',
@@ -3055,7 +3055,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
-	          '<CheckboxGroup data={array} stringify={bool} inline={bool} onChange={function} readOnly={bool}\r  src="string" textKey="string" valueKey="string" value={any} />'
+	          '<CheckboxGroup data={array} sep={string||null} inline={bool} onChange={function} readOnly={bool}\r  src="string" textKey="string" valueKey="string" value={any} />'
 	        ),
 	        React.createElement(
 	          'p',
@@ -3079,31 +3079,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	          React.createElement(
 	            'b',
 	            null,
-	            'stringify:'
+	            'sep:'
 	          ),
-	          '为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'true'
-	          ),
-	          ' 时，结果以 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'stirng'
-	          ),
-	          ' 形式返回 ',
+	          '返回值分隔字符，默认值为 ',
 	          React.createElement(
 	            'em',
 	            null,
 	            ','
 	          ),
-	          ' 号分隔，否则以数组返回。默认为 ',
+	          ' 。值设为 ',
 	          React.createElement(
 	            'em',
 	            null,
-	            'false'
+	            '\'\''
+	          ),
+	          ' 或 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'null'
+	          ),
+	          ' 时，返回值类型为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'array'
 	          )
 	        ),
 	        React.createElement(
@@ -3335,12 +3335,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'p',
 	          null,
-	          React.createElement(CheckboxGroup, { inline: true, stringify: true, value: 'shanghai,chengdu', src: 'json/text-value.json' })
+	          React.createElement(CheckboxGroup, { inline: true, value: 'shanghai,chengdu', src: 'json/text-value.json' })
 	        ),
 	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
-	          '<CheckboxGroup inline={true} stringify={true} value="shanghai,chengdu" src="json/text-value.json" />'
+	          '<CheckboxGroup inline={true} value="shanghai,chengdu" src="json/text-value.json" />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Data Sep'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(CheckboxGroup, { inline: true, sep: '|', value: 'shanghai|chengdu', src: 'json/text-value.json' })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" src="json/text-value.json" />'
 	        )
 	      )
 	    );
@@ -3367,7 +3382,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _checkboxJsx2 = _interopRequireDefault(_checkboxJsx);
 
-	var _utilsStrings = __webpack_require__(137);
+	var _utilsStrings = __webpack_require__(138);
+
+	var _utilsStrings2 = _interopRequireDefault(_utilsStrings);
 
 	var _mixinsClassable = __webpack_require__(124);
 
@@ -3377,11 +3394,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _utilsObjects2 = _interopRequireDefault(_utilsObjects);
 
-	var _mixinsResource = __webpack_require__(138);
+	var _mixinsResource = __webpack_require__(139);
 
 	var _mixinsResource2 = _interopRequireDefault(_mixinsResource);
 
-	var _mixinsReceiveValue = __webpack_require__(142);
+	var _mixinsReceiveValue = __webpack_require__(144);
 
 	var _mixinsReceiveValue2 = _interopRequireDefault(_mixinsReceiveValue);
 
@@ -3395,14 +3412,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    inline: _react2['default'].PropTypes.bool,
 	    onChange: _react2['default'].PropTypes.func,
 	    readOnly: _react2['default'].PropTypes.bool,
+	    sep: _react2['default'].PropTypes.string,
 	    src: _react2['default'].PropTypes.string,
-	    stringify: _react2['default'].PropTypes.bool,
 	    textKey: _react2['default'].PropTypes.string,
 	    value: _react2['default'].PropTypes.any,
 	    valueKey: _react2['default'].PropTypes.string
 	  },
 
 	  mixins: [_mixinsClassable2['default'], _mixinsReceiveValue2['default'], _mixinsResource2['default']],
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      sep: ','
+	    };
+	  },
 
 	  getInitialState: function getInitialState() {
 	    return {
@@ -3411,7 +3434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  formatValue: function formatValue(value) {
-	    return (0, _utilsStrings.formatValue)(value, this.props.stringify);
+	    return _utilsStrings2['default'].toArray(value, this.props.sep);
 	  },
 
 	  initData: function initData(data) {
@@ -3441,10 +3464,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.setState({ value: values });
 	  },
 
-	  getValue: function getValue(raw) {
+	  getValue: function getValue(sep) {
 	    var value = this.state.value;
-	    if (this.props.stringify && raw !== true) {
-	      value = value.join(',');
+	    sep = sep || this.props.sep;
+	    if (sep) {
+	      value = value.join(sep);
 	    }
 	    return value;
 	  },
@@ -3476,128 +3500,117 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
-	// Speed up calls to hasOwnProperty
-	var hasProperty = Object.prototype.hasOwnProperty;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _type = __webpack_require__(137);
+
+	var _type2 = _interopRequireDefault(_type);
 
 	function isEmpty(obj) {
 
 	  // null and undefined are "empty"
-	  if (!obj) {
+	  if (obj === null || obj === undefined) {
 	    return true;
 	  }
 
-	  if (typeof obj === "number") {
-	    return false;
-	  }
-
-	  // Assume if it has a length property with a non-zero value
-	  // that that property is correct.
-	  if (obj.length > 0) {
-	    return false;
-	  }
-	  if (obj.length === 0) {
-	    return true;
-	  }
-
-	  // Otherwise, does it have any properties of its own?
-	  // Note that this doesn't handle
-	  // toString and valueOf enumeration bugs in IE < 9
-	  for (var key in obj) {
-	    if (hasProperty.call(obj, key)) {
+	  switch ((0, _type2['default'])(obj)) {
+	    case 'nan':
+	      return true;
+	    case 'array':
+	    case 'string':
+	    case 'arguments':
+	      return obj.length === 0;
+	    case 'object':
+	      return Object.keys(obj).length === 0;
+	    default:
 	      return false;
-	    }
 	  }
-
-	  return true;
 	}
 
 	function forEach(obj, fn, context) {
-	  var key;
-	  for (key in obj) {
-	    if (hasProperty.call(obj, key)) {
-	      fn.call(context, obj[key], key);
-	    }
-	  }
+	  Object.keys(obj).forEach(function (key) {
+	    return fn.call(context, obj[key], key);
+	  });
 	}
 
-	function clone(item) {
-	  if (!item) {
-	    return item;
-	  } // null, undefined values check
+	function toTextValue(arr) {
+	  var textKey = arguments[1] === undefined ? 'text' : arguments[1];
+	  var valueKey = arguments[2] === undefined ? 'value' : arguments[2];
 
-	  var types = [Number, String, Boolean],
-	      result;
-
-	  // normalizing primitives if someone did new String('aaa'), or new Number('444')
-	  types.forEach(function (type) {
-	    if (item instanceof type) {
-	      result = type(item);
+	  arr = arr.map(function (s) {
+	    if ((0, _type2['default'])(s) !== 'object') {
+	      return { text: s, value: s };
+	    } else {
+	      return { text: s[textKey], value: s[valueKey] };
 	    }
 	  });
-
-	  if (typeof result === "undefined") {
-	    if (Object.prototype.toString.call(item) === "[object Array]") {
-	      result = [];
-	      item.forEach(function (child, index) {
-	        result[index] = clone(child);
-	      });
-	    } else if (typeof item === "object") {
-	      // testing that this is DOM
-	      if (item.nodeType && typeof item.cloneNode === "function") {
-	        result = item.cloneNode(true);
-	      } else if (!item.prototype) {
-	        // check that this is a literal
-	        if (item instanceof Date) {
-	          result = new Date(item);
-	        } else {
-	          // it is an object literal
-	          result = {};
-	          for (var i in item) {
-	            result[i] = clone(item[i]);
-	          }
-	        }
-	      } else {
-	        // depending what you would like here,
-	        // just keep the reference, or create new object
-	        if (false) {
-	          // would not advice to do that, reason? Read below
-	          result = new item.constructor();
-	        } else {
-	          result = item;
-	        }
-	      }
-	    } else {
-	      result = item;
-	    }
-	  }
-
-	  return result;
+	  return arr;
 	}
 
-	function toTextValue(arr, textKey, valueKey) {
-	  var kv = [];
-	  textKey = textKey || "text";
-	  valueKey = valueKey || "value";
-	  arr.forEach(function (s) {
-	    if (typeof s !== "object") {
-	      kv.push({ text: s, value: s });
-	    } else {
-	      kv.push({ text: s[textKey], value: s[valueKey] });
-	    }
-	  });
-	  return kv;
-	}
-
-	exports["default"] = { forEach: forEach, isEmpty: isEmpty, clone: clone, toTextValue: toTextValue };
-	module.exports = exports["default"];
+	exports['default'] = { forEach: forEach, isEmpty: isEmpty, toTextValue: toTextValue };
+	module.exports = exports['default'];
 
 /***/ },
 /* 137 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// https://github.com/component/type
+	/**
+	 * toString ref.
+	 */
+
+	'use strict';
+
+	var toString = Object.prototype.toString;
+
+	/**
+	 * Return the type of `val`.
+	 *
+	 * @param {Mixed} val
+	 * @return {String}
+	 * @api public
+	 */
+
+	module.exports = function (val) {
+	  switch (toString.call(val)) {
+	    case '[object Date]':
+	      return 'date';
+	    case '[object RegExp]':
+	      return 'regexp';
+	    case '[object Arguments]':
+	      return 'arguments';
+	    case '[object Array]':
+	      return 'array';
+	    case '[object Error]':
+	      return 'error';
+	  }
+
+	  if (val === null) {
+	    return 'null';
+	  }
+	  if (val === undefined) {
+	    return 'undefined';
+	  }
+	  if (val !== val) {
+	    return 'nan';
+	  }
+	  if (val && val.nodeType === 1) {
+	    return 'element';
+	  }
+
+	  val = val.valueOf ? val.valueOf() : Object.prototype.valueOf.apply(val);
+
+	  return typeof val;
+	};
+
+/***/ },
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3622,37 +3635,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	}
 
-	function formatValue(value, stringify) {
+	function toArray(value, sep) {
 	  if (!value) {
 	    value = [];
 	  }
-	  if (typeof value === 'string' && stringify) {
-	    value = value.split(',');
+	  if (typeof value === 'string' && sep) {
+	    value = value.split(sep);
 	  } else if (!(value instanceof Array)) {
 	    value = [value];
-	  }
-
-	  if (stringify) {
+	  } else if (sep) {
+	    // if use sep, convert every value to string
 	    value = value.map(function (v) {
 	      return v.toString();
 	    });
 	  }
+
 	  return value;
 	}
 
-	exports.format = format;
-	exports.formatValue = formatValue;
-	exports.substitute = substitute;
+	exports['default'] = { format: format, substitute: substitute, toArray: toArray };
+	module.exports = exports['default'];
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Ajax = __webpack_require__(139);
-	var Objects = __webpack_require__(136);
-	var lang = __webpack_require__(140);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _utilsAjax = __webpack_require__(140);
+
+	var _utilsAjax2 = _interopRequireDefault(_utilsAjax);
+
+	var _utilsClone = __webpack_require__(141);
+
+	var _utilsClone2 = _interopRequireDefault(_utilsClone);
+
+	var _lang = __webpack_require__(142);
+
+	var _lang2 = _interopRequireDefault(_lang);
 
 	module.exports = {
 	  componentWillMount: function componentWillMount() {
@@ -3673,20 +3695,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.setState({ data: props.data });
 	      }
 	    } else if (props.src) {
-	      this.setState({ msg: lang.get('request.loading'), data: [] });
+	      this.setState({ msg: _lang2['default'].get('request.loading'), data: [] });
 
-	      new Ajax().get(props.src).done((function (res) {
+	      new _utilsAjax2['default']().get(props.src).done((function (res) {
 	        var data = res.status === 1 ? res.data : res instanceof Array ? res : undefined;
 
 	        if (!data) {
-	          var msg = res.msg ? res.msg : lang.get('request.failure');
+	          var msg = res.msg ? res.msg : _lang2['default'].get('request.failure');
 	          this.setState({ msg: msg });
 	          return;
 	        } else {
 	          this.setState({ msg: null });
 	        }
 
-	        data = Objects.clone(data);
+	        data = (0, _utilsClone2['default'])(data);
 
 	        // initialize data
 	        if (this.initData) {
@@ -3695,14 +3717,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	          this.setState({ data: data });
 	        }
 	      }).bind(this)).error((function () {
-	        this.setState({ msg: lang.get('request.failure') });
+	        this.setState({ msg: _lang2['default'].get('request.failure') });
 	      }).bind(this));
 	    }
 	  }
 	};
 
 /***/ },
-/* 139 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// from https://github.com/fdaciuk/ajax
@@ -3804,12 +3826,82 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 140 */
+/* 141 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// https://github.com/component/clone
+	/**
+	 * Module dependencies.
+	 */
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _type = __webpack_require__(137);
+
+	var _type2 = _interopRequireDefault(_type);
+
+	/**
+	 * Clones objects.
+	 *
+	 * @param {Mixed} any object
+	 * @api public
+	 */
+
+	function clone(obj) {
+	  switch ((0, _type2['default'])(obj)) {
+	    case 'object':
+	      var copy = {};
+	      for (var key in obj) {
+	        if (obj.hasOwnProperty(key)) {
+	          copy[key] = clone(obj[key]);
+	        }
+	      }
+	      return copy;
+
+	    case 'array':
+	      var arr = new Array(obj.length);
+	      for (var i = 0, l = obj.length; i < l; i++) {
+	        arr[i] = clone(obj[i]);
+	      }
+	      return arr;
+
+	    case 'regexp':
+	      // from millermedeiros/amd-utils - MIT
+	      var flags = '';
+	      flags += obj.multiline ? 'm' : '';
+	      flags += obj.global ? 'g' : '';
+	      flags += obj.ignoreCase ? 'i' : '';
+	      return new RegExp(obj.source, flags);
+
+	    case 'date':
+	      return new Date(obj.getTime());
+
+	    default:
+	      // string, number, boolean, …
+	      return obj;
+	  }
+	}
+
+	/**
+	 * Module exports.
+	 */
+
+	exports['default'] = clone;
+	module.exports = exports['default'];
+
+/***/ },
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var merge = __webpack_require__(141);
+	var merge = __webpack_require__(143);
 	var lang = {};
 
 	module.exports = {
@@ -3833,7 +3925,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 141 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -3890,7 +3982,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 142 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3922,7 +4014,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 143 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3930,14 +4022,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = [{ "value": "nanjing", "text": "南京" }, { "value": "beijing", "text": "北京" }, { "value": "guangzhou", "text": "广州" }, { "value": "shenzhen", "text": "深圳" }, { "value": "chengdu", "text": "成都" }, { "value": "chongqing", "text": "重庆" }, { "value": "shanghai", "text": "上海" }];
 
 /***/ },
-/* 144 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(52);
 	var Prettify = __webpack_require__(114);
-	var Message = __webpack_require__(145);
+	var Message = __webpack_require__(147);
 	var Icon = __webpack_require__(115);
 
 	module.exports = React.createClass({
@@ -4177,20 +4269,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 145 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	__webpack_require__(146);
+	__webpack_require__(148);
 
 	var React = __webpack_require__(52);
-	var Overlay = __webpack_require__(148);
+	var Overlay = __webpack_require__(150);
 	var Objects = __webpack_require__(136);
 	var Classable = __webpack_require__(124);
-	var PubSub = __webpack_require__(151);
+	var PubSub = __webpack_require__(153);
 
 	var messages = [],
 	    ADD_MESSAGE = 'EB3A79637B40',
@@ -4303,19 +4395,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Message;
 
 /***/ },
-/* 146 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 147 */,
-/* 148 */
+/* 149 */,
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(149);
+	__webpack_require__(151);
 	var React = __webpack_require__(52);
 	var Classable = __webpack_require__(124);
 
@@ -4339,14 +4431,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 149 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 150 */,
-/* 151 */
+/* 152 */,
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -4597,16 +4689,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 152 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(52);
 	var Prettify = __webpack_require__(114);
-	var RadioGroup = __webpack_require__(153);
+	var RadioGroup = __webpack_require__(155);
 
-	var textValue = __webpack_require__(143);
+	var textValue = __webpack_require__(145);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Checkbox',
@@ -4904,7 +4996,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 153 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4913,9 +5005,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(52);
 	var Classable = __webpack_require__(124);
 	var Objects = __webpack_require__(136);
-	var Resource = __webpack_require__(138);
-	var ReceiveValue = __webpack_require__(142);
-	var Radio = __webpack_require__(154);
+	var Resource = __webpack_require__(139);
+	var ReceiveValue = __webpack_require__(144);
+	var Radio = __webpack_require__(156);
 
 	module.exports = React.createClass({
 	  displayName: 'RadioGroup',
@@ -4980,7 +5072,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 154 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5024,7 +5116,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 155 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5067,14 +5159,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 156 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _index = __webpack_require__(140);
+	var _index = __webpack_require__(142);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -5156,7 +5248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	_index2['default'].set(data);
 
 /***/ },
-/* 157 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "index.html"
