@@ -29,7 +29,9 @@ const CheckboxGroup = React.createClass({
 
   getDefaultProps: function () {
     return {
-      sep: ','
+      sep: ',',
+      textKey: 'text',
+      valueKey: 'value'
     }
   },
 
@@ -88,13 +90,13 @@ const CheckboxGroup = React.createClass({
     )
     let values = this.state.value
 
-    let items = this.state.data.map(function (item, i) {
-      let value = this.stringify ? item.value.toString() : item.value
+    let items = this.state.data.map((item, i) => {
+      let value = this.props.sep ? item.value.toString() : item.value
       let checked = values.indexOf(value) >= 0
       return (
         <Checkbox key={i} index={i} readOnly={this.props.readOnly} checked={checked} onChange={this.handleChange} text={item.text} value={item.value} />
       )
-    }, this)
+    })
 
     return (
       <div className={className}>{this.state.msg || items}</div>

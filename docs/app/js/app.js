@@ -3032,6 +3032,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  render: function render() {
+	    var _this = this;
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -3305,7 +3307,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'p',
 	          null,
-	          React.createElement(CheckboxGroup, { inline: true, value: ['北京', '广州'], data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
+	          React.createElement(CheckboxGroup, { ref: 'array', sep: '', onChange: function () {
+	              return console.log(_this.refs.array.getValue());
+	            }, inline: true, value: ['北京', '广州'], data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
 	        ),
 	        React.createElement(
 	          'pre',
@@ -3335,7 +3339,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'p',
 	          null,
-	          React.createElement(CheckboxGroup, { inline: true, value: 'shanghai,chengdu', src: 'json/text-value.json' })
+	          React.createElement(CheckboxGroup, { ref: 'remote', onChange: function () {
+	              return console.log(_this.refs.remote.getValue());
+	            }, inline: true, value: 'shanghai,chengdu', src: 'json/text-value.json' })
 	        ),
 	        React.createElement(
 	          'pre',
@@ -3350,7 +3356,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'p',
 	          null,
-	          React.createElement(CheckboxGroup, { inline: true, sep: '|', value: 'shanghai|chengdu', src: 'json/text-value.json' })
+	          React.createElement(CheckboxGroup, { ref: 'sep', onChange: function () {
+	              return console.log(_this.refs.sep.getValue());
+	            }, inline: true, sep: '|', value: 'shanghai|chengdu', src: 'json/text-value.json' })
 	        ),
 	        React.createElement(
 	          'pre',
@@ -3423,7 +3431,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      sep: ','
+	      sep: ',',
+	      textKey: 'text',
+	      valueKey: 'value'
 	    };
 	  },
 
@@ -3474,16 +3484,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  render: function render() {
+	    var _this = this;
+
 	    var className = this.getClasses('checkbox-group', {
 	      'inline': this.props.inline
 	    });
 	    var values = this.state.value;
 
 	    var items = this.state.data.map(function (item, i) {
-	      var value = this.stringify ? item.value.toString() : item.value;
+	      var value = _this.props.sep ? item.value.toString() : item.value;
 	      var checked = values.indexOf(value) >= 0;
-	      return _react2['default'].createElement(_checkboxJsx2['default'], { key: i, index: i, readOnly: this.props.readOnly, checked: checked, onChange: this.handleChange, text: item.text, value: item.value });
-	    }, this);
+	      return _react2['default'].createElement(_checkboxJsx2['default'], { key: i, index: i, readOnly: _this.props.readOnly, checked: checked, onChange: _this.handleChange, text: item.text, value: item.value });
+	    });
 
 	    return _react2['default'].createElement(
 	      'div',

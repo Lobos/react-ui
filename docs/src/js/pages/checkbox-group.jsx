@@ -69,7 +69,7 @@ module.exports = React.createClass({
 
           <h2 className="subhead">Array Data</h2>
           <p>
-            <CheckboxGroup inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
+            <CheckboxGroup ref="array" sep="" onChange={()=>console.log(this.refs.array.getValue())} inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
           </p>
           <pre className="prettyprint">{'<CheckboxGroup inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'}</pre>
 
@@ -81,13 +81,13 @@ module.exports = React.createClass({
 
           <h2 className="subhead">Remote Data</h2>
           <p>
-            <CheckboxGroup inline={true} value="shanghai,chengdu" src="json/text-value.json" />
+            <CheckboxGroup ref="remote" onChange={()=>console.log(this.refs.remote.getValue())} inline={true} value="shanghai,chengdu" src="json/text-value.json" />
           </p>
           <pre className="prettyprint">{'<CheckboxGroup inline={true} value="shanghai,chengdu" src="json/text-value.json" />'}</pre>
 
           <h2 className="subhead">Data Sep</h2>
           <p>
-            <CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" src="json/text-value.json" />
+            <CheckboxGroup ref="sep" onChange={()=>console.log(this.refs.sep.getValue())} inline={true} sep="|" value="shanghai|chengdu" src="json/text-value.json" />
           </p>
           <pre className="prettyprint">{'<CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" src="json/text-value.json" />'}</pre>
         </div>
