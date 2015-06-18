@@ -1,11 +1,11 @@
 "use strict"
 
-import React from "react"
 import {RouteHandler} from 'react-router'
-import NavList from '../nav-list.jsx'
-import Message from '../../../../src/js/components/message.jsx'
+let React = require("react")
+let NavList = require('../nav-list.jsx')
+let Message = require('../../../../src/js/components/message.jsx')
 
-export default React.createClass({
+module.exports = React.createClass({
   displayName: 'Master',
 
   render: function () {

@@ -1,12 +1,12 @@
 "use strict"
 
-import classnames from 'classnames'
-import React from 'react'
-import Router from 'react-router'
-import menulist from './menulist'
-import Icon from '../../../src/js/components/icon.jsx'
+let classnames = require('classnames')
+let React = require('react')
+let Router = require('react-router')
+let menulist = require('./menulist')
+let Icon = require('../../../src/js/components/icon.jsx')
 
-export default React.createClass({
+module.exports = React.createClass({
   displayName: 'NavList',
 
   mixins: [Router.State],

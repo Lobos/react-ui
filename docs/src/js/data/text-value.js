@@ -1,4 +1,4 @@
-export default [
+module.exports = [
   { "value": "nanjing", "text": "南京" },
   { "value": "beijing", "text": "北京" },
   { "value": "guangzhou", "text": "广州" },

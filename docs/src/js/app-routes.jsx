@@ -2,8 +2,8 @@
 
 import {Route, DefaultRoute} from 'react-router'
 
-import Master from './pages/master.jsx'
-import Home from './pages/home.jsx'
+let Master = require('./pages/master.jsx')
+let Home = require('./pages/home.jsx')
 
 let menulist = []
 require('./menulist').forEach(function (menu) {
@@ -22,4 +22,4 @@ let AppRoutes = (
   </Route>
 )
 
-export default AppRoutes
+module.exports = AppRoutes

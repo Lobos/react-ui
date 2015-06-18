@@ -1,8 +1,8 @@
 "use strict"
 
-import React from 'react'
-import Prettify from '../mixins/prettify'
-import CheckboxGroup from '../../../../src/js/components/checkbox-group.jsx'
+let React = require('react')
+let Prettify = require('../mixins/prettify')
+let CheckboxGroup = require('../../../../src/js/components/checkbox-group.jsx')
 
 const textValue = require('../data/text-value')
 
@@ -92,6 +92,8 @@ module.exports = React.createClass({
           </p>
           <pre className="prettyprint">{'<CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" src="json/text-value.json" />'}</pre>
         </div>
+
+
       </div>
     )
   }

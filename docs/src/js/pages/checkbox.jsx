@@ -1,8 +1,8 @@
 "use strict"
 
-import React from 'react'
-import Prettify from '../mixins/prettify'
-import Checkbox from '../../../../src/js/components/checkbox.jsx'
+let React = require('react')
+let Prettify = require('../mixins/prettify')
+let Checkbox = require('../../../../src/js/components/checkbox.jsx')
 
 module.exports = React.createClass({
   displayName: 'Pages/Checkbox',

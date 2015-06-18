@@ -1,8 +1,8 @@
 "use strict"
 
-import React from 'react'
-import Prettify from '../mixins/prettify'
-import Icon from '../../../../src/js/components/icon.jsx'
+let React = require('react')
+let Prettify = require('../mixins/prettify')
+let Icon = require('../../../../src/js/components/icon.jsx')
 
 module.exports = React.createClass({
   displayName: 'Pages/Icon',

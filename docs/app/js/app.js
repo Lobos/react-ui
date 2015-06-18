@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("react"), require("react-router")) : factory(root["React"], root["ReactRouter"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_100__, __WEBPACK_EXTERNAL_MODULE_106__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_52__, __WEBPACK_EXTERNAL_MODULE_106__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -56,32 +56,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(106);
-
-	var _reactRouter2 = _interopRequireDefault(_reactRouter);
-
-	var _appRoutesJsx = __webpack_require__(107);
-
-	var _appRoutesJsx2 = _interopRequireDefault(_appRoutesJsx);
+	var React = __webpack_require__(52);
+	var Router = __webpack_require__(106);
+	var AppRoutes = __webpack_require__(107);
 
 	// load language
-	__webpack_require__(155);
+	__webpack_require__(156);
 
-	_reactRouter2['default'].create({
-	  routes: _appRoutesJsx2['default'],
-	  scrollBehavior: _reactRouter2['default'].ScrollToTopBehavior
+	Router.create({
+	  routes: AppRoutes,
+	  scrollBehavior: Router.ScrollToTopBehavior
 	}).run(function (Handler) {
-	  _react2['default'].render(_react2['default'].createElement(Handler, null), document.body);
+	  React.render(React.createElement(Handler, null), document.body);
 	});
 
 	// static files
-	__webpack_require__(157);
+	__webpack_require__(159);
 
 /***/ },
 /* 1 */,
@@ -135,7 +125,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 49 */,
 /* 50 */,
 /* 51 */,
-/* 52 */,
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_52__;
+
+/***/ },
 /* 53 */,
 /* 54 */,
 /* 55 */,
@@ -183,12 +178,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 97 */,
 /* 98 */,
 /* 99 */,
-/* 100 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __WEBPACK_EXTERNAL_MODULE_100__;
-
-/***/ },
+/* 100 */,
 /* 101 */,
 /* 102 */,
 /* 103 */,
@@ -205,24 +195,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
 	var _reactRouter = __webpack_require__(106);
 
-	var _pagesMasterJsx = __webpack_require__(158);
-
-	var _pagesMasterJsx2 = _interopRequireDefault(_pagesMasterJsx);
-
-	var _pagesHomeJsx = __webpack_require__(108);
-
-	var _pagesHomeJsx2 = _interopRequireDefault(_pagesHomeJsx);
+	var Master = __webpack_require__(108);
+	var Home = __webpack_require__(158);
 
 	var menulist = [];
-	__webpack_require__(109).forEach(function (menu) {
+	__webpack_require__(111).forEach(function (menu) {
 	  if (menu.handler) {
 	    menulist.push(React.createElement(_reactRouter.Route, { name: menu.route, handler: menu.handler }));
 	  }
@@ -230,14 +209,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var AppRoutes = React.createElement(
 	  _reactRouter.Route,
-	  { name: 'root', path: '/', handler: _pagesMasterJsx2['default'] },
-	  React.createElement(_reactRouter.Route, { name: 'home', handler: _pagesHomeJsx2['default'] }),
+	  { name: 'root', path: '/', handler: Master },
+	  React.createElement(_reactRouter.Route, { name: 'home', handler: Home }),
 	  menulist,
-	  React.createElement(_reactRouter.DefaultRoute, { handler: _pagesHomeJsx2['default'] })
+	  React.createElement(_reactRouter.DefaultRoute, { handler: Home })
 	);
 
-	exports['default'] = AppRoutes;
-	module.exports = exports['default'];
+	module.exports = AppRoutes;
 
 /***/ },
 /* 108 */
@@ -245,51 +223,29 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	var _reactRouter = __webpack_require__(106);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	var React = __webpack_require__(52);
+	var NavList = __webpack_require__(109);
+	var Message = __webpack_require__(147);
 
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	exports["default"] = _react2["default"].createClass({
-	  displayName: "Home",
+	module.exports = React.createClass({
+	  displayName: "Master",
 
 	  render: function render() {
-	    return _react2["default"].createElement(
+	    return React.createElement(
 	      "div",
 	      null,
-	      _react2["default"].createElement(
+	      React.createElement(NavList, null),
+	      React.createElement(
 	        "div",
-	        { className: "hero" },
-	        _react2["default"].createElement(
-	          "div",
-	          { className: "hero-title" },
-	          _react2["default"].createElement(
-	            "h1",
-	            null,
-	            "React UI"
-	          ),
-	          _react2["default"].createElement(
-	            "h2",
-	            null,
-	            "React组件库，样式基于yahoo的",
-	            _react2["default"].createElement(
-	              "a",
-	              { href: "http://purecss.io/" },
-	              "purecss"
-	            ),
-	            "。"
-	          )
-	        )
-	      )
+	        { className: "main" },
+	        React.createElement(_reactRouter.RouteHandler, null)
+	      ),
+	      React.createElement(Message, null)
 	    );
 	  }
 	});
-	module.exports = exports["default"];
 
 /***/ },
 /* 109 */
@@ -297,310 +253,81 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(123) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(128) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(132) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(110) }, { route: 'message', text: 'Message', handler: __webpack_require__(144) }, { route: 'radio-group', text: 'Radio Group', handler: __webpack_require__(156) }];
+	var classnames = __webpack_require__(110);
+	var React = __webpack_require__(52);
+	var Router = __webpack_require__(106);
+	var menulist = __webpack_require__(111);
+	var Icon = __webpack_require__(114);
 
-/***/ },
-/* 110 */
-/***/ function(module, exports, __webpack_require__) {
+	module.exports = React.createClass({
+	  displayName: 'NavList',
 
-	'use strict';
+	  mixins: [Router.State],
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	  getInitialState: function getInitialState() {
+	    return {
+	      active: false
+	    };
+	  },
 
-	var _react = __webpack_require__(100);
+	  getClasses: function getClasses(name, route) {
+	    return classnames(name, {
+	      active: this.context.router.isActive(route)
+	    });
+	  },
 
-	var _react2 = _interopRequireDefault(_react);
+	  routeChange: function routeChange(route) {
+	    this.context.router.transitionTo(route);
+	    this.setState({ active: false });
+	  },
 
-	var _mixinsPrettify = __webpack_require__(111);
-
-	var _mixinsPrettify2 = _interopRequireDefault(_mixinsPrettify);
-
-	var _srcJsComponentsIconJsx = __webpack_require__(112);
-
-	var _srcJsComponentsIconJsx2 = _interopRequireDefault(_srcJsComponentsIconJsx);
-
-	module.exports = _react2['default'].createClass({
-	  displayName: 'Pages/Icon',
-
-	  mixins: [_mixinsPrettify2['default']],
+	  toggle: function toggle() {
+	    var active = !this.state.active;
+	    this.setState({ active: active });
+	  },
 
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    var list = menulist.map(function (m) {
+	      return React.createElement(
+	        'li',
+	        { className: 'pure-menu-item' },
+	        React.createElement(
+	          'a',
+	          { onClick: this.routeChange.bind(this, m.route), className: this.getClasses('pure-menu-link', m.route) },
+	          m.text
+	        )
+	      );
+	    }, this);
+
+	    return React.createElement(
 	      'div',
-	      null,
-	      _react2['default'].createElement(
+	      { className: classnames('nav', { active: this.state.active }) },
+	      React.createElement(
 	        'div',
-	        { className: 'header' },
-	        _react2['default'].createElement(
-	          'h1',
-	          null,
-	          'Icon'
+	        { className: 'nav-list pure-menu' },
+	        React.createElement(
+	          'a',
+	          { onClick: this.toggle, className: 'nav-handler' },
+	          React.createElement(Icon, { icon: 'navicon', size: 'lg' })
 	        ),
-	        _react2['default'].createElement(
-	          'h2',
-	          null,
-	          '图标，使用',
-	          _react2['default'].createElement(
-	            'a',
-	            { href: 'http://fontawesome.io/' },
-	            'font-awesome'
-	          )
+	        React.createElement(
+	          'a',
+	          { className: 'pure-menu-heading', onClick: this.routeChange.bind(this, '/') },
+	          'React UI'
+	        ),
+	        React.createElement(
+	          'ul',
+	          { className: 'pure-menu-list' },
+	          list
 	        )
 	      ),
-	      _react2['default'].createElement(
-	        'div',
-	        { className: 'content' },
-	        _react2['default'].createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Icon icon="string" spin={bool} size={int|string} />'
-	        ),
-	        _react2['default'].createElement(
-	          'p',
-	          null,
-	          _react2['default'].createElement(
-	            'b',
-	            null,
-	            'icon:'
-	          ),
-	          '图标名称，详见',
-	          _react2['default'].createElement(
-	            'a',
-	            { href: 'http://fontawesome.io/icons/' },
-	            'fontawesome'
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          'p',
-	          null,
-	          _react2['default'].createElement(
-	            'b',
-	            null,
-	            'spin:'
-	          ),
-	          '是否旋转。默认值为 ',
-	          _react2['default'].createElement(
-	            'em',
-	            null,
-	            'false'
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          'p',
-	          null,
-	          _react2['default'].createElement(
-	            'b',
-	            null,
-	            'size:'
-	          ),
-	          '图标尺寸，可选值为 ',
-	          _react2['default'].createElement(
-	            'em',
-	            null,
-	            '[lg|2x|3x|4x|5x]'
-	          ),
-	          '，或者为数字 ',
-	          _react2['default'].createElement(
-	            'em',
-	            null,
-	            '1-5'
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Normal'
-	        ),
-	        _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'home' }),
-	        ' home',
-	        _react2['default'].createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Icon icon="camera-retro" /> camera-retro'
-	        ),
-	        _react2['default'].createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Spin'
-	        ),
-	        _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'spinner', spin: true }),
-	        '   ',
-	        _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'refresh', spin: true }),
-	        _react2['default'].createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Icon icon="spinner" spin={true} />\r<Icon icon="refresh" spin={true} />'
-	        ),
-	        _react2['default'].createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Size'
-	        ),
-	        _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'camera-retro' }),
-	        ' normal',
-	        _react2['default'].createElement('br', null),
-	        _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'camera-retro', size: 'lg' }),
-	        ' lg',
-	        _react2['default'].createElement('br', null),
-	        _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'camera-retro', size: 2 }),
-	        ' 2x',
-	        _react2['default'].createElement('br', null),
-	        _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'camera-retro', size: 3 }),
-	        ' 3x',
-	        _react2['default'].createElement('br', null),
-	        _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'camera-retro', size: 4 }),
-	        ' 4x',
-	        _react2['default'].createElement('br', null),
-	        _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'camera-retro', size: 5 }),
-	        ' 5x',
-	        _react2['default'].createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Icon icon="camera-retro" />\n<Icon icon="camera-retro" size="lg" />\n<Icon icon="camera-retro" size="2x" />\n<Icon icon="camera-retro" size="3" />\n<Icon icon="camera-retro" size={4} />\n<Icon icon="camera-retro" size={5} />'
-	        ),
-	        _react2['default'].createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Method'
-	        ),
-	        _react2['default'].createElement(
-	          'p',
-	          null,
-	          '有两个实例方法控制旋转，',
-	          _react2['default'].createElement(
-	            'em',
-	            null,
-	            'spin'
-	          ),
-	          ' 和 ',
-	          _react2['default'].createElement(
-	            'em',
-	            null,
-	            'unspin'
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'icon.spin()\ricon.unspin()'
-	        )
-	      )
+	      React.createElement('div', { onClick: this.toggle, className: 'overlay' })
 	    );
 	  }
 	});
 
 /***/ },
-/* 111 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	exports["default"] = {
-	  componentDidMount: function componentDidMount() {
-	    var node = _react2["default"].findDOMNode(this);
-	    window.prettyPrint(null, node);
-	  }
-	};
-	module.exports = exports["default"];
-
-/***/ },
-/* 112 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	__webpack_require__(115);
-
-	var React = __webpack_require__(100);
-	var Classable = __webpack_require__(113);
-
-	module.exports = React.createClass({
-	  displayName: 'Icon',
-
-	  propTypes: {
-	    icon: React.PropTypes.string,
-	    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-	    spin: React.PropTypes.bool
-	  },
-
-	  mixins: [Classable],
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      spin: this.props.spin
-	    };
-	  },
-
-	  spin: function spin() {
-	    this.setState({ spin: true });
-	  },
-
-	  unspin: function unspin() {
-	    this.setState({ spin: false });
-	  },
-
-	  render: function render() {
-	    var classes = ['icon'];
-
-	    if (this.state.spin) {
-	      classes.push('icon-spin');
-	    }
-
-	    if (this.props.icon) {
-	      classes.push('icon-' + this.props.icon);
-	    }
-
-	    var size = this.props.size;
-	    if (size) {
-	      if (typeof size === 'number' || size.length === 1) {
-	        size = size + 'x';
-	      }
-	      classes.push('icon-' + size);
-	    }
-
-	    return React.createElement('i', { className: this.getClasses.apply(this, classes) });
-	  }
-	});
-
-/***/ },
-/* 113 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
-
-	var React = __webpack_require__(100);
-	var classnames = __webpack_require__(114);
-
-	module.exports = {
-
-	  propTypes: {
-	    className: React.PropTypes.string
-	  },
-
-	  getClasses: function getClasses() {
-	    var mainArguments = Array.prototype.slice.call(arguments);
-	    if (this.props.className) {
-	      mainArguments.push(this.props.className);
-	    }
-
-	    return classnames.apply(undefined, _toConsumableArray(mainArguments));
-	  }
-	};
-
-/***/ },
-/* 114 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -653,6 +380,268 @@ return /******/ (function(modules) { // webpackBootstrap
 	})();
 
 /***/ },
+/* 111 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(124) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(129) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(133) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(112) }, { route: 'message', text: 'Message', handler: __webpack_require__(145) }, { route: 'radio-group', text: 'Radio Group', handler: __webpack_require__(157) }];
+
+/***/ },
+/* 112 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(113);
+	var Icon = __webpack_require__(114);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Icon',
+
+	  mixins: [Prettify],
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Icon'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '图标，使用',
+	          React.createElement(
+	            'a',
+	            { href: 'http://fontawesome.io/' },
+	            'font-awesome'
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="string" spin={bool} size={int|string} />'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'icon:'
+	          ),
+	          '图标名称，详见',
+	          React.createElement(
+	            'a',
+	            { href: 'http://fontawesome.io/icons/' },
+	            'fontawesome'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'spin:'
+	          ),
+	          '是否旋转。默认值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'size:'
+	          ),
+	          '图标尺寸，可选值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '[lg|2x|3x|4x|5x]'
+	          ),
+	          '，或者为数字 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '1-5'
+	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Normal'
+	        ),
+	        React.createElement(Icon, { icon: 'home' }),
+	        ' home',
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="camera-retro" /> camera-retro'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Spin'
+	        ),
+	        React.createElement(Icon, { icon: 'spinner', spin: true }),
+	        '   ',
+	        React.createElement(Icon, { icon: 'refresh', spin: true }),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="spinner" spin={true} />\r<Icon icon="refresh" spin={true} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Size'
+	        ),
+	        React.createElement(Icon, { icon: 'camera-retro' }),
+	        ' normal',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 'lg' }),
+	        ' lg',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 2 }),
+	        ' 2x',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 3 }),
+	        ' 3x',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 4 }),
+	        ' 4x',
+	        React.createElement('br', null),
+	        React.createElement(Icon, { icon: 'camera-retro', size: 5 }),
+	        ' 5x',
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Icon icon="camera-retro" />\n<Icon icon="camera-retro" size="lg" />\n<Icon icon="camera-retro" size="2x" />\n<Icon icon="camera-retro" size="3" />\n<Icon icon="camera-retro" size={4} />\n<Icon icon="camera-retro" size={5} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Method'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '有两个实例方法控制旋转，',
+	          React.createElement(
+	            'em',
+	            null,
+	            'spin'
+	          ),
+	          ' 和 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'unspin'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'icon.spin()\ricon.unspin()'
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 113 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(52);
+
+	module.exports = {
+	  componentDidMount: function componentDidMount() {
+	    var node = React.findDOMNode(this);
+	    window.prettyPrint(null, node);
+	  }
+	};
+
+/***/ },
+/* 114 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(115);
+
+	var React = __webpack_require__(52);
+	var Classable = __webpack_require__(123);
+
+	module.exports = React.createClass({
+	  displayName: 'Icon',
+
+	  propTypes: {
+	    icon: React.PropTypes.string,
+	    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+	    spin: React.PropTypes.bool
+	  },
+
+	  mixins: [Classable],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      spin: this.props.spin
+	    };
+	  },
+
+	  spin: function spin() {
+	    this.setState({ spin: true });
+	  },
+
+	  unspin: function unspin() {
+	    this.setState({ spin: false });
+	  },
+
+	  render: function render() {
+	    var classes = ['icon'];
+
+	    if (this.state.spin) {
+	      classes.push('icon-spin');
+	    }
+
+	    if (this.props.icon) {
+	      classes.push('icon-' + this.props.icon);
+	    }
+
+	    var size = this.props.size;
+	    if (size) {
+	      if (typeof size === 'number' || size.length === 1) {
+	        size = size + 'x';
+	      }
+	      classes.push('icon-' + size);
+	    }
+
+	    return React.createElement('i', { className: this.getClasses.apply(this, classes) });
+	  }
+	});
+
+/***/ },
 /* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -671,36 +660,50 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
 
-	var _react = __webpack_require__(100);
+	var React = __webpack_require__(52);
+	var classnames = __webpack_require__(110);
 
-	var _react2 = _interopRequireDefault(_react);
+	module.exports = {
 
-	var _mixinsPrettify = __webpack_require__(111);
+	  propTypes: {
+	    className: React.PropTypes.string
+	  },
 
-	var _mixinsPrettify2 = _interopRequireDefault(_mixinsPrettify);
+	  getClasses: function getClasses() {
+	    var mainArguments = Array.prototype.slice.call(arguments);
+	    if (this.props.className) {
+	      mainArguments.push(this.props.className);
+	    }
 
-	var _srcJsComponentsButtonJsx = __webpack_require__(124);
+	    return classnames.apply(undefined, _toConsumableArray(mainArguments));
+	  }
+	};
 
-	var _srcJsComponentsButtonJsx2 = _interopRequireDefault(_srcJsComponentsButtonJsx);
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
 
-	var _srcJsComponentsIconJsx = __webpack_require__(112);
+	'use strict';
 
-	var _srcJsComponentsIconJsx2 = _interopRequireDefault(_srcJsComponentsIconJsx);
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(113);
+	var Button = __webpack_require__(125);
+	var Icon = __webpack_require__(114);
 
-	module.exports = _react2['default'].createClass({
+	module.exports = React.createClass({
 	  displayName: 'Pages/Button',
 
-	  mixins: [_mixinsPrettify2['default']],
+	  mixins: [Prettify],
 
 	  disableExample: function disableExample(event) {
 	    var button = this.refs.button;
 	    if (event.target.checked) {
-	      button.disable(_react2['default'].createElement(
+	      button.disable(React.createElement(
 	        'span',
 	        null,
-	        _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'lock' }),
+	        React.createElement(Icon, { icon: 'lock' }),
 	        '我被禁用了'
 	      ));
 	    } else {
@@ -709,221 +712,221 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      null,
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'div',
 	        { className: 'header' },
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h1',
 	          null,
 	          'Button'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          null,
 	          '按钮'
 	        )
 	      ),
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'div',
 	        { className: 'content' },
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<Button type="submit|button" disabled={bool} once={bool} status="string" onClick={function}>\r {string|element}\r</Button>'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'type:'
 	          ),
 	          ' 按钮类型，可选值为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'submit|button'
 	          ),
 	          ' ，不填默认值为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'button'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'status:'
 	          ),
 	          ' 按钮类别，会为按钮添加 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'pure-button-[status]'
 	          ),
 	          ' 的className，purecss包含 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'primary'
 	          ),
 	          ' 这个值，可自行扩展 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'success|error'
 	          ),
 	          ' 等'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'once:'
 	          ),
 	          ' 值为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'true'
 	          ),
 	          ' 时，当button点击过后，状态会变更为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'disabled'
 	          ),
 	          ' ，必须调用 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'enable'
 	          ),
 	          ' 方法激活才能再次使用。默认值为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'false'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'disabled:'
 	          ),
 	          ' 与 button 的 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'disabled'
 	          ),
 	          ' 属性相同'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'onClick:'
 	          ),
 	          ' 点击事件'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          '普通按钮'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
-	            _srcJsComponentsButtonJsx2['default'],
+	          React.createElement(
+	            Button,
 	            { status: 'primary' },
 	            'Primary Button'
 	          ),
 	          ' ',
-	          _react2['default'].createElement(
-	            _srcJsComponentsButtonJsx2['default'],
+	          React.createElement(
+	            Button,
 	            null,
 	            'Button'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<Button status="primary">Primary Button</Button>\n<Button>Button</Button>'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          '带图标按钮'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
-	            _srcJsComponentsButtonJsx2['default'],
+	          React.createElement(
+	            Button,
 	            null,
-	            _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'home' }),
+	            React.createElement(Icon, { icon: 'home' }),
 	            ' Home'
 	          ),
 	          ' ',
-	          _react2['default'].createElement(
-	            _srcJsComponentsButtonJsx2['default'],
+	          React.createElement(
+	            Button,
 	            null,
-	            _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'cog' }),
+	            React.createElement(Icon, { icon: 'cog' }),
 	            ' Settings'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<Button><Icon icon="home" /> Home</Button>\r<Button><Icon icon="cog" /> Settings</Button>'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          '扩展'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          'Button 默认会添加 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'button-extend'
 	          ),
 	          ' 类，如果需要给所有Button添加样式（如圆角，更改padding等），定义 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'button-extend'
 	          ),
 	          ' 即可。'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            '注意：本文档里的按钮受 ',
-	            _react2['default'].createElement(
+	            React.createElement(
 	              'em',
 	              null,
 	              'button-extend'
@@ -931,126 +934,126 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ' 影响，圆角已改变，purecss圆角只有2像素'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '.button-extend {\n  border-radius: 4px;\n}\n.button-success, .button-error, .button-warning, .button-info {\n  color: #fff;\n  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);\n}\n.button-success {\n  background: rgb(28, 184, 65);\n}\n.button-error {\n  background: rgb(202, 60, 60);\n}\n.button-warning {\n  background: rgb(223, 117, 20);\n}\n.button-info {\n  background: rgb(66, 184, 221);\n}\n.button-large {\n  font-size: 120%;\n}'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
-	            _srcJsComponentsButtonJsx2['default'],
+	          React.createElement(
+	            Button,
 	            { status: 'success' },
 	            'Success Button'
 	          ),
 	          ' ',
-	          _react2['default'].createElement(
-	            _srcJsComponentsButtonJsx2['default'],
+	          React.createElement(
+	            Button,
 	            { status: 'warning' },
 	            'Warning Button'
 	          ),
 	          ' ',
-	          _react2['default'].createElement(
-	            _srcJsComponentsButtonJsx2['default'],
+	          React.createElement(
+	            Button,
 	            { status: 'error' },
 	            'Error Button'
 	          ),
 	          ' ',
-	          _react2['default'].createElement(
-	            _srcJsComponentsButtonJsx2['default'],
+	          React.createElement(
+	            Button,
 	            { status: 'info' },
 	            'Info Button'
 	          ),
-	          _react2['default'].createElement('br', null)
+	          React.createElement('br', null)
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<Button status="success">Success Button</Button>\n<Button status="warning">Warning Button</Button>\n<Button status="error">Error Button</Button>\n<Button status="info">Info Button</Button>'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '也可以直接添加className'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
-	            _srcJsComponentsButtonJsx2['default'],
+	          React.createElement(
+	            Button,
 	            { className: 'button-large' },
 	            'Large Button'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<Button className="large-button">Large Button</Button>'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'once'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
-	            _srcJsComponentsButtonJsx2['default'],
+	          React.createElement(
+	            Button,
 	            { once: true },
 	            '只能点击一次'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<Button once={true}>只能点击一次</Button>'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'enable(elem)/disabled(elem)'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '两个实例方法 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'enable'
 	          ),
 	          '（启用） 和 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'disable'
 	          ),
 	          ' （禁用），可以传入一个参数（字符串或者element）替换按钮内容'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
-	            _srcJsComponentsButtonJsx2['default'],
+	          React.createElement(
+	            Button,
 	            { ref: 'button' },
 	            'Button'
 	          ),
 	          ' ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'label',
 	            { className: 'pure-checkbox' },
-	            _react2['default'].createElement('input', { onClick: this.disableExample, type: 'checkbox' }),
+	            React.createElement('input', { onClick: this.disableExample, type: 'checkbox' }),
 	            ' 禁用'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<Button ref="button">Button</Button>\n<label className="pure-checkbox">\n  <input onClick={this.disableExample} type="checkbox" /> 禁用\n</label>'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          'disableExample: function (event) {\n  var button = this.refs.button;\n  if (event.target.checked) {\n    button.disable(<span><Icon icon="lock" />我被禁用了</span>);\n  } else {\n    button.enable("我又可以使用了");\n  }\n}'
@@ -1061,14 +1064,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 124 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(125);
-	var React = __webpack_require__(100);
-	var Classable = __webpack_require__(113);
+	__webpack_require__(126);
+	var React = __webpack_require__(52);
+	var Classable = __webpack_require__(123);
 
 	module.exports = React.createClass({
 	  displayName: 'Button',
@@ -1126,226 +1129,216 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 125 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 126 */,
 /* 127 */,
-/* 128 */
+/* 128 */,
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(113);
+	var Checkbox = __webpack_require__(130);
 
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _mixinsPrettify = __webpack_require__(111);
-
-	var _mixinsPrettify2 = _interopRequireDefault(_mixinsPrettify);
-
-	var _srcJsComponentsCheckboxJsx = __webpack_require__(129);
-
-	var _srcJsComponentsCheckboxJsx2 = _interopRequireDefault(_srcJsComponentsCheckboxJsx);
-
-	module.exports = _react2['default'].createClass({
+	module.exports = React.createClass({
 	  displayName: 'Pages/Checkbox',
 
-	  mixins: [_mixinsPrettify2['default']],
+	  mixins: [Prettify],
 
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      null,
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'div',
 	        { className: 'header' },
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h1',
 	          null,
 	          'Checkbox'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          null,
 	          '复选框'
 	        )
 	      ),
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'div',
 	        { className: 'content' },
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<Checkbox text="string" value={any} checked={bool} readOnly={bool} onChange={function} />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'text:'
 	          ),
 	          '显示的文字信息'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'value:'
 	          ),
 	          '值，不填写 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'getValue'
 	          ),
 	          ' 得到的值为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'bool'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'checked:'
 	          ),
 	          '是否选中，默认为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'false'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'readOnly:'
 	          ),
 	          '是否只读，默认为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'false'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'onChange:'
 	          ),
 	          '状态改变触发事件'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'Example'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(_srcJsComponentsCheckboxJsx2['default'], { text: 'checkbox' })
+	          React.createElement(Checkbox, { text: 'checkbox' })
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<Checkbox text="checkbox" />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'Readonly'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(_srcJsComponentsCheckboxJsx2['default'], { checked: true, readOnly: true, text: 'readonly checkbox' })
+	          React.createElement(Checkbox, { checked: true, readOnly: true, text: 'readonly checkbox' })
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<Checkbox checked={true} readOnly={true} text="readonly checkbox" />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'getValue()'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '获取值，选中状态下如果有 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'value'
 	          ),
 	          '，返回 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'value'
 	          ),
 	          ' ，否则返回 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'true'
 	          ),
 	          ' ，未选中状态返回 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'false'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'setValue(value)'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '如果 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'value'
 	          ),
 	          ' 值与 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'props.value'
 	          ),
 	          ' 相等，或者值为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'true'
 	          ),
 	          ' 或者 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            '1'
@@ -1358,13 +1351,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 129 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(130);
-	var React = __webpack_require__(100);
+	__webpack_require__(131);
+	var React = __webpack_require__(52);
 
 	module.exports = React.createClass({
 	  displayName: 'Checkbox',
@@ -1421,38 +1414,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 130 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 131 */,
-/* 132 */
+/* 132 */,
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(113);
+	var CheckboxGroup = __webpack_require__(134);
 
-	var _react = __webpack_require__(100);
+	var textValue = __webpack_require__(144);
 
-	var _react2 = _interopRequireDefault(_react);
-
-	var _mixinsPrettify = __webpack_require__(111);
-
-	var _mixinsPrettify2 = _interopRequireDefault(_mixinsPrettify);
-
-	var _srcJsComponentsCheckboxGroupJsx = __webpack_require__(133);
-
-	var _srcJsComponentsCheckboxGroupJsx2 = _interopRequireDefault(_srcJsComponentsCheckboxGroupJsx);
-
-	var textValue = __webpack_require__(143);
-
-	module.exports = _react2['default'].createClass({
+	module.exports = React.createClass({
 	  displayName: 'Pages/Checkbox',
 
-	  mixins: [_mixinsPrettify2['default']],
+	  mixins: [Prettify],
 
 	  getInitialState: function getInitialState() {
 	    return {
@@ -1467,348 +1450,348 @@ return /******/ (function(modules) { // webpackBootstrap
 	  render: function render() {
 	    var _this = this;
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      null,
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'div',
 	        { className: 'header' },
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h1',
 	          null,
 	          'Checkbox Group'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          null,
 	          '一组复选框'
 	        )
 	      ),
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'div',
 	        { className: 'content' },
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<CheckboxGroup data={array} sep={string||null} cache={bool} inline={bool} onChange={function}\r  readOnly={bool} src="string" textKey="string" valueKey="string" value={any} />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'data:'
 	          ),
 	          '数据，与 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'src'
 	          ),
 	          ' 二选一，优先使用data'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'sep:'
 	          ),
 	          '返回值分隔字符，默认值为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            ','
 	          ),
 	          ' 。值设为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            '\'\''
 	          ),
 	          ' 或 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'null'
 	          ),
 	          ' 时，返回值类型为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'array'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'inline:'
 	          ),
 	          '为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'true'
 	          ),
 	          ' 时，各选项横向排列。默认为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'false'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'onChange:'
 	          ),
 	          '当选项改变时回调方法，参数为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'value'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'readOnly:'
 	          ),
 	          '为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'true'
 	          ),
 	          ' 时，只读。默认为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'false'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'src:'
 	          ),
 	          '服务器端数据地址，与 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'data'
 	          ),
 	          ' 二选一'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'cache:'
 	          ),
 	          '数据缓存，只有当数据为远程获取时有效。默认为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'true'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'textKey:'
 	          ),
 	          '数据结构中显示文字的key，不填默认为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'text'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'valueKey:'
 	          ),
 	          '数据结构中返回值的key，不填默认为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'value'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'value:'
 	          ),
 	          '选中值'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          '数据结构'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '标准结构为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'text'
 	          ),
 	          ', ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'value'
 	          ),
 	          ' key组成的数组'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '[{"text":"北京","value":"beijing"},{"text":"上海", "value":"shanghai"}]'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '可以使用自定义数组，指定 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'textKey'
 	          ),
 	          ', ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'valueKey'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '[{"cn":"北京","py":"beijing"},{"cn":"上海", "py":"shanghai"}]'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '可以使用一维数组，这种情况下，显示文字与值相同'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '["北京","上海","广州"]'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'Object Data'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(_srcJsComponentsCheckboxGroupJsx2['default'], { inline: true, data: textValue })
+	          React.createElement(CheckboxGroup, { inline: true, data: textValue })
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<CheckboxGroup inline={true} data={data} />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          'data = [\n  { "value": "nanjing", "text": "南京" },\n  { "value": "beijing", "text": "北京" },\n  { "value": "guangzhou", "text": "广州" },\n  { "value": "shenzhen", "text": "深圳" },\n  { "value": "chengdu", "text": "成都" },\n  { "value": "chongqing", "text": "重庆" },\n  { "value": "shanghai", "text": "上海" }\n]'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'Array Data'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(_srcJsComponentsCheckboxGroupJsx2['default'], { ref: 'array', sep: '', onChange: function () {
+	          React.createElement(CheckboxGroup, { ref: 'array', sep: '', onChange: function () {
 	              return console.log(_this.refs.array.getValue());
 	            }, inline: true, value: ['北京', '广州'], data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<CheckboxGroup inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'Readonly'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(_srcJsComponentsCheckboxGroupJsx2['default'], { readOnly: true, inline: true, value: ['北京', '广州'], data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
+	          React.createElement(CheckboxGroup, { readOnly: true, inline: true, value: ['北京', '广州'], data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<CheckboxGroup readOnly={true} inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'Remote Data'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(_srcJsComponentsCheckboxGroupJsx2['default'], { ref: 'remote', onChange: function () {
+	          React.createElement(CheckboxGroup, { ref: 'remote', onChange: function () {
 	              return console.log(_this.refs.remote.getValue());
 	            }, cache: false, inline: true, value: 'shanghai,chengdu', src: 'json/text-value.json' })
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<CheckboxGroup inline={true} value="shanghai,chengdu" cache={false} src="json/text-value.json" />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'Data Sep'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(_srcJsComponentsCheckboxGroupJsx2['default'], { ref: 'sep', onChange: function () {
+	          React.createElement(CheckboxGroup, { ref: 'sep', onChange: function () {
 	              return console.log(_this.refs.sep.getValue());
 	            }, inline: true, sep: '|', value: 'shanghai|chengdu', src: 'json/text-value.json' })
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" src="json/text-value.json" />'
@@ -1819,20 +1802,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 133 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(130);
+	__webpack_require__(131);
 
-	var React = __webpack_require__(100);
-	var Checkbox = __webpack_require__(129);
-	var Strings = __webpack_require__(136);
-	var Classable = __webpack_require__(113);
-	var Objects = __webpack_require__(134);
-	var Resource = __webpack_require__(137);
-	var ReceiveValue = __webpack_require__(142);
+	var React = __webpack_require__(52);
+	var Checkbox = __webpack_require__(130);
+	var Strings = __webpack_require__(135);
+	var Classable = __webpack_require__(123);
+	var Objects = __webpack_require__(136);
+	var Resource = __webpack_require__(138);
+	var ReceiveValue = __webpack_require__(143);
 
 	module.exports = React.createClass({
 	  displayName: 'CheckboxGroup',
@@ -1929,12 +1912,55 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 134 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var type = __webpack_require__(135);
+	function format() {
+	  var args = [].slice.call(arguments),
+	      str = args.shift();
+	  return str.replace(/{(\d+)}/g, function (match, number) {
+	    return typeof args[number] !== undefined ? args[number] : match;
+	  });
+	}
+
+	function substitute(str, obj) {
+	  return str.replace(/\\?\{([^{}]+)\}/g, function (match, name) {
+	    if (match.charAt(0) === '\\') {
+	      return match.slice(1);
+	    }
+	    return obj[name] !== null ? obj[name] : '';
+	  });
+	}
+
+	function toArray(value, sep) {
+	  if (!value) {
+	    value = [];
+	  }
+	  if (typeof value === 'string' && sep) {
+	    value = value.split(sep);
+	  } else if (!(value instanceof Array)) {
+	    value = [value];
+	  } else if (sep) {
+	    // if use sep, convert every value to string
+	    value = value.map(function (v) {
+	      return v.toString();
+	    });
+	  }
+
+	  return value;
+	}
+
+	module.exports = { format: format, substitute: substitute, toArray: toArray };
+
+/***/ },
+/* 136 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var type = __webpack_require__(137);
 
 	function isEmpty(obj) {
 
@@ -1980,7 +2006,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = { forEach: forEach, isEmpty: isEmpty, toTextValue: toTextValue };
 
 /***/ },
-/* 135 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://github.com/component/type
@@ -2033,57 +2059,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 136 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	function format() {
-	  var args = [].slice.call(arguments),
-	      str = args.shift();
-	  return str.replace(/{(\d+)}/g, function (match, number) {
-	    return typeof args[number] !== undefined ? args[number] : match;
-	  });
-	}
-
-	function substitute(str, obj) {
-	  return str.replace(/\\?\{([^{}]+)\}/g, function (match, name) {
-	    if (match.charAt(0) === '\\') {
-	      return match.slice(1);
-	    }
-	    return obj[name] !== null ? obj[name] : '';
-	  });
-	}
-
-	function toArray(value, sep) {
-	  if (!value) {
-	    value = [];
-	  }
-	  if (typeof value === 'string' && sep) {
-	    value = value.split(sep);
-	  } else if (!(value instanceof Array)) {
-	    value = [value];
-	  } else if (sep) {
-	    // if use sep, convert every value to string
-	    value = value.map(function (v) {
-	      return v.toString();
-	    });
-	  }
-
-	  return value;
-	}
-
-	module.exports = { format: format, substitute: substitute, toArray: toArray };
-
-/***/ },
-/* 137 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var Qwest = __webpack_require__(138);
-	var clone = __webpack_require__(139);
-	var Lang = __webpack_require__(140);
+	var Qwest = __webpack_require__(139);
+	var clone = __webpack_require__(140);
+	var Lang = __webpack_require__(141);
 
 	module.exports = {
 	  componentWillMount: function componentWillMount() {
@@ -2135,7 +2118,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! qwest 1.7.0 (https://github.com/pyrsmk/qwest) */
@@ -2644,7 +2627,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})());
 
 /***/ },
-/* 139 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://github.com/component/clone
@@ -2654,7 +2637,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var type = __webpack_require__(135);
+	var type = __webpack_require__(137);
 
 	/**
 	 * Clones objects.
@@ -2705,12 +2688,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = clone;
 
 /***/ },
-/* 140 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var merge = __webpack_require__(141);
+	var merge = __webpack_require__(142);
 	var lang = {};
 
 	module.exports = {
@@ -2742,7 +2725,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 141 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -2799,7 +2782,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 142 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2831,218 +2814,207 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 143 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = [{ "value": "nanjing", "text": "南京" }, { "value": "beijing", "text": "北京" }, { "value": "guangzhou", "text": "广州" }, { "value": "shenzhen", "text": "深圳" }, { "value": "chengdu", "text": "成都" }, { "value": "chongqing", "text": "重庆" }, { "value": "shanghai", "text": "上海" }];
-	module.exports = exports["default"];
+	module.exports = [{ "value": "nanjing", "text": "南京" }, { "value": "beijing", "text": "北京" }, { "value": "guangzhou", "text": "广州" }, { "value": "shenzhen", "text": "深圳" }, { "value": "chengdu", "text": "成都" }, { "value": "chongqing", "text": "重庆" }, { "value": "shanghai", "text": "上海" }];
 
 /***/ },
-/* 144 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var _srcJs = __webpack_require__(146);
 
-	var _react = __webpack_require__(100);
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(113);
 
-	var _react2 = _interopRequireDefault(_react);
-
-	var _mixinsPrettify = __webpack_require__(111);
-
-	var _mixinsPrettify2 = _interopRequireDefault(_mixinsPrettify);
-
-	var _srcJs = __webpack_require__(145);
-
-	module.exports = _react2['default'].createClass({
+	module.exports = React.createClass({
 	  displayName: 'Pages/Message',
 
-	  mixins: [_mixinsPrettify2['default']],
+	  mixins: [Prettify],
 
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      null,
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'div',
 	        { className: 'header' },
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h1',
 	          null,
 	          'Message'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          null,
 	          '通知 / 消息'
 	        )
 	      ),
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'div',
 	        { className: 'content' },
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '为了实现全局通知，使用了Reflux，需要加入Reflux引用。'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '首先，在页面的某个地方，加入一个',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'Message Compontent'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<Message top={bool} clickaway={bool} />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'top:'
 	          ),
 	          '显示位置，为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'true'
 	          ),
 	          ' 时显示在页面顶部， ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'false'
 	          ),
 	          ' 显示在页面左下角'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'clickaway:'
 	          ),
 	          '为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'true'
 	          ),
 	          ' 时，点击页面空白处关闭所有消息'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          '全局方法'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          'Message.show(content, type)'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'content:'
 	          ),
 	          '内容，必填，值为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'string'
 	          ),
 	          ' 或 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'element'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'type:'
 	          ),
 	          '样式，会增加一个class ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'messsage-[type]'
 	          ),
 	          '，默认值为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'info'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'Example'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'a',
 	            { onClick: _srcJs.Message.show.bind(null, 'Info message.') },
 	            'info message'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          'Message.show("info message.")'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'a',
 	            { onClick: _srcJs.Message.show.bind(null, 'error message.', 'error') },
 	            'error message'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          'Message.error("error message.", "error")'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'a',
-	            { onClick: _srcJs.Message.show.bind(null, _react2['default'].createElement(
+	            { onClick: _srcJs.Message.show.bind(null, React.createElement(
 	                'div',
 	                null,
-	                _react2['default'].createElement(
+	                React.createElement(
 	                  'h3',
 	                  null,
 	                  'title'
 	                ),
-	                _react2['default'].createElement(
+	                React.createElement(
 	                  'span',
 	                  null,
 	                  'span message'
@@ -3051,40 +3023,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	            'element message'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          'Message.warn(<span>warning and span</span>, "title")'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'a',
-	            { onClick: _srcJs.Message.show.bind(null, _react2['default'].createElement(
+	            { onClick: _srcJs.Message.show.bind(null, React.createElement(
 	                'span',
 	                null,
-	                _react2['default'].createElement(_srcJs.Icon, { icon: 'music' }),
+	                React.createElement(_srcJs.Icon, { icon: 'music' }),
 	                ' success and icon'
 	              ), 'success') },
 	            'success message'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          'Message.success(<span><Icon icon="music" /> success and icon</span>, "title")'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          '扩展'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '默认会添加 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'message-extend'
@@ -3097,45 +3069,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 145 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.Button = __webpack_require__(124);
-	exports.Checkbox = __webpack_require__(129);
-	exports.CheckboxGroup = __webpack_require__(133);
-	exports.Icon = __webpack_require__(112);
-	exports.Message = __webpack_require__(146);
-	exports.RadioGroup = __webpack_require__(153);
+	exports.Button = __webpack_require__(125);
+	exports.Checkbox = __webpack_require__(130);
+	exports.CheckboxGroup = __webpack_require__(134);
+	exports.Icon = __webpack_require__(114);
+	exports.Message = __webpack_require__(147);
+	exports.RadioGroup = __webpack_require__(154);
 
 	exports.Utils = {
-	  Objects: __webpack_require__(134),
-	  Strings: __webpack_require__(136)
+	  Objects: __webpack_require__(136),
+	  Strings: __webpack_require__(135)
 	};
 
 	// ajax
-	exports.Qwest = __webpack_require__(138);
-	exports.Request = __webpack_require__(138); // alias
+	exports.Qwest = __webpack_require__(139);
+	exports.Request = __webpack_require__(139); // alias
 
 	// set language
-	__webpack_require__(155);
+	__webpack_require__(156);
 
 /***/ },
-/* 146 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	__webpack_require__(151);
+	__webpack_require__(148);
 
-	var React = __webpack_require__(100);
-	var Overlay = __webpack_require__(147);
-	var Objects = __webpack_require__(134);
-	var Classable = __webpack_require__(113);
-	var PubSub = __webpack_require__(150);
+	var React = __webpack_require__(52);
+	var Overlay = __webpack_require__(150);
+	var Objects = __webpack_require__(136);
+	var Classable = __webpack_require__(123);
+	var PubSub = __webpack_require__(153);
 
 	var messages = [];
 	var ADD_MESSAGE = 'EB3A79637B40';
@@ -3251,22 +3223,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Message;
 
 /***/ },
-/* 147 */
+/* 148 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 149 */,
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _react = __webpack_require__(100);
+	var _react = __webpack_require__(52);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _mixinsClassable = __webpack_require__(113);
+	var _mixinsClassable = __webpack_require__(123);
 
 	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
 
-	__webpack_require__(148);
+	__webpack_require__(151);
 
 	module.exports = _react2['default'].createClass({
 	  displayName: 'Overlay',
@@ -3291,14 +3270,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 148 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 149 */,
-/* 150 */
+/* 152 */,
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -3549,25 +3528,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 151 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 152 */,
-/* 153 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(130);
-	var React = __webpack_require__(100);
-	var Classable = __webpack_require__(113);
-	var Objects = __webpack_require__(134);
-	var Resource = __webpack_require__(137);
-	var ReceiveValue = __webpack_require__(142);
-	var Radio = __webpack_require__(154);
+	__webpack_require__(131);
+	var React = __webpack_require__(52);
+	var Classable = __webpack_require__(123);
+	var Objects = __webpack_require__(136);
+	var Resource = __webpack_require__(138);
+	var ReceiveValue = __webpack_require__(143);
+	var Radio = __webpack_require__(155);
 
 	module.exports = React.createClass({
 	  displayName: 'RadioGroup',
@@ -3633,13 +3605,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 154 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(130);
-	var React = __webpack_require__(100);
+	__webpack_require__(131);
+	var React = __webpack_require__(52);
 
 	module.exports = React.createClass({
 	  displayName: 'Radio',
@@ -3674,7 +3646,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 155 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3754,36 +3726,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 
-	__webpack_require__(140).set(data);
+	__webpack_require__(141).set(data);
 
 /***/ },
-/* 156 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(113);
+	var RadioGroup = __webpack_require__(154);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	var textValue = __webpack_require__(144);
 
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _mixinsPrettify = __webpack_require__(111);
-
-	var _mixinsPrettify2 = _interopRequireDefault(_mixinsPrettify);
-
-	var _srcJs = __webpack_require__(145);
-
-	var textValue = __webpack_require__(143);
-
-	exports['default'] = _react2['default'].createClass({
+	module.exports = React.createClass({
 	  displayName: 'Pages/Checkbox',
 
-	  mixins: [_mixinsPrettify2['default']],
+	  mixins: [Prettify],
 
 	  getInitialState: function getInitialState() {
 	    return {
@@ -3792,294 +3752,294 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      null,
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'div',
 	        { className: 'header' },
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h1',
 	          null,
 	          'Radio Group'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          null,
 	          '一组单选框'
 	        )
 	      ),
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'div',
 	        { className: 'content' },
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<RadioGroup data={array} cache={bool} inline={bool} onChange={function} readOnly={bool}\r  src="string" textKey="string" valueKey="string" value={any} />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'data:'
 	          ),
 	          '数据，与 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'src'
 	          ),
 	          ' 二选一'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'inline:'
 	          ),
 	          '为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'true'
 	          ),
 	          ' 时，各选项横向排列。默认为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'false'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'onChange:'
 	          ),
 	          '当选项改变时回调方法，参数为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'value'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'readOnly:'
 	          ),
 	          '为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'true'
 	          ),
 	          ' 时，只读。默认为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'false'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'src:'
 	          ),
 	          '后端数据地址，与 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'data'
 	          ),
 	          ' 二选一'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'cache:'
 	          ),
 	          '数据缓存，只有当数据为远程获取时有效。默认为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'true'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'textKey:'
 	          ),
 	          '数据结构中显示文字的key，不填默认为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'text'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'valueKey:'
 	          ),
 	          '数据结构中返回值的key，不填默认为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'value'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'b',
 	            null,
 	            'value:'
 	          ),
 	          '选中值'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          '数据结构'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '标准结构为 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'text'
 	          ),
 	          ', ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'value'
 	          ),
 	          ' key组成的数组'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '[{"text":"北京","value":"beijing"},{"text":"上海", "value":"shanghai"}]'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '可以使用自定义数组，指定 ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'textKey'
 	          ),
 	          ', ',
-	          _react2['default'].createElement(
+	          React.createElement(
 	            'em',
 	            null,
 	            'valueKey'
 	          )
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '[{"cn":"北京","py":"beijing"},{"cn":"上海", "py":"shanghai"}]'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
 	          '可以使用一维数组，这种情况下，显示文字与值相同'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '["北京","上海","广州"]'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'Object Data'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(_srcJs.RadioGroup, { inline: true, data: textValue })
+	          React.createElement(RadioGroup, { inline: true, data: textValue })
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<RadioGroup inline={true} data={data} />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          'data = [\n  { "value": "nanjing", "text": "南京" },\n  { "value": "beijing", "text": "北京" },\n  { "value": "guangzhou", "text": "广州" },\n  { "value": "shenzhen", "text": "深圳" },\n  { "value": "chengdu", "text": "成都" },\n  { "value": "chongqing", "text": "重庆" },\n  { "value": "shanghai", "text": "上海" }\n]'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'Array Data'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(_srcJs.RadioGroup, { inline: true, value: '北京', data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
+	          React.createElement(RadioGroup, { inline: true, value: '北京', data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<RadioGroup inline={true} value="北京" data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'Readonly'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(_srcJs.RadioGroup, { readOnly: true, inline: true, value: '北京', data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
+	          React.createElement(RadioGroup, { readOnly: true, inline: true, value: '北京', data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<RadioGroup readOnly={true} inline={true} value={"北京"} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'h2',
 	          { className: 'subhead' },
 	          'Remote Data'
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'p',
 	          null,
-	          _react2['default'].createElement(_srcJs.RadioGroup, { inline: true, stringify: true, value: 'chengdu', src: 'json/text-value.json' })
+	          React.createElement(RadioGroup, { inline: true, stringify: true, value: 'chengdu', src: 'json/text-value.json' })
 	        ),
-	        _react2['default'].createElement(
+	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
 	          '<RadioGroup inline={true} stringify={true} value="chengdu" src="json/text-value.json" />'
@@ -4089,13 +4049,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 157 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "index.html"
 
 /***/ },
 /* 158 */
@@ -4103,144 +4056,48 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	var React = __webpack_require__(52);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(106);
-
-	var _navListJsx = __webpack_require__(159);
-
-	var _navListJsx2 = _interopRequireDefault(_navListJsx);
-
-	var _srcJsComponentsMessageJsx = __webpack_require__(146);
-
-	var _srcJsComponentsMessageJsx2 = _interopRequireDefault(_srcJsComponentsMessageJsx);
-
-	exports["default"] = _react2["default"].createClass({
-	  displayName: "Master",
+	module.exports = React.createClass({
+	  displayName: "Home",
 
 	  render: function render() {
-	    return _react2["default"].createElement(
+	    return React.createElement(
 	      "div",
 	      null,
-	      _react2["default"].createElement(_navListJsx2["default"], null),
-	      _react2["default"].createElement(
+	      React.createElement(
 	        "div",
-	        { className: "main" },
-	        _react2["default"].createElement(_reactRouter.RouteHandler, null)
-	      ),
-	      _react2["default"].createElement(_srcJsComponentsMessageJsx2["default"], null)
+	        { className: "hero" },
+	        React.createElement(
+	          "div",
+	          { className: "hero-title" },
+	          React.createElement(
+	            "h1",
+	            null,
+	            "React UI"
+	          ),
+	          React.createElement(
+	            "h2",
+	            null,
+	            "React组件库，样式基于yahoo的",
+	            React.createElement(
+	              "a",
+	              { href: "http://purecss.io/" },
+	              "purecss"
+	            ),
+	            "。"
+	          )
+	        )
+	      )
 	    );
 	  }
 	});
-	module.exports = exports["default"];
 
 /***/ },
 /* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _classnames = __webpack_require__(114);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(106);
-
-	var _reactRouter2 = _interopRequireDefault(_reactRouter);
-
-	var _menulist = __webpack_require__(109);
-
-	var _menulist2 = _interopRequireDefault(_menulist);
-
-	var _srcJsComponentsIconJsx = __webpack_require__(112);
-
-	var _srcJsComponentsIconJsx2 = _interopRequireDefault(_srcJsComponentsIconJsx);
-
-	exports['default'] = _react2['default'].createClass({
-	  displayName: 'NavList',
-
-	  mixins: [_reactRouter2['default'].State],
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      active: false
-	    };
-	  },
-
-	  getClasses: function getClasses(name, route) {
-	    return (0, _classnames2['default'])(name, {
-	      active: this.context.router.isActive(route)
-	    });
-	  },
-
-	  routeChange: function routeChange(route) {
-	    this.context.router.transitionTo(route);
-	    this.setState({ active: false });
-	  },
-
-	  toggle: function toggle() {
-	    var active = !this.state.active;
-	    this.setState({ active: active });
-	  },
-
-	  render: function render() {
-	    var list = _menulist2['default'].map(function (m) {
-	      return _react2['default'].createElement(
-	        'li',
-	        { className: 'pure-menu-item' },
-	        _react2['default'].createElement(
-	          'a',
-	          { onClick: this.routeChange.bind(this, m.route), className: this.getClasses('pure-menu-link', m.route) },
-	          m.text
-	        )
-	      );
-	    }, this);
-
-	    return _react2['default'].createElement(
-	      'div',
-	      { className: (0, _classnames2['default'])('nav', { active: this.state.active }) },
-	      _react2['default'].createElement(
-	        'div',
-	        { className: 'nav-list pure-menu' },
-	        _react2['default'].createElement(
-	          'a',
-	          { onClick: this.toggle, className: 'nav-handler' },
-	          _react2['default'].createElement(_srcJsComponentsIconJsx2['default'], { icon: 'navicon', size: 'lg' })
-	        ),
-	        _react2['default'].createElement(
-	          'a',
-	          { className: 'pure-menu-heading', onClick: this.routeChange.bind(this, '/') },
-	          'React UI'
-	        ),
-	        _react2['default'].createElement(
-	          'ul',
-	          { className: 'pure-menu-list' },
-	          list
-	        )
-	      ),
-	      _react2['default'].createElement('div', { onClick: this.toggle, className: 'overlay' })
-	    );
-	  }
-	});
-	module.exports = exports['default'];
+	module.exports = __webpack_require__.p + "index.html"
 
 /***/ }
 /******/ ])

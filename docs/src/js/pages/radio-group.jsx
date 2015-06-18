@@ -1,12 +1,12 @@
 "use strict"
 
-import React from 'react'
-import Prettify from '../mixins/prettify'
-import {RadioGroup} from '../../../../src/js'
+let React = require('react')
+let Prettify = require('../mixins/prettify')
+let RadioGroup = require('../../../../src/js/components/radio-group.jsx')
 
 const textValue = require('../data/text-value')
 
-export default React.createClass({
+module.exports = React.createClass({
   displayName: 'Pages/Checkbox',
 
   mixins: [Prettify],

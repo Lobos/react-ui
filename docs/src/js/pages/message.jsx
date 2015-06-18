@@ -1,7 +1,7 @@
 "use strict"
 
-import React from 'react'
-import Prettify from '../mixins/prettify'
+let React = require('react')
+let Prettify = require('../mixins/prettify')
 import {Message, Icon} from '../../../../src/js/'
 
 module.exports = React.createClass({
