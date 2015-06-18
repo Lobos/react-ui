@@ -1,23 +1,31 @@
 "use strict"
 
 let merge = require('deepmerge')
+let clone = require('../utils/clone')
 let lang = {}
 
 module.exports = {
   set: function () {
     let args = [].slice.call(arguments)
     args.forEach(function (arg) {
-      lang = merge(lang, arg)
+      if (typeof arg === 'object') {
+        lang = merge(lang, arg)
+      }
     })
   },
 
   get: function (path) {
+    let result = clone(lang)
+
+    if (path === undefined) {
+      return result
+    }
+
     if (!path || typeof path !== 'string') {
       return undefined
     }
 
     let paths = path.split('.')
-    let result = lang
 
     for (let i = 0, count = paths.length; i < count; i++) {
       result = result[paths[i]]

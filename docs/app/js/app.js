@@ -385,7 +385,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(124) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(129) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(133) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(112) }, { route: 'message', text: 'Message', handler: __webpack_require__(145) }, { route: 'radio-group', text: 'Radio Group', handler: __webpack_require__(157) }];
+	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(124) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(129) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(133) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(112) }, { route: 'message', text: 'Message', handler: __webpack_require__(145) }, { route: 'radio-group', text: 'Radio Group', handler: __webpack_require__(157) }, { route: 'lang', text: 'Lang', handler: __webpack_require__(160) }];
 
 /***/ },
 /* 112 */
@@ -2694,23 +2694,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var merge = __webpack_require__(142);
+	var clone = __webpack_require__(140);
 	var lang = {};
 
 	module.exports = {
 	  set: function set() {
 	    var args = [].slice.call(arguments);
 	    args.forEach(function (arg) {
-	      lang = merge(lang, arg);
+	      if (typeof arg === 'object') {
+	        lang = merge(lang, arg);
+	      }
 	    });
 	  },
 
 	  get: function get(path) {
+	    var result = clone(lang);
+
+	    if (path === undefined) {
+	      return result;
+	    }
+
 	    if (!path || typeof path !== 'string') {
 	      return undefined;
 	    }
 
 	    var paths = path.split('.');
-	    var result = lang;
 
 	    for (var i = 0, count = paths.length; i < count; i++) {
 	      result = result[paths[i]];
@@ -4098,6 +4106,123 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "index.html"
+
+/***/ },
+/* 160 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(113);
+	var Lang = __webpack_require__(141);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Lang',
+
+	  mixins: [Prettify],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      path: 'request.status.405',
+	      text: Lang.get('request.status.405')
+	    };
+	  },
+
+	  handleChange: function handleChange(event) {
+	    var path = event.target.value;
+	    var text = JSON.stringify(Lang.get(path), null, 4) || 'undefined';
+	    this.setState({ path: path, text: text });
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Language'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '语言包'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'p',
+	          null,
+	          '所有提示文字信息都放在 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'lang'
+	          ),
+	          ' 下。'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Lang.set(map[,map2...])'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '更新或者增加信息。'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Lang.get(path)'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '获取信息，',
+	          React.createElement(
+	            'em',
+	            null,
+	            'path'
+	          ),
+	          ' 为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            '.'
+	          ),
+	          ' 分隔字符串。'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement('input', { onChange: this.handleChange, value: this.state.path, type: 'text' }),
+	          React.createElement(
+	            'p',
+	            null,
+	            this.state.text
+	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          '当前信息'
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          JSON.stringify(Lang.get(), null, 4)
+	        )
+	      )
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ])

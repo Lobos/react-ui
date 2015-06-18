@@ -6,5 +6,6 @@ module.exports = [
   { route: 'checkbox-group', text: 'Checkbox Group', handler: require('./pages/checkbox-group.jsx') },
   { route: 'icon', text: 'Icon', handler: require('./pages/icon.jsx') },
   { route: 'message', text: 'Message', handler: require('./pages/message.jsx') },
-  { route: 'radio-group', text: 'Radio Group', handler: require('./pages/radio-group.jsx') }
+  { route: 'radio-group', text: 'Radio Group', handler: require('./pages/radio-group.jsx') },
+  { route: 'lang', text: 'Lang', handler: require('./pages/lang.jsx') }
 ]
