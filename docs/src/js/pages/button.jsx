@@ -28,12 +28,17 @@ module.exports = React.createClass({
         </div>
 
         <div className="content">
-          <pre className="prettyprint">{'<Button type="submit|button" disabled={bool} once={bool} status="string" onClick={function}>\r {string|element}\r</Button>'}</pre>
-          <p><b>type:</b> 按钮类型，可选值为 <em>submit|button</em> ，不填默认值为 <em>button</em></p>
-          <p><b>status:</b> 按钮类别，会为按钮添加 <em>pure-button-[status]</em> 的className，purecss包含 <em>primary</em> 这个值，可自行扩展 <em>success|error</em> 等</p>
-          <p><b>once:</b> 值为 <em>true</em> 时，当button点击过后，状态会变更为 <em>disabled</em> ，必须调用 <em>enable</em> 方法激活才能再次使用。默认值为 <em>false</em></p>
-          <p><b>disabled:</b> 与 button 的 <em>disabled</em> 属性相同</p>
-          <p><b>onClick:</b> 点击事件</p>
+          <pre className="prettyprint">
+{`<Button
+  type="submit|button" // 按钮类型，可选值为 submit|button ，不填默认值为 button
+  disabled={bool}      // 与 button 的 disabled 属性相同
+  once={bool}          // 值为 true 时，当button点击过后，状态会变更为 disabled
+                       // 必须调用 enable 方法激活才能再次使用。默认值为 false
+  status="string"      // 按钮类别，会为按钮添加 pure-button-[status] 的 className
+  onClick={function}>  // 点击事件
+  {string|element}     // 文字或元素
+</Button>`}
+          </pre>
 
           <h2 className="subhead">普通按钮</h2>
           <p>

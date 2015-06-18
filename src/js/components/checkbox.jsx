@@ -50,8 +50,13 @@ module.exports = React.createClass({
   render: function () {
     return (
       <label className="pure-checkbox rui-checkbox">
-        <input ref="input" type="checkbox" onChange={this.handleChange} checked={this.state.checked} value={this.props.value} />
-        {' ' + this.props.text}
+        <input ref="input"
+          type="checkbox"
+          onChange={this.handleChange}
+          checked={this.state.checked}
+          value={this.props.value}
+        />
+        {` ${this.props.text}`}
       </label>
     )
   }

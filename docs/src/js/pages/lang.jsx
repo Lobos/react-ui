@@ -12,7 +12,7 @@ module.exports = React.createClass({
   getInitialState: function () {
     return {
       path: 'request.status.405',
-      text: Lang.get('request.status.405') 
+      text: Lang.get('request.status.405')
     }
   },
 

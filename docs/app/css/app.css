@@ -1,3 +1,70 @@
+.tree .icon {
+  width: 20px;
+}
+.tree ul {
+  display: none;
+}
+.tree ul.open {
+  display: block;
+}
+.tree a {
+  color: #333;
+}
+.tree .marks {
+  width: 20px;
+  height: 22px;
+  display: inline-block;
+  position: relative;
+}
+.tree .marks:before {
+  content: '';
+  width: 0;
+  height: 0;
+  display: inline-block;
+  position: absolute;
+  left: 5px;
+  border-left: dotted 1px #666;
+}
+.tree .marks-v:before {
+  height: 21px;
+}
+.tree .marks-l:before {
+  height: 9px;
+}
+.tree .marks-h:after {
+  content: '';
+  width: 11px;
+  height: 0px;
+  display: inline-block;
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  border-top: dotted 1px #666;
+}
+.tree label {
+  font-weight: normal;
+  margin: 0;
+  display: block;
+  line-height: 22px;
+}
+.tree label.active span {
+  font-weight: bold;
+}
+.tree label.active a {
+  margin-left: 5px;
+}
+.tree.readonly .check-handle .icon {
+  color: #aaa;
+}
+.tree,
+.tree ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.form-horizontal .tree {
+  padding-top: 7px;
+}
 /*!
  *  Font Awesome 4.3.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)

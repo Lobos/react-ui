@@ -64,7 +64,13 @@ module.exports = React.createClass({
     )
     let items = this.state.data.map(function (item, i) {
       return (
-        <Radio key={i} onClick={this.handleChange} readOnly={this.props.readOnly} checked={this.state.value === item.value} text={item.text} value={item.value} />
+        <Radio key={i}
+          onClick={this.handleChange}
+          readOnly={this.props.readOnly}
+          checked={this.state.value === item.value}
+          text={item.text}
+          value={item.value}
+        />
       )
     }, this)
 

@@ -54,11 +54,12 @@ module.exports = React.createClass({
       'button-extend'
     )
 
-    let show = this.state.show || this.props.children
-
     return (
-      <button onClick={this.handleClick} disabled={this.state.disabled} className={className} type={this.props.type || "button"}>
-        {show}
+      <button onClick={this.handleClick}
+        disabled={this.state.disabled}
+        className={className}
+        type={this.props.type || "button"}>
+        { this.state.show || this.props.children }
       </button>
     )
   }

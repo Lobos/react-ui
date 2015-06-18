@@ -7,5 +7,6 @@ module.exports = [
   { route: 'icon', text: 'Icon', handler: require('./pages/icon.jsx') },
   { route: 'message', text: 'Message', handler: require('./pages/message.jsx') },
   { route: 'radio-group', text: 'Radio Group', handler: require('./pages/radio-group.jsx') },
+  { route: 'tree', text: 'Tree', handler: require('./pages/tree.jsx') },
   { route: 'lang', text: 'Lang', handler: require('./pages/lang.jsx') }
 ]
