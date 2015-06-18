@@ -35,4 +35,4 @@ function toArray(value, sep) {
   return value
 }
 
-export default { format, substitute, toArray }
+module.exports = { format, substitute, toArray }

@@ -1,6 +1,6 @@
 "use strict"
 
-import type from './type'
+let type = require('./type')
 
 function isEmpty(obj) {
 
@@ -38,4 +38,4 @@ function toTextValue(arr, textKey='text', valueKey='value') {
   return arr
 }
 
-export default { forEach, isEmpty, toTextValue }
+module.exports = { forEach, isEmpty, toTextValue }

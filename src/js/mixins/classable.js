@@ -1,7 +1,7 @@
 "use strict"
 
-import React from 'react'
-import classnames from 'classnames'
+let React = require('react')
+let classnames = require('classnames')
 
 module.exports = {
 
@@ -10,7 +10,7 @@ module.exports = {
   },
 
   getClasses: function() {
-    var mainArguments = Array.prototype.slice.call(arguments)
+    let mainArguments = Array.prototype.slice.call(arguments)
     if (this.props.className) {
       mainArguments.push(this.props.className)
     }

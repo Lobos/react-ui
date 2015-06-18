@@ -2,15 +2,15 @@
 
 require('../../less/checkbox.less')
 
-import React from 'react'
-import Checkbox from './checkbox.jsx'
-import Strings from '../utils/strings'
-import Classable from '../mixins/classable'
-import Objects from '../utils/objects'
-import Resource from '../mixins/resource'
-import ReceiveValue from '../mixins/receive-value'
+let React = require('react')
+let Checkbox = require('./checkbox.jsx')
+let Strings = require('../utils/strings')
+let Classable = require('../mixins/classable')
+let Objects = require('../utils/objects')
+let Resource = require('../mixins/resource')
+let ReceiveValue = require('../mixins/receive-value')
 
-export default React.createClass({
+module.exports = React.createClass({
   displayName: "CheckboxGroup",
 
   propTypes: {

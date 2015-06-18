@@ -519,32 +519,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _mixinsClassable = __webpack_require__(113);
-
-	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
-
 	__webpack_require__(115);
 
-	exports['default'] = _react2['default'].createClass({
+	var React = __webpack_require__(100);
+	var Classable = __webpack_require__(113);
+
+	module.exports = React.createClass({
 	  displayName: 'Icon',
 
 	  propTypes: {
-	    icon: _react2['default'].PropTypes.string,
-	    size: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]),
-	    spin: _react2['default'].PropTypes.bool
+	    icon: React.PropTypes.string,
+	    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+	    spin: React.PropTypes.bool
 	  },
 
-	  mixins: [_mixinsClassable2['default']],
+	  mixins: [Classable],
 
 	  getInitialState: function getInitialState() {
 	    return {
@@ -579,10 +568,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      classes.push('icon-' + size);
 	    }
 
-	    return _react2['default'].createElement('i', { className: this.getClasses.apply(this, classes) });
+	    return React.createElement('i', { className: this.getClasses.apply(this, classes) });
 	  }
 	});
-	module.exports = exports['default'];
 
 /***/ },
 /* 113 */
@@ -590,22 +578,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
 
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(114);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
+	var React = __webpack_require__(100);
+	var classnames = __webpack_require__(114);
 
 	module.exports = {
 
 	  propTypes: {
-	    className: _react2['default'].PropTypes.string
+	    className: React.PropTypes.string
 	  },
 
 	  getClasses: function getClasses() {
@@ -614,7 +595,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      mainArguments.push(this.props.className);
 	    }
 
-	    return _classnames2['default'].apply(undefined, _toConsumableArray(mainArguments));
+	    return classnames.apply(undefined, _toConsumableArray(mainArguments));
 	  }
 	};
 
@@ -1085,34 +1066,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _mixinsClassable = __webpack_require__(113);
-
-	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
-
 	__webpack_require__(125);
-	exports['default'] = _react2['default'].createClass({
+	var React = __webpack_require__(100);
+	var Classable = __webpack_require__(113);
+
+	module.exports = React.createClass({
 	  displayName: 'Button',
 
 	  propTypes: {
-	    children: _react2['default'].PropTypes.any,
-	    disabled: _react2['default'].PropTypes.bool,
-	    onClick: _react2['default'].PropTypes.func,
-	    once: _react2['default'].PropTypes.bool,
-	    status: _react2['default'].PropTypes.string,
-	    type: _react2['default'].PropTypes.oneOf(['submit', 'button'])
+	    children: React.PropTypes.any,
+	    disabled: React.PropTypes.bool,
+	    onClick: React.PropTypes.func,
+	    once: React.PropTypes.bool,
+	    status: React.PropTypes.string,
+	    type: React.PropTypes.oneOf(['submit', 'button'])
 	  },
 
-	  mixins: [_mixinsClassable2['default']],
+	  mixins: [Classable],
 
 	  getInitialState: function getInitialState() {
 	    return {
@@ -1147,14 +1117,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var show = this.state.show || this.props.children;
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'button',
 	      { onClick: this.handleClick, disabled: this.state.disabled, className: className, type: this.props.type || 'button' },
 	      show
 	    );
 	  }
 	});
-	module.exports = exports['default'];
 
 /***/ },
 /* 125 */
@@ -1394,27 +1363,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
 	__webpack_require__(130);
-	exports['default'] = _react2['default'].createClass({
+	var React = __webpack_require__(100);
+
+	module.exports = React.createClass({
 	  displayName: 'Checkbox',
 
 	  propTypes: {
-	    checked: _react2['default'].PropTypes.bool,
-	    index: _react2['default'].PropTypes.number,
-	    onChange: _react2['default'].PropTypes.func,
-	    readOnly: _react2['default'].PropTypes.bool,
-	    text: _react2['default'].PropTypes.text,
-	    value: _react2['default'].PropTypes.any
+	    checked: React.PropTypes.bool,
+	    index: React.PropTypes.number,
+	    onChange: React.PropTypes.func,
+	    readOnly: React.PropTypes.bool,
+	    text: React.PropTypes.text,
+	    value: React.PropTypes.any
 	  },
 
 	  getInitialState: function getInitialState() {
@@ -1441,7 +1402,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  getValue: function getValue() {
-	    return _react2['default'].findDOMNode(this.refs.input).checked ? this.props.value || true : false;
+	    return React.findDOMNode(this.refs.input).checked ? this.props.value || true : false;
 	  },
 
 	  setValue: function setValue(value) {
@@ -1450,15 +1411,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'label',
 	      { className: 'pure-checkbox rui-checkbox' },
-	      _react2['default'].createElement('input', { ref: 'input', type: 'checkbox', onChange: this.handleChange, checked: this.state.checked, value: this.props.value }),
+	      React.createElement('input', { ref: 'input', type: 'checkbox', onChange: this.handleChange, checked: this.state.checked, value: this.props.value }),
 	      ' ' + this.props.text
 	    );
 	  }
 	});
-	module.exports = exports['default'];
 
 /***/ },
 /* 130 */
@@ -1864,59 +1824,33 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _checkboxJsx = __webpack_require__(129);
-
-	var _checkboxJsx2 = _interopRequireDefault(_checkboxJsx);
-
-	var _utilsStrings = __webpack_require__(136);
-
-	var _utilsStrings2 = _interopRequireDefault(_utilsStrings);
-
-	var _mixinsClassable = __webpack_require__(113);
-
-	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
-
-	var _utilsObjects = __webpack_require__(134);
-
-	var _utilsObjects2 = _interopRequireDefault(_utilsObjects);
-
-	var _mixinsResource = __webpack_require__(137);
-
-	var _mixinsResource2 = _interopRequireDefault(_mixinsResource);
-
-	var _mixinsReceiveValue = __webpack_require__(142);
-
-	var _mixinsReceiveValue2 = _interopRequireDefault(_mixinsReceiveValue);
-
 	__webpack_require__(130);
 
-	exports['default'] = _react2['default'].createClass({
+	var React = __webpack_require__(100);
+	var Checkbox = __webpack_require__(129);
+	var Strings = __webpack_require__(136);
+	var Classable = __webpack_require__(113);
+	var Objects = __webpack_require__(134);
+	var Resource = __webpack_require__(137);
+	var ReceiveValue = __webpack_require__(142);
+
+	module.exports = React.createClass({
 	  displayName: 'CheckboxGroup',
 
 	  propTypes: {
-	    cache: _react2['default'].PropTypes.bool,
-	    data: _react2['default'].PropTypes.array,
-	    inline: _react2['default'].PropTypes.bool,
-	    onChange: _react2['default'].PropTypes.func,
-	    readOnly: _react2['default'].PropTypes.bool,
-	    sep: _react2['default'].PropTypes.string,
-	    src: _react2['default'].PropTypes.string,
-	    textKey: _react2['default'].PropTypes.string,
-	    value: _react2['default'].PropTypes.any,
-	    valueKey: _react2['default'].PropTypes.string
+	    cache: React.PropTypes.bool,
+	    data: React.PropTypes.array,
+	    inline: React.PropTypes.bool,
+	    onChange: React.PropTypes.func,
+	    readOnly: React.PropTypes.bool,
+	    sep: React.PropTypes.string,
+	    src: React.PropTypes.string,
+	    textKey: React.PropTypes.string,
+	    value: React.PropTypes.any,
+	    valueKey: React.PropTypes.string
 	  },
 
-	  mixins: [_mixinsClassable2['default'], _mixinsReceiveValue2['default'], _mixinsResource2['default']],
+	  mixins: [Classable, ReceiveValue, Resource],
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
@@ -1933,11 +1867,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  formatValue: function formatValue(value) {
-	    return _utilsStrings2['default'].toArray(value, this.props.sep);
+	    return Strings.toArray(value, this.props.sep);
 	  },
 
 	  initData: function initData(data) {
-	    data = _utilsObjects2['default'].toTextValue(data, this.props.textKey, this.props.valueKey);
+	    data = Objects.toTextValue(data, this.props.textKey, this.props.valueKey);
 	    this.setState({ data: data });
 	  },
 
@@ -1983,17 +1917,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var items = this.state.data.map(function (item, i) {
 	      var value = _this.props.sep ? item.value.toString() : item.value;
 	      var checked = values.indexOf(value) >= 0;
-	      return _react2['default'].createElement(_checkboxJsx2['default'], { key: i, index: i, readOnly: _this.props.readOnly, checked: checked, onChange: _this.handleChange, text: item.text, value: item.value });
+	      return React.createElement(Checkbox, { key: i, index: i, readOnly: _this.props.readOnly, checked: checked, onChange: _this.handleChange, text: item.text, value: item.value });
 	    });
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      { className: className },
 	      this.state.msg || items
 	    );
 	  }
 	});
-	module.exports = exports['default'];
 
 /***/ },
 /* 134 */
@@ -2001,15 +1934,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _type = __webpack_require__(135);
-
-	var _type2 = _interopRequireDefault(_type);
+	var type = __webpack_require__(135);
 
 	function isEmpty(obj) {
 
@@ -2018,7 +1943,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return true;
 	  }
 
-	  switch ((0, _type2['default'])(obj)) {
+	  switch (type(obj)) {
 	    case 'nan':
 	      return true;
 	    case 'array':
@@ -2043,7 +1968,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var valueKey = arguments[2] === undefined ? 'value' : arguments[2];
 
 	  arr = arr.map(function (s) {
-	    if ((0, _type2['default'])(s) !== 'object') {
+	    if (type(s) !== 'object') {
 	      return { text: s, value: s };
 	    } else {
 	      return { text: s[textKey], value: s[valueKey] };
@@ -2052,8 +1977,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return arr;
 	}
 
-	exports['default'] = { forEach: forEach, isEmpty: isEmpty, toTextValue: toTextValue };
-	module.exports = exports['default'];
+	module.exports = { forEach: forEach, isEmpty: isEmpty, toTextValue: toTextValue };
 
 /***/ },
 /* 135 */
@@ -2114,9 +2038,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
 	function format() {
 	  var args = [].slice.call(arguments),
 	      str = args.shift();
@@ -2152,8 +2073,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return value;
 	}
 
-	exports['default'] = { format: format, substitute: substitute, toArray: toArray };
-	module.exports = exports['default'];
+	module.exports = { format: format, substitute: substitute, toArray: toArray };
 
 /***/ },
 /* 137 */
@@ -2161,19 +2081,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _qwest = __webpack_require__(138);
-
-	var _qwest2 = _interopRequireDefault(_qwest);
-
-	var _utilsClone = __webpack_require__(139);
-
-	var _utilsClone2 = _interopRequireDefault(_utilsClone);
-
-	var _lang = __webpack_require__(140);
-
-	var _lang2 = _interopRequireDefault(_lang);
+	var Qwest = __webpack_require__(138);
+	var clone = __webpack_require__(139);
+	var Lang = __webpack_require__(140);
 
 	module.exports = {
 	  componentWillMount: function componentWillMount() {
@@ -2194,22 +2104,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.setState({ data: props.data });
 	      }
 	    } else if (props.src) {
-	      this.setState({ msg: _lang2['default'].get('request.loading'), data: [] });
+	      this.setState({ msg: Lang.get('request.loading'), data: [] });
 
 	      // default use cache
 	      var cache = props.cache === undefined ? true : !!props.cache;
-	      _qwest2['default'].get(props.src, null, { cache: cache }).then((function (res) {
+	      Qwest.get(props.src, null, { cache: cache }).then((function (res) {
 	        var data = res.status === 1 ? res.data : res instanceof Array ? res : undefined;
 
 	        if (!data) {
-	          var msg = res.msg ? res.msg : _lang2['default'].get('request.failure');
+	          var msg = res.msg ? res.msg : Lang.get('request.failure');
 	          this.setState({ msg: msg });
 	          return;
 	        } else {
 	          this.setState({ msg: null });
 	        }
 
-	        data = (0, _utilsClone2['default'])(data);
+	        data = clone(data);
 
 	        // initialize data
 	        if (this.initData) {
@@ -2218,7 +2128,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          this.setState({ data: data });
 	        }
 	      }).bind(this))['catch']((function () {
-	        this.setState({ msg: _lang2['default'].get('request.failure') });
+	        this.setState({ msg: Lang.get('request.failure') });
 	      }).bind(this));
 	    }
 	  }
@@ -2744,15 +2654,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _type = __webpack_require__(135);
-
-	var _type2 = _interopRequireDefault(_type);
+	var type = __webpack_require__(135);
 
 	/**
 	 * Clones objects.
@@ -2762,7 +2664,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	function clone(obj) {
-	  switch ((0, _type2['default'])(obj)) {
+	  switch (type(obj)) {
 	    case 'object':
 	      var copy = {};
 	      for (var key in obj) {
@@ -2800,8 +2702,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Module exports.
 	 */
 
-	exports['default'] = clone;
-	module.exports = exports['default'];
+	module.exports = clone;
 
 /***/ },
 /* 140 */
@@ -2903,10 +2804,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports["default"] = {
+	module.exports = {
 	  getInitialState: function getInitialState() {
 	    return {
 	      value: this.$formatValue(this.props.value)
@@ -2931,7 +2829,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return value;
 	  }
 	};
-	module.exports = exports["default"];
 
 /***/ },
 /* 143 */
@@ -3230,52 +3127,32 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _overlayJsx = __webpack_require__(147);
-
-	var _overlayJsx2 = _interopRequireDefault(_overlayJsx);
-
-	var _utilsObjects = __webpack_require__(134);
-
-	var _utilsObjects2 = _interopRequireDefault(_utilsObjects);
-
-	var _mixinsClassable = __webpack_require__(113);
-
-	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
-
-	var _pubsubJs = __webpack_require__(150);
-
-	var _pubsubJs2 = _interopRequireDefault(_pubsubJs);
-
 	__webpack_require__(151);
+
+	var React = __webpack_require__(100);
+	var Overlay = __webpack_require__(147);
+	var Objects = __webpack_require__(134);
+	var Classable = __webpack_require__(113);
+	var PubSub = __webpack_require__(150);
 
 	var messages = [];
 	var ADD_MESSAGE = 'EB3A79637B40';
 	var REMOVE_MESSAGE = '73D4EF15DF50';
 
-	var Item = _react2['default'].createClass({
+	var Item = React.createClass({
 	  displayName: 'Message.Item',
 
 	  propTypes: {
-	    content: _react2['default'].PropTypes.string,
-	    dismissed: _react2['default'].PropTypes.dismissed,
-	    index: _react2['default'].PropTypes.number,
-	    onDismiss: _react2['default'].PropTypes.func,
-	    type: _react2['default'].PropTypes.string
+	    content: React.PropTypes.string,
+	    dismissed: React.PropTypes.dismissed,
+	    index: React.PropTypes.number,
+	    onDismiss: React.PropTypes.func,
+	    type: React.PropTypes.string
 	  },
 
-	  mixins: [_mixinsClassable2['default']],
+	  mixins: [Classable],
 
 	  getInitialState: function getInitialState() {
 	    return {
@@ -3299,10 +3176,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      'dismissed': this.state.dismissed
 	    });
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      { className: className },
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'button',
 	        { type: 'button', onClick: this.dismiss, className: 'close' },
 	        '×'
@@ -3312,10 +3189,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	});
 
-	var Message = _react2['default'].createClass({
+	var Message = React.createClass({
 	  displayName: 'Message',
 
-	  mixins: [_mixinsClassable2['default']],
+	  mixins: [Classable],
 
 	  getInitialState: function getInitialState() {
 	    return {
@@ -3325,23 +3202,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  componentDidMount: function componentDidMount() {
 	    var self = this;
-	    _pubsubJs2['default'].subscribe(ADD_MESSAGE, function (topic, data) {
+	    PubSub.subscribe(ADD_MESSAGE, function (topic, data) {
 	      messages.push(data);
 	      self.setState({ messages: messages });
 	    });
 
-	    _pubsubJs2['default'].subscribe(REMOVE_MESSAGE, function (topic, index) {
+	    PubSub.subscribe(REMOVE_MESSAGE, function (topic, index) {
 	      messages.splice(index, 1);
 	      self.setState({ messages: messages });
 	    });
 	  },
 
 	  dismiss: function dismiss(index) {
-	    _pubsubJs2['default'].publish(REMOVE_MESSAGE, index);
+	    PubSub.publish(REMOVE_MESSAGE, index);
 	  },
 
 	  clear: function clear() {
-	    _utilsObjects2['default'].forEach(this.refs, function (ref) {
+	    Objects.forEach(this.refs, function (ref) {
 	      ref.dismiss();
 	    });
 	  },
@@ -3350,29 +3227,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var _this = this;
 
 	    var items = this.state.messages.map(function (msg, i) {
-	      return _react2['default'].createElement(Item, _extends({ key: i, index: i, ref: i, onDismiss: _this.dismiss }, msg));
+	      return React.createElement(Item, _extends({ key: i, index: i, ref: i, onDismiss: _this.dismiss }, msg));
 	    });
 
 	    var className = this.getClasses('rui-message', 'message-extend', { 'has-message': this.state.messages.length > 0 });
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      { className: className },
-	      _react2['default'].createElement(_overlayJsx2['default'], { onClick: this.clear }),
+	      React.createElement(Overlay, { onClick: this.clear }),
 	      items
 	    );
 	  }
 	});
 
 	Message.show = function (content, type) {
-	  _pubsubJs2['default'].publish(ADD_MESSAGE, {
+	  PubSub.publish(ADD_MESSAGE, {
 	    content: content,
 	    type: type || 'info'
 	  });
 	};
 
-	exports['default'] = Message;
-	module.exports = exports['default'];
+	module.exports = Message;
 
 /***/ },
 /* 147 */
@@ -3685,54 +3561,31 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _mixinsClassable = __webpack_require__(113);
-
-	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
-
-	var _utilsObjects = __webpack_require__(134);
-
-	var _utilsObjects2 = _interopRequireDefault(_utilsObjects);
-
-	var _mixinsResource = __webpack_require__(137);
-
-	var _mixinsResource2 = _interopRequireDefault(_mixinsResource);
-
-	var _mixinsReceiveValue = __webpack_require__(142);
-
-	var _mixinsReceiveValue2 = _interopRequireDefault(_mixinsReceiveValue);
-
-	var _radioJsx = __webpack_require__(154);
-
-	var _radioJsx2 = _interopRequireDefault(_radioJsx);
-
 	__webpack_require__(130);
-	exports['default'] = _react2['default'].createClass({
+	var React = __webpack_require__(100);
+	var Classable = __webpack_require__(113);
+	var Objects = __webpack_require__(134);
+	var Resource = __webpack_require__(137);
+	var ReceiveValue = __webpack_require__(142);
+	var Radio = __webpack_require__(154);
+
+	module.exports = React.createClass({
 	  displayName: 'RadioGroup',
 
 	  propTypes: {
-	    cache: _react2['default'].PropTypes.bool,
-	    data: _react2['default'].PropTypes.array,
-	    inline: _react2['default'].PropTypes.bool,
-	    onChange: _react2['default'].PropTypes.func,
-	    readOnly: _react2['default'].PropTypes.bool,
-	    src: _react2['default'].PropTypes.string,
-	    style: _react2['default'].PropTypes.object,
-	    textKey: _react2['default'].PropTypes.string,
-	    value: _react2['default'].PropTypes.any,
-	    valueKey: _react2['default'].PropTypes.string
+	    cache: React.PropTypes.bool,
+	    data: React.PropTypes.array,
+	    inline: React.PropTypes.bool,
+	    onChange: React.PropTypes.func,
+	    readOnly: React.PropTypes.bool,
+	    src: React.PropTypes.string,
+	    style: React.PropTypes.object,
+	    textKey: React.PropTypes.string,
+	    value: React.PropTypes.any,
+	    valueKey: React.PropTypes.string
 	  },
 
-	  mixins: [_mixinsClassable2['default'], _mixinsResource2['default'], _mixinsReceiveValue2['default']],
+	  mixins: [Classable, Resource, ReceiveValue],
 
 	  getInitialState: function getInitialState() {
 	    return {
@@ -3741,7 +3594,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  initData: function initData(data) {
-	    data = _utilsObjects2['default'].toTextValue(data, this.props.textKey, this.props.valueKey);
+	    data = Objects.toTextValue(data, this.props.textKey, this.props.valueKey);
 	    this.setState({ data: data });
 	  },
 
@@ -3768,17 +3621,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	      'inline': this.props.inline
 	    });
 	    var items = this.state.data.map(function (item, i) {
-	      return _react2['default'].createElement(_radioJsx2['default'], { key: i, onClick: this.handleChange, readOnly: this.props.readOnly, checked: this.state.value === item.value, text: item.text, value: item.value });
+	      return React.createElement(Radio, { key: i, onClick: this.handleChange, readOnly: this.props.readOnly, checked: this.state.value === item.value, text: item.text, value: item.value });
 	    }, this);
 
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      { style: this.props.style, className: className },
 	      items
 	    );
 	  }
 	});
-	module.exports = exports['default'];
 
 /***/ },
 /* 154 */
@@ -3786,27 +3638,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _react = __webpack_require__(100);
-
-	var _react2 = _interopRequireDefault(_react);
-
 	__webpack_require__(130);
-	exports['default'] = _react2['default'].createClass({
+	var React = __webpack_require__(100);
+
+	module.exports = React.createClass({
 	  displayName: 'Radio',
 
 	  propTypes: {
-	    checked: _react2['default'].PropTypes.bool,
-	    index: _react2['default'].PropTypes.number,
-	    onClick: _react2['default'].PropTypes.func,
-	    readOnly: _react2['default'].PropTypes.bool,
-	    text: _react2['default'].PropTypes.text,
-	    value: _react2['default'].PropTypes.any
+	    checked: React.PropTypes.bool,
+	    index: React.PropTypes.number,
+	    onClick: React.PropTypes.func,
+	    readOnly: React.PropTypes.bool,
+	    text: React.PropTypes.text,
+	    value: React.PropTypes.any
 	  },
 
 	  handleClick: function handleClick() {
@@ -3816,31 +3660,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return React.createElement(
 	      'div',
 	      { className: 'pure-radio rui-radio' },
-	      _react2['default'].createElement(
+	      React.createElement(
 	        'label',
 	        null,
-	        _react2['default'].createElement('input', { ref: 'input', type: 'radio', readOnly: this.props.readOnly, onChange: null, onClick: this.handleClick, checked: this.props.checked, value: this.props.value }),
+	        React.createElement('input', { ref: 'input', type: 'radio', readOnly: this.props.readOnly, onChange: null, onClick: this.handleClick, checked: this.props.checked, value: this.props.value }),
 	        this.props.text
 	      )
 	    );
 	  }
 	});
-	module.exports = exports['default'];
 
 /***/ },
 /* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _index = __webpack_require__(140);
-
-	var _index2 = _interopRequireDefault(_index);
 
 	var data = {
 	  request: {
@@ -3917,7 +3754,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 
-	_index2['default'].set(data);
+	__webpack_require__(140).set(data);
 
 /***/ },
 /* 156 */

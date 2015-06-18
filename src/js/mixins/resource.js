@@ -1,8 +1,8 @@
 "use strict"
 
-import Qwest from 'qwest'
-import clone from '../utils/clone'
-import Lang from '../lang'
+let Qwest = require('qwest')
+let clone = require('../utils/clone')
+let Lang = require('../lang')
 
 module.exports = {
   componentWillMount: function () {
@@ -26,7 +26,7 @@ module.exports = {
       this.setState({ msg: Lang.get('request.loading'), data: [] })
 
       // default use cache
-      var cache = props.cache === undefined ? true : !!props.cache
+      let cache = props.cache === undefined ? true : !!props.cache
       Qwest.get(props.src, null, { cache: cache })
         .then(function (res) {
           let data = res.status === 1 ?

@@ -2,11 +2,11 @@
 
 require('../../less/message.less')
 
-import React from 'react'
-import Overlay from './overlay.jsx'
-import Objects from '../utils/objects'
-import Classable from '../mixins/classable'
-import PubSub from 'pubsub-js'
+let React = require('react')
+let Overlay = require('./overlay.jsx')
+let Objects = require('../utils/objects')
+let Classable = require('../mixins/classable')
+let PubSub = require('pubsub-js')
 
 let messages = []
 const ADD_MESSAGE = "EB3A79637B40"
@@ -123,4 +123,4 @@ Message.show = function (content, type) {
   })
 }
 
-export default Message
+module.exports = Message

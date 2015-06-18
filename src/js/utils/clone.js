@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-import type from './type'
+let type = require('./type')
 
 /**
  * Clones objects.
@@ -15,8 +15,8 @@ import type from './type'
 function clone(obj){
   switch (type(obj)) {
     case 'object':
-      var copy = {}
-      for (var key in obj) {
+      let copy = {}
+      for (let key in obj) {
         if (obj.hasOwnProperty(key)) {
           copy[key] = clone(obj[key])
         }
@@ -24,15 +24,15 @@ function clone(obj){
       return copy
 
     case 'array':
-      var arr = new Array(obj.length)
-      for (var i = 0, l = obj.length; i < l; i++) {
+      let arr = new Array(obj.length)
+      for (let i = 0, l = obj.length; i < l; i++) {
         arr[i] = clone(obj[i])
       }
       return arr
 
     case 'regexp':
       // from millermedeiros/amd-utils - MIT
-      var flags = ''
+      let flags = ''
       flags += obj.multiline ? 'm' : ''
       flags += obj.global ? 'g' : ''
       flags += obj.ignoreCase ? 'i' : ''
@@ -50,5 +50,5 @@ function clone(obj){
  * Module exports.
  */
 
-export default clone
+module.exports = clone
 

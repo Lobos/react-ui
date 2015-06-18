@@ -2,10 +2,10 @@
 
 require('../../less/icon.less')
 
-import React from 'react'
-import Classable from '../mixins/classable'
+let React = require('react')
+let Classable = require('../mixins/classable')
 
-export default React.createClass({
+module.exports = React.createClass({
   displayName: 'Icon',
 
   propTypes: {

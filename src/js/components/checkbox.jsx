@@ -1,9 +1,9 @@
 "use strict"
 
 require('../../less/checkbox.less')
-import React from 'react'
+let React = require('react')
 
-export default React.createClass({
+module.exports = React.createClass({
   displayName: "Checkbox",
 
   propTypes: {

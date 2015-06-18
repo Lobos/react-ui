@@ -1,8 +1,6 @@
 "use strict"
 
-import lang from './index'
-
-var data = {
+const data = {
   request: {
     status: {
       400: '非法请求',
@@ -77,4 +75,4 @@ var data = {
   }
 }
 
-lang.set(data)
+require('./index').set(data)

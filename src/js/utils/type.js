@@ -3,7 +3,7 @@
  * toString ref.
  */
 
-var toString = Object.prototype.toString
+let toString = Object.prototype.toString
 
 /**
  * Return the type of `val`.

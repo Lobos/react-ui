@@ -1,14 +1,14 @@
 "use strict"
 
 require('../../less/checkbox.less')
-import React from 'react'
-import Classable from '../mixins/classable'
-import Objects from '../utils/objects'
-import Resource from '../mixins/resource'
-import ReceiveValue from '../mixins/receive-value'
-import Radio from './radio.jsx'
+let React = require('react')
+let Classable = require('../mixins/classable')
+let Objects = require('../utils/objects')
+let Resource = require('../mixins/resource')
+let ReceiveValue = require('../mixins/receive-value')
+let Radio = require('./radio.jsx')
 
-export default React.createClass({
+module.exports = React.createClass({
   displayName: "RadioGroup",
 
   propTypes: {
