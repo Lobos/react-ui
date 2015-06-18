@@ -1,8 +1,8 @@
 "use strict"
 
-var React = require("react")
+import React from "react"
 
-module.exports = React.createClass({
+export default React.createClass({
   displayName: 'Home',
 
   render: function () {

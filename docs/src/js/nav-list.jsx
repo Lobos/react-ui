@@ -1,12 +1,12 @@
 "use strict"
 
-var classnames = require('classnames')
-var React = require('react')
-var Router = require('react-router')
-var menulist = require('./menulist')
-var Icon = require('../../../src/js/components/icon.jsx')
+import classnames from 'classnames'
+import React from 'react'
+import Router from 'react-router'
+import menulist from './menulist'
+import Icon from '../../../src/js/components/icon.jsx'
 
-module.exports = React.createClass({
+export default React.createClass({
   displayName: 'NavList',
 
   mixins: [Router.State],
@@ -29,12 +29,12 @@ module.exports = React.createClass({
   },
 
   toggle: function () {
-    var active = !this.state.active
+    let active = !this.state.active
     this.setState({ active: active })
   },
 
   render: function () {
-    var list = menulist.map(function (m) {
+    let list = menulist.map(function (m) {
       return (
         <li className="pure-menu-item">
           <a onClick={this.routeChange.bind(this, m.route)} className={this.getClasses("pure-menu-link", m.route)}>{m.text}</a>

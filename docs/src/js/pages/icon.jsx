@@ -1,8 +1,8 @@
 "use strict"
 
-var React = require('react')
-var Prettify = require('../mixins/prettify')
-var Icon = require('../../../../src/js/components/icon.jsx')
+import React from 'react'
+import Prettify from '../mixins/prettify'
+import Icon from '../../../../src/js/components/icon.jsx'
 
 module.exports = React.createClass({
   displayName: 'Pages/Icon',
@@ -40,7 +40,14 @@ module.exports = React.createClass({
           <Icon icon="camera-retro" size={3} /> 3x<br />
           <Icon icon="camera-retro" size={4} /> 4x<br />
           <Icon icon="camera-retro" size={5} /> 5x
-          <pre className="prettyprint">{'<Icon icon="camera-retro" />\r<Icon icon="camera-retro" size="lg" />\n<Icon icon="camera-retro" size="2x" />\n<Icon icon="camera-retro" size="3" />\n<Icon icon="camera-retro" size={4} />\n<Icon icon="camera-retro" size={5} />'}</pre>
+          <pre className="prettyprint">
+{`<Icon icon="camera-retro" />
+<Icon icon="camera-retro" size="lg" />
+<Icon icon="camera-retro" size="2x" />
+<Icon icon="camera-retro" size="3" />
+<Icon icon="camera-retro" size={4} />
+<Icon icon="camera-retro" size={5} />`}
+          </pre>
 
           <h2 className="subhead">Method</h2>
           <p>有两个实例方法控制旋转，<em>spin</em> 和 <em>unspin</em></p>

@@ -1,8 +1,8 @@
 "use strict"
 
-var React = require('react')
-var Router = require('react-router')
-var AppRoutes = require('./app-routes.jsx')
+import React from 'react'
+import Router from 'react-router'
+import AppRoutes from './app-routes.jsx'
 
 // load language
 require('../../../src/js/lang/zh-cn')

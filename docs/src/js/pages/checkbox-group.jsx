@@ -1,10 +1,10 @@
 "use strict"
 
-var React = require('react')
-var Prettify = require('../mixins/prettify')
-var CheckboxGroup = require('../../../../src/js/components/checkbox-group.jsx')
+import React from 'react'
+import Prettify from '../mixins/prettify'
+import CheckboxGroup from '../../../../src/js/components/checkbox-group.jsx'
 
-var textValue = require('../data/text-value')
+const textValue = require('../data/text-value')
 
 module.exports = React.createClass({
   displayName: 'Pages/Checkbox',

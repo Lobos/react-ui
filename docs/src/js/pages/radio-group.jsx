@@ -1,12 +1,12 @@
 "use strict"
 
-var React = require('react')
-var Prettify = require('../mixins/prettify')
-var RadioGroup = require('../../../../src/js/components/radio-group.jsx')
+import React from 'react'
+import Prettify from '../mixins/prettify'
+import {RadioGroup} from '../../../../src/js'
 
-var textValue = require('../data/text-value')
+const textValue = require('../data/text-value')
 
-module.exports = React.createClass({
+export default React.createClass({
   displayName: 'Pages/Checkbox',
 
   mixins: [Prettify],
@@ -51,16 +51,17 @@ module.exports = React.createClass({
             <RadioGroup inline={true} data={textValue} />
           </p>
           <pre className="prettyprint">{'<RadioGroup inline={true} data={data} />'}</pre>
-          <pre className="prettyprint">{'\
-data = [\r\
-  { "value": "nanjing", "text": "南京" },\r\
-  { "value": "beijing", "text": "北京" },\r\
-  { "value": "guangzhou", "text": "广州" },\r\
-  { "value": "shenzhen", "text": "深圳" },\r\
-  { "value": "chengdu", "text": "成都" },\r\
-  { "value": "chongqing", "text": "重庆" },\r\
-  { "value": "shanghai", "text": "上海" }\r\
-]'}</pre>
+          <pre className="prettyprint">
+{`data = [
+  { "value": "nanjing", "text": "南京" },
+  { "value": "beijing", "text": "北京" },
+  { "value": "guangzhou", "text": "广州" },
+  { "value": "shenzhen", "text": "深圳" },
+  { "value": "chengdu", "text": "成都" },
+  { "value": "chongqing", "text": "重庆" },
+  { "value": "shanghai", "text": "上海" }
+]`}
+          </pre>
 
           <h2 className="subhead">Array Data</h2>
           <p>

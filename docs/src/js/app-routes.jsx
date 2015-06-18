@@ -1,15 +1,12 @@
 "use strict"
 
-var _ = require('underscore')
-var Router = require('react-router')
-var Route = Router.Route
-var DefaultRoute = Router.DefaultRoute
+import {Route, DefaultRoute} from 'react-router'
 
-var Master = require('./pages/master.jsx')
-var Home = require('./pages/home.jsx')
+import Master from './pages/master.jsx'
+import Home from './pages/home.jsx'
 
-var menulist = []
-_.forEach(require('./menulist'), function (menu) {
+let menulist = []
+require('./menulist').forEach(function (menu) {
   if (menu.handler) {
     menulist.push(
       <Route name={menu.route} handler={menu.handler} />
@@ -17,8 +14,7 @@ _.forEach(require('./menulist'), function (menu) {
   }
 })
 
-
-var AppRoutes = (
+let AppRoutes = (
   <Route name="root" path="/" handler={Master}>
     <Route name="home" handler={Home} />
     {menulist}
@@ -26,4 +22,4 @@ var AppRoutes = (
   </Route>
 )
 
-module.exports = AppRoutes
+export default AppRoutes

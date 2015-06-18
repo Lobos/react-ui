@@ -1,9 +1,8 @@
 "use strict"
 
-var React = require('react')
-var Prettify = require('../mixins/prettify')
-var Message = require('../../../../src/js/components/message.jsx')
-var Icon = require('../../../../src/js/components/icon.jsx')
+import React from 'react'
+import Prettify from '../mixins/prettify'
+import {Message, Icon} from '../../../../src/js/'
 
 module.exports = React.createClass({
   displayName: 'Pages/Message',

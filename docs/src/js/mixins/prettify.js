@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-module.exports = {
+export default {
   componentDidMount: function () {
     let node = React.findDOMNode(this)
     window.prettyPrint(null, node)
