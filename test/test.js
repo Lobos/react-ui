@@ -1,5 +1,6 @@
 var chai = require('chai'),
     should = chai.should()
 
-require('./specs/strings');
-require('./specs/objects');
+require('./utils/strings');
+require('./utils/objects');
+require('./utils/lang');

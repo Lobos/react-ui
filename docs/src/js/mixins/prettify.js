@@ -1,10 +1,10 @@
 "use strict"
 
-var React = require('react')
+import React from 'react'
 
 module.exports = {
   componentDidMount: function () {
-    var node = React.findDOMNode(this)
+    let node = React.findDOMNode(this)
     window.prettyPrint(null, node)
   }
 }

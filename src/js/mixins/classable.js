@@ -1,6 +1,7 @@
 "use strict"
-var React = require('react')
-var classnames = require('classnames')
+
+import React from 'react'
+import classnames from 'classnames'
 
 module.exports = {
 
@@ -14,6 +15,6 @@ module.exports = {
       mainArguments.push(this.props.className)
     }
 
-    return classnames.apply(null, mainArguments)
+    return classnames(...mainArguments)
   }
 }

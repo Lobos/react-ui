@@ -1,14 +1,14 @@
 "use strict"
 
 require('../../less/checkbox.less')
-var React = require('react')
-var Classable = require('../mixins/classable')
-var Objects = require('../utils/objects')
-var Resource = require('../mixins/resource')
-var ReceiveValue = require('../mixins/receive-value')
-var Radio = require('./radio.jsx')
+import React from 'react'
+import Classable from '../mixins/classable'
+import Objects from '../utils/objects'
+import Resource from '../mixins/resource'
+import ReceiveValue from '../mixins/receive-value'
+import Radio from './radio.jsx'
 
-module.exports = React.createClass({
+export default React.createClass({
   displayName: "RadioGroup",
 
   propTypes: {
@@ -47,7 +47,7 @@ module.exports = React.createClass({
     }
 
     this.setState({ value: value })
-    var change = this.props.onChange
+    let change = this.props.onChange
     if (change) {
       setTimeout(function () {
         change(value)
@@ -56,13 +56,13 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var className = this.getClasses(
+    let className = this.getClasses(
       'radio-group',
       {
         'inline': this.props.inline
       }
     )
-    var items = this.state.data.map(function (item, i) {
+    let items = this.state.data.map(function (item, i) {
       return (
         <Radio key={i} onClick={this.handleChange} readOnly={this.props.readOnly} checked={this.state.value === item.value} text={item.text} value={item.value} />
       )

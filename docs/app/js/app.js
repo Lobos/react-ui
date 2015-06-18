@@ -2145,11 +2145,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	var React = __webpack_require__(52);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	var _react = __webpack_require__(52);
+
+	var _react2 = _interopRequireDefault(_react);
 
 	module.exports = {
 	  componentDidMount: function componentDidMount() {
-	    var node = React.findDOMNode(this);
+	    var node = _react2["default"].findDOMNode(this);
 	    window.prettyPrint(null, node);
 	  }
 	};
@@ -2160,21 +2164,32 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	__webpack_require__(116);
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
 
-	var React = __webpack_require__(52);
-	var Classable = __webpack_require__(124);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var Icon = React.createClass({
+	var _react = __webpack_require__(52);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _mixinsClassable = __webpack_require__(116);
+
+	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
+
+	__webpack_require__(117);
+
+	exports['default'] = _react2['default'].createClass({
 	  displayName: 'Icon',
 
 	  propTypes: {
-	    icon: React.PropTypes.string,
-	    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-	    spin: React.PropTypes.bool
+	    icon: _react2['default'].PropTypes.string,
+	    size: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]),
+	    spin: _react2['default'].PropTypes.bool
 	  },
 
-	  mixins: [Classable],
+	  mixins: [_mixinsClassable2['default']],
 
 	  getInitialState: function getInitialState() {
 	    return {
@@ -2191,12 +2206,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  render: function render() {
-	    var classes = {
-	      'icon': true,
-	      'icon-spin': this.state.spin
-	    };
+	    var classes = ['icon'];
+
+	    if (this.state.spin) {
+	      classes.push('icon-spin');
+	    }
+
 	    if (this.props.icon) {
-	      classes['icon-' + this.props.icon] = true;
+	      classes.push('icon-' + this.props.icon);
 	    }
 
 	    var size = this.props.size;
@@ -2204,42 +2221,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (typeof size === 'number' || size.length === 1) {
 	        size = size + 'x';
 	      }
-	      classes['icon-' + size] = true;
+	      classes.push('icon-' + size);
 	    }
 
-	    var className = this.getClasses(classes);
-
-	    return React.createElement('i', { className: className });
+	    return _react2['default'].createElement('i', { className: this.getClasses.apply(this, classes) });
 	  }
 	});
-
-	module.exports = Icon;
+	module.exports = exports['default'];
 
 /***/ },
 /* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 117 */,
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */,
-/* 124 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
-	var React = __webpack_require__(52);
-	var classnames = __webpack_require__(111);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
+
+	var _react = __webpack_require__(52);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(111);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
 
 	module.exports = {
 
 	  propTypes: {
-	    className: React.PropTypes.string
+	    className: _react2['default'].PropTypes.string
 	  },
 
 	  getClasses: function getClasses() {
@@ -2248,11 +2259,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	      mainArguments.push(this.props.className);
 	    }
 
-	    return classnames.apply(null, mainArguments);
+	    return _classnames2['default'].apply(undefined, _toConsumableArray(mainArguments));
 	  }
 	};
 
 /***/ },
+/* 117 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
 /* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -2650,7 +2674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _mixinsClassable = __webpack_require__(124);
+	var _mixinsClassable = __webpack_require__(116);
 
 	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
 
@@ -2700,7 +2724,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	    var className = this.getClasses('pure-button', status, { 'pure-button-primary': status === 'button-primary' }, 'button-extend');
 
-	    // use function disable argument first
 	    var show = this.state.show || this.props.children;
 
 	    return _react2['default'].createElement(
@@ -2940,19 +2963,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	__webpack_require__(132);
-	var React = __webpack_require__(52);
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
 
-	module.exports = React.createClass({
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(52);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	__webpack_require__(132);
+	exports['default'] = _react2['default'].createClass({
 	  displayName: 'Checkbox',
 
 	  propTypes: {
-	    checked: React.PropTypes.bool,
-	    index: React.PropTypes.number,
-	    onChange: React.PropTypes.func,
-	    readOnly: React.PropTypes.bool,
-	    text: React.PropTypes.text,
-	    value: React.PropTypes.any
+	    checked: _react2['default'].PropTypes.bool,
+	    index: _react2['default'].PropTypes.number,
+	    onChange: _react2['default'].PropTypes.func,
+	    readOnly: _react2['default'].PropTypes.bool,
+	    text: _react2['default'].PropTypes.text,
+	    value: _react2['default'].PropTypes.any
 	  },
 
 	  getInitialState: function getInitialState() {
@@ -2979,7 +3010,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  getValue: function getValue() {
-	    return React.findDOMNode(this.refs.input).checked ? this.props.value || true : false;
+	    return _react2['default'].findDOMNode(this.refs.input).checked ? this.props.value || true : false;
 	  },
 
 	  setValue: function setValue(value) {
@@ -2988,14 +3019,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  render: function render() {
-	    return React.createElement(
+	    return _react2['default'].createElement(
 	      'label',
 	      { className: 'pure-checkbox rui-checkbox' },
-	      React.createElement('input', { ref: 'input', type: 'checkbox', onChange: this.handleChange, checked: this.state.checked, value: this.props.value }),
+	      _react2['default'].createElement('input', { ref: 'input', type: 'checkbox', onChange: this.handleChange, checked: this.state.checked, value: this.props.value }),
 	      ' ' + this.props.text
 	    );
 	  }
 	});
+	module.exports = exports['default'];
 
 /***/ },
 /* 132 */
@@ -3409,7 +3441,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _utilsStrings2 = _interopRequireDefault(_utilsStrings);
 
-	var _mixinsClassable = __webpack_require__(124);
+	var _mixinsClassable = __webpack_require__(116);
 
 	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
 
@@ -3427,7 +3459,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	__webpack_require__(132);
 
-	var CheckboxGroup = _react2['default'].createClass({
+	exports['default'] = _react2['default'].createClass({
 	  displayName: 'CheckboxGroup',
 
 	  propTypes: {
@@ -3520,8 +3552,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    );
 	  }
 	});
-
-	exports['default'] = CheckboxGroup;
 	module.exports = exports['default'];
 
 /***/ },
@@ -3692,7 +3722,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _qwest = __webpack_require__(160);
+	var _qwest = __webpack_require__(140);
 
 	var _qwest2 = _interopRequireDefault(_qwest);
 
@@ -3725,6 +3755,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else if (props.src) {
 	      this.setState({ msg: _lang2['default'].get('request.loading'), data: [] });
 
+	      // default use cache
 	      var cache = props.cache === undefined ? true : !!props.cache;
 	      _qwest2['default'].get(props.src, null, { cache: cache }).then((function (res) {
 	        var data = res.status === 1 ? res.data : res instanceof Array ? res : undefined;
@@ -3753,1452 +3784,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 140 */,
-/* 141 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// https://github.com/component/clone
-	/**
-	 * Module dependencies.
-	 */
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _type = __webpack_require__(137);
-
-	var _type2 = _interopRequireDefault(_type);
-
-	/**
-	 * Clones objects.
-	 *
-	 * @param {Mixed} any object
-	 * @api public
-	 */
-
-	function clone(obj) {
-	  switch ((0, _type2['default'])(obj)) {
-	    case 'object':
-	      var copy = {};
-	      for (var key in obj) {
-	        if (obj.hasOwnProperty(key)) {
-	          copy[key] = clone(obj[key]);
-	        }
-	      }
-	      return copy;
-
-	    case 'array':
-	      var arr = new Array(obj.length);
-	      for (var i = 0, l = obj.length; i < l; i++) {
-	        arr[i] = clone(obj[i]);
-	      }
-	      return arr;
-
-	    case 'regexp':
-	      // from millermedeiros/amd-utils - MIT
-	      var flags = '';
-	      flags += obj.multiline ? 'm' : '';
-	      flags += obj.global ? 'g' : '';
-	      flags += obj.ignoreCase ? 'i' : '';
-	      return new RegExp(obj.source, flags);
-
-	    case 'date':
-	      return new Date(obj.getTime());
-
-	    default:
-	      // string, number, boolean, …
-	      return obj;
-	  }
-	}
-
-	/**
-	 * Module exports.
-	 */
-
-	exports['default'] = clone;
-	module.exports = exports['default'];
-
-/***/ },
-/* 142 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var merge = __webpack_require__(143);
-	var lang = {};
-
-	module.exports = {
-	  set: function set(obj) {
-	    lang = merge(lang, obj);
-	  },
-
-	  get: function get(path) {
-	    if (!path || typeof path !== 'string') {
-	      return '';
-	    }
-	    var result = lang;
-	    path.split('.').forEach(function (p) {
-	      if (result) {
-	        result = result[p];
-	      }
-	    });
-
-	    return result;
-	  }
-	};
-
-/***/ },
-/* 143 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
-
-	(function (root, factory) {
-	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	    } else if (typeof exports === 'object') {
-	        module.exports = factory();
-	    } else {
-	        root.deepmerge = factory();
-	    }
-	})(undefined, function () {
-
-	    return function deepmerge(target, src) {
-	        var array = Array.isArray(src);
-	        var dst = array && [] || {};
-
-	        if (array) {
-	            target = target || [];
-	            dst = dst.concat(target);
-	            src.forEach(function (e, i) {
-	                if (typeof dst[i] === 'undefined') {
-	                    dst[i] = e;
-	                } else if (typeof e === 'object') {
-	                    dst[i] = deepmerge(target[i], e);
-	                } else {
-	                    if (target.indexOf(e) === -1) {
-	                        dst.push(e);
-	                    }
-	                }
-	            });
-	        } else {
-	            if (target && typeof target === 'object') {
-	                Object.keys(target).forEach(function (key) {
-	                    dst[key] = target[key];
-	                });
-	            }
-	            Object.keys(src).forEach(function (key) {
-	                if (typeof src[key] !== 'object' || !src[key]) {
-	                    dst[key] = src[key];
-	                } else {
-	                    if (!target[key]) {
-	                        dst[key] = src[key];
-	                    } else {
-	                        dst[key] = deepmerge(target[key], src[key]);
-	                    }
-	                }
-	            });
-	        }
-
-	        return dst;
-	    };
-	});
-
-/***/ },
-/* 144 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	module.exports = {
-	  getInitialState: function getInitialState() {
-	    return {
-	      value: this.$formatValue(this.props.value)
-	    };
-	  },
-
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (nextProps.value !== this.props.value) {
-	      this.setState({ value: this.$formatValue(nextProps.value) });
-	    }
-	  },
-
-	  setValue: function setValue(value) {
-	    value = this.$formatValue(value);
-	    this.setState({ value: value });
-	  },
-
-	  $formatValue: function $formatValue(value) {
-	    if (this.formatValue) {
-	      value = this.formatValue(value);
-	    }
-	    return value;
-	  }
-	};
-
-/***/ },
-/* 145 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	module.exports = [{ "value": "nanjing", "text": "南京" }, { "value": "beijing", "text": "北京" }, { "value": "guangzhou", "text": "广州" }, { "value": "shenzhen", "text": "深圳" }, { "value": "chengdu", "text": "成都" }, { "value": "chongqing", "text": "重庆" }, { "value": "shanghai", "text": "上海" }];
-
-/***/ },
-/* 146 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(114);
-	var Message = __webpack_require__(147);
-	var Icon = __webpack_require__(115);
-
-	module.exports = React.createClass({
-	  displayName: 'Pages/Message',
-
-	  mixins: [Prettify],
-
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'header' },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Message'
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          '通知 / 消息'
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'content' },
-	        React.createElement(
-	          'p',
-	          null,
-	          '为了实现全局通知，使用了Reflux，需要加入Reflux引用。'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '首先，在页面的某个地方，加入一个',
-	          React.createElement(
-	            'em',
-	            null,
-	            'Message Compontent'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<Message top={bool} clickaway={bool} />'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'top:'
-	          ),
-	          '显示位置，为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'true'
-	          ),
-	          ' 时显示在页面顶部， ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'false'
-	          ),
-	          ' 显示在页面左下角'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'clickaway:'
-	          ),
-	          '为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'true'
-	          ),
-	          ' 时，点击页面空白处关闭所有消息'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          '全局方法'
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'Message.show(content, type)'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'content:'
-	          ),
-	          '内容，必填，值为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'string'
-	          ),
-	          ' 或 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'element'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'type:'
-	          ),
-	          '样式，会增加一个class ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'messsage-[type]'
-	          ),
-	          '，默认值为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'info'
-	          )
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Example'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: Message.show.bind(null, 'Info message.') },
-	            'info message'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'Message.show("info message.")'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: Message.show.bind(null, 'error message.', 'error') },
-	            'error message'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'Message.error("error message.", "error")'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: Message.show.bind(null, React.createElement(
-	                'div',
-	                null,
-	                React.createElement(
-	                  'h3',
-	                  null,
-	                  'title'
-	                ),
-	                React.createElement(
-	                  'span',
-	                  null,
-	                  'span message'
-	                )
-	              ), 'warn') },
-	            'element message'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'Message.warn(<span>warning and span</span>, "title")'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: Message.show.bind(null, React.createElement(
-	                'span',
-	                null,
-	                React.createElement(Icon, { icon: 'music' }),
-	                ' success and icon'
-	              ), 'success') },
-	            'success message'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'Message.success(<span><Icon icon="music" /> success and icon</span>, "title")'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          '扩展'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '默认会添加 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'message-extend'
-	          ),
-	          ' 类，可以通过这个类进行扩展。'
-	        )
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-/* 147 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	__webpack_require__(148);
-
-	var React = __webpack_require__(52);
-	var Overlay = __webpack_require__(150);
-	var Objects = __webpack_require__(136);
-	var Classable = __webpack_require__(124);
-	var PubSub = __webpack_require__(153);
-
-	var messages = [],
-	    ADD_MESSAGE = 'EB3A79637B40',
-	    REMOVE_MESSAGE = '73D4EF15DF50';
-
-	var Item = React.createClass({
-	  displayName: 'Message.Item',
-
-	  propTypes: {
-	    content: React.PropTypes.string,
-	    dismissed: React.PropTypes.dismissed,
-	    index: React.PropTypes.number,
-	    onDismiss: React.PropTypes.func,
-	    type: React.PropTypes.string
-	  },
-
-	  mixins: [Classable],
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      dismissed: this.props.dismissed
-	    };
-	  },
-
-	  dismiss: function dismiss() {
-	    if (this.state.dismissed) {
-	      return;
-	    }
-	    this.setState({ dismissed: true });
-	    setTimeout((function () {
-	      this.props.onDismiss(this.props.index);
-	    }).bind(this), 400);
-	  },
-
-	  render: function render() {
-	    var className = this.getClasses('message', 'message-' + this.props.type, {
-	      'dismissed': this.state.dismissed
-	    });
-
-	    return React.createElement(
-	      'div',
-	      { className: className },
-	      React.createElement(
-	        'button',
-	        { type: 'button', onClick: this.dismiss, className: 'close' },
-	        '×'
-	      ),
-	      this.props.content
-	    );
-	  }
-	});
-
-	var Message = React.createClass({
-	  displayName: 'Message',
-
-	  mixins: [Classable],
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      messages: messages
-	    };
-	  },
-
-	  componentDidMount: function componentDidMount() {
-	    var self = this;
-	    PubSub.subscribe(ADD_MESSAGE, function (topic, data) {
-	      messages.push(data);
-	      self.setState({ messages: messages });
-	    });
-
-	    PubSub.subscribe(REMOVE_MESSAGE, function (topic, index) {
-	      messages.splice(index, 1);
-	      self.setState({ messages: messages });
-	    });
-	  },
-
-	  dismiss: function dismiss(index) {
-	    PubSub.publish(REMOVE_MESSAGE, index);
-	  },
-
-	  clear: function clear() {
-	    Objects.forEach(this.refs, function (ref) {
-	      ref.dismiss();
-	    });
-	  },
-
-	  render: function render() {
-	    var items = this.state.messages.map(function (msg, i) {
-	      return React.createElement(Item, _extends({ key: i, index: i, ref: i, onDismiss: this.dismiss }, msg));
-	    }, this);
-
-	    var className = this.getClasses('rui-message', 'message-extend', { 'has-message': this.state.messages.length > 0 });
-
-	    return React.createElement(
-	      'div',
-	      { className: className },
-	      React.createElement(Overlay, { onClick: this.clear }),
-	      items
-	    );
-	  }
-	});
-
-	Message.show = function (content, type) {
-	  PubSub.publish(ADD_MESSAGE, {
-	    content: content,
-	    type: type || 'info'
-	  });
-	};
-
-	module.exports = Message;
-
-/***/ },
-/* 148 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 149 */,
-/* 150 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	__webpack_require__(151);
-	var React = __webpack_require__(52);
-	var Classable = __webpack_require__(124);
-
-	function noop() {}
-
-	module.exports = React.createClass({
-	  displayName: 'Overlay',
-
-	  propTypes: {
-	    onClick: React.PropTypes.func
-	  },
-
-	  mixins: [Classable],
-
-	  render: function render() {
-	    var className = this.getClasses('overlay');
-	    var onClick = this.props.onClick || noop;
-
-	    return React.createElement('div', { className: className, onClick: onClick });
-	  }
-	});
-
-/***/ },
-/* 151 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 152 */,
-/* 153 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
-	Copyright (c) 2010,2011,2012,2013,2014 Morgan Roderick http://roderick.dk
-	License: MIT - http://mrgnrdrck.mit-license.org
-
-	https://github.com/mroderick/PubSubJS
-	*/
-	'use strict';
-
-	(function (root, factory) {
-		'use strict';
-
-		if (true) {
-			// AMD. Register as an anonymous module.
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else if (typeof exports === 'object') {
-			// CommonJS
-			factory(exports);
-		} else {
-			// Browser globals
-			var PubSub = {};
-			root.PubSub = PubSub;
-			factory(PubSub);
-		}
-	})(typeof window === 'object' && window || undefined, function (PubSub) {
-		'use strict';
-
-		var messages = {},
-		    lastUid = -1;
-
-		function hasKeys(obj) {
-			var key;
-
-			for (key in obj) {
-				if (obj.hasOwnProperty(key)) {
-					return true;
-				}
-			}
-			return false;
-		}
-
-		/**
-	  *	Returns a function that throws the passed exception, for use as argument for setTimeout
-	  *	@param { Object } ex An Error object
-	  */
-		function throwException(ex) {
-			return function reThrowException() {
-				throw ex;
-			};
-		}
-
-		function callSubscriberWithDelayedExceptions(subscriber, message, data) {
-			try {
-				subscriber(message, data);
-			} catch (ex) {
-				setTimeout(throwException(ex), 0);
-			}
-		}
-
-		function callSubscriberWithImmediateExceptions(subscriber, message, data) {
-			subscriber(message, data);
-		}
-
-		function deliverMessage(originalMessage, matchedMessage, data, immediateExceptions) {
-			var subscribers = messages[matchedMessage],
-			    callSubscriber = immediateExceptions ? callSubscriberWithImmediateExceptions : callSubscriberWithDelayedExceptions,
-			    s;
-
-			if (!messages.hasOwnProperty(matchedMessage)) {
-				return;
-			}
-
-			for (s in subscribers) {
-				if (subscribers.hasOwnProperty(s)) {
-					callSubscriber(subscribers[s], originalMessage, data);
-				}
-			}
-		}
-
-		function createDeliveryFunction(message, data, immediateExceptions) {
-			return function deliverNamespaced() {
-				var topic = String(message),
-				    position = topic.lastIndexOf('.');
-
-				// deliver the message as it is now
-				deliverMessage(message, message, data, immediateExceptions);
-
-				// trim the hierarchy and deliver message to each level
-				while (position !== -1) {
-					topic = topic.substr(0, position);
-					position = topic.lastIndexOf('.');
-					deliverMessage(message, topic, data, immediateExceptions);
-				}
-			};
-		}
-
-		function messageHasSubscribers(message) {
-			var topic = String(message),
-			    found = Boolean(messages.hasOwnProperty(topic) && hasKeys(messages[topic])),
-			    position = topic.lastIndexOf('.');
-
-			while (!found && position !== -1) {
-				topic = topic.substr(0, position);
-				position = topic.lastIndexOf('.');
-				found = Boolean(messages.hasOwnProperty(topic) && hasKeys(messages[topic]));
-			}
-
-			return found;
-		}
-
-		function publish(message, data, sync, immediateExceptions) {
-			var deliver = createDeliveryFunction(message, data, immediateExceptions),
-			    hasSubscribers = messageHasSubscribers(message);
-
-			if (!hasSubscribers) {
-				return false;
-			}
-
-			if (sync === true) {
-				deliver();
-			} else {
-				setTimeout(deliver, 0);
-			}
-			return true;
-		}
-
-		/**
-	  *	PubSub.publish( message[, data] ) -> Boolean
-	  *	- message (String): The message to publish
-	  *	- data: The data to pass to subscribers
-	  *	Publishes the the message, passing the data to it's subscribers
-	 **/
-		PubSub.publish = function (message, data) {
-			return publish(message, data, false, PubSub.immediateExceptions);
-		};
-
-		/**
-	  *	PubSub.publishSync( message[, data] ) -> Boolean
-	  *	- message (String): The message to publish
-	  *	- data: The data to pass to subscribers
-	  *	Publishes the the message synchronously, passing the data to it's subscribers
-	 **/
-		PubSub.publishSync = function (message, data) {
-			return publish(message, data, true, PubSub.immediateExceptions);
-		};
-
-		/**
-	  *	PubSub.subscribe( message, func ) -> String
-	  *	- message (String): The message to subscribe to
-	  *	- func (Function): The function to call when a new message is published
-	  *	Subscribes the passed function to the passed message. Every returned token is unique and should be stored if
-	  *	you need to unsubscribe
-	 **/
-		PubSub.subscribe = function (message, func) {
-			if (typeof func !== 'function') {
-				return false;
-			}
-
-			// message is not registered yet
-			if (!messages.hasOwnProperty(message)) {
-				messages[message] = {};
-			}
-
-			// forcing token as String, to allow for future expansions without breaking usage
-			// and allow for easy use as key names for the 'messages' object
-			var token = 'uid_' + String(++lastUid);
-			messages[message][token] = func;
-
-			// return token for unsubscribing
-			return token;
-		};
-
-		/* Public: Clears all subscriptions
-	  */
-		PubSub.clearAllSubscriptions = function clearAllSubscriptions() {
-			messages = {};
-		};
-
-		/*Public: Clear subscriptions by the topic
-	 */
-		PubSub.clearSubscriptions = function clearSubscriptions(topic) {
-			var m;
-			for (m in messages) {
-				if (messages.hasOwnProperty(m) && m.indexOf(topic) === 0) {
-					delete messages[m];
-				}
-			}
-		};
-
-		/* Public: removes subscriptions.
-	  * When passed a token, removes a specific subscription.
-	  * When passed a function, removes all subscriptions for that function
-	  * When passed a topic, removes all subscriptions for that topic (hierarchy)
-	  *
-	  * value - A token, function or topic to unsubscribe.
-	  *
-	  * Examples
-	  *
-	  *		// Example 1 - unsubscribing with a token
-	  *		var token = PubSub.subscribe('mytopic', myFunc);
-	  *		PubSub.unsubscribe(token);
-	  *
-	  *		// Example 2 - unsubscribing with a function
-	  *		PubSub.unsubscribe(myFunc);
-	  *
-	  *		// Example 3 - unsubscribing a topic
-	  *		PubSub.unsubscribe('mytopic');
-	  */
-		PubSub.unsubscribe = function (value) {
-			var isTopic = typeof value === 'string' && messages.hasOwnProperty(value),
-			    isToken = !isTopic && typeof value === 'string',
-			    isFunction = typeof value === 'function',
-			    result = false,
-			    m,
-			    message,
-			    t;
-
-			if (isTopic) {
-				delete messages[value];
-				return;
-			}
-
-			for (m in messages) {
-				if (messages.hasOwnProperty(m)) {
-					message = messages[m];
-
-					if (isToken && message[value]) {
-						delete message[value];
-						result = value;
-						// tokens are unique, so we can just stop here
-						break;
-					}
-
-					if (isFunction) {
-						for (t in message) {
-							if (message.hasOwnProperty(t) && message[t] === value) {
-								delete message[t];
-								result = true;
-							}
-						}
-					}
-				}
-			}
-
-			return result;
-		};
-	});
-
-/***/ },
-/* 154 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(114);
-	var RadioGroup = __webpack_require__(155);
-
-	var textValue = __webpack_require__(145);
-
-	module.exports = React.createClass({
-	  displayName: 'Pages/Checkbox',
-
-	  mixins: [Prettify],
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      inline: false
-	    };
-	  },
-
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'header' },
-	        React.createElement(
-	          'h1',
-	          null,
-	          'Radio Group'
-	        ),
-	        React.createElement(
-	          'h2',
-	          null,
-	          '一组单选框'
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'content' },
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<RadioGroup data={array} cache={bool} inline={bool} onChange={function} readOnly={bool}\r  src="string" textKey="string" valueKey="string" value={any} />'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'data:'
-	          ),
-	          '数据，与 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'src'
-	          ),
-	          ' 二选一'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'inline:'
-	          ),
-	          '为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'true'
-	          ),
-	          ' 时，各选项横向排列。默认为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'false'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'onChange:'
-	          ),
-	          '当选项改变时回调方法，参数为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'value'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'readOnly:'
-	          ),
-	          '为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'true'
-	          ),
-	          ' 时，只读。默认为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'false'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'src:'
-	          ),
-	          '后端数据地址，与 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'data'
-	          ),
-	          ' 二选一'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'cache:'
-	          ),
-	          '数据缓存，只有当数据为远程获取时有效。默认为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'true'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'textKey:'
-	          ),
-	          '数据结构中显示文字的key，不填默认为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'text'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'valueKey:'
-	          ),
-	          '数据结构中返回值的key，不填默认为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'value'
-	          )
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(
-	            'b',
-	            null,
-	            'value:'
-	          ),
-	          '选中值'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          '数据结构'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '标准结构为 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'text'
-	          ),
-	          ', ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'value'
-	          ),
-	          ' key组成的数组'
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '[{"text":"北京","value":"beijing"},{"text":"上海", "value":"shanghai"}]'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '可以使用自定义数组，指定 ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'textKey'
-	          ),
-	          ', ',
-	          React.createElement(
-	            'em',
-	            null,
-	            'valueKey'
-	          )
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '[{"cn":"北京","py":"beijing"},{"cn":"上海", "py":"shanghai"}]'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          '可以使用一维数组，这种情况下，显示文字与值相同'
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '["北京","上海","广州"]'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Object Data'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(RadioGroup, { inline: true, data: textValue })
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<RadioGroup inline={true} data={data} />'
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          'data = [\r  { "value": "nanjing", "text": "南京" },\r  { "value": "beijing", "text": "北京" },\r  { "value": "guangzhou", "text": "广州" },\r  { "value": "shenzhen", "text": "深圳" },\r  { "value": "chengdu", "text": "成都" },\r  { "value": "chongqing", "text": "重庆" },\r  { "value": "shanghai", "text": "上海" }\r]'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Array Data'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(RadioGroup, { inline: true, value: '北京', data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<RadioGroup inline={true} value="北京" data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Readonly'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(RadioGroup, { readOnly: true, inline: true, value: '北京', data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<RadioGroup readOnly={true} inline={true} value={"北京"} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
-	        ),
-	        React.createElement(
-	          'h2',
-	          { className: 'subhead' },
-	          'Remote Data'
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          React.createElement(RadioGroup, { inline: true, stringify: true, value: 'chengdu', src: 'json/text-value.json' })
-	        ),
-	        React.createElement(
-	          'pre',
-	          { className: 'prettyprint' },
-	          '<RadioGroup inline={true} stringify={true} value="chengdu" src="json/text-value.json" />'
-	        )
-	      )
-	    );
-	  }
-
-	});
-
-/***/ },
-/* 155 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	__webpack_require__(132);
-	var React = __webpack_require__(52);
-	var Classable = __webpack_require__(124);
-	var Objects = __webpack_require__(136);
-	var Resource = __webpack_require__(139);
-	var ReceiveValue = __webpack_require__(144);
-	var Radio = __webpack_require__(156);
-
-	module.exports = React.createClass({
-	  displayName: 'RadioGroup',
-
-	  propTypes: {
-	    cache: React.PropTypes.bool,
-	    data: React.PropTypes.array,
-	    inline: React.PropTypes.bool,
-	    onChange: React.PropTypes.func,
-	    readOnly: React.PropTypes.bool,
-	    src: React.PropTypes.string,
-	    style: React.PropTypes.object,
-	    textKey: React.PropTypes.string,
-	    value: React.PropTypes.any,
-	    valueKey: React.PropTypes.string
-	  },
-
-	  mixins: [Classable, Resource, ReceiveValue],
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      data: []
-	    };
-	  },
-
-	  initData: function initData(data) {
-	    data = Objects.toTextValue(data, this.props.textKey, this.props.valueKey);
-	    this.setState({ data: data });
-	  },
-
-	  getValue: function getValue() {
-	    return this.state.value;
-	  },
-
-	  handleChange: function handleChange(value) {
-	    if (this.props.readOnly) {
-	      return;
-	    }
-
-	    this.setState({ value: value });
-	    var change = this.props.onChange;
-	    if (change) {
-	      setTimeout(function () {
-	        change(value);
-	      }, 0);
-	    }
-	  },
-
-	  render: function render() {
-	    var className = this.getClasses('radio-group', {
-	      'inline': this.props.inline
-	    });
-	    var items = this.state.data.map(function (item, i) {
-	      return React.createElement(Radio, { key: i, onClick: this.handleChange, readOnly: this.props.readOnly, checked: this.state.value === item.value, text: item.text, value: item.value });
-	    }, this);
-
-	    return React.createElement(
-	      'div',
-	      { style: this.props.style, className: className },
-	      items
-	    );
-	  }
-	});
-
-/***/ },
-/* 156 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	__webpack_require__(132);
-	var React = __webpack_require__(52);
-
-	module.exports = React.createClass({
-	  displayName: 'Radio',
-
-	  propTypes: {
-	    checked: React.PropTypes.bool,
-	    index: React.PropTypes.number,
-	    onClick: React.PropTypes.func,
-	    readOnly: React.PropTypes.bool,
-	    text: React.PropTypes.text,
-	    value: React.PropTypes.any
-	  },
-
-	  handleClick: function handleClick() {
-	    if (this.props.onClick) {
-	      this.props.onClick(this.props.value, this.props.index);
-	    }
-	  },
-
-	  // ignore react readonly warning
-	  noop: function noop() {},
-
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'pure-radio rui-radio' },
-	      React.createElement(
-	        'label',
-	        null,
-	        React.createElement('input', { ref: 'input', type: 'radio', readOnly: this.props.readOnly, onChange: this.noop, onClick: this.handleClick, checked: this.props.checked, value: this.props.value }),
-	        this.props.text
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-/* 157 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var React = __webpack_require__(52);
-
-	module.exports = React.createClass({
-	  displayName: "Home",
-
-	  render: function render() {
-	    return React.createElement(
-	      "div",
-	      null,
-	      React.createElement(
-	        "div",
-	        { className: "hero" },
-	        React.createElement(
-	          "div",
-	          { className: "hero-title" },
-	          React.createElement(
-	            "h1",
-	            null,
-	            "React UI"
-	          ),
-	          React.createElement(
-	            "h2",
-	            null,
-	            "React组件库，样式基于yahoo的",
-	            React.createElement(
-	              "a",
-	              { href: "http://purecss.io/" },
-	              "purecss"
-	            ),
-	            "。"
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-/* 158 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _index = __webpack_require__(142);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	var data = {
-	  request: {
-	    status: {
-	      400: '非法请求',
-	      401: '没有访问权限',
-	      403: '请求被拒绝',
-	      404: '所请求的地址不存在',
-	      405: '请求的 HTTP 方法不被允许',
-	      500: '服务器错误',
-	      503: '服务器错误'
-	    },
-	    loading: '读取中...',
-	    empty: '未知错误.',
-	    failure: '获取失败.'
-	  },
-	  buttons: {
-	    add: '新建',
-	    back: '返回',
-	    fields: '字段',
-	    filter: '筛选',
-	    refresh: '刷新',
-	    reset: '重置',
-	    save: '保存'
-	  },
-	  date: {
-	    year: '年',
-	    month: '月',
-	    fullMonth: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-	    weekday: ['日', '一', '二', '三', '四', '五', '六'],
-	    format: {
-	      year: 'yyyy年',
-	      month: 'MM月',
-	      date: 'yyyy-MM-dd',
-	      datetime: 'yyyy-MM-dd hh:mm:ss',
-	      time: 'hh:mm:ss'
-	    }
-	  },
-	  validation: {
-	    hints: {
-	      alpha: '英文字符，"-"，"_"',
-	      alphanum: '数字、英文字符和"_"',
-	      integer: '整数',
-	      required: '必填',
-	      max: '最大值 {0}',
-	      min: '最小值 {0}',
-	      maxlen: '最大长度 {0}',
-	      maxlens: '最多选择 {0}个选项',
-	      minlen: '最小长度 {0}',
-	      minlens: '最少选择 {0}个选项',
-	      number: '数字',
-	      password: '大写英文字符,小写英文字符,数字,特殊字符'
-	    },
-	    tips: {
-	      alpha: '只能包含英文字符，"-"，"_"',
-	      alphanum: '只能包含数字、英文字符和"_"',
-	      email: '格式不正确',
-	      integer: '必须为整数',
-	      required: '不能为空',
-	      max: '不能大于 {0}',
-	      min: '不能小于 {0}',
-	      maxlen: '最大长度不能超过 {0} 个字符',
-	      maxlens: '最多选择 {0} 个选项',
-	      minlen: '最小长度不能少于 {0} 个字符',
-	      minlens: '最少选择 {0} 个选项',
-	      number: '必须为数字',
-	      password: '含有非法字符',
-	      url: '格式不正确',
-	      hex: '格式不正确，应为6位16进制字符串。例：#ffffff)',
-	      rgb: '格式不正确，应为逗号分隔、三个0-255组成的数组。例：rgb(255,255,255)',
-	      rgba: '格式不正确，应为三个0-255和0-1组成的数组。例：rgba(255,255,255,1)',
-	      hsv: '格式不正确，应为色相(0-360)、彩度(0-100)、明度(0-100)组成的数组。例：hsv(360,100%,100%)'
-	    }
-	  }
-	};
-
-	_index2['default'].set(data);
-
-/***/ },
-/* 159 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "index.html"
-
-/***/ },
-/* 160 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! qwest 1.7.0 (https://github.com/pyrsmk/qwest) */
@@ -5705,6 +4291,1527 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 		return obj;
 	})());
+
+/***/ },
+/* 141 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// https://github.com/component/clone
+	/**
+	 * Module dependencies.
+	 */
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _type = __webpack_require__(137);
+
+	var _type2 = _interopRequireDefault(_type);
+
+	/**
+	 * Clones objects.
+	 *
+	 * @param {Mixed} any object
+	 * @api public
+	 */
+
+	function clone(obj) {
+	  switch ((0, _type2['default'])(obj)) {
+	    case 'object':
+	      var copy = {};
+	      for (var key in obj) {
+	        if (obj.hasOwnProperty(key)) {
+	          copy[key] = clone(obj[key]);
+	        }
+	      }
+	      return copy;
+
+	    case 'array':
+	      var arr = new Array(obj.length);
+	      for (var i = 0, l = obj.length; i < l; i++) {
+	        arr[i] = clone(obj[i]);
+	      }
+	      return arr;
+
+	    case 'regexp':
+	      // from millermedeiros/amd-utils - MIT
+	      var flags = '';
+	      flags += obj.multiline ? 'm' : '';
+	      flags += obj.global ? 'g' : '';
+	      flags += obj.ignoreCase ? 'i' : '';
+	      return new RegExp(obj.source, flags);
+
+	    case 'date':
+	      return new Date(obj.getTime());
+
+	    default:
+	      // string, number, boolean, …
+	      return obj;
+	  }
+	}
+
+	/**
+	 * Module exports.
+	 */
+
+	exports['default'] = clone;
+	module.exports = exports['default'];
+
+/***/ },
+/* 142 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var merge = __webpack_require__(143);
+	var lang = {};
+
+	module.exports = {
+	  set: function set() {
+	    var args = [].slice.call(arguments);
+	    args.forEach(function (arg) {
+	      lang = merge(lang, arg);
+	    });
+	  },
+
+	  get: function get(path) {
+	    if (!path || typeof path !== 'string') {
+	      return undefined;
+	    }
+
+	    var paths = path.split('.');
+	    var result = lang;
+
+	    for (var i = 0, count = paths.length; i < count; i++) {
+	      result = result[paths[i]];
+	      if (result === undefined) {
+	        console.warn('' + path + ' not found...');
+	        return undefined;
+	      }
+	    }
+
+	    return result;
+	  }
+	};
+
+/***/ },
+/* 143 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
+
+	(function (root, factory) {
+	    if (true) {
+	        !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    } else if (typeof exports === 'object') {
+	        module.exports = factory();
+	    } else {
+	        root.deepmerge = factory();
+	    }
+	})(undefined, function () {
+
+	    return function deepmerge(target, src) {
+	        var array = Array.isArray(src);
+	        var dst = array && [] || {};
+
+	        if (array) {
+	            target = target || [];
+	            dst = dst.concat(target);
+	            src.forEach(function (e, i) {
+	                if (typeof dst[i] === 'undefined') {
+	                    dst[i] = e;
+	                } else if (typeof e === 'object') {
+	                    dst[i] = deepmerge(target[i], e);
+	                } else {
+	                    if (target.indexOf(e) === -1) {
+	                        dst.push(e);
+	                    }
+	                }
+	            });
+	        } else {
+	            if (target && typeof target === 'object') {
+	                Object.keys(target).forEach(function (key) {
+	                    dst[key] = target[key];
+	                });
+	            }
+	            Object.keys(src).forEach(function (key) {
+	                if (typeof src[key] !== 'object' || !src[key]) {
+	                    dst[key] = src[key];
+	                } else {
+	                    if (!target[key]) {
+	                        dst[key] = src[key];
+	                    } else {
+	                        dst[key] = deepmerge(target[key], src[key]);
+	                    }
+	                }
+	            });
+	        }
+
+	        return dst;
+	    };
+	});
+
+/***/ },
+/* 144 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports["default"] = {
+	  getInitialState: function getInitialState() {
+	    return {
+	      value: this.$formatValue(this.props.value)
+	    };
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (nextProps.value !== this.props.value) {
+	      this.setState({ value: this.$formatValue(nextProps.value) });
+	    }
+	  },
+
+	  setValue: function setValue(value) {
+	    value = this.$formatValue(value);
+	    this.setState({ value: value });
+	  },
+
+	  $formatValue: function $formatValue(value) {
+	    if (this.formatValue) {
+	      value = this.formatValue(value);
+	    }
+	    return value;
+	  }
+	};
+	module.exports = exports["default"];
+
+/***/ },
+/* 145 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = [{ "value": "nanjing", "text": "南京" }, { "value": "beijing", "text": "北京" }, { "value": "guangzhou", "text": "广州" }, { "value": "shenzhen", "text": "深圳" }, { "value": "chengdu", "text": "成都" }, { "value": "chongqing", "text": "重庆" }, { "value": "shanghai", "text": "上海" }];
+
+/***/ },
+/* 146 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(114);
+	var Message = __webpack_require__(147);
+	var Icon = __webpack_require__(115);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Message',
+
+	  mixins: [Prettify],
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Message'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '通知 / 消息'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'p',
+	          null,
+	          '为了实现全局通知，使用了Reflux，需要加入Reflux引用。'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '首先，在页面的某个地方，加入一个',
+	          React.createElement(
+	            'em',
+	            null,
+	            'Message Compontent'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Message top={bool} clickaway={bool} />'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'top:'
+	          ),
+	          '显示位置，为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' 时显示在页面顶部， ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          ),
+	          ' 显示在页面左下角'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'clickaway:'
+	          ),
+	          '为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' 时，点击页面空白处关闭所有消息'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          '全局方法'
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.show(content, type)'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'content:'
+	          ),
+	          '内容，必填，值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'string'
+	          ),
+	          ' 或 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'element'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'type:'
+	          ),
+	          '样式，会增加一个class ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'messsage-[type]'
+	          ),
+	          '，默认值为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'info'
+	          )
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Example'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: Message.show.bind(null, 'Info message.') },
+	            'info message'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.show("info message.")'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: Message.show.bind(null, 'error message.', 'error') },
+	            'error message'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.error("error message.", "error")'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: Message.show.bind(null, React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                  'h3',
+	                  null,
+	                  'title'
+	                ),
+	                React.createElement(
+	                  'span',
+	                  null,
+	                  'span message'
+	                )
+	              ), 'warn') },
+	            'element message'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.warn(<span>warning and span</span>, "title")'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: Message.show.bind(null, React.createElement(
+	                'span',
+	                null,
+	                React.createElement(Icon, { icon: 'music' }),
+	                ' success and icon'
+	              ), 'success') },
+	            'success message'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'Message.success(<span><Icon icon="music" /> success and icon</span>, "title")'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          '扩展'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '默认会添加 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'message-extend'
+	          ),
+	          ' 类，可以通过这个类进行扩展。'
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 147 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(52);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _overlayJsx = __webpack_require__(148);
+
+	var _overlayJsx2 = _interopRequireDefault(_overlayJsx);
+
+	var _utilsObjects = __webpack_require__(136);
+
+	var _utilsObjects2 = _interopRequireDefault(_utilsObjects);
+
+	var _mixinsClassable = __webpack_require__(116);
+
+	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
+
+	var _pubsubJs = __webpack_require__(151);
+
+	var _pubsubJs2 = _interopRequireDefault(_pubsubJs);
+
+	__webpack_require__(152);
+
+	var messages = [];
+	var ADD_MESSAGE = 'EB3A79637B40';
+	var REMOVE_MESSAGE = '73D4EF15DF50';
+
+	var Item = _react2['default'].createClass({
+	  displayName: 'Message.Item',
+
+	  propTypes: {
+	    content: _react2['default'].PropTypes.string,
+	    dismissed: _react2['default'].PropTypes.dismissed,
+	    index: _react2['default'].PropTypes.number,
+	    onDismiss: _react2['default'].PropTypes.func,
+	    type: _react2['default'].PropTypes.string
+	  },
+
+	  mixins: [_mixinsClassable2['default']],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      dismissed: this.props.dismissed
+	    };
+	  },
+
+	  dismiss: function dismiss() {
+	    if (this.state.dismissed) {
+	      return;
+	    }
+	    this.setState({ dismissed: true });
+	    // wait transition end
+	    setTimeout((function () {
+	      this.props.onDismiss(this.props.index);
+	    }).bind(this), 400);
+	  },
+
+	  render: function render() {
+	    var className = this.getClasses('message', 'message-' + this.props.type, {
+	      'dismissed': this.state.dismissed
+	    });
+
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: className },
+	      _react2['default'].createElement(
+	        'button',
+	        { type: 'button', onClick: this.dismiss, className: 'close' },
+	        '×'
+	      ),
+	      this.props.content
+	    );
+	  }
+	});
+
+	var Message = _react2['default'].createClass({
+	  displayName: 'Message',
+
+	  mixins: [_mixinsClassable2['default']],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      messages: messages
+	    };
+	  },
+
+	  componentDidMount: function componentDidMount() {
+	    var self = this;
+	    _pubsubJs2['default'].subscribe(ADD_MESSAGE, function (topic, data) {
+	      messages.push(data);
+	      self.setState({ messages: messages });
+	    });
+
+	    _pubsubJs2['default'].subscribe(REMOVE_MESSAGE, function (topic, index) {
+	      messages.splice(index, 1);
+	      self.setState({ messages: messages });
+	    });
+	  },
+
+	  dismiss: function dismiss(index) {
+	    _pubsubJs2['default'].publish(REMOVE_MESSAGE, index);
+	  },
+
+	  clear: function clear() {
+	    _utilsObjects2['default'].forEach(this.refs, function (ref) {
+	      ref.dismiss();
+	    });
+	  },
+
+	  render: function render() {
+	    var _this = this;
+
+	    var items = this.state.messages.map(function (msg, i) {
+	      return _react2['default'].createElement(Item, _extends({ key: i, index: i, ref: i, onDismiss: _this.dismiss }, msg));
+	    });
+
+	    var className = this.getClasses('rui-message', 'message-extend', { 'has-message': this.state.messages.length > 0 });
+
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: className },
+	      _react2['default'].createElement(_overlayJsx2['default'], { onClick: this.clear }),
+	      items
+	    );
+	  }
+	});
+
+	Message.show = function (content, type) {
+	  _pubsubJs2['default'].publish(ADD_MESSAGE, {
+	    content: content,
+	    type: type || 'info'
+	  });
+	};
+
+	exports['default'] = Message;
+	module.exports = exports['default'];
+
+/***/ },
+/* 148 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(52);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _mixinsClassable = __webpack_require__(116);
+
+	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
+
+	__webpack_require__(149);
+
+	module.exports = _react2['default'].createClass({
+	  displayName: 'Overlay',
+
+	  propTypes: {
+	    onClick: _react2['default'].PropTypes.func
+	  },
+
+	  mixins: [_mixinsClassable2['default']],
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      onClick: function onClick() {}
+	    };
+	  },
+
+	  render: function render() {
+	    var className = this.getClasses('overlay');
+
+	    return _react2['default'].createElement('div', { className: className, onClick: this.props.onClick });
+	  }
+	});
+
+/***/ },
+/* 149 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 150 */,
+/* 151 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
+	Copyright (c) 2010,2011,2012,2013,2014 Morgan Roderick http://roderick.dk
+	License: MIT - http://mrgnrdrck.mit-license.org
+
+	https://github.com/mroderick/PubSubJS
+	*/
+	'use strict';
+
+	(function (root, factory) {
+		'use strict';
+
+		if (true) {
+			// AMD. Register as an anonymous module.
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof exports === 'object') {
+			// CommonJS
+			factory(exports);
+		} else {
+			// Browser globals
+			var PubSub = {};
+			root.PubSub = PubSub;
+			factory(PubSub);
+		}
+	})(typeof window === 'object' && window || undefined, function (PubSub) {
+		'use strict';
+
+		var messages = {},
+		    lastUid = -1;
+
+		function hasKeys(obj) {
+			var key;
+
+			for (key in obj) {
+				if (obj.hasOwnProperty(key)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/**
+	  *	Returns a function that throws the passed exception, for use as argument for setTimeout
+	  *	@param { Object } ex An Error object
+	  */
+		function throwException(ex) {
+			return function reThrowException() {
+				throw ex;
+			};
+		}
+
+		function callSubscriberWithDelayedExceptions(subscriber, message, data) {
+			try {
+				subscriber(message, data);
+			} catch (ex) {
+				setTimeout(throwException(ex), 0);
+			}
+		}
+
+		function callSubscriberWithImmediateExceptions(subscriber, message, data) {
+			subscriber(message, data);
+		}
+
+		function deliverMessage(originalMessage, matchedMessage, data, immediateExceptions) {
+			var subscribers = messages[matchedMessage],
+			    callSubscriber = immediateExceptions ? callSubscriberWithImmediateExceptions : callSubscriberWithDelayedExceptions,
+			    s;
+
+			if (!messages.hasOwnProperty(matchedMessage)) {
+				return;
+			}
+
+			for (s in subscribers) {
+				if (subscribers.hasOwnProperty(s)) {
+					callSubscriber(subscribers[s], originalMessage, data);
+				}
+			}
+		}
+
+		function createDeliveryFunction(message, data, immediateExceptions) {
+			return function deliverNamespaced() {
+				var topic = String(message),
+				    position = topic.lastIndexOf('.');
+
+				// deliver the message as it is now
+				deliverMessage(message, message, data, immediateExceptions);
+
+				// trim the hierarchy and deliver message to each level
+				while (position !== -1) {
+					topic = topic.substr(0, position);
+					position = topic.lastIndexOf('.');
+					deliverMessage(message, topic, data, immediateExceptions);
+				}
+			};
+		}
+
+		function messageHasSubscribers(message) {
+			var topic = String(message),
+			    found = Boolean(messages.hasOwnProperty(topic) && hasKeys(messages[topic])),
+			    position = topic.lastIndexOf('.');
+
+			while (!found && position !== -1) {
+				topic = topic.substr(0, position);
+				position = topic.lastIndexOf('.');
+				found = Boolean(messages.hasOwnProperty(topic) && hasKeys(messages[topic]));
+			}
+
+			return found;
+		}
+
+		function publish(message, data, sync, immediateExceptions) {
+			var deliver = createDeliveryFunction(message, data, immediateExceptions),
+			    hasSubscribers = messageHasSubscribers(message);
+
+			if (!hasSubscribers) {
+				return false;
+			}
+
+			if (sync === true) {
+				deliver();
+			} else {
+				setTimeout(deliver, 0);
+			}
+			return true;
+		}
+
+		/**
+	  *	PubSub.publish( message[, data] ) -> Boolean
+	  *	- message (String): The message to publish
+	  *	- data: The data to pass to subscribers
+	  *	Publishes the the message, passing the data to it's subscribers
+	 **/
+		PubSub.publish = function (message, data) {
+			return publish(message, data, false, PubSub.immediateExceptions);
+		};
+
+		/**
+	  *	PubSub.publishSync( message[, data] ) -> Boolean
+	  *	- message (String): The message to publish
+	  *	- data: The data to pass to subscribers
+	  *	Publishes the the message synchronously, passing the data to it's subscribers
+	 **/
+		PubSub.publishSync = function (message, data) {
+			return publish(message, data, true, PubSub.immediateExceptions);
+		};
+
+		/**
+	  *	PubSub.subscribe( message, func ) -> String
+	  *	- message (String): The message to subscribe to
+	  *	- func (Function): The function to call when a new message is published
+	  *	Subscribes the passed function to the passed message. Every returned token is unique and should be stored if
+	  *	you need to unsubscribe
+	 **/
+		PubSub.subscribe = function (message, func) {
+			if (typeof func !== 'function') {
+				return false;
+			}
+
+			// message is not registered yet
+			if (!messages.hasOwnProperty(message)) {
+				messages[message] = {};
+			}
+
+			// forcing token as String, to allow for future expansions without breaking usage
+			// and allow for easy use as key names for the 'messages' object
+			var token = 'uid_' + String(++lastUid);
+			messages[message][token] = func;
+
+			// return token for unsubscribing
+			return token;
+		};
+
+		/* Public: Clears all subscriptions
+	  */
+		PubSub.clearAllSubscriptions = function clearAllSubscriptions() {
+			messages = {};
+		};
+
+		/*Public: Clear subscriptions by the topic
+	 */
+		PubSub.clearSubscriptions = function clearSubscriptions(topic) {
+			var m;
+			for (m in messages) {
+				if (messages.hasOwnProperty(m) && m.indexOf(topic) === 0) {
+					delete messages[m];
+				}
+			}
+		};
+
+		/* Public: removes subscriptions.
+	  * When passed a token, removes a specific subscription.
+	  * When passed a function, removes all subscriptions for that function
+	  * When passed a topic, removes all subscriptions for that topic (hierarchy)
+	  *
+	  * value - A token, function or topic to unsubscribe.
+	  *
+	  * Examples
+	  *
+	  *		// Example 1 - unsubscribing with a token
+	  *		var token = PubSub.subscribe('mytopic', myFunc);
+	  *		PubSub.unsubscribe(token);
+	  *
+	  *		// Example 2 - unsubscribing with a function
+	  *		PubSub.unsubscribe(myFunc);
+	  *
+	  *		// Example 3 - unsubscribing a topic
+	  *		PubSub.unsubscribe('mytopic');
+	  */
+		PubSub.unsubscribe = function (value) {
+			var isTopic = typeof value === 'string' && messages.hasOwnProperty(value),
+			    isToken = !isTopic && typeof value === 'string',
+			    isFunction = typeof value === 'function',
+			    result = false,
+			    m,
+			    message,
+			    t;
+
+			if (isTopic) {
+				delete messages[value];
+				return;
+			}
+
+			for (m in messages) {
+				if (messages.hasOwnProperty(m)) {
+					message = messages[m];
+
+					if (isToken && message[value]) {
+						delete message[value];
+						result = value;
+						// tokens are unique, so we can just stop here
+						break;
+					}
+
+					if (isFunction) {
+						for (t in message) {
+							if (message.hasOwnProperty(t) && message[t] === value) {
+								delete message[t];
+								result = true;
+							}
+						}
+					}
+				}
+			}
+
+			return result;
+		};
+	});
+
+/***/ },
+/* 152 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 153 */,
+/* 154 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(52);
+	var Prettify = __webpack_require__(114);
+	var RadioGroup = __webpack_require__(155);
+
+	var textValue = __webpack_require__(145);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Checkbox',
+
+	  mixins: [Prettify],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      inline: false
+	    };
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Radio Group'
+	        ),
+	        React.createElement(
+	          'h2',
+	          null,
+	          '一组单选框'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content' },
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<RadioGroup data={array} cache={bool} inline={bool} onChange={function} readOnly={bool}\r  src="string" textKey="string" valueKey="string" value={any} />'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'data:'
+	          ),
+	          '数据，与 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'src'
+	          ),
+	          ' 二选一'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'inline:'
+	          ),
+	          '为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' 时，各选项横向排列。默认为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'onChange:'
+	          ),
+	          '当选项改变时回调方法，参数为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'value'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'readOnly:'
+	          ),
+	          '为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          ),
+	          ' 时，只读。默认为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'false'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'src:'
+	          ),
+	          '后端数据地址，与 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'data'
+	          ),
+	          ' 二选一'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'cache:'
+	          ),
+	          '数据缓存，只有当数据为远程获取时有效。默认为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'true'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'textKey:'
+	          ),
+	          '数据结构中显示文字的key，不填默认为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'text'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'valueKey:'
+	          ),
+	          '数据结构中返回值的key，不填默认为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'value'
+	          )
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'value:'
+	          ),
+	          '选中值'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          '数据结构'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '标准结构为 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'text'
+	          ),
+	          ', ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'value'
+	          ),
+	          ' key组成的数组'
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '[{"text":"北京","value":"beijing"},{"text":"上海", "value":"shanghai"}]'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '可以使用自定义数组，指定 ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'textKey'
+	          ),
+	          ', ',
+	          React.createElement(
+	            'em',
+	            null,
+	            'valueKey'
+	          )
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '[{"cn":"北京","py":"beijing"},{"cn":"上海", "py":"shanghai"}]'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          '可以使用一维数组，这种情况下，显示文字与值相同'
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '["北京","上海","广州"]'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Object Data'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(RadioGroup, { inline: true, data: textValue })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<RadioGroup inline={true} data={data} />'
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          'data = [\r  { "value": "nanjing", "text": "南京" },\r  { "value": "beijing", "text": "北京" },\r  { "value": "guangzhou", "text": "广州" },\r  { "value": "shenzhen", "text": "深圳" },\r  { "value": "chengdu", "text": "成都" },\r  { "value": "chongqing", "text": "重庆" },\r  { "value": "shanghai", "text": "上海" }\r]'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Array Data'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(RadioGroup, { inline: true, value: '北京', data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<RadioGroup inline={true} value="北京" data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Readonly'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(RadioGroup, { readOnly: true, inline: true, value: '北京', data: ['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安'] })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<RadioGroup readOnly={true} inline={true} value={"北京"} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'
+	        ),
+	        React.createElement(
+	          'h2',
+	          { className: 'subhead' },
+	          'Remote Data'
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          React.createElement(RadioGroup, { inline: true, stringify: true, value: 'chengdu', src: 'json/text-value.json' })
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<RadioGroup inline={true} stringify={true} value="chengdu" src="json/text-value.json" />'
+	        )
+	      )
+	    );
+	  }
+
+	});
+
+/***/ },
+/* 155 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(52);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _mixinsClassable = __webpack_require__(116);
+
+	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
+
+	var _utilsObjects = __webpack_require__(136);
+
+	var _utilsObjects2 = _interopRequireDefault(_utilsObjects);
+
+	var _mixinsResource = __webpack_require__(139);
+
+	var _mixinsResource2 = _interopRequireDefault(_mixinsResource);
+
+	var _mixinsReceiveValue = __webpack_require__(144);
+
+	var _mixinsReceiveValue2 = _interopRequireDefault(_mixinsReceiveValue);
+
+	var _radioJsx = __webpack_require__(156);
+
+	var _radioJsx2 = _interopRequireDefault(_radioJsx);
+
+	__webpack_require__(132);
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'RadioGroup',
+
+	  propTypes: {
+	    cache: _react2['default'].PropTypes.bool,
+	    data: _react2['default'].PropTypes.array,
+	    inline: _react2['default'].PropTypes.bool,
+	    onChange: _react2['default'].PropTypes.func,
+	    readOnly: _react2['default'].PropTypes.bool,
+	    src: _react2['default'].PropTypes.string,
+	    style: _react2['default'].PropTypes.object,
+	    textKey: _react2['default'].PropTypes.string,
+	    value: _react2['default'].PropTypes.any,
+	    valueKey: _react2['default'].PropTypes.string
+	  },
+
+	  mixins: [_mixinsClassable2['default'], _mixinsResource2['default'], _mixinsReceiveValue2['default']],
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      data: []
+	    };
+	  },
+
+	  initData: function initData(data) {
+	    data = _utilsObjects2['default'].toTextValue(data, this.props.textKey, this.props.valueKey);
+	    this.setState({ data: data });
+	  },
+
+	  getValue: function getValue() {
+	    return this.state.value;
+	  },
+
+	  handleChange: function handleChange(value) {
+	    if (this.props.readOnly) {
+	      return;
+	    }
+
+	    this.setState({ value: value });
+	    var change = this.props.onChange;
+	    if (change) {
+	      setTimeout(function () {
+	        change(value);
+	      }, 0);
+	    }
+	  },
+
+	  render: function render() {
+	    var className = this.getClasses('radio-group', {
+	      'inline': this.props.inline
+	    });
+	    var items = this.state.data.map(function (item, i) {
+	      return _react2['default'].createElement(_radioJsx2['default'], { key: i, onClick: this.handleChange, readOnly: this.props.readOnly, checked: this.state.value === item.value, text: item.text, value: item.value });
+	    }, this);
+
+	    return _react2['default'].createElement(
+	      'div',
+	      { style: this.props.style, className: className },
+	      items
+	    );
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 156 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(52);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	__webpack_require__(132);
+	exports['default'] = _react2['default'].createClass({
+	  displayName: 'Radio',
+
+	  propTypes: {
+	    checked: _react2['default'].PropTypes.bool,
+	    index: _react2['default'].PropTypes.number,
+	    onClick: _react2['default'].PropTypes.func,
+	    readOnly: _react2['default'].PropTypes.bool,
+	    text: _react2['default'].PropTypes.text,
+	    value: _react2['default'].PropTypes.any
+	  },
+
+	  handleClick: function handleClick() {
+	    if (this.props.onClick) {
+	      this.props.onClick(this.props.value, this.props.index);
+	    }
+	  },
+
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: 'pure-radio rui-radio' },
+	      _react2['default'].createElement(
+	        'label',
+	        null,
+	        _react2['default'].createElement('input', { ref: 'input', type: 'radio', readOnly: this.props.readOnly, onChange: null, onClick: this.handleClick, checked: this.props.checked, value: this.props.value }),
+	        this.props.text
+	      )
+	    );
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 157 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(52);
+
+	module.exports = React.createClass({
+	  displayName: "Home",
+
+	  render: function render() {
+	    return React.createElement(
+	      "div",
+	      null,
+	      React.createElement(
+	        "div",
+	        { className: "hero" },
+	        React.createElement(
+	          "div",
+	          { className: "hero-title" },
+	          React.createElement(
+	            "h1",
+	            null,
+	            "React UI"
+	          ),
+	          React.createElement(
+	            "h2",
+	            null,
+	            "React组件库，样式基于yahoo的",
+	            React.createElement(
+	              "a",
+	              { href: "http://purecss.io/" },
+	              "purecss"
+	            ),
+	            "。"
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 158 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _index = __webpack_require__(142);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	var data = {
+	  request: {
+	    status: {
+	      400: '非法请求',
+	      401: '没有访问权限',
+	      403: '请求被拒绝',
+	      404: '所请求的地址不存在',
+	      405: '请求的 HTTP 方法不被允许',
+	      500: '服务器错误',
+	      503: '服务器错误'
+	    },
+	    loading: '读取中...',
+	    empty: '未知错误.',
+	    failure: '获取失败.'
+	  },
+	  buttons: {
+	    add: '新建',
+	    back: '返回',
+	    fields: '字段',
+	    filter: '筛选',
+	    refresh: '刷新',
+	    reset: '重置',
+	    save: '保存'
+	  },
+	  date: {
+	    year: '年',
+	    month: '月',
+	    fullMonth: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+	    weekday: ['日', '一', '二', '三', '四', '五', '六'],
+	    format: {
+	      year: 'yyyy年',
+	      month: 'MM月',
+	      date: 'yyyy-MM-dd',
+	      datetime: 'yyyy-MM-dd hh:mm:ss',
+	      time: 'hh:mm:ss'
+	    }
+	  },
+	  validation: {
+	    hints: {
+	      alpha: '英文字符，"-"，"_"',
+	      alphanum: '数字、英文字符和"_"',
+	      integer: '整数',
+	      required: '必填',
+	      max: '最大值 {0}',
+	      min: '最小值 {0}',
+	      maxlen: '最大长度 {0}',
+	      maxlens: '最多选择 {0}个选项',
+	      minlen: '最小长度 {0}',
+	      minlens: '最少选择 {0}个选项',
+	      number: '数字',
+	      password: '大写英文字符,小写英文字符,数字,特殊字符'
+	    },
+	    tips: {
+	      alpha: '只能包含英文字符，"-"，"_"',
+	      alphanum: '只能包含数字、英文字符和"_"',
+	      email: '格式不正确',
+	      integer: '必须为整数',
+	      required: '不能为空',
+	      max: '不能大于 {0}',
+	      min: '不能小于 {0}',
+	      maxlen: '最大长度不能超过 {0} 个字符',
+	      maxlens: '最多选择 {0} 个选项',
+	      minlen: '最小长度不能少于 {0} 个字符',
+	      minlens: '最少选择 {0} 个选项',
+	      number: '必须为数字',
+	      password: '含有非法字符',
+	      url: '格式不正确',
+	      hex: '格式不正确，应为6位16进制字符串。例：#ffffff)',
+	      rgb: '格式不正确，应为逗号分隔、三个0-255组成的数组。例：rgb(255,255,255)',
+	      rgba: '格式不正确，应为三个0-255和0-1组成的数组。例：rgba(255,255,255,1)',
+	      hsv: '格式不正确，应为色相(0-360)、彩度(0-100)、明度(0-100)组成的数组。例：hsv(360,100%,100%)'
+	    }
+	  }
+	};
+
+	_index2['default'].set(data);
+
+/***/ },
+/* 159 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "index.html"
 
 /***/ }
 /******/ ])

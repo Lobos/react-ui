@@ -2,10 +2,10 @@
 
 require('../../less/icon.less')
 
-var React = require('react')
-var Classable = require('../mixins/classable')
+import React from 'react'
+import Classable from '../mixins/classable'
 
-var Icon = React.createClass({
+export default React.createClass({
   displayName: 'Icon',
 
   propTypes: {
@@ -31,28 +31,26 @@ var Icon = React.createClass({
   },
 
   render: function () {
-    var classes = {
-      'icon': true,
-      'icon-spin': this.state.spin
-    }
-    if (this.props.icon) {
-      classes['icon-' + this.props.icon] = true
+    let classes = ['icon']
+
+    if (this.state.spin) {
+      classes.push('icon-spin')
     }
 
-    var size = this.props.size
+    if (this.props.icon) {
+      classes.push(`icon-${this.props.icon}`)
+    }
+
+    let size = this.props.size
     if (size) {
       if (typeof size === 'number' || size.length === 1) {
         size = size + 'x'
       }
-      classes['icon-' + size] = true
+      classes.push(`icon-${size}`)
     }
 
-    var className = this.getClasses(classes)
-
     return (
-      <i className={className}></i>
+      <i className={this.getClasses(...classes)}></i>
     )
   }
 })
-
-module.exports = Icon

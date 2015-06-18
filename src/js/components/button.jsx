@@ -43,22 +43,23 @@ export default React.createClass({
   },
 
   render: function () {
-    var status = this.props.status
+    let status = this.props.status
     if (status) {
-      status = 'button-' + status
+      status = `button-${status}`
     }
-    var className = this.getClasses(
+    let className = this.getClasses(
       'pure-button',
       status,
       { 'pure-button-primary': status === 'button-primary' },
       'button-extend'
     )
 
-    // use function disable argument first
-    var show = this.state.show || this.props.children
+    let show = this.state.show || this.props.children
 
     return (
-      <button onClick={this.handleClick} disabled={this.state.disabled} className={className} type={this.props.type || "button"}>{show}</button>
+      <button onClick={this.handleClick} disabled={this.state.disabled} className={className} type={this.props.type || "button"}>
+        {show}
+      </button>
     )
   }
 })

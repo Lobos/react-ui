@@ -2,17 +2,17 @@
 
 require('../../less/message.less')
 
-var React = require('react')
-var Overlay = require('./overlay.jsx')
-var Objects = require('../utils/objects')
-var Classable = require('../mixins/classable')
-var PubSub = require('pubsub-js')
+import React from 'react'
+import Overlay from './overlay.jsx'
+import Objects from '../utils/objects'
+import Classable from '../mixins/classable'
+import PubSub from 'pubsub-js'
 
-var messages = [],
-    ADD_MESSAGE = "EB3A79637B40",
-    REMOVE_MESSAGE = "73D4EF15DF50"
+let messages = []
+const ADD_MESSAGE = "EB3A79637B40"
+const REMOVE_MESSAGE = "73D4EF15DF50"
 
-var Item = React.createClass({
+const Item = React.createClass({
   displayName: 'Message.Item',
 
   propTypes: {
@@ -36,15 +36,16 @@ var Item = React.createClass({
       return
     }
     this.setState({ dismissed: true })
+    // wait transition end
     setTimeout(function () {
       this.props.onDismiss(this.props.index)
     }.bind(this), 400)
   },
 
   render: function () {
-    var className = this.getClasses(
+    let className = this.getClasses(
       'message',
-      'message-' + this.props.type,
+      `message-${this.props.type}`,
       {
         'dismissed': this.state.dismissed
       }
@@ -59,7 +60,7 @@ var Item = React.createClass({
   }
 })
 
-var Message = React.createClass({
+let Message = React.createClass({
   displayName: 'Message',
 
   mixins: [Classable],
@@ -71,7 +72,7 @@ var Message = React.createClass({
   },
 
   componentDidMount: function () {
-    var self = this
+    let self = this
     PubSub.subscribe(ADD_MESSAGE, function (topic, data) {
       messages.push(data)
       self.setState({ messages: messages })
@@ -94,13 +95,13 @@ var Message = React.createClass({
   },
 
   render: function () {
-    var items = this.state.messages.map(function (msg, i) {
+    let items = this.state.messages.map((msg, i) => {
       return (
         <Item key={i} index={i} ref={i} onDismiss={this.dismiss} {...msg} />
       )
-    }, this)
+    })
 
-    var className = this.getClasses(
+    let className = this.getClasses(
       'rui-message',
       'message-extend',
       { 'has-message': this.state.messages.length > 0 }
@@ -122,4 +123,4 @@ Message.show = function (content, type) {
   })
 }
 
-module.exports = Message
+export default Message

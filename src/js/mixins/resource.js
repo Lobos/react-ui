@@ -2,7 +2,7 @@
 
 import Qwest from 'qwest'
 import clone from '../utils/clone'
-import lang from '../lang'
+import Lang from '../lang'
 
 module.exports = {
   componentWillMount: function () {
@@ -23,8 +23,9 @@ module.exports = {
         this.setState({ data: props.data })
       }
     } else if (props.src) {
-      this.setState({ msg: lang.get('request.loading'), data: [] })
+      this.setState({ msg: Lang.get('request.loading'), data: [] })
 
+      // default use cache
       var cache = props.cache === undefined ? true : !!props.cache
       Qwest.get(props.src, null, { cache: cache })
         .then(function (res) {
@@ -33,7 +34,7 @@ module.exports = {
                      ( res instanceof Array ? res : undefined )
 
           if (!data) {
-            let msg = res.msg ? res.msg : lang.get('request.failure')
+            let msg = res.msg ? res.msg : Lang.get('request.failure')
             this.setState({ msg: msg })
             return
           } else {
@@ -50,7 +51,7 @@ module.exports = {
           }
         }.bind(this))
         .catch(function () {
-          this.setState({ msg: lang.get('request.failure') })
+          this.setState({ msg: Lang.get('request.failure') })
         }.bind(this))
     }
   }

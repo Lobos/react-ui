@@ -5,7 +5,7 @@
   "description": "a collection of components for React",
   "main": "",
   "scripts": {
-    "test": "mocha --compilers js:babel/register"
+    "test": "./node_modules/.bin/_mocha --compilers js:babel/register"
   },
   "keywords": [
     "react ui"
@@ -29,7 +29,6 @@
     ]
   },
   "dependencies": {
-    "baejax": "^0.1.2",
     "classnames": "^2.1.2",
     "deepmerge": "^0.2.10",
     "font-awesome": "^4.3.0",

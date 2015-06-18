@@ -1,10 +1,8 @@
 "use strict"
 
 require('../../less/overlay.less')
-var React = require('react')
-var Classable = require('../mixins/classable')
-
-function noop() {}
+import React from 'react'
+import Classable from '../mixins/classable'
 
 module.exports = React.createClass({
   displayName: 'Overlay',
@@ -15,12 +13,17 @@ module.exports = React.createClass({
 
   mixins: [Classable],
 
+  getDefaultProps: function () {
+    return {
+      onClick: function () {}
+    }
+  },
+
   render: function () {
-    var className = this.getClasses('overlay')
-    var onClick = this.props.onClick || noop
+    let className = this.getClasses('overlay')
 
     return (
-      <div className={className} onClick={onClick} />
+      <div className={className} onClick={this.props.onClick} />
     )
   }
 })

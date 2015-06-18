@@ -1,6 +1,6 @@
 "use strict"
 
-module.exports = {
+export default {
   getInitialState: function () {
     return {
       value: this.$formatValue(this.props.value)

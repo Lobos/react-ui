@@ -10,7 +10,7 @@ import Objects from '../utils/objects'
 import Resource from '../mixins/resource'
 import ReceiveValue from '../mixins/receive-value'
 
-const CheckboxGroup = React.createClass({
+export default React.createClass({
   displayName: "CheckboxGroup",
 
   propTypes: {
@@ -105,4 +105,3 @@ const CheckboxGroup = React.createClass({
   }
 })
 
-export default CheckboxGroup

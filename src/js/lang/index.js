@@ -1,23 +1,31 @@
 "use strict"
 
-var merge = require('deepmerge')
-var lang = {}
+let merge = require('deepmerge')
+let lang = {}
 
 module.exports = {
-  set: function (obj) {
-    lang = merge(lang, obj)
+  set: function () {
+    let args = [].slice.call(arguments)
+    args.forEach(function (arg) {
+      lang = merge(lang, arg)
+    })
   },
 
   get: function (path) {
     if (!path || typeof path !== 'string') {
-      return ''
+      return undefined
     }
-    var result = lang
-    path.split('.').forEach(function (p) {
-      if (result) {
-        result = result[p]
+
+    let paths = path.split('.')
+    let result = lang
+
+    for (let i = 0, count = paths.length; i < count; i++) {
+      result = result[paths[i]]
+      if (result === undefined) {
+        console.warn(`${path} not found...`)
+        return undefined
       }
-    })
+    }
 
     return result
   }
