@@ -327,7 +327,7 @@ let Item = React.createClass({
     for (let i = 0, count = data.$deep.length; i < count; i++) {
       let d = data.$deep[i]
       let mc = classnames("marks", {
-        "marks-h": d > 1|| (Objects.isEmpty(data.children) && count - 1 === i),
+        "marks-h": d > 1 || (Objects.isEmpty(data.children) && count - 1 === i),
         "marks-v": d === 1,
         "marks-l": d === 2
       })

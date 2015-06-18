@@ -35,12 +35,23 @@ module.exports = React.createClass({
     this.setState({ showValue: value })
   },
 
+  sepChange: function (sep) {
+    this.setState({ sep })
+    setTimeout(()=>this.handleChange(), 0)
+  },
+
   changeKey: function () {
     let { valueKey, textKey } = this.state
     this.setState({ valueKey: textKey, textKey: valueKey })
+    setTimeout(()=>this.handleChange(), 0)
   },
 
   render: function () {
+    let seps = ([',', '|', '#', null]).map(sep => {
+      return (
+        <a style={{margin: "0 10px"}} onClick={this.sepChange.bind(this, sep)}>{JSON.stringify(sep)}</a>
+      )
+    })
     return (
       <div>
         <div className="header">
@@ -86,13 +97,40 @@ module.exports = React.createClass({
           <Checkbox onChange={(value)=>this.setState({ greedy: value })} checked={this.state.gre} text="greedy" />
         </p>
         <p>
-          sep: <input type="text" onChange={e=>this.setState({ sep: e.target.value })} value={this.state.sep} />
+          sep: {seps}
         </p>
         <p>
           <a onClick={this.changeKey}>Switch Key</a>
         </p>
         <button onClick={this.handleChange} type="button">刷新</button>
         <p>value: {this.state.showValue}</p>
+        <pre className="prettyprint">
+{`<Tree ref="tree" src="json/tree.json"
+  readOnly={this.state.readOnly}
+  checkAble={this.state.checkAble}
+  greedy={this.state.greedy}
+  onChange={this.handleChange}
+  textKey={this.state.textKey}
+  valueKey={this.state.valueKey}
+  value={this.state.value}
+  open={true}
+  sep={this.state.sep}
+/>
+
+<Checkbox onChange={(value)=>this.setState({ checkAble: value })}
+  checked={this.state.checkAble} text="checkAble" />
+<Checkbox onChange={(value)=>this.setState({ readOnly: value })}
+  checked={this.state.readOnly} text="readOnly" />
+<Checkbox onChange={(value)=>this.setState({ greedy: value })}
+  checked={this.state.gre} text="greedy" />
+<a onClick={this.changeKey}>Switch Key</a>
+
+changeKey: function () {
+  var { valueKey, textKey } = this.state
+  this.setState({ valueKey: textKey, textKey: valueKey })
+}
+`}
+        </pre>
 
         <h2 className="subhead">数据格式</h2>
         <pre className="prettyprint">{this.state.treeData}</pre>

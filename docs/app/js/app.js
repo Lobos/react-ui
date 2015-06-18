@@ -3974,17 +3974,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.setState({ showValue: value });
 	  },
 
+	  sepChange: function sepChange(sep) {
+	    var _this2 = this;
+
+	    this.setState({ sep: sep });
+	    setTimeout(function () {
+	      return _this2.handleChange();
+	    }, 0);
+	  },
+
 	  changeKey: function changeKey() {
+	    var _this3 = this;
+
 	    var _state = this.state;
 	    var valueKey = _state.valueKey;
 	    var textKey = _state.textKey;
 
 	    this.setState({ valueKey: textKey, textKey: valueKey });
+	    setTimeout(function () {
+	      return _this3.handleChange();
+	    }, 0);
 	  },
 
 	  render: function render() {
-	    var _this2 = this;
+	    var _this4 = this;
 
+	    var seps = [',', '|', '#', null].map(function (sep) {
+	      return React.createElement(
+	        'a',
+	        { style: { margin: '0 10px' }, onClick: _this4.sepChange.bind(_this4, sep) },
+	        JSON.stringify(sep)
+	      );
+	    });
 	    return React.createElement(
 	      'div',
 	      null,
@@ -4029,24 +4050,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	          'p',
 	          null,
 	          React.createElement(_srcJs.Checkbox, { onChange: function (value) {
-	              return _this2.setState({ checkAble: value });
+	              return _this4.setState({ checkAble: value });
 	            }, checked: this.state.checkAble, text: 'checkAble' }),
 	          ' ',
 	          React.createElement(_srcJs.Checkbox, { onChange: function (value) {
-	              return _this2.setState({ readOnly: value });
+	              return _this4.setState({ readOnly: value });
 	            }, checked: this.state.readOnly, text: 'readOnly' }),
 	          ' ',
 	          React.createElement(_srcJs.Checkbox, { onChange: function (value) {
-	              return _this2.setState({ greedy: value });
+	              return _this4.setState({ greedy: value });
 	            }, checked: this.state.gre, text: 'greedy' })
 	        ),
 	        React.createElement(
 	          'p',
 	          null,
 	          'sep: ',
-	          React.createElement('input', { type: 'text', onChange: function (e) {
-	              return _this2.setState({ sep: e.target.value });
-	            }, value: this.state.sep })
+	          seps
 	        ),
 	        React.createElement(
 	          'p',
@@ -4067,6 +4086,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          null,
 	          'value: ',
 	          this.state.showValue
+	        ),
+	        React.createElement(
+	          'pre',
+	          { className: 'prettyprint' },
+	          '<Tree ref="tree" src="json/tree.json"\n  readOnly={this.state.readOnly}\n  checkAble={this.state.checkAble}\n  greedy={this.state.greedy}\n  onChange={this.handleChange}\n  textKey={this.state.textKey}\n  valueKey={this.state.valueKey}\n  value={this.state.value}\n  open={true}\n  sep={this.state.sep}\n/>\n\n<Checkbox onChange={(value)=>this.setState({ checkAble: value })}\n  checked={this.state.checkAble} text="checkAble" />\n<Checkbox onChange={(value)=>this.setState({ readOnly: value })}\n  checked={this.state.readOnly} text="readOnly" />\n<Checkbox onChange={(value)=>this.setState({ greedy: value })}\n  checked={this.state.gre} text="greedy" />\n<a onClick={this.changeKey}>Switch Key</a>\n\nchangeKey: function () {\n  var { valueKey, textKey } = this.state\n  this.setState({ valueKey: textKey, textKey: valueKey })\n}\n'
 	        ),
 	        React.createElement(
 	          'h2',
