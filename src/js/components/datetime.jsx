@@ -171,13 +171,13 @@ var Datetime = React.createClass({
     }
     
     return years.map(function (y, i) {
-      return <button type="button" onClick={ function () { this.yearChange(y) } } key={i} className="year">{y}</button>
+      return <button type="button" onClick={ function () { this.yearChange(y) }.bind(this) } key={i} className="year">{y}</button>
     }, this)
   },
 
   getMonths: function () {
     return lang.get('date.fullMonth').map(function (m, i) {
-      return <button type="button" onClick={ function () { this.monthChange(i) } } key={i} className="month">{m}</button>
+      return <button type="button" onClick={ function () { this.monthChange(i) }.bind(this) } key={i} className="month">{m}</button>
     }, this)
   },
 
