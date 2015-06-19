@@ -29,6 +29,7 @@ module.exports = React.createClass({
 
           <pre className="prettyprint">
 {`<RadioGroup
+  className={string}  // class
   data={array}        // 数据，与 src 二选一，优先使用 data
   src="string"        // 服务器端数据地址，与 data 二选一
   cache={bool}        // 数据缓存，只有当数据为远程获取时有效。默认为 true

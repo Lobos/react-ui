@@ -21,6 +21,7 @@ module.exports = React.createClass({
 
           <pre className="prettyprint">
 {`<Checkbox
+  className={string}  // class
   text="string"       // 显示的文字信息
   value={any}         // 值，不填写 getValue 得到的值为 bool
   checked={bool}      // 是否选中，默认为 false

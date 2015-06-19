@@ -19,6 +19,7 @@ module.exports = React.createClass({
   propTypes: {
     icons: React.PropTypes.array,
     maxValue: React.PropTypes.number,
+    onChange: React.PropTypes.func,
     readOnly: React.PropTypes.bool,
     size: React.PropTypes.number,
     style: React.PropTypes.object,
@@ -38,11 +39,11 @@ module.exports = React.createClass({
   getInitialState: function () {
     return {
       hover: 0,
-      wink: false,
-      icons: this.props.icons || themes[this.props.theme]
+      wink: false
     }
   },
 
+  /*
   componentWillReceiveProps: function (nextProps) {
     if (nextProps.theme !== this.props.theme) {
       let icons = themes[nextProps.theme]
@@ -51,6 +52,7 @@ module.exports = React.createClass({
       }
     }
   },
+  */
 
   handleHover: function (value) {
     return function () {
@@ -66,9 +68,19 @@ module.exports = React.createClass({
     return this.state.value
   },
 
+  getIcon: function (pos = 0) {
+    let icons = this.props.icons || themes[this.props.theme]
+    if (!icons) {
+      icons = themes.star
+      console.warn('icons or theme not exist')
+    }
+
+    return icons[pos]
+  },
+
   getBackground: function () {
     let items = [],
-        icon = this.state.icons[0]
+        icon = this.getIcon(0)
     for (let i = 0; i < this.props.maxValue; i++) {
       items.push(<Icon size={this.props.size} key={i} icon={icon} />)
     }
@@ -76,33 +88,30 @@ module.exports = React.createClass({
     return <div className="rating-bg">{items}</div>
   },
 
+  handleChange: function (val) {
+    this.setValue(val)
+    this.setState({ wink: true })
+    setTimeout(() => {
+      this.setState({ wink: false })
+    }, 1000)
+    if (this.props.onChange) {
+      this.props.onChange(val)
+    }
+  },
+
   getHandle: function () {
-    let self = this,
-        items = [],
-        icon = this.state.icons[1],
+    let items = [],
+        icon = this.getIcon(1),
         hover = this.state.hover,
         wink = this.state.wink,
         value = hover > 0 ? hover : this.state.value
-
-    let set = function (val) {
-      return function () {
-        self.setValue(val)
-        self.setState({ wink: true })
-        setTimeout(function () {
-          self.setState({ wink: false })
-        }, 1000)
-        if (self.props.onChange) {
-          self.props.onChange(val)
-        }
-      }
-    }
 
     for (let i = 0, active; i < this.props.maxValue; i++) {
       active = value > i
       items.push(
         <span key={i}
           onMouseOver={this.handleHover(i + 1)}
-          onClick={set(i + 1)}
+          onClick={this.handleChange.bind(this, i + 1)}
           className={classnames('handle', { 'active': active, 'wink': active && wink })}>
           <Icon size={this.props.size} icon={icon} />
         </span>
@@ -114,7 +123,7 @@ module.exports = React.createClass({
 
   getMute: function () {
     let items = [],
-        icon = this.state.icons[1],
+        icon = this.getIcon(1),
         width = (this.state.value / this.props.maxValue * 100) + '%'
 
     for (let i = 0; i < this.props.maxValue; i++) {

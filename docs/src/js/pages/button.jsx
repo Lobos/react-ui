@@ -30,6 +30,7 @@ module.exports = React.createClass({
         <div className="content">
           <pre className="prettyprint">
 {`<Button
+  className={string}   // class
   type="submit|button" // 按钮类型，可选值为 submit|button ，不填默认值为 button
   disabled={bool}      // 与 button 的 disabled 属性相同
   once={bool}          // 值为 true 时，当button点击过后，状态会变更为 disabled
