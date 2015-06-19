@@ -9,6 +9,10 @@ let Icon = require('../../../src/js/components/icon.jsx')
 module.exports = React.createClass({
   displayName: 'NavList',
 
+  propTypes: {
+    onToggle: React.PropTypes.func
+  },
+
   mixins: [Router.State],
 
   getInitialState: function () {
@@ -26,11 +30,13 @@ module.exports = React.createClass({
   routeChange: function (route) {
     this.context.router.transitionTo(route)
     this.setState({ active: false })
+    this.props.onToggle(false)
   },
 
   toggle: function () {
     let active = !this.state.active
     this.setState({ active: active })
+    this.props.onToggle(active)
   },
 
   render: function () {

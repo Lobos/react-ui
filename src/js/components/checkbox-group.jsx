@@ -10,7 +10,7 @@ let Objects = require('../utils/objects')
 let Resource = require('../mixins/resource')
 let ReceiveValue = require('../mixins/receive-value')
 
-module.exports = React.createClass({
+let CheckboxGroup = React.createClass({
   displayName: "CheckboxGroup",
 
   propTypes: {
@@ -112,3 +112,5 @@ module.exports = React.createClass({
   }
 })
 
+module.exports = CheckboxGroup
+require('./form-control.jsx').register('CheckboxGroup', CheckboxGroup)

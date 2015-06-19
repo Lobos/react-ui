@@ -56,22 +56,22 @@ module.exports = React.createClass({
             />
           </p>
 
-          <div style={{marginBottom:10}}>
+          <div style={{marginBottom: 10}}>
             <span>size: </span>
             <RadioGroup className="pure-u-1 pure-u-sm-7-8" inline={true} onChange={size=>this.setState({ size })} value={this.state.size} data={[1, 2, 3, 4, 5]} />
           </div>
 
-          <div style={{marginBottom:10}}>
+          <div style={{marginBottom: 10}}>
             <span>maxValue: </span>
             <RadioGroup className="pure-u-1 pure-u-sm-7-8" inline={true} onChange={maxValue=>this.setState({ maxValue })} value={this.state.maxValue} data={[5, 10, 12, 20]} />
           </div>
 
-          <div style={{marginBottom:10}}>
+          <div style={{marginBottom: 10}}>
             <span>theme: </span>
             <RadioGroup className="pure-u-1 pure-u-sm-7-8" inline={true} onChange={theme=>this.setState({ theme })} value={this.state.theme} data={['star', 'heart']} />
           </div>
 
-          <div style={{marginBottom:10}}>
+          <div style={{marginBottom: 10}}>
             <span>color: </span>
             <RadioGroup className="pure-u-1 pure-u-sm-7-8" inline={true} onChange={color=>this.setState({ color })} value={this.state.color} data={['red', 'black', 'gold', '#00aa55']} />
           </div>
@@ -83,8 +83,8 @@ module.exports = React.createClass({
           <p>
             <Checkbox value="readOnly" onChange={readOnly=>this.setState({ readOnly })} text={'readOnly'} />
           </p>
-          
-          <div style={{marginBottom:10}}>
+
+          <div style={{marginBottom: 10}}>
             <span>value: </span>
             <input onChange={event=>this.setState({ value: event.target.value })} type="text" value={this.state.value} />
           </div>

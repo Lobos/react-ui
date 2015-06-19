@@ -3,7 +3,7 @@
 require('../../less/checkbox.less')
 let React = require('react')
 
-module.exports = React.createClass({
+let Checkbox = React.createClass({
   displayName: "Checkbox",
 
   propTypes: {
@@ -61,3 +61,6 @@ module.exports = React.createClass({
     )
   }
 })
+
+module.exports = Checkbox
+require('./form-control.jsx').register('Checkbox', Checkbox)

@@ -1,7 +1,5 @@
 "use strict"
 
-require('../../less/icon.less')
-
 let React = require('react')
 let Classable = require('../mixins/classable')
 

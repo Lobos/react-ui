@@ -63,8 +63,9 @@
 @media (max-width: 992px) {
   .nav {
     .nav-list {
-      margin-left: -200px;
-      .transition(margin-left 0.4s);
+      //margin-left: -200px;
+      .translate3d(-100%, 0, 0);
+      .transition(0.4s);
 
       .nav-handler {
         display: block;
@@ -78,7 +79,8 @@
 
     &.active {
       .nav-list {
-        margin-left: 0;
+        .translate3d(0, 0, 0);
+        //margin-left: 0;
       }
       .overlay {
         .opacity(1);

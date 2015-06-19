@@ -13,7 +13,7 @@ let themes = {
   "heart": ['heart-o', 'heart']
 }
 
-module.exports = React.createClass({
+let Rating = React.createClass({
   displayName: 'Rating',
 
   propTypes: {
@@ -42,17 +42,6 @@ module.exports = React.createClass({
       wink: false
     }
   },
-
-  /*
-  componentWillReceiveProps: function (nextProps) {
-    if (nextProps.theme !== this.props.theme) {
-      let icons = themes[nextProps.theme]
-      if (icons) {
-        this.setState({icons: icons})
-      }
-    }
-  },
-  */
 
   handleHover: function (value) {
     return function () {
@@ -147,9 +136,12 @@ module.exports = React.createClass({
         })
     return (
       <div style={this.props.style} className={className}>
-        {this.getBackground()}
+        { this.getBackground() }
         { this.props.readOnly ? this.getMute() : this.getHandle() }
       </div>
     )
   }
 })
+
+module.exports = Rating
+require('./form-control.jsx').register('Rating', Rating)

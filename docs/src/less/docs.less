@@ -1,3 +1,5 @@
+@import "../../../src/less/mixins";
+
 body {
   font-family: "微软雅黑" "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -27,6 +29,14 @@ a {
 
 .main {
   margin-left: 200px;
+  .transition(0.4s);
+}
+
+.nav-show {
+  overflow: hidden;
+  .main {
+    .translate3d(200px, 0, 0);
+  }
 }
 
 .hero {

@@ -2,8 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let Button = require('../../../../src/js/components/button.jsx')
-let Icon = require('../../../../src/js/components/icon.jsx')
+import {Button, Icon} from '../../../../src/js'
 
 module.exports = React.createClass({
   displayName: 'Pages/Button',
