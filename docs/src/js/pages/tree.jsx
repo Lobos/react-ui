@@ -102,7 +102,6 @@ module.exports = React.createClass({
         <p>
           <a onClick={this.changeKey}>Switch Key</a>
         </p>
-        <button onClick={this.handleChange} type="button">刷新</button>
         <p>value: {this.state.showValue}</p>
         <pre className="prettyprint">
 {`<Tree ref="tree" src="json/tree.json"

@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("react"), require("react-router")) : factory(root["React"], root["ReactRouter"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_52__, __WEBPACK_EXTERNAL_MODULE_106__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_52__, __WEBPACK_EXTERNAL_MODULE_108__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -57,11 +57,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var React = __webpack_require__(52);
-	var Router = __webpack_require__(106);
-	var AppRoutes = __webpack_require__(107);
+	var Router = __webpack_require__(108);
+	var AppRoutes = __webpack_require__(109);
 
 	// load language
-	__webpack_require__(153);
+	__webpack_require__(155);
 
 	Router.create({
 	  routes: AppRoutes,
@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	// static files
-	__webpack_require__(164);
+	__webpack_require__(166);
 
 /***/ },
 /* 1 */,
@@ -184,24 +184,26 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 103 */,
 /* 104 */,
 /* 105 */,
-/* 106 */
+/* 106 */,
+/* 107 */,
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_106__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_108__;
 
 /***/ },
-/* 107 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _reactRouter = __webpack_require__(106);
+	var _reactRouter = __webpack_require__(108);
 
-	var Master = __webpack_require__(108);
-	var Home = __webpack_require__(163);
+	var Master = __webpack_require__(110);
+	var Home = __webpack_require__(165);
 
 	var menulist = [];
-	__webpack_require__(111).forEach(function (menu) {
+	__webpack_require__(113).forEach(function (menu) {
 	  if (menu.handler) {
 	    menulist.push(React.createElement(_reactRouter.Route, { name: menu.route, handler: menu.handler }));
 	  }
@@ -218,16 +220,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = AppRoutes;
 
 /***/ },
-/* 108 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _reactRouter = __webpack_require__(106);
+	var _reactRouter = __webpack_require__(108);
 
 	var React = __webpack_require__(52);
-	var NavList = __webpack_require__(109);
-	var Message = __webpack_require__(144);
+	var NavList = __webpack_require__(111);
+	var Message = __webpack_require__(146);
 
 	module.exports = React.createClass({
 	  displayName: "Master",
@@ -248,16 +250,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 109 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var classnames = __webpack_require__(110);
+	var classnames = __webpack_require__(112);
 	var React = __webpack_require__(52);
-	var Router = __webpack_require__(106);
-	var menulist = __webpack_require__(111);
-	var Icon = __webpack_require__(117);
+	var Router = __webpack_require__(108);
+	var menulist = __webpack_require__(113);
+	var Icon = __webpack_require__(119);
 
 	module.exports = React.createClass({
 	  displayName: 'NavList',
@@ -327,7 +329,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 110 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -380,23 +382,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	})();
 
 /***/ },
-/* 111 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(155) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(156) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(157) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(159) }, { route: 'message', text: 'Message', handler: __webpack_require__(112) }, { route: 'radio-group', text: 'Radio Group', handler: __webpack_require__(160) }, { route: 'tree', text: 'Tree', handler: __webpack_require__(161) }, { route: 'lang', text: 'Lang', handler: __webpack_require__(162) }];
+	module.exports = [{ route: 'button', text: 'Button', handler: __webpack_require__(157) }, { route: 'checkbox', text: 'Checkbox', handler: __webpack_require__(158) }, { route: 'checkbox-group', text: 'Checkbox Group', handler: __webpack_require__(159) }, { route: 'icon', text: 'Icon', handler: __webpack_require__(161) }, { route: 'message', text: 'Message', handler: __webpack_require__(114) }, { route: 'radio-group', text: 'Radio Group', handler: __webpack_require__(162) }, { route: 'tree', text: 'Tree', handler: __webpack_require__(163) }, { route: 'lang', text: 'Lang', handler: __webpack_require__(164) }];
 
 /***/ },
-/* 112 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _srcJs = __webpack_require__(113);
+	var _srcJs = __webpack_require__(115);
 
 	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(154);
+	var Prettify = __webpack_require__(156);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Message',
@@ -635,52 +637,52 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 113 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	exports.Button = __webpack_require__(136);
-	exports.Checkbox = __webpack_require__(140);
-	exports.CheckboxGroup = __webpack_require__(143);
-	exports.Icon = __webpack_require__(117);
-	exports.Message = __webpack_require__(144);
-	exports.RadioGroup = __webpack_require__(151);
-	exports.Tree = __webpack_require__(114);
+	exports.Button = __webpack_require__(138);
+	exports.Checkbox = __webpack_require__(142);
+	exports.CheckboxGroup = __webpack_require__(145);
+	exports.Icon = __webpack_require__(119);
+	exports.Message = __webpack_require__(146);
+	exports.RadioGroup = __webpack_require__(153);
+	exports.Tree = __webpack_require__(116);
 
 	exports.Utils = {
-	  Objects: __webpack_require__(128),
-	  Strings: __webpack_require__(127)
+	  Objects: __webpack_require__(130),
+	  Strings: __webpack_require__(129)
 	};
 
 	// ajax
-	exports.Qwest = __webpack_require__(131);
-	exports.Request = __webpack_require__(131); // alias
+	exports.Qwest = __webpack_require__(133);
+	exports.Request = __webpack_require__(133); // alias
 
 	// set language
-	__webpack_require__(153);
+	__webpack_require__(155);
 
 /***/ },
-/* 114 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	// 为了提高效率，tree 可能破坏了react的一个原则，由于tree.state.data是一个array，
-	// 当data值改变时，不经过setState，data的值也改变了
-	// 所有的Item的data也因此改变
+	// 为了提高效率，直接操作了tree.state.data，
+	// 由于tree.state.data是一个array，当data值改变时，不经过setState，
+	// 所有的Item的data也因此改变，可能破坏了react的一个原则
 
-	__webpack_require__(115);
+	__webpack_require__(117);
 
 	var React = __webpack_require__(52);
-	var classnames = __webpack_require__(110);
-	var Icon = __webpack_require__(117);
+	var classnames = __webpack_require__(112);
+	var Icon = __webpack_require__(119);
 
-	var Strings = __webpack_require__(127);
-	var Objects = __webpack_require__(128);
-	var Classable = __webpack_require__(126);
-	var Resource = __webpack_require__(130);
-	var ReceiveValue = __webpack_require__(135);
+	var Strings = __webpack_require__(129);
+	var Objects = __webpack_require__(130);
+	var Classable = __webpack_require__(128);
+	var Resource = __webpack_require__(132);
+	var ReceiveValue = __webpack_require__(137);
 
 	var Tree = React.createClass({
 	  displayName: 'Tree',
@@ -1051,22 +1053,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Tree;
 
 /***/ },
-/* 115 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 116 */,
-/* 117 */
+/* 118 */,
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(118);
+	__webpack_require__(120);
 
 	var React = __webpack_require__(52);
-	var Classable = __webpack_require__(126);
+	var Classable = __webpack_require__(128);
 
 	module.exports = React.createClass({
 	  displayName: 'Icon',
@@ -1117,20 +1119,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 118 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 119 */,
-/* 120 */,
 /* 121 */,
 /* 122 */,
 /* 123 */,
 /* 124 */,
 /* 125 */,
-/* 126 */
+/* 126 */,
+/* 127 */,
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1138,7 +1140,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
 
 	var React = __webpack_require__(52);
-	var classnames = __webpack_require__(110);
+	var classnames = __webpack_require__(112);
 
 	module.exports = {
 
@@ -1157,7 +1159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 127 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1200,12 +1202,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = { format: format, substitute: substitute, toArray: toArray };
 
 /***/ },
-/* 128 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var type = __webpack_require__(129);
+	var type = __webpack_require__(131);
 
 	function isEmpty(obj) {
 
@@ -1251,7 +1253,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = { forEach: forEach, isEmpty: isEmpty, toTextValue: toTextValue };
 
 /***/ },
-/* 129 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://github.com/component/type
@@ -1304,14 +1306,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 130 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Qwest = __webpack_require__(131);
-	var clone = __webpack_require__(132);
-	var Lang = __webpack_require__(133);
+	var Qwest = __webpack_require__(133);
+	var clone = __webpack_require__(134);
+	var Lang = __webpack_require__(135);
 
 	module.exports = {
 	  componentWillMount: function componentWillMount() {
@@ -1363,7 +1365,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 131 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! qwest 1.7.0 (https://github.com/pyrsmk/qwest) */
@@ -1872,7 +1874,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})());
 
 /***/ },
-/* 132 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// https://github.com/component/clone
@@ -1882,7 +1884,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var type = __webpack_require__(129);
+	var type = __webpack_require__(131);
 
 	/**
 	 * Clones objects.
@@ -1933,13 +1935,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = clone;
 
 /***/ },
-/* 133 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var merge = __webpack_require__(134);
-	var clone = __webpack_require__(132);
+	var merge = __webpack_require__(136);
+	var clone = __webpack_require__(134);
 	var lang = {};
 
 	module.exports = {
@@ -1978,7 +1980,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 134 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -2035,7 +2037,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 135 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2067,14 +2069,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 136 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(137);
+	__webpack_require__(139);
 	var React = __webpack_require__(52);
-	var Classable = __webpack_require__(126);
+	var Classable = __webpack_require__(128);
 
 	module.exports = React.createClass({
 	  displayName: 'Button',
@@ -2133,20 +2135,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 137 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 138 */,
-/* 139 */,
-/* 140 */
+/* 140 */,
+/* 141 */,
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(141);
+	__webpack_require__(143);
 	var React = __webpack_require__(52);
 
 	module.exports = React.createClass({
@@ -2209,27 +2211,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 141 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 142 */,
-/* 143 */
+/* 144 */,
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(141);
+	__webpack_require__(143);
 
 	var React = __webpack_require__(52);
-	var Checkbox = __webpack_require__(140);
-	var Strings = __webpack_require__(127);
-	var Classable = __webpack_require__(126);
-	var Objects = __webpack_require__(128);
-	var Resource = __webpack_require__(130);
-	var ReceiveValue = __webpack_require__(135);
+	var Checkbox = __webpack_require__(142);
+	var Strings = __webpack_require__(129);
+	var Classable = __webpack_require__(128);
+	var Objects = __webpack_require__(130);
+	var Resource = __webpack_require__(132);
+	var ReceiveValue = __webpack_require__(137);
 
 	module.exports = React.createClass({
 	  displayName: 'CheckboxGroup',
@@ -2333,20 +2335,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 144 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	__webpack_require__(145);
+	__webpack_require__(147);
 
 	var React = __webpack_require__(52);
-	var Overlay = __webpack_require__(147);
-	var Objects = __webpack_require__(128);
-	var Classable = __webpack_require__(126);
-	var PubSub = __webpack_require__(150);
+	var Overlay = __webpack_require__(149);
+	var Objects = __webpack_require__(130);
+	var Classable = __webpack_require__(128);
+	var PubSub = __webpack_require__(152);
 
 	var messages = [];
 	var ADD_MESSAGE = 'EB3A79637B40';
@@ -2462,14 +2464,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = Message;
 
 /***/ },
-/* 145 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 146 */,
-/* 147 */
+/* 148 */,
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2480,11 +2482,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _mixinsClassable = __webpack_require__(126);
+	var _mixinsClassable = __webpack_require__(128);
 
 	var _mixinsClassable2 = _interopRequireDefault(_mixinsClassable);
 
-	__webpack_require__(148);
+	__webpack_require__(150);
 
 	module.exports = _react2['default'].createClass({
 	  displayName: 'Overlay',
@@ -2509,14 +2511,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 148 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 149 */,
-/* 150 */
+/* 151 */,
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -2767,18 +2769,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 151 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(141);
+	__webpack_require__(143);
 	var React = __webpack_require__(52);
-	var Classable = __webpack_require__(126);
-	var Objects = __webpack_require__(128);
-	var Resource = __webpack_require__(130);
-	var ReceiveValue = __webpack_require__(135);
-	var Radio = __webpack_require__(152);
+	var Classable = __webpack_require__(128);
+	var Objects = __webpack_require__(130);
+	var Resource = __webpack_require__(132);
+	var ReceiveValue = __webpack_require__(137);
+	var Radio = __webpack_require__(154);
 
 	module.exports = React.createClass({
 	  displayName: 'RadioGroup',
@@ -2850,12 +2852,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 152 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(141);
+	__webpack_require__(143);
 	var React = __webpack_require__(52);
 
 	module.exports = React.createClass({
@@ -2898,7 +2900,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 153 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2978,10 +2980,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	};
 
-	__webpack_require__(133).set(data);
+	__webpack_require__(135).set(data);
 
 /***/ },
-/* 154 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2996,15 +2998,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 155 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(154);
-	var Button = __webpack_require__(136);
-	var Icon = __webpack_require__(117);
+	var Prettify = __webpack_require__(156);
+	var Button = __webpack_require__(138);
+	var Icon = __webpack_require__(119);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Button',
@@ -3270,14 +3272,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 156 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(154);
-	var Checkbox = __webpack_require__(140);
+	var Prettify = __webpack_require__(156);
+	var Checkbox = __webpack_require__(142);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Checkbox',
@@ -3413,16 +3415,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 157 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(154);
-	var CheckboxGroup = __webpack_require__(143);
+	var Prettify = __webpack_require__(156);
+	var CheckboxGroup = __webpack_require__(145);
 
-	var textValue = __webpack_require__(158);
+	var textValue = __webpack_require__(160);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Checkbox',
@@ -3617,7 +3619,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 158 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3625,14 +3627,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = [{ "value": "nanjing", "text": "南京" }, { "value": "beijing", "text": "北京" }, { "value": "guangzhou", "text": "广州" }, { "value": "shenzhen", "text": "深圳" }, { "value": "chengdu", "text": "成都" }, { "value": "chongqing", "text": "重庆" }, { "value": "shanghai", "text": "上海" }];
 
 /***/ },
-/* 159 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(154);
-	var Icon = __webpack_require__(117);
+	var Prettify = __webpack_require__(156);
+	var Icon = __webpack_require__(119);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Icon',
@@ -3754,16 +3756,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 160 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(154);
-	var RadioGroup = __webpack_require__(151);
+	var Prettify = __webpack_require__(156);
+	var RadioGroup = __webpack_require__(153);
 
-	var textValue = __webpack_require__(158);
+	var textValue = __webpack_require__(160);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Checkbox',
@@ -3932,15 +3934,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 161 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _srcJs = __webpack_require__(113);
+	var _srcJs = __webpack_require__(115);
 
 	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(154);
+	var Prettify = __webpack_require__(156);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Tree',
@@ -4077,11 +4079,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	          )
 	        ),
 	        React.createElement(
-	          'button',
-	          { onClick: this.handleChange, type: 'button' },
-	          '刷新'
-	        ),
-	        React.createElement(
 	          'p',
 	          null,
 	          'value: ',
@@ -4108,14 +4105,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 162 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(52);
-	var Prettify = __webpack_require__(154);
-	var Lang = __webpack_require__(133);
+	var Prettify = __webpack_require__(156);
+	var Lang = __webpack_require__(135);
 
 	module.exports = React.createClass({
 	  displayName: 'Pages/Lang',
@@ -4225,7 +4222,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 163 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4268,7 +4265,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 /***/ },
-/* 164 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "index.html"

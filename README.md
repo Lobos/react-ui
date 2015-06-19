@@ -13,7 +13,7 @@ npm install
 docs: webpack --config webpack-docs.config.js [--min]
 
 # Change log
-使用webpack打包，剥离了 `react` 基础包。减少体积，去除了 `Reflux` 和 `superagent` 依赖。
+使用webpack打包，减少体积，去除了 `Reflux` 和 `superagent` 依赖。
 
 放弃bootstrap，使用yahoo/pure。
 
@@ -21,19 +21,19 @@ docs: webpack --config webpack-docs.config.js [--min]
 
 # Components
 
-*Checkbox
-*Checkbox group
-*Color Picker
-*Datetime
-*Form
-*Form Control
-*Icon
-*Loading
-*Message
-*Mult select
-*Pagination
-*Progress
-*Radio group
-*Rating
-*Select
-*Tree
+- Checkbox
+- Checkbox group
+- Color Picker
+- Datetime
+- Form
+- Form Control
+- Icon
+- Loading
+- Message
+- Mult select
+- Pagination
+- Progress
+- Radio group
+- Rating
+- Select
+- Tree

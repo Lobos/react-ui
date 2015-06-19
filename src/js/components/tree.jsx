@@ -1,8 +1,8 @@
 "use strict"
 
-// 为了提高效率，tree 可能破坏了react的一个原则，由于tree.state.data是一个array，
-// 当data值改变时，不经过setState，data的值也改变了
-// 所有的Item的data也因此改变
+// 为了提高效率，直接操作了tree.state.data，
+// 由于tree.state.data是一个array，当data值改变时，不经过setState，
+// 所有的Item的data也因此改变，可能破坏了react的一个原则
 
 require('../../less/tree.less')
 
