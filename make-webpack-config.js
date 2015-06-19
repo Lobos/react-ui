@@ -44,7 +44,8 @@ module.exports = function(options) {
     //"json": "json-loader",
 		"json": "file-loader?name=./json/[name].json",
 		//"txt": "raw-loader",
-		"png|jpg|jpeg|gif": "file-loader?name=./images/[name].[ext]",
+    "png|jpg|jpeg|gif|svg": "url-loader?limit=10000",
+		//"png|jpg|jpeg|gif": "file-loader?name=./images/[name].[ext]",
 		"ttf|eot|woff|woff2|otf|svg": "file-loader?name=./font/[name].[ext]"
 		//"wav|mp3": "file-loader",
 		//"html": "html-loader",

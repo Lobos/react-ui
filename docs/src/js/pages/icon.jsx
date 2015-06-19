@@ -14,10 +14,16 @@ module.exports = React.createClass({
       <div>
         <div className="header">
           <h1>Icon</h1>
-          <h2>图标，使用<a href="http://fontawesome.io/">font-awesome</a></h2>
+          <h2>图标，使用</h2>
         </div>
 
         <div className="content">
+          <p>
+            支持 <a href="http://fontawesome.io/">font-awesome</a> 和 <a href="http://zavoloklom.github.io/material-design-iconic-font/">material-design-iconic-font</a><br />
+            默认的前缀为 <em>icon</em>，如果使用less，生成这两个字体的css时，指定 <em>prefix</em> 为 <em>icon</em><br />
+            如果使用这两个字体原生的前缀 <em>fa</em> 或者 <em>md</em>，调用 <em>Icon.setPrefix(prefix)</em> 这个全局方法设置
+          </p>
+
           <pre className="prettyprint">
 {`<Icon
   icon="string"     // 图标名称，详见 fontawesome
@@ -31,25 +37,25 @@ module.exports = React.createClass({
           <pre className="prettyprint">{'<Icon icon="camera-retro" /> camera-retro'}</pre>
 
           <h2 className="subhead">Spin</h2>
-          <Icon icon="spinner" spin={true} />
+          <Icon icon="settings" spin={true} />
           &nbsp; &nbsp;
           <Icon icon="refresh" spin={true} />
           <pre className="prettyprint">{'<Icon icon="spinner" spin={true} />\r<Icon icon="refresh" spin={true} />'}</pre>
 
           <h2 className="subhead">Size</h2>
-          <Icon icon="camera-retro" /> normal<br />
-          <Icon icon="camera-retro" size={'lg'} /> lg<br />
-          <Icon icon="camera-retro" size={2} /> 2x<br />
-          <Icon icon="camera-retro" size={3} /> 3x<br />
-          <Icon icon="camera-retro" size={4} /> 4x<br />
-          <Icon icon="camera-retro" size={5} /> 5x
+          <Icon icon="home" /> normal<br />
+          <Icon icon="home" size={'lg'} /> lg<br />
+          <Icon icon="home" size={2} /> 2x<br />
+          <Icon icon="home" size={3} /> 3x<br />
+          <Icon icon="home" size={4} /> 4x<br />
+          <Icon icon="home" size={5} /> 5x
           <pre className="prettyprint">
 {`<Icon icon="camera-retro" />
-<Icon icon="camera-retro" size="lg" />
-<Icon icon="camera-retro" size="2x" />
-<Icon icon="camera-retro" size="3" />
-<Icon icon="camera-retro" size={4} />
-<Icon icon="camera-retro" size={5} />`}
+<Icon icon="home" size="lg" />
+<Icon icon="home" size="2x" />
+<Icon icon="home" size="3" />
+<Icon icon="home" size={4} />
+<Icon icon="home" size={5} />`}
           </pre>
 
           <h2 className="subhead">Method</h2>

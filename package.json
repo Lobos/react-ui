@@ -50,6 +50,7 @@
     "file-loader": "^0.8.4",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
+    "material-design-iconic-font": "^2.0.0-dev",
     "mocha": "^2.2.5",
     "react": "^0.13.3",
     "stats-webpack-plugin": "^0.1.1",

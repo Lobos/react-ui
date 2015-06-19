@@ -2,8 +2,9 @@
 
 let React = require('react')
 let Classable = require('../mixins/classable')
+let prefix = "icon"
 
-module.exports = React.createClass({
+let Icon = React.createClass({
   displayName: 'Icon',
 
   propTypes: {
@@ -29,14 +30,14 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    let classes = ['icon']
+    let classes = [`${prefix}`]
 
     if (this.state.spin) {
-      classes.push('icon-spin')
+      classes.push(`${prefix}-spin`)
     }
 
     if (this.props.icon) {
-      classes.push(`icon-${this.props.icon}`)
+      classes.push(`${prefix}-${this.props.icon}`)
     }
 
     let size = this.props.size
@@ -44,7 +45,7 @@ module.exports = React.createClass({
       if (typeof size === 'number' || size.length === 1) {
         size = size + 'x'
       }
-      classes.push(`icon-${size}`)
+      classes.push(`${prefix}-${size}`)
     }
 
     return (
@@ -52,3 +53,9 @@ module.exports = React.createClass({
     )
   }
 })
+
+Icon.setPrefix = function (pre) {
+  prefix = pre
+}
+
+module.exports = Icon

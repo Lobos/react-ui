@@ -8,7 +8,6 @@ require('../../less/tree.less')
 
 let React = require('react')
 let classnames = require('classnames')
-let Icon = require('./icon.jsx')
 
 let Strings = require('../utils/strings')
 let Objects = require('../utils/objects')
@@ -308,19 +307,19 @@ let Item = React.createClass({
         )
       }, this)
 
-      children = <ul className={classnames("list-unstyled", {open: this.state.open})}>{items}</ul>
-      type = this.state.open ? "folder-open-o" : "folder-o"
+      children = <ul className={classnames({open: this.state.open})}>{items}</ul>
+      type = this.state.open ? "folder-open" : "folder"
       handle = (
         <a onClick={this.toggle} className="handle">
-          <Icon icon={this.state.open ? "minus-square-o" : "plus-square-o"} />
+          <i className={'tree-icon ' + (this.state.open ? "minus" : "plus")} />
         </a>
       )
     } else {
-      type = "file-o"
+      type = "file"
     }
 
     if (checkAble) {
-      check = ["square-o", "check-square-o", "check-square"][this.state.status]
+      check = ["square", "half-check", "check"][this.state.status]
       checkClass = classnames("check-handle", ["", "half-checked", "checked"][this.state.status])
     }
 
@@ -340,11 +339,11 @@ let Item = React.createClass({
         <label>
           {marks}
           {handle}
-          <Icon icon={type} />
+          <i className={'tree-icon ' + type} />
           {
             checkAble ?
-            <a className={checkClass} onClick={this.check}><Icon icon={check} /><span>{data[this.props.textKey]}</span></a> :
-            <span>{data[this.props.textKey]}</span>
+            <a className={checkClass} onClick={this.check}><i className={'tree-icon ' + check} /><span className="text">{data[this.props.textKey]}</span></a> :
+            <span className="text">{data[this.props.textKey]}</span>
           }
         </label>
         {children}
