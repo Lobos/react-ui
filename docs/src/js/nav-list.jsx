@@ -35,11 +35,15 @@ module.exports = React.createClass({
 
   render: function () {
     let list = menulist.map(function (m) {
-      return (
-        <li className="pure-menu-item">
-          <a onClick={this.routeChange.bind(this, m.route)} className={this.getClasses("pure-menu-link", m.route)}>{m.text}</a>
-        </li>
-      )
+      if (m.route) {
+        return (
+          <li className="pure-menu-item">
+            <a onClick={this.routeChange.bind(this, m.route)} className={this.getClasses("pure-menu-link", m.route)}>{m.text}</a>
+          </li>
+        )
+      } else if (m.hr) {
+        return (<hr />)
+      }
     }, this)
 
     return (

@@ -1,0 +1,45 @@
+@import "mixins.less";
+
+.rating {
+  position: relative;
+  display: inline-block;
+
+  &.rating-star {
+    color: gold;
+  }
+
+  &.rating-heart {
+    color: rgb(202, 60, 60);
+  }
+
+  .rating-front {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    height: 100%;
+    overflow: hidden;
+
+    .rating-inner {
+      width: 1000px;
+    }
+
+    .handle {
+      display: inline-block;
+      .opacity(0.01);
+      .transition(opacity 0.3s);
+    }
+
+    .active {
+      .opacity(1);
+    }
+  }
+
+  .wink {
+    .wink(wink, 0.3s);
+  }
+}
+
+.form-horizontal .rating {
+  margin-top: 7px;
+}

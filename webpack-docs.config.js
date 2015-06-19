@@ -4,6 +4,6 @@ module.exports = require("./make-webpack-config")({
     docs: "./docs/src/less/style.less"
   },
   separateStylesheet: true,
-  path: "./docs/app"
+  path: "./docs/dist"
   //library: "app"
 });
