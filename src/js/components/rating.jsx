@@ -4,13 +4,12 @@ require('../../less/rating.less')
 
 let React = require('react')
 let classnames = require('classnames')
-let Icon = require('./icon.jsx')
 let Classable = require('../mixins/classable')
 let ReceiveValue = require('../mixins/receive-value')
 
 let themes = {
-  "star": ['star-o', 'star'],
-  "heart": ['heart-o', 'heart']
+  // "star": [Icon, Icon],
+  // "heart": [img, img]
 }
 
 let Rating = React.createClass({
@@ -31,8 +30,7 @@ let Rating = React.createClass({
 
   getDefaultProps: function () {
     return {
-      maxValue: 5,
-      theme: 'star'
+      maxValue: 5
     }
   },
 
@@ -58,10 +56,14 @@ let Rating = React.createClass({
   },
 
   getIcon: function (pos = 0) {
-    let icons = this.props.icons || themes[this.props.theme]
+    let icons = this.props.icons
     if (!icons) {
-      icons = themes.star
+      let theme = this.props.theme || Object.keys(themes)[0]
+      icons = themes[theme]
+    }
+    if (!icons) {
       console.warn('icons or theme not exist')
+      return null
     }
 
     return icons[pos]
@@ -71,7 +73,7 @@ let Rating = React.createClass({
     let items = [],
         icon = this.getIcon(0)
     for (let i = 0; i < this.props.maxValue; i++) {
-      items.push(<Icon size={this.props.size} key={i} icon={icon} />)
+      items.push(React.addons.cloneWithProps(icon))
     }
 
     return <div className="rating-bg">{items}</div>
@@ -102,7 +104,7 @@ let Rating = React.createClass({
           onMouseOver={this.handleHover(i + 1)}
           onClick={this.handleChange.bind(this, i + 1)}
           className={classnames('handle', { 'active': active, 'wink': active && wink })}>
-          <Icon size={this.props.size} icon={icon} />
+          {React.addons.cloneWithProps(icon)}
         </span>
       )
     }
@@ -116,7 +118,7 @@ let Rating = React.createClass({
         width = (this.state.value / this.props.maxValue * 100) + '%'
 
     for (let i = 0; i < this.props.maxValue; i++) {
-      items.push(<Icon size={this.props.size} key={i} icon={icon} />)
+      items.push(React.addons.cloneWithProps(icon))
     }
 
     return (
@@ -129,11 +131,7 @@ let Rating = React.createClass({
   },
 
   render: function () {
-    let theme = this.props.theme,
-        className = this.getClasses("rating", {
-          'rating-star': theme === 'star',
-          'rating-heart': theme === 'heart'
-        })
+    let className = this.getClasses("rating")
     return (
       <div style={this.props.style} className={className}>
         { this.getBackground() }
@@ -142,6 +140,10 @@ let Rating = React.createClass({
     )
   }
 })
+
+Rating.register = function (key, icons) {
+  themes[key] = icons
+}
 
 module.exports = Rating
 require('./form-control.jsx').register('Rating', Rating)

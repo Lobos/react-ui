@@ -29,6 +29,7 @@ module.exports = React.createClass({
   icon="string"     // 图标名称，详见 fontawesome
   spin={bool}       // 是否旋转。默认值为 false
   size={int|string} // 图标尺寸，可选值为 [lg|2x|3x|4x|5x]，或者为数字 1-5
+  style={object}    // 样式，fontSize、color等等
 />`}
           </pre>
 

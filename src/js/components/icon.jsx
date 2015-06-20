@@ -10,7 +10,8 @@ let Icon = React.createClass({
   propTypes: {
     icon: React.PropTypes.string,
     size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    spin: React.PropTypes.bool
+    spin: React.PropTypes.bool,
+    style: React.PropTypes.object
   },
 
   mixins: [Classable],
@@ -49,7 +50,7 @@ let Icon = React.createClass({
     }
 
     return (
-      <i className={this.getClasses(...classes)}></i>
+      <i style={this.props.style} className={this.getClasses(...classes)}></i>
     )
   }
 })
