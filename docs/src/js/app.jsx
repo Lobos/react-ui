@@ -17,6 +17,7 @@ Router.create({
 
 // static files
 require('file?name=index.html!../index.html')
+require('../json/countries.json')
 require('../json/form.json')
 require('../json/text-value.json')
 require('../json/tree.json')

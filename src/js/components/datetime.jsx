@@ -2,6 +2,7 @@
 // year,month,day 没有单独写成component，因为我认为那样性能可能存在问题，只是猜测，没有证实，有空的时候测试一下
 // 所以用了很多匿名函数
 
+require('../../less/form.less')
 require('../../less/datetime.less')
 
 let React = require('react')
@@ -275,7 +276,7 @@ let Datetime = React.createClass({
 
   render: function () {
     let className = this.getClasses(
-      'datetime',
+      'datetime form-control',
       {
         'active': this.state.active && !this.props.readOnly,
         'readonly': this.props.readOnly,
