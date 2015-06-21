@@ -1,6 +1,6 @@
 "use strict"
 // year,month,day 没有单独写成component，因为我认为那样性能可能存在问题，只是猜测，没有证实，有空的时候测试一下
-// 所以用了很多onClick={function () {}}的匿名函数
+// 所以用了很多匿名函数
 
 require('../../less/datetime.less')
 
@@ -193,8 +193,7 @@ let Datetime = React.createClass({
   },
 
   getDays: function () {
-    let self = this,
-        value = this.state.value,
+    let value = this.state.value,
         current = this.state.current,
         year = current.getFullYear(),
         month = current.getMonth(),
@@ -221,7 +220,7 @@ let Datetime = React.createClass({
           today: isToday && value.getDate() === d.getDate() && value.getMonth() === d.getMonth()
         }
       )
-      return <button type="button" onClick={function () {self.dayChange(d)}} key={i} className={className}>{d.getDate()}</button>
+      return <button type="button" onClick={() => {this.dayChange(d)}} key={i} className={className}>{d.getDate()}</button>
     }, this)
   },
 
@@ -284,8 +283,7 @@ let Datetime = React.createClass({
       }
     )
 
-    let self = this,
-        current = this.state.current,
+    let current = this.state.current,
         stage = this.state.stage,
         header,
         inner,
@@ -320,10 +318,10 @@ let Datetime = React.createClass({
           <a onClick={this.pre} className="pre">
             <i className="icon arrow-left" />
           </a>
-          <a onClick={function(){self.stageChange('year')}} className="year">
+          <a onClick={() => {this.stageChange('year')}} className="year">
             {datetime.getFullYear(current)}
           </a>
-          <a onClick={function(){self.stageChange('month')}} className="month">
+          <a onClick={() => {this.stageChange('month')}} className="month">
             {datetime.getFullMonth(current)}
           </a>
           <a onClick={this.next} className="next">
@@ -412,11 +410,10 @@ let Clock = React.createClass({
   },
 
   getPointer: function () {
-    let stage = this.state.stage,
-        self = this
+    let stage = this.state.stage
 
-    let pointer = function (type) {
-      let rotate = self.getRotate(type)
+    let pointer = function (type, context) {
+      let rotate = context.getRotate(type)
       return (
         <div style={{transform: rotate, WebkitTransform: rotate }} className={classnames(type, {active: stage === type})}></div>
       )
@@ -424,19 +421,17 @@ let Clock = React.createClass({
 
     return (
       <div className="pointer">
-        {pointer('hour')}
-        {pointer('minute')}
-        {pointer('second')}
+        {pointer('hour', this)}
+        {pointer('minute', this)}
+        {pointer('second', this)}
       </div>
     )
   },
 
   render: function () {
-    let self = this,
-        steps = [],
+    let steps = [],
         //current = this.state.current,
         stage = this.state.stage,
-        //value,
         step = (stage === 'hour' || stage === 'clock') ? 1 : 5
 
     /*
@@ -466,7 +461,7 @@ let Clock = React.createClass({
           left = pos[0] + '%',
           top = pos[1] + '%'
       return (
-        <div onClick={function () { self.setValue(s) }} className={classnames('clock-set')} key={i} style={{left: left, top: top}}>{s}</div>
+        <div onClick={() => { this.setValue(s) }} className={classnames('clock-set')} key={i} style={{left: left, top: top}}>{s}</div>
       )
     }, this)
 
@@ -482,8 +477,8 @@ let Clock = React.createClass({
           </div>
           {this.getPointer()}
           {stage === 'hour' && <div>
-            <div onClick={function(){self.setState({ am: true })}} className={classnames("time-am", { active: this.state.am })}>AM</div>
-            <div onClick={function(){self.setState({ am: false })}} className={classnames("time-pm", { active: !this.state.am })}>PM</div>
+            <div onClick={() => {this.setState({ am: true })}} className={classnames("time-am", { active: this.state.am })}>AM</div>
+            <div onClick={() => {this.setState({ am: false })}} className={classnames("time-pm", { active: !this.state.am })}>PM</div>
           </div>}
         </div>
       </div>
