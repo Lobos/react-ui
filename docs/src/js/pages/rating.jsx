@@ -28,7 +28,7 @@ module.exports = React.createClass({
       <div>
         <div className="header">
           <h1>Rating</h1>
-          <h2>评分</h2>
+          <h2>评分，FormControl组件</h2>
         </div>
 
         <div className="content">

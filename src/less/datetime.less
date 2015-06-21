@@ -1,0 +1,429 @@
+@import "mixins";
+
+.datetime {
+  width: 200px;
+  position: relative;
+  padding: .5em .6em;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 3px #e3e3e3;
+  border-radius: 4px;
+  line-height: normal;
+  .box-sizing(border-box);
+
+  * {
+    .box-sizing(border-box);
+  }
+
+  &.short {
+    width: 140px;
+  }
+
+  .date-text {
+    height: 15px;
+    display: inline-block;
+  }
+
+  .icon {
+    width: 15px;
+    height: 15px; 
+    display: inline-block;
+    background: url(../images/datetime.png);
+
+    &.calendar {
+      position: absolute;
+      right: 0.6em;
+      top: 0.65em; 
+      background-position: -60px 0;
+    }
+
+    &.arrow-right {
+      background-position: -15px 0;
+    }
+
+    &.angle-up {
+      background-position: -45px 0;
+    }
+
+    &.angle-down {
+      background-position: -45px -8px;
+    }
+
+    &.close {
+      background-position: -30px 0;
+    }
+  }
+
+  &.active .date-picker {
+    visibility: visible;
+    max-height: 1000px;
+    min-height: 230px;
+    .opacity(1);
+  }
+
+  .date-picker {
+    visibility: hidden;
+    .opacity(0);
+    z-index: 1050;
+    border: solid 1px #e3e3e3;;
+    background-color: #f5f5f5;
+    border-radius: 3px;
+    max-height: 0;
+    overflow: hidden;
+    //padding: 3px;
+    width: 40px * 7;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin: 2px 0 20px;
+    .box-shadow(0px 6px 12px rgba(0,0,0,0.175));
+    .transition(opacity 0.45s);
+
+    .date-picker-header {
+      margin: 6px 8px 8px;
+      position: relative;
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+
+      a {
+        padding: 4px 6px;
+        color: #555;;
+        display: inline-block;
+        border: solid 1px #e3e3e3;
+        background-color: #fff;
+        border-radius: 3px;
+      }
+
+      .year, .month {
+        padding: 0;
+        width: 74px;
+        display: inline-block;
+        font-size: 16px;
+        color: #000;
+        border-color: transparent;
+        background: none;
+        text-decoration: none;
+
+        &:hover {
+          border-color: #e3e3e3;
+          background-color: #fff;
+        }
+      }
+
+      .pre, .next {
+        position: absolute;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        padding: 0;
+        text-align: center;
+        top: 0; 
+        .icon {
+          position: absolute;
+          left: 4px;
+          top: 4px;
+        }
+      }
+
+      .pre {
+        left: 0;
+      }
+
+      .next {
+        right: 0;
+      }
+    }
+
+    .inner {
+      text-align: center;
+      margin-bottom: 6px;
+
+      &.empty {
+        height: 200px;
+      }
+
+      button, .week {
+        width: 36px;
+        padding: 4px 0;
+        margin: 1px;
+        color: #555;;
+        font-size: 14px;
+        text-align: center;
+        display: inline-block;
+      }
+
+      .day, .year, .month {
+        border: solid 1px #e3e3e3;;
+        background-color: #fff;
+        border-radius: 3px;
+
+        &:hover {
+          background-color: #e3e3e3;
+          color: #000;
+        }
+
+        &:active {
+          background-color: rgb(0, 120, 231);
+          color: #fff;
+          border-color: transparent;
+        }
+      }
+
+      .year {
+        width: 51px;
+        padding: 6px 0;
+      }
+
+      .month {
+        width: 86px;
+        padding: 6px 0;
+      }
+
+      .today {
+        background-color: rgb(0, 120, 231);
+        color: #fff;
+        border-color: transparent;
+      }
+
+      .week {
+        color: #000;
+      }
+
+      .gray {
+        color: #ccc;
+      }
+    }
+  }
+
+  .time-container {
+    text-align: center;
+    padding: 0 0 6px 0;
+    //background-color: rgba(0,0,0,0.3);
+    .time-set {
+      position: relative;
+      width: 70px;
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      font-size: 16px;
+      font-family: Arial;
+      margin: 0 5px;
+      background-color: #fff;
+      border-radius: 4px;
+      border: solid 1px #e3e3e3;
+      .box-shadow(inset 0 1px 1px rgba(0,0,0,0.075));
+      padding-right: 24px;
+
+      .add, .sub {
+        position: absolute;
+        width: 24px;
+        height: 15px;
+        text-align: center;
+        display: block;
+        border-left: solid 1px #e3e3e3;
+        background-color: #eee;
+        right: 0;
+
+        .icon {
+          position: absolute;
+          top: 4px;
+          left: 4px;
+          height: 7px;
+        }
+      }
+
+      .add {
+        top: 0;
+        border-bottom: solid 1px #ccc;
+      }
+
+      .sub {
+        bottom: 0;
+      }
+    }
+
+    .clock-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      visibility: hidden;
+      .opacity(0);
+      .transition(opacity 0.3s);
+
+      &.active {
+        visibility: visible;
+        .opacity(1);
+      }
+
+      .clock-overlay {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      .clock-close {
+        position: absolute;
+        left: 200px;
+        top: 50%;
+        margin-top: -115px;
+        height: 31px;
+        width: 31px;
+        font-size: 20px;
+        text-align: center;
+        border-radius: 50%;
+        border: solid 2px #fff;
+        background-color: #333;
+        .box-shadow(3px 3px 6px rgba(0,0,0,0.275));
+        .opacity(1);
+
+        .icon {
+          position: absolute;
+          left: 6px;
+          top: 6px;
+        }
+      }
+
+      .clock {
+        position: absolute;
+        //visibility: hidden;
+        left: 50%;
+        top: 50%;
+        margin-left: -87px;
+        margin-top: -110px;
+        //bottom: 45px;
+        width: 174px;
+        height: 174px;
+        padding: 5px;
+        border-radius: 50%;
+        border: solid 2px #fff;
+        background-color: #333;
+        .box-shadow(3px 3px 6px rgba(0,0,0,0.275));
+
+        .time-am, .time-pm {
+          position: absolute;
+          text-align: center;
+          width: 40px;
+          height: 28px;
+          line-height: 25px;
+          bottom: -10px;
+          cursor: pointer;
+          font-weight: bold;
+          border-radius: 13px;
+          border: solid 2px #fff;
+          background-color: #333;
+          color: #fff;
+          .box-shadow(3px 3px 6px rgba(0,0,0,0.275));
+
+          &.active {
+            background-color: rgb(0, 120, 231);
+            color: #fff;
+          }
+        }
+
+        .time-am {
+          left: -20px;
+        }
+
+        .time-pm {
+          right: -20px;
+        }
+
+        .tip {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 60px;
+          margin: -10px -30px;
+          color: #999;
+          font-size: 12px;
+          line-height: 20px;
+        }
+
+        .pointer {
+          .hour, .minute, .second {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background-color: #fff;
+            .transform-origin(10px 50%);
+            .transition(0.3s);
+          }
+
+          .active {
+            background-color: rgb(0, 120, 231);
+          }
+
+          .hour {
+            width: 45px;
+            height: 4px;
+            margin: -2px 0 0 -10px;
+          }
+
+          .minute {
+            width: 55px;
+            height: 3px;
+            margin: -1px 0 0 -10px;
+          }
+
+          .second {
+            width: 65px;
+            height: 2px;
+            margin: -1px 0 0 -10px;
+          }
+        }
+
+        .clock-inner {
+          width: 130px;
+          height: 130px;
+          padding: 15px;
+          position: relative;
+
+          .clock-set {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            //background-color: #ccc;
+            color: #ccc;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 15px;
+            cursor: pointer;
+
+            &:hover, &:focus, &.active {
+              background-color: rgb(0, 120, 231);
+              color: #fff;
+            }
+          }
+        }
+      }
+
+    }
+  }
+
+  .date-picker-up {
+    top: auto;
+    bottom: 35px;
+  }
+}
+
+@media (max-width: 767px) {
+  .datetime {
+    .date-picker {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin: -140px 0 0 -140px;
+      z-index: 1060;
+    } 
+
+    &.active .overlay {
+      left: 0;
+      .opacity(1);
+    }
+  }
+}
