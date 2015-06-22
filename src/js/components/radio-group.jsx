@@ -8,7 +8,7 @@ let Resource = require('../mixins/resource')
 let ReceiveValue = require('../mixins/receive-value')
 let Radio = require('./radio.jsx')
 
-module.exports = React.createClass({
+let RadioGroup = React.createClass({
   displayName: "RadioGroup",
 
   propTypes: {
@@ -79,3 +79,6 @@ module.exports = React.createClass({
     )
   }
 })
+
+module.exports = RadioGroup
+require('./form-control.jsx').register('RadioGroup', RadioGroup)

@@ -27,9 +27,9 @@ let Tree = React.createClass({
     readOnly: React.PropTypes.bool,
     sep: React.PropTypes.string,
     src: React.PropTypes.string,
-    textKey: React.PropTypes.string,
+    textTpl: React.PropTypes.string,
     value: React.PropTypes.any,
-    valueKey: React.PropTypes.string
+    valueTpl: React.PropTypes.string
   },
 
   mixins: [Classable, Resource, ReceiveValue],
@@ -37,8 +37,8 @@ let Tree = React.createClass({
   getDefaultProps: function () {
     return {
       sep: ',',
-      textKey: 'text',
-      valueKey: 'id'
+      textTpl: '{text}',
+      valueTpl: '{id}'
     }
   },
 
@@ -65,14 +65,25 @@ let Tree = React.createClass({
   },
 
   initData: function (data) {
+    let tt = this.props.textTpl
+    let vt = this.props.valueTpl
+    let setTpl = function (arr) {
+      arr.forEach(d => {
+        d.$text = Strings.substitute(tt, d)
+        d.$value = Strings.substitute(vt, d)
+        if (d.children) {
+          setTpl(d.children)
+        }
+      })
+    }
+    setTpl(data)
     this.init(data, this.state.value)
   },
 
   // 初始化数据，不在item里面判断，在元数据里加入deep和status，减少判断和item.setState次数
-  init: function (data, value) {
-    let key = this.props.valueKey
+  init: function (data, values) {
     let getStatus = function (d, last, deep) {
-      let v = d[key],
+      let val = d.$value,
           status,
           newDeep,
           nextDeep
@@ -98,7 +109,7 @@ let Tree = React.createClass({
           }
         })
       } else {
-        status = value.indexOf(v) >= 0 ? 2 : 0
+        status = values.indexOf(val) >= 0 ? 2 : 0
       }
       d.$status = status
       d.$deep = newDeep
@@ -124,28 +135,22 @@ let Tree = React.createClass({
     })
   },
 
-  getValue: function (key) {
-    // ignore validate raw
-    if (typeof key === 'boolean') {
-      key = undefined
-    }
-
-    key = key || this.props.valueKey
+  getValue: function () {
     let list = [],
-        value = [],
+        values = [],
         greedy = this.props.greedy
     Objects.forEach(this.refs, function (ref) {
       ref.getChecked(list, greedy)
     })
 
     list.forEach(function (d) {
-      value.push(d[key])
+      values.push(d.$value)
     })
 
     if (this.props.sep) {
-      value = value.join(this.props.sep)
+      values = values.join(this.props.sep)
     }
-    return value
+    return values
   },
 
   handleChange: function () {
@@ -156,15 +161,13 @@ let Tree = React.createClass({
 
   render: function () {
     let value = this.state.value
-    let { checkAble, readOnly, textKey, valueKey, open } = this.props
+    let { checkAble, readOnly, open } = this.props
 
     let items = this.state.data.map(function (item, i) {
       return (
         <Item ref={i}
           open={open}
           readOnly={readOnly}
-          valueKey={valueKey}
-          textKey={textKey}
           onStatusChange={this.handleChange}
           value={value}
           checkAble={checkAble}
@@ -193,9 +196,7 @@ let Item = React.createClass({
     onStatusChange: React.PropTypes.func,
     open: React.PropTypes.bool,
     readOnly: React.PropTypes.bool,
-    textKey: React.PropTypes.string,
-    value: React.PropTypes.any,
-    valueKey: React.PropTypes.string
+    value: React.PropTypes.any
   },
 
   getInitialState: function () {
@@ -288,7 +289,7 @@ let Item = React.createClass({
         type,
         marks = []
 
-    let { data, checkAble, valueKey, textKey, readOnly, open, value } = this.props
+    let { data, checkAble, readOnly, open, value } = this.props
 
     if (data.children) {
       let items = data.children.map(function (item, i) {
@@ -298,8 +299,6 @@ let Item = React.createClass({
             open={open}
             readOnly={readOnly}
             value={value}
-            valueKey={valueKey}
-            textKey={textKey}
             checkAble={checkAble}
             data={item}
             onStatusChange={this.updateStatus}
@@ -342,8 +341,8 @@ let Item = React.createClass({
           <i className={'tree-icon ' + type} />
           {
             checkAble ?
-            <a className={checkClass} onClick={this.check}><i className={'tree-icon ' + check} /><span className="text">{data[this.props.textKey]}</span></a> :
-            <span className="text">{data[this.props.textKey]}</span>
+            <a className={checkClass} onClick={this.check}><i className={'tree-icon ' + check} /><span className="text">{data.$text}</span></a> :
+            <span className="text">{data.$text}</span>
           }
         </label>
         {children}
@@ -353,3 +352,4 @@ let Item = React.createClass({
 })
 
 module.exports = Tree
+require('./form-control.jsx').register('Tree', Tree)

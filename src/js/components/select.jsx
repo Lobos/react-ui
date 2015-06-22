@@ -38,7 +38,7 @@ let Select = React.createClass({
   getDefaultProps: function () {
     return {
       sep: ',',
-      option: '{text}',
+      optionTpl: '{text}',
       valueTpl: '{value}'
     }
   },
@@ -235,3 +235,4 @@ let Select = React.createClass({
 })
 
 module.exports = Select
+require('./form-control.jsx').register('Select', Select)

@@ -21,7 +21,7 @@ module.exports = React.createClass({
           <p>
             支持 <a href="http://fontawesome.io/">font-awesome</a> 和 <a href="http://zavoloklom.github.io/material-design-iconic-font/">material-design-iconic-font</a><br />
             默认的前缀为 <em>icon</em>，如果使用less，生成这两个字体的css时，指定 <em>prefix</em> 为 <em>icon</em><br />
-            如果使用这两个字体原生的前缀 <em>fa</em> 或者 <em>md</em>，调用 <em>Icon.setPrefix(prefix)</em> 这个全局方法设置
+            如果使用这两个字体原生的前缀 <em>fa</em> 或者 <em>zmdi</em>，调用 <em>Icon.setPrefix(prefix)</em> 这个全局方法设置
           </p>
 
           <pre className="prettyprint">

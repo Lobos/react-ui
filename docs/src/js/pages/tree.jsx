@@ -14,8 +14,6 @@ module.exports = React.createClass({
       readOnly: false,
       checkAble: true,
       greedy: false,
-      textKey: 'text',
-      valueKey: 'id',
       sep: ',',
       value: 'role_delete',
       showValue: 'role_delete',
@@ -37,12 +35,6 @@ module.exports = React.createClass({
 
   sepChange: function (sep) {
     this.setState({ sep })
-    setTimeout(()=>this.handleChange(), 0)
-  },
-
-  changeKey: function () {
-    let { valueKey, textKey } = this.state
-    this.setState({ valueKey: textKey, textKey: valueKey })
     setTimeout(()=>this.handleChange(), 0)
   },
 
@@ -70,8 +62,8 @@ module.exports = React.createClass({
   greedy={bool}       // 为true时，getValue返回的值包含半选中项
   onChange={function} // 当选项改变时回调方法，参数为 value
   readOnly={bool}     // 为 true 时，只读。默认为 false
-  textKey="string"    // 数据结构中显示文字的key，默认为 "text"
-  valueKey="string"   // 数据结构中返回值的key，默认为 "id"
+  textTpl="string"    // 显示文字模板，默认为 "{text}"
+  valueTpl="string"   // 返回数据模板，默认为 "{id}"
   value={string|array}
 />`}
         </pre>
@@ -83,8 +75,8 @@ module.exports = React.createClass({
             checkAble={this.state.checkAble}
             greedy={this.state.greedy}
             onChange={this.handleChange}
-            textKey={this.state.textKey}
-            valueKey={this.state.valueKey}
+            textTpl="{text}({id})"
+            valueTpl="{id}"
             value={this.state.value}
             open={true}
             sep={this.state.sep}
@@ -100,9 +92,6 @@ module.exports = React.createClass({
         <p>
           sep: {seps}
         </p>
-        <p>
-          <a onClick={this.changeKey}>Switch Key</a>
-        </p>
         <p>value: {this.state.showValue}</p>
         <pre className="prettyprint">
 {`<Tree ref="tree" src="json/tree.json"
@@ -110,8 +99,8 @@ module.exports = React.createClass({
   checkAble={this.state.checkAble}
   greedy={this.state.greedy}
   onChange={this.handleChange}
-  textKey={this.state.textKey}
-  valueKey={this.state.valueKey}
+  textTpl="{text}({id})"
+  valueTpl="{id}"
   value={this.state.value}
   open={true}
   sep={this.state.sep}
@@ -124,11 +113,6 @@ module.exports = React.createClass({
 <Checkbox onChange={(value)=>this.setState({ greedy: value })}
   checked={this.state.gre} text="greedy" />
 <a onClick={this.changeKey}>Switch Key</a>
-
-changeKey: function () {
-  var { valueKey, textKey } = this.state
-  this.setState({ valueKey: textKey, textKey: valueKey })
-}
 `}
         </pre>
 

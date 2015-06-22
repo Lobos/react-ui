@@ -559,3 +559,4 @@ let TimeSet = React.createClass({
 })
 
 module.exports = Datetime
+require('./form-control.jsx').register('Datetime', Datetime)
