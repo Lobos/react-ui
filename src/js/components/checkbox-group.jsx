@@ -75,7 +75,9 @@ let CheckboxGroup = React.createClass({
 
   getValue: function (sep) {
     let value = this.state.value
-    sep = sep || this.props.sep
+    if (sep === undefined) {
+      sep = this.props.sep
+    }
     if (sep) {
       value = value.join(sep)
     }

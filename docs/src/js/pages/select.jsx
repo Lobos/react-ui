@@ -22,9 +22,11 @@ module.exports = React.createClass({
 
           <br />
 
-          <Select className="pure-u-1-2" placeholder="单选" filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueKey="en" src="json/countries.json" />
+          <Select className="pure-u-1-2" placeholder="单选" filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{country}-{en}" src="json/countries.json" />
 
-          <Select className="pure-u-1-2" mult={true} placeholder="多选" filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' resultTpl='<img src="images/flags/{code}.png" /> {country}' valueKey="en" src="json/countries.json" />
+          <Select className="pure-u-1-2" cache={true} mult={true} placeholder="多选" filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' resultTpl='<img src="images/flags/{code}.png" /> {country}' valueTpl="{en}" src="json/countries.json" />
+
+          <Select className="pure-u-1-2" placeholder="Group by continent" groupBy="continent" filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{country}-{en}" src="json/countries.json" />
         </div>
       </div>
     )

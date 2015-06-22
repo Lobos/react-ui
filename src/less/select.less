@@ -59,7 +59,7 @@
 
     .filter {
       position: relative;
-      padding: .3em .6em;
+      padding: .4em .6em;
       .box-sizing(border-box);
 
       .search {
@@ -98,15 +98,22 @@
         display: block;
       }
 
-      &.active {
-        color: #000;
-        background-color: #ddd;
-      }
-
       &:hover {
         color: #fff;
         background-color: @brand-primary;
       }
+
+      &.active {
+        color: #000;
+        background-color: #ddd;
+      }
     }
+
+    .group {
+      display: block;
+      font-weight: bold;
+      padding: 0.4em 0.6em;
+    }
+
   }
 }

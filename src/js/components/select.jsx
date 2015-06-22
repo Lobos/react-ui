@@ -29,7 +29,7 @@ let Select = React.createClass({
     sep: React.PropTypes.string,
     src: React.PropTypes.src,
     value: React.PropTypes.any,
-    valueKey: React.PropTypes.string
+    valueTpl: React.PropTypes.string
   },
 
   mixins: [Classable, ReceiveValue, Resource, ClickAwayable],
@@ -38,7 +38,7 @@ let Select = React.createClass({
     return {
       sep: ',',
       option: '{text}',
-      valueKey: 'value'
+      valueTpl: '{value}'
     }
   },
 
@@ -64,7 +64,7 @@ let Select = React.createClass({
 
   open: function () {
     if (!this.state.active) {
-      this.setState({ active: true })
+      this.setState({ filter: '', active: true })
     }
   },
 
@@ -95,17 +95,51 @@ let Select = React.createClass({
 
       // speed filter
       if (this.props.filterAble) {
-        d.$filter = (Object.keys(d).map(k => d[k])).join(',')
+        d.$filter = (Object.keys(d).map(k => d[k])).join(',').toLowerCase()
       }
 
-      let val = d[this.props.valueKey]
+      let val = Strings.substitute(this.props.valueTpl, d)
       d.$option = Strings.substitute(this.props.optionTpl, d)
       d.$result = Strings.substitute(this.props.resultTpl || this.props.optionTpl, d)
       d.$value = val
       d.$checked = value.indexOf(val) >= 0
       return d
     })
+
+    if (this.props.groupBy) {
+      let groups = {},
+          groupBy = this.props.groupBy
+      data.forEach(d => {
+        let key = d[groupBy]
+        if (!groups[key]) {
+          groups[key] = []
+        }
+        groups[key].push(d)
+      })
+      data = []
+      Object.keys(groups).forEach(k => {
+        data.push(k)
+        data = data.concat(groups[k])
+      })
+    }
+
     this.setState({ data: data })
+  },
+
+  getValue: function (sep) {
+    let value = this.state.data.map(d => {
+      return d.$value
+    })
+
+    if (sep === undefined) {
+      sep = this.props.sep
+    }
+
+    if (sep) {
+      value = value.join(sep)
+    }
+
+    return value
   },
 
   handleChange: function (i) {
@@ -115,7 +149,9 @@ let Select = React.createClass({
       this.setState({ data })
     } else {
       data.map(d => {
-        d.$checked = false
+        if (typeof d !== 'string') {
+          d.$checked = false
+        }
       })
       data[i].$checked = true
       this.setState({ data, active: false })
@@ -127,7 +163,7 @@ let Select = React.createClass({
 
   render: function () {
     let active = this.state.active
-    let show = []
+    let result = []
 
     let className = this.getClasses('select form-control', {
       active: active,
@@ -139,22 +175,31 @@ let Select = React.createClass({
     let filter = this.props.filterAble ?
                  (<div className="filter">
                     <i className="search" />
-                    <input onChange={ e=>this.setState({ filter: e.target.value }) } type="text" />
+                    <input value={this.state.filter}
+                      onChange={ e=>this.setState({ filter: e.target.value }) }
+                      type="text" />
                   </div>) :
                  null
-    let filterText = this.state.filter
+
+    let filterText = this.state.filter ?
+                     this.state.filter.toLowerCase() :
+                     null
 
     let options = this.state.data.map(function (d, i) {
+      if (typeof d === 'string') {
+        return <span key={i} className="show group">{d}</span>
+      }
+
       if (d.$checked) {
         if (this.props.mult) {
-          show.push(
+          result.push(
             <div className="result"
               onClick={this.handleChange.bind(this, i)}
               dangerouslySetInnerHTML={{__html: d.$result}}
             />
           )
         } else {
-          show.push(<span dangerouslySetInnerHTML={{__html: d.$result}} />)
+          result.push(<span dangerouslySetInnerHTML={{__html: d.$result}} />)
         }
       }
       let optionClassName = classnames({
@@ -172,7 +217,7 @@ let Select = React.createClass({
 
     return (
       <div onClick={this.open} className={className}>
-        { show.length > 0 ? show : <span className="placeholder">{placeholder}&nbsp;</span> }
+        { result.length > 0 ? result : <span className="placeholder">{placeholder}&nbsp;</span> }
         <div className="options">
           {filter}
           <ul>{options}</ul>
