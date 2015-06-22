@@ -58,8 +58,19 @@
     .transition(opacity 0.45s);
 
     .filter {
+      position: relative;
       padding: .3em .6em;
       .box-sizing(border-box);
+
+      .search {
+        position: absolute;
+        top: .8em;
+        right: 1em;
+        width: 15px;
+        height: 14px;
+        background: url('../images/icon-search.png');
+      }
+
       input {
         width: 100%;
         padding: .3em;

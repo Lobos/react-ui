@@ -112,16 +112,13 @@ let Select = React.createClass({
     let data = clone(this.state.data)
     if (this.props.mult) {
       data[i].$checked = !data[i].$checked
+      this.setState({ data })
     } else {
       data.map(d => {
         d.$checked = false
       })
       data[i].$checked = true
-    }
-    if (!this.props.mult) {
       this.setState({ data, active: false })
-    } else {
-      this.setState({ data })
     }
     if (this.props.onChange) {
       this.props.onChange()
@@ -140,7 +137,10 @@ let Select = React.createClass({
     let placeholder = this.state.msg || this.props.placeholder
 
     let filter = this.props.filterAble ?
-                 <div className="filter"><input onChange={ e=>this.setState({ filter: e.target.value }) } type="text" /></div> :
+                 (<div className="filter">
+                    <i className="search" />
+                    <input onChange={ e=>this.setState({ filter: e.target.value }) } type="text" />
+                  </div>) :
                  null
     let filterText = this.state.filter
 
