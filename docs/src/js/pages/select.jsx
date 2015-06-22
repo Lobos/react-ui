@@ -43,9 +43,9 @@ data 为简单数组（如["中国", "美国", "俄罗斯", "德国"])，时，�
 
           <h2 className="subhead">简单数组</h2>
           <div>
-            <Select className="pure-u-1-4" placeholder="简单数组" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
+            <Select width={6} placeholder="简单数组" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
             {' '}
-            <Select className="pure-u-1-2" mult={true} data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
+            <Select width={12} mult={true} data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
           </div>
           <pre className="prettyprint">
 {`<Select placeholder="简单数组" data={["中国", "美国", "俄罗斯", "德国"]} />
@@ -53,7 +53,7 @@ data 为简单数组（如["中国", "美国", "俄罗斯", "德国"])，时，�
           </pre>
 
           <h2 className="subhead">单选</h2>
-          <Select className="pure-u-1 pure-u-sm-1-2"
+          <Select width={12}
             placeholder="单选"
             filterAble={true}
             optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
@@ -69,7 +69,7 @@ data 为简单数组（如["中国", "美国", "俄罗斯", "德国"])，时，�
           </pre>
 
           <h2 className="subhead">多选</h2>
-          <Select className="pure-u-1"
+          <Select width={24}
             cache={true}
             mult={true}
             placeholder="多选"
@@ -91,7 +91,7 @@ data 为简单数组（如["中国", "美国", "俄罗斯", "德国"])，时，�
           </pre>
 
           <h2 className="subhead">groupBy</h2>
-          <Select className="pure-u-1 pure-u-sm-1-2"
+          <Select width={12}
             placeholder="Group by continent"
             groupBy="continent"
             dropup={true}

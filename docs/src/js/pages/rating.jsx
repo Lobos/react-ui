@@ -5,7 +5,7 @@ let Prettify = require('../mixins/prettify')
 import {Rating, Icon, RadioGroup, Checkbox} from '../../../../src/js'
 
 Rating.register('star', [
-  <Icon size={2} style={{color: 'gold'}} icon="star-outline" />,
+  <Icon size={2} style={{color: 'gold'}} icon="star-border" />,
   <Icon size={2} style={{color: 'gold'}} icon="star" />
 ])
 

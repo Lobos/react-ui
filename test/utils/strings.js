@@ -26,4 +26,13 @@ describe('utils strings', function () {
     raw = [1, 2, 3]
     _(raw).should.deep.equal([1, 2, 3])
   })
+
+  it('nextUid', function () {
+    var uid
+    for(var i=0; i<100; i++) {
+      uid = Strings.nextUid()
+    }
+
+    uid.should.eql('A02S')
+  })
 })

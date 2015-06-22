@@ -1,5 +1,29 @@
 "use strict"
 
+let uid = ['A', '0', '0', '0']
+
+function nextUid() {
+  var index = uid.length
+  var digit
+
+  while(index) {
+    index--
+      digit = uid[index].charCodeAt(0)
+    if (digit === 57) {
+      uid[index] = 'A'
+      return uid.join('')
+    }
+    if (digit === 90) {
+      uid[index] = '0'
+    } else {
+      uid[index] = String.fromCharCode(digit + 1)
+      return uid.join('')
+    }
+  }
+  uid.unshift('0')
+  return uid.join('')
+}
+
 function format() {
   let args = [].slice.call(arguments),
       str = args.shift()
@@ -35,4 +59,4 @@ function toArray(value, sep) {
   return value
 }
 
-module.exports = { format, substitute, toArray }
+module.exports = { format, nextUid, substitute, toArray }
