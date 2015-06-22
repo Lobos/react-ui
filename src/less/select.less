@@ -4,7 +4,7 @@
   position: relative;
   min-width: 100px;
 
-  &:before {
+  &.single:before {
     width: 0;
     height: 0;
     border-top: 6px solid #666;
@@ -17,31 +17,28 @@
     z-index: 0;
   }
 
-  &.active .options {
-    visibility: visible;
-    max-height: 300px;
-    .opacity(1);
-    overflow: auto;
-  }
-
   .result {
     position: relative;
     cursor: pointer;
     display: inline-block;
-    margin-right: 4px;
+    margin-right: 16px;
 
     &:after {
+      position: absolute;
+      right: -12px;
       content: '×';
       font-weight: bold;
       color: #ddd;
     }
 
-    &:hover {
-      color: red;
-      &:after {
-        color: red;
-      }
+    &:hover, &:hover:after {
+      color: rgb(202, 60, 60);
     }
+  }
+
+  &.active .options {
+    visibility: visible;
+    .opacity(1);
   }
 
   .options {
@@ -52,23 +49,42 @@
     z-index: 1050;
     border: solid 1px #e3e3e3;;
     border-radius: 4px;
-    max-height: 0;
     overflow: hidden;
     top: 100%;
     left: 0;
     margin: 2px 0 20px;
     .box-shadow(0px 6px 12px rgba(0,0,0,0.175));
     .transition(opacity 0.45s);
+
+    .filter {
+      padding: .3em .6em;
+      .box-sizing(border-box);
+      input {
+        width: 100%;
+        padding: .3em;
+        border: none;
+        background-color: #f2f2f2;
+        border-radius: 4px;
+        .box-sizing(border-box);
+      }
+    }
   }
 
   ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    max-height: 300px;
+    overflow: auto;
 
     li {
       padding: 0.4em 0.6em;
       cursor: pointer;
+      display: none;
+
+      &.show {
+        display: block;
+      }
 
       &.active {
         color: #000;

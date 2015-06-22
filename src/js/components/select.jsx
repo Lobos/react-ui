@@ -17,6 +17,7 @@ let Select = React.createClass({
   propTypes: {
     cache: React.PropTypes.bool,
     data: React.PropTypes.array,
+    filterAble: React.PropTypes.bool,
     groupBy: React.PropTypes.string,
     mult: React.PropTypes.bool,
     onChange: React.PropTypes.func,
@@ -43,7 +44,8 @@ let Select = React.createClass({
   getInitialState: function () {
     return {
       active: true,
-      data: []
+      data: [],
+      filter: ''
     }
   },
 
@@ -67,8 +69,14 @@ let Select = React.createClass({
           $option: d,
           $result: d,
           $value: d,
+          $filter: d,
           $checked: value.indexOf(d) >= 0
         }
+      }
+
+      // speed filter
+      if (this.props.filterAble) {
+        d.$filter = (Object.keys(d).map(k => d[k])).join(',')
       }
 
       let val = d[this.props.valueKey]
@@ -92,6 +100,9 @@ let Select = React.createClass({
       data[i].$checked = true
     }
     this.setState({ data })
+    if (this.props.onChange) {
+      this.props.onChange()
+    }
   },
 
   render: function () {
@@ -99,23 +110,38 @@ let Select = React.createClass({
     let show = []
 
     let className = this.getClasses('select form-control', {
-      active: active
+      active: active,
+      single: !this.props.mult
     })
+
+    let placeholder = this.state.msg || this.props.placeholder
+
+    let filter = this.props.filterAble ?
+                 <div className="filter"><input onChange={ e=>this.setState({ filter: e.target.value }) } type="text" /></div> :
+                 null
+    let filterText = this.state.filter
 
     let options = this.state.data.map(function (d, i) {
       if (d.$checked) {
         if (this.props.mult) {
           show.push(
-            <div onClick={this.handleChange.bind(this, i)} className="result">{d.$result}</div>
+            <div className="result"
+              onClick={this.handleChange.bind(this, i)}
+              dangerouslySetInnerHTML={{__html: d.$result}}
+            />
           )
         } else {
-          show.push(d.$result)
+          show.push(<span dangerouslySetInnerHTML={{__html: d.$result}} />)
         }
       }
+      let optionClassName = classnames({
+        active: d.$checked,
+        show: filterText ? d.$filter.indexOf(filterText) >= 0 : true
+      })
       return (
         <li key={i}
           onClick={this.handleChange.bind(this, i)}
-          className={ classnames({ active: d.$checked }) }
+          className={ optionClassName }
           dangerouslySetInnerHTML={{__html: d.$option}}
         />
       )
@@ -123,8 +149,9 @@ let Select = React.createClass({
 
     return (
       <div className={className}>
-        { show.length > 0 ? show : <span className="placeholder">{this.props.placeholder}&nbsp;</span> }
+        { show.length > 0 ? show : <span className="placeholder">{placeholder}&nbsp;</span> }
         <div className="options">
+          {filter}
           <ul>{options}</ul>
         </div>
       </div>

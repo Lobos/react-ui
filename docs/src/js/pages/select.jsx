@@ -18,9 +18,13 @@ module.exports = React.createClass({
         </div>
 
         <div className="content">
-          <Select className="pure-u-1-2" placeholder="单选" data={["中国", "美国", "俄罗斯", "德国"]} />
+          <Select className="pure-u-1-2" placeholder="数组选项" data={["中国", "美国", "俄罗斯", "德国"]} />
 
-          <Select className="pure-u-1-2" mult={true} placeholder="多选" optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' resultTpl='{country}' valueKey="en" src="json/countries.json" />
+          <br />
+
+          <Select className="pure-u-1-2" placeholder="单选" optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueKey="en" src="json/countries.json" />
+
+          <Select className="pure-u-1-2" mult={true} placeholder="多选" filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' resultTpl='<img src="images/flags/{code}.png" /> {country}' valueKey="en" src="json/countries.json" />
         </div>
       </div>
     )
