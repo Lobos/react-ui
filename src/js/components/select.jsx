@@ -10,6 +10,7 @@ let clone = require('../utils/clone')
 let Classable = require('../mixins/classable')
 let Resource = require('../mixins/resource')
 let ReceiveValue = require('../mixins/receive-value')
+let ClickAwayable = require('../mixins/click-awayable')
 
 let Select = React.createClass({
   displayName: 'Select',
@@ -31,7 +32,7 @@ let Select = React.createClass({
     valueKey: React.PropTypes.string
   },
 
-  mixins: [Classable, ReceiveValue, Resource],
+  mixins: [Classable, ReceiveValue, Resource, ClickAwayable],
 
   getDefaultProps: function () {
     return {
@@ -43,9 +44,27 @@ let Select = React.createClass({
 
   getInitialState: function () {
     return {
-      active: true,
+      active: false,
       data: [],
       filter: ''
+    }
+  },
+
+  componentWillUpdate: function(nextProps, nextState) {
+    if (nextState.active) {
+      this.bindClickAway()
+    } else {
+      this.unbindClickAway()
+    }
+  },
+
+  componentClickAway: function () {
+    this.setState({ active: false })
+  },
+
+  open: function () {
+    if (!this.state.active) {
+      this.setState({ active: true })
     }
   },
 
@@ -99,7 +118,11 @@ let Select = React.createClass({
       })
       data[i].$checked = true
     }
-    this.setState({ data })
+    if (!this.props.mult) {
+      this.setState({ data, active: false })
+    } else {
+      this.setState({ data })
+    }
     if (this.props.onChange) {
       this.props.onChange()
     }
@@ -148,7 +171,7 @@ let Select = React.createClass({
     }, this)
 
     return (
-      <div className={className}>
+      <div onClick={this.open} className={className}>
         { show.length > 0 ? show : <span className="placeholder">{placeholder}&nbsp;</span> }
         <div className="options">
           {filter}
