@@ -18,6 +18,7 @@ let Select = React.createClass({
   propTypes: {
     cache: React.PropTypes.bool,
     data: React.PropTypes.array,
+    dropup: React.PropTypes.bool,
     filterAble: React.PropTypes.bool,
     groupBy: React.PropTypes.string,
     mult: React.PropTypes.bool,
@@ -63,7 +64,7 @@ let Select = React.createClass({
   },
 
   open: function () {
-    if (!this.state.active) {
+    if (!this.state.active && !this.props.readOnly) {
       this.setState({ filter: '', active: true })
     }
   },
@@ -143,6 +144,10 @@ let Select = React.createClass({
   },
 
   handleChange: function (i) {
+    if (this.props.readOnly) {
+      return
+    }
+
     let data = clone(this.state.data)
     if (this.props.mult) {
       data[i].$checked = !data[i].$checked
@@ -167,6 +172,8 @@ let Select = React.createClass({
 
     let className = this.getClasses('select form-control', {
       active: active,
+      readonly: this.props.readOnly,
+      dropup: this.props.dropup,
       single: !this.props.mult
     })
 

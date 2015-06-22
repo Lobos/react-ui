@@ -52,6 +52,7 @@ let Checkbox = React.createClass({
       <label className="pure-checkbox rui-checkbox">
         <input ref="input"
           type="checkbox"
+          disabled={this.props.readOnly}
           onChange={this.handleChange}
           checked={this.state.checked}
           value={this.props.value}

@@ -14,19 +14,101 @@ module.exports = React.createClass({
       <div>
         <div className="header">
           <h1>Select</h1>
-          <h2>选择器</h2>
+          <h2>下拉列表</h2>
         </div>
 
         <div className="content">
-          <Select className="pure-u-1-2" placeholder="数组选项" data={["中国", "美国", "俄罗斯", "德国"]} />
+          <pre className="prettyprint">
+{`<Select
+  className={string}    // class
+  data={array}          // 数据，与 src 二选一，优先使用 data
+  src="string"          // 服务器端数据地址，与 data 二选一
+  cache={bool}          // 数据缓存，只有当数据为远程获取时有效。默认为 true
+  sep={string|null}     // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
+  filterAble={bool}     // 是否显示筛选，默认为 false
+  readOnly={bool}       // 是否只读。默认为 false
+  groupBy={string}      // 分组的 key。不填为不分组
+  placeholder={string}  // 占位提示文字
+  mult={bool}           // 是否多选，默认为 false
+  onChange={function}   // 值改变时触发事件，无参数，需要值请调用 getValue
+  optionTpl={string}    // 选项模板，默认为 {text}
+  resultTpl={string}    // 选中项显示模板，如果不填使用 optionTpl
+  valueTpl={string}     // 返回值模板，默认为 {value}
+  value={string}        // 初始值
+/>
+模板使用 "{key}" 形式的字符串进行格式化。
+data 为简单数组（如["中国", "美国", "俄罗斯", "德国"])，时，所有模板无效。
+`}
+          </pre>
 
-          <br />
+          <h2 className="subhead">简单数组</h2>
+          <div>
+            <Select className="pure-u-1-4" placeholder="简单数组" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
+            {' '}
+            <Select className="pure-u-1-2" mult={true} data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
+          </div>
+          <pre className="prettyprint">
+{`<Select placeholder="简单数组" data={["中国", "美国", "俄罗斯", "德国"]} />
+<Select className="pure-u-1-2" mult={true} data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />`}
+          </pre>
 
-          <Select className="pure-u-1-2" placeholder="单选" filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{country}-{en}" src="json/countries.json" />
+          <h2 className="subhead">单选</h2>
+          <Select className="pure-u-1 pure-u-sm-1-2"
+            placeholder="单选"
+            filterAble={true}
+            optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
+            valueTpl="{country}-{en}"
+            src="json/countries.json" />
+          <pre className="prettyprint">
+{`<Select placeholder="单选"
+  filterAble={true}
+  optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
+  valueTpl="{country}-{en}"
+  src="json/countries.json" />
+`}
+          </pre>
 
-          <Select className="pure-u-1-2" cache={true} mult={true} placeholder="多选" filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' resultTpl='<img src="images/flags/{code}.png" /> {country}' valueTpl="{en}" src="json/countries.json" />
+          <h2 className="subhead">多选</h2>
+          <Select className="pure-u-1"
+            cache={true}
+            mult={true}
+            placeholder="多选"
+            filterAble={true}
+            optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
+            resultTpl='<img src="images/flags/{code}.png" /> {country}'
+            valueTpl="{en}"
+            src="json/countries.json" />
+          <pre className="prettyprint">
+{`<Select placeholder="多选"
+  cache={true}
+  mult={true}
+  filterAble={true}
+  optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
+  resultTpl='<img src="images/flags/{code}.png" /> {country}'
+  valueTpl="{en}"
+  src="json/countries.json" />
+`}
+          </pre>
 
-          <Select className="pure-u-1-2" placeholder="Group by continent" groupBy="continent" filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{country}-{en}" src="json/countries.json" />
+          <h2 className="subhead">groupBy</h2>
+          <Select className="pure-u-1 pure-u-sm-1-2"
+            placeholder="Group by continent"
+            groupBy="continent"
+            dropup={true}
+            filterAble={true}
+            optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
+            valueTpl="{country}-{en}"
+            src="json/countries.json" />
+          <pre className="prettyprint">
+{`<Select placeholder="Group by continent"
+  groupBy="continent"
+  dropup={true}
+  filterAble={true}
+  optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
+  valueTpl="{country}-{en}"
+  src="json/countries.json" />
+`}
+          </pre>
         </div>
       </div>
     )

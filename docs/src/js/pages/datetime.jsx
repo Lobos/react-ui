@@ -51,6 +51,10 @@ module.exports = React.createClass({
           <p ref="p-timeOnly"></p>
           <pre className="prettyprint">{`<Datetime timeOnly={true} />`}</pre>
 
+          <h2 className="subhead">readOnly</h2>
+          <Datetime readOnly={true} value="2015-06-21 17:24:03" />
+          <pre className="prettyprint">{`<Datetime readOnly={true} value="2015-06-21 17:24:03" />`}</pre>
+
           <h2 className="subhead">unixtime</h2>
           <Datetime ref="d-unixtime" onChange={this.handleChange.bind(this, 'unixtime')} unixtime={true} />
           <p ref="p-unixtime"></p>

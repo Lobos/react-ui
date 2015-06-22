@@ -27,7 +27,7 @@ module.exports = React.createClass({
         <label>
           <input ref="input"
             type="radio"
-            readOnly={this.props.readOnly}
+            disabled={this.props.readOnly}
             onChange={null}
             onClick={this.handleClick}
             checked={this.props.checked}

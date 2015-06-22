@@ -174,7 +174,7 @@ let Tree = React.createClass({
       )
     }, this)
 
-    let className = this.getClasses('tree', 'list-unstyled', {
+    let className = this.getClasses('tree', {
       readonly: this.props.readOnly
     })
 
