@@ -146,4 +146,13 @@ Rating.register = function (key, icons) {
 }
 
 module.exports = Rating
-require('./form-control.jsx').register('Rating', Rating)
+
+require('./form-control.jsx').register(
+
+  'rating',
+
+  function (props) {
+    return <Rating {...props} />
+  }
+
+)

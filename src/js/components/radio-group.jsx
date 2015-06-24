@@ -19,12 +19,19 @@ let RadioGroup = React.createClass({
     readOnly: React.PropTypes.bool,
     src: React.PropTypes.string,
     style: React.PropTypes.object,
-    textKey: React.PropTypes.string,
+    textTpl: React.PropTypes.string,
     value: React.PropTypes.any,
-    valueKey: React.PropTypes.string
+    valueTpl: React.PropTypes.string
   },
 
   mixins: [Classable, Resource, ReceiveValue],
+
+  getDefaultProps: function () {
+    return {
+      textTpl: '{text}',
+      valueTpl: '{id}'
+    }
+  },
 
   getInitialState: function () {
     return {
@@ -33,7 +40,7 @@ let RadioGroup = React.createClass({
   },
 
   initData: function (data) {
-    data = Objects.toTextValue(data, this.props.textKey, this.props.valueKey)
+    data = Objects.toTextValue(data, this.props.textTpl, this.props.valueTpl)
     this.setState({ data: data })
   },
 
@@ -67,9 +74,9 @@ let RadioGroup = React.createClass({
         <Radio key={i}
           onClick={this.handleChange}
           readOnly={this.props.readOnly}
-          checked={this.state.value === item.value}
-          text={item.text}
-          value={item.value}
+          checked={this.state.value === item.$value}
+          text={item.$text}
+          value={item.$value}
         />
       )
     }, this)
@@ -81,4 +88,13 @@ let RadioGroup = React.createClass({
 })
 
 module.exports = RadioGroup
-require('./form-control.jsx').register('RadioGroup', RadioGroup)
+
+require('./form-control.jsx').register(
+
+  'radio-group',
+
+  function (props) {
+    return <RadioGroup {...props} />
+  }
+
+)

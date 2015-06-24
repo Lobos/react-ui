@@ -21,9 +21,9 @@ let CheckboxGroup = React.createClass({
     readOnly: React.PropTypes.bool,
     sep: React.PropTypes.string,
     src: React.PropTypes.string,
-    textKey: React.PropTypes.string,
+    textTpl: React.PropTypes.string,
     value: React.PropTypes.any,
-    valueKey: React.PropTypes.string
+    valueTpl: React.PropTypes.string
   },
 
   mixins: [Classable, ReceiveValue, Resource],
@@ -31,8 +31,8 @@ let CheckboxGroup = React.createClass({
   getDefaultProps: function () {
     return {
       sep: ',',
-      textKey: 'text',
-      valueKey: 'value'
+      textTpl: '{text}',
+      valueTpl: '{id}'
     }
   },
 
@@ -47,7 +47,7 @@ let CheckboxGroup = React.createClass({
   },
 
   initData: function (data) {
-    data = Objects.toTextValue(data, this.props.textKey, this.props.valueKey)
+    data = Objects.toTextValue(data, this.props.textTpl, this.props.valueTpl)
     this.setState({ data: data })
   },
 
@@ -94,7 +94,7 @@ let CheckboxGroup = React.createClass({
     let values = this.state.value
 
     let items = this.state.data.map((item, i) => {
-      let value = this.props.sep ? item.value.toString() : item.value
+      let value = this.props.sep ? item.$value.toString() : item.$value
       let checked = values.indexOf(value) >= 0
       return (
         <Checkbox key={i}
@@ -102,8 +102,8 @@ let CheckboxGroup = React.createClass({
           readOnly={this.props.readOnly}
           checked={checked}
           onChange={this.handleChange}
-          text={item.text}
-          value={item.value}
+          text={item.$text}
+          value={item.$value}
         />
       )
     })
@@ -115,4 +115,14 @@ let CheckboxGroup = React.createClass({
 })
 
 module.exports = CheckboxGroup
-require('./form-control.jsx').register('CheckboxGroup', CheckboxGroup)
+
+require('./form-control.jsx').register(
+
+  'checkbox-group',
+
+  function (props) {
+    return <CheckboxGroup {...props} />
+  },
+
+  'array'
+)

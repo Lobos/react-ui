@@ -64,4 +64,12 @@ let Checkbox = React.createClass({
 })
 
 module.exports = Checkbox
-require('./form-control.jsx').register('Checkbox', Checkbox)
+require('./form-control.jsx').register(
+
+  'checkbox',
+
+  function (props) {
+    return <Checkbox {...props} />
+  }
+
+)

@@ -39,7 +39,7 @@ let Select = React.createClass({
     return {
       sep: ',',
       optionTpl: '{text}',
-      valueTpl: '{value}'
+      valueTpl: '{id}'
     }
   },
 
@@ -60,13 +60,26 @@ let Select = React.createClass({
   },
 
   componentClickAway: function () {
-    this.setState({ active: false })
+    this.close()
   },
 
   open: function () {
     if (!this.state.active && !this.props.readOnly) {
-      this.setState({ filter: '', active: true })
+      React.findDOMNode(this.refs.options).style.display = 'block'
+      setTimeout(() => {
+        this.setState({ filter: '', active: true })
+      }, 0)
     }
+  },
+
+  close: function () {
+    this.setState({ active: false })
+    // use setTimeout instead of transitionEnd
+    setTimeout(() => {
+      if (this.state.active === false) {
+        React.findDOMNode(this.refs.options).style.display = 'none'
+      }
+    }, 500)
   },
 
   formatValue: function (value) {
@@ -127,14 +140,13 @@ let Select = React.createClass({
     this.setState({ data: data })
   },
 
-  getValue: function (sep) {
-    let value = this.state.data.map(d => {
-      return d.$value
+  getValue: function (sep = this.props.sep, data = this.state.data) {
+    let value = []
+    data.forEach(d => {
+      if (d.$checked) {
+        value.push(d.$value)
+      }
     })
-
-    if (sep === undefined) {
-      sep = this.props.sep
-    }
 
     if (sep) {
       value = value.join(sep)
@@ -159,10 +171,12 @@ let Select = React.createClass({
         }
       })
       data[i].$checked = true
-      this.setState({ data, active: false })
+      this.setState({ data })
+      this.close()
     }
     if (this.props.onChange) {
-      this.props.onChange()
+      let value = this.getValue(this.props.sep, data)
+      this.props.onChange(value)
     }
   },
 
@@ -225,9 +239,12 @@ let Select = React.createClass({
     return (
       <div onClick={this.open} className={className}>
         { result.length > 0 ? result : <span className="placeholder">{placeholder}&nbsp;</span> }
-        <div className="options">
-          {filter}
-          <ul>{options}</ul>
+        <div className="options-wrap">
+          <hr />
+          <div ref="options" className="options">
+            {filter}
+            <ul>{options}</ul>
+          </div>
         </div>
       </div>
     )
@@ -235,4 +252,14 @@ let Select = React.createClass({
 })
 
 module.exports = Select
-require('./form-control.jsx').register('Select', Select)
+
+require('./form-control.jsx').register(
+
+  'select',
+
+  function (props) {
+    return <Select {...props} />
+  },
+
+  'array'
+)

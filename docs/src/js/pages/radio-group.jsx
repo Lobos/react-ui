@@ -36,17 +36,17 @@ module.exports = React.createClass({
   inline={bool}       // 为 true 时，各选项横向排列。默认为 false
   onChange={function} // 当选项改变时回调方法，参数为 value
   readOnly={bool}     // 为 true 时，只读。默认为 false
-  textKey="string"    // 数据结构中显示文字的key，默认为 "text"
-  valueKey="string"   // 数据结构中返回值的key，默认为 "value"
+  textTpl="string"    // 显示文字模板，默认为 "{text}"
+  valueTpl="string"   // 返回数据模板，默认为 "{id}"
   value={any}
 />`}
           </pre>
 
           <h2 className="subhead">数据结构</h2>
           <p>标准结构为 <em>text</em>, <em>value</em> key组成的数组</p>
-          <pre className="prettyprint">{'[{"text":"北京","value":"beijing"},{"text":"上海", "value":"shanghai"}]'}</pre>
-          <p>可以使用自定义数组，指定 <em>textKey</em>, <em>valueKey</em></p>
-          <pre className="prettyprint">{'[{"cn":"北京","py":"beijing"},{"cn":"上海", "py":"shanghai"}]'}</pre>
+          <pre className="prettyprint">{'[{"text":"北京","id":"beijing"},{"text":"上海", "id":"shanghai"}]'}</pre>
+          <p>可以使用自定义数组，指定 <em>textTpl</em>, <em>valueTpl</em></p>
+          <pre className="prettyprint">{'[{"cn":"北京","en":"beijing"},{"cn":"上海", "en":"shanghai"}]'}</pre>
           <p>可以使用一维数组，这种情况下，显示文字与值相同</p>
           <pre className="prettyprint">{'["北京","上海","广州"]'}</pre>
 
@@ -57,13 +57,13 @@ module.exports = React.createClass({
           <pre className="prettyprint">{'<RadioGroup inline={true} data={data} />'}</pre>
           <pre className="prettyprint">
 {`data = [
-  { "value": "nanjing", "text": "南京" },
-  { "value": "beijing", "text": "北京" },
-  { "value": "guangzhou", "text": "广州" },
-  { "value": "shenzhen", "text": "深圳" },
-  { "value": "chengdu", "text": "成都" },
-  { "value": "chongqing", "text": "重庆" },
-  { "value": "shanghai", "text": "上海" }
+  { "id": "nanjing", "text": "南京" },
+  { "id": "beijing", "text": "北京" },
+  { "id": "guangzhou", "text": "广州" },
+  { "id": "shenzhen", "text": "深圳" },
+  { "id": "chengdu", "text": "成都" },
+  { "id": "chongqing", "text": "重庆" },
+  { "id": "shanghai", "text": "上海" }
 ]`}
           </pre>
 

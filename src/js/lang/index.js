@@ -14,7 +14,7 @@ module.exports = {
     })
   },
 
-  get: function (path) {
+  get: function (path, def) {
     let result = clone(lang)
 
     if (path === undefined) {
@@ -30,8 +30,12 @@ module.exports = {
     for (let i = 0, count = paths.length; i < count; i++) {
       result = result[paths[i]]
       if (result === undefined) {
-        console.warn(`${path} not found...`)
-        return undefined
+        if (def !== undefined) {
+          return def
+        } else {
+          console.warn(`${path} not found...`)
+          return undefined
+        }
       }
     }
 

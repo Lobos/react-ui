@@ -34,7 +34,7 @@ describe('utils objects', function () {
     var _ = Objects.toTextValue
     var arr = [1, 2, 3, 4]
     var arrObj = arr.map(function (i) {
-      return { text: i, value: i }
+      return { $text: i, $value: i }
     })
 
     _(arr).should.deep.equal(arrObj)
@@ -45,11 +45,10 @@ describe('utils objects', function () {
       { cn: '上海', key: 'shanghai' }
     ]
     var targetObj = [
-      { text: '南京', value: 'nanjing' },
-      { text: '北京', value: 'beijing' },
-      { text: '上海', value: 'shanghai' }
+      { cn: '南京', key: 'nanjing', $text: '南京', $value: 'nanjing' },
+      { cn: '北京', key: 'beijing', $text: '北京', $value: 'beijing' },
+      { cn: '上海', key: 'shanghai', $text: '上海', $value: 'shanghai' }
     ]
-    _(rawObj, 'cn', 'key').should.deep.equal(targetObj)
-    _(targetObj).should.deep.equal(targetObj)
+    _(rawObj, '{cn}', '{key}').should.deep.equal(targetObj)
   })
 })

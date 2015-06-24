@@ -1,10 +1,10 @@
 module.exports = [
-  { "value": "nanjing", "text": "南京" },
-  { "value": "beijing", "text": "北京" },
-  { "value": "guangzhou", "text": "广州" },
-  { "value": "shenzhen", "text": "深圳" },
-  { "value": "chengdu", "text": "成都" },
-  { "value": "chongqing", "text": "重庆" },
-  { "value": "shanghai", "text": "上海" }
+  { "id": "nanjing", "text": "南京" },
+  { "id": "beijing", "text": "北京" },
+  { "id": "guangzhou", "text": "广州" },
+  { "id": "shenzhen", "text": "深圳" },
+  { "id": "chengdu", "text": "成都" },
+  { "id": "chongqing", "text": "重庆" },
+  { "id": "shanghai", "text": "上海" }
 ]
 

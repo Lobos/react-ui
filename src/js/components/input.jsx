@@ -48,12 +48,33 @@ let Input = React.createClass({
     }
 
     if (type === 'textarea') {
-      return (<input {...props} />)
-    } else {
       return (<textarea {...props} rows={this.props.rows} />)
+    } else {
+      return (<input {...props} />)
     }
   }
 })
 
 module.exports = Input
-require('./form-control.jsx').register('Input', Input)
+
+require('./form-control.jsx').register(
+
+  ['text', 'email', 'alpha', 'alphanum', 'url', 'textarea'],
+
+  function (props) {
+    return <Input {...props} />
+  }
+
+)
+
+require('./form-control.jsx').register(
+
+  ['integer', 'number'],
+
+  function (props) {
+    return <Input {...props} />
+  },
+
+  'number'
+
+)

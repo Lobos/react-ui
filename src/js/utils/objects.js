@@ -1,6 +1,7 @@
 "use strict"
 
 let type = require('./type')
+let substitute = require('./strings').substitute
 
 function isEmpty(obj) {
 
@@ -27,12 +28,14 @@ function forEach(obj, fn, context) {
   Object.keys(obj).forEach(key => fn.call(context, obj[key], key))
 }
 
-function toTextValue(arr, textKey='text', valueKey='value') {
+function toTextValue(arr, textTpl='{text}', valueTpl='{id}') {
   arr = arr.map(function (s) {
     if (type(s) !== 'object') {
-      return { text: s, value: s }
+      return { $text: s, $value: s }
     } else {
-      return { text: s[textKey], value: s[valueKey] }
+      s.$text = substitute(textTpl, s)
+      s.$value = substitute(valueTpl, s)
+      return s
     }
   })
   return arr

@@ -6,22 +6,16 @@ let Regs = require('../utils/regs')
 
 let Lang = require('../lang')
 
-let multTypes = ['checkbox-group', 'mult-select']
-
 function getTip(key, value) {
-  let text = Lang.get('validation.tips.' + key)
+  let text = Lang.get('validation.tips.' + key, null)
   if (text) {
     text = Strings.format(text, value)
   }
   return text
 }
 
-function getHint(hints, key, value, isArray) {
-  key = ['minlen', 'maxlen'].indexOf(key) >= 0 ?
-        key + (isArray ? 's' : '') :
-        key
-
-  let text = Lang.get('validation.hints.' + key)
+function getHint(hints, key, value) {
+  let text = Lang.get('validation.hints.' + key, null)
   if (text) {
     hints.push(Strings.format(text, value))
   }
@@ -37,27 +31,19 @@ module.exports = {
   },
 
   $setHint: function (props) {
-    let hints = [],
-        isArray = multTypes.indexOf(this.props.type) >= 0,
-        keys = ['required', 'minlen', 'maxlen', 'max', 'min']
+    let hints = []
 
+    if (props.required) { getHint(hints, 'required') }
     getHint(hints, this.props.type)
+    if (props.min) { getHint(hints, `min.${this.state.valueType}`, props.min) }
+    if (props.max) { getHint(hints, `max.${this.state.valueType}`, props.max) }
+    if (props.tip) { hints.push(props.tip) }
 
-    keys.forEach(function (key) {
-      if (props[key]) {
-        getHint(hints, key, props[key], isArray)
-      }
-    })
-
-    if (props.tip) {
-      hints.push(props.tip)
-    }
     this.setState({ hintText: hints.join(', ') })
   },
 
   validate: function (value) {
     value = value || this.getValue(null)
-    let isArray = multTypes.indexOf(this.props.type) >= 0
 
     this.setState({ hasValue: !Objects.isEmpty(value) })
 
@@ -65,8 +51,6 @@ module.exports = {
       required,
       min,
       max,
-      minlen,
-      maxlen,
       readOnly,
       type
     } = this.props
@@ -91,18 +75,6 @@ module.exports = {
       return true
     }
 
-    // length
-    let length = isArray ? Strings.formatValue(value, this.props.sep).length : value.length
-    if (minlen && length > 0 && length < minlen) {
-      this.$validateFail(isArray ? 'minlens' : 'minlen', minlen)
-      return false
-    }
-
-    if (maxlen && length > maxlen) {
-      this.$validateFail(isArray ? 'maxlens' : 'maxlen', maxlen)
-      return false
-    }
-
     // validate type
     let reg = Regs[type]
     if (reg && !reg.test(value)) {
@@ -110,13 +82,28 @@ module.exports = {
       return false
     }
 
-    if (max && parseInt(value) > max) {
-      this.$validateFail('max', max)
+    let len = 0
+    let valueType = this.state.valueType
+
+    switch(valueType) {
+      case 'array':
+        len = Strings.toArray(value, this.props.sep)
+      break
+      case 'number':
+        len = parseFloat(value)
+      break
+      default:
+        len = value.length
+      break
+    }
+
+    if (max && len > max) {
+      this.$validateFail(`max.${valueType}`, max)
       return false
     }
 
-    if (min && parseInt(value) < min) {
-      this.$validateFail('min', min)
+    if (min && value < min) {
+      this.$validateFail(`min.${valueType}`, min)
       return false
     }
 

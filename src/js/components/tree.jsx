@@ -23,6 +23,7 @@ let Tree = React.createClass({
     data: React.PropTypes.object,
     greedy: React.PropTypes.bool,
     onChange: React.PropTypes.func,
+    onClick: React.PropTypes.func,
     open: React.PropTypes.bool,
     readOnly: React.PropTypes.bool,
     sep: React.PropTypes.string,
@@ -159,6 +160,12 @@ let Tree = React.createClass({
     }
   },
 
+  onClick: function (item) {
+    if (this.props.onClick) {
+      this.props.onClick(item)
+    }
+  },
+
   render: function () {
     let value = this.state.value
     let { checkAble, readOnly, open } = this.props
@@ -168,6 +175,7 @@ let Tree = React.createClass({
         <Item ref={i}
           open={open}
           readOnly={readOnly}
+          onClick={this.onClick}
           onStatusChange={this.handleChange}
           value={value}
           checkAble={checkAble}
@@ -193,6 +201,7 @@ let Item = React.createClass({
   propTypes: {
     checkAble: React.PropTypes.bool,
     data: React.PropTypes.object,
+    onClick: React.PropTypes.func,
     onStatusChange: React.PropTypes.func,
     open: React.PropTypes.bool,
     readOnly: React.PropTypes.bool,
@@ -251,6 +260,14 @@ let Item = React.createClass({
     return this.state.status
   },
 
+  onClick: function (data) {
+    // check if event
+    data = data.hasOwnProperty('_dispatchListeners') ? this.props.data : data
+    if (this.props.onClick) {
+      this.props.onClick(data)
+    }
+  },
+
   updateStatus: function () {
     let status
     for (let k in this.refs) {
@@ -301,6 +318,7 @@ let Item = React.createClass({
             value={value}
             checkAble={checkAble}
             data={item}
+            onClick={this.onClick}
             onStatusChange={this.updateStatus}
           />
         )
@@ -340,10 +358,10 @@ let Item = React.createClass({
           {handle}
           <i className={'tree-icon ' + type} />
           {
-            checkAble ?
-            <a className={checkClass} onClick={this.check}><i className={'tree-icon ' + check} /><span className="text">{data.$text}</span></a> :
-            <span className="text">{data.$text}</span>
+            checkAble &&
+            <a className={checkClass} onClick={this.check}><i className={'tree-icon ' + check} /></a>
           }
+          <span onClick={this.onClick} className="text">{data.$text}</span>
         </label>
         {children}
       </li>
@@ -352,4 +370,14 @@ let Item = React.createClass({
 })
 
 module.exports = Tree
-require('./form-control.jsx').register('Tree', Tree)
+
+require('./form-control.jsx').register(
+
+  'tree',
+
+  function (props) {
+    return <Tree {...props} />
+  },
+
+  'array'
+)

@@ -1,6 +1,7 @@
 "use strict"
 
 module.exports = [
+  { route: 'form-control', text: 'Form Control', handler: require('./pages/form-control.jsx') },
   { route: 'checkbox', text: 'Checkbox', handler: require('./pages/checkbox.jsx') },
   { route: 'checkbox-group', text: 'Checkbox Group', handler: require('./pages/checkbox-group.jsx') },
   { route: 'datetime', text: 'Datetime', handler: require('./pages/datetime.jsx') },

@@ -98,20 +98,28 @@ let Datetime = React.createClass({
     return format(value)
   },
 
-  show: function () {
+  open: function () {
+    if (this.props.readOnly) {
+      return
+    }
+
     let today = new Date()
     // remove time
     today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-    if (!this.state.active) {
-      this.setState({
-        active: true,
-        current: this.state.value || today,
-        stage: this.props.timeOnly ? 'clock' : 'day'
-      })
 
-      if (this.props.timeOnly) {
-        this.refs.clock.changeTimeStage('hour')
-      }
+    if (!this.state.active) {
+      React.findDOMNode(this.refs.datepicker).style.display = 'block'
+      setTimeout(() => {
+        this.setState({
+          active: true,
+          current: this.state.value || today,
+          stage: this.props.timeOnly ? 'clock' : 'day'
+        })
+
+        if (this.props.timeOnly) {
+          this.refs.clock.changeTimeStage('hour')
+        }
+      }, 0)
     }
   },
 
@@ -120,6 +128,11 @@ let Datetime = React.createClass({
     if (this.refs.clock) {
       this.refs.clock.close()
     }
+    setTimeout(() => {
+      if (this.state.active === false) {
+        React.findDOMNode(this.refs.datepicker).style.display = 'none'
+      }
+    }, 500)
   },
 
   changeDate: function (obj) {
@@ -333,10 +346,10 @@ let Datetime = React.createClass({
     }
 
     return (
-      <div onClick={this.show} className={className}>
+      <div onClick={this.open} className={className}>
         {text}
         <i className="icon calendar" />
-        <div className="date-picker">
+        <div ref="datepicker" className="date-picker">
           {header}
           {inner}
           {(stage === 'day' || stage === 'clock') && (!this.props.dateOnly) && this.getTime()}
@@ -559,4 +572,13 @@ let TimeSet = React.createClass({
 })
 
 module.exports = Datetime
-require('./form-control.jsx').register('Datetime', Datetime)
+
+require('./form-control.jsx').register(
+
+  'datetime',
+
+  function (props) {
+    return <Datetime {...props} />
+  }
+
+)
