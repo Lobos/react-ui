@@ -30,17 +30,17 @@ module.exports = React.createClass({
           <p><b>type:</b>样式，会增加一个class <em>messsage-[type]</em>，默认值为 <em>info</em></p>
 
           <h2 className="subhead">Example</h2>
-          <p><a onClick={Message.show.bind(null, "Info message.")}>info message</a></p>
+          <p><a onClick={() => Message.show("Info message.")}>info message</a></p>
           <pre className="prettyprint">{'Message.show("info message.")'}</pre>
 
-          <p><a onClick={Message.show.bind(null, "error message.", "error")}>error message</a></p>
-          <pre className="prettyprint">{'Message.error("error message.", "error")'}</pre>
+          <p><a onClick={() => Message.show("error message.", "error")}>error message</a></p>
+          <pre className="prettyprint">{'Message.show("error message.", "error")'}</pre>
 
-          <p><a onClick={Message.show.bind(null, <div><h3>title</h3><span>span message</span></div>, "warn")}>element message</a></p>
-          <pre className="prettyprint">{'Message.warn(<span>warning and span</span>, "title")'}</pre>
+          <p><a onClick={() => Message.show(<div><h3>title</h3><span>span message</span></div>, "warning")}>element message</a></p>
+          <pre className="prettyprint">{'Message.show(<div><h3>title</h3><span>span message</span></div>, "warning")'}</pre>
 
-          <p><a onClick={Message.show.bind(null, <span><Icon icon="music" /> success and icon</span>, "success")}>success message</a></p>
-          <pre className="prettyprint">{'Message.success(<span><Icon icon="music" /> success and icon</span>, "title")'}</pre>
+          <p><a onClick={() => Message.show(<span><Icon icon="music" /> success and icon</span>, "success")}>success message</a></p>
+          <pre className="prettyprint">{'Message.success(<span><Icon icon="music" /> success and icon</span>, "success")'}</pre>
 
           <h2 className="subhead">扩展</h2>
           <p>默认会添加 <em>message-extend</em> 类，可以通过这个类进行扩展。</p>

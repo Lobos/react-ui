@@ -1,3 +1,4 @@
+@import (css) "../../node_modules/purecss/build/forms.css";
 @import "mixins";
 
 .form-control {
@@ -10,6 +11,7 @@
   line-height: normal;
   .box-sizing(border-box);
   background-color: #fff;
+  vertical-align: middle;
 
   .placeholder {
     color: #aaa;
@@ -20,9 +22,28 @@
     color: #777;
     border-color: #ccc;
   }
+
 }
 
 .pure-control-group {
   &.has-error {
+  }
+
+  .hint, .error {
+    display: block;
+  }
+}
+
+.pure-form-aligned {
+  .pure-control-group {
+    position: relative;
+    label {
+      position: absolute;
+      top: 0.5em;
+    }
+
+    & > div {
+      margin-left: 11em;
+    }
   }
 }

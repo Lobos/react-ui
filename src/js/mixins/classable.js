@@ -1,5 +1,7 @@
 "use strict"
 
+require('../../less/grid.less')
+
 let React = require('react')
 const classnames = require('classnames')
 

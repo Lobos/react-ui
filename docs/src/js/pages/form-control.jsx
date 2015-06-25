@@ -18,9 +18,12 @@ module.exports = React.createClass({
         </div>
 
         <div className="content">
-          <FormControl label="text" width={2} min={1} max={9} required={true} type="text" />
-          <FormControl label="number" width={3} min={1} max={9} required={true} type="number" />
-          <FormControl type="select" width={6} min={1} max={9} data={[1, 2, 3, 4]} />
+          <form className="pure-form pure-form-aligned">
+            <FormControl label="text" width={2} min={1} max={9} required={true} type="text" />
+            <FormControl label="number" width={3} min={1} max={9} required={true} type="number" />
+            <FormControl type="select" width={6} min={1} max={9} data={[1, 2, 3, 4]} />
+            <FormControl label="textarea" width={12} rows={4} min={1} max={9} required={true} type="textarea" />
+          </form>
         </div>
       </div>
     )

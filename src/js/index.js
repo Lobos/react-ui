@@ -10,7 +10,9 @@ exports.Rating = require('./components/rating.jsx')
 exports.Select = require('./components/select.jsx')
 exports.Tree = require('./components/tree.jsx')
 exports.Button = require('./components/button.jsx')
+
 exports.FormControl = require('./components/form-control.jsx')
+exports.Form = require('./components/form.jsx')
 
 exports.Message = require('./components/message.jsx')
 exports.Lang = require('./lang')

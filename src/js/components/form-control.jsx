@@ -1,9 +1,9 @@
 "use strict"
 
 let React = require('react')
+let classnames = require('classnames')
 let Strings = require('../utils/strings')
 let clone = require('../utils/clone')
-let Classable = require('../mixins/classable')
 let Validatable = require('../mixins/validatable')
 
 let renders = {}
@@ -14,15 +14,17 @@ let FormControl = React.createClass({
   displayName: 'FormControl',
 
   propTypes: {
+    className: React.PropTypes.string,
     data: React.PropTypes.any,
     id: React.PropTypes.string,
     label: React.PropTypes.string,
+    name: React.PropTypes.string,
     onChange: React.PropTypes.func,
     type: React.PropTypes.string,
     value: React.PropTypes.any
   },
 
-  mixins: [Classable, Validatable],
+  mixins: [Validatable],
 
   getDefaultProps: function () {
     return {
@@ -80,16 +82,24 @@ let FormControl = React.createClass({
   },
 
   render: function () {
-    let className = this.getClasses('pure-control-group', {
-      hasError: this.state.hasError
-    })
+    // do not use Classable, cause width will set control width
+    // if want to set group's width, use className
+    let className = classnames(
+      this.props.className,
+      'pure-control-group',
+      {
+        hasError: this.state.hasError
+      }
+    )
 
-    // test
     return (
       <div className={className}>
         <label htmlFor={this.state.id}>{this.props.label}</label>
-        {this.getControl()}
-        <span>{this.state.hintText}</span>
+        <div className="pure-control-inner">
+          {this.getControl()}
+          <span className="hint">{this.state.hintText}</span>
+          <span className="error">{this.state.errorText}</span>
+        </div>
       </div>
     )
   }

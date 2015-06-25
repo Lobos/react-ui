@@ -38,7 +38,7 @@ let Input = React.createClass({
   render: function () {
     let type = this.props.type === 'password' ? 'password' : 'text'
     let props = {
-      className: this.getClasses(),
+      className: this.getClasses('form-control'),
       id: this.props.id,
       onChange: this.handleChange,
       placeholder: this.props.placeholder,
@@ -47,7 +47,7 @@ let Input = React.createClass({
       value: this.state.value
     }
 
-    if (type === 'textarea') {
+    if (this.props.type === 'textarea') {
       return (<textarea {...props} rows={this.props.rows} />)
     } else {
       return (<input {...props} />)

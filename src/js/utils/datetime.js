@@ -158,12 +158,13 @@ let datetime = {
 
     if (/^[-+]?[0-9]+$/.test(obj)) {
       obj = parseInt(obj) * 1000
+    } else {
+      obj = obj.replace(/-/g, "/")
     }
 
     try {
       obj = new Date(obj)
     } catch (e) {
-      console.warn(e)
       obj = def
     }
     return obj

@@ -28,7 +28,7 @@ module.exports = {
       // default use cache
       let cache = props.cache === undefined ? true : !!props.cache
       Qwest.get(props.src, null, { cache: cache })
-        .then(function (res) {
+        .then((res) => {
           let data = res.status === 1 ?
                      res.data :
                      ( res instanceof Array ? res : undefined )
@@ -49,10 +49,10 @@ module.exports = {
           } else {
             this.setState({ data: data })
           }
-        }.bind(this))
-        .catch(function () {
+        })
+        .catch(() => {
           this.setState({ msg: Lang.get('request.failure') })
-        }.bind(this))
+        })
     }
   }
 }
