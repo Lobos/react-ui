@@ -1,6 +1,5 @@
 "use strict"
 
-let type = require('./type')
 let substitute = require('./strings').substitute
 
 function isEmpty(obj) {
@@ -10,6 +9,21 @@ function isEmpty(obj) {
     return true
   }
 
+  if (isNaN(obj)) {
+    return true
+  }
+
+  if (obj.length !== undefined) {
+    return obj.length === 0
+  }
+
+  if (typeof obj === 'object') {
+    return Object.keys(obj).length === 0
+  }
+
+  return false
+
+  /*
   switch (type(obj)) {
     case 'nan':
       return true
@@ -18,10 +32,11 @@ function isEmpty(obj) {
     case 'arguments':
       return obj.length === 0
     case 'object':
-      return Object.keys(obj).length === 0
+      return
     default:
       return false
   }
+  */
 }
 
 function forEach(obj, fn, context) {
@@ -30,7 +45,7 @@ function forEach(obj, fn, context) {
 
 function toTextValue(arr, textTpl='{text}', valueTpl='{id}') {
   arr = arr.map(function (s) {
-    if (type(s) !== 'object') {
+    if (typeof s !== 'object') {
       return { $text: s, $value: s }
     } else {
       s.$text = substitute(textTpl, s)

@@ -136,7 +136,7 @@ let Tree = React.createClass({
     })
   },
 
-  getValue: function () {
+  getValue: function (sep) {
     let list = [],
         values = [],
         greedy = this.props.greedy
@@ -148,7 +148,10 @@ let Tree = React.createClass({
       values.push(d.$value)
     })
 
-    if (this.props.sep) {
+    if (sep === undefined) {
+      sep = this.props.sep
+    }
+    if (sep) {
       values = values.join(this.props.sep)
     }
     return values
@@ -156,7 +159,9 @@ let Tree = React.createClass({
 
   handleChange: function () {
     if (this.props.onChange) {
-      this.props.onChange()
+      //setTimeout(() => {
+        this.props.onChange(this.getValue())
+      //})
     }
   },
 

@@ -3,7 +3,8 @@
 let React = require('react')
 let classnames = require('classnames')
 let Strings = require('../utils/strings')
-let clone = require('../utils/clone')
+let Objects = require('../utils/objects')
+//let clone = require('../utils/clone')
 let Validatable = require('../mixins/validatable')
 
 let renders = {}
@@ -28,13 +29,13 @@ let FormControl = React.createClass({
 
   getDefaultProps: function () {
     return {
+      id: Strings.nextUid(),
       type: 'text'
     }
   },
 
   getInitialState: function () {
     return {
-      id: this.props.id || Strings.nextUid(),
       hasError: false,
       hasValue: this.props.value,
       value: this.props.value,
@@ -45,14 +46,11 @@ let FormControl = React.createClass({
   },
 
   handleChange: function (value) {
-    this.validate(value)
-    /*
-    console.log(value)
-    this.setState({ value })
+    console.log(value, this.refs.control.getValue(null))
+    this.validate(this.refs.control.getValue(null))
     if (this.props.onChange) {
       this.props.onChange(value)
     }
-    */
   },
 
   getValue: function (sep) {
@@ -60,7 +58,11 @@ let FormControl = React.createClass({
   },
 
   copyProps: function () {
-    let props = clone(this.props)
+    //let props = clone(this.props)
+    let props = {}
+    Objects.forEach(this.props, (v, k) => {
+      props[k] = v
+    })
     props.ref = 'control'
     props.value = this.state.value
     props.onChange = this.handleChange
@@ -94,11 +96,14 @@ let FormControl = React.createClass({
 
     return (
       <div className={className}>
-        <label htmlFor={this.state.id}>{this.props.label}</label>
+        <label htmlFor={this.props.id}>{this.props.label}</label>
         <div className="pure-control-inner">
           {this.getControl()}
-          <span className="hint">{this.state.hintText}</span>
-          <span className="error">{this.state.errorText}</span>
+          {
+            this.state.errorText ?
+            <span className="error">{this.state.errorText}</span> :
+            <span className="hint">{this.state.hintText}</span>
+          }
         </div>
       </div>
     )

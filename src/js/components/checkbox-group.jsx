@@ -67,7 +67,7 @@ let CheckboxGroup = React.createClass({
     }
 
     if (this.props.onChange) {
-      this.props.onChange(values)
+      this.props.onChange(this.props.sep ? values.join(this.props.sep) : values)
     }
 
     this.setState({ value: values })

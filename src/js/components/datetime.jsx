@@ -153,7 +153,7 @@ let Datetime = React.createClass({
     setTimeout(() => {
       this.setState(state)
       if (this.props.onChange) {
-        this.props.onChange()
+        this.props.onChange(this.getValue())
       }
     }, 0)
   },
@@ -579,6 +579,26 @@ require('./form-control.jsx').register(
 
   function (props) {
     return <Datetime {...props} />
+  }
+
+)
+
+require('./form-control.jsx').register(
+
+  'date',
+
+  function (props) {
+    return <Datetime {...props} dateOnly={true} />
+  }
+
+)
+
+require('./form-control.jsx').register(
+
+  'time',
+
+  function (props) {
+    return <Datetime {...props} timeOnly={true} />
   }
 
 )

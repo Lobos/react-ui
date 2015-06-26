@@ -1,7 +1,6 @@
 "use strict"
 
 let Qwest = require('qwest')
-let clone = require('../utils/clone')
 let Lang = require('../lang')
 
 module.exports = {
@@ -40,8 +39,6 @@ module.exports = {
           } else {
             this.setState({ msg: null })
           }
-
-          data = clone(data)
 
           // initialize data
           if (this.initData) {

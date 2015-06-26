@@ -39,9 +39,9 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    let seps = ([',', '|', '#', null]).map(sep => {
+    let seps = ([',', '|', '#', null]).map((sep, i) => {
       return (
-        <a style={{margin: "0 10px"}} onClick={this.sepChange.bind(this, sep)}>{JSON.stringify(sep)}</a>
+        <a key={i} style={{margin: "0 10px"}} onClick={this.sepChange.bind(this, sep)}>{JSON.stringify(sep)}</a>
       )
     })
     return (

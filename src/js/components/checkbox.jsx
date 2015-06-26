@@ -11,7 +11,7 @@ let Checkbox = React.createClass({
     index: React.PropTypes.number,
     onChange: React.PropTypes.func,
     readOnly: React.PropTypes.bool,
-    text: React.PropTypes.text,
+    text: React.PropTypes.any,
     value: React.PropTypes.any
   },
 

@@ -17,7 +17,7 @@ const Item = React.createClass({
 
   propTypes: {
     content: React.PropTypes.string,
-    dismissed: React.PropTypes.dismissed,
+    dismissed: React.PropTypes.bool,
     index: React.PropTypes.number,
     onDismiss: React.PropTypes.func,
     type: React.PropTypes.string

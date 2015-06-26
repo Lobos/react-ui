@@ -6,7 +6,6 @@ require('../../less/select.less')
 let React = require('react')
 let classnames = require('classnames')
 let Strings = require('../utils/strings')
-let clone = require('../utils/clone')
 let Classable = require('../mixins/classable')
 let Resource = require('../mixins/resource')
 let ReceiveValue = require('../mixins/receive-value')
@@ -28,7 +27,7 @@ let Select = React.createClass({
     readOnly: React.PropTypes.bool,
     resultTpl: React.PropTypes.string,
     sep: React.PropTypes.string,
-    src: React.PropTypes.src,
+    src: React.PropTypes.string,
     value: React.PropTypes.any,
     valueTpl: React.PropTypes.string
   },
@@ -85,7 +84,8 @@ let Select = React.createClass({
   formatValue: function (value) {
     value = Strings.toArray(value, this.props.sep)
     if (this.state) {
-      let data = clone(this.state.data).map(d => {
+      //let data = clone(this.state.data).map(d => {
+      let data = this.state.data.map(d => {
         d.$checked = value.indexOf(d.$value)
         return d
       })
@@ -160,7 +160,7 @@ let Select = React.createClass({
       return
     }
 
-    let data = clone(this.state.data)
+    let data = this.state.data
     if (this.props.mult) {
       data[i].$checked = !data[i].$checked
       this.setState({ data })
@@ -176,8 +176,17 @@ let Select = React.createClass({
     }
     if (this.props.onChange) {
       let value = this.getValue(this.props.sep, data)
-      this.props.onChange(value)
+      setTimeout(() => {
+        this.props.onChange(value)
+      }, 0)
     }
+  },
+
+  handleRemove: function (i) {
+    // wait checkClickAway completed
+    setTimeout(() => {
+      this.handleChange(i)
+    }, 0)
   },
 
   render: function () {
@@ -214,13 +223,13 @@ let Select = React.createClass({
       if (d.$checked) {
         if (this.props.mult) {
           result.push(
-            <div className="result"
-              onClick={this.handleChange.bind(this, i)}
+            <div key={i} className="result"
+              onClick={this.handleRemove.bind(this, i)}
               dangerouslySetInnerHTML={{__html: d.$result}}
             />
           )
         } else {
-          result.push(<span dangerouslySetInnerHTML={{__html: d.$result}} />)
+          result.push(<span key={i} dangerouslySetInnerHTML={{__html: d.$result}} />)
         }
       }
       let optionClassName = classnames({

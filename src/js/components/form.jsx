@@ -96,13 +96,17 @@ let Form = React.createClass({
         layout: this.props.layout
       }
       if (child.type === FormControl) {
+        if (!child.props.name) {
+          console.warn('FormControl must have a name!')
+          return null
+        }
         props.ref = child.props.name
         props.value = this.state.data[child.props.name]
         if (child.props.equal) {
           props.onValidate = this.equalValidate(child.props.equal, child.props.name)
         }
       } else if (child.type === FormSubmit) {
-        props.locked = this.state.locked
+        props.disabled = this.state.locked
       }
 
       child = React.addons.cloneWithProps(child, props)

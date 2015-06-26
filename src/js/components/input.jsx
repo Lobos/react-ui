@@ -59,7 +59,7 @@ module.exports = Input
 
 require('./form-control.jsx').register(
 
-  ['text', 'email', 'alpha', 'alphanum', 'url', 'textarea'],
+  ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'textarea'],
 
   function (props) {
     return <Input {...props} />

@@ -11,7 +11,7 @@ module.exports = React.createClass({
     index: React.PropTypes.number,
     onClick: React.PropTypes.func,
     readOnly: React.PropTypes.bool,
-    text: React.PropTypes.text,
+    text: React.PropTypes.any,
     value: React.PropTypes.any
   },
 
@@ -28,7 +28,7 @@ module.exports = React.createClass({
           <input ref="input"
             type="radio"
             disabled={this.props.readOnly}
-            onChange={null}
+            onChange={() => {}}
             onClick={this.handleClick}
             checked={this.props.checked}
             value={this.props.value}

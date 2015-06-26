@@ -1,7 +1,7 @@
 "use strict"
 
 let merge = require('deepmerge')
-let clone = require('../utils/clone')
+//let clone = require('../utils/clone')
 let lang = {}
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
   },
 
   get: function (path, def) {
-    let result = clone(lang)
+    let result = lang
 
     if (path === undefined) {
       return result

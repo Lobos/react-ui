@@ -73,7 +73,7 @@ let Rating = React.createClass({
     let items = [],
         icon = this.getIcon(0)
     for (let i = 0; i < this.props.maxValue; i++) {
-      items.push(React.addons.cloneWithProps(icon))
+      items.push(React.addons.cloneWithProps(icon, { key: i }))
     }
 
     return <div className="rating-bg">{items}</div>
@@ -85,9 +85,11 @@ let Rating = React.createClass({
     setTimeout(() => {
       this.setState({ wink: false })
     }, 1000)
-    if (this.props.onChange) {
-      this.props.onChange(val)
-    }
+    setTimeout(() => {
+      if (this.props.onChange) {
+        this.props.onChange(val)
+      }
+    })
   },
 
   getHandle: function () {
@@ -118,7 +120,7 @@ let Rating = React.createClass({
         width = (this.state.value / this.props.maxValue * 100) + '%'
 
     for (let i = 0; i < this.props.maxValue; i++) {
-      items.push(React.addons.cloneWithProps(icon))
+      items.push(React.addons.cloneWithProps(icon, { key: i }))
     }
 
     return (

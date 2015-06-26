@@ -6,10 +6,10 @@ let Master = require('./pages/master.jsx')
 let Home = require('./pages/home.jsx')
 
 let menulist = []
-require('./menulist').forEach(function (menu) {
+require('./menulist').forEach(function (menu, i) {
   if (menu.handler) {
     menulist.push(
-      <Route name={menu.route} handler={menu.handler} />
+      <Route key={i} name={menu.route} handler={menu.handler} />
     )
   }
 })

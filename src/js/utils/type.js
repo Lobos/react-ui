@@ -14,6 +14,7 @@ let toString = Object.prototype.toString
  */
 
 module.exports = function(val){
+  console.log(val)
   switch (toString.call(val)) {
     case '[object Date]': return 'date'
     case '[object RegExp]': return 'regexp'

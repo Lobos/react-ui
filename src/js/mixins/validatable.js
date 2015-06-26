@@ -31,13 +31,17 @@ module.exports = {
   },
 
   $setHint: function (props) {
+    if (props.tip) { 
+      this.setState({ hintText: props.tip })
+      return
+    }
+
     let hints = []
 
     if (props.required) { getHint(hints, 'required') }
     getHint(hints, this.props.type)
     if (props.min) { getHint(hints, `min.${this.state.valueType}`, props.min) }
     if (props.max) { getHint(hints, `max.${this.state.valueType}`, props.max) }
-    if (props.tip) { hints.push(props.tip) }
 
     this.setState({ hintText: hints.join(', ') })
   },
@@ -87,7 +91,7 @@ module.exports = {
 
     switch(valueType) {
       case 'array':
-        len = Strings.toArray(value, this.props.sep)
+        len = Strings.toArray(value, this.props.sep).length
       break
       case 'number':
         len = parseFloat(value)
@@ -102,7 +106,7 @@ module.exports = {
       return false
     }
 
-    if (min && value < min) {
+    if (min && len < min) {
       this.$validateFail(`min.${valueType}`, min)
       return false
     }
