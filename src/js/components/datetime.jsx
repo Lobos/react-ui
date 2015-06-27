@@ -7,6 +7,7 @@ require('../../less/datetime.less')
 
 let React = require('react')
 let classnames = require('classnames')
+let DOM = require('../utils/dom')
 let datetime = require('../utils/datetime')
 let circle = require('../utils/circle')
 let lang = require('../lang')
@@ -35,6 +36,7 @@ let Datetime = React.createClass({
   getInitialState: function () {
     return {
       active: false,
+      popup: false,
       //format: this.props.format,
       stage: this.props.timeOnly ? 'clock' : 'day',
       current: datetime.convert(this.props.value, new Date()),
@@ -108,10 +110,14 @@ let Datetime = React.createClass({
     today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
 
     if (!this.state.active) {
-      React.findDOMNode(this.refs.datepicker).style.display = 'block'
+      let picker = React.findDOMNode(this.refs.datepicker)
+      picker.style.display = 'block'
+      let height = DOM.getOuterHeight(picker)
+
       setTimeout(() => {
         this.setState({
           active: true,
+          popup: DOM.overView(React.findDOMNode(this), height),
           current: this.state.value || today,
           stage: this.props.timeOnly ? 'clock' : 'day'
         })
@@ -292,6 +298,7 @@ let Datetime = React.createClass({
       'datetime form-control',
       {
         'active': this.state.active && !this.props.readOnly,
+        'popup': this.state.popup,
         'readonly': this.props.readOnly,
         'short': this.props.dateOnly || this.props.timeOnly
       }

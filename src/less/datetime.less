@@ -63,7 +63,7 @@
     width: 40px * 7;
     position: absolute;
     top: 100%;
-    left: 0;
+    left: -1px;
     margin: 2px 0 20px;
     .box-shadow(0px 6px 12px rgba(0,0,0,0.175));
     .transition(opacity 0.45s);
@@ -183,6 +183,13 @@
         color: #ccc;
       }
     }
+  }
+
+  &.popup .date-picker {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 1px;
+    .box-shadow(0 0 10px rgba(0, 0, 0, 0.175));
   }
 
   .time-container {
