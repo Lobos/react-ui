@@ -94,7 +94,6 @@ data 为简单数组（如["中国", "美国", "俄罗斯", "德国"])，时，�
           <Select width={12}
             placeholder="Group by continent"
             groupBy="continent"
-            dropup={true}
             filterAble={true}
             optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
             valueTpl="{country}-{en}"
@@ -102,7 +101,6 @@ data 为简单数组（如["中国", "美国", "俄罗斯", "德国"])，时，�
           <pre className="prettyprint">
 {`<Select placeholder="Group by continent"
   groupBy="continent"
-  dropup={true}
   filterAble={true}
   optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"

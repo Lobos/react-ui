@@ -74,7 +74,7 @@ module.exports = React.createClass({
             <FormControl name="checkboxgroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="checkbox group" type="checkbox-group" />
             <FormControl name="radiogroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="radio group" inline={true} type="radio-group" />
             <FormControl name="rating" label="rating" required={true} maxValue={10} tip="亲，给个好评吧" type="rating" />
-            <FormControl width={12} name="select" label="select" type="select" src="json/countries.json" mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' dropup={true} valueTpl="{en}" />
+            <FormControl width={12} name="select" label="select" type="select" src="json/countries.json" mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
             <FormControl name="tree" checkAble={true} label="tree" type="tree" src="json/tree.json" textTpl='{text}({id})' valueTpl="{id}" />
             <FormControl width={18} name="textarea" label="textarea" rows={5} type="textarea" />
 
@@ -99,7 +99,7 @@ module.exports = React.createClass({
   <FormControl name="checkboxgroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="checkbox group" type="checkbox-group" />
   <FormControl name="radiogroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="radio group" inline={true} type="radio-group" />
   <FormControl name="rating" label="rating" required={true} maxValue={10} tip="亲，给个好评吧" type="rating" />
-  <FormControl width={12} name="select" label="select" type="select" src="json/countries.json" mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' dropup={true} valueTpl="{en}" />
+  <FormControl width={12} name="select" label="select" type="select" src="json/countries.json" mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
   <FormControl name="tree" checkAble={true} label="tree" type="tree" src="json/tree.json" textTpl='{text}({id})' valueTpl="{id}" />
   <FormControl width={18} name="textarea" label="textarea" rows={5} type="textarea" />
 

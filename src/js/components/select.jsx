@@ -6,6 +6,7 @@ require('../../less/select.less')
 let React = require('react')
 let classnames = require('classnames')
 let Strings = require('../utils/strings')
+let DOM = require('../utils/dom')
 let Classable = require('../mixins/classable')
 let Resource = require('../mixins/resource')
 let ReceiveValue = require('../mixins/receive-value')
@@ -17,7 +18,6 @@ let Select = React.createClass({
   propTypes: {
     cache: React.PropTypes.bool,
     data: React.PropTypes.array,
-    dropup: React.PropTypes.bool,
     filterAble: React.PropTypes.bool,
     groupBy: React.PropTypes.string,
     mult: React.PropTypes.bool,
@@ -36,6 +36,7 @@ let Select = React.createClass({
 
   getDefaultProps: function () {
     return {
+      dropup: false,
       sep: ',',
       optionTpl: '{text}',
       valueTpl: '{id}'
@@ -64,7 +65,17 @@ let Select = React.createClass({
 
   open: function () {
     if (!this.state.active && !this.props.readOnly) {
-      React.findDOMNode(this.refs.options).style.display = 'block'
+      let options = React.findDOMNode(this.refs.options)
+      options.style.display = 'block'
+      let offset = DOM.getOuterHeight(options) + 5
+
+      let el = React.findDOMNode(this)
+      let dropup = DOM.overView(el, offset)
+
+      DOM.withoutTransition(el, () => {
+        this.setState({ dropup })
+      })
+
       setTimeout(() => {
         this.setState({ filter: '', active: true })
       }, 0)
@@ -196,7 +207,7 @@ let Select = React.createClass({
     let className = this.getClasses('select form-control', {
       active: active,
       readonly: this.props.readOnly,
-      dropup: this.props.dropup,
+      dropup: this.state.dropup,
       single: !this.props.mult
     })
 

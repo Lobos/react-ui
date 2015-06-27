@@ -63,14 +63,13 @@ module.exports = {
     }
   },
 
-  /*
   forceRedraw: function(el) {
     let originalDisplay = el.style.display
 
     el.style.display = 'none'
     let oh = el.offsetHeight
     el.style.display = originalDisplay
-    oh = null
+    return oh
   },
 
   withoutTransition: function(el, callback) {
@@ -85,7 +84,6 @@ module.exports = {
     //put the transition back
     el.style.transition = ''
   },
-  */
 
   getOuterHeight: function (el) {
     let height = el.clientHeight
@@ -104,6 +102,12 @@ module.exports = {
       scrollTop = document.body.scrollTop
     }
     return scrollTop
+  },
+
+  overView: function (el, offset = 0) {
+    let height = window.innerHeight || document.documentElement.clientHeight
+    let bottom = el.getBoundingClientRect().bottom + offset
+    return bottom > height
   }
 
 }
