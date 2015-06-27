@@ -24,7 +24,7 @@ module.exports = React.createClass({
   placeholder={string} // 占位提示文字
   readOnly={bool}      // 只读，默认为 false
   rows={int}           // 当 type 为 textarea 时需要设置
-  onChange={func}      // 值改变回调事件
+  onChange={func}      // 值改变回调事件，参数为 value
   value={string}       // 初始值
 />`}
           </pre>

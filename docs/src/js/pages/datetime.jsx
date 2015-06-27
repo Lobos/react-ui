@@ -31,7 +31,7 @@ module.exports = React.createClass({
   format={string}       // 返回值格式，如 'yyyy-MM-dd'，默认值 在 Lang.date.format 下设置
   unixtime={bool}       // 为 true 时，getValue 返回 unixtimestamp
   placeholder={string}  // 占位提示文字
-  onChange={function}   // 值改变时触发事件，无参数，需要值请调用 getValue
+  onChange={function}   // 值改变时触发事件，参数为 value
   value={string|number} // 初始值
 />`}
           </pre>

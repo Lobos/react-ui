@@ -31,7 +31,7 @@ module.exports = {
   },
 
   $setHint: function (props) {
-    if (props.tip) { 
+    if (props.tip) {
       this.setState({ hintText: props.tip })
       return
     }

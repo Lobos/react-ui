@@ -9,7 +9,9 @@ let Input = React.createClass({
 
   propTypes: {
     id: React.PropTypes.string,
+    onBlur: React.PropTypes.func,
     onChange: React.PropTypes.func,
+    onFocus: React.PropTypes.func,
     placeholder: React.PropTypes.string,
     readOnly: React.PropTypes.bool,
     rows: React.PropTypes.number,
@@ -41,6 +43,8 @@ let Input = React.createClass({
       className: this.getClasses('form-control'),
       id: this.props.id,
       onChange: this.handleChange,
+      onBlur: this.props.onBlur,
+      onFocus: this.props.onFocus,
       placeholder: this.props.placeholder,
       readOnly: this.props.readOnly,
       type: type,

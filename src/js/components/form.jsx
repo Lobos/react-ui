@@ -7,21 +7,27 @@ let Classable = require('../mixins/classable')
 let Lang = require('../lang')
 let Message = require('./message.jsx')
 let FormControl = require('./form-control.jsx')
-let FormSubmit = require('./button.jsx')
+let FormSubmit = require('./form-submit.jsx')
 
 let Form = React.createClass({
   displayName: 'Form',
 
   propTypes: {
     action: React.PropTypes.string,
+    autoload: React.PropTypes.bool,
     children: React.PropTypes.any,
-    hintType: React.PropTypes.oneOf(['none', 'pop', 'inline']),
-    init: React.PropTypes.bool,
-    layout: React.PropTypes.oneOf(['aligned', 'stacked']),
+    hintType: React.PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
+    layout: React.PropTypes.oneOf(['aligned', 'stacked', 'inline']),
     onSubmit: React.PropTypes.func
   },
 
   mixins: [Classable],
+
+  getDefaultProps: function () {
+    return {
+      layout: 'inline'
+    }
+  },
 
   getInitialState: function () {
     return {
@@ -31,7 +37,7 @@ let Form = React.createClass({
   },
 
   componentWillMount: function () {
-    if (this.props.action && this.props.init) {
+    if (this.props.action && this.props.autoload) {
       this.fetchData(this.props.action)
     }
   },
@@ -49,12 +55,12 @@ let Form = React.createClass({
       .then((res) => {
         //loading.end()
         if (res.status === 1) {
-          this.setValue(res.data)
+          this.setData(res.data)
         } else if (res.msg) {
           Message.show(res.msg, 'warning')
         }
       })
-      .cache((e) => {
+      .catch((e) => {
         Message.show(e.message, 'error')
       })
   },
@@ -69,7 +75,7 @@ let Form = React.createClass({
     return data
   },
 
-  setValue: function (data) {
+  setData: function (data) {
     Objects.forEach(this.refs, (ref, k) => {
       ref.setValue(data[k])
     })
@@ -106,7 +112,7 @@ let Form = React.createClass({
           props.onValidate = this.equalValidate(child.props.equal, child.props.name)
         }
       } else if (child.type === FormSubmit) {
-        props.disabled = this.state.locked
+        props.locked = this.state.locked
       }
 
       child = React.addons.cloneWithProps(child, props)
@@ -119,9 +125,10 @@ let Form = React.createClass({
       return
     }
 
+    event.preventDefault()
+
     this.setState({ locked: true })
 
-    event.preventDefault()
     let success = true
     Objects.forEach(this.refs, function (child) {
       let suc = child.validate()
@@ -148,7 +155,7 @@ let Form = React.createClass({
       }
     })
     .catch(e => {
-      Message.show(e.message, 'error')
+      Message.show(Lang.get('request.failure') + ' ' + e, 'error')
     })
     .complete(() => {
       this.setState({ locked: false })
@@ -160,12 +167,13 @@ let Form = React.createClass({
       'pure-form',
       {
         'pure-form-aligned': this.props.layout === 'aligned',
+        'pure-form-inline': this.props.layout === 'inline',
         'pure-form-stacked': this.props.layout === 'stacked'
       }
     )
 
     return (
-      <form className={className}>
+      <form onSubmit={this.handleSubmit} className={className}>
         {this.renderChildren()}
       </form>
     )

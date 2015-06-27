@@ -23,19 +23,17 @@ module.exports = React.createClass({
 
   render: function () {
     return (
-      <div className="pure-radio rui-radio">
-        <label>
-          <input ref="input"
-            type="radio"
-            disabled={this.props.readOnly}
-            onChange={() => {}}
-            onClick={this.handleClick}
-            checked={this.props.checked}
-            value={this.props.value}
-          />
-          {this.props.text}
-        </label>
-      </div>
+      <label className="pure-radio rui-radio">
+        <input ref="input"
+          type="radio"
+          disabled={this.props.readOnly}
+          onChange={() => {}}
+          onClick={this.handleClick}
+          checked={this.props.checked}
+          value={this.props.value}
+        />
+        {this.props.text}
+      </label>
     )
   }
 })

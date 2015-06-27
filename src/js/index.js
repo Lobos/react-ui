@@ -12,7 +12,7 @@ exports.Tree = require('./components/tree.jsx')
 exports.Button = require('./components/button.jsx')
 
 exports.FormControl = require('./components/form-control.jsx')
-exports.FormButton = require('./components/form-submit.jsx')
+exports.FormSubmit = require('./components/form-submit.jsx')
 exports.Form = require('./components/form.jsx')
 
 exports.Message = require('./components/message.jsx')

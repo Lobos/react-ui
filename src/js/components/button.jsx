@@ -25,6 +25,12 @@ module.exports = React.createClass({
     }
   },
 
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.disabled !== this.props.disabled) {
+      this.setState({ disabled: nextProps.disabled })
+    }
+  },
+
   disable: function (elem) {
     this.setState({ disabled: true, show: elem })
   },

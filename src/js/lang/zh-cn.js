@@ -13,7 +13,7 @@ const data = {
     },
     loading: '读取中...',
     empty: '未知错误.',
-    failure: '获取失败.'
+    failure: '操作失败.'
   },
   buttons: {
     add: '新建',

@@ -26,24 +26,127 @@
 }
 
 .pure-control-group {
-  &.has-error {
+  position: relative;
+  margin-bottom: 1em;
+
+  &.hint-pop, &.hint-none {
+    .hint, .error {
+      display: none;
+    }
   }
 
-  .hint, .error {
-    display: block;
+  &.hint-pop {
+    .hint, .error {
+      padding: 0.4em 0.6em;
+      background-color: #fff;
+      border: solid 1px #ccc;
+      position: absolute;
+      bottom: 100%;
+      border-radius: 5px;
+      left: 50%;
+      width: 220px;
+      margin: 0 0 11px -110px;
+      .box-shadow(0 2px 10px rgba(0, 0, 0, 0.2));
+      .box-sizing(border-box);
+
+      &:after, &:before {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+
+      &:after {
+        border-color: rgba(255, 255, 255, 0);
+        border-top-color: #ffffff;
+        border-width: 9px;
+        margin-left: -9px;
+      }
+
+      &:before {
+        border-color: rgba(204, 204, 204, 0);
+        border-top-color: #ccc;
+        border-width: 10px;
+        margin-left: -10px;
+      }
+    }
+
+    .error {
+      border-color: @red;
+      &:before {
+        border-top-color: @red;
+      }
+    }
+
+    &.focused {
+      .hint {
+        display: block;
+      }
+    }
+
+    &.has-error {
+      .error {
+        display: block;
+      }
+    }
+  }
+
+  &.hint-block {
+    .hint, .error {
+      display: block;
+    }
+  }
+
+  &.has-error {
+    color: @red;
+    .form-control {
+      border-color: @red;
+    }
   }
 }
 
 .pure-form-aligned {
   .pure-control-group {
     position: relative;
+    padding-left: 11em;
+    margin-bottom: 1em;
+    .box-sizing(border-box);
+
     label {
-      position: absolute;
-      top: 0.5em;
+      text-align: left;
+      display: block;
+      width: auto;
     }
 
-    & > div {
-      margin-left: 11em;
+    .checkbox-group, .radio-group {
+      padding-top: 0.7em;
+
+      &.inline label {
+        display: inline-block;
+      }
     }
+
+    & > .label {
+      position: absolute;
+      text-align: right;
+      width: 10em;
+      left: 0;
+      top: 0.7em;
+    }
+
+    .form-control {
+      margin: 0.25em 0;
+    }
+  }
+}
+
+.pure-form-inline {
+  .pure-control-group {
+    display: inline-block;
+    margin-right: 0.6em;
   }
 }
