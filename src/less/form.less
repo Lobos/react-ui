@@ -130,6 +130,10 @@
       }
     }
 
+    .rating {
+      margin-top: 0.7em;
+    }
+
     & > .label {
       position: absolute;
       text-align: right;
@@ -149,4 +153,23 @@
     display: inline-block;
     margin-right: 0.6em;
   }
+}
+
+@media (max-width: 567px) {
+.pure-form-aligned {
+  .pure-control-group {
+    padding-left: 0;
+    & > .label {
+      position: relative;
+      top: 0;
+      text-align: left;
+    }
+  }
+}
+
+.pure-form-inline {
+  .pure-control-group {
+    display: block;
+  }
+}
 }

@@ -50,7 +50,7 @@ module.exports = React.createClass({
           </div>
           <br />
           <Form layout={this.state.layout}>
-            <FormControl name="text" label="text" type="text" width={6} min={2} max={6} />
+            <FormControl name="text" label="text" type="text" width={6} responsive="sm" min={2} max={6} />
             <FormControl name="email" label="email" type="email" />
             <FormControl name="select" label="select" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} type="select" />
             <FormSubmit>

@@ -24,6 +24,7 @@ let FormControl = React.createClass({
     layout: React.PropTypes.oneOf(['aligned', 'stacked', 'inline']),
     name: React.PropTypes.string,
     onChange: React.PropTypes.func,
+    responsive: React.PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
     type: React.PropTypes.string,
     value: React.PropTypes.any
   },
@@ -34,6 +35,7 @@ let FormControl = React.createClass({
     return {
       id: Strings.nextUid(),
       layout: 'inline',
+      responsive: 'md',
       type: 'text'
     }
   },
@@ -107,7 +109,7 @@ let FormControl = React.createClass({
 
   renderInline: function (className) {
     if (this.props.width) {
-      className = `${className} pure-u-1 pure-u-md-${this.props.width}-24`
+      className = `${className} pure-u-1 pure-u-${this.props.responsive}-${this.props.width}-24`
     }
     return (
       <div className={className}>
