@@ -384,5 +384,7 @@ require('./form-control.jsx').register(
     return <Tree {...props} />
   },
 
+  Tree,
+
   'array'
 )

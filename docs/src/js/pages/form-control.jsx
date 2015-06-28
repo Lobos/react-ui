@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-import {FormControl, Icon} from '../../../../src/js'
+import {FormControl, Input, Icon} from '../../../../src/js'
 
 module.exports = React.createClass({
   displayName: 'Pages/FormControl',
@@ -38,7 +38,7 @@ module.exports = React.createClass({
         </div>
 
         <div className="content pure-form">
-          <p>一系列表单控件的马甲，统一封装用来实现表单数据验证，输入提示，动态创建表单等功能。</p>
+          <p>一系列表单控件的马甲，统一封装用来实现表单数据验证，输入提示，动态创建表单等功能。<b>可以通过 <em>getReference()</em> 这个方法获取被封装的控件。</b></p>
           <pre className="prettyprint">
 {`<FormControl
   className="string",     // 需要额外添加的 className
@@ -67,20 +67,22 @@ module.exports = React.createClass({
 
           <h2 className="subhead">已注册控件</h2>
 
-          <p><em><b>text</b></em> => <a href="#/input">Input</a></p>
-          <div className="split">
-            <div className="pure-u-1 pure-u-lg-1-2">
-              <FormControl width={24} required={true} type="text" min={2} max={10} />
-            </div>
+          <div>
+            <p><em><b>text</b></em> => <a href="#/input">Input</a></p>
+            <div className="split">
+              <div className="pure-u-1 pure-u-lg-1-2">
+                <FormControl width={24} required={true} type="text" min={2} max={10} />
+              </div>
 
-            <div className="pure-u-1 pure-u-lg-1-2">
-              <pre className="prettyprint">
-{`<FormControl
-  required={true}
-  type="text"
-  min={2}
-  max={10} />`}
-              </pre>
+              <div className="pure-u-1 pure-u-lg-1-2">
+                <pre className="prettyprint">
+  {`<FormControl
+    required={true}
+    type="text"
+    min={2}
+    max={10} />`}
+                </pre>
+              </div>
             </div>
           </div>
 
@@ -268,6 +270,24 @@ module.exports = React.createClass({
               </div>
             </div>
           </div>
+
+          <h2 className="subhead">内嵌元素</h2>
+          <p>可以使用 children 来处理一些复杂结构。<b>注意每个 FormControl 只能有一个表单组件，类型必须和 FormControl 的 <em>type</em> 相同。</b></p>
+          <FormControl name="email" label="email" type="email">
+            <span className="input-group">
+              <span className="addon"><Icon icon="email" /></span>
+              <Input type="email" />
+            </span>
+          </FormControl>
+
+          <pre className="prettyprint">
+{`<FormControl type="email">
+  <span className="input-group">
+    <span className="addon"><Icon icon="email" /></span>
+    <Input type="email" />
+  </span>
+</FormControl>`}
+          </pre>
 
           <h2 className="subhead">自定义 FormControl</h2>
           <p>

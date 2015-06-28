@@ -1,5 +1,7 @@
 'use strict'
 
+require('../../less/input.less')
+
 let React = require('react')
 let Classable = require('../mixins/classable')
 let ReceiveValue = require('../mixins/receive-value')
@@ -15,6 +17,7 @@ let Input = React.createClass({
     placeholder: React.PropTypes.string,
     readOnly: React.PropTypes.bool,
     rows: React.PropTypes.number,
+    style: React.PropTypes.object,
     type: React.PropTypes.string,
     value: React.PropTypes.any
   },
@@ -41,20 +44,15 @@ let Input = React.createClass({
     let type = this.props.type === 'password' ? 'password' : 'text'
     let props = {
       className: this.getClasses('form-control'),
-      id: this.props.id,
       onChange: this.handleChange,
-      onBlur: this.props.onBlur,
-      onFocus: this.props.onFocus,
-      placeholder: this.props.placeholder,
-      readOnly: this.props.readOnly,
       type: type,
       value: this.state.value
     }
 
     if (this.props.type === 'textarea') {
-      return (<textarea {...props} rows={this.props.rows} />)
+      return (<textarea {...this.props} {...props} rows={this.props.rows} />)
     } else {
-      return (<input {...props} />)
+      return (<input {...this.props} {...props} />)
     }
   }
 })
@@ -67,7 +65,9 @@ require('./form-control.jsx').register(
 
   function (props) {
     return <Input {...props} />
-  }
+  },
+
+  Input
 
 )
 
@@ -78,6 +78,8 @@ require('./form-control.jsx').register(
   function (props) {
     return <Input {...props} />
   },
+
+  Input,
 
   'number'
 

@@ -5,17 +5,15 @@ let classnames = require('classnames')
 let deepmerge = require('deepmerge')
 let Strings = require('../utils/strings')
 let Objects = require('../utils/objects')
-//let clone = require('../utils/clone')
 let Validatable = require('../mixins/validatable')
 
-let renders = {}
-// array, string, number
-let valueTypes = {}
+let controls = {}
 
 let FormControl = React.createClass({
   displayName: 'FormControl',
 
   propTypes: {
+    children: React.PropTypes.any,
     className: React.PropTypes.string,
     data: React.PropTypes.any,
     hintType: React.PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
@@ -46,10 +44,14 @@ let FormControl = React.createClass({
       hasError: false,
       hasValue: this.props.value,
       value: this.props.value,
-      valueType: valueTypes[this.props.type],
+      valueType: controls[this.props.type].valueType,
       data: this.props.data,
       hintText: ''
     }
+  },
+
+  getReference: function () {
+    return this.refs.control
   },
 
   handleChange: function (value) {
@@ -96,15 +98,55 @@ let FormControl = React.createClass({
     return props
   },
 
+  getChildren: function (children, component) {
+    if (!Array.isArray(children)) {
+      children = [children]
+    }
+    let newChildren = []
+    children.map((child, i) => {
+      let props = { key: i }
+      if (child.type === component) {
+        props.ref = 'control'
+      }
+      if (child.props && typeof child.props.children === 'object') {
+        props.children = this.getChildren(child.props.children, component)
+      }
+      child = React.addons.cloneWithProps(child, props)
+      newChildren.push(child)
+    })
+    return newChildren
+  },
+
   getControl: function (props) {
-    let render = renders[this.props.type]
-    if (!render) {
+    let control = controls[this.props.type]
+    if (!control) {
       console.warn(`${this.props.type} was not registed.`)
       return null
     }
 
-    props = deepmerge(this.copyProps(), props || {})
-    return render(props)
+    let children = this.props.children
+    if (children) {
+      return this.getChildren(children, control.component)
+      /*
+      if (!Array.isArray(children)) {
+        children = [children]
+      }
+      let newChildren = []
+      children.map((child, i) => {
+        if (child.type === control.component) {
+          child = React.addons.cloneWithProps(
+            child,
+            { key: i, ref: 'control' }
+          )
+        }
+        newChildren.push(child)
+      })
+      return newChildren
+      */
+    } else {
+      props = deepmerge(this.copyProps(), props || {})
+      return control.render(props)
+    }
   },
 
   renderInline: function (className) {
@@ -164,13 +206,12 @@ let FormControl = React.createClass({
 })
 
 // register component
-FormControl.register = function (types, render, valueType) {
+FormControl.register = function (types, render, component, valueType = 'string') {
   if (typeof types === 'string') {
     types = [types]
   }
   types.forEach(type => {
-    renders[type] = render
-    valueTypes[type] = valueType || 'string'
+    controls[type] = { render, component, valueType }
   })
 }
 

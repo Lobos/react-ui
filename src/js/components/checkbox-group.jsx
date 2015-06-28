@@ -124,5 +124,7 @@ require('./form-control.jsx').register(
     return <CheckboxGroup {...props} />
   },
 
+  CheckboxGroup,
+
   'array'
 )

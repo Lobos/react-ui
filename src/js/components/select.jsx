@@ -281,5 +281,7 @@ require('./form-control.jsx').register(
     return <Select {...props} />
   },
 
+  Select,
+
   'array'
 )

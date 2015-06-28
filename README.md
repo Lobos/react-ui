@@ -3,14 +3,12 @@
 A collection of components for React.
 
 # Install
-install nodejs
-
-npm install -g webpack
-
-npm install
 
 # Build
-docs: webpack --config webpack-docs.config.js [--min]
+```
+    docs:    webpack --config webpack-docs.config.js [--min]
+    publish: webpack --config webpack-publish.config.js [--min]
+```
 
 # Change log
 使用webpack打包，减少体积，去除了 `Reflux` 和 `superagent` 依赖。
@@ -32,7 +30,6 @@ docs: webpack --config webpack-docs.config.js [--min]
 - Message
 - Mult select
 - Pagination
-- Progress
 - Radio group
 - Rating
 - Select

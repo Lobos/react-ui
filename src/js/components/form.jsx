@@ -120,6 +120,10 @@ let Form = React.createClass({
     }, this)
   },
 
+  getReference: function (name) {
+    return this.refs[name]
+  },
+
   handleSubmit: function (event) {
     if (this.state.locked) {
       return

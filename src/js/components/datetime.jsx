@@ -606,6 +606,8 @@ require('./form-control.jsx').register(
 
   function (props) {
     return <Datetime {...props} timeOnly={true} />
-  }
+  },
+
+  Datetime
 
 )

@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-import {Form, FormControl, FormSubmit, RadioGroup} from '../../../../src/js'
+import {Form, FormControl, FormSubmit, Icon, Input, RadioGroup} from '../../../../src/js'
 
 module.exports = React.createClass({
   displayName: 'Pages/Form',
@@ -60,9 +60,15 @@ module.exports = React.createClass({
 
           <h2 className="subhead">获取 / 提交数据</h2>
           <p>注：本文档使用了一个 <em>json</em> 文件模拟服务端返回数据，提交会提示 <em>500</em> 错误</p>
+
           <Form layout="aligned" autoload={true} action="json/form.json">
             <FormControl name="text" label="text" type="text" width={12} min={2} max={6} />
-            <FormControl width={12} name="email" label="email" type="email" placeholder="填写email" />
+            <FormControl name="email" label="email" type="email">
+              <span className="input-group pure-u-1">
+                <span className="addon"><Icon icon="email" /></span>
+                <Input type="email" />
+              </span>
+            </FormControl>
             <FormControl width={13} name="alpha" label="alpha" type="alpha" />
             <FormControl width={14} name="alphanum" label="alphanum" type="alphanum" />
             <FormControl width={15} name="integer" label="integer" type="integer" />
@@ -87,7 +93,12 @@ module.exports = React.createClass({
           <pre className="prettyprint">
 {`<Form layout="aligned" autoload={true} action="json/form.json">
   <FormControl name="text" label="text" type="text" width={12} min={2} max={6} />
-  <FormControl width={12} name="email" label="email" type="email" placeholder="填写email" />
+  <FormControl name="email" label="email" type="email">
+    <span className="input-group">
+      <span className="addon"><Icon icon="email" /></span>
+      <Input type="email" />
+    </span>
+  </FormControl>
   <FormControl width={13} name="alpha" label="alpha" type="alpha" />
   <FormControl width={14} name="alphanum" label="alphanum" type="alphanum" />
   <FormControl width={15} name="integer" label="integer" type="integer" />
@@ -110,6 +121,10 @@ module.exports = React.createClass({
 </Form>
 `}
           </pre>
+
+          <h2 className="subhead">Methods</h2>
+          <h2 className="subhead">getReference(name)</h2>
+          <p><em>Form</em> 下不能使用 <em>ref</em> 获取引用，需要引用时使用 <em>getReference</em> 方法。<em>name</em> 为 FormControl 的 <em>name</em></p>
         </div>
       </div>
     )
