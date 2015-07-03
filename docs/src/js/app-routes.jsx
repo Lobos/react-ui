@@ -6,12 +6,20 @@ let Master = require('./pages/master.jsx')
 let Home = require('./pages/home.jsx')
 
 let menulist = []
-require('./menulist').forEach(function (menu, i) {
-  if (menu.handler) {
-    menulist.push(
-      <Route key={i} name={menu.route} handler={menu.handler} />
-    )
-  }
+let index = 1
+
+function addMenu(list) {
+  list.forEach(function (menu) {
+    if (menu.handler) {
+      menulist.push(
+        <Route key={index} name={menu.route} handler={menu.handler} />
+      )
+    }
+    index++
+  })
+}
+require('./menulist').forEach(function (list) {
+  addMenu(list)
 })
 
 let AppRoutes = (

@@ -5,6 +5,7 @@ let React = require('react')
 let Router = require('react-router')
 let menulist = require('./menulist')
 let Icon = require('../../../src/js/components/icon.jsx')
+let Dom = require('../../../src/js').Utils.Dom
 
 module.exports = React.createClass({
   displayName: 'NavList',
@@ -17,8 +18,14 @@ module.exports = React.createClass({
 
   getInitialState: function () {
     return {
-      active: false
+      active: false,
+      height: 0
     }
+  },
+
+  componentDidMount: function () {
+    let height = Dom.getOuterHeight(React.findDOMNode(this))
+    this.setState({ height })
   },
 
   getClasses: function (name, route) {
@@ -29,35 +36,62 @@ module.exports = React.createClass({
 
   routeChange: function (route) {
     this.context.router.transitionTo(route)
-    this.setState({ active: false })
-    this.props.onToggle(false)
+    if (this.state.active) {
+      this.toggle()
+    }
   },
 
   toggle: function () {
     let active = !this.state.active
-    this.setState({ active: active })
-    this.props.onToggle(active)
+    let rs = React.findDOMNode(this.refs.list).style
+    rs.display = active ? 'block' : 'none'
+
+    if (active) {
+      let height = window.innerHeight || document.documentElement.clientHeight
+      rs.maxHeight = (height - this.state.height) + 'px'
+    }
+
+    setTimeout(() => {
+      this.setState({ active })
+      this.props.onToggle(active)
+    }, 0)
+  },
+
+  getRoutesList: function (routes, index) {
+    let list = routes.map(function (r, i) {
+      if (r.route) {
+        return (
+          <li key={i} className="pure-menu-item">
+            <a onClick={this.routeChange.bind(this, r.route)} className={this.getClasses("pure-menu-link", r.route)}>{r.text}</a>
+          </li>
+        )
+      } else if (r.hr) {
+        return (<hr key={i} />)
+      } else if (r.text) {
+        return (
+          <li key={i} className="pure-menu-item">
+            <span className="pure-menu-link">{r.text}</span>
+          </li>
+        )
+      }
+    }, this)
+
+    return <ul key={index} className="pure-menu-list">{list}</ul>
   },
 
   render: function () {
-    let list = menulist.map(function (m, i) {
-      if (m.route) {
-        return (
-          <li key={i} className="pure-menu-item">
-            <a onClick={this.routeChange.bind(this, m.route)} className={this.getClasses("pure-menu-link", m.route)}>{m.text}</a>
-          </li>
-        )
-      } else if (m.hr) {
-        return (<hr key={i} />)
-      }
+    let list = menulist.map(function (routes, index) {
+      return this.getRoutesList(routes, index)
     }, this)
 
     return (
       <div className={classnames("nav", {active: this.state.active})}>
-        <div className="nav-list pure-menu">
-          <a onClick={this.toggle} className="nav-handler"><Icon icon={this.state.active ? "close" : "menu"} size="lg" /></a>
-          <a className="pure-menu-heading" onClick={this.routeChange.bind(this, '/')}>React UI</a>
-          <ul className="pure-menu-list">{list}</ul>
+        <a className="pure-menu-heading" onClick={this.routeChange.bind(this, '/')}>React UI</a>
+        <div className="nav-inner pure-menu">
+          <a onClick={this.toggle} className="nav-handler"><Icon icon="menu" size="lg" /></a>
+          <div ref="list" className="nav-list">
+            {list}
+          </div>
         </div>
         <div onClick={this.toggle} className="overlay"></div>
       </div>

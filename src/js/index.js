@@ -22,6 +22,7 @@ exports.Lang = require('./lang')
 
 exports.Utils = {
   Datetime: require('./utils/datetime'),
+  Dom: require('./utils/dom'),
   Objects: require('./utils/objects'),
   Strings: require('./utils/strings')
 }
