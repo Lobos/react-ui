@@ -271,7 +271,7 @@ module.exports = React.createClass({
             </div>
           </div>
 
-          <h2 className="subhead">内嵌元素</h2>
+          <h2 className="subhead">Children</h2>
           <p>可以使用 children 来处理一些复杂结构。<b>注意每个 FormControl 只能有一个表单组件，类型必须和 FormControl 的 <em>type</em> 相同。</b></p>
           <FormControl name="email" label="email" type="email">
             <span className="input-group">

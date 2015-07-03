@@ -15,6 +15,8 @@ exports.FormControl = require('./components/form-control.jsx')
 exports.FormSubmit = require('./components/form-submit.jsx')
 exports.Form = require('./components/form.jsx')
 
+exports.Pagination = require('./components/pagination.jsx')
+
 exports.Message = require('./components/message.jsx')
 exports.Lang = require('./lang')
 
