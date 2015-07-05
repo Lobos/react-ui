@@ -3998,7 +3998,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (this.state) {
 	      //let data = clone(this.state.data).map(d => {
 	      var data = this.state.data.map(function (d) {
-	        d.$checked = value.indexOf(d.$value);
+	        d.$checked = value.indexOf(d.$value) >= 0;
 	        return d;
 	      });
 	      this.setState({ data: data });
