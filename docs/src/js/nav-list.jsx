@@ -120,6 +120,7 @@ module.exports = React.createClass({
     return (
       <div className={classnames("nav", {active: this.state.active})}>
         <a className="pure-menu-heading" onClick={this.routeChange.bind(this, '/')}>React UI</a>
+        <a className="link-github" href="https://github.com/Lobos/react-ui"><Icon icon="github" /> github</a>
         <div onMouseEnter={this.show} onMouseLeave={this.close} className="nav-inner pure-menu">
           <a onClick={this.show} className="nav-handler"><Icon icon="menu" size="lg" /></a>
           <div ref="list" className="nav-list">

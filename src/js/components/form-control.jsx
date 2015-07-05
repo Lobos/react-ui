@@ -24,7 +24,8 @@ let FormControl = React.createClass({
     onChange: React.PropTypes.func,
     responsive: React.PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
     type: React.PropTypes.string,
-    value: React.PropTypes.any
+    value: React.PropTypes.any,
+    width: React.PropTypes.number
   },
 
   mixins: [Validatable],
@@ -127,22 +128,6 @@ let FormControl = React.createClass({
     let children = this.props.children
     if (children) {
       return this.getChildren(children, control.component)
-      /*
-      if (!Array.isArray(children)) {
-        children = [children]
-      }
-      let newChildren = []
-      children.map((child, i) => {
-        if (child.type === control.component) {
-          child = React.addons.cloneWithProps(
-            child,
-            { key: i, ref: 'control' }
-          )
-        }
-        newChildren.push(child)
-      })
-      return newChildren
-      */
     } else {
       props = deepmerge(this.copyProps(), props || {})
       return control.render(props)
