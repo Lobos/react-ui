@@ -4033,7 +4033,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      d.$result = Strings.substitute(_this3.props.resultTpl || _this3.props.optionTpl, d);
 	      d.$value = val;
 	      d.$checked = value.indexOf(val) >= 0;
-	      console.log(d.$checked, value, val);
 	      return d;
 	    });
 
@@ -4153,8 +4152,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	          d
 	        );
 	      }
-
-	      console.log(d.$checked, d.$value);
 
 	      if (d.$checked) {
 	        if (this.props.mult) {
