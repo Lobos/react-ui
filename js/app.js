@@ -4033,6 +4033,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      d.$result = Strings.substitute(_this3.props.resultTpl || _this3.props.optionTpl, d);
 	      d.$value = val;
 	      d.$checked = value.indexOf(val) >= 0;
+	      console.log(d.$checked, value, val);
 	      return d;
 	    });
 
