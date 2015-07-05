@@ -4012,7 +4012,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var value = this.state.value;
 	    data = data.map(function (d) {
 	      if (typeof d !== 'object') {
-	        console.log(d);
 	        return {
 	          $option: d,
 	          $result: d,
@@ -4154,6 +4153,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          d
 	        );
 	      }
+
+	      console.log(d.$checked, d.$value);
 
 	      if (d.$checked) {
 	        if (this.props.mult) {
