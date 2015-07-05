@@ -22,7 +22,6 @@
   .nav-inner {
     position: absolute;
     z-index: 999;
-    .box-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
 
     a { 
       color: #999;
@@ -70,6 +69,15 @@
       .opacity(0);
       .transition(opacity 0.4s);
       .box-sizing(border-box);
+      .box-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+
+      .mouse-move-pad {
+        position: absolute;
+        width: 100%;
+        height: 50px;
+        bottom: 100%;
+        background-color: transparent;
+      }
     }
 
     .pure-menu-list {
