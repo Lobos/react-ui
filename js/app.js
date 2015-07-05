@@ -341,7 +341,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      active: true,
+	      active: false,
 	      height: 0
 	    };
 	  },
