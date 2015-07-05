@@ -41,18 +41,16 @@ publish: webpack --config webpack-publish.config.js [--min]
 # Components
 目前完成的组件，后续应该会不断加入新的组件
 
-- Checkbox
-- Checkbox group
-- Color Picker
-- Datetime
-- Form
-- Form Control
-- Icon
-- Loading
-- Message
-- Mult select
-- Pagination
-- Radio group
-- Rating
-- Select
-- Tree
+- [Checkbox](http://lobos.github.io/react-ui/#/checkbox)
+- [Checkbox group](http://lobos.github.io/react-ui/#/checkbox-group)
+- [Datetime](http://lobos.github.io/react-ui/#/datetime)
+- [Form](http://lobos.github.io/react-ui/#/form)
+- [Form Control](http://lobos.github.io/react-ui/#/form-control)
+- [Icon](http://lobos.github.io/react-ui/#/icon)
+- [Loading](http://lobos.github.io/react-ui/#/loading)
+- [Message](http://lobos.github.io/react-ui/#/message)
+- [Pagination](http://lobos.github.io/react-ui/#/pagination)
+- [Radio group](http://lobos.github.io/react-ui/#/radio-group)
+- [Rating](http://lobos.github.io/react-ui/#/rating)
+- [Select](http://lobos.github.io/react-ui/#/select)
+- [Tree](http://lobos.github.io/react-ui/#/tree)
