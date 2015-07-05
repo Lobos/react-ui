@@ -39,6 +39,10 @@
         "icon": "cogs",
         "children": [
             {
+                "id": "system_log",
+                "text": "系统日志"
+            },
+            {
                 "id": "config_list",
                 "text": "参数设置",
                 "children": [
