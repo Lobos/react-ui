@@ -3,7 +3,7 @@
   "author": "lobos841@gmail.com",
   "version": "0.2.1",
   "description": "a collection of components for React",
-  "main": "",
+  "main": "./src/js/index.js",
   "scripts": {
     "test": "./node_modules/.bin/_mocha --compilers js:babel/register"
   },
