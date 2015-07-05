@@ -16,6 +16,7 @@ let Form = React.createClass({
     action: React.PropTypes.string,
     autoload: React.PropTypes.bool,
     children: React.PropTypes.any,
+    dataType: React.PropTypes.oneOf(["post", "json", "text", "arraybuffer", "blob", "document", "formdata"]),
     hintType: React.PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
     layout: React.PropTypes.oneOf(['aligned', 'stacked', 'inline']),
     onSubmit: React.PropTypes.func
@@ -25,6 +26,7 @@ let Form = React.createClass({
 
   getDefaultProps: function () {
     return {
+      dataType: 'post',
       layout: 'inline'
     }
   },
@@ -145,7 +147,7 @@ let Form = React.createClass({
     }
 
     let data = this.getValue()
-    Qwest.post(this.props.action, data)
+    Qwest.post(this.props.action, data, { dataType: this.props.dataType })
     .then(res => {
       if (res.status === 1) {
         if (this.props.onSubmit) {

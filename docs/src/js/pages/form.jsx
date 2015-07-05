@@ -27,6 +27,8 @@ module.exports = React.createClass({
           <pre className="prettyprint">
 {`<Form
   action={string}       // 服务端地址
+  dataType={string}     // 提交数据类型，可选值为 "post", "json", "text", "arraybuffer",
+                           "blob", "document", "formdata"，默认为 "post"
   hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
                            layout 为 stacked, aligned 时，默认为 "block"
                            layout 为 inline 时，默认为 "pop"
