@@ -97,7 +97,7 @@ let Select = React.createClass({
     if (this.state) {
       //let data = clone(this.state.data).map(d => {
       let data = this.state.data.map(d => {
-        d.$checked = value.indexOf(d.$value)
+        d.$checked = value.indexOf(d.$value) >= 0
         return d
       })
       this.setState({ data: data })
