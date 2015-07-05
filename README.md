@@ -3,7 +3,7 @@
 A collection of components for React.
 文档 [戳这里](http://lobos.github.io/react-ui/)
 
-# 使用
+# Usage
 
  - 直接引用
 
@@ -24,7 +24,7 @@ var Form = ReactUI.Form
 ...
 ```
 
-# build
+# Build
 使用 [webpack](http://webpack.github.io/) 打包，可以修改 'src/js/index.js' 自定义需要的组件。
 ```
 docs:    webpack --config webpack-docs.config.js [--min]
