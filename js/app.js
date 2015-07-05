@@ -4012,6 +4012,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var value = this.state.value;
 	    data = data.map(function (d) {
 	      if (typeof d !== 'object') {
+	        console.log(d);
 	        return {
 	          $option: d,
 	          $result: d,
