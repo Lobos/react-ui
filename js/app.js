@@ -4644,6 +4644,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    action: React.PropTypes.string,
 	    autoload: React.PropTypes.bool,
 	    children: React.PropTypes.any,
+	    dataType: React.PropTypes.oneOf(['post', 'json', 'text', 'arraybuffer', 'blob', 'document', 'formdata']),
 	    hintType: React.PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
 	    layout: React.PropTypes.oneOf(['aligned', 'stacked', 'inline']),
 	    onSubmit: React.PropTypes.func
@@ -4653,6 +4654,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
+	      dataType: 'post',
 	      layout: 'inline'
 	    };
 	  },
@@ -4775,7 +4777,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    var data = this.getValue();
-	    Qwest.post(this.props.action, data).then(function (res) {
+	    Qwest.post(this.props.action, data, { dataType: this.props.dataType }).then(function (res) {
 	      if (res.status === 1) {
 	        if (_this2.props.onSubmit) {
 	          _this2.props.onSubmit(res);
@@ -5595,7 +5597,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        React.createElement(
 	          'pre',
 	          { className: 'prettyprint' },
-	          '<Form\n  action={string}       // 服务端地址\n  hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"\n                           layout 为 stacked, aligned 时，默认为 "block"\n                           layout 为 inline 时，默认为 "pop"\n                           会被 FormControl 的 hintType 覆盖\n  autoload={bool}       // 为true时，自动根据 action 从服务端已 get 方法获取数据\n  layout={string}       // 布局，可选值为 "aligned", "stacked", "inline"，默认为 "inline"\n  onSubmit={function}>  // 数据提交后回调事件\n  {children}\n</Form>'
+	          '<Form\n  action={string}       // 服务端地址\n  dataType={string}     // 提交数据类型，可选值为 "post", "json", "text", "arraybuffer",\n                           "blob", "document", "formdata"，默认为 "post"\n  hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"\n                           layout 为 stacked, aligned 时，默认为 "block"\n                           layout 为 inline 时，默认为 "pop"\n                           会被 FormControl 的 hintType 覆盖\n  autoload={bool}       // 为true时，自动根据 action 从服务端已 get 方法获取数据\n  layout={string}       // 布局，可选值为 "aligned", "stacked", "inline"，默认为 "inline"\n  onSubmit={function}>  // 数据提交后回调事件\n  {children}\n</Form>'
 	        ),
 	        React.createElement(
 	          'h2',
