@@ -18,7 +18,7 @@ module.exports = React.createClass({
 
   getInitialState: function () {
     return {
-      active: true,
+      active: false,
       height: 0
     }
   },
