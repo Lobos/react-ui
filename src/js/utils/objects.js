@@ -9,12 +9,16 @@ function isEmpty(obj) {
     return true
   }
 
-  if (isNaN(obj)) {
+  if (typeof obj === 'number' && isNaN(obj)) {
     return true
   }
 
   if (obj.length !== undefined) {
     return obj.length === 0
+  }
+
+  if (obj instanceof Date) {
+    return false
   }
 
   if (typeof obj === 'object') {

@@ -15,6 +15,7 @@ let Form = React.createClass({
   propTypes: {
     action: React.PropTypes.string,
     autoload: React.PropTypes.bool,
+    beforeSubmit: React.PropTypes.func,
     children: React.PropTypes.any,
     dataType: React.PropTypes.oneOf(["post", "json", "text", "arraybuffer", "blob", "document", "formdata"]),
     hintType: React.PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
@@ -77,6 +78,12 @@ let Form = React.createClass({
     return data
   },
 
+  setValue: function (key, value) {
+    let data = this.state.data
+    data[key] = value
+    this.setState({ data })
+  },
+
   setData: function (data) {
     Objects.forEach(this.refs, (ref, k) => {
       ref.setValue(data[k])
@@ -126,6 +133,18 @@ let Form = React.createClass({
     return this.refs[name]
   },
 
+  validate: function () {
+    let success = true
+    Objects.forEach(this.refs, function (child) {
+      if (child.props.ignore) {
+        return
+      }
+      let suc = child.validate()
+      success = success && suc
+    })
+    return success
+  },
+
   handleSubmit: function (event) {
     if (this.state.locked) {
       return
@@ -135,11 +154,10 @@ let Form = React.createClass({
 
     this.setState({ locked: true })
 
-    let success = true
-    Objects.forEach(this.refs, function (child) {
-      let suc = child.validate()
-      success = success && suc
-    })
+    let success = this.validate()
+    if (success && this.props.beforeSubmit) {
+      success = this.props.beforeSubmit()
+    }
 
     if (!success) {
       this.setState({ locked: false })
