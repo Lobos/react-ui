@@ -8,6 +8,7 @@ var md5 = require('MD5')
 var mkdirp = require('mkdirp')
 var fs = require('fs')
 var components = require('./src/data')
+var getBuildThunk = require('./build').getBuildThunk
 
 app.use(router.routes())
 
@@ -28,16 +29,17 @@ function getIndexFile(keys) {
 }
 
 router.post('/build', koaBody, function *() {
-  var key = md5(JSON.stringify(this.request.body))
+  let body = this.request.body
+  var key = md5(JSON.stringify(body))
   // every sort of options create a folder
   var path = './build/' + key + '/'
   mkdirp.sync(path)
 
-  var keys = this.request.body.components
+  var keys = body.components
   var text = getIndexFile(keys)
   fs.writeFileSync(path + 'index.js', text)
 
-  this.body = text
+  this.body = yield getBuildThunk(key, !!body.minimize, !!body.css)
 })
 
 router.get('/components', function *() {
