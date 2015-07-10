@@ -49,6 +49,7 @@
     "eslint-plugin-react": "^2.5.0",
     "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
+    "jszip": "^2.5.0",
     "koa": "^0.21.0",
     "koa-body": "^1.2.1",
     "koa-router": "^5.1.2",

@@ -9,8 +9,13 @@ var mkdirp = require('mkdirp')
 var fs = require('fs')
 var components = require('./src/data')
 var getBuildThunk = require('./build').getBuildThunk
+var zip = require('./zip')
 
 app.use(router.routes())
+
+if (!fs.existsSync('./static/dist')) {
+  mkdirp('./static/dist')
+}
 
 function getIndexFile(keys) {
   var arr = []
@@ -28,18 +33,62 @@ function getIndexFile(keys) {
   return arr.join('\n')
 }
 
+function sleep(n) {
+  return function (callback) {
+    setTimeout(function () {
+      callback()
+    }, n)
+  }
+}
+
+function checkFile(key, ctx) {
+  if (fs.existsSync('./static/dist/' + key + '.zip')) {
+    ctx.redirect('dist/' + key + '.zip')
+    return true
+  }
+  return false
+}
+
 router.post('/build', koaBody, function *() {
   let body = this.request.body
   var key = md5(JSON.stringify(body))
-  // every sort of options create a folder
+
+  // redirect return file if already created
+  if (checkFile(key, this)) { return }
+
   var path = './build/' + key + '/'
-  mkdirp.sync(path)
+  if (fs.existsSync(path)) {
 
-  var keys = body.components
-  var text = getIndexFile(keys)
-  fs.writeFileSync(path + 'index.js', text)
+    // wait file build completed
+    yield sleep(10000)
+    if (checkFile(key, this)) { return }
+    yield sleep(10000)
+    if (checkFile(key, this)) { return }
+    yield sleep(10000)
+    if (checkFile(key, this)) { return }
+    yield sleep(10000)
+    if (checkFile(key, this)) { return }
+    yield sleep(10000)
+    if (checkFile(key, this)) { return }
+    yield sleep(10000)
+    if (checkFile(key, this)) { return }
 
-  this.body = yield getBuildThunk(key, !!body.minimize, !!body.css)
+  } else {
+    mkdirp.sync(path)
+  }
+
+  if (!fs.existsSync(path + 'index.js')) {
+    // create index.js
+    var keys = body.components
+    var text = getIndexFile(keys)
+    fs.writeFileSync(path + 'index.js', text)
+  }
+
+  yield getBuildThunk(key, !!body.minimize, !!body.css)
+  // remove index.js
+  fs.unlinkSync('./build/' + key + '/index.js')
+
+  this.redirect(yield zip(key))
 })
 
 router.get('/components', function *() {

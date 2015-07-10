@@ -8,7 +8,8 @@ let Page = React.createClass({
 
   getInitialState: function () {
     return {
-      components: {}
+      components: {},
+      building: false
     }
   },
 
@@ -42,6 +43,10 @@ let Page = React.createClass({
     this.setState({ components })
   },
 
+  submit: function () {
+    this.setState({ building: true })
+  },
+
   render: function () {
     let components = this.state.components
     let list = Object.keys(components).map((key, i) => {
@@ -50,6 +55,7 @@ let Page = React.createClass({
         <div key={i}>
           <label>
             <input name="components"
+                readOnly={this.state.building}
                 onChange={this.handleChange.bind(this, key)}
                 checked={component.$checked}
                 value={key}
@@ -61,26 +67,26 @@ let Page = React.createClass({
     })
     return (
       <div>
-        <form method="POST" action="/build">
+        <form onSubmit={this.submit} method="POST" action="/build">
           {list}
           <hr />
 
           <div>
             <label>
-              <input name="css" value={true} type="checkbox" />
+              <input readOnly={this.state.building} name="css" value={true} type="checkbox" />
               <span>独立css文件</span>
             </label>
           </div>
 
           <div>
             <label>
-              <input name="minimize" value={true} type="checkbox" />
+              <input readOnly={this.state.building} name="minimize" value={true} type="checkbox" />
               <span>Uglify 压缩</span>
             </label>
           </div>
 
           <hr />
-          <button type="submit">Build</button>
+          <button disabled={this.state.building} type="submit">Build</button>
         </form>
       </div>
     )

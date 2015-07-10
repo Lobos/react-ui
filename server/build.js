@@ -57,7 +57,7 @@ function build(key, minimize, separateStylesheet, callback) {
 
   if (separateStylesheet) {
 		config.plugins.push(
-      new ExtractTextPlugin("css/[name].css")
+      new ExtractTextPlugin("[name].css")
     )
     config.module.loaders.push(
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') }
