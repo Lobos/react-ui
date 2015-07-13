@@ -1700,6 +1700,10 @@ since IE8 won't execute CSS that contains a CSS3 selector.
 }
 .datetime {
   width: 200px;
+  cursor: pointer;
+}
+.datetime a {
+  cursor: pointer;
 }
 .datetime * {
   -webkit-box-sizing: border-box;
@@ -2188,6 +2192,7 @@ since IE8 won't execute CSS that contains a CSS3 selector.
 .select {
   position: relative;
   min-width: 100px;
+  cursor: pointer;
 }
 .select.single:before {
   width: 0;
@@ -2724,8 +2729,10 @@ a.pure-button-selected {
   display: inline-block;
 }
 .pagination-wrap .pagination li a {
+  cursor: pointer;
   display: inline-block;
   line-height: normal;
+  background-color: #fff;
   padding: 0.5em 0.9em;
   border: solid 1px #ddd;
   margin-left: -1px;
