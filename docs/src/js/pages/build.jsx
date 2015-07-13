@@ -47,10 +47,16 @@ module.exports = React.createClass({
     this.setState({ components })
   },
 
+  submit: function (e) {
+    this.setState({ building: true })
+  },
+
   render: function () {
     let components = this.state.components
+    let checkedNum = 0
     let list = Object.keys(components).map((key, i) => {
       let component = components[key]
+      checkedNum += component.$checked ? 1 : 0
       return (
         <div className="pure-checkbox pure-u-1 pure-u-sm-1-3" key={i}>
           <label>
@@ -84,7 +90,7 @@ module.exports = React.createClass({
           </div>
           <div style={{clear: 'both'}} />
 
-          <form action="http://192.249.62.216:8080/build" method="POST">
+          <form onSubmit={this.submit} action="http://192.249.62.216:8080/build" method="POST">
             <hr />
             {list}
             <hr />
@@ -105,7 +111,7 @@ module.exports = React.createClass({
 
             <hr />
 
-            <Button type="submit" status="primary">Build</Button>
+            <Button type="submit" disabled={checkedNum === 0 || this.state.building} status="primary">{this.state.building ? '处理中，机器比较破，可能会有点延时……' : '生成代码'}</Button>
           </form>
         </div>
       </div>
