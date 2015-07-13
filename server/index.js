@@ -13,8 +13,8 @@ var zip = require('./zip')
 
 app.use(router.routes())
 
-if (!fs.existsSync('./static')) {
-  mkdirp('./static')
+if (!fs.existsSync('./static/dist')) {
+  mkdirp('./static/dist')
 }
 
 function getIndexFile(keys) {
@@ -42,8 +42,8 @@ function sleep(n) {
 }
 
 function checkFile(key, ctx) {
-  if (fs.existsSync('./static/' + key + '.zip')) {
-    ctx.redirect(key + '.zip')
+  if (fs.existsSync('./static/dist/' + key + '.zip')) {
+    ctx.redirect('dist/' + key + '.zip')
     return true
   }
   return false
