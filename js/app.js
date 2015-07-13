@@ -3694,6 +3694,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      items.push(React.createElement(
 	        'span',
 	        { key: i,
+	          style: { cursor: 'pointer' },
 	          onMouseOver: this.handleHover(i + 1),
 	          onClick: this.handleChange.bind(this, i + 1),
 	          className: classnames('handle', { 'active': active, 'wink': active && wink }) },
