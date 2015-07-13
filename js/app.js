@@ -956,7 +956,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	// register component
 	FormControl.register = function (types, render, component) {
-	  var valueType = arguments[3] === undefined ? 'string' : arguments[3];
+	  var valueType = arguments.length <= 3 || arguments[3] === undefined ? 'string' : arguments[3];
 
 	  if (typeof types === 'string') {
 	    types = [types];
@@ -1107,12 +1107,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return true;
 	  }
 
-	  if (isNaN(obj)) {
+	  if (typeof obj === 'number' && isNaN(obj)) {
 	    return true;
 	  }
 
 	  if (obj.length !== undefined) {
 	    return obj.length === 0;
+	  }
+
+	  if (obj instanceof Date) {
+	    return false;
 	  }
 
 	  if (typeof obj === 'object') {
@@ -1145,8 +1149,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function toTextValue(arr) {
-	  var textTpl = arguments[1] === undefined ? '{text}' : arguments[1];
-	  var valueTpl = arguments[2] === undefined ? '{id}' : arguments[2];
+	  var textTpl = arguments.length <= 1 || arguments[1] === undefined ? '{text}' : arguments[1];
+	  var valueTpl = arguments.length <= 2 || arguments[2] === undefined ? '{id}' : arguments[2];
 
 	  arr = arr.map(function (s) {
 	    if (typeof s !== 'object') {
@@ -2976,7 +2980,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  overView: function overView(el) {
-	    var offset = arguments[1] === undefined ? 0 : arguments[1];
+	    var offset = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
 
 	    var height = window.innerHeight || document.documentElement.clientHeight;
 	    var bottom = el.getBoundingClientRect().bottom + offset;
@@ -3171,8 +3175,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 
 	function getAngle(r, angle) {
-	  var x0 = arguments[2] === undefined ? 0 : arguments[2];
-	  var y0 = arguments[3] === undefined ? 0 : arguments[3];
+	  var x0 = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
+	  var y0 = arguments.length <= 3 || arguments[3] === undefined ? 0 : arguments[3];
 
 	  var x1 = x0 + r * Math.cos(angle * Math.PI / 180);
 	  var y1 = y0 + r * Math.sin(angle * Math.PI / 180);
@@ -3180,10 +3184,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function getPostions(count) {
-	  var r = arguments[1] === undefined ? 50 : arguments[1];
-	  var angle = arguments[2] === undefined ? 0 : arguments[2];
-	  var x0 = arguments[3] === undefined ? r : arguments[3];
-	  var y0 = arguments[4] === undefined ? r : arguments[4];
+	  var r = arguments.length <= 1 || arguments[1] === undefined ? 50 : arguments[1];
+	  var angle = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
+	  var x0 = arguments.length <= 3 || arguments[3] === undefined ? r : arguments[3];
+	  var y0 = arguments.length <= 4 || arguments[4] === undefined ? r : arguments[4];
 	  return (function () {
 	    var pos = [];
 	    var step = 360 / count;
@@ -3237,10 +3241,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  bindClickAway: function bindClickAway() {
 	    Events.on(document, 'click', this.checkClickAway);
+	    Events.on(document, 'touchstart', this.checkClickAway);
 	  },
 
 	  unbindClickAway: function unbindClickAway() {
 	    Events.off(document, 'click', this.checkClickAway);
+	    Events.off(document, 'touchstart', this.checkClickAway);
 	  }
 
 	};
@@ -3632,7 +3638,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  getIcon: function getIcon() {
-	    var pos = arguments[0] === undefined ? 0 : arguments[0];
+	    var pos = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
 
 	    var icons = this.props.icons;
 	    if (!icons) {
@@ -3923,8 +3929,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  getValue: function getValue() {
-	    var sep = arguments[0] === undefined ? this.props.sep : arguments[0];
-	    var data = arguments[1] === undefined ? this.state.data : arguments[1];
+	    var sep = arguments.length <= 0 || arguments[0] === undefined ? this.props.sep : arguments[0];
+	    var data = arguments.length <= 1 || arguments[1] === undefined ? this.state.data : arguments[1];
 
 	    var value = [];
 	    data.forEach(function (d) {
@@ -4643,6 +4649,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  propTypes: {
 	    action: React.PropTypes.string,
 	    autoload: React.PropTypes.bool,
+	    beforeSubmit: React.PropTypes.func,
 	    children: React.PropTypes.any,
 	    dataType: React.PropTypes.oneOf(['post', 'json', 'text', 'arraybuffer', 'blob', 'document', 'formdata']),
 	    hintType: React.PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
@@ -4705,6 +4712,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return data;
 	  },
 
+	  setValue: function setValue(key, value) {
+	    var data = this.state.data;
+	    data[key] = value;
+	    this.setState({ data: data });
+	  },
+
 	  setData: function setData(data) {
 	    Objects.forEach(this.refs, function (ref, k) {
 	      ref.setValue(data[k]);
@@ -4754,6 +4767,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return this.refs[name];
 	  },
 
+	  validate: function validate() {
+	    var success = true;
+	    Objects.forEach(this.refs, function (child) {
+	      if (child.props.ignore) {
+	        return;
+	      }
+	      var suc = child.validate();
+	      success = success && suc;
+	    });
+	    return success;
+	  },
+
 	  handleSubmit: function handleSubmit(event) {
 	    var _this2 = this;
 
@@ -4765,11 +4790,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    this.setState({ locked: true });
 
-	    var success = true;
-	    Objects.forEach(this.refs, function (child) {
-	      var suc = child.validate();
-	      success = success && suc;
-	    });
+	    var success = this.validate();
+	    if (success && this.props.beforeSubmit) {
+	      success = this.props.beforeSubmit();
+	    }
 
 	    if (!success) {
 	      this.setState({ locked: false });
