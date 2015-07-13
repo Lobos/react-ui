@@ -33,10 +33,12 @@ module.exports = {
 
   bindClickAway: function() {
     Events.on(document, 'click', this.checkClickAway)
+    Events.on(document, 'touchstart', this.checkClickAway)
   },
 
   unbindClickAway: function() {
     Events.off(document, 'click', this.checkClickAway)
+    Events.off(document, 'touchstart', this.checkClickAway)
   }
 
 }
