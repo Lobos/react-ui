@@ -7,14 +7,14 @@ var serve = require('koa-static')
 var md5 = require('MD5')
 var mkdirp = require('mkdirp')
 var fs = require('fs')
-var components = require('./src/data')
+var components = require('./data')
 var getBuildThunk = require('./build').getBuildThunk
 var zip = require('./zip')
 
 app.use(router.routes())
 
-if (!fs.existsSync('./static/dist')) {
-  mkdirp('./static/dist')
+if (!fs.existsSync('./static')) {
+  mkdirp('./static')
 }
 
 function getIndexFile(keys) {
@@ -42,8 +42,8 @@ function sleep(n) {
 }
 
 function checkFile(key, ctx) {
-  if (fs.existsSync('./static/dist/' + key + '.zip')) {
-    ctx.redirect('dist/' + key + '.zip')
+  if (fs.existsSync('./static/' + key + '.zip')) {
+    ctx.redirect(key + '.zip')
     return true
   }
   return false

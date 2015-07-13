@@ -26,6 +26,7 @@ let AppRoutes = (
   <Route name="root" path="/" handler={Master}>
     <Route name="home" handler={Home} />
     {menulist}
+    <Route name="build" handler={require('./pages/build.jsx')} />
     <DefaultRoute handler={Home} />
   </Route>
 )

@@ -56,7 +56,7 @@
     "koa-static": "^1.4.9",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
-    "material-design-iconic-font": "^2.0.0-dev",
+    "material-design-iconic-font": "^2.1.1",
     "mkdirp": "^0.5.1",
     "mocha": "^2.2.5",
     "react": "^0.13.3",

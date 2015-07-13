@@ -28,8 +28,8 @@ function archiver(key, callback) {
   walk(root)
 
   var data = zip.generate({type:"nodebuffer"})
-  fs.writeFile('./static/dist/' + key + '.zip', data, function () {
-    callback(null, 'dist/' + key + '.zip')
+  fs.writeFile('./static/' + key + '.zip', data, function () {
+    callback(null, key + '.zip')
   })
 }
 
