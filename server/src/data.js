@@ -63,10 +63,6 @@ module.exports = {
     path: './components/icon.jsx'
   },
 
-  Loading: {
-    path: './components/loading.jsx'
-  },
-
   Message: {
     path: './components/message.jsx'
   },
