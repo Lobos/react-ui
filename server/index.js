@@ -64,14 +64,6 @@ router.post('/build', koaBody, function *() {
     if (checkFile(key, this)) { return }
     yield sleep(10000)
     if (checkFile(key, this)) { return }
-    yield sleep(10000)
-    if (checkFile(key, this)) { return }
-    yield sleep(10000)
-    if (checkFile(key, this)) { return }
-    yield sleep(10000)
-    if (checkFile(key, this)) { return }
-    yield sleep(10000)
-    if (checkFile(key, this)) { return }
 
   } else {
     mkdirp.sync(path)
