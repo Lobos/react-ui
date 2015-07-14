@@ -71,11 +71,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	// static files
-	__webpack_require__(194);
-	__webpack_require__(195);
-	__webpack_require__(196);
-	__webpack_require__(197);
 	__webpack_require__(198);
+	__webpack_require__(199);
+	__webpack_require__(200);
+	__webpack_require__(201);
+	__webpack_require__(202);
 
 /***/ },
 /* 1 */,
@@ -219,6 +219,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  { name: 'root', path: '/', handler: Master },
 	  React.createElement(_reactRouter.Route, { name: 'home', handler: Home }),
 	  menulist,
+	  React.createElement(_reactRouter.Route, { name: 'build', handler: __webpack_require__(194) }),
 	  React.createElement(_reactRouter.DefaultRoute, { handler: Home })
 	);
 
@@ -8415,31 +8416,415 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "index.html"
+	'use strict';
+
+	var _srcJs = __webpack_require__(108);
+
+	var React = __webpack_require__(100);
+	var clone = __webpack_require__(195);
+	var data = __webpack_require__(212);
+
+	module.exports = React.createClass({
+	  displayName: 'Pages/Build',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      building: false,
+	      components: clone(data)
+	    };
+	  },
+
+	  handleChange: function handleChange(key) {
+	    var components = this.state.components;
+	    var target = components[key];
+	    if (!target.$checked) {
+	      target.$checked = true;
+	      var keys = target.dependencies || [];
+	      keys.forEach(function (k) {
+	        components[k].$checked = true;
+	      });
+	    } else {
+	      target.$checked = false;
+	      var keys = Object.keys(components);
+	      for (var i = 0, count = keys.length; i < count; i++) {
+	        var c = components[keys[i]];
+	        if (c.$checked && c.dependencies && c.dependencies.indexOf(key) >= 0) {
+	          target.$checked = true;
+	          break;
+	        }
+	      }
+	    }
+	    this.setState({ components: components });
+	  },
+
+	  selectAll: function selectAll(e) {
+	    var checked = e.target.checked;
+	    var components = this.state.components;
+	    Object.keys(components).map(function (key) {
+	      components[key].$checked = checked;
+	    });
+	    this.setState({ components: components });
+	  },
+
+	  submit: function submit(e) {
+	    this.setState({ building: true });
+	  },
+
+	  render: function render() {
+	    var _this = this;
+
+	    var components = this.state.components;
+	    var checkedNum = 0;
+	    var list = Object.keys(components).map(function (key, i) {
+	      var component = components[key];
+	      checkedNum += component.$checked ? 1 : 0;
+	      return React.createElement(
+	        'div',
+	        { className: 'pure-checkbox pure-u-1 pure-u-sm-1-3', key: i },
+	        React.createElement(
+	          'label',
+	          null,
+	          React.createElement('input', { name: 'components',
+	            readOnly: _this.state.building,
+	            onChange: _this.handleChange.bind(_this, key),
+	            checked: component.$checked,
+	            value: key,
+	            type: 'checkbox' }),
+	          React.createElement(
+	            'span',
+	            null,
+	            ' ',
+	            key
+	          )
+	        )
+	      );
+	    });
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Build'
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'content build-container' },
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'span',
+	            null,
+	            '选择需要的组件'
+	          ),
+	          React.createElement(
+	            'label',
+	            { style: { float: 'right' } },
+	            React.createElement('input', { readOnly: this.state.building,
+	              onChange: this.selectAll,
+	              type: 'checkbox' }),
+	            React.createElement(
+	              'span',
+	              null,
+	              ' 全选'
+	            )
+	          )
+	        ),
+	        React.createElement('div', { style: { clear: 'both' } }),
+	        React.createElement(
+	          'form',
+	          { onSubmit: this.submit, action: 'http://192.249.62.216:8080/build', method: 'POST' },
+	          React.createElement('hr', null),
+	          list,
+	          React.createElement('hr', null),
+	          React.createElement(
+	            'div',
+	            { className: 'pure-checkbox pure-u-1 pure-u-sm-1-3' },
+	            React.createElement(
+	              'label',
+	              null,
+	              React.createElement('input', { readOnly: this.state.building, name: 'css', value: true, type: 'checkbox' }),
+	              React.createElement(
+	                'span',
+	                null,
+	                ' 独立css文件'
+	              )
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'pure-checkbox pure-u-1 pure-u-sm-1-3' },
+	            React.createElement(
+	              'label',
+	              null,
+	              React.createElement('input', { readOnly: this.state.building, name: 'minimize', value: true, type: 'checkbox' }),
+	              React.createElement(
+	                'span',
+	                null,
+	                ' Uglify 压缩'
+	              )
+	            )
+	          ),
+	          React.createElement('hr', null),
+	          React.createElement(
+	            _srcJs.Button,
+	            { type: 'submit', disabled: checkedNum === 0 || this.state.building, status: 'primary' },
+	            this.state.building ? '处理中，机器比较破，可能会有点延时……' : '生成代码'
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
 
 /***/ },
 /* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "./json/countries.json"
+	// https://github.com/component/clone
+	/**
+	 * Module dependencies.
+	 */
+
+	'use strict';
+
+	var type = __webpack_require__(196);
+
+	/**
+	 * Clones objects.
+	 *
+	 * @param {Mixed} any object
+	 * @api public
+	 */
+
+	function clone(obj) {
+	  switch (type(obj)) {
+	    case 'object':
+	      var copy = {};
+	      for (var key in obj) {
+	        if (obj.hasOwnProperty(key)) {
+	          copy[key] = clone(obj[key]);
+	        }
+	      }
+	      return copy;
+
+	    case 'array':
+	      var arr = new Array(obj.length);
+	      for (var i = 0, l = obj.length; i < l; i++) {
+	        arr[i] = clone(obj[i]);
+	      }
+	      return arr;
+
+	    case 'regexp':
+	      // from millermedeiros/amd-utils - MIT
+	      var flags = '';
+	      flags += obj.multiline ? 'm' : '';
+	      flags += obj.global ? 'g' : '';
+	      flags += obj.ignoreCase ? 'i' : '';
+	      return new RegExp(obj.source, flags);
+
+	    case 'date':
+	      return new Date(obj.getTime());
+
+	    default:
+	      // string, number, boolean, …
+	      return obj;
+	  }
+	}
+
+	/**
+	 * Module exports.
+	 */
+
+	module.exports = clone;
 
 /***/ },
 /* 196 */
+/***/ function(module, exports) {
+
+	// https://github.com/component/type
+	/**
+	 * toString ref.
+	 */
+
+	'use strict';
+
+	var toString = Object.prototype.toString;
+
+	/**
+	 * Return the type of `val`.
+	 *
+	 * @param {Mixed} val
+	 * @return {String}
+	 * @api public
+	 */
+
+	module.exports = function (val) {
+	  switch (toString.call(val)) {
+	    case '[object Date]':
+	      return 'date';
+	    case '[object RegExp]':
+	      return 'regexp';
+	    case '[object Arguments]':
+	      return 'arguments';
+	    case '[object Array]':
+	      return 'array';
+	    case '[object Error]':
+	      return 'error';
+	  }
+
+	  if (val === null) {
+	    return 'null';
+	  }
+	  if (val === undefined) {
+	    return 'undefined';
+	  }
+	  if (val !== val) {
+	    return 'nan';
+	  }
+	  if (val && val.nodeType === 1) {
+	    return 'element';
+	  }
+
+	  val = val.valueOf ? val.valueOf() : Object.prototype.valueOf.apply(val);
+
+	  return typeof val;
+	};
+
+/***/ },
+/* 197 */,
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "index.html"
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "./json/countries.json"
+
+/***/ },
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "./json/form.json"
 
 /***/ },
-/* 197 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "./json/text-value.json"
 
 /***/ },
-/* 198 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "./json/tree.json"
+
+/***/ },
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = {
+	  Checkbox: {
+	    path: './components/checkbox.jsx',
+	    dependencies: ['FormControl']
+	  },
+
+	  CheckboxGroup: {
+	    path: './components/checkbox-group.jsx',
+	    dependencies: ['Checkbox', 'FormControl', 'Qwest']
+	  },
+
+	  Datetime: {
+	    path: './components/datetime.jsx',
+	    dependencies: ['FormControl', 'Lang']
+	  },
+
+	  Input: {
+	    path: './components/input.jsx',
+	    dependencies: ['FormControl']
+	  },
+
+	  RadioGroup: {
+	    path: './components/radio-group.jsx',
+	    dependencies: ['FormControl', 'Qwest']
+	  },
+
+	  Rating: {
+	    path: './components/rating.jsx',
+	    dependencies: ['FormControl']
+	  },
+
+	  Select: {
+	    path: './components/select.jsx',
+	    dependencies: ['FormControl', 'Qwest']
+	  },
+
+	  Tree: {
+	    path: './components/tree.jsx',
+	    dependencies: ['FormControl', 'Qwest']
+	  },
+
+	  FormControl: {
+	    path: './components/form-control.jsx'
+	  },
+
+	  FormSubmit: {
+	    path: './components/form-submit.jsx',
+	    dependencies: ['Button']
+	  },
+
+	  Form: {
+	    path: './components/form.jsx',
+	    dependencies: ['FormControl', 'Qwest']
+	  },
+
+	  Button: {
+	    path: './components/button.jsx'
+	  },
+
+	  Icon: {
+	    path: './components/icon.jsx'
+	  },
+
+	  Message: {
+	    path: './components/message.jsx'
+	  },
+
+	  Qwest: {
+	    path: 'qwest'
+	  },
+
+	  Lang: {
+	    path: './lang'
+	  },
+
+	  'zh-cn': {
+	    path: './lang/zh-cn',
+	    notExport: true,
+	    dependencies: ['Lang']
+	  }
+
+	};
 
 /***/ }
 /******/ ])

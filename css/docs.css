@@ -5838,3 +5838,22 @@ a {
     margin-left: 0;
   }
 }
+.build-container {
+  padding-top: 30px;
+}
+.build-container hr {
+  height: 0;
+  border: none;
+  border-bottom: solid 1px #ccc;
+  margin: 15px 0;
+}
+.build-container .pure-checkbox {
+  padding: 8px 0;
+}
+.build-container .pure-checkbox label {
+  padding-left: 20px;
+}
+.build-container button {
+  display: block;
+  margin: 20px auto;
+}
