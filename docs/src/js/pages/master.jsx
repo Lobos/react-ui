@@ -4,7 +4,7 @@ import {RouteHandler} from 'react-router'
 let React = require("react")
 let classnames = require('classnames')
 let NavList = require('../nav-list.jsx')
-let Message = require('../../../../src/js/components/message.jsx')
+let {Message} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Master',

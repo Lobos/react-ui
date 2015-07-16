@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let Icon = require('../../../../src/js/components/icon.jsx')
+let {Icon} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Icon',

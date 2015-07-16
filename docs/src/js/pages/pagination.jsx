@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-import {Pagination, Input} from '../../../../src/js'
+let {Pagination, Input} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Pagination',

@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-import {Tree, Checkbox, Qwest} from '../../../../src/js'
+let {Tree, Checkbox, Qwest} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Tree',

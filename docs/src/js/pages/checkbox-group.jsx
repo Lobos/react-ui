@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let CheckboxGroup = require('../../../../src/js/components/checkbox-group.jsx')
+let {CheckboxGroup} = global.uiRequire()
 
 const textValue = require('../data/text-value')
 

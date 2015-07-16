@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let Lang = require('../../../../src/js/lang')
+let {Lang} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Lang',

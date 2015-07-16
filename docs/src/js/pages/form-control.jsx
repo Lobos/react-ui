@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-import {FormControl, Input, Icon} from '../../../../src/js'
+let {FormControl, Input, Icon} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/FormControl',

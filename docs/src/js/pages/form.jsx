@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-import {Form, FormControl, FormSubmit, Icon, Input, RadioGroup} from '../../../../src/js'
+let {Form, FormControl, FormSubmit, Icon, Input, RadioGroup} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Form',

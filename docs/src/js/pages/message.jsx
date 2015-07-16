@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-import {Message, Icon} from '../../../../src/js/'
+let {Message, Icon} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Message',

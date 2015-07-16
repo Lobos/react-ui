@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-import {Select} from '../../../../src/js'
+let {Select} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Select',

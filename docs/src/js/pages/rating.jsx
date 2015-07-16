@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-import {Rating, Icon, RadioGroup, Checkbox} from '../../../../src/js'
+let {Rating, Icon, RadioGroup, Checkbox} = global.uiRequire()
 
 Rating.register('star', [
   <Icon size={2} style={{color: 'gold'}} icon="star-border" />,

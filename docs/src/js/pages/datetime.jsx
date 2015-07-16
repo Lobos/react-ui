@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-import {Datetime} from '../../../../src/js'
+let {Datetime} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Datetime',

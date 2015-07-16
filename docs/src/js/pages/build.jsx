@@ -1,9 +1,9 @@
 'use strict'
 
 let React = require('react')
-let clone = require('../../../../src/js/utils/clone')
 let data = require('../../../../server/data')
-import {Button} from '../../../../src/js'
+let {Button} = global.uiRequire()
+let clone = global.uiRequire('utils/clone')
 
 module.exports = React.createClass({
   displayName: 'Pages/Build',
@@ -47,7 +47,7 @@ module.exports = React.createClass({
     this.setState({ components })
   },
 
-  submit: function (e) {
+  submit: function () {
     this.setState({ building: true })
   },
 

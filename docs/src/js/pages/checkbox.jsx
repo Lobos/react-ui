@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let Checkbox = require('../../../../src/js/components/checkbox.jsx')
+let {Checkbox} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Checkbox',

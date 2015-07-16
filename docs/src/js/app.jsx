@@ -1,11 +1,19 @@
 "use strict"
 
+global.uiRequire = function (src) {
+  if (src) {
+    return require('../../../src/js/' + src)
+  } else {
+    return require('../../../src/js')
+  }
+}
+
 let React = require('react')
 let Router = require('react-router')
 let AppRoutes = require('./app-routes.jsx')
 
 // load language
-require('../../../src/js/lang/zh-cn')
+global.uiRequire('lang/zh-cn')
 
 Router.create({
   routes: AppRoutes,

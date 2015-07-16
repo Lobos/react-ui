@@ -4,8 +4,7 @@ let classnames = require('classnames')
 let React = require('react')
 let Router = require('react-router')
 let menulist = require('./menulist')
-let Icon = require('../../../src/js/components/icon.jsx')
-let Dom = require('../../../src/js').Utils.Dom
+let {Icon, Utils: {Dom} } = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'NavList',
