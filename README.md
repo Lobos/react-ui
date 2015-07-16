@@ -22,13 +22,15 @@ npm install rctui
 var ReactUI = require('rctui')
 var Form = ReactUI.Form
 ...
+// 或者单独使用一个组件
+var Input = require('rctui/input')
+var CheckboxGroup = require('rctui/checkbox-group')
 ```
 
 # build
 使用 [webpack](http://webpack.github.io/) 打包，可以修改 'src/js/index.js' 自定义需要的组件。
 ```
 docs:    webpack --config webpack-docs.config.js [--min]
-publish: webpack --config webpack-publish.config.js [--min]
 ```
 
 # Components
@@ -52,8 +54,8 @@ publish: webpack --config webpack-publish.config.js [--min]
 # Change log
 v0.2.3
 
+ - 修改一些小bug
  - [增加在线build](http://lobos.github.io/react-ui/#/build)
- 
 
 v0.2.2
 

@@ -33,7 +33,6 @@
   "dependencies": {
     "classnames": "^2.1.2",
     "deepmerge": "^0.2.10",
-    "font-awesome": "^4.3.0",
     "pubsub-js": "^1.5.2",
     "purecss": "^0.6.0",
     "qwest": "^1.7.0"
