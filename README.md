@@ -43,7 +43,6 @@ docs:    webpack --config webpack-docs.config.js [--min]
 - [Form](http://lobos.github.io/react-ui/#/form)
 - [Form Control](http://lobos.github.io/react-ui/#/form-control)
 - [Icon](http://lobos.github.io/react-ui/#/icon)
-- [Loading](http://lobos.github.io/react-ui/#/loading)
 - [Message](http://lobos.github.io/react-ui/#/message)
 - [Pagination](http://lobos.github.io/react-ui/#/pagination)
 - [Radio group](http://lobos.github.io/react-ui/#/radio-group)
