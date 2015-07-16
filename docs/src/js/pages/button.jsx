@@ -104,7 +104,7 @@ module.exports = React.createClass({
           <p>
             <Button className="button-large">Large Button</Button>
           </p>
-          <pre className="prettyprint">{'<Button className="large-button">Large Button</Button>'}</pre>
+          <pre className="prettyprint">{'<Button className="button-large">Large Button</Button>'}</pre>
 
           <h2 className="subhead">once</h2>
           <p>
