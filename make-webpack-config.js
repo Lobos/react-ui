@@ -70,12 +70,8 @@ module.exports = function(options) {
 	]
 	var modulesDirectories = ["web_modules", "node_modules"]
 	var extensions = ["", ".web.js", ".js", ".jsx"]
-	var publicPath = options.devServer ?
-		"http://localhost:2992/assets/" :
-		"/assets/"
 	var output = {
 		path: options.path || "./",
-		//publicPath: publicPath,
 		filename: options.filename || "js/[name].js",
 		//chunkFilename: (options.devServer ? "[id].js" : "[name].js") + (options.longTermCaching ? "?[chunkhash]" : ""),
 		sourceMapFilename: "js/[file].map",

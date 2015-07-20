@@ -1,6 +1,7 @@
 "use strict"
 
 require('../../less/grid.less')
+require('../utils/grids').create()
 
 let React = require('react')
 const classnames = require('classnames')
@@ -29,9 +30,9 @@ module.exports = {
     if (width && width <= 24) {
       let resp = this.props.responsive
       if (resp) {
-        args.push(`pure-u-1 pure-u-${resp}-${width}-24`)
+        args.push(`pure-u pure-u-1 pure-u-${resp}-${width}-24`)
       } else {
-        args.push(`pure-u-${width}-24`)
+        args.push(`pure-u pure-u-${width}-24`)
       }
     }
 
