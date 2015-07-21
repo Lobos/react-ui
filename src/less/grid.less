@@ -1,2 +1,12 @@
 @import "../../node_modules/purecss/build/grids-core.css";
 
+[class *= "pure-u-"] {
+  display: inline-block;
+  *display: inline; /* IE < 8: fake inline-block */
+  zoom: 1;
+  letter-spacing: normal;
+  word-spacing: normal;
+  vertical-align: top;
+  text-rendering: auto;
+}
+

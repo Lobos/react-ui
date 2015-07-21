@@ -90,7 +90,7 @@ module.exports = React.createClass({
           </div>
           <div style={{clear: 'both'}} />
 
-          <form onSubmit={this.submit} action="http://192.249.62.216:8080/build" method="POST">
+          <form onSubmit={this.submit} action="http://216.189.159.94:8080/build" method="POST">
             <hr />
             {list}
             <hr />
