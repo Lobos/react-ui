@@ -1,6 +1,6 @@
 "use strict"
 
-import Lang from '../lang'
+import { getLang } from '../lang'
 
 export function clone (d) {
   return new Date(d.getTime())
@@ -33,17 +33,17 @@ export function getDaysInMonth (d) {
 
 export function getFullMonth (d) {
   let month = d.getMonth()
-  return Lang.get('date.fullMonth')[month]
+  return getLang('date.fullMonth')[month]
 }
 
 export function getShortMonth (d) {
   let month = d.getMonth()
-  return Lang.get('date.shortMonth')[month]
+  return getLang('date.shortMonth')[month]
 }
 
 export function getDayOfWeek (d) {
   let weekday = d.getDay()
-  return Lang.get('date.weekday')[weekday]
+  return getLang('date.weekday')[weekday]
 }
 
 export function getWeekArray (d) {
@@ -124,19 +124,19 @@ export function format (date, fmt) {
 }
 
 export function getDatetime (d) {
-  return format(d, Lang.get('date.format.datetime'))
+  return format(d, getLang('date.format.datetime'))
 }
 
 export function getDate (d) {
-  return format(d, Lang.get('date.format.date'))
+  return format(d, getLang('date.format.date'))
 }
 
 export function getFullYear (d) {
-  return format(d, Lang.get('date.format.year'))
+  return format(d, getLang('date.format.year'))
 }
 
 export function getTime (d) {
-  return format(d, Lang.get('date.format.time'))
+  return format(d, getLang('date.format.time'))
 }
 
 // string, unixtimestamp convert to Date

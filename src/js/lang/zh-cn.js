@@ -84,4 +84,4 @@ const data = {
   }
 }
 
-require('./index').set(data)
+require('./index').setLang(data)

@@ -10,7 +10,7 @@ let classnames = require('classnames')
 let DOM = require('../utils/dom')
 let datetime = require('../utils/datetime')
 let circle = require('../utils/circle')
-let lang = require('../lang')
+import { getLang } from '../lang'
 
 let Classable = require('../mixins/classable')
 let ClickAwayable = require('../mixins/click-awayable')
@@ -207,7 +207,7 @@ let Datetime = React.createClass({
   },
 
   getMonths: function () {
-    return lang.get('date.fullMonth').map(function (m, i) {
+    return getLang('date.fullMonth').map(function (m, i) {
       return <button type="button" onClick={ function () { this.monthChange(i) }.bind(this) } key={i} className="month">{m}</button>
     }, this)
   },
@@ -310,7 +310,7 @@ let Datetime = React.createClass({
         inner,
         text = this.state.value ? this.formatValue(this.state.value) : ""
 
-    let weeks = lang.get('date.weekday').map(function (w, i) {
+    let weeks = getLang('date.weekday').map(function (w, i) {
       return <div key={i} className="week">{w}</div>
     })
 

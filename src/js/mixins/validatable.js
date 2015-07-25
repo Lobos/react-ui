@@ -4,10 +4,10 @@ let Objects = require('../utils/objects')
 let Strings = require('../utils/strings')
 let Regs = require('../utils/regs')
 
-let Lang = require('../lang')
+import { getLang } from '../lang'
 
 function getTip(key, value) {
-  let text = Lang.get('validation.tips.' + key, null)
+  let text = getLang('validation.tips.' + key, null)
   if (text) {
     text = Strings.format(text, value)
   }
@@ -15,7 +15,7 @@ function getTip(key, value) {
 }
 
 function getHint(hints, key, value) {
-  let text = Lang.get('validation.hints.' + key, null)
+  let text = getLang('validation.hints.' + key, null)
   if (text) {
     hints.push(Strings.format(text, value))
   }

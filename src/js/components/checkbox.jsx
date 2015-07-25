@@ -1,33 +1,33 @@
 "use strict"
 
 require('../../less/checkbox.less')
-let React = require('react')
+import React from 'react'
+import classnames from 'classnames'
 
-let Checkbox = React.createClass({
-  displayName: "Checkbox",
+class Checkbox extends React.Component {
+  static displayName = "Checkbox"
 
-  propTypes: {
+  static propTypes = {
     checked: React.PropTypes.bool,
+    className: React.PropTypes.string,
     index: React.PropTypes.number,
     onChange: React.PropTypes.func,
     readOnly: React.PropTypes.bool,
     text: React.PropTypes.any,
     value: React.PropTypes.any
-  },
+  }
 
-  getInitialState: function () {
-    return {
-      checked: !!this.props.checked
-    }
-  },
-
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.checked !== this.props.checked) {
       this.setState({ checked: nextProps.checked })
     }
-  },
+  }
 
-  handleChange: function (event) {
+  state = {
+    checked: !!this.props.checked
+  }
+
+  handleChange (event) {
     if (this.props.readOnly) {
       return
     }
@@ -36,24 +36,24 @@ let Checkbox = React.createClass({
     if (this.props.onChange) {
       this.props.onChange(event.target.checked, this.props.value, this.props.index)
     }
-  },
+  }
 
-  getValue: function () {
+  getValue () {
     return React.findDOMNode(this.refs.input).checked ? (this.props.value || true) : false
-  },
+  }
 
-  setValue: function (value) {
+  setValue (value) {
     var checked = value === true || value === 1 || value === this.state.value
     this.setState({ checked: checked })
-  },
+  }
 
-  render: function () {
+  render () {
     return (
-      <label className="pure-checkbox rui-checkbox">
+      <label className={ classnames(this.props.className, "checkbox") }>
         <input ref="input"
           type="checkbox"
           disabled={this.props.readOnly}
-          onChange={this.handleChange}
+          onChange={this.handleChange.bind(this)}
           checked={this.state.checked}
           value={this.props.value}
         />
@@ -61,9 +61,8 @@ let Checkbox = React.createClass({
       </label>
     )
   }
-})
+}
 
-module.exports = Checkbox
 require('./form-control.jsx').register(
 
   'checkbox',
@@ -74,3 +73,5 @@ require('./form-control.jsx').register(
 
   Checkbox
 )
+
+export default Checkbox

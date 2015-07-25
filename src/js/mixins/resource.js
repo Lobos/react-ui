@@ -1,7 +1,7 @@
 "use strict"
 
 let Qwest = require('qwest')
-let Lang = require('../lang')
+import { getLang } from '../lang'
 
 module.exports = {
   componentWillMount: function () {
@@ -22,7 +22,7 @@ module.exports = {
         this.setState({ data: props.data })
       }
     } else if (props.src) {
-      this.setState({ msg: Lang.get('request.loading'), data: [] })
+      this.setState({ msg: getLang('request.loading'), data: [] })
 
       // default use cache
       let cache = props.cache === undefined ? true : !!props.cache
@@ -33,7 +33,7 @@ module.exports = {
                      ( res instanceof Array ? res : undefined )
 
           if (!data) {
-            let msg = res.msg ? res.msg : Lang.get('request.failure')
+            let msg = res.msg ? res.msg : getLang('request.failure')
             this.setState({ msg: msg })
             return
           } else {
@@ -48,7 +48,7 @@ module.exports = {
           }
         })
         .catch(() => {
-          this.setState({ msg: Lang.get('request.failure') })
+          this.setState({ msg: getLang('request.failure') })
         })
     }
   }
