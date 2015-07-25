@@ -51,7 +51,7 @@ module.exports = function(options) {
 		//"html": "html-loader",
 		//"md|markdown": ["html-loader", "markdown-loader"]
 	}
-	var cssLoader = minimize ? "css-loader" : "css-loader?localIdentName=[path][name]---[local]---[hash:base64:5]"
+	var cssLoader = minimize ? "css-loader?localIdentName=[hash:base64:8]" : "css-loader?localIdentName=[path][name]---[local]---[hash:base64:5]"
 	var stylesheetLoaders = {
 		"css": cssLoader,
 		"less": [cssLoader, "less-loader"]

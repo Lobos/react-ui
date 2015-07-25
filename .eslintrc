@@ -5,13 +5,17 @@
     "ecmaFeatures": {
         "ecmascript": 6,
         "jsx": true,
-        "modules": true
+        "modules": true,
+        "classes": true,
+        "generators": true,
+        "objectLiteralShorthandMethods": true
     },
     "env": {
         "es6": true,
         "browser": true,
         "node": true
     },
+    "parser": "babel-eslint",
     "rules": {
         "semi": [2, "never"],
         "quotes": [0],
