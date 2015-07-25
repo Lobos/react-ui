@@ -5,22 +5,20 @@
 require('../../less/form.less')
 require('../../less/datetime.less')
 
-let React = require('react')
-let classnames = require('classnames')
-let DOM = require('../utils/dom')
-let datetime = require('../utils/datetime')
-let circle = require('../utils/circle')
+import React from 'react'
+import classnames from 'classnames'
+import { overView, getOuterHeight } from '../utils/dom'
+import * as datetime from '../utils/datetime'
 import { getLang } from '../lang'
+import clickAway from '../higherorder/clickaway'
 
-let Classable = require('../mixins/classable')
-let ClickAwayable = require('../mixins/click-awayable')
+let poslist = require('../utils/circle').getPostions(12, 50, -90)
 
-let poslist = circle.getPostions(12, 50, -90)
+class Datetime extends React.Component {
+  static displayName = 'Datetime'
 
-let Datetime = React.createClass({
-  displayName: 'Datetime',
-
-  propTypes: {
+  static propTypes = {
+    className: React.PropTypes.string,
     dateOnly: React.PropTypes.bool,
     format: React.PropTypes.string,
     onChange: React.PropTypes.func,
@@ -29,40 +27,36 @@ let Datetime = React.createClass({
     timeOnly: React.PropTypes.bool,
     unixtime: React.PropTypes.bool,
     value: React.PropTypes.any
-  },
+  }
 
-  mixins: [Classable, ClickAwayable],
-
-  getInitialState: function () {
-    return {
-      active: false,
-      popup: false,
-      //format: this.props.format,
-      stage: this.props.timeOnly ? 'clock' : 'day',
-      current: datetime.convert(this.props.value, new Date()),
-      value: datetime.convert(this.props.value, null)
-    }
-  },
-
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setState({ value: datetime.convert(nextProps.value) })
     }
-  },
+  }
 
-  componentWillUpdate: function(nextProps, nextState) {
+  componentWillUpdate (nextProps, nextState) {
     if (nextState.active) {
       this.bindClickAway()
     } else {
       this.unbindClickAway()
     }
-  },
+  }
 
-  componentClickAway: function () {
+  state = {
+    active: false,
+    popup: false,
+    //format: this.props.format,
+    stage: this.props.timeOnly ? 'clock' : 'day',
+    current: datetime.convert(this.props.value, new Date()),
+    value: datetime.convert(this.props.value, null)
+  }
+
+  componentClickAway () {
     this.close()
-  },
+  }
 
-  getValue: function () {
+  getValue () {
     let value = this.value || this.state.value
     if (!value) {
       return null
@@ -79,14 +73,14 @@ let Datetime = React.createClass({
     } else {
       return this.formatValue(value)
     }
-  },
+  }
 
-  setValue: function (value) {
+  setValue (value) {
     value = datetime.convert(value)
     this.setState({ value: value })
-  },
+  }
 
-  formatValue: function (value) {
+  formatValue (value) {
     if (this.props.format) {
       return datetime.format(value, this.props.format)
     }
@@ -98,9 +92,9 @@ let Datetime = React.createClass({
       format = datetime.getTime
     }
     return format(value)
-  },
+  }
 
-  open: function () {
+  open () {
     if (this.props.readOnly) {
       return
     }
@@ -112,12 +106,12 @@ let Datetime = React.createClass({
     if (!this.state.active) {
       let picker = React.findDOMNode(this.refs.datepicker)
       picker.style.display = 'block'
-      let height = DOM.getOuterHeight(picker)
+      let height = getOuterHeight(picker)
 
       setTimeout(() => {
         this.setState({
           active: true,
-          popup: DOM.overView(React.findDOMNode(this), height),
+          popup: overView(React.findDOMNode(this), height),
           current: this.state.value || today,
           stage: this.props.timeOnly ? 'clock' : 'day'
         })
@@ -127,9 +121,9 @@ let Datetime = React.createClass({
         }
       }, 0)
     }
-  },
+  }
 
-  close: function () {
+  close () {
     this.setState({ active: false })
     if (this.refs.clock) {
       this.refs.clock.close()
@@ -139,9 +133,9 @@ let Datetime = React.createClass({
         React.findDOMNode(this.refs.datepicker).style.display = 'none'
       }
     }, 500)
-  },
+  }
 
-  changeDate: function (obj) {
+  changeDate (obj) {
     let c = this.state.current,
         year = obj.year === undefined ? c.getFullYear() : obj.year,
         month = obj.month === undefined ? c.getMonth() : obj.month,
@@ -152,9 +146,9 @@ let Datetime = React.createClass({
 
     let d = new Date(year, month, day, hour, minute, second)
     return d
-  },
+  }
 
-  stateChange: function (state) {
+  stateChange (state) {
     // setTimeout wait checkClickAway completed
     setTimeout(() => {
       this.setState(state)
@@ -162,39 +156,37 @@ let Datetime = React.createClass({
         this.props.onChange(this.getValue())
       }
     }, 0)
-  },
+  }
 
-  stageChange: function (stage) {
+  stageChange (stage) {
     this.stateChange({ stage: stage })
-  },
+  }
 
-  yearChange: function (year) {
-    //let d = this.state.current
+  yearChange (year) {
     let d = this.changeDate({ year: year, day: 1 })
     this.stateChange({ stage: 'month', current: d })
-  },
+  }
 
-  monthChange: function (month) {
-    //let d = this.state.current
+  monthChange (month) {
     let d = this.changeDate({ month: month, day: 1 })
     this.stateChange({ stage: 'day', current: d })
-  },
+  }
 
-  dayChange: function (day) {
+  dayChange (day) {
     let d = this.changeDate({
       year: day.getFullYear(),
       month: day.getMonth(),
       day: day.getDate()
     })
     this.stateChange({ value: d, current: d })
-  },
+  }
 
-  timeChange: function (time) {
+  timeChange (time) {
     let d = this.changeDate(time)
     this.stateChange({ value: d, current: d })
-  },
+  }
 
-  getYears: function () {
+  renderYears () {
     let year = this.state.current.getFullYear(),
         years = []
     for (let i = year - 12, j = year + 12; i <= j; i++) {
@@ -204,15 +196,15 @@ let Datetime = React.createClass({
     return years.map(function (y, i) {
       return <button type="button" onClick={ function () { this.yearChange(y) }.bind(this) } key={i} className="year">{y}</button>
     }, this)
-  },
+  }
 
-  getMonths: function () {
+  renderMonths () {
     return getLang('date.fullMonth').map(function (m, i) {
       return <button type="button" onClick={ function () { this.monthChange(i) }.bind(this) } key={i} className="month">{m}</button>
     }, this)
-  },
+  }
 
-  getDays: function () {
+  renderDays () {
     let value = this.state.value,
         current = this.state.current,
         year = current.getFullYear(),
@@ -242,26 +234,26 @@ let Datetime = React.createClass({
       )
       return <button type="button" onClick={() => {this.dayChange(d)}} key={i} className={className}>{d.getDate()}</button>
     }, this)
-  },
+  }
 
-  timeStageChange: function (type) {
+  timeStageChange (type) {
     this.refs.clock.changeTimeStage(type)
-  },
+  }
 
-  getTime: function () {
+  getTime () {
     let current = this.state.current
 
     return (
       <div className="time-container">
-        <Clock current={current} timeOnly={this.props.timeOnly} onTimeChange={this.timeChange} ref="clock" />
-        <TimeSet onTimeChange={this.timeChange} onStageChange={this.timeStageChange} type="hour" value={current.getHours()} />
-        <TimeSet onTimeChange={this.timeChange} onStageChange={this.timeStageChange} type="minute" value={current.getMinutes()} />
-        <TimeSet onTimeChange={this.timeChange} onStageChange={this.timeStageChange} type="second" value={current.getSeconds()} />
+        <Clock current={current} timeOnly={this.props.timeOnly} onTimeChange={this.timeChange.bind(this)} ref="clock" />
+        <TimeSet onTimeChange={this.timeChange.bind(this)} onStageChange={this.timeStageChange.bind(this)} type="hour" value={current.getHours()} />
+        <TimeSet onTimeChange={this.timeChange.bind(this)} onStageChange={this.timeStageChange.bind(this)} type="minute" value={current.getMinutes()} />
+        <TimeSet onTimeChange={this.timeChange.bind(this)} onStageChange={this.timeStageChange.bind(this)} type="second" value={current.getSeconds()} />
       </div>
     )
-  },
+  }
 
-  next: function () {
+  next () {
     let d = this.state.current
     switch (this.state.stage) {
       case 'year':
@@ -275,9 +267,9 @@ let Datetime = React.createClass({
         break
     }
     this.stateChange({ current: d })
-  },
+  }
 
-  pre: function () {
+  pre () {
     let d = this.state.current
     switch (this.state.stage) {
       case 'year':
@@ -291,10 +283,11 @@ let Datetime = React.createClass({
         break
     }
     this.stateChange({ current: d })
-  },
+  }
 
-  render: function () {
-    let className = this.getClasses(
+  render () {
+    let className = classnames(
+      this.props.className,
       'datetime form-control',
       {
         'active': this.state.active && !this.props.readOnly,
@@ -320,13 +313,13 @@ let Datetime = React.createClass({
 
     switch (stage) {
       case 'day':
-        inner = <div className="inner">{weeks}{this.getDays()}</div>
+        inner = <div className="inner">{weeks}{this.renderDays()}</div>
         break
       case 'month':
-        inner = <div className="inner">{this.getMonths()}</div>
+        inner = <div className="inner">{this.renderMonths()}</div>
         break
       case 'year':
-        inner = <div className="inner">{this.getYears()}</div>
+        inner = <div className="inner">{this.renderYears()}</div>
         break
       case 'clock':
         inner = <div className="inner empty"></div>
@@ -336,7 +329,7 @@ let Datetime = React.createClass({
     if (!this.props.timeOnly) {
       header = (
         <div className="date-picker-header">
-          <a onClick={this.pre} className="pre">
+          <a onClick={this.pre.bind(this)} className="pre">
             <i className="icon arrow-left" />
           </a>
           <a onClick={() => {this.stageChange('year')}} className="year">
@@ -345,7 +338,7 @@ let Datetime = React.createClass({
           <a onClick={() => {this.stageChange('month')}} className="month">
             {datetime.getFullMonth(current)}
           </a>
-          <a onClick={this.next} className="next">
+          <a onClick={this.next.bind(this)} className="next">
             <i className="icon arrow-right" />
           </a>
         </div>
@@ -353,7 +346,7 @@ let Datetime = React.createClass({
     }
 
     return (
-      <div onClick={this.open} className={className}>
+      <div onClick={this.open.bind(this)} className={className}>
         {text}
         <i className="icon calendar" />
         <div ref="datepicker" className="date-picker">
@@ -361,55 +354,53 @@ let Datetime = React.createClass({
           {inner}
           {(stage === 'day' || stage === 'clock') && (!this.props.dateOnly) && this.getTime()}
         </div>
-        <div className="overlay" onClick={this.close} />
+        <div className="overlay" onClick={this.close.bind(this)} />
       </div>
     )
   }
-})
+}
 
-let Clock = React.createClass({
-  displayName: 'Datetime.Clock',
+class Clock extends React.Component {
+  static displayName = 'Datetime.Clock'
 
-  propTypes: {
+  static propTypes = {
     active: React.PropTypes.bool,
     current: React.PropTypes.instanceOf(Date),
     onTimeChange: React.PropTypes.func,
     stage: React.PropTypes.string,
     timeOnly: React.PropTypes.bool
-  },
+  }
 
-  getInitialState: function () {
-    return {
-      current: this.props.current,
-      stage: this.props.stage || 'clock',
-      active: this.props.active,
-      am: this.props.current.getHours() < 12
-    }
-  },
-
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.current !== this.props.current) {
       this.setState({ current: nextProps.current, am: nextProps.current.getHours() < 12 })
     }
-  },
+  }
 
-  changeTimeStage: function (stage) {
+  state = {
+    current: this.props.current,
+    stage: this.props.stage || 'clock',
+    active: this.props.active,
+    am: this.props.current.getHours() < 12
+  }
+
+  changeTimeStage (stage) {
     this.setState({ stage: stage, active: true })
-  },
+  }
 
-  setValue: function (value) {
+  setValue (value) {
     let d = {}
     d[this.state.stage] = value
     this.props.onTimeChange(d)
-  },
+  }
 
-  close: function () {
+  close () {
     if (!this.props.timeOnly) {
       this.setState({ active: false })
     }
-  },
+  }
 
-  getRotate: function (type) {
+  getRotate (type) {
     let current = this.state.current,
         value,
         max = type === 'hour' ? 12 : 60
@@ -428,9 +419,9 @@ let Clock = React.createClass({
 
     value = value * 360 / max - 90
     return 'rotate(' + value + 'deg)'
-  },
+  }
 
-  getPointer: function () {
+  renderPointer () {
     let stage = this.state.stage
 
     let pointer = function (type, context) {
@@ -447,27 +438,13 @@ let Clock = React.createClass({
         {pointer('second', this)}
       </div>
     )
-  },
+  }
 
-  render: function () {
+  render () {
     let steps = [],
         //current = this.state.current,
         stage = this.state.stage,
         step = (stage === 'hour' || stage === 'clock') ? 1 : 5
-
-    /*
-    switch (stage) {
-      case 'hour':
-        value = current.getHours()
-        break
-      case 'minute':
-        value = current.getMinutes()
-        break
-      case 'second':
-        value = current.getSeconds()
-        break
-    }
-    */
 
     for (let i = 0, s; i < 12; i++) {
       s = i * step
@@ -490,13 +467,13 @@ let Clock = React.createClass({
 
     return (
       <div className={className}>
-        <div onClick={this.close} className="clock-overlay" />
-        {!this.props.timeOnly && <div onClick={this.close} className="clock-close"><i className="icon close" /></div>}
+        <div onClick={this.close.bind(this)} className="clock-overlay" />
+        {!this.props.timeOnly && <div onClick={this.close.bind(this)} className="clock-close"><i className="icon close" /></div>}
         <div className="clock">
           <div className="clock-inner">
             {sets}
           </div>
-          {this.getPointer()}
+          {this.renderPointer()}
           {stage === 'hour' && <div>
             <div onClick={() => {this.setState({ am: true })}} className={classnames("time-am", { active: this.state.am })}>AM</div>
             <div onClick={() => {this.setState({ am: false })}} className={classnames("time-pm", { active: !this.state.am })}>PM</div>
@@ -505,32 +482,30 @@ let Clock = React.createClass({
       </div>
     )
   }
-})
+}
 
-let TimeSet = React.createClass({
-  displayName: 'Datetime/TimeSet',
+class TimeSet extends React.Component {
+  static displayName = 'Datetime/TimeSet'
 
-  propTypes: {
+  static propTypes = {
     onStageChange: React.PropTypes.func,
     onTimeChange: React.PropTypes.func,
     type: React.PropTypes.string,
     value: React.PropTypes.number
-  },
+  }
 
-  getInitialState: function () {
-    return {
-      value: this.props.value || 0,
-      type: this.props.type
-    }
-  },
-
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setState({ value: nextProps.value })
     }
-  },
+  }
 
-  add: function () {
+  state = {
+    value: this.props.value || 0,
+    type: this.props.type
+  }
+
+  add () {
     let value = this.state.value,
         max = this.props.type === 'hour' ? 24 : 60
     value += 1
@@ -538,9 +513,9 @@ let TimeSet = React.createClass({
       value = 0
     }
     this.changeTime(value)
-  },
+  }
 
-  sub: function () {
+  sub () {
     let value = this.state.value,
         max = this.props.type === 'hour' ? 23 : 59
     value -= 1
@@ -548,37 +523,37 @@ let TimeSet = React.createClass({
       value = max
     }
     this.changeTime(value)
-  },
+  }
 
-  changeTime: function (value) {
+  changeTime (value) {
     this.setState({ value: value })
     let d = {}
     d[this.props.type] = value
     this.props.onTimeChange(d)
-  },
+  }
 
-  setValue: function (value) {
+  setValue (value) {
     this.setState({ value: value })
-  },
+  }
 
-  changeStage: function () {
+  changeStage () {
     this.props.onStageChange(this.props.type)
-  },
+  }
 
-  render: function () {
+  render () {
     return (
-      <div onClick={this.changeStage} className="time-set">
+      <div onClick={this.changeStage.bind(this)} className="time-set">
         <div className="text">
           <span>{this.state.value}</span>
-          <a onClick={this.add} className="add"><i className="icon angle-up" /></a>
-          <a onClick={this.sub} className="sub"><i className="icon angle-down" /></a>
+          <a onClick={this.add.bind(this)} className="add"><i className="icon angle-up" /></a>
+          <a onClick={this.sub.bind(this)} className="sub"><i className="icon angle-down" /></a>
         </div>
       </div>
     )
   }
-})
+}
 
-module.exports = Datetime
+export default clickAway(Datetime)
 
 require('./form-control.jsx').register(
 
@@ -586,7 +561,9 @@ require('./form-control.jsx').register(
 
   function (props) {
     return <Datetime {...props} />
-  }
+  },
+
+  Datetime
 
 )
 
@@ -596,7 +573,9 @@ require('./form-control.jsx').register(
 
   function (props) {
     return <Datetime {...props} dateOnly={true} />
-  }
+  },
+
+  Datetime
 
 )
 
