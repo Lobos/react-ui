@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-let type = require('./type')
+import type from './type'
 
 /**
  * Clones objects.
@@ -12,7 +12,7 @@ let type = require('./type')
  * @api public
  */
 
-function clone(obj){
+export default function clone(obj) {
   switch (type(obj)) {
     case 'object':
       let copy = {}
@@ -45,10 +45,4 @@ function clone(obj){
       return obj
   }
 }
-
-/**
- * Module exports.
- */
-
-module.exports = clone
 

@@ -1,30 +1,11 @@
 "use strict"
 
-let uid = ['A', '0', '0', '0']
-
-function nextUid() {
-  var index = uid.length
-  var digit
-
-  while(index) {
-    index--
-      digit = uid[index].charCodeAt(0)
-    if (digit === 57) {
-      uid[index] = 'A'
-      return uid.join('')
-    }
-    if (digit === 90) {
-      uid[index] = '0'
-    } else {
-      uid[index] = String.fromCharCode(digit + 1)
-      return uid.join('')
-    }
-  }
-  uid.unshift('0')
-  return uid.join('')
+let uid = Date.now()
+export function nextUid() {
+  return (uid++).toString(36)
 }
 
-function format() {
+export function format() {
   let args = [].slice.call(arguments),
       str = args.shift()
   return str.replace(/{(\d+)}/g, function(match, number) {
@@ -34,7 +15,7 @@ function format() {
   })
 }
 
-function substitute(str, obj) {
+export function substitute(str, obj) {
   return str.replace((/\\?\{([^{}]+)\}/g), function(match, name){
     if (match.charAt(0) === '\\') {
       return match.slice(1)
@@ -43,7 +24,7 @@ function substitute(str, obj) {
   })
 }
 
-function toArray(value, sep) {
+export function toArray(value, sep) {
   if (!value) {
     value = []
   }
@@ -58,5 +39,3 @@ function toArray(value, sep) {
 
   return value
 }
-
-module.exports = { format, nextUid, substitute, toArray }

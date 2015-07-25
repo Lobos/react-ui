@@ -1,7 +1,8 @@
 'use strict'
 
-require('../../less/grid.less')
-require('../utils/grids').create()
+import { nextUid } from '../utils/strings'
+const pre = nextUid()
+require('../utils/grids').create(pre)
 
 export default function getGrid (component) {
   component.prototype.getGrid = function () {
@@ -11,9 +12,9 @@ export default function getGrid (component) {
     const width = parseInt(this.props.width)
     if (width && width <= 24) {
       if (responsive) {
-        return `pure-u pure-u-1 pure-u-${responsive}-${width}-24`
+        return `${pre} ${pre}-1 ${pre}-${responsive}-${width}-24`
       } else {
-        return `pure-u pure-u-${width}-24`
+        return `${pre} ${pre}-${width}-24`
       }
     }
     return ''

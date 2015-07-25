@@ -1,7 +1,7 @@
 "use strict"
 
 require('../../less/grid.less')
-require('../utils/grids').create()
+require('../utils/grids').create('pure-u')
 
 let React = require('react')
 const classnames = require('classnames')

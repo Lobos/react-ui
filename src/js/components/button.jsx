@@ -5,6 +5,7 @@ import React from 'react'
 import classnames from 'classnames'
 import getGrid from '../higherorder/grid'
 
+@getGrid
 class Button extends React.Component {
   static displayName = 'Button'
 
@@ -51,7 +52,7 @@ class Button extends React.Component {
       status = `button-${status}`
     }
 
-    let className = classnames(
+    const className = classnames(
       this.getGrid(),
       'pure-button',
       status,
@@ -70,5 +71,5 @@ class Button extends React.Component {
   }
 }
 
-export default getGrid(Button)
+export default Button
 

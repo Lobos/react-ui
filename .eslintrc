@@ -5,10 +5,7 @@
     "ecmaFeatures": {
         "ecmascript": 6,
         "jsx": true,
-        "modules": true,
-        "classes": true,
-        "generators": true,
-        "objectLiteralShorthandMethods": true
+        "modules": true
     },
     "env": {
         "es6": true,
