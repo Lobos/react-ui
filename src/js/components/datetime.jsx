@@ -14,10 +14,12 @@ import clickAway from '../higherorder/clickaway'
 
 let poslist = require('../utils/circle').getPostions(12, 50, -90)
 
+@clickAway
 class Datetime extends React.Component {
   static displayName = 'Datetime'
 
   static propTypes = {
+    bindClickAway: React.PropTypes.func,
     className: React.PropTypes.string,
     dateOnly: React.PropTypes.bool,
     format: React.PropTypes.string,
@@ -25,6 +27,7 @@ class Datetime extends React.Component {
     placeholder: React.PropTypes.string,
     readOnly: React.PropTypes.bool,
     timeOnly: React.PropTypes.bool,
+    unbindClickAway: React.PropTypes.func,
     unixtime: React.PropTypes.bool,
     value: React.PropTypes.any
   }
@@ -32,14 +35,6 @@ class Datetime extends React.Component {
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setState({ value: datetime.convert(nextProps.value) })
-    }
-  }
-
-  componentWillUpdate (nextProps, nextState) {
-    if (nextState.active) {
-      this.bindClickAway()
-    } else {
-      this.unbindClickAway()
     }
   }
 
@@ -116,6 +111,8 @@ class Datetime extends React.Component {
           stage: this.props.timeOnly ? 'clock' : 'day'
         })
 
+        this.bindClickAway()
+
         if (this.props.timeOnly) {
           this.refs.clock.changeTimeStage('hour')
         }
@@ -125,6 +122,7 @@ class Datetime extends React.Component {
 
   close () {
     this.setState({ active: false })
+    this.unbindClickAway()
     if (this.refs.clock) {
       this.refs.clock.close()
     }
@@ -553,7 +551,7 @@ class TimeSet extends React.Component {
   }
 }
 
-export default clickAway(Datetime)
+export default Datetime
 
 require('./form-control.jsx').register(
 
