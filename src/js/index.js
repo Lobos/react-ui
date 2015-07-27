@@ -21,6 +21,7 @@ exports.Message = require('./components/message.jsx')
 exports.Lang = require('./lang')
 
 exports.Utils = {
+  dataSource: require('./utils/dataSource'),
   Datetime: require('./utils/datetime'),
   Dom: require('./utils/dom'),
   Objects: require('./utils/objects'),

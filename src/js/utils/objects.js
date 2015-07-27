@@ -32,6 +32,9 @@ export function forEach (obj, fn, context) {
 }
 
 export function toTextValue (arr, textTpl='{text}', valueTpl='{id}') {
+  if (!arr) {
+    return []
+  }
   arr = arr.map(function (s) {
     if (typeof s !== 'object') {
       return { $text: s, $value: s }

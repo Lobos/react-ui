@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let {CheckboxGroup} = global.uiRequire()
+let {CheckboxGroup, Utils: { dataSource }} = global.uiRequire()
 
 const textValue = require('../data/text-value')
 
@@ -35,8 +35,7 @@ module.exports = React.createClass({
 
 {`<CheckboxGroup
   className={string}  // class
-  data={array}        // 数据，与 src 二选一，优先使用 data
-  src="string"        // 服务器端数据地址，与 data 二选一
+  data={array|func}   // 数据，array 或者 dataSource
   cache={bool}        // 数据缓存，只有当数据为远程获取时有效。默认为 true
   sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   inline={bool}       // 为 true 时，各选项横向排列。默认为 false
@@ -88,15 +87,15 @@ module.exports = React.createClass({
 
           <h2 className="subhead">Remote Data</h2>
           <p>
-            <CheckboxGroup ref="remote" onChange={()=>console.log(this.refs.remote.getValue())} cache={false} inline={true} value="shanghai,chengdu" src="json/text-value.json" />
+            <CheckboxGroup ref="remote" onChange={()=>console.log(this.refs.remote.getValue())} cache={false} inline={true} value="shanghai,chengdu" data={ dataSource("json/text-value.json", { cache: true }) } />
           </p>
-          <pre className="prettyprint">{'<CheckboxGroup inline={true} value="shanghai,chengdu" cache={false} src="json/text-value.json" />'}</pre>
+          <pre className="prettyprint">{'<CheckboxGroup inline={true} value="shanghai,chengdu" cache={false} data={dataSource("json/text-value.json",{cache: true})} />'}</pre>
 
           <h2 className="subhead">Data Sep</h2>
           <p>
-            <CheckboxGroup ref="sep" onChange={()=>console.log(this.refs.sep.getValue())} inline={true} sep="|" value="shanghai|chengdu" src="json/text-value.json" />
+            <CheckboxGroup ref="sep" onChange={()=>console.log(this.refs.sep.getValue())} inline={true} sep="|" value="shanghai|chengdu" data={ dataSource("json/text-value.json", { cache: true }) } />
           </p>
-          <pre className="prettyprint">{'<CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" src="json/text-value.json" />'}</pre>
+          <pre className="prettyprint">{'<CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" data={dataSource("json/text-value.json",{cache: true})} />'}</pre>
         </div>
 
 

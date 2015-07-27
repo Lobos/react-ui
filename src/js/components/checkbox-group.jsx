@@ -1,57 +1,81 @@
 "use strict"
 
-require('../../less/checkbox.less')
+import React from 'react'
+import classnames from 'classnames'
+import Checkbox from './checkbox.jsx'
+import { toArray } from '../utils/strings'
+import { toTextValue } from '../utils/objects'
 
-let React = require('react')
-let Checkbox = require('./checkbox.jsx')
-let Strings = require('../utils/strings')
-let Classable = require('../mixins/classable')
-let Objects = require('../utils/objects')
-let Resource = require('../mixins/resource')
-let ReceiveValue = require('../mixins/receive-value')
+class CheckboxGroup extends React.Component {
+  static displayName = "CheckboxGroup"
 
-let CheckboxGroup = React.createClass({
-  displayName: "CheckboxGroup",
-
-  propTypes: {
+  static propTypes = {
     cache: React.PropTypes.bool,
-    data: React.PropTypes.array,
+    className: React.PropTypes.string,
+    data: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.func
+    ]),
     inline: React.PropTypes.bool,
     onChange: React.PropTypes.func,
     readOnly: React.PropTypes.bool,
     sep: React.PropTypes.string,
-    src: React.PropTypes.string,
     textTpl: React.PropTypes.string,
     value: React.PropTypes.any,
     valueTpl: React.PropTypes.string
-  },
+  }
 
-  mixins: [Classable, ReceiveValue, Resource],
+  static defaultProps = {
+    sep: ',',
+    textTpl: '{text}',
+    valueTpl: '{id}'
+  }
 
-  getDefaultProps: function () {
-    return {
-      sep: ',',
-      textTpl: '{text}',
-      valueTpl: '{id}'
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setValue(nextProps.value)
     }
-  },
-
-  getInitialState: function () {
-    return {
-      data: []
+    if (nextProps.data !== this.props.data) {
+      this.setState({ data: this.formatData(nextProps.data) })
     }
-  },
+  }
 
-  formatValue: function (value) {
-    return Strings.toArray(value, this.props.sep)
-  },
+  state = {
+    value: this.formatValue(this.props.value),
+    data: this.formatData(this.props.data)
+  }
 
-  initData: function (data) {
-    data = Objects.toTextValue(data, this.props.textTpl, this.props.valueTpl)
-    this.setState({ data: data })
-  },
+  formatValue (value) {
+    return toArray(value, this.props.sep)
+  }
 
-  handleChange: function (checked, value) {
+  getValue (sep) {
+    let value = this.state.value
+    if (sep === undefined) {
+      sep = this.props.sep
+    }
+    if (sep) {
+      value = value.join(sep)
+    }
+    return value
+  }
+
+  setValue (value) {
+    this.setState({ value: this.formatValue(value) })
+  }
+
+  formatData (data) {
+    if (typeof data === 'function') {
+      data(res => {
+        this.setState({ data: this.formatData(res) })
+      })
+      return []
+    } else {
+      return toTextValue(data, this.props.textTpl, this.props.valueTpl)
+    }
+  }
+
+  handleChange (checked, value) {
     if (typeof value !== 'string') {
       value = value.toString()
     }
@@ -71,25 +95,13 @@ let CheckboxGroup = React.createClass({
     }
 
     this.setState({ value: values })
-  },
+  }
 
-  getValue: function (sep) {
-    let value = this.state.value
-    if (sep === undefined) {
-      sep = this.props.sep
-    }
-    if (sep) {
-      value = value.join(sep)
-    }
-    return value
-  },
-
-  render: function () {
-    let className = this.getClasses(
+  render () {
+    let className = classnames(
+      this.props.className,
       'checkbox-group',
-      {
-        'inline': this.props.inline
-      }
+      { 'inline': this.props.inline }
     )
     let values = this.state.value
 
@@ -101,7 +113,7 @@ let CheckboxGroup = React.createClass({
           index={i}
           readOnly={this.props.readOnly}
           checked={checked}
-          onChange={this.handleChange}
+          onChange={this.handleChange.bind(this)}
           text={item.$text}
           value={item.$value}
         />
@@ -112,9 +124,9 @@ let CheckboxGroup = React.createClass({
       <div className={className}>{this.state.msg || items}</div>
     )
   }
-})
+}
 
-module.exports = CheckboxGroup
+export default CheckboxGroup
 
 require('./form-control.jsx').register(
 
