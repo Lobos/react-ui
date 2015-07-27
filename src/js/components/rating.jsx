@@ -150,7 +150,7 @@ Rating.register = function (key, icons) {
 
 module.exports = Rating
 
-require('./form-control.jsx').register(
+require('./formControl.jsx').register(
 
   'rating',
 

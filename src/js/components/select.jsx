@@ -273,7 +273,7 @@ let Select = React.createClass({
 
 module.exports = Select
 
-require('./form-control.jsx').register(
+require('./formControl.jsx').register(
 
   'select',
 

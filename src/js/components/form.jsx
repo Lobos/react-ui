@@ -6,8 +6,8 @@ let Objects = require('../utils/objects')
 let Classable = require('../mixins/classable')
 let Lang = require('../lang')
 let Message = require('./message.jsx')
-let FormControl = require('./form-control.jsx')
-let FormSubmit = require('./form-submit.jsx')
+let FormControl = require('./formControl.jsx')
+let FormSubmit = require('./formSubmit.jsx')
 
 let Form = React.createClass({
   displayName: 'Form',

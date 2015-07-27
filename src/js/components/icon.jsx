@@ -1,36 +1,36 @@
 "use strict"
 
-let React = require('react')
-let Classable = require('../mixins/classable')
+import React from 'react'
+import classnames from 'classnames'
 let prefix = "icon"
 
-let Icon = React.createClass({
-  displayName: 'Icon',
+export default class Icon extends React.Component {
+  static displayName = 'Icon'
 
-  propTypes: {
+  static propTypes = {
     icon: React.PropTypes.string,
     size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     spin: React.PropTypes.bool,
     style: React.PropTypes.object
-  },
+  }
 
-  mixins: [Classable],
+  static setPrefix (pre) {
+    prefix = pre
+  }
 
-  getInitialState: function () {
-    return {
-      spin: this.props.spin
-    }
-  },
+  state = {
+    spin: this.props.spin
+  }
 
-  spin: function () {
+  spin () {
     this.setState({ spin: true })
-  },
+  }
 
-  unspin: function () {
+  unspin () {
     this.setState({ spin: false })
-  },
+  }
 
-  render: function () {
+  render () {
     let classes = [`${prefix}`]
 
     if (this.state.spin) {
@@ -50,13 +50,7 @@ let Icon = React.createClass({
     }
 
     return (
-      <i style={this.props.style} className={this.getClasses(...classes)}></i>
+      <i style={this.props.style} className={classnames(...classes)}></i>
     )
   }
-})
-
-Icon.setPrefix = function (pre) {
-  prefix = pre
 }
-
-module.exports = Icon

@@ -376,7 +376,7 @@ let Item = React.createClass({
 
 module.exports = Tree
 
-require('./form-control.jsx').register(
+require('./formControl.jsx').register(
 
   'tree',
 

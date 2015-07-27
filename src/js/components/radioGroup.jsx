@@ -89,7 +89,7 @@ let RadioGroup = React.createClass({
 
 module.exports = RadioGroup
 
-require('./form-control.jsx').register(
+require('./formControl.jsx').register(
 
   'radio-group',
 

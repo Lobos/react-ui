@@ -128,7 +128,7 @@ class CheckboxGroup extends React.Component {
 
 export default CheckboxGroup
 
-require('./form-control.jsx').register(
+require('./formControl.jsx').register(
 
   'checkbox-group',
 

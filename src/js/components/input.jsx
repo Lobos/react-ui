@@ -59,7 +59,7 @@ let Input = React.createClass({
 
 module.exports = Input
 
-require('./form-control.jsx').register(
+require('./formControl.jsx').register(
 
   ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'textarea'],
 
@@ -71,7 +71,7 @@ require('./form-control.jsx').register(
 
 )
 
-require('./form-control.jsx').register(
+require('./formControl.jsx').register(
 
   ['integer', 'number'],
 

@@ -12,7 +12,7 @@ import * as datetime from '../utils/datetime'
 import { getLang } from '../lang'
 import clickAway from '../higherorder/clickaway'
 
-let poslist = require('../utils/circle').getPostions(12, 50, -90)
+const poslist = require('../utils/circle').getPostions(12, 50, -90)
 
 @clickAway
 class Datetime extends React.Component {
@@ -553,7 +553,9 @@ class TimeSet extends React.Component {
 
 export default Datetime
 
-require('./form-control.jsx').register(
+import FormControl from './formControl.jsx'
+
+FormControl.register(
 
   'datetime',
 
@@ -565,7 +567,7 @@ require('./form-control.jsx').register(
 
 )
 
-require('./form-control.jsx').register(
+FormControl.register(
 
   'date',
 
@@ -577,7 +579,7 @@ require('./form-control.jsx').register(
 
 )
 
-require('./form-control.jsx').register(
+FormControl.register(
 
   'time',
 
