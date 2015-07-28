@@ -2,46 +2,46 @@
 
 require('../../less/pagination.less')
 
-let React = require('react')
-let classnames = require('classnames')
-let Objects = require('../utils/objects')
-let Classable = require('../mixins/classable')
+import React from 'react'
+import classnames from 'classnames'
+import { forEach } from '../utils/objects'
 
-let Pagination = React.createClass({
-  displayName: 'Pagination',
+export default class Pagination extends React.Component {
+  static displayName = 'Pagination'
 
-  propTypes: {
+  static propTypes = {
+    className: React.PropTypes.string,
     index: React.PropTypes.number,
     onChange: React.PropTypes.func,
     pages: React.PropTypes.number,
     showGo: React.PropTypes.bool,
     size: React.PropTypes.number,
     total: React.PropTypes.number
-  },
+  }
 
-  mixins: [Classable],
+  static defaultProps = {
+    index: 1,
+    pages: 10,
+    size: 20,
+    total: 0
+  }
 
-  getDefaultProps: function () {
-    return {
-      total: 0,
-      size: 20,
-      index: 1,
-      pages: 10
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.index !== this.props.index) {
+      this.setState({ index: nextProps.index })
     }
-  },
+  }
 
-  getInitialState: function () {
-    return {
-      index: this.props.index
-    }
-  },
+  state = {
+    index: this.props.index
+  }
 
-  setIndex: function (index) {
+  setIndex (index) {
     index = parseInt(index)
-    this.setState({'index': index})
-  },
+    this.setState({index})
+  }
 
-  setInput: function (event) {
+  setInput (event) {
     event.preventDefault()
 
     let value = React.findDOMNode(this.refs.input).value
@@ -54,16 +54,16 @@ let Pagination = React.createClass({
     if (this.props.onChange) {
       this.props.onChange(value)
     }
-  },
+  }
 
-  handleChange: function (index) {
+  handleChange (index) {
     this.setIndex(index)
     if (this.props.onChange) {
       this.props.onChange(index)
     }
-  },
+  }
 
-  getPages: function () {
+  getPages () {
     let total = this.props.total,
         size = this.props.size,
         index = this.state.index,
@@ -105,9 +105,9 @@ let Pagination = React.createClass({
     }
 
     return [pages, max]
-  },
+  }
 
-  render: function () {
+  render () {
     let index = this.state.index,
         [pages, max] = this.getPages(),
         items = []
@@ -119,7 +119,7 @@ let Pagination = React.createClass({
       </li>
     )
 
-    Objects.forEach(pages, function (i) {
+    forEach(pages, function (i) {
       items.push(
         <li onClick={this.handleChange.bind(this, i)} className={classnames({ active: i === index })} key={i}>
           <a>{i}</a>
@@ -134,24 +134,25 @@ let Pagination = React.createClass({
       </li>
     )
 
-    let className = this.getClasses('pagination')
+    let className = classnames(
+      this.props.className,
+      "pagination-wrap"
+    )
     return (
-      <div className="pagination-wrap">
-        <ul className={className}>
+      <div className={className}>
+        <ul className="pagination">
           {items}
         </ul>
         {
           this.props.showGo &&
-          <form onSubmit={this.setInput}>
+          <form onSubmit={this.setInput.bind(this)}>
             <div className="input-group">
               <input ref="input" type="text" className="form-control" />
-              <span onClick={this.setInput} className="addon">go</span>
+              <span onClick={this.setInput.bind(this)} className="addon">go</span>
             </div>
           </form>
         }
       </div>
     )
   }
-})
-
-module.exports = Pagination
+}

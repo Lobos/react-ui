@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let {RadioGroup} = global.uiRequire()
+let {RadioGroup, Utils: { dataSource }} = global.uiRequire()
 
 const textValue = require('../data/text-value')
 
@@ -31,7 +31,6 @@ module.exports = React.createClass({
 {`<RadioGroup
   className={string}  // class
   data={array}        // 数据，与 src 二选一，优先使用 data
-  src="string"        // 服务器端数据地址，与 data 二选一
   cache={bool}        // 数据缓存，只有当数据为远程获取时有效。默认为 true
   inline={bool}       // 为 true 时，各选项横向排列。默认为 false
   onChange={function} // 当选项改变时回调方法，参数为 value
@@ -81,9 +80,9 @@ module.exports = React.createClass({
 
           <h2 className="subhead">Remote Data</h2>
           <p>
-            <RadioGroup inline={true} stringify={true} value="chengdu" src="json/text-value.json" />
+            <RadioGroup inline={true} stringify={true} value="chengdu" data={ dataSource("json/text-value.json", { cache: true }) } />
           </p>
-          <pre className="prettyprint">{'<RadioGroup inline={true} stringify={true} value="chengdu" src="json/text-value.json" />'}</pre>
+          <pre className="prettyprint">{'<RadioGroup inline={true} stringify={true} value="chengdu" data={ dataSource("json/text-value.json", { cache: true }) } />'}</pre>
         </div>
       </div>
     )

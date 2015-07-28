@@ -2,28 +2,28 @@
 
 require('../../less/overlay.less')
 import React from 'react'
-import Classable from '../mixins/classable'
+import classnames from 'classnames'
 
-module.exports = React.createClass({
-  displayName: 'Overlay',
+export default class Overlay extends React.Component {
+  static displayName = 'Overlay'
 
-  propTypes: {
+  static propTypes = {
+    className: React.PropTypes.string,
     onClick: React.PropTypes.func
-  },
+  }
 
-  mixins: [Classable],
+  static defaultProps = {
+    onClick: function () {}
+  }
 
-  getDefaultProps: function () {
-    return {
-      onClick: function () {}
-    }
-  },
-
-  render: function () {
-    let className = this.getClasses('overlay')
+  render () {
+    let className = classnames(
+      this.props.className,
+      'overlay'
+    )
 
     return (
       <div className={className} onClick={this.props.onClick} />
     )
   }
-})
+}

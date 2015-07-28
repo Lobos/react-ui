@@ -19,6 +19,10 @@ module.exports = React.createClass({
     }
   },
 
+  onChange: function (index) {
+    this.setState({ index })
+  },
+
   render: function () {
     return (
       <div>
@@ -45,6 +49,7 @@ module.exports = React.createClass({
             size={this.state.size}
             total={this.state.total}
             pages={this.state.pages}
+            onChange={this.onChange}
             showGo={this.state.showGo} />
 
           <p>

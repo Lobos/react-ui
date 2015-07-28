@@ -2,36 +2,33 @@
 
 require('../../less/message.less')
 
-let React = require('react')
-let Overlay = require('./overlay.jsx')
-let Objects = require('../utils/objects')
-let Classable = require('../mixins/classable')
-let PubSub = require('pubsub-js')
+import React from 'react'
+import classnames from 'classnames'
+import Overlay from './overlay.jsx'
+import { forEach } from '../utils/objects'
+import PubSub from 'pubsub-js'
 
 let messages = []
 const ADD_MESSAGE = "EB3A79637B40"
 const REMOVE_MESSAGE = "73D4EF15DF50"
 
-const Item = React.createClass({
-  displayName: 'Message.Item',
+class Item extends React.Component {
+  static displayName = 'Message.Item'
 
-  propTypes: {
-    content: React.PropTypes.string,
+  static propTypes = {
+    className: React.PropTypes.string,
+    content: React.PropTypes.any,
     dismissed: React.PropTypes.bool,
     index: React.PropTypes.number,
     onDismiss: React.PropTypes.func,
     type: React.PropTypes.string
-  },
+  }
 
-  mixins: [Classable],
+  state = {
+    dismissed: this.props.dismissed
+  }
 
-  getInitialState: function () {
-    return {
-      dismissed: this.props.dismissed
-    }
-  },
-
-  dismiss: function () {
+  dismiss () {
     if (this.state.dismissed) {
       return
     }
@@ -40,38 +37,33 @@ const Item = React.createClass({
     setTimeout(function () {
       this.props.onDismiss(this.props.index)
     }.bind(this), 400)
-  },
+  }
 
-  render: function () {
-    let className = this.getClasses(
+  render () {
+    let className = classnames(
+      this.props.className,
       'message',
       `message-${this.props.type}`,
-      {
-        'dismissed': this.state.dismissed
-      }
+      { 'dismissed': this.state.dismissed }
     )
 
     return (
       <div className={className}>
-        <button type="button" onClick={this.dismiss} className="close">&times;</button>
+        <button type="button" onClick={this.dismiss.bind(this)} className="close">&times;</button>
         {this.props.content}
       </div>
     )
   }
-})
+}
 
-let Message = React.createClass({
-  displayName: 'Message',
+export default class Message extends React.Component {
+  static displayName = 'Message'
 
-  mixins: [Classable],
+  static propTypes = {
+    className: React.PropTypes.string
+  }
 
-  getInitialState: function () {
-    return {
-      messages: messages
-    }
-  },
-
-  componentDidMount: function () {
+  componentDidMount () {
     let self = this
     PubSub.subscribe(ADD_MESSAGE, function (topic, data) {
       messages.push(data)
@@ -82,26 +74,38 @@ let Message = React.createClass({
       messages.splice(index, 1)
       self.setState({ messages: messages })
     })
-  },
+  }
 
-  dismiss: function(index) {
+  static show (content, type) {
+    PubSub.publish(ADD_MESSAGE, {
+      content: content,
+      type: type || 'info'
+    })
+  }
+
+  state = {
+    messages: messages
+  }
+
+  dismiss (index) {
     PubSub.publish(REMOVE_MESSAGE, index)
-  },
+  }
 
-  clear: function () {
-    Objects.forEach(this.refs, function (ref) {
+  clear () {
+    forEach(this.refs, function (ref) {
       ref.dismiss()
     })
-  },
+  }
 
-  render: function () {
+  render () {
     let items = this.state.messages.map((msg, i) => {
       return (
         <Item key={i} index={i} ref={i} onDismiss={this.dismiss} {...msg} />
       )
     })
 
-    let className = this.getClasses(
+    let className = classnames(
+      this.props.className,
       'rui-message',
       'message-extend',
       { 'has-message': this.state.messages.length > 0 }
@@ -109,18 +113,18 @@ let Message = React.createClass({
 
     return (
       <div className={className}>
-        <Overlay onClick={this.clear} />
+        <Overlay onClick={this.clear.bind(this)} />
         {items}
       </div>
     )
   }
-})
+}
 
+/*
 Message.show = function (content, type) {
   PubSub.publish(ADD_MESSAGE, {
     content: content,
     type: type || 'info'
   })
 }
-
-module.exports = Message
+*/

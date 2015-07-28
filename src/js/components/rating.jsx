@@ -2,20 +2,19 @@
 
 require('../../less/rating.less')
 
-let React = require('react')
-let classnames = require('classnames')
-let Classable = require('../mixins/classable')
-let ReceiveValue = require('../mixins/receive-value')
+import React from 'react'
+import classnames from 'classnames'
 
 let themes = {
   // "star": [Icon, Icon],
   // "heart": [img, img]
 }
 
-let Rating = React.createClass({
-  displayName: 'Rating',
+class Rating extends React.Component {
+  static displayName = 'Rating'
 
-  propTypes: {
+  static propTypes = {
+    className: React.PropTypes.string,
     icons: React.PropTypes.array,
     maxValue: React.PropTypes.number,
     onChange: React.PropTypes.func,
@@ -24,38 +23,43 @@ let Rating = React.createClass({
     style: React.PropTypes.object,
     theme: React.PropTypes.string,
     value: React.PropTypes.number
-  },
+  }
 
-  mixins: [Classable, ReceiveValue],
+  static defaultProps = {
+    maxValue: 5
+  }
 
-  getDefaultProps: function () {
-    return {
-      maxValue: 5
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setValue(nextProps.value)
     }
-  },
+  }
 
-  getInitialState: function () {
-    return {
-      hover: 0,
-      wink: false
-    }
-  },
+  state = {
+    value: this.props.value,
+    hover: 0,
+    wink: false
+  }
 
-  handleHover: function (value) {
+  handleHover (value) {
     return function () {
       this.setState({ hover: value })
     }.bind(this)
-  },
+  }
 
-  handleLeave: function () {
+  handleLeave () {
     this.setState({ hover: 0 })
-  },
+  }
 
-  getValue: function () {
+  setValue (value) {
+    this.setState({ value })
+  }
+
+  getValue () {
     return this.state.value
-  },
+  }
 
-  getIcon: function (pos = 0) {
+  getIcon (pos = 0) {
     let icons = this.props.icons
     if (!icons) {
       let theme = this.props.theme || Object.keys(themes)[0]
@@ -67,9 +71,9 @@ let Rating = React.createClass({
     }
 
     return icons[pos]
-  },
+  }
 
-  getBackground: function () {
+  getBackground () {
     let items = [],
         icon = this.getIcon(0)
     for (let i = 0; i < this.props.maxValue; i++) {
@@ -77,9 +81,9 @@ let Rating = React.createClass({
     }
 
     return <div className="rating-bg">{items}</div>
-  },
+  }
 
-  handleChange: function (val) {
+  handleChange (val) {
     this.setValue(val)
     this.setState({ wink: true })
     setTimeout(() => {
@@ -90,9 +94,9 @@ let Rating = React.createClass({
         this.props.onChange(val)
       }
     })
-  },
+  }
 
-  getHandle: function () {
+  getHandle () {
     let items = [],
         icon = this.getIcon(1),
         hover = this.state.hover,
@@ -112,10 +116,10 @@ let Rating = React.createClass({
       )
     }
 
-    return <div onMouseOut={this.handleLeave} className="rating-front">{items}</div>
-  },
+    return <div onMouseOut={this.handleLeave.bind(this)} className="rating-front">{items}</div>
+  }
 
-  getMute: function () {
+  getMute () {
     let items = [],
         icon = this.getIcon(1),
         width = (this.state.value / this.props.maxValue * 100) + '%'
@@ -131,10 +135,13 @@ let Rating = React.createClass({
         </div>
       </div>
     )
-  },
+  }
 
-  render: function () {
-    let className = this.getClasses("rating")
+  render () {
+    let className = classnames(
+      this.props.className,
+      "rating"
+    )
     return (
       <div style={this.props.style} className={className}>
         { this.getBackground() }
@@ -142,13 +149,13 @@ let Rating = React.createClass({
       </div>
     )
   }
-})
+}
 
 Rating.register = function (key, icons) {
   themes[key] = icons
 }
 
-module.exports = Rating
+export default Rating
 
 require('./formControl.jsx').register(
 

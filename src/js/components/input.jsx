@@ -24,6 +24,12 @@ class Input extends React.Component {
     value: React.PropTypes.any
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setValue(nextProps.value)
+    }
+  }
+
   state = {
     value: this.props.value
   }

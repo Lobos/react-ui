@@ -1,34 +1,34 @@
 "use strict"
 
 require('../../less/checkbox.less')
-let React = require('react')
+import React from 'react'
 
-module.exports = React.createClass({
-  displayName: "Radio",
+export default class Radio extends React.Component {
+  static displayName = "Radio"
 
-  propTypes: {
+  static propTypes = {
     checked: React.PropTypes.bool,
     index: React.PropTypes.number,
     onClick: React.PropTypes.func,
     readOnly: React.PropTypes.bool,
     text: React.PropTypes.any,
     value: React.PropTypes.any
-  },
+  }
 
-  handleClick: function () {
+  handleClick () {
     if (this.props.onClick) {
       this.props.onClick(this.props.value, this.props.index)
     }
-  },
+  }
 
-  render: function () {
+  render () {
     return (
-      <label className="pure-radio rui-radio">
+      <label className="radio">
         <input ref="input"
           type="radio"
           disabled={this.props.readOnly}
           onChange={() => {}}
-          onClick={this.handleClick}
+          onClick={this.handleClick.bind(this)}
           checked={this.props.checked}
           value={this.props.value}
         />
@@ -36,4 +36,4 @@ module.exports = React.createClass({
       </label>
     )
   }
-})
+}

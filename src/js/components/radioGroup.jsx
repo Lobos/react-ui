@@ -1,54 +1,69 @@
 "use strict"
 
 require('../../less/checkbox.less')
-let React = require('react')
-let Classable = require('../mixins/classable')
-let Objects = require('../utils/objects')
-let Resource = require('../mixins/resource')
-let ReceiveValue = require('../mixins/receive-value')
-let Radio = require('./radio.jsx')
+import React from 'react'
+import classnames from 'classnames'
+import { toTextValue } from '../utils/objects'
+import Radio from './radio.jsx'
 
-let RadioGroup = React.createClass({
-  displayName: "RadioGroup",
+class RadioGroup extends React.Component {
+  static displayName = "RadioGroup"
 
-  propTypes: {
+  static propTypes = {
     cache: React.PropTypes.bool,
-    data: React.PropTypes.array,
+    className: React.PropTypes.string,
+    data: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.func
+    ]),
     inline: React.PropTypes.bool,
     onChange: React.PropTypes.func,
     readOnly: React.PropTypes.bool,
-    src: React.PropTypes.string,
     style: React.PropTypes.object,
     textTpl: React.PropTypes.string,
     value: React.PropTypes.any,
     valueTpl: React.PropTypes.string
-  },
+  }
 
-  mixins: [Classable, Resource, ReceiveValue],
+  static defaultProps = {
+    textTpl: '{text}',
+    valueTpl: '{id}'
+  }
 
-  getDefaultProps: function () {
-    return {
-      textTpl: '{text}',
-      valueTpl: '{id}'
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setValue(nextProps.value)
     }
-  },
-
-  getInitialState: function () {
-    return {
-      data: []
+    if (nextProps.data !== this.props.data) {
+      this.setState({ data: this.formatData(nextProps.data) })
     }
-  },
+  }
 
-  initData: function (data) {
-    data = Objects.toTextValue(data, this.props.textTpl, this.props.valueTpl)
-    this.setState({ data: data })
-  },
+  state = {
+    value: this.props.value,
+    data: this.formatData(this.props.data)
+  }
 
-  getValue: function () {
+  formatData (data) {
+    if (typeof data === 'function') {
+      data(res => {
+        this.setState({ data: this.formatData(res) })
+      })
+      return []
+    } else {
+      return toTextValue(data, this.props.textTpl, this.props.valueTpl)
+    }
+  }
+
+  setValue (value) {
+    this.setState({ value: value })
+  }
+
+  getValue () {
     return this.state.value
-  },
+  }
 
-  handleChange: function (value) {
+  handleChange (value) {
     if (this.props.readOnly) {
       return
     }
@@ -60,19 +75,18 @@ let RadioGroup = React.createClass({
         change(value)
       }, 0)
     }
-  },
+  }
 
-  render: function () {
-    let className = this.getClasses(
+  render () {
+    let className = classnames(
+      this.props.className,
       'radio-group',
-      {
-        'inline': this.props.inline
-      }
+      { 'inline': this.props.inline }
     )
     let items = this.state.data.map(function (item, i) {
       return (
         <Radio key={i}
-          onClick={this.handleChange}
+          onClick={this.handleChange.bind(this)}
           readOnly={this.props.readOnly}
           checked={this.state.value === item.$value}
           text={item.$text}
@@ -85,9 +99,9 @@ let RadioGroup = React.createClass({
       <div style={this.props.style} className={className}>{items}</div>
     )
   }
-})
+}
 
-module.exports = RadioGroup
+export default RadioGroup
 
 require('./formControl.jsx').register(
 
