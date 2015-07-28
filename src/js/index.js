@@ -21,8 +21,9 @@ exports.Pagination = require('./components/pagination.jsx')
 exports.Message = require('./components/message.jsx')
 exports.Lang = require('./lang')
 
+exports.dataSource = require('./utils/dataSource')
+
 exports.Utils = {
-  dataSource: require('./utils/dataSource'),
   Datetime: require('./utils/datetime'),
   Dom: require('./utils/dom'),
   Objects: require('./utils/objects'),

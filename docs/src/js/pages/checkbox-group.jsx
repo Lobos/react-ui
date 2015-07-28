@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let {CheckboxGroup, Utils: { dataSource }} = global.uiRequire()
+let {CheckboxGroup, dataSource } = global.uiRequire()
 
 const textValue = require('../data/text-value')
 

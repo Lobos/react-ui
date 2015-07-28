@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let {Tree, Checkbox, Qwest} = global.uiRequire()
+let {Tree, Checkbox, Qwest, dataSource} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Tree',
@@ -56,7 +56,6 @@ module.exports = React.createClass({
   className={string}  // class
   checkAble={bool}    // 是否可编辑，默认为 false
   data={array}        // 数据，与 src 二选一，优先使用 data
-  src="string"        // 服务器端数据地址，与 data 二选一
   cache={bool}        // 数据缓存，只有当数据为远程获取时有效。默认为 true
   sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   greedy={bool}       // 为true时，getValue返回的值包含半选中项
@@ -71,7 +70,7 @@ module.exports = React.createClass({
 
         <h2 className="subhead">Example</h2>
         <p>
-          <Tree ref="tree" src="json/tree.json"
+          <Tree ref="tree" data={dataSource("json/tree.json")}
             readOnly={this.state.readOnly}
             checkAble={this.state.checkAble}
             greedy={this.state.greedy}

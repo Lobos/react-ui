@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let {Select, Utils: { dataSource }} = global.uiRequire()
+let {Select, dataSource} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Select',

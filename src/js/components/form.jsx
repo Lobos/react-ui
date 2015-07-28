@@ -1,96 +1,84 @@
 'use strict'
 
-let React = require('react')
-let Qwest = require('qwest')
-let Objects = require('../utils/objects')
-let Classable = require('../mixins/classable')
-let Lang = require('../lang')
-let Message = require('./message.jsx')
-let FormControl = require('./formControl.jsx')
-let FormSubmit = require('./formSubmit.jsx')
+require('../../less/form.less')
 
-let Form = React.createClass({
-  displayName: 'Form',
+import React from 'react'
+import classnames from 'classnames'
+import { forEach } from '../utils/objects'
+import FormControl from './formControl.jsx'
 
-  propTypes: {
+export default class Form extends React.Component {
+  static displayName = 'Form'
+
+  static propTypes = {
     action: React.PropTypes.string,
     autoload: React.PropTypes.bool,
     beforeSubmit: React.PropTypes.func,
     children: React.PropTypes.any,
-    dataType: React.PropTypes.oneOf(["post", "json", "text", "arraybuffer", "blob", "document", "formdata"]),
+    className: React.PropTypes.string,
+    data: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.func
+    ]),
     hintType: React.PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
     layout: React.PropTypes.oneOf(['aligned', 'stacked', 'inline']),
     onSubmit: React.PropTypes.func
-  },
+  }
 
-  mixins: [Classable],
+  static defaultProps = {
+    data: {},
+    layout: 'inline'
+  }
 
-  getDefaultProps: function () {
-    return {
-      dataType: 'post',
-      layout: 'inline'
+  componentWillMount () {
+    this.fetchData(this.props.data)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (this.props.data !== this.props.data) {
+      this.fetchData(nextProps.data)
     }
-  },
+  }
 
-  getInitialState: function () {
-    return {
-      locked: false,
-      data: {}
-    }
-  },
+  state = {
+    locked: false,
+    data: {}
+  }
 
-  componentWillMount: function () {
-    if (this.props.action && this.props.autoload) {
-      this.fetchData(this.props.action)
-    }
-  },
-
-  componentWillReceiveProps: function (nextProps) {
-    if (this.props.action !== this.props.action) {
-      this.fetchData(nextProps.action)
-    }
-  },
-
-  fetchData: function (src) {
-    src = src || this.props.action
-    //loading.start()
-    Qwest.get(src, null, {})
-      .then((res) => {
-        //loading.end()
-        if (res.status === 1) {
-          this.setData(res.data)
-        } else if (res.msg) {
-          Message.show(res.msg, 'warning')
-        }
+  fetchData (data) {
+    if (typeof data === 'function') {
+      data(res => {
+        this.fetchData(res)
       })
-      .catch((e) => {
-        Message.show(e.message, 'error')
-      })
-  },
+      return
+    }
+    this.setState({ data })
+    this.setData(data)
+  }
 
-  getValue: function () {
+  getValue () {
     let data = this.state.data
-    Objects.forEach(this.refs, (ref, k) => {
+    forEach(this.refs, (ref, k) => {
       if (!ref.props.ignore) {
         data[k] = ref.getValue()
       }
     })
     return data
-  },
+  }
 
-  setValue: function (key, value) {
+  setValue (key, value) {
     let data = this.state.data
     data[key] = value
     this.setState({ data })
-  },
+  }
 
-  setData: function (data) {
-    Objects.forEach(this.refs, (ref, k) => {
+  setData (data) {
+    forEach(this.refs, (ref, k) => {
       ref.setValue(data[k])
     })
-  },
+  }
 
-  equalValidate: function (targetRef, equalRef) {
+  equalValidate (targetRef, equalRef) {
     let self = this
     return function () {
       let target = self.refs[targetRef]
@@ -101,10 +89,10 @@ let Form = React.createClass({
       let equal = self.refs[equalRef]
       return target.getValue() === equal.getValue()
     }
-  },
+  }
 
-  renderChildren: function () {
-    return React.Children.map(this.props.children, function (child) {
+  renderChildren () {
+    return React.Children.map(this.props.children, child => {
       let props = {
         hintType: child.props.hintType || this.props.hintType,
         readOnly: child.props.readOnly || this.state.locked,
@@ -120,22 +108,20 @@ let Form = React.createClass({
         if (child.props.equal) {
           props.onValidate = this.equalValidate(child.props.equal, child.props.name)
         }
-      } else if (child.type === FormSubmit) {
-        props.locked = this.state.locked
       }
 
       child = React.addons.cloneWithProps(child, props)
       return child
-    }, this)
-  },
+    })
+  }
 
-  getReference: function (name) {
+  getReference (name) {
     return this.refs[name]
-  },
+  }
 
-  validate: function () {
+  validate () {
     let success = true
-    Objects.forEach(this.refs, function (child) {
+    forEach(this.refs, function (child) {
       if (child.props.ignore) {
         return
       }
@@ -143,8 +129,9 @@ let Form = React.createClass({
       success = success && suc
     })
     return success
-  },
+  }
 
+  /*
   handleSubmit: function (event) {
     if (this.state.locked) {
       return
@@ -185,9 +172,11 @@ let Form = React.createClass({
       this.setState({ locked: false })
     })
   },
+  */
 
-  render: function () {
-    let className = this.getClasses(
+  render () {
+    let className = classnames(
+      this.props.className,
       'pure-form',
       {
         'pure-form-aligned': this.props.layout === 'aligned',
@@ -202,6 +191,4 @@ let Form = React.createClass({
       </form>
     )
   }
-})
-
-module.exports = Form
+}

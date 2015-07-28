@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let {RadioGroup, Utils: { dataSource }} = global.uiRequire()
+let {RadioGroup, dataSource} = global.uiRequire()
 
 const textValue = require('../data/text-value')
 

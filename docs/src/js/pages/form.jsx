@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let {Form, FormControl, FormSubmit, Icon, Input, RadioGroup} = global.uiRequire()
+let {Form, FormControl, FormSubmit, Icon, Input, RadioGroup, dataSource} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Form',
@@ -63,7 +63,7 @@ module.exports = React.createClass({
           <h2 className="subhead">获取 / 提交数据</h2>
           <p>注：本文档使用了一个 <em>json</em> 文件模拟服务端返回数据，提交会提示 <em>500</em> 错误</p>
 
-          <Form layout="aligned" autoload={true} action="json/form.json">
+          <Form layout="aligned" data={dataSource("json/form.json")}>
             <FormControl name="text" label="text" type="text" width={12} min={2} max={6} />
             <FormControl name="email" label="email" type="email">
               <span className="input-group pure-u-1">
@@ -82,8 +82,8 @@ module.exports = React.createClass({
             <FormControl name="checkboxgroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="checkbox group" type="checkbox-group" />
             <FormControl name="radiogroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="radio group" inline={true} type="radio-group" />
             <FormControl name="rating" label="rating" required={true} maxValue={10} tip="亲，给个好评吧" type="rating" />
-            <FormControl width={12} name="select" label="select" type="select" src="json/countries.json" mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
-            <FormControl name="tree" checkAble={true} label="tree" type="tree" src="json/tree.json" textTpl='{text}({id})' valueTpl="{id}" />
+            <FormControl width={12} name="select" label="select" type="select" data={dataSource("json/countries.json")} mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
+            <FormControl name="tree" checkAble={true} label="tree" type="tree" data={dataSource("json/tree.json")} textTpl='{text}({id})' valueTpl="{id}" />
             <FormControl width={18} name="textarea" label="textarea" rows={5} type="textarea" />
 
             <FormSubmit>
@@ -112,8 +112,8 @@ module.exports = React.createClass({
   <FormControl name="checkboxgroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="checkbox group" type="checkbox-group" />
   <FormControl name="radiogroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="radio group" inline={true} type="radio-group" />
   <FormControl name="rating" label="rating" required={true} maxValue={10} tip="亲，给个好评吧" type="rating" />
-  <FormControl width={12} name="select" label="select" type="select" src="json/countries.json" mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
-  <FormControl name="tree" checkAble={true} label="tree" type="tree" src="json/tree.json" textTpl='{text}({id})' valueTpl="{id}" />
+  <FormControl width={12} name="select" label="select" type="select" data={dataSource("json/countries.json")} mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
+  <FormControl name="tree" checkAble={true} label="tree" type="tree" data={dataSource("json/tree.json")} textTpl='{text}({id})' valueTpl="{id}" />
   <FormControl width={18} name="textarea" label="textarea" rows={5} type="textarea" />
 
   <FormSubmit>

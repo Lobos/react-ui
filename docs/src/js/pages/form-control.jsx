@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let {FormControl, Input, Icon, Grid, Utils: { dataSource }} = global.uiRequire()
+let {FormControl, Input, Icon, Grid, dataSource} = global.uiRequire()
 
 const gridProps = {
   width: 12,
@@ -160,7 +160,7 @@ module.exports = React.createClass({
                 <FormControl
                   type="tree"
                   checkAble={true}
-                  src="json/tree.json"
+                  data={dataSource("json/tree.json")}
                   textTpl="{text}({id})"
                   valueTpl="{id}"
                  />
@@ -171,7 +171,7 @@ module.exports = React.createClass({
 {`<FormControl
   type="tree"
   checkAble={true}
-  src="json/tree.json"
+  data={dataSource("json/tree.json")}
   textTpl="{text}({id})"
   valueTpl="{id}"
  />`}
