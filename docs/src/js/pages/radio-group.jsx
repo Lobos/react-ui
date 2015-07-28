@@ -30,7 +30,7 @@ module.exports = React.createClass({
           <pre className="prettyprint">
 {`<RadioGroup
   className={string}  // class
-  data={array}        // 数据，与 src 二选一，优先使用 data
+  data={array|func}   // 数据，array 或者 dataSource
   cache={bool}        // 数据缓存，只有当数据为远程获取时有效。默认为 true
   inline={bool}       // 为 true 时，各选项横向排列。默认为 false
   onChange={function} // 当选项改变时回调方法，参数为 value

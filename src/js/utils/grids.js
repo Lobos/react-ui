@@ -42,6 +42,7 @@ export function create (pre = 'grid') {
   text-rendering: auto;
 }`)
 
+  text.push(`.${pre}-1{width:100%}`)
   text.push(gridUnit(pre))
 
   ; [['35.5', 'sm'], ['48', 'md'], ['64', 'lg'], ['80', 'xl']].forEach(([x, m]) => {

@@ -1,23 +1,27 @@
 'use strict'
 
-require('../../less/form.less')
+require('../../less/form-control.less')
 require('../../less/select.less')
 
-let React = require('react')
-let classnames = require('classnames')
-let Strings = require('../utils/strings')
-let DOM = require('../utils/dom')
-let Classable = require('../mixins/classable')
-let Resource = require('../mixins/resource')
-let ReceiveValue = require('../mixins/receive-value')
-let ClickAwayable = require('../mixins/click-awayable')
+import React from 'react'
+import classnames from 'classnames'
+import { toArray, substitute } from '../utils/strings'
+import { getOuterHeight, overView, withoutTransition } from '../utils/dom'
+import clickAway from '../higherorder/clickaway'
+import getGrid from '../higherorder/grid'
 
-let Select = React.createClass({
-  displayName: 'Select',
+@clickAway
+@getGrid
+class Select extends React.Component {
+  static displayName = 'Select'
 
-  propTypes: {
+  static propTypes = {
     cache: React.PropTypes.bool,
-    data: React.PropTypes.array,
+    className: React.PropTypes.string,
+    data: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.func
+    ]),
     filterAble: React.PropTypes.bool,
     groupBy: React.PropTypes.string,
     mult: React.PropTypes.bool,
@@ -27,73 +31,90 @@ let Select = React.createClass({
     readOnly: React.PropTypes.bool,
     resultTpl: React.PropTypes.string,
     sep: React.PropTypes.string,
-    src: React.PropTypes.string,
     value: React.PropTypes.any,
     valueTpl: React.PropTypes.string
-  },
+  }
 
-  mixins: [Classable, ReceiveValue, Resource, ClickAwayable],
+  static defaultProps = {
+    dropup: false,
+    sep: ',',
+    optionTpl: '{text}',
+    valueTpl: '{id}'
+  }
 
-  getDefaultProps: function () {
-    return {
-      dropup: false,
-      sep: ',',
-      optionTpl: '{text}',
-      valueTpl: '{id}'
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setValue(this.formatValue(nextProps.value))
     }
-  },
-
-  getInitialState: function () {
-    return {
-      active: false,
-      data: [],
-      filter: ''
+    if (nextProps.data !== this.props.data) {
+      this.setState({ data: this.formatData(nextProps.data) })
     }
-  },
+  }
 
-  componentWillUpdate: function(nextProps, nextState) {
-    if (nextState.active) {
-      this.bindClickAway()
-    } else {
-      this.unbindClickAway()
-    }
-  },
-
-  componentClickAway: function () {
+  componentClickAway () {
     this.close()
-  },
+  }
 
-  open: function () {
+  state = {
+    active: false,
+    value: this.formatValue(this.props.value),
+    data: this.formatData(this.props.data, this.formatValue(this.props.value)),
+    filter: ''
+  }
+
+  open () {
     if (!this.state.active && !this.props.readOnly) {
       let options = React.findDOMNode(this.refs.options)
       options.style.display = 'block'
-      let offset = DOM.getOuterHeight(options) + 5
+      let offset = getOuterHeight(options) + 5
 
       let el = React.findDOMNode(this)
-      let dropup = DOM.overView(el, offset)
+      let dropup = overView(el, offset)
 
-      DOM.withoutTransition(el, () => {
+      withoutTransition(el, () => {
         this.setState({ dropup })
       })
+
+      this.bindClickAway()
 
       setTimeout(() => {
         this.setState({ filter: '', active: true })
       }, 0)
     }
-  },
+  }
 
-  close: function () {
+  close () {
     this.setState({ active: false })
+    this.unbindClickAway()
     // use setTimeout instead of transitionEnd
     setTimeout(() => {
       if (this.state.active === false) {
         React.findDOMNode(this.refs.options).style.display = 'none'
       }
     }, 500)
-  },
+  }
 
-  formatValue: function (value) {
-    value = Strings.toArray(value, this.props.sep)
+  getValue (sep = this.props.sep, data = this.state.data) {
+    let value = []
+    data.forEach(d => {
+      if (d.$checked) {
+        value.push(d.$value)
+      }
+    })
+
+    if (sep) {
+      value = value.join(sep)
+    }
+
+    return value
+  }
+
+  setValue (value) {
+    this.setState({ value: this.formatValue(value) })
+  }
+
+  formatValue (value) {
+    value = toArray(value, this.props.sep)
     if (this.state) {
       //let data = clone(this.state.data).map(d => {
       let data = this.state.data.map(d => {
@@ -103,10 +124,16 @@ let Select = React.createClass({
       this.setState({ data: data })
     }
     return value
-  },
+  }
 
-  initData: function (data) {
-    let value = this.state.value
+  formatData (data, value = this.state.value) {
+    if (typeof data === 'function') {
+      data(res => {
+        this.setState({ data: this.formatData(res) })
+      })
+      return []
+    }
+
     data = data.map(d => {
       if (typeof d !== 'object') {
         return {
@@ -123,9 +150,9 @@ let Select = React.createClass({
         d.$filter = (Object.keys(d).map(k => d[k])).join(',').toLowerCase()
       }
 
-      let val = Strings.substitute(this.props.valueTpl, d)
-      d.$option = Strings.substitute(this.props.optionTpl, d)
-      d.$result = Strings.substitute(this.props.resultTpl || this.props.optionTpl, d)
+      let val = substitute(this.props.valueTpl, d)
+      d.$option = substitute(this.props.optionTpl, d)
+      d.$result = substitute(this.props.resultTpl || this.props.optionTpl, d)
       d.$value = val
       d.$checked = value.indexOf(val) >= 0
       return d
@@ -148,25 +175,10 @@ let Select = React.createClass({
       })
     }
 
-    this.setState({ data: data })
-  },
+    return data
+  }
 
-  getValue: function (sep = this.props.sep, data = this.state.data) {
-    let value = []
-    data.forEach(d => {
-      if (d.$checked) {
-        value.push(d.$value)
-      }
-    })
-
-    if (sep) {
-      value = value.join(sep)
-    }
-
-    return value
-  },
-
-  handleChange: function (i) {
+  handleChange (i) {
     if (this.props.readOnly) {
       return
     }
@@ -191,25 +203,29 @@ let Select = React.createClass({
         this.props.onChange(value)
       }, 0)
     }
-  },
+  }
 
-  handleRemove: function (i) {
+  handleRemove (i) {
     // wait checkClickAway completed
     setTimeout(() => {
       this.handleChange(i)
     }, 0)
-  },
+  }
 
-  render: function () {
+  render () {
     let active = this.state.active
     let result = []
 
-    let className = this.getClasses('select form-control', {
-      active: active,
-      readonly: this.props.readOnly,
-      dropup: this.state.dropup,
-      single: !this.props.mult
-    })
+    let className = classnames(
+      this.getGrid(),
+      'select form-control',
+      {
+        active: active,
+        readonly: this.props.readOnly,
+        dropup: this.state.dropup,
+        single: !this.props.mult
+      }
+    )
 
     let placeholder = this.state.msg || this.props.placeholder
 
@@ -257,7 +273,7 @@ let Select = React.createClass({
     }, this)
 
     return (
-      <div onClick={this.open} className={className}>
+      <div onClick={this.open.bind(this)} className={className}>
         { result.length > 0 ? result : <span className="placeholder">{placeholder}&nbsp;</span> }
         <div className="options-wrap">
           <hr />
@@ -269,9 +285,9 @@ let Select = React.createClass({
       </div>
     )
   }
-})
+}
 
-module.exports = Select
+export default Select
 
 require('./formControl.jsx').register(
 

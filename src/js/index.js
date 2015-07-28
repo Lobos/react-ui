@@ -3,6 +3,7 @@
 exports.Checkbox = require('./components/checkbox.jsx')
 exports.CheckboxGroup = require('./components/checkboxGroup.jsx')
 exports.Datetime = require('./components/datetime.jsx')
+exports.Grid = require('./components/grid.jsx')
 exports.Icon = require('./components/icon.jsx')
 exports.Input = require('./components/input.jsx')
 exports.RadioGroup = require('./components/radioGroup.jsx')

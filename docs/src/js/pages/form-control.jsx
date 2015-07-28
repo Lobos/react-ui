@@ -2,7 +2,12 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let {FormControl, Input, Icon} = global.uiRequire()
+let {FormControl, Input, Icon, Grid, Utils: { dataSource }} = global.uiRequire()
+
+const gridProps = {
+  width: 12,
+  responsive: 'lg'
+}
 
 module.exports = React.createClass({
   displayName: 'Pages/FormControl',
@@ -15,15 +20,15 @@ module.exports = React.createClass({
       <div>
         <p><em><b>{type}</b></em> => <a href={"#/" + component.toLowerCase()}>{component}</a></p>
         <div className="split">
-          <div className="pure-u-1 pure-u-lg-1-2">
+          <Grid {...gridProps}>
             <FormControl width={24} type={type} />
-          </div>
+          </Grid>
 
-          <div className="pure-u-1 pure-u-lg-1-2">
+          <Grid {...gridProps}>
             <pre className="prettyprint">
               {`<FormControl type="${type}" />`}
             </pre>
-          </div>
+          </Grid>
         </div>
       </div>
     )
@@ -70,11 +75,11 @@ module.exports = React.createClass({
           <div>
             <p><em><b>text</b></em> => <a href="#/input">Input</a></p>
             <div className="split">
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <FormControl width={24} required={true} type="text" min={2} max={10} />
-              </div>
+              </Grid>
 
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <pre className="prettyprint">
   {`<FormControl
     required={true}
@@ -82,7 +87,7 @@ module.exports = React.createClass({
     min={2}
     max={10} />`}
                 </pre>
-              </div>
+              </Grid>
             </div>
           </div>
 
@@ -101,26 +106,26 @@ module.exports = React.createClass({
           <div>
             <p><em><b>textarea</b></em> => <a href="#/input">Input</a></p>
             <div className="split">
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <FormControl width={24} type="textarea" rows={5} />
-              </div>
+              </Grid>
 
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <pre className="prettyprint">
                   {`<FormControl width={24} type="textarea" rows={5} />`}
                 </pre>
-              </div>
+              </Grid>
             </div>
           </div>
 
           <div>
             <p><em><b>select</b></em> => <a href="#/select">Select</a></p>
             <div className="split">
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <FormControl width={24}
                   type="select"
                   required={true}
-                  src="json/countries.json"
+                  data={dataSource("json/countries.json")}
                   filterAble={true}
                   optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
                   valueTpl="{country}-{en}"
@@ -128,14 +133,14 @@ module.exports = React.createClass({
                   min={2}
                   max={6}
                  />
-              </div>
+              </Grid>
 
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <pre className="prettyprint">
 {`<FormControl width={24}
   type="select"
   required={true}
-  src="json/countries.json"
+  data={dataSource("json/countries.json")}
   filterAble={true}
   optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
@@ -144,14 +149,14 @@ module.exports = React.createClass({
   max={6}
  />`}
                 </pre>
-              </div>
+              </Grid>
             </div>
           </div>
 
           <div>
             <p><em><b>tree</b></em> => <a href="#/tree">Tree</a></p>
             <div className="split">
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <FormControl
                   type="tree"
                   checkAble={true}
@@ -159,9 +164,9 @@ module.exports = React.createClass({
                   textTpl="{text}({id})"
                   valueTpl="{id}"
                  />
-              </div>
+              </Grid>
 
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <pre className="prettyprint">
 {`<FormControl
   type="tree"
@@ -171,83 +176,83 @@ module.exports = React.createClass({
   valueTpl="{id}"
  />`}
                 </pre>
-              </div>
+              </Grid>
             </div>
           </div>
 
           <div>
             <p><em><b>checkbox</b></em> => <a href="#/checkbox">Checkbox</a></p>
             <div className="split">
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <FormControl type="checkbox" text="I'm a checkbox" />
-              </div>
+              </Grid>
 
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <pre className="prettyprint">
                   {`<FormControl type="checkbox" text="I'm a checkbox" />`}
                 </pre>
-              </div>
+              </Grid>
             </div>
           </div>
 
           <div>
             <p><em><b>checkbox-group</b></em> => <a href="#/checkbox-group">CheckboxGroup</a></p>
             <div className="split">
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <FormControl
                   type="checkbox-group"
-                  src="json/text-value.json"
+                  data={dataSource("json/text-value.json")}
                   textTpl="{text}"
                   valueTpl="{id}"
                   min={2}
                   max={4}
                  />
-              </div>
+              </Grid>
 
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <pre className="prettyprint">
 {`<FormControl
   type="checkbox-group"
-  src="json/text-value.json"
+  data={dataSource("json/text-value.json")}
   textTpl="{text}"
   valueTpl="{id}"
   min={2}
   max={4}
  />`}
                 </pre>
-              </div>
+              </Grid>
             </div>
           </div>
 
           <div>
             <p><em><b>radio-group</b></em> => <a href="#/radio-group">RadioGroup</a></p>
             <div className="split">
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <FormControl
                   type="radio-group"
-                  src="json/text-value.json"
+                  data={dataSource("json/text-value.json")}
                   textTpl="{text}"
                   valueTpl="{id}"
                  />
-              </div>
+              </Grid>
 
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <pre className="prettyprint">
 {`<FormControl
   type="radio-group"
-  src="json/text-value.json"
+  data={dataSource("json/text-value.json")}
   textTpl="{text}"
   valueTpl="{id}"
  />`}
                 </pre>
-              </div>
+              </Grid>
             </div>
           </div>
 
           <div>
             <p><em><b>rating</b></em> => <a href="#/rating">RadioGroup</a></p>
             <div className="split">
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <FormControl
                   type="rating"
                   maxValue={10}
@@ -255,9 +260,9 @@ module.exports = React.createClass({
                   required={true}
                   icons={[<Icon icon="favorite-outline" style={{color: 'red'}} />, <Icon icon="favorite" style={{color: 'red'}} />]}
                  />
-              </div>
+              </Grid>
 
-              <div className="pure-u-1 pure-u-lg-1-2">
+              <Grid {...gridProps}>
                 <pre className="prettyprint">
 {`<FormControl
   required={true}
@@ -267,7 +272,7 @@ module.exports = React.createClass({
   icons={[<Icon icon="favorite-outline" style={{color: 'red'}} />, <Icon icon="favorite" style={{color: 'red'}} />]}
  />`}
                 </pre>
-              </div>
+              </Grid>
             </div>
           </div>
 

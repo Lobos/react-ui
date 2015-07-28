@@ -2,7 +2,7 @@
 
 let React = require('react')
 let Prettify = require('../mixins/prettify')
-let {Select} = global.uiRequire()
+let {Select, Utils: { dataSource }} = global.uiRequire()
 
 module.exports = React.createClass({
   displayName: 'Pages/Select',
@@ -21,8 +21,7 @@ module.exports = React.createClass({
           <pre className="prettyprint">
 {`<Select
   className={string}    // class
-  data={array}          // 数据，与 src 二选一，优先使用 data
-  src="string"          // 服务器端数据地址，与 data 二选一
+  data={array|func}     // 数据，array 或者 dataSource
   cache={bool}          // 数据缓存，只有当数据为远程获取时有效。默认为 true
   sep={string|null}     // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   filterAble={bool}     // 是否显示筛选，默认为 false
@@ -37,7 +36,7 @@ module.exports = React.createClass({
   value={string}        // 初始值
 />
 模板使用 "{key}" 形式的字符串进行格式化。
-data 为简单数组（如["中国", "美国", "俄罗斯", "德国"])，时，所有模板无效。
+data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所有模板无效。
 `}
           </pre>
 
@@ -58,13 +57,13 @@ data 为简单数组（如["中国", "美国", "俄罗斯", "德国"])，时，�
             filterAble={true}
             optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
             valueTpl="{country}-{en}"
-            src="json/countries.json" />
+            data={dataSource("json/countries.json")} />
           <pre className="prettyprint">
 {`<Select placeholder="单选"
   filterAble={true}
   optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
-  src="json/countries.json" />
+  data={dataSource("json/countries.json")} />
 `}
           </pre>
 
@@ -77,7 +76,7 @@ data 为简单数组（如["中国", "美国", "俄罗斯", "德国"])，时，�
             optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
             resultTpl='<img src="images/flags/{code}.png" /> {country}'
             valueTpl="{en}"
-            src="json/countries.json" />
+            data={dataSource("json/countries.json")} />
           <pre className="prettyprint">
 {`<Select placeholder="多选"
   cache={true}
@@ -86,7 +85,7 @@ data 为简单数组（如["中国", "美国", "俄罗斯", "德国"])，时，�
   optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
   resultTpl='<img src="images/flags/{code}.png" /> {country}'
   valueTpl="{en}"
-  src="json/countries.json" />
+  data={dataSource("json/countries.json")} />
 `}
           </pre>
 
@@ -97,14 +96,14 @@ data 为简单数组（如["中国", "美国", "俄罗斯", "德国"])，时，�
             filterAble={true}
             optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
             valueTpl="{country}-{en}"
-            src="json/countries.json" />
+            data={dataSource("json/countries.json")} />
           <pre className="prettyprint">
 {`<Select placeholder="Group by continent"
   groupBy="continent"
   filterAble={true}
   optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
-  src="json/countries.json" />
+  data={dataSource("json/countries.json")} />
 `}
           </pre>
         </div>
