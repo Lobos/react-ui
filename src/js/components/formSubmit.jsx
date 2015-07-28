@@ -1,21 +1,18 @@
 'use strict'
 
-let React = require('react')
-let Classable = require('../mixins/classable')
-let Button = require('./button.jsx')
+import React from 'react'
+import Button from './button.jsx'
 
-let Submit = React.createClass({
-  displayName: 'FormSubmit',
+export default class FormSubmit extends React.Component {
+  static displayName = 'FormSubmit'
 
-  propTypes: {
+  static propTypes = {
     children: React.PropTypes.any,
     locked: React.PropTypes.bool,
     onClick: React.PropTypes.func
-  },
+  }
 
-  mixins: [Classable],
-
-  render: function () {
+  render () {
     let children = this.props.children
     let content
     if (Array.isArray(children)) {
@@ -35,6 +32,5 @@ let Submit = React.createClass({
       </div>
     )
   }
-})
+}
 
-module.exports = Submit

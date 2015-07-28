@@ -2,14 +2,16 @@
 
 require('../../less/input.less')
 
-let React = require('react')
-let Classable = require('../mixins/classable')
-let ReceiveValue = require('../mixins/receive-value')
+import React from 'react'
+import classnames from 'classnames'
+import getGrid from '../higherorder/grid'
 
-let Input = React.createClass({
-  displayName: 'Input',
+@getGrid
+class Input extends React.Component {
+  static displayName = 'Input'
 
-  propTypes: {
+  static propTypes = {
+    className: React.PropTypes.string,
     id: React.PropTypes.string,
     onBlur: React.PropTypes.func,
     onChange: React.PropTypes.func,
@@ -20,11 +22,21 @@ let Input = React.createClass({
     style: React.PropTypes.object,
     type: React.PropTypes.string,
     value: React.PropTypes.any
-  },
+  }
 
-  mixins: [Classable, ReceiveValue],
+  state = {
+    value: this.props.value
+  }
 
-  handleChange: function (event) {
+  getValue () {
+    return React.findDOMNode(this).value
+  }
+
+  setValue (value) {
+    this.setState({ value })
+  }
+
+  handleChange (event) {
     if (this.props.readOnly) {
       return
     }
@@ -34,17 +46,13 @@ let Input = React.createClass({
     if (this.props.onChange) {
       this.props.onChange(value)
     }
-  },
+  }
 
-  getValue: function () {
-    return React.findDOMNode(this).value
-  },
-
-  render: function () {
+  render () {
     let type = this.props.type === 'password' ? 'password' : 'text'
     let props = {
-      className: this.getClasses('form-control'),
-      onChange: this.handleChange,
+      className: classnames('form-control', this.getGrid()),
+      onChange: this.handleChange.bind(this),
       type: type,
       value: this.state.value
     }
@@ -55,11 +63,13 @@ let Input = React.createClass({
       return (<input {...this.props} {...props} />)
     }
   }
-})
+}
 
-module.exports = Input
+export default Input
 
-require('./formControl.jsx').register(
+import FormControl from './formControl.jsx'
+
+FormControl.register(
 
   ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'textarea'],
 
@@ -71,7 +81,7 @@ require('./formControl.jsx').register(
 
 )
 
-require('./formControl.jsx').register(
+FormControl.register(
 
   ['integer', 'number'],
 
