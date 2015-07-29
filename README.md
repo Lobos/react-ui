@@ -31,6 +31,7 @@ var CheckboxGroup = require('rctui/checkbox-group')
 使用 [webpack](http://webpack.github.io/) 打包，可以修改 'src/js/index.js' 自定义需要的组件。
 ```
 docs:    webpack --config webpack-docs.config.js [--min]
+publish: webpack --config webpack-publish.config.js [--min]
 ```
 
 # Components
@@ -38,19 +39,26 @@ docs:    webpack --config webpack-docs.config.js [--min]
 
 - [Button](http://lobos.github.io/react-ui/#/button)
 - [Checkbox](http://lobos.github.io/react-ui/#/checkbox)
-- [Checkbox group](http://lobos.github.io/react-ui/#/checkbox-group)
+- [Checkbox group](http://lobos.github.io/react-ui/#/checkboxGroup)
 - [Datetime](http://lobos.github.io/react-ui/#/datetime)
 - [Form](http://lobos.github.io/react-ui/#/form)
-- [Form Control](http://lobos.github.io/react-ui/#/form-control)
+- [Form Control](http://lobos.github.io/react-ui/#/formControl)
 - [Icon](http://lobos.github.io/react-ui/#/icon)
 - [Message](http://lobos.github.io/react-ui/#/message)
 - [Pagination](http://lobos.github.io/react-ui/#/pagination)
-- [Radio group](http://lobos.github.io/react-ui/#/radio-group)
+- [Radio group](http://lobos.github.io/react-ui/#/radioGroup)
 - [Rating](http://lobos.github.io/react-ui/#/rating)
 - [Select](http://lobos.github.io/react-ui/#/select)
 - [Tree](http://lobos.github.io/react-ui/#/tree)
 
 # Change log
+v0.3.0
+
+ - Component全部改为es6形式
+ - grids的css改用js动态生成
+ - 剥离需要服务端数据的Component内置ajax调用，改用dataSource实现
+ - 移除全部Mixins，使用Higher Order
+
 v0.2.3
 
  - 修改一些小bug

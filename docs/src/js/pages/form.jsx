@@ -23,8 +23,7 @@ export default class Page extends React.Component {
         <div className="content">
           <pre className="prettyprint">
 {`<Form
-  dataType={string}     // 提交数据类型，可选值为 "post", "json", "text", "arraybuffer",
-                           "blob", "document", "formdata"，默认为 "post"
+  data={object|func}    // 数据，object 或者 dataSource
   hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
                            layout 为 stacked, aligned 时，默认为 "block"
                            layout 为 inline 时，默认为 "pop"
@@ -34,6 +33,7 @@ export default class Page extends React.Component {
   {children}
 </Form>`}
           </pre>
+          <p><a href="#/dataSource">dataSource 参加这里</a></p>
           <p>0.3 版更新，From 不再提供内置 Ajax 提交功能，需要在onSubmit中进行提交</p>
 
           <h2 className="subhead">layout</h2>

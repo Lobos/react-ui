@@ -35,6 +35,7 @@ export default class Page extends React.Component {
 />`}
 
           </pre>
+          <p><a href="#/dataSource">dataSource 参加这里</a></p>
 
           <h2 className="subhead">数据结构</h2>
           <p>标准结构为 <em>text</em>, <em>id</em> key组成的数组</p>

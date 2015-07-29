@@ -21,7 +21,6 @@ export default class Page extends React.Component {
 {`<Select
   className={string}    // class
   data={array|func}     // 数据，array 或者 dataSource
-  cache={bool}          // 数据缓存，只有当数据为远程获取时有效。默认为 true
   sep={string|null}     // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   filterAble={bool}     // 是否显示筛选，默认为 false
   readOnly={bool}       // 是否只读。默认为 false
@@ -38,6 +37,7 @@ export default class Page extends React.Component {
 data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所有模板无效。
 `}
           </pre>
+          <p><a href="#/dataSource">dataSource 参加这里</a></p>
 
           <h2 className="subhead">简单数组</h2>
           <div>

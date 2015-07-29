@@ -52,8 +52,7 @@ export default class Page extends React.Component {
 {`<Tree
   className={string}  // class
   checkAble={bool}    // 是否可编辑，默认为 false
-  data={array}        // 数据，与 src 二选一，优先使用 data
-  cache={bool}        // 数据缓存，只有当数据为远程获取时有效。默认为 true
+  data={array|func}   // 数据，array 或者 dataSource
   sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   greedy={bool}       // 为true时，getValue返回的值包含半选中项
   onClick={function(data)}  // 点击某元素触发事件，参数为当前节点
@@ -64,6 +63,7 @@ export default class Page extends React.Component {
   value={string|array}
 />`}
         </pre>
+        <p><a href="#/dataSource">dataSource 参加这里</a></p>
 
         <h2 className="subhead">Example</h2>
         <p>
