@@ -1,5 +1,4 @@
 
-
 A collection of components for React.
 文档 [戳这里](http://lobos.github.io/react-ui/)
 
@@ -24,7 +23,8 @@ var Form = ReactUI.Form
 ...
 // 或者单独使用一个组件
 var Input = require('rctui/input')
-var CheckboxGroup = require('rctui/checkbox-group')
+var CheckboxGroup = require('rctui/checkboxGroup')
+var FormControl = require('rctui/formControl')
 ```
 
 # build
