@@ -32,7 +32,7 @@ export default class Radio extends React.Component {
           checked={this.props.checked}
           value={this.props.value}
         />
-        {this.props.text}
+        <span>{this.props.text}</span>
       </label>
     )
   }

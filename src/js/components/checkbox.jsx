@@ -57,7 +57,7 @@ class Checkbox extends React.Component {
           checked={this.state.checked}
           value={this.props.value}
         />
-        {` ${this.props.text}`}
+        {this.props.text}
       </label>
     )
   }
