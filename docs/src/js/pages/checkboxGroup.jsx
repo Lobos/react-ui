@@ -20,7 +20,6 @@ export default class Page extends React.Component {
         <div className="content">
 
           <pre className="prettyprint">
-
 {`<CheckboxGroup
   className={string}  // class
   data={array|func}   // 数据，array 或者 dataSource

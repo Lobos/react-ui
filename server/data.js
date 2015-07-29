@@ -8,7 +8,7 @@ module.exports = {
 
   CheckboxGroup: {
     path: './components/checkboxGroup.jsx',
-    dependencies: [ 'Checkbox', 'FormControl', 'Qwest' ]
+    dependencies: [ 'Checkbox', 'FormControl' ]
   },
 
   Datetime: {
@@ -23,7 +23,7 @@ module.exports = {
 
   RadioGroup: {
     path: './components/radioGroup.jsx',
-    dependencies: [ 'FormControl', 'Qwest' ]
+    dependencies: [ 'FormControl' ]
   },
 
   Rating: {
@@ -33,12 +33,12 @@ module.exports = {
 
   Select: {
     path: './components/select.jsx',
-    dependencies: [ 'FormControl', 'Qwest' ]
+    dependencies: [ 'FormControl' ]
   },
 
   Tree: {
     path: './components/tree.jsx',
-    dependencies: [ 'FormControl', 'Qwest' ]
+    dependencies: [ 'FormControl' ]
   },
 
   FormControl: {
@@ -52,7 +52,7 @@ module.exports = {
 
   Form: {
     path: './components/form.jsx',
-    dependencies: [ 'FormControl', 'Qwest' ]
+    dependencies: [ 'FormControl' ]
   },
 
   Button: {
