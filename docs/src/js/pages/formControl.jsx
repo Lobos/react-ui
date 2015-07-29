@@ -1,7 +1,7 @@
 'use strict'
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
+import React from 'react'
+import prettify from '../prettify'
 let {FormControl, Input, Icon, Grid, dataSource} = global.uiRequire()
 
 const gridProps = {
@@ -9,12 +9,11 @@ const gridProps = {
   responsive: 'lg'
 }
 
-module.exports = React.createClass({
-  displayName: 'Pages/FormControl',
+@prettify
+export default class Page extends React.Component {
+  static displayName = 'Pages/FormControl'
 
-  mixins: [Prettify],
-
-  renderExample: function (type, component) {
+  renderExample (type, component) {
     component = component || 'Input'
     return (
       <div>
@@ -32,9 +31,9 @@ module.exports = React.createClass({
         </div>
       </div>
     )
-  },
+  }
 
-  render: function () {
+  render () {
     return (
       <div>
         <div className="header">
@@ -310,4 +309,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
+}

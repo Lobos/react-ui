@@ -1,12 +1,12 @@
 "use strict"
 
-let React = require("react")
-let {Icon} = global.uiRequire()
+import React from 'react'
+const {Icon} = global.uiRequire()
 
-module.exports = React.createClass({
-  displayName: 'Home',
+export default class Home extends React.Component {
+  static displayName = 'Home'
 
-  render: function () {
+  render () {
     return (
       <div>
         <div className="hero">
@@ -22,4 +22,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
+}

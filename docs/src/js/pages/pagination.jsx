@@ -1,29 +1,26 @@
 'use strict'
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
-let {Pagination, Input} = global.uiRequire()
+import React from 'react'
+import prettify from '../prettify'
+const {Pagination, Input} = global.uiRequire()
 
-module.exports = React.createClass({
-  displayName: 'Pages/Pagination',
+@prettify
+export default class Page extends React.Component {
+  static displayName = 'Pages/Pagination'
 
-  mixins: [Prettify],
+  state = {
+    index: 2,
+    size: 20,
+    total: 1000,
+    pages: 10,
+    showGo: false
+  }
 
-  getInitialState: function () {
-    return {
-      index: 2,
-      size: 20,
-      total: 1000,
-      pages: 10,
-      showGo: false
-    }
-  },
-
-  onChange: function (index) {
+  onChange (index) {
     this.setState({ index })
-  },
+  }
 
-  render: function () {
+  render () {
     return (
       <div>
         <div className="header">
@@ -49,7 +46,7 @@ module.exports = React.createClass({
             size={this.state.size}
             total={this.state.total}
             pages={this.state.pages}
-            onChange={this.onChange}
+            onChange={this.onChange.bind(this)}
             showGo={this.state.showGo} />
 
           <p>
@@ -68,4 +65,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
+}

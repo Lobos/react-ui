@@ -1,29 +1,29 @@
 "use strict"
 
-exports.Checkbox = require('./components/checkbox.jsx')
-exports.CheckboxGroup = require('./components/checkboxGroup.jsx')
-exports.Datetime = require('./components/datetime.jsx')
-exports.Grid = require('./components/grid.jsx')
-exports.Icon = require('./components/icon.jsx')
-exports.Input = require('./components/input.jsx')
-exports.RadioGroup = require('./components/radioGroup.jsx')
-exports.Rating = require('./components/rating.jsx')
-exports.Select = require('./components/select.jsx')
-exports.Tree = require('./components/tree.jsx')
-exports.Button = require('./components/button.jsx')
+export const Checkbox = require('./components/checkbox.jsx')
+export const CheckboxGroup = require('./components/checkboxGroup.jsx')
+export const Datetime = require('./components/datetime.jsx')
+export const Grid = require('./components/grid.jsx')
+export const Icon = require('./components/icon.jsx')
+export const Input = require('./components/input.jsx')
+export const RadioGroup = require('./components/radioGroup.jsx')
+export const Rating = require('./components/rating.jsx')
+export const Select = require('./components/select.jsx')
+export const Tree = require('./components/tree.jsx')
+export const Button = require('./components/button.jsx')
 
-exports.FormControl = require('./components/formControl.jsx')
-exports.FormSubmit = require('./components/formSubmit.jsx')
-exports.Form = require('./components/form.jsx')
+export const FormControl = require('./components/formControl.jsx')
+export const FormSubmit = require('./components/formSubmit.jsx')
+export const Form = require('./components/form.jsx')
 
-exports.Pagination = require('./components/pagination.jsx')
+export const Pagination = require('./components/pagination.jsx')
 
-exports.Message = require('./components/message.jsx')
-exports.Lang = require('./lang')
+export const Message = require('./components/message.jsx')
+export const Lang = require('./lang')
 
-exports.dataSource = require('./utils/dataSource')
+export const dataSource = require('./utils/dataSource')
 
-exports.Utils = {
+export const Utils = {
   Datetime: require('./utils/datetime'),
   Dom: require('./utils/dom'),
   Objects: require('./utils/objects'),
@@ -31,8 +31,7 @@ exports.Utils = {
 }
 
 // ajax
-exports.Qwest = require('qwest')
-exports.Request = require('qwest') // alias
+export const Qwest = require('qwest')
 
 // set language
-require('./lang/zh-cn')
+//require('./lang/zh-cn')

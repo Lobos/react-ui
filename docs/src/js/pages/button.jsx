@@ -1,24 +1,23 @@
 "use strict"
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
-let {Button, Icon} = global.uiRequire()
+import React from 'react'
+import prettify from '../prettify'
+const {Button, Icon} = global.uiRequire()
 
-module.exports = React.createClass({
-  displayName: 'Pages/Button',
+@prettify
+export default class Page extends React.Component {
+  static displayName: 'Pages/Button'
 
-  mixins: [Prettify],
-
-  disableExample: function (event) {
+  disableExample (event) {
     let button = this.refs.button
     if (event.target.checked) {
       button.disable(<span><Icon icon="lock" />我被禁用了</span>)
     } else {
       button.enable('我又可以使用了')
     }
-  },
+  }
 
-  render: function () {
+  render () {
     return (
       <div>
         <div className="header">
@@ -117,7 +116,7 @@ module.exports = React.createClass({
           <p>
             <Button ref="button">Button</Button>{' '}
             <label className="pure-checkbox">
-              <input onClick={this.disableExample} type="checkbox" /> 禁用
+              <input onClick={this.disableExample.bind(this)} type="checkbox" /> 禁用
             </label>
           </p>
 
@@ -143,4 +142,5 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
+}
+

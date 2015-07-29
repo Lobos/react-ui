@@ -1,23 +1,19 @@
 "use strict"
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
-let {RadioGroup, dataSource} = global.uiRequire()
-
+import React from 'react'
+import prettify from '../prettify'
+const {RadioGroup, dataSource} = global.uiRequire()
 const textValue = require('../data/text-value')
 
-module.exports = React.createClass({
-  displayName: 'Pages/Checkbox',
+@prettify
+export default class Page extends React.Component {
+  static displayName = 'Pages/Checkbox'
 
-  mixins: [Prettify],
+  state = {
+    inline: false
+  }
 
-  getInitialState: function () {
-    return {
-      inline: false
-    }
-  },
-
-  render: function () {
+  render () {
     return (
       <div>
         <div className="header">
@@ -87,5 +83,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-
-})
+}

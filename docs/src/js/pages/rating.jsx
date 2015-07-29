@@ -1,29 +1,26 @@
 "use strict"
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
-let {Rating, Icon, RadioGroup, Checkbox} = global.uiRequire()
+import React from 'react'
+import prettify from '../prettify'
+const {Rating, Icon, RadioGroup, Checkbox} = global.uiRequire()
 
 Rating.register('star', [
   <Icon size={2} style={{color: 'gold'}} icon="star-border" />,
   <Icon size={2} style={{color: 'gold'}} icon="star" />
 ])
 
-module.exports = React.createClass({
-  displayName: 'Pages/Rating',
+@prettify
+export default class Page extends React.Component {
+  static displayName = 'Pages/Rating'
 
-  mixins: [Prettify],
+  state = {
+    readOnly: false,
+    maxValue: 5,
+    value: 3,
+    theme: 'star'
+  }
 
-  getInitialState: function () {
-    return {
-      readOnly: false,
-      maxValue: 5,
-      value: 3,
-      theme: 'star'
-    }
-  },
-
-  render: function () {
+  render () {
     return (
       <div>
         <div className="header">
@@ -136,4 +133,4 @@ value: <input onChange={event=>this.setState({ value: event.target.value })}
       </div>
     )
   }
-})
+}

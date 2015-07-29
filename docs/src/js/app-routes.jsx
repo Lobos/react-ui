@@ -1,9 +1,8 @@
 "use strict"
 
 import {Route, DefaultRoute} from 'react-router'
-
-let Master = require('./pages/master.jsx')
-let Home = require('./pages/home.jsx')
+import Master from './pages/master.jsx'
+import Home from './pages/home.jsx'
 
 let menulist = []
 let index = 1
@@ -22,7 +21,7 @@ require('./menulist').forEach(function (list) {
   addMenu(list)
 })
 
-let AppRoutes = (
+const AppRoutes = (
   <Route name="root" path="/" handler={Master}>
     <Route name="home" handler={Home} />
     {menulist}
@@ -31,4 +30,4 @@ let AppRoutes = (
   </Route>
 )
 
-module.exports = AppRoutes
+export default AppRoutes

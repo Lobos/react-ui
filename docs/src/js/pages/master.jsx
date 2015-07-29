@@ -1,32 +1,29 @@
 "use strict"
 
 import {RouteHandler} from 'react-router'
-let React = require("react")
-let classnames = require('classnames')
-let NavList = require('../nav-list.jsx')
-let {Message} = global.uiRequire()
+import React from 'react'
+import classnames from 'classnames'
+import NavList from '../nav-list.jsx'
+const {Message} = global.uiRequire()
 
-module.exports = React.createClass({
-  displayName: 'Master',
+export default class Page extends React.Component {
+  static displayName = 'Master'
 
-  getInitialState: function () {
-    return {
-      navShow: false
-    }
-  },
+  state = {
+    navShow: false
+  }
 
-  navToggle: function (show) {
+  navToggle (show) {
     this.setState({ navShow: show })
-  },
+  }
 
-  render: function () {
+  render () {
     return (
       <div className={classnames({ 'nav-show': this.state.navShow })}>
-        <NavList onToggle={this.navToggle} />
+        <NavList onToggle={this.navToggle.bind(this)} />
         <div className="main"><RouteHandler /></div>
         <Message />
       </div>
     )
   }
-})
-
+}

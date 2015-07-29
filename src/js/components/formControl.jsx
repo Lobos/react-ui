@@ -1,7 +1,5 @@
 "use strict"
 
-require('../../less/form-control.less')
-
 import React from 'react'
 import classnames from 'classnames'
 import deepmerge from 'deepmerge'

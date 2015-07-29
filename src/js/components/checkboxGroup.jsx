@@ -15,7 +15,7 @@ class CheckboxGroup extends React.Component {
     data: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.func
-    ]),
+    ]).isRequired,
     inline: React.PropTypes.bool,
     onChange: React.PropTypes.func,
     readOnly: React.PropTypes.bool,

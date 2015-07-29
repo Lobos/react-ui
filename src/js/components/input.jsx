@@ -1,6 +1,7 @@
 'use strict'
 
 require('../../less/input.less')
+import styles from '../../less/form-control.less'
 
 import React from 'react'
 import classnames from 'classnames'
@@ -55,11 +56,14 @@ class Input extends React.Component {
   }
 
   render () {
-    let type = this.props.type === 'password' ? 'password' : 'text'
-    let props = {
-      className: classnames('form-control', this.getGrid()),
+    const props = {
+      className: classnames(
+        this.props.className,
+        styles.control,
+        this.getGrid()
+      ),
       onChange: this.handleChange.bind(this),
-      type: type,
+      type: this.props.type === 'password' ? 'password' : 'text',
       value: this.state.value
     }
 

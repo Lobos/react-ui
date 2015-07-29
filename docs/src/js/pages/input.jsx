@@ -1,14 +1,13 @@
 'use strict'
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
+import React from 'react'
+import prettify from '../prettify'
 
-module.exports = React.createClass({
-  displayName: 'Pages/Input',
+@prettify
+export default class Page extends React.Component {
+  static displayName = 'Pages/Input'
 
-  mixins: [Prettify],
-
-  render: function () {
+  render () {
     return (
       <div>
         <div className="header">
@@ -34,4 +33,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
+}

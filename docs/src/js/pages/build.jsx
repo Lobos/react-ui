@@ -1,21 +1,19 @@
 'use strict'
 
-let React = require('react')
-let data = require('../../../../server/data')
-let {Button} = global.uiRequire()
-let clone = global.uiRequire('utils/clone')
+import React from 'react'
+import data from '../../../../server/data'
+const {Button, Grid} = global.uiRequire()
+const clone = global.uiRequire('utils/clone')
 
-module.exports = React.createClass({
-  displayName: 'Pages/Build',
+export default class Page extends React.Component {
+  static displayName = 'Pages/Build'
 
-  getInitialState: function () {
-    return {
-      building: false,
-      components: clone(data)
-    }
-  },
+  state = {
+    building: false,
+    components: clone(data)
+  }
 
-  handleChange: function (key) {
+  handleChange (key) {
     let components = this.state.components
     let target = components[key]
     if (!target.$checked) {
@@ -36,29 +34,29 @@ module.exports = React.createClass({
       }
     }
     this.setState({ components })
-  },
+  }
 
-  selectAll: function (e) {
+  selectAll (e) {
     let checked = e.target.checked
     let components = this.state.components
     Object.keys(components).map((key) => {
       components[key].$checked = checked
     })
     this.setState({ components })
-  },
+  }
 
-  submit: function () {
+  submit () {
     this.setState({ building: true })
-  },
+  }
 
-  render: function () {
+  render () {
     let components = this.state.components
     let checkedNum = 0
     let list = Object.keys(components).map((key, i) => {
       let component = components[key]
       checkedNum += component.$checked ? 1 : 0
       return (
-        <div className="pure-checkbox pure-u-1 pure-u-sm-1-3" key={i}>
+        <Grid className="checkbox" key={i} width={8}>
           <label>
             <input name="components"
                 readOnly={this.state.building}
@@ -68,7 +66,7 @@ module.exports = React.createClass({
                 type="checkbox" />
             <span> {key}</span>
           </label>
-        </div>
+        </Grid>
       )
     })
 
@@ -83,31 +81,31 @@ module.exports = React.createClass({
             <span>选择需要的组件</span>
             <label style={{float: 'right'}}>
               <input readOnly={this.state.building}
-                  onChange={this.selectAll}
+                  onChange={this.selectAll.bind(this)}
                   type="checkbox" />
               <span> 全选</span>
             </label>
           </div>
           <div style={{clear: 'both'}} />
 
-          <form onSubmit={this.submit} action="http://216.189.159.94:8080/build" method="POST">
+          <form onSubmit={this.submit.bind(this)} action="http://216.189.159.94:8080/build" method="POST">
             <hr />
             {list}
             <hr />
 
-            <div className="pure-checkbox pure-u-1 pure-u-sm-1-3">
+            <Grid className="checkbox" width={8}>
               <label>
                 <input readOnly={this.state.building} name="css" value={true} type="checkbox" />
                 <span> 独立css文件</span>
               </label>
-            </div>
+            </Grid>
 
-            <div className="pure-checkbox pure-u-1 pure-u-sm-1-3">
+            <Grid className="checkbox" width={8}>
               <label>
                 <input readOnly={this.state.building} name="minimize" value={true} type="checkbox" />
                 <span> Uglify 压缩</span>
               </label>
-            </div>
+            </Grid>
 
             <hr />
 
@@ -117,4 +115,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
+}

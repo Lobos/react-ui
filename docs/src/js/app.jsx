@@ -8,9 +8,9 @@ global.uiRequire = function (src) {
   }
 }
 
-let React = require('react')
-let Router = require('react-router')
-let AppRoutes = require('./app-routes.jsx')
+const React = require('react')
+const Router = require('react-router')
+const AppRoutes = require('./app-routes.jsx')
 
 // load language
 global.uiRequire('lang/zh-cn')

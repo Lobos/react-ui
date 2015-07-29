@@ -6,20 +6,19 @@ import React from 'react'
 import classnames from 'classnames'
 import { forEach } from '../utils/objects'
 import FormControl from './formControl.jsx'
+import FormSubmit from './formSubmit.jsx'
 
 export default class Form extends React.Component {
   static displayName = 'Form'
 
   static propTypes = {
-    action: React.PropTypes.string,
-    autoload: React.PropTypes.bool,
     beforeSubmit: React.PropTypes.func,
     children: React.PropTypes.any,
     className: React.PropTypes.string,
     data: React.PropTypes.oneOfType([
       React.PropTypes.object,
       React.PropTypes.func
-    ]),
+    ]).isRequired,
     hintType: React.PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
     layout: React.PropTypes.oneOf(['aligned', 'stacked', 'inline']),
     onSubmit: React.PropTypes.func
@@ -108,6 +107,8 @@ export default class Form extends React.Component {
         if (child.props.equal) {
           props.onValidate = this.equalValidate(child.props.equal, child.props.name)
         }
+      } else if (child.type === FormSubmit) {
+        props.locked = this.state.locked
       }
 
       child = React.addons.cloneWithProps(child, props)
@@ -131,8 +132,7 @@ export default class Form extends React.Component {
     return success
   }
 
-  /*
-  handleSubmit: function (event) {
+  handleSubmit (event) {
     if (this.state.locked) {
       return
     }
@@ -151,28 +151,10 @@ export default class Form extends React.Component {
       return
     }
 
-    let data = this.getValue()
-    Qwest.post(this.props.action, data, { dataType: this.props.dataType })
-    .then(res => {
-      if (res.status === 1) {
-        if (this.props.onSubmit) {
-          this.props.onSubmit(res)
-        }
-        if (res.msg) {
-          Message.show(res.msg, 'success')
-        }
-      } else {
-        Message.show(res.msg || Lang.get('request.empty'), 'warning')
-      }
-    })
-    .catch(e => {
-      Message.show(Lang.get('request.failure') + ' ' + e, 'error')
-    })
-    .complete(() => {
-      this.setState({ locked: false })
-    })
-  },
-  */
+    if (this.props.onSubmit) {
+      this.props.onSubmit(this.getValue())
+    }
+  }
 
   render () {
     let className = classnames(
@@ -186,7 +168,7 @@ export default class Form extends React.Component {
     )
 
     return (
-      <form onSubmit={this.handleSubmit} className={className}>
+      <form onSubmit={this.handleSubmit.bind(this)} className={className}>
         {this.renderChildren()}
       </form>
     )

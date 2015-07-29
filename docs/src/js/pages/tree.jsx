@@ -1,44 +1,41 @@
 "use strict"
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
-let {Tree, Checkbox, Qwest, dataSource} = global.uiRequire()
+import React from 'react'
+import prettify from '../prettify'
+const {Tree, Checkbox, Qwest, dataSource} = global.uiRequire()
 
-module.exports = React.createClass({
-  displayName: 'Pages/Tree',
+@prettify
+export default class Page extends React.Component {
+  static displayName = 'Pages/Tree'
 
-  mixins: [Prettify],
-
-  getInitialState: function () {
-    return {
-      readOnly: false,
-      checkAble: true,
-      greedy: false,
-      sep: ',',
-      value: 'role_delete',
-      showValue: 'role_delete',
-      treeData: null
-    }
-  },
-
-  componentWillMount: function () {
+  componentWillMount () {
     Qwest.get('json/tree.json', null, {cache: true})
       .then(res => {
         this.setState({ treeData: JSON.stringify(res, null, 2) })
       })
-  },
+  }
 
-  handleChange: function () {
+  state = {
+    readOnly: false,
+    checkAble: true,
+    greedy: false,
+    sep: ',',
+    value: 'role_delete',
+    showValue: 'role_delete',
+    treeData: null
+  }
+
+  handleChange () {
     let value = JSON.stringify(this.refs.tree.getValue())
     this.setState({ showValue: value })
-  },
+  }
 
-  sepChange: function (sep) {
+  sepChange (sep) {
     this.setState({ sep })
     setTimeout(()=>this.handleChange(), 0)
-  },
+  }
 
-  render: function () {
+  render () {
     let seps = ([',', '|', '#', null]).map((sep, i) => {
       return (
         <a key={i} style={{margin: "0 10px"}} onClick={this.sepChange.bind(this, sep)}>{JSON.stringify(sep)}</a>
@@ -75,7 +72,7 @@ module.exports = React.createClass({
             checkAble={this.state.checkAble}
             greedy={this.state.greedy}
             onClick={item => this.refs.textClick.getDOMNode().innerText = `clicked ${item.text}`}
-            onChange={this.handleChange}
+            onChange={this.handleChange.bind(this)}
             textTpl="{text}({id})"
             valueTpl="{id}"
             value={this.state.value}
@@ -100,7 +97,7 @@ module.exports = React.createClass({
   readOnly={this.state.readOnly}
   checkAble={this.state.checkAble}
   greedy={this.state.greedy}
-  onChange={this.handleChange}
+  onChange={this.handleChange.bind(this)}
   onClick={item => this.refs.textClick.getDOMNode().innerText = 'clicked ' + item.text}
   textTpl="{text}({id})"
   valueTpl="{id}"
@@ -125,6 +122,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
-
-
+}

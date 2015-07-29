@@ -1,21 +1,18 @@
 'use strict'
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
-let {Form, FormControl, FormSubmit, Icon, Input, RadioGroup, dataSource} = global.uiRequire()
+import React from 'react'
+import prettify from '../prettify'
+const {Form, FormControl, FormSubmit, Icon, Input, RadioGroup, dataSource} = global.uiRequire()
 
-module.exports = React.createClass({
-  displayName: 'Pages/Form',
+@prettify
+export default class Page extends React.Component {
+  static displayName = 'Pages/Form'
 
-  mixins: [Prettify],
+  state = {
+    layout: 'inline'
+  }
 
-  getInitialState: function () {
-    return {
-      layout: 'inline'
-    }
-  },
-
-  render: function () {
+  render () {
     return (
       <div>
         <div className="header">
@@ -26,19 +23,18 @@ module.exports = React.createClass({
         <div className="content">
           <pre className="prettyprint">
 {`<Form
-  action={string}       // 服务端地址
   dataType={string}     // 提交数据类型，可选值为 "post", "json", "text", "arraybuffer",
                            "blob", "document", "formdata"，默认为 "post"
   hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
                            layout 为 stacked, aligned 时，默认为 "block"
                            layout 为 inline 时，默认为 "pop"
                            会被 FormControl 的 hintType 覆盖
-  autoload={bool}       // 为true时，自动根据 action 从服务端已 get 方法获取数据
   layout={string}       // 布局，可选值为 "aligned", "stacked", "inline"，默认为 "inline"
-  onSubmit={function}>  // 数据提交后回调事件
+  onSubmit={function}>  // 数据验证成功后回调事件
   {children}
 </Form>`}
           </pre>
+          <p>0.3 版更新，From 不再提供内置 Ajax 提交功能，需要在onSubmit中进行提交</p>
 
           <h2 className="subhead">layout</h2>
           <div>
@@ -63,7 +59,7 @@ module.exports = React.createClass({
           <h2 className="subhead">获取 / 提交数据</h2>
           <p>注：本文档使用了一个 <em>json</em> 文件模拟服务端返回数据，提交会提示 <em>500</em> 错误</p>
 
-          <Form layout="aligned" data={dataSource("json/form.json")}>
+          <Form layout="aligned" onSubmit={data => console.log(data)} data={dataSource("json/form.json")}>
             <FormControl name="text" label="text" type="text" width={12} min={2} max={6} />
             <FormControl name="email" label="email" type="email">
               <span className="input-group pure-u-1">
@@ -75,6 +71,8 @@ module.exports = React.createClass({
             <FormControl width={14} name="alphanum" label="alphanum" type="alphanum" />
             <FormControl width={15} name="integer" label="integer" type="integer" />
             <FormControl width={16} name="number" label="number" type="number" />
+            <FormControl width={16} name="password" min={6} max={20} label="password" type="password" />
+            <FormControl width={16} name="repassword" ignore={true} label="repeat password" type="password" equal="password" tip="必须与password相同" />
             <FormControl width={17} name="url" label="url" type="url" />
             <FormControl width={17} name="readonly" readOnly={true} label="readonly" type="text" />
             <FormControl name="checkbox" type="checkbox" text="It's a checkbox" />
@@ -93,7 +91,7 @@ module.exports = React.createClass({
           </Form>
 
           <pre className="prettyprint">
-{`<Form layout="aligned" autoload={true} action="json/form.json">
+{`<Form layout="aligned" onSubmit={data => console.log(data)} data={dataSource("json/form.json")}>
   <FormControl name="text" label="text" type="text" width={12} min={2} max={6} />
   <FormControl name="email" label="email" type="email">
     <span className="input-group">
@@ -131,4 +129,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
+}

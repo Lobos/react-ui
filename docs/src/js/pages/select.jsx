@@ -1,15 +1,14 @@
 "use strict"
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
-let {Select, dataSource} = global.uiRequire()
+import React from 'react'
+import prettify from '../prettify'
+const {Select, dataSource} = global.uiRequire()
 
-module.exports = React.createClass({
-  displayName: 'Pages/Select',
+@prettify
+export default class Page extends React.Component {
+  static displayName = 'Pages/Select'
 
-  mixins: [Prettify],
-
-  render: function () {
+  render () {
     return (
       <div>
         <div className="header">
@@ -110,6 +109,4 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
       </div>
     )
   }
-})
-
-
+}

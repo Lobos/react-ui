@@ -1,6 +1,7 @@
 'use strict'
 
 import Qwest from 'qwest'
+import Message from '../components/message.jsx'
 
 export default function (src, options) {
   return (success, failure) => {
@@ -9,6 +10,8 @@ export default function (src, options) {
       .catch(res => {
         if (failure) {
           failure(res)
+        } else {
+          Message.show(res, 'error')
         }
       })
   }

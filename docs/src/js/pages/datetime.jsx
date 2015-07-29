@@ -1,20 +1,19 @@
 "use strict"
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
-let {Datetime} = global.uiRequire()
+import React from 'react'
+import prettify from '../prettify'
+const {Datetime} = global.uiRequire()
 
-module.exports = React.createClass({
-  displayName: 'Pages/Datetime',
+@prettify
+export default class Page extends React.Component {
+  static displayName = 'Pages/Datetime'
 
-  mixins: [Prettify],
-
-  handleChange: function (ref) {
+  handleChange (ref) {
     var value = 'value：' + this.refs['d-' + ref].getValue()
     React.findDOMNode(this.refs['p-' + ref]).innerHTML = value
-  },
+  }
 
-  render: function () {
+  render () {
     return (
       <div>
         <div className="header">
@@ -63,6 +62,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
-
-
+}

@@ -1,28 +1,25 @@
 "use strict"
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
-let {Lang} = global.uiRequire()
+import React from 'react'
+import prettify from '../prettify'
+const {Lang: {getLang}} = global.uiRequire()
 
-module.exports = React.createClass({
-  displayName: 'Pages/Lang',
+@prettify
+export default class Page extends React.Component {
+  static displayName = 'Pages/Lang'
 
-  mixins: [Prettify],
+  state = {
+    path: 'request.status.405',
+    text: getLang('request.status.405')
+  }
 
-  getInitialState: function () {
-    return {
-      path: 'request.status.405',
-      text: Lang.get('request.status.405')
-    }
-  },
-
-  handleChange: function (event) {
+  handleChange (event) {
     let path = event.target.value
-    let text = JSON.stringify(Lang.get(path), null, 4) || 'undefined'
+    let text = JSON.stringify(getLang(path), null, 4) || 'undefined'
     this.setState({ path, text })
-  },
+  }
 
-  render: function () {
+  render () {
     return (
       <div>
         <div className="header">
@@ -32,20 +29,20 @@ module.exports = React.createClass({
 
         <div className="content">
           <p>所有提示文字信息都放在 <em>lang</em> 下。</p>
-          <h2 className="subhead">Lang.set(map[,map2...])</h2>
+          <h2 className="subhead">setLang(map[,map2...])</h2>
           <p>更新或者增加信息。</p>
 
-          <h2 className="subhead">Lang.get(path)</h2>
+          <h2 className="subhead">getLang(path)</h2>
           <p>获取信息，<em>path</em> 为 <em>.</em> 分隔字符串。</p>
           <p>
-            <input onChange={this.handleChange} value={this.state.path} type="text" />
+            <input onChange={this.handleChange.bind(this)} value={this.state.path} type="text" />
             <p>{this.state.text}</p>
           </p>
 
           <h2 className="subhead">当前信息</h2>
-          <pre className="prettyprint">{JSON.stringify(Lang.get(), null, 4)}</pre>
+          <pre className="prettyprint">{JSON.stringify(getLang(), null, 4)}</pre>
         </div>
       </div>
     )
   }
-})
+}

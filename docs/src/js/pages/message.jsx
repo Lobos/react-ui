@@ -1,15 +1,14 @@
 "use strict"
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
-let {Message, Icon} = global.uiRequire()
+import React from 'react'
+import prettify from '../prettify'
+const {Message, Icon} = global.uiRequire()
 
-module.exports = React.createClass({
-  displayName: 'Pages/Message',
+@prettify
+export default class Page extends React.Component {
+  static displayName = 'Pages/Message'
 
-  mixins: [Prettify],
-
-  render: function () {
+  render () {
     return (
       <div>
         <div className="header">
@@ -48,4 +47,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
+}

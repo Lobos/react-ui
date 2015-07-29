@@ -7,7 +7,7 @@ module.exports = {
   },
 
   CheckboxGroup: {
-    path: './components/checkbox-group.jsx',
+    path: './components/checkboxGroup.jsx',
     dependencies: [ 'Checkbox', 'FormControl', 'Qwest' ]
   },
 
@@ -22,7 +22,7 @@ module.exports = {
   },
 
   RadioGroup: {
-    path: './components/radio-group.jsx',
+    path: './components/radioGroup.jsx',
     dependencies: [ 'FormControl', 'Qwest' ]
   },
 
@@ -42,11 +42,11 @@ module.exports = {
   },
 
   FormControl: {
-    path: './components/form-control.jsx'
+    path: './components/formControl.jsx'
   },
 
   FormSubmit: {
-    path: './components/form-submit.jsx',
+    path: './components/formSubmit.jsx',
     dependencies: [ 'Button' ]
   },
 
@@ -69,6 +69,11 @@ module.exports = {
 
   Qwest: {
     path: 'qwest'
+  },
+
+  dataSource: {
+    path: './utils/dataSource.js',
+    dependencies: [ 'Qwest' ]
   },
 
   Lang: {

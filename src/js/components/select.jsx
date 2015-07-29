@@ -1,7 +1,7 @@
 'use strict'
 
-require('../../less/form-control.less')
 require('../../less/select.less')
+import styles from '../../less/form-control.less'
 
 import React from 'react'
 import classnames from 'classnames'
@@ -21,7 +21,7 @@ class Select extends React.Component {
     data: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.func
-    ]),
+    ]).isRequired,
     filterAble: React.PropTypes.bool,
     groupBy: React.PropTypes.string,
     mult: React.PropTypes.bool,
@@ -217,8 +217,10 @@ class Select extends React.Component {
     let result = []
 
     let className = classnames(
+      this.props.className,
       this.getGrid(),
-      'select form-control',
+      styles.control,
+      'select',
       {
         active: active,
         readonly: this.props.readOnly,

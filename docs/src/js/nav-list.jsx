@@ -1,48 +1,48 @@
 "use strict"
 
-let classnames = require('classnames')
-let React = require('react')
-let Router = require('react-router')
-let menulist = require('./menulist')
-let {Icon, Utils: {Dom} } = global.uiRequire()
+import React from 'react'
+import classnames from 'classnames'
+//import Router from 'react-router'
+import menulist from './menulist'
+const {Icon, Utils: {Dom} } = global.uiRequire()
 
-module.exports = React.createClass({
-  displayName: 'NavList',
+export default class NavList extends React.Component {
+  static displayName = 'NavList'
 
-  propTypes: {
+  static propTypes = {
     onToggle: React.PropTypes.func
-  },
+  }
 
-  mixins: [Router.State],
+  static contextTypes = {
+    router: React.PropTypes.func.isRequired
+  }
 
-  getInitialState: function () {
-    return {
-      active: false,
-      height: 0
-    }
-  },
+  state = {
+    active: false,
+    height: 0
+  }
 
-  getClasses: function (name, route) {
+  getClasses (name, route) {
     return classnames(name, {
       active: this.context.router.isActive(route)
     })
-  },
+  }
 
-  routeChange: function (route) {
+  routeChange (route) {
     this.context.router.transitionTo(route)
     if (this.state.active) {
       this.close()
     }
-  },
+  }
 
-  mouseMove: function (active) {
+  mouseMove (active) {
     if (active !== undefined && active !== this.state.active) {
       console.log(active)
       this.toggle(active)
     }
-  },
+  }
 
-  toggle: function (active) {
+  toggle (active) {
     if (active === undefined) {
       active = !this.state.active
     }
@@ -58,9 +58,9 @@ module.exports = React.createClass({
       this.setState({ active })
       this.props.onToggle(active)
     }, 0)
-  },
+  }
 
-  show: function () {
+  show () {
     if (this.state.active) {
       return
     }
@@ -75,9 +75,9 @@ module.exports = React.createClass({
       this.setState({ active: true })
       this.props.onToggle(true)
     }, 0)
-  },
+  }
 
-  close: function () {
+  close () {
     if (this.state.active === false) {
       return
     }
@@ -87,9 +87,9 @@ module.exports = React.createClass({
       React.findDOMNode(this.refs.list).style.display = 'none'
       this.props.onToggle(false)
     }, 300)
-  },
+  }
 
-  getRoutesList: function (routes, index) {
+  getRoutesList (routes, index) {
     let list = routes.map(function (r, i) {
       if (r.route) {
         return (
@@ -109,9 +109,9 @@ module.exports = React.createClass({
     }, this)
 
     return <ul key={index} className="pure-menu-list">{list}</ul>
-  },
+  }
 
-  render: function () {
+  render () {
     let list = menulist.map(function (routes, index) {
       return this.getRoutesList(routes, index)
     }, this)
@@ -120,15 +120,15 @@ module.exports = React.createClass({
       <div className={classnames("nav", {active: this.state.active})}>
         <a className="pure-menu-heading" onClick={this.routeChange.bind(this, '/')}>React UI</a>
         <a className="link-github" href="https://github.com/Lobos/react-ui"><Icon icon="github" /> github</a>
-        <div onMouseEnter={this.show} onMouseLeave={this.close} className="nav-inner pure-menu">
-          <a onClick={this.show} className="nav-handler"><Icon icon="menu" size="lg" /></a>
+        <div onMouseEnter={this.show.bind(this)} onMouseLeave={this.close.bind(this)} className="nav-inner pure-menu">
+          <a onClick={this.show.bind(this)} className="nav-handler"><Icon icon="menu" size="lg" /></a>
           <div ref="list" className="nav-list">
             <div className="mouse-move-pad" />
             {list}
           </div>
         </div>
-        <div onClick={this.close} className="overlay"></div>
+        <div onClick={this.close.bind(this)} className="overlay"></div>
       </div>
     )
   }
-})
+}

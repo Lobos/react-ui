@@ -1,27 +1,15 @@
 "use strict"
 
-let React = require('react')
-let Prettify = require('../mixins/prettify')
-let {CheckboxGroup, dataSource } = global.uiRequire()
+import React from 'react'
+import prettify from '../prettify'
+import textValue from '../data/text-value'
+const {CheckboxGroup, dataSource } = global.uiRequire()
 
-const textValue = require('../data/text-value')
+@prettify
+export default class Page extends React.Component {
+  static displayName = 'Pages/Checkbox'
 
-module.exports = React.createClass({
-  displayName: 'Pages/Checkbox',
-
-  mixins: [Prettify],
-
-  getInitialState: function () {
-    return {
-      inline: false
-    }
-  },
-
-  toggleInline: function () {
-    this.setState({ inline: !this.state.inline })
-  },
-
-  render: function () {
+  render () {
     return (
       <div>
         <div className="header">
@@ -102,4 +90,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
+}

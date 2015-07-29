@@ -20,7 +20,7 @@ class Tree extends React.Component {
     data: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.func
-    ]),
+    ]).isRequired,
     greedy: React.PropTypes.bool,
     onChange: React.PropTypes.func,
     onClick: React.PropTypes.func,
