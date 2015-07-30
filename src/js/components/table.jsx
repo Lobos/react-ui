@@ -2,6 +2,9 @@
 
 import React from 'react'
 import classnames from 'classnames'
+import { substitute } from '../utils/strings'
+
+import styles from '../../less/tables.less'
 
 class Table extends React.Component {
   static displayName = 'Table'
@@ -12,11 +15,17 @@ class Table extends React.Component {
       React.PropTypes.array,
       React.PropTypes.func
     ]).isRequired,
-    headers: React.PropTypes.array.isRequired
+    header: React.PropTypes.array.isRequired
   }
 
   componentWillMount () {
     this.fetchData(this.props.data)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.data !== this.props.data) {
+      this.fetchData(nextProps.data)
+    }
   }
 
   state = {
@@ -35,8 +44,13 @@ class Table extends React.Component {
 
   renderBody () {
     let trs = this.state.data.map((d, i) => {
-      let tds = this.props.headers.map((h, j) => {
-        return <td key={j}>{d.name}</td>
+      let tds = this.props.header.map((h, j) => {
+        let content = h.props.content
+        if (typeof content === 'string') {
+          return <td key={j}>{substitute(content, d)}</td>
+        } else if (typeof content === 'function') {
+          return <td key={i}>{content(d)}</td>
+        }
       })
       return <tr key={i}>{tds}</tr>
     })
@@ -47,11 +61,12 @@ class Table extends React.Component {
   render () {
     let className = classnames(
       this.props.className,
-      'table'
+      styles.table
     )
 
     return (
       <table className={className}>
+        <thead>{this.props.header}</thead>
         {this.renderBody()}
       </table>
     )

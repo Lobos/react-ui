@@ -18,6 +18,7 @@ export const Form = require('./components/form.jsx')
 
 export const Pagination = require('./components/pagination.jsx')
 export const Table = require('./components/table.jsx')
+export const TableHeader = require('./components/tableHeader.jsx')
 
 export const Message = require('./components/message.jsx')
 export const Lang = require('./lang')

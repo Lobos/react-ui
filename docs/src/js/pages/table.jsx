@@ -2,16 +2,19 @@
 
 import React from 'react'
 import prettify from '../prettify'
-const {Table, dataSource} = global.uiRequire()
+const {Table, TableHeader, dataSource} = global.uiRequire()
 
 @prettify
 export default class Page extends React.Component {
   static displayName = 'Pages/Table'
 
   render () {
-    const headers = [
-      { key: 'name' }
-    ]
+    let header = []
+    header.push(<TableHeader key="name" content="{name}">Name</TableHeader>)
+    header.push(<TableHeader key="position" content="{position}">Position</TableHeader>)
+    header.push(<TableHeader key="office" content="{office}">Office</TableHeader>)
+    header.push(<TableHeader key="start_date" content="{start_date}">Start Date</TableHeader>)
+    header.push(<TableHeader key="salary" content="{salary}">Salary</TableHeader>)
 
     return (
       <div>
@@ -22,7 +25,7 @@ export default class Page extends React.Component {
 
         <div className="content">
           <div>
-            <Table data={dataSource('json/table.json', { cache: true })} headers={headers} />
+            <Table className="bordered striped" data={dataSource('json/table.json', { cache: true })} header={header} />
           </div>
         </div>
       </div>

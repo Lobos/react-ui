@@ -1,0 +1,37 @@
+@import "mixins";
+
+:local(.table) {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 0.5em 1em;
+  }
+
+  th {
+    text-align: left;
+    border-width: 0 0 2px 0;
+  }
+
+  td {
+    border-width: 1px 0 0 0;
+  }
+
+  &.bordered {
+    border: solid 1px #ddd;
+    border-width: 1px 0 1px 1px;
+
+    th, td {
+      border-right: solid 1px #ddd;
+    }
+  }
+
+  &.striped {
+    tbody tr:nth-of-type(odd) {
+      background-color: #f9f9f9;
+    }
+  }
+}
