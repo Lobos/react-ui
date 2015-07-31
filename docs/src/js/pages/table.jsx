@@ -25,7 +25,7 @@ export default class Page extends React.Component {
 
         <div className="content">
           <div>
-            <Table className="bordered striped" data={dataSource('json/table.json', { cache: true })} header={header} />
+            <Table className="bordered" height={300} data={dataSource('json/table.json', { cache: true })} header={header} />
           </div>
         </div>
       </div>

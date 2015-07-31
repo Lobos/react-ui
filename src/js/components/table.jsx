@@ -15,16 +15,40 @@ class Table extends React.Component {
       React.PropTypes.array,
       React.PropTypes.func
     ]).isRequired,
-    header: React.PropTypes.array.isRequired
+    header: React.PropTypes.array.isRequired,
+    height: React.PropTypes.number
   }
 
   componentWillMount () {
     this.fetchData(this.props.data)
   }
 
+  componentDidMount () {
+    this.setHeaderWidth()
+  }
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.data !== this.props.data) {
       this.fetchData(nextProps.data)
+    }
+  }
+
+  componentDidUpdate () {
+    this.setHeaderWidth()
+  }
+
+  setHeaderWidth () {
+    let body = React.findDOMNode(this.refs.body)
+    let tr = body.querySelector('tr')
+    if (!tr) {
+      return
+    }
+
+    let ths = React.findDOMNode(this.refs.header).querySelectorAll('th')
+
+    let tds = tr.querySelectorAll('td')
+    for (let i = 0, count = tds.length; i < count; i++) {
+      ths[i].style.width = tds[i].offsetWidth + 'px'
     }
   }
 
@@ -59,16 +83,31 @@ class Table extends React.Component {
   }
 
   render () {
+    let bodyStyle = {}
+    if (this.props.height) {
+      bodyStyle.height = this.props.height
+      bodyStyle.overflow = 'auto'
+    }
+
     let className = classnames(
       this.props.className,
-      styles.table
+      styles.table,
+      { 'scrolled': this.props.height }
     )
 
     return (
-      <table className={className}>
-        <thead>{this.props.header}</thead>
-        {this.renderBody()}
-      </table>
+      <div className={className}>
+        <div className={styles.headerContainer}>
+          <table ref="header">
+            <thead>{this.props.header}</thead>
+          </table>
+        </div>
+        <div style={bodyStyle}>
+          <table className={styles.tableBody} ref="body">
+            {this.renderBody()}
+          </table>
+        </div>
+      </div>
     )
   }
 }
