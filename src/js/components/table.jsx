@@ -17,9 +17,16 @@ class Table extends React.Component {
       React.PropTypes.func
     ]).isRequired,
     header: React.PropTypes.array.isRequired,
-    height: React.PropTypes.number,
+    height: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string
+    ]),
     striped: React.PropTypes.bool,
-    width: React.PropTypes.number
+    style: React.PropTypes.object,
+    width: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string
+    ])
   }
 
   componentWillMount () {
@@ -117,7 +124,7 @@ class Table extends React.Component {
     )
 
     return (
-      <div className={className}>
+      <div style={this.props.style} className={className}>
         <div ref="headerContainer" style={headerStyle} className={styles.headerContainer}>
           <table ref="header">
             <thead>{this.props.header}</thead>
