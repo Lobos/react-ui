@@ -18,7 +18,8 @@ class Table extends React.Component {
     ]).isRequired,
     header: React.PropTypes.array.isRequired,
     height: React.PropTypes.number,
-    striped: React.PropTypes.bool
+    striped: React.PropTypes.bool,
+    width: React.PropTypes.number
   }
 
   componentWillMount () {
@@ -68,6 +69,11 @@ class Table extends React.Component {
     }
   }
 
+  onBodyScroll (e) {
+    let hc = React.findDOMNode(this.refs.headerContainer)
+    hc.style.marginLeft = (0 - e.target.scrollLeft) + 'px'
+  }
+
   renderBody () {
     let trs = this.state.data.map((d, i) => {
       let tds = this.props.header.map((h, j) => {
@@ -86,9 +92,18 @@ class Table extends React.Component {
 
   render () {
     let bodyStyle = {}
+    let headerStyle = {}
+    let tableStyle = {}
+    let onBodyScroll = null
     if (this.props.height) {
       bodyStyle.height = this.props.height
       bodyStyle.overflow = 'auto'
+    }
+    if (this.props.width) {
+      headerStyle.width = this.props.width + 20
+      tableStyle.width = this.props.width
+      bodyStyle.overflow = 'auto'
+      onBodyScroll = this.onBodyScroll.bind(this)
     }
 
     let className = classnames(
@@ -103,13 +118,13 @@ class Table extends React.Component {
 
     return (
       <div className={className}>
-        <div className={styles.headerContainer}>
+        <div ref="headerContainer" style={headerStyle} className={styles.headerContainer}>
           <table ref="header">
             <thead>{this.props.header}</thead>
           </table>
         </div>
-        <div style={bodyStyle}>
-          <table className={styles.tableBody} ref="body">
+        <div onScroll={onBodyScroll} style={bodyStyle}>
+          <table style={tableStyle} className={styles.tableBody} ref="body">
             {this.renderBody()}
           </table>
         </div>

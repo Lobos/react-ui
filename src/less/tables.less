@@ -1,6 +1,8 @@
 @import "mixins";
 
 :local(.table) {
+  overflow: hidden;
+
   table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -27,10 +29,12 @@
 
   &.bordered {
     border: solid 1px #ddd;
-    border-width: 1px 1px 1px 0;
 
     th, td {
       border-left: solid 1px #ddd;
+      &:first-child {
+        border-left: 0;
+      }
     }
 
     &.scrolled {
