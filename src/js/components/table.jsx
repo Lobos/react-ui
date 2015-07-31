@@ -10,13 +10,15 @@ class Table extends React.Component {
   static displayName = 'Table'
 
   static propTypes = {
+    bordered: React.PropTypes.bool,
     className: React.PropTypes.string,
     data: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.func
     ]).isRequired,
     header: React.PropTypes.array.isRequired,
-    height: React.PropTypes.number
+    height: React.PropTypes.number,
+    striped: React.PropTypes.bool
   }
 
   componentWillMount () {
@@ -92,7 +94,11 @@ class Table extends React.Component {
     let className = classnames(
       this.props.className,
       styles.table,
-      { 'scrolled': this.props.height }
+      {
+        'bordered': this.props.bordered,
+        'scrolled': this.props.height,
+        'striped': this.props.striped
+      }
     )
 
     return (
