@@ -31,6 +31,7 @@ class Select extends React.Component {
     readOnly: React.PropTypes.bool,
     resultTpl: React.PropTypes.string,
     sep: React.PropTypes.string,
+    style: React.PropTypes.object,
     value: React.PropTypes.any,
     valueTpl: React.PropTypes.string
   }
@@ -275,7 +276,7 @@ class Select extends React.Component {
     }, this)
 
     return (
-      <div onClick={this.open.bind(this)} className={className}>
+      <div onClick={this.open.bind(this)} style={this.props.style} className={className}>
         { result.length > 0 ? result : <span className="placeholder">{placeholder}&nbsp;</span> }
         <div className="options-wrap">
           <hr />

@@ -11,6 +11,7 @@ export default class Radio extends React.Component {
     index: React.PropTypes.number,
     onClick: React.PropTypes.func,
     readOnly: React.PropTypes.bool,
+    style: React.PropTypes.object,
     text: React.PropTypes.any,
     value: React.PropTypes.any
   }
@@ -23,7 +24,7 @@ export default class Radio extends React.Component {
 
   render () {
     return (
-      <label className="radio">
+      <label style={this.props.style} className="radio">
         <input ref="input"
           type="radio"
           disabled={this.props.readOnly}

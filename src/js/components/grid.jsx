@@ -10,7 +10,8 @@ export default class Grid extends React.Component {
 
   static propTypes = {
     children: React.PropTypes.any,
-    className: React.PropTypes.string
+    className: React.PropTypes.string,
+    style: React.PropTypes.object
   }
 
   render () {
@@ -19,7 +20,7 @@ export default class Grid extends React.Component {
       this.getGrid()
     )
     return (
-      <div className={className}>
+      <div style={this.props.style} className={className}>
         {this.props.children}
       </div>
     )

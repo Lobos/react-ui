@@ -20,6 +20,7 @@ class CheckboxGroup extends React.Component {
     onChange: React.PropTypes.func,
     readOnly: React.PropTypes.bool,
     sep: React.PropTypes.string,
+    style: React.PropTypes.object,
     textTpl: React.PropTypes.string,
     value: React.PropTypes.any,
     valueTpl: React.PropTypes.string
@@ -121,7 +122,7 @@ class CheckboxGroup extends React.Component {
     })
 
     return (
-      <div className={className}>{this.state.msg || items}</div>
+      <div style={this.props.style} className={className}>{this.state.msg || items}</div>
     )
   }
 }

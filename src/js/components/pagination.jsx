@@ -16,6 +16,7 @@ export default class Pagination extends React.Component {
     pages: React.PropTypes.number,
     showGo: React.PropTypes.bool,
     size: React.PropTypes.number,
+    style: React.PropTypes.object,
     total: React.PropTypes.number
   }
 
@@ -139,7 +140,7 @@ export default class Pagination extends React.Component {
       "pagination-wrap"
     )
     return (
-      <div className={className}>
+      <div style={this.props.style} className={className}>
         <ul className="pagination">
           {items}
         </ul>

@@ -26,6 +26,7 @@ class Datetime extends React.Component {
     onChange: React.PropTypes.func,
     placeholder: React.PropTypes.string,
     readOnly: React.PropTypes.bool,
+    style: React.PropTypes.object,
     timeOnly: React.PropTypes.bool,
     unbindClickAway: React.PropTypes.func,
     unixtime: React.PropTypes.bool,
@@ -327,7 +328,7 @@ class Datetime extends React.Component {
 
     if (!this.props.timeOnly) {
       header = (
-        <div className="date-picker-header">
+        <div style={this.props.style} className="date-picker-header">
           <a onClick={this.pre.bind(this)} className="pre">
             <i className="icon arrow-left" />
           </a>

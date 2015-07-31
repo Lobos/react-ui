@@ -13,6 +13,7 @@ class Checkbox extends React.Component {
     index: React.PropTypes.number,
     onChange: React.PropTypes.func,
     readOnly: React.PropTypes.bool,
+    style: React.PropTypes.object,
     text: React.PropTypes.any,
     value: React.PropTypes.any
   }
@@ -49,7 +50,7 @@ class Checkbox extends React.Component {
 
   render () {
     return (
-      <label className={ classnames(this.props.className, "checkbox") }>
+      <label style={this.props.style} className={ classnames(this.props.className, "checkbox") }>
         <input ref="input"
           type="checkbox"
           disabled={this.props.readOnly}

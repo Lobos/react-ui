@@ -39,6 +39,7 @@ class FormControl extends React.Component {
     name: React.PropTypes.string,
     onChange: React.PropTypes.func,
     responsive: React.PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
+    style: React.PropTypes.object,
     type: React.PropTypes.string,
     value: React.PropTypes.any,
     width: React.PropTypes.number
@@ -251,7 +252,7 @@ class FormControl extends React.Component {
       className = `${className} pure-u-1 pure-u-${this.props.responsive}-${this.props.width}-24`
     }
     return (
-      <div className={className}>
+      <div style={this.props.style} className={className}>
         {this.getControl({ width: this.props.width ? 24 : undefined })}
         {
           this.state.errorText ?
@@ -264,7 +265,7 @@ class FormControl extends React.Component {
 
   renderStacked (className) {
     return (
-      <div className={className}>
+      <div style={this.props.style} className={className}>
         <label className="label" htmlFor={this.props.id}>{this.props.label}</label>
         <div className="pure-control-inner">
           {this.getControl()}
@@ -279,8 +280,6 @@ class FormControl extends React.Component {
   }
 
   render () {
-    // do not use Classable, cause width will set control width
-    // if want to set group's width, use className
     let hintType = this.props.hintType ?
                    this.props.hintType :
                    ( this.props.layout === 'inline' ? 'pop' : 'block' )

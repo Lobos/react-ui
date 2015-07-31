@@ -21,7 +21,8 @@ export default class Form extends React.Component {
     ]).isRequired,
     hintType: React.PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
     layout: React.PropTypes.oneOf(['aligned', 'stacked', 'inline']),
-    onSubmit: React.PropTypes.func
+    onSubmit: React.PropTypes.func,
+    style: React.PropTypes.object
   }
 
   static defaultProps = {
@@ -168,7 +169,7 @@ export default class Form extends React.Component {
     )
 
     return (
-      <form onSubmit={this.handleSubmit.bind(this)} className={className}>
+      <form onSubmit={this.handleSubmit.bind(this)} style={this.props.style} className={className}>
         {this.renderChildren()}
       </form>
     )

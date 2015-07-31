@@ -9,7 +9,8 @@ export default class FormSubmit extends React.Component {
   static propTypes = {
     children: React.PropTypes.any,
     locked: React.PropTypes.bool,
-    onClick: React.PropTypes.func
+    onClick: React.PropTypes.func,
+    style: React.PropTypes.object
   }
 
   render () {
@@ -22,7 +23,7 @@ export default class FormSubmit extends React.Component {
     }
 
     return (
-      <div className="pure-control-group">
+      <div style={this.props.style} className="pure-control-group">
         <Button type="submit"
           status='primary'
           onClick={this.props.onClick}

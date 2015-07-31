@@ -15,6 +15,7 @@ class Button extends React.Component {
     onClick: React.PropTypes.func,
     once: React.PropTypes.bool,
     status: React.PropTypes.string,
+    style: React.PropTypes.object,
     type: React.PropTypes.oneOf(['submit', 'button'])
   }
 
@@ -62,6 +63,7 @@ class Button extends React.Component {
 
     return (
       <button onClick={this.handleClick.bind(this)}
+        style={this.props.style}
         disabled={this.state.disabled}
         className={className}
         type={this.props.type || "button"}>
