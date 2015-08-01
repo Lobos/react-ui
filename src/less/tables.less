@@ -24,6 +24,33 @@
     th {
       text-align: left;
       border-width: 0;
+      position: relative;
+
+      .arrow-up, .arrow-down {
+        position: absolute;
+        right: 4px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+      }
+
+      .arrow-up {
+        top: 9px;
+        border-width: 0 4px 7px 4px;
+        border-color: transparent transparent #ddd transparent;
+        &.active {
+          border-color: transparent transparent #555 transparent;
+        }
+      }
+
+      .arrow-down {
+        top: 18px;
+        border-width: 7px 4px 0 4px;
+        border-color: #ddd transparent transparent transparent;
+        &.active {
+          border-color: #555 transparent transparent transparent;
+        }
+      }
     }
   }
 

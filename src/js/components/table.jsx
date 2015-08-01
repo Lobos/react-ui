@@ -16,7 +16,7 @@ class Table extends React.Component {
       React.PropTypes.array,
       React.PropTypes.func
     ]).isRequired,
-    header: React.PropTypes.array.isRequired,
+    headers: React.PropTypes.array.isRequired,
     height: React.PropTypes.oneOfType([
       React.PropTypes.number,
       React.PropTypes.string
@@ -63,7 +63,8 @@ class Table extends React.Component {
   }
 
   state = {
-    data: []
+    data: [],
+    sort: {}
   }
 
   fetchData (data) {
@@ -76,6 +77,20 @@ class Table extends React.Component {
     }
   }
 
+  sortData (key, asc) {
+    let data = this.state.data
+    data = data.sort(function(a, b) {
+        var x = a[key]
+        var y = b[key]
+        if (asc) {
+          return ((x < y) ? -1 : ((x > y) ? 1 : 0))
+        } else {
+          return ((x > y) ? -1 : ((x < y) ? 1 : 0))
+        }
+    })
+    this.setState({ data })
+  }
+
   onBodyScroll (e) {
     let hc = React.findDOMNode(this.refs.headerContainer)
     hc.style.marginLeft = (0 - e.target.scrollLeft) + 'px'
@@ -83,18 +98,34 @@ class Table extends React.Component {
 
   renderBody () {
     let trs = this.state.data.map((d, i) => {
-      let tds = this.props.header.map((h, j) => {
+      let tds = this.props.headers.map((h, j) => {
         let content = h.props.content
         if (typeof content === 'string') {
           return <td key={j}>{substitute(content, d)}</td>
         } else if (typeof content === 'function') {
-          return <td key={i}>{content(d)}</td>
+          return <td key={j}>{content(d)}</td>
+        } else {
+          return <td key={j}>{d[h.props.name]}</td>
         }
       })
       return <tr key={i}>{tds}</tr>
     })
 
     return <tbody>{trs}</tbody>
+  }
+
+  renderHeader () {
+    return React.Children.map(this.props.headers, header => {
+      let props = {
+        onSort: (name, asc) => {
+          this.setState({sort: { name, asc }})
+          this.sortData(name, asc)
+        },
+        sort: this.state.sort
+      }
+
+      return React.addons.cloneWithProps(header, props)
+    })
   }
 
   render () {
@@ -127,7 +158,7 @@ class Table extends React.Component {
       <div style={this.props.style} className={className}>
         <div ref="headerContainer" style={headerStyle} className={styles.headerContainer}>
           <table ref="header">
-            <thead>{this.props.header}</thead>
+            <thead>{this.renderHeader()}</thead>
           </table>
         </div>
         <div onScroll={onBodyScroll} style={bodyStyle}>

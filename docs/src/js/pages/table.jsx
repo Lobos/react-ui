@@ -16,12 +16,12 @@ export default class Page extends React.Component {
   }
 
   render () {
-    let header = []
-    header.push(<TableHeader key="name" content="{name}">Name</TableHeader>)
-    header.push(<TableHeader key="position" content="{position}">Position</TableHeader>)
-    header.push(<TableHeader key="office" content="{office}">Office</TableHeader>)
-    header.push(<TableHeader key="start_date" content="{start_date}">Start Date</TableHeader>)
-    header.push(<TableHeader key="salary" content="{salary}">Salary</TableHeader>)
+    let headers = []
+    headers.push(<TableHeader key={1} name="name" sortAble={true} content="{name}">Name</TableHeader>)
+    headers.push(<TableHeader key={2} name="position">Position</TableHeader>)
+    headers.push(<TableHeader key={3} name="office" sortAble={true}>Office</TableHeader>)
+    headers.push(<TableHeader key={4} name="start_date" sortAble={true} content="{start_date}">Start Date</TableHeader>)
+    headers.push(<TableHeader key={5} name="salary" content="{salary}">Salary</TableHeader>)
 
     return (
       <div>
@@ -48,7 +48,7 @@ export default class Page extends React.Component {
               width={this.state.width}
               height={this.state.height}
               data={dataSource('json/table.json', { cache: true })}
-              header={header}
+              headers={headers}
             />
           </div>
         </div>
