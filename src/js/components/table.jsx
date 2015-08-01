@@ -69,9 +69,9 @@ class Table extends React.Component {
 
   fetchData (data) {
     if (typeof data === 'function') {
-      data(res => {
+      data.then(res => {
         this.fetchData(res)
-      })
+      })()
     } else {
       this.setState({ data })
     }

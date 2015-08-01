@@ -68,23 +68,21 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 
           <h2 className="subhead">多选</h2>
           <Select width={24}
-            cache={true}
             mult={true}
             placeholder="多选"
             filterAble={true}
             optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
             resultTpl='<img src="images/flags/{code}.png" /> {country}'
             valueTpl="{en}"
-            data={dataSource("json/countries.json")} />
+            data={dataSource("json/countries.json", null, {cache: true})} />
           <pre className="prettyprint">
 {`<Select placeholder="多选"
-  cache={true}
   mult={true}
   filterAble={true}
   optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
   resultTpl='<img src="images/flags/{code}.png" /> {country}'
   valueTpl="{en}"
-  data={dataSource("json/countries.json")} />
+  data={dataSource("json/countries.json", null, {cache: true})} />
 `}
           </pre>
 
@@ -95,14 +93,14 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
             filterAble={true}
             optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
             valueTpl="{country}-{en}"
-            data={dataSource("json/countries.json")} />
+            data={dataSource("json/countries.json", null, {cache: true})} />
           <pre className="prettyprint">
 {`<Select placeholder="Group by continent"
   groupBy="continent"
   filterAble={true}
   optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
-  data={dataSource("json/countries.json")} />
+  data={dataSource("json/countries.json", null, {cache: true})} />
 `}
           </pre>
         </div>

@@ -129,9 +129,9 @@ class Select extends React.Component {
 
   formatData (data, value = this.state.value) {
     if (typeof data === 'function') {
-      data(res => {
+      data.then(res => {
         this.setState({ data: this.formatData(res) })
-      })
+      })()
       return []
     }
 

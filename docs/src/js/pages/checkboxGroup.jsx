@@ -23,7 +23,6 @@ export default class Page extends React.Component {
 {`<CheckboxGroup
   className={string}  // class
   data={array|func}   // 数据，array 或者 dataSource
-  cache={bool}        // 数据缓存，只有当数据为远程获取时有效。默认为 true
   sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   inline={bool}       // 为 true 时，各选项横向排列。默认为 false
   onChange={function} // 当选项改变时回调方法，参数为 value
@@ -34,7 +33,7 @@ export default class Page extends React.Component {
 />`}
 
           </pre>
-          <p><a href="#/dataSource">dataSource 参加这里</a></p>
+          <p><a href="#/dataSource">dataSource 参见这里</a></p>
 
           <h2 className="subhead">数据结构</h2>
           <p>标准结构为 <em>text</em>, <em>id</em> key组成的数组</p>
@@ -75,15 +74,15 @@ export default class Page extends React.Component {
 
           <h2 className="subhead">Remote Data</h2>
           <p>
-            <CheckboxGroup ref="remote" onChange={()=>console.log(this.refs.remote.getValue())} cache={false} inline={true} value="shanghai,chengdu" data={ dataSource("json/text-value.json", { cache: true }) } />
+            <CheckboxGroup ref="remote" onChange={()=>console.log(this.refs.remote.getValue())} inline={true} value="shanghai,chengdu" data={ dataSource("json/text-value.json", null, { cache: true }) } />
           </p>
-          <pre className="prettyprint">{'<CheckboxGroup inline={true} value="shanghai,chengdu" cache={false} data={dataSource("json/text-value.json",{cache: true})} />'}</pre>
+          <pre className="prettyprint">{'<CheckboxGroup inline={true} value="shanghai,chengdu" data={dataSource("json/text-value.json")} />'}</pre>
 
           <h2 className="subhead">Data Sep</h2>
           <p>
-            <CheckboxGroup ref="sep" onChange={()=>console.log(this.refs.sep.getValue())} inline={true} sep="|" value="shanghai|chengdu" data={ dataSource("json/text-value.json", { cache: true }) } />
+            <CheckboxGroup ref="sep" onChange={()=>console.log(this.refs.sep.getValue())} inline={true} sep="|" value="shanghai|chengdu" data={ dataSource("json/text-value.json", null, { cache: true }) } />
           </p>
-          <pre className="prettyprint">{'<CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" data={dataSource("json/text-value.json",{cache: true})} />'}</pre>
+          <pre className="prettyprint">{'<CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" data={dataSource("json/text-value.json")} />'}</pre>
         </div>
 
 

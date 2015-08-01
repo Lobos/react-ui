@@ -17,22 +17,39 @@ export default class Page extends React.Component {
 
         <div className="content">
           <p>Select, Tree 等控件需要从服务器远程获取数据的接口。</p>
-          <pre className="prettyprint">{`function (success, failure)`}</pre>
-          <p>接口需要返回一个方法，包含两个回调参数，成功和失败</p>
+          <p>接口返回一个方法，<em>then</em>成功回调，<em>catch</em>失败回调，<em>complete</em>成功与失败都会调用</p>
           <p>ReactUI内部提供了一个dataSource，使用Qwest实现的，可以用其他的Ajax框架自行实现。</p>
           <pre className="prettyprint">
-{`function (src, options) {
-  return (success, failure) => {
-    Qwest.get(src, null, options)
-      .then(res => success(res))
-      .catch(res => {
-        if (failure) {
-          failure(res)
-        } else {
-          Message.show(res, 'error')
-        }
+{`function (src, data, options) {
+  let stacks = {
+        'then': [],
+        'catch': [],
+        'complete': []
+      },
+      promises = ['then', 'catch', 'complete'],
+      req = null,
+
+  qwest = function () {
+    req = Qwest.get(src, data, options)
+    promises.forEach(p => {
+      stacks[p].forEach(func => {
+        req[p](func)
       })
+    })
+    return qwest
   }
+
+  promises.forEach(p => {
+    qwest[p] = func => {
+      stacks[p].push(func)
+      if (req) {
+        req[p](func)
+      }
+      return qwest
+    }
+  })
+
+  return qwest
 }`}
           </pre>
         </div>

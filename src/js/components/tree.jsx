@@ -96,9 +96,9 @@ class Tree extends React.Component {
 
   formatData (data) {
     if (typeof data === 'function') {
-      data(res => {
+      data.then(res => {
         this.formatData(res)
-      })
+      })()
       return []
     }
     let tt = this.props.textTpl

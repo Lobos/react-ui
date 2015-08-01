@@ -46,9 +46,9 @@ class RadioGroup extends React.Component {
 
   formatData (data) {
     if (typeof data === 'function') {
-      data(res => {
+      data.then(res => {
         this.setState({ data: this.formatData(res) })
-      })
+      })()
       return []
     } else {
       return toTextValue(data, this.props.textTpl, this.props.valueTpl)
