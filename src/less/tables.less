@@ -55,8 +55,6 @@
   }
 
   &.bordered {
-    border: solid 1px #ddd;
-
     th, td {
       border-left: solid 1px #ddd;
       &:first-child {
@@ -68,6 +66,10 @@
       th:last-child {
         border-right: solid 1px #ddd;
       }
+    }
+
+    :local(.headerContainer), :local(.bodyContainer) {
+      border: solid 1px #ddd;
     }
   }
 
@@ -84,4 +86,8 @@
 
 :local(.headerContainer) {
   border-bottom: solid 2px #ddd;
+}
+
+:local(.bodyContainer) {
+  margin-bottom: 10px;
 }

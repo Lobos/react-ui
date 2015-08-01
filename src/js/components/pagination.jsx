@@ -37,6 +37,10 @@ export default class Pagination extends React.Component {
     index: this.props.index
   }
 
+  getIndex () {
+    return this.state.index
+  }
+
   setIndex (index) {
     index = parseInt(index)
     this.setState({index})
@@ -105,12 +109,12 @@ export default class Pagination extends React.Component {
       pages.push(max)
     }
 
-    return [pages, max]
+    return {pages, max}
   }
 
   render () {
     let index = this.state.index,
-        [pages, max] = this.getPages(),
+        {pages, max} = this.getPages(),
         items = []
 
     // Previous

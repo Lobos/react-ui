@@ -21,6 +21,7 @@ class Table extends React.Component {
       React.PropTypes.number,
       React.PropTypes.string
     ]),
+    pagination: React.PropTypes.object,
     striped: React.PropTypes.bool,
     style: React.PropTypes.object,
     width: React.PropTypes.oneOfType([
@@ -47,6 +48,12 @@ class Table extends React.Component {
     this.setHeaderWidth()
   }
 
+  state = {
+    index: this.props.pagination ? this.props.pagination.props.index : 1,
+    data: [],
+    sort: {}
+  }
+
   setHeaderWidth () {
     let body = React.findDOMNode(this.refs.body)
     let tr = body.querySelector('tr')
@@ -60,11 +67,6 @@ class Table extends React.Component {
     for (let i = 0, count = tds.length; i < count; i++) {
       ths[i].style.width = tds[i].offsetWidth + 'px'
     }
-  }
-
-  state = {
-    data: [],
-    sort: {}
   }
 
   fetchData (data) {
@@ -96,8 +98,23 @@ class Table extends React.Component {
     hc.style.marginLeft = (0 - e.target.scrollLeft) + 'px'
   }
 
+  getData () {
+    let data = this.state.data,
+        page = this.props.pagination
+    if (!page) {
+      return data
+    }
+    let size = page.props.size
+    if (data.length <= size) {
+      return data
+    }
+    let index = this.state.index
+    data = data.slice((index - 1) * size, index * size)
+    return data
+  }
+
   renderBody () {
-    let trs = this.state.data.map((d, i) => {
+    let trs = this.getData().map((d, i) => {
       let tds = this.props.headers.map((h, j) => {
         let content = h.props.content
         if (typeof content === 'string') {
@@ -128,6 +145,19 @@ class Table extends React.Component {
     })
   }
 
+  renderPagination () {
+    if (!this.props.pagination) {
+      return null
+    }
+
+    let props = {
+      onChange: (index) => {
+        this.setState({index})
+      }
+    }
+    return React.addons.cloneWithProps(this.props.pagination, props)
+  }
+
   render () {
     let bodyStyle = {}
     let headerStyle = {}
@@ -156,16 +186,19 @@ class Table extends React.Component {
 
     return (
       <div style={this.props.style} className={className}>
-        <div ref="headerContainer" style={headerStyle} className={styles.headerContainer}>
-          <table ref="header">
-            <thead>{this.renderHeader()}</thead>
-          </table>
+        <div className={styles.headerContainer}>
+          <div ref="headerContainer" style={headerStyle}>
+            <table ref="header">
+              <thead>{this.renderHeader()}</thead>
+            </table>
+          </div>
         </div>
-        <div onScroll={onBodyScroll} style={bodyStyle}>
+        <div onScroll={onBodyScroll} style={bodyStyle} className={styles.bodyContainer}>
           <table style={tableStyle} className={styles.tableBody} ref="body">
             {this.renderBody()}
           </table>
         </div>
+        {this.renderPagination()}
       </div>
     )
   }

@@ -2,16 +2,26 @@
 
 import React from 'react'
 import prettify from '../prettify'
-const {Table, TableHeader, Checkbox, RadioGroup, dataSource} = global.uiRequire()
+const {Table, TableHeader, Pagination, Checkbox, RadioGroup, dataSource} = global.uiRequire()
 
 @prettify
 export default class Page extends React.Component {
   static displayName = 'Pages/Table'
 
+  componentWillMount () {
+    let data = dataSource('json/table.json', null, { cache: true })
+    data.then(res => {
+      this.setState({ total: res.length })
+    })
+    this.setState({ data })
+  }
+
   state = {
     bordered: true,
+    data: [],
     striped: true,
     height: 300,
+    total: 0,
     width: '100%'
   }
 
@@ -22,6 +32,8 @@ export default class Page extends React.Component {
     headers.push(<TableHeader key={3} name="office" sortAble={true}>Office</TableHeader>)
     headers.push(<TableHeader key={4} name="start_date" sortAble={true} content="{start_date}">Start Date</TableHeader>)
     headers.push(<TableHeader key={5} name="salary" content="{salary}">Salary</TableHeader>)
+
+    let pagination = <Pagination size={10} total={this.state.total} />
 
     return (
       <div>
@@ -47,8 +59,9 @@ export default class Page extends React.Component {
               striped={this.state.striped}
               width={this.state.width}
               height={this.state.height}
-              data={dataSource('json/table.json', { cache: true })}
+              data={this.state.data}
               headers={headers}
+              pagination={pagination}
             />
           </div>
         </div>

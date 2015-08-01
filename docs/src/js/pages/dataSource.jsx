@@ -32,8 +32,10 @@ export default class Page extends React.Component {
   qwest = function () {
     req = Qwest.get(src, data, options)
     promises.forEach(p => {
-      stacks[p].forEach(func => {
-        req[p](func)
+      req[p](res => {
+        stacks[p].forEach(func => {
+          func(res)
+        })
       })
     })
     return qwest
@@ -42,9 +44,6 @@ export default class Page extends React.Component {
   promises.forEach(p => {
     qwest[p] = func => {
       stacks[p].push(func)
-      if (req) {
-        req[p](func)
-      }
       return qwest
     }
   })
