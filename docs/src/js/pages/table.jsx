@@ -18,6 +18,7 @@ export default class Page extends React.Component {
 
   state = {
     bordered: true,
+    checkAble: true,
     data: [],
     height: 300,
     pagination: false,
@@ -40,6 +41,7 @@ export default class Page extends React.Component {
           <div>
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.bordered} onChange={bordered => this.setState({bordered})} text="bordered" />
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.striped} onChange={striped => this.setState({striped})} text="striped" />
+            <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.checkAble} onChange={checkAble => this.setState({checkAble})} text="checkAble" />
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.pagination} onChange={page => this.setState({pagination: page})} text="pagination" />
           </div>
           <div>
@@ -51,6 +53,7 @@ export default class Page extends React.Component {
           <div style={{marginTop: 10}}>
             <Table
               bordered={this.state.bordered}
+              checkAble={this.state.checkAble}
               striped={this.state.striped}
               width={this.state.width}
               height={this.state.height}

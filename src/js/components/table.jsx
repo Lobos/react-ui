@@ -11,6 +11,7 @@ class Table extends React.Component {
 
   static propTypes = {
     bordered: React.PropTypes.bool,
+    checkAble: React.PropTypes.bool,
     children: React.PropTypes.array,
     className: React.PropTypes.string,
     data: React.PropTypes.oneOfType([
@@ -112,6 +113,36 @@ class Table extends React.Component {
     this.setState({ data })
   }
 
+  onCheck (i, e) {
+    let checked = typeof e === 'boolean' ? e : e.target.checked,
+        data = this.state.data,
+        index = this.state.index,
+        size = this.props.pagination ? this.props.pagination.props.size : data.length,
+        start = 0,
+        end = 0
+    if (i === 'all') {
+      start = (index - 1) * size
+      end = index * size
+    } else {
+      start = (index - 1) * size + i
+      end = start + 1
+    }
+    for (; start < end; start++) {
+      data[start].$checked = checked
+    }
+    this.setState({data})
+  }
+
+  getChecked (name) {
+    let values = []
+    this.state.data.forEach(d => {
+      if (d.$checked) {
+        values.push(name ? d[name] : d)
+      }
+    })
+    return values
+  }
+
   onBodyScroll (e) {
     let hc = React.findDOMNode(this.refs.headerContainer)
     hc.style.marginLeft = (0 - e.target.scrollLeft) + 'px'
@@ -133,15 +164,24 @@ class Table extends React.Component {
   }
 
   renderBody () {
+    let checkAble = this.props.checkAble
     let trs = this.getData().map((d, i) => {
-      let tds = this.state.headers.map((h, j) => {
+      let tds = []
+      if (checkAble) {
+        tds.push(
+          <td style={{width: 13}} key="checkbox">
+            <input checked={d.$checked} onChange={this.onCheck.bind(this, i)} type="checkbox" />
+          </td>
+        )
+      }
+      this.state.headers.map((h, j) => {
         let content = h.props.content
         if (typeof content === 'string') {
-          return <td key={j}>{substitute(content, d)}</td>
+          tds.push(<td key={j}>{substitute(content, d)}</td>)
         } else if (typeof content === 'function') {
-          return <td key={j}>{content(d)}</td>
+          tds.push(<td key={j}>{content(d)}</td>)
         } else {
-          return <td key={j}>{d[h.props.name]}</td>
+          tds.push(<td key={j}>{d[h.props.name]}</td>)
         }
       })
       return <tr key={i}>{tds}</tr>
@@ -151,7 +191,15 @@ class Table extends React.Component {
   }
 
   renderHeader () {
-    return this.state.headers.map((header, i) => {
+    let headers = []
+    if (this.props.checkAble) {
+      headers.push(
+        <TableHeader key="checkbox" name="$checkbox">
+          <input onClick={this.onCheck.bind(this, 'all')} type="checkbox" />
+        </TableHeader>
+      )
+    }
+    this.state.headers.map((header, i) => {
       if (header.type === TableHeader) {
         let props = {
           key: i,
@@ -166,9 +214,10 @@ class Table extends React.Component {
           sort: this.state.sort
         }
 
-        return React.addons.cloneWithProps(header, props)
+        headers.push(React.addons.cloneWithProps(header, props))
       }
     })
+    return headers
   }
 
   renderPagination () {
@@ -179,6 +228,7 @@ class Table extends React.Component {
     let props = {
       onChange: (index) => {
         this.setState({index})
+        this.onCheck('all', false)
       }
     }
     return React.addons.cloneWithProps(this.props.pagination, props)
@@ -190,7 +240,7 @@ class Table extends React.Component {
     let tableStyle = {}
     let onBodyScroll = null
     if (this.props.height) {
-      bodyStyle.maxHeight = this.props.height
+      bodyStyle.height = this.props.height
       bodyStyle.overflow = 'auto'
     }
     if (this.props.width) {
