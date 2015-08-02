@@ -20,7 +20,7 @@ export default class Page extends React.Component {
     bordered: true,
     checkAble: true,
     data: [],
-    height: 300,
+    height: 370,
     pagination: false,
     striped: true,
     total: 0,
@@ -29,6 +29,13 @@ export default class Page extends React.Component {
 
   render () {
     let pagination = <Pagination size={10} total={this.state.total} />
+
+    let nameTpl = (d) => {
+      return <a onClick={() => { window.alert(d.name) }}>{d.name}</a>
+    }
+    let removeTpl = (d) => {
+      return <a onClick={() => { window.alert(`确定要删除${d.name}吗`) }}>删除</a>
+    }
 
     return (
       <div>
@@ -45,7 +52,7 @@ export default class Page extends React.Component {
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.pagination} onChange={page => this.setState({pagination: page})} text="pagination" />
           </div>
           <div>
-            height: <RadioGroup style={{display: 'inline-block'}} inline={true} onChange={height => this.setState({height})} value={this.state.height} data={['auto', 200, 300, 500]} />
+            height: <RadioGroup style={{display: 'inline-block'}} inline={true} onChange={height => this.setState({height})} value={this.state.height} data={['auto', 200, 370, 500]} />
           </div>
           <div>
             width: <RadioGroup style={{display: 'inline-block'}} inline={true} onChange={width=> this.setState({width})} value={this.state.width} data={['100%', 1200, 2000]} />
@@ -60,11 +67,12 @@ export default class Page extends React.Component {
               data={this.state.data}
               pagination={this.state.pagination ? pagination : null}>
 
-              <TableHeader name="name" sortAble={true} content="{name}">Name</TableHeader>
-              <TableHeader key={2} name="position">Position</TableHeader>
-              <TableHeader key={3} name="office" sortAble={true}>Office</TableHeader>
-              <TableHeader key={4} name="start_date" sortAble={true} content="{start_date}">Start Date</TableHeader>
-              <TableHeader key={5} name="salary" content="{salary}">Salary</TableHeader>
+              <TableHeader name="name" sortAble={true} content={nameTpl}>Name</TableHeader>
+              <TableHeader name="position" hidden={true}>Position</TableHeader>
+              <TableHeader name="office" sortAble={true}>Office</TableHeader>
+              <TableHeader name="start_date" sortAble={true} content="{start_date}">Start Date</TableHeader>
+              <TableHeader name="salary" content="{salary}">Salary</TableHeader>
+              <TableHeader name="tools" content={removeTpl} />
             </Table>
           </div>
         </div>

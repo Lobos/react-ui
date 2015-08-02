@@ -9,10 +9,15 @@ class TableHeader extends React.Component {
   static propTypes = {
     children: React.PropTypes.any,
     content: React.PropTypes.any,
+    hidden: React.PropTypes.bool,
     name: React.PropTypes.string.isRequired,
     onSort: React.PropTypes.func,
     sort: React.PropTypes.object,
     sortAble: React.PropTypes.bool
+  }
+
+  static defaultProps = {
+    hidden: false
   }
 
   state = {

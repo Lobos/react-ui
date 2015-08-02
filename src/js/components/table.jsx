@@ -175,6 +175,9 @@ class Table extends React.Component {
         )
       }
       this.state.headers.map((h, j) => {
+        if (h.props.hidden) {
+          return
+        }
         let content = h.props.content
         if (typeof content === 'string') {
           tds.push(<td key={j}>{substitute(content, d)}</td>)
@@ -200,7 +203,7 @@ class Table extends React.Component {
       )
     }
     this.state.headers.map((header, i) => {
-      if (header.type === TableHeader) {
+      if (header.type === TableHeader && !header.props.hidden) {
         let props = {
           key: i,
           onSort: (name, asc) => {
@@ -227,8 +230,11 @@ class Table extends React.Component {
 
     let props = {
       onChange: (index) => {
-        this.setState({index})
-        this.onCheck('all', false)
+        let data = this.state.data
+        data.forEach(d => {
+          d.$checked = false
+        })
+        this.setState({index, data})
       }
     }
     return React.addons.cloneWithProps(this.props.pagination, props)
