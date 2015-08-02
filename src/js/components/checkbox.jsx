@@ -9,6 +9,7 @@ class Checkbox extends React.Component {
 
   static propTypes = {
     checked: React.PropTypes.bool,
+    children: React.PropTypes.any,
     className: React.PropTypes.string,
     index: React.PropTypes.number,
     onChange: React.PropTypes.func,
@@ -59,6 +60,7 @@ class Checkbox extends React.Component {
           value={this.props.value}
         />
         {this.props.text}
+        {this.props.children}
       </label>
     )
   }

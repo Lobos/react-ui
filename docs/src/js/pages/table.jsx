@@ -19,8 +19,9 @@ export default class Page extends React.Component {
   state = {
     bordered: true,
     data: [],
-    striped: true,
     height: 300,
+    pagination: false,
+    striped: true,
     total: 0,
     width: '100%'
   }
@@ -45,7 +46,8 @@ export default class Page extends React.Component {
         <div className="content">
           <div>
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.bordered} onChange={bordered => this.setState({bordered})} text="bordered" />
-            <Checkbox style={{display: 'inline-block'}} checked={this.state.striped} onChange={striped => this.setState({striped})} text="striped" />
+            <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.striped} onChange={striped => this.setState({striped})} text="striped" />
+            <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.pagination} onChange={page => this.setState({pagination: page})} text="pagination" />
           </div>
           <div>
             height: <RadioGroup style={{display: 'inline-block'}} inline={true} onChange={height => this.setState({height})} value={this.state.height} data={['auto', 200, 300, 500]} />
@@ -61,7 +63,7 @@ export default class Page extends React.Component {
               height={this.state.height}
               data={this.state.data}
               headers={headers}
-              pagination={pagination}
+              pagination={this.state.pagination ? pagination : null}
             />
           </div>
         </div>

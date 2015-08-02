@@ -119,7 +119,7 @@ export default class Pagination extends React.Component {
 
     // Previous
     items.push(
-      <li key="previous" onClick={this.handleChange.bind(this, index - 1)} className={classnames({ disabled: index <= 1 })}>
+      <li key="previous" onClick={index <= 1 ? null : this.handleChange.bind(this, index - 1)} className={classnames({ disabled: index <= 1 })}>
         <a>&laquo;</a>
       </li>
     )
@@ -134,7 +134,7 @@ export default class Pagination extends React.Component {
 
     // Next
     items.push(
-      <li key="next" onClick={this.handleChange.bind(this, index + 1)} className={classnames({ disabled: index >= max })}>
+      <li key="next" onClick={index >= max ? null : this.handleChange.bind(this, index + 1)} className={classnames({ disabled: index >= max })}>
         <a>&raquo;</a>
       </li>
     )

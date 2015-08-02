@@ -21,6 +21,7 @@ class Table extends React.Component {
       React.PropTypes.number,
       React.PropTypes.string
     ]),
+    onSort: React.PropTypes.func,
     pagination: React.PropTypes.object,
     striped: React.PropTypes.bool,
     style: React.PropTypes.object,
@@ -136,7 +137,11 @@ class Table extends React.Component {
       let props = {
         onSort: (name, asc) => {
           this.setState({sort: { name, asc }})
-          this.sortData(name, asc)
+          if (this.props.onSort) {
+            this.props.onSort(name, asc)
+          } else {
+            this.sortData(name, asc)
+          }
         },
         sort: this.state.sort
       }
@@ -164,7 +169,7 @@ class Table extends React.Component {
     let tableStyle = {}
     let onBodyScroll = null
     if (this.props.height) {
-      bodyStyle.height = this.props.height
+      bodyStyle.maxHeight = this.props.height
       bodyStyle.overflow = 'auto'
     }
     if (this.props.width) {
