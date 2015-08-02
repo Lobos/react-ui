@@ -27,13 +27,6 @@ export default class Page extends React.Component {
   }
 
   render () {
-    let headers = []
-    headers.push(<TableHeader key={1} name="name" sortAble={true} content="{name}">Name</TableHeader>)
-    headers.push(<TableHeader key={2} name="position">Position</TableHeader>)
-    headers.push(<TableHeader key={3} name="office" sortAble={true}>Office</TableHeader>)
-    headers.push(<TableHeader key={4} name="start_date" sortAble={true} content="{start_date}">Start Date</TableHeader>)
-    headers.push(<TableHeader key={5} name="salary" content="{salary}">Salary</TableHeader>)
-
     let pagination = <Pagination size={10} total={this.state.total} />
 
     return (
@@ -62,9 +55,14 @@ export default class Page extends React.Component {
               width={this.state.width}
               height={this.state.height}
               data={this.state.data}
-              headers={headers}
-              pagination={this.state.pagination ? pagination : null}
-            />
+              pagination={this.state.pagination ? pagination : null}>
+
+              <TableHeader name="name" sortAble={true} content="{name}">Name</TableHeader>
+              <TableHeader key={2} name="position">Position</TableHeader>
+              <TableHeader key={3} name="office" sortAble={true}>Office</TableHeader>
+              <TableHeader key={4} name="start_date" sortAble={true} content="{start_date}">Start Date</TableHeader>
+              <TableHeader key={5} name="salary" content="{salary}">Salary</TableHeader>
+            </Table>
           </div>
         </div>
       </div>

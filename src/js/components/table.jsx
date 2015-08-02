@@ -3,7 +3,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import { substitute } from '../utils/strings'
-
+import TableHeader from './tableHeader.jsx'
 import styles from '../../less/tables.less'
 
 class Table extends React.Component {
@@ -11,12 +11,12 @@ class Table extends React.Component {
 
   static propTypes = {
     bordered: React.PropTypes.bool,
+    children: React.PropTypes.array,
     className: React.PropTypes.string,
     data: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.func
     ]).isRequired,
-    headers: React.PropTypes.array.isRequired,
     height: React.PropTypes.oneOfType([
       React.PropTypes.number,
       React.PropTypes.string
@@ -33,6 +33,7 @@ class Table extends React.Component {
 
   componentWillMount () {
     this.fetchData(this.props.data)
+    this.setHeaderProps(this.props.children)
   }
 
   componentDidMount () {
@@ -52,6 +53,7 @@ class Table extends React.Component {
   state = {
     index: this.props.pagination ? this.props.pagination.props.index : 1,
     data: [],
+    headers: [],
     sort: {}
   }
 
@@ -68,6 +70,22 @@ class Table extends React.Component {
     for (let i = 0, count = tds.length; i < count; i++) {
       ths[i].style.width = tds[i].offsetWidth + 'px'
     }
+  }
+
+  setHeaderProps (children) {
+    let headers = []
+    if (children) {
+      if (children.constructor === Array) {
+        children.forEach(child => {
+          if (child.type === TableHeader) {
+            headers.push(child)
+          }
+        })
+      } else if (children.type === TableHeader) {
+        headers.push(children)
+      }
+    }
+    this.setState({headers})
   }
 
   fetchData (data) {
@@ -116,7 +134,7 @@ class Table extends React.Component {
 
   renderBody () {
     let trs = this.getData().map((d, i) => {
-      let tds = this.props.headers.map((h, j) => {
+      let tds = this.state.headers.map((h, j) => {
         let content = h.props.content
         if (typeof content === 'string') {
           return <td key={j}>{substitute(content, d)}</td>
@@ -133,20 +151,23 @@ class Table extends React.Component {
   }
 
   renderHeader () {
-    return React.Children.map(this.props.headers, header => {
-      let props = {
-        onSort: (name, asc) => {
-          this.setState({sort: { name, asc }})
-          if (this.props.onSort) {
-            this.props.onSort(name, asc)
-          } else {
-            this.sortData(name, asc)
-          }
-        },
-        sort: this.state.sort
-      }
+    return this.state.headers.map((header, i) => {
+      if (header.type === TableHeader) {
+        let props = {
+          key: i,
+          onSort: (name, asc) => {
+            this.setState({sort: { name, asc }})
+            if (this.props.onSort) {
+              this.props.onSort(name, asc)
+            } else {
+              this.sortData(name, asc)
+            }
+          },
+          sort: this.state.sort
+        }
 
-      return React.addons.cloneWithProps(header, props)
+        return React.addons.cloneWithProps(header, props)
+      }
     })
   }
 
