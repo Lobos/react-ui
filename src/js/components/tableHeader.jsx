@@ -13,7 +13,11 @@ class TableHeader extends React.Component {
     name: React.PropTypes.string.isRequired,
     onSort: React.PropTypes.func,
     sort: React.PropTypes.object,
-    sortAble: React.PropTypes.bool
+    sortAble: React.PropTypes.bool,
+    width: React.PropTypes.oneOfType([
+      React.PropTypes.number,
+      React.PropTypes.string
+    ])
   }
 
   static defaultProps = {

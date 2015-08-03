@@ -45,6 +45,9 @@ class Table extends React.Component {
     if (nextProps.data !== this.props.data) {
       this.fetchData(nextProps.data)
     }
+    if (nextProps.children !== this.props.children) {
+      this.setHeaderProps(nextProps.children)
+    }
   }
 
   componentDidUpdate () {
@@ -69,7 +72,9 @@ class Table extends React.Component {
 
     let tds = tr.querySelectorAll('td')
     for (let i = 0, count = tds.length; i < count; i++) {
-      ths[i].style.width = tds[i].offsetWidth + 'px'
+      if (ths[i]) {
+        ths[i].style.width = tds[i].offsetWidth + 'px'
+      }
     }
   }
 
@@ -86,6 +91,24 @@ class Table extends React.Component {
         headers.push(children)
       }
     }
+
+    headers = headers.map((header, i) => {
+      let props = {
+        key: i,
+        onSort: (name, asc) => {
+          this.setState({sort: { name, asc }})
+          if (this.props.onSort) {
+            this.props.onSort(name, asc)
+          } else {
+            this.sortData(name, asc)
+          }
+        },
+        sort: this.state.sort
+      }
+
+      return React.addons.cloneWithProps(header, props)
+    })
+
     this.setState({headers})
   }
 
@@ -180,12 +203,13 @@ class Table extends React.Component {
         }
         let content = h.props.content
         if (typeof content === 'string') {
-          tds.push(<td key={j}>{substitute(content, d)}</td>)
+          content = substitute(content, d)
         } else if (typeof content === 'function') {
-          tds.push(<td key={j}>{content(d)}</td>)
+          content = content(d)
         } else {
-          tds.push(<td key={j}>{d[h.props.name]}</td>)
+          content = d[h.props.name]
         }
+        tds.push(<td key={j}>{content}</td>)
       })
       return <tr key={i}>{tds}</tr>
     })
@@ -202,25 +226,12 @@ class Table extends React.Component {
         </TableHeader>
       )
     }
-    this.state.headers.map((header, i) => {
+    this.state.headers.map((header) => {
       if (header.type === TableHeader && !header.props.hidden) {
-        let props = {
-          key: i,
-          onSort: (name, asc) => {
-            this.setState({sort: { name, asc }})
-            if (this.props.onSort) {
-              this.props.onSort(name, asc)
-            } else {
-              this.sortData(name, asc)
-            }
-          },
-          sort: this.state.sort
-        }
-
-        headers.push(React.addons.cloneWithProps(header, props))
+        headers.push(header)
       }
     })
-    return headers
+    return <tr>{headers}</tr>
   }
 
   renderPagination () {
@@ -250,7 +261,10 @@ class Table extends React.Component {
       bodyStyle.overflow = 'auto'
     }
     if (this.props.width) {
-      headerStyle.width = this.props.width + 20
+      headerStyle.width = this.props.width
+      if (typeof headerStyle.width === 'number') {
+        headerStyle.width += 20
+      }
       tableStyle.width = this.props.width
       bodyStyle.overflow = 'auto'
       onBodyScroll = this.onBodyScroll.bind(this)

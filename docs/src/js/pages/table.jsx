@@ -27,6 +27,11 @@ export default class Page extends React.Component {
     width: '100%'
   }
 
+  getCheckedName () {
+    let names = (this.refs.table.getChecked('name')).join(',')
+    this.setState({ checkedNames: names })
+  }
+
   render () {
     let pagination = <Pagination size={10} total={this.state.total} />
 
@@ -57,8 +62,15 @@ export default class Page extends React.Component {
           <div>
             width: <RadioGroup style={{display: 'inline-block'}} inline={true} onChange={width=> this.setState({width})} value={this.state.width} data={['100%', 1200, 2000]} />
           </div>
+          {
+            this.state.checkAble &&
+            <div>
+              <a onClick={this.getCheckedName.bind(this)}>获取选中 Name</a>
+              <p>{this.state.checkedNames}</p>
+            </div>
+          }
           <div style={{marginTop: 10}}>
-            <Table
+            <Table ref="table"
               bordered={this.state.bordered}
               checkAble={this.state.checkAble}
               striped={this.state.striped}
