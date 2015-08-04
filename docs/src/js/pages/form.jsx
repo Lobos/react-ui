@@ -33,7 +33,7 @@ export default class Page extends React.Component {
   {children}
 </Form>`}
           </pre>
-          <p><a href="#/dataSource">dataSource 参加这里</a></p>
+          <p><a href="#/dataSource">dataSource 参见这里</a></p>
           <p>0.3 版更新，From 不再提供内置 Ajax 提交功能，需要在onSubmit中进行提交</p>
 
           <h2 className="subhead">layout</h2>

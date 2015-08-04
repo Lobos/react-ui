@@ -201,7 +201,8 @@ class Table extends React.Component {
         if (h.props.hidden) {
           return
         }
-        let content = h.props.content
+        let content = h.props.content,
+            tdStyle = {}
         if (typeof content === 'string') {
           content = substitute(content, d)
         } else if (typeof content === 'function') {
@@ -209,7 +210,10 @@ class Table extends React.Component {
         } else {
           content = d[h.props.name]
         }
-        tds.push(<td key={j}>{content}</td>)
+        if (h.props.width) {
+          tdStyle.width = h.props.width
+        }
+        tds.push(<td style={tdStyle} key={j}>{content}</td>)
       })
       return <tr key={i}>{tds}</tr>
     })
