@@ -18,6 +18,9 @@ if (!fs.existsSync('./static/dist')) {
 }
 
 function getIndexFile(keys) {
+  if (!Array.isArray(keys)) {
+    keys = [keys]
+  }
   var arr = []
   var cpt, text, path
   keys.forEach(key => {
