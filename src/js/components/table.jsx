@@ -91,24 +91,6 @@ class Table extends React.Component {
         headers.push(children)
       }
     }
-
-    headers = headers.map((header, i) => {
-      let props = {
-        key: i,
-        onSort: (name, asc) => {
-          this.setState({sort: { name, asc }})
-          if (this.props.onSort) {
-            this.props.onSort(name, asc)
-          } else {
-            this.sortData(name, asc)
-          }
-        },
-        sort: this.state.sort
-      }
-
-      return React.addons.cloneWithProps(header, props)
-    })
-
     this.setState({headers})
   }
 
@@ -230,9 +212,22 @@ class Table extends React.Component {
         </TableHeader>
       )
     }
-    this.state.headers.map((header) => {
+    this.state.headers.map((header, i) => {
       if (header.type === TableHeader && !header.props.hidden) {
-        headers.push(header)
+        let props = {
+          key: i,
+          onSort: (name, asc) => {
+            this.setState({sort: { name, asc }})
+            if (this.props.onSort) {
+              this.props.onSort(name, asc)
+            } else {
+              this.sortData(name, asc)
+            }
+          },
+          sort: this.state.sort
+        }
+
+        headers.push(React.addons.cloneWithProps(header, props))
       }
     })
     return <tr>{headers}</tr>
