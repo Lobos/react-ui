@@ -1,4 +1,3 @@
-
 A collection of components for React.
 文档 [戳这里](http://lobos.github.io/react-ui/)
 
@@ -50,8 +49,14 @@ publish: webpack --config webpack-publish.config.js [--min]
 - [Rating](http://lobos.github.io/react-ui/#/rating)
 - [Select](http://lobos.github.io/react-ui/#/select)
 - [Tree](http://lobos.github.io/react-ui/#/tree)
+- [Table](http://lobos.github.io/react-ui/#/table)
 
 # Change log
+v0.3.1
+
+ - 加入Table
+ - dataSource改为promise方式
+
 v0.3.0
 
  - Component全部改为es6形式
