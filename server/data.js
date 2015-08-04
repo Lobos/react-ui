@@ -67,6 +67,10 @@ module.exports = {
     path: './components/message.jsx'
   },
 
+  Table: {
+    path: './components/table.jsx'
+  },
+
   Qwest: {
     path: 'qwest'
   },
