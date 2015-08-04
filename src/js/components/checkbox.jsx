@@ -66,7 +66,7 @@ class Checkbox extends React.Component {
   }
 }
 
-require('./formControl.jsx').register(
+require('./FormControl.jsx').register(
 
   'checkbox',
 

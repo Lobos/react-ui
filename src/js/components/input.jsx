@@ -77,7 +77,7 @@ class Input extends React.Component {
 
 export default Input
 
-import FormControl from './formControl.jsx'
+import FormControl from './FormControl.jsx'
 
 FormControl.register(
 
