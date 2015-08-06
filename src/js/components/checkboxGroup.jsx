@@ -10,7 +10,6 @@ class CheckboxGroup extends React.Component {
   static displayName = "CheckboxGroup"
 
   static propTypes = {
-    cache: React.PropTypes.bool,
     className: React.PropTypes.string,
     data: React.PropTypes.oneOfType([
       React.PropTypes.array,

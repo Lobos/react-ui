@@ -17,7 +17,7 @@ export default class Page extends React.Component {
 
   state = {
     readOnly: false,
-    checkAble: true,
+    selectAble: true,
     greedy: false,
     sep: ',',
     value: 'role_delete',
@@ -51,7 +51,7 @@ export default class Page extends React.Component {
           <pre className="prettyprint">
 {`<Tree
   className={string}  // class
-  checkAble={bool}    // 是否可编辑，默认为 false
+  selectAble={bool}    // 是否可编辑，默认为 false
   data={array|func}   // 数据，array 或者 dataSource
   sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   greedy={bool}       // 为true时，getValue返回的值包含半选中项
@@ -69,7 +69,7 @@ export default class Page extends React.Component {
         <p>
           <Tree ref="tree" data={dataSource("json/tree.json")}
             readOnly={this.state.readOnly}
-            checkAble={this.state.checkAble}
+            selectAble={this.state.selectAble}
             greedy={this.state.greedy}
             onClick={item => this.refs.textClick.getDOMNode().innerText = `clicked ${item.text}`}
             onChange={this.handleChange.bind(this)}
@@ -81,7 +81,7 @@ export default class Page extends React.Component {
           />
         </p>
         <p>
-          <Checkbox onChange={(value)=>this.setState({ checkAble: value })} checked={this.state.checkAble} text="checkAble" />
+          <Checkbox onChange={(value)=>this.setState({ selectAble: value })} checked={this.state.selectAble} text="selectAble" />
           {' '}
           <Checkbox onChange={(value)=>this.setState({ readOnly: value })} checked={this.state.readOnly} text="readOnly" />
           {' '}
@@ -95,7 +95,7 @@ export default class Page extends React.Component {
         <pre className="prettyprint">
 {`<Tree ref="tree" src="json/tree.json"
   readOnly={this.state.readOnly}
-  checkAble={this.state.checkAble}
+  selectAble={this.state.selectAble}
   greedy={this.state.greedy}
   onChange={this.handleChange.bind(this)}
   onClick={item => this.refs.textClick.getDOMNode().innerText = 'clicked ' + item.text}
@@ -106,8 +106,8 @@ export default class Page extends React.Component {
   sep={this.state.sep}
 />
 
-<Checkbox onChange={(value)=>this.setState({ checkAble: value })}
-  checked={this.state.checkAble} text="checkAble" />
+<Checkbox onChange={(value)=>this.setState({ selectAble: value })}
+  checked={this.state.selectAble} text="selectAble" />
 <Checkbox onChange={(value)=>this.setState({ readOnly: value })}
   checked={this.state.readOnly} text="readOnly" />
 <Checkbox onChange={(value)=>this.setState({ greedy: value })}

@@ -52,6 +52,10 @@ publish: webpack --config webpack-publish.config.js [--min]
 - [Table](http://lobos.github.io/react-ui/#/table)
 
 # Change log
+v0.3.3
+
+ - Table, Tree的checkAble属性改为selectAble
+
 v0.3.1
 
  - 加入Table

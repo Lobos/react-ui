@@ -18,7 +18,7 @@ export default class Page extends React.Component {
 
   state = {
     bordered: true,
-    checkAble: true,
+    selectAble: true,
     data: [],
     height: 370,
     pagination: false,
@@ -53,7 +53,7 @@ export default class Page extends React.Component {
           <pre className="prettyprint">
 {`<Table
   bordered={bool}          // 是否显示边框，默认值 false
-  checkAble={bool}         // 是否显示选择，默认值 false
+  selectAble={bool}         // 是否显示选择，默认值 false
   striped={bool}           // 是否交替显示背景，默认值 false
   width={number}           // 表格宽度，默认值 100%
   height={number}          // 表格高度（body部分），默认值 auto
@@ -105,7 +105,7 @@ export default class Page extends React.Component {
           <div>
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.bordered} onChange={bordered => this.setState({bordered})} text="bordered" />
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.striped} onChange={striped => this.setState({striped})} text="striped" />
-            <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.checkAble} onChange={checkAble => this.setState({checkAble})} text="checkAble" />
+            <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.selectAble} onChange={selectAble => this.setState({selectAble})} text="selectAble" />
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.pagination} onChange={page => this.setState({pagination: page})} text="pagination" />
           </div>
           <div>
@@ -115,7 +115,7 @@ export default class Page extends React.Component {
             width: <RadioGroup style={{display: 'inline-block'}} inline={true} onChange={width=> this.setState({width})} value={this.state.width} data={['100%', 1200, 2000]} />
           </div>
           {
-            this.state.checkAble &&
+            this.state.selectAble &&
             <div>
               <a onClick={this.getCheckedName.bind(this)}>获取选中 Name</a>
               <p>{this.state.checkedNames}</p>
@@ -124,7 +124,7 @@ export default class Page extends React.Component {
           <div style={{marginTop: 10}}>
             <Table ref="table"
               bordered={this.state.bordered}
-              checkAble={this.state.checkAble}
+              selectAble={this.state.selectAble}
               striped={this.state.striped}
               width={this.state.width}
               height={this.state.height}
@@ -149,7 +149,7 @@ let removeTpl = (d) => {
 }
 <Table ref="table"
   bordered={this.state.bordered}
-  checkAble={this.state.checkAble}
+  selectAble={this.state.selectAble}
   striped={this.state.striped}
   width={this.state.width}
   height={this.state.height}

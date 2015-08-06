@@ -10,7 +10,6 @@ class RadioGroup extends React.Component {
   static displayName = "RadioGroup"
 
   static propTypes = {
-    cache: React.PropTypes.bool,
     className: React.PropTypes.string,
     data: React.PropTypes.oneOfType([
       React.PropTypes.array,

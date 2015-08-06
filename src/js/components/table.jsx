@@ -11,7 +11,6 @@ class Table extends React.Component {
 
   static propTypes = {
     bordered: React.PropTypes.bool,
-    checkAble: React.PropTypes.bool,
     children: React.PropTypes.array,
     className: React.PropTypes.string,
     data: React.PropTypes.oneOfType([
@@ -24,6 +23,7 @@ class Table extends React.Component {
     ]),
     onSort: React.PropTypes.func,
     pagination: React.PropTypes.object,
+    selectAble: React.PropTypes.bool,
     striped: React.PropTypes.bool,
     style: React.PropTypes.object,
     width: React.PropTypes.oneOfType([
@@ -169,10 +169,10 @@ class Table extends React.Component {
   }
 
   renderBody () {
-    let checkAble = this.props.checkAble
+    let selectAble = this.props.selectAble
     let trs = this.getData().map((d, i) => {
       let tds = []
-      if (checkAble) {
+      if (selectAble) {
         tds.push(
           <td style={{width: 13}} key="checkbox">
             <input checked={d.$checked} onChange={this.onCheck.bind(this, i)} type="checkbox" />
@@ -205,7 +205,7 @@ class Table extends React.Component {
 
   renderHeader () {
     let headers = []
-    if (this.props.checkAble) {
+    if (this.props.selectAble) {
       headers.push(
         <TableHeader key="checkbox" name="$checkbox">
           <input onClick={this.onCheck.bind(this, 'all')} type="checkbox" />
