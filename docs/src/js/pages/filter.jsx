@@ -12,7 +12,12 @@ export default class Page extends React.Component {
     let data = [{
       label: '姓名',
       name: 'name',
-      op: 'like'
+      ops: ['like', '=']
+    }, {
+      label: '年龄',
+      name: 'age',
+      ops: ['>=', '<'],
+      type: 'number'
     }]
 
     return (

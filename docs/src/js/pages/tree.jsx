@@ -93,7 +93,7 @@ export default class Page extends React.Component {
         <p>value: {this.state.showValue}</p>
         <p ref="textClick"></p>
         <pre className="prettyprint">
-{`<Tree ref="tree" src="json/tree.json"
+{`<Tree ref="tree" data={dataSource("json/tree.json")}
   readOnly={this.state.readOnly}
   selectAble={this.state.selectAble}
   greedy={this.state.greedy}

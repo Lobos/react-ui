@@ -2,6 +2,7 @@
 
 import React from 'react'
 import classnames from 'classnames'
+import Button from './Button.jsx'
 import FilterItem from './FilterItem.jsx'
 import filterStyles from '../../less/filter.less'
 import formControlStyles from '../../less/form-control.less'
@@ -40,6 +41,12 @@ export default class Filter extends React.Component {
     }
   }
 
+  addFilter () {
+    let filters = this.state.filters
+    filters.push({})
+    this.setState({ filters })
+  }
+
   renderFilters () {
     let filters = this.state.filters.map((f, i) => {
       return (
@@ -61,6 +68,9 @@ export default class Filter extends React.Component {
         <div className="result"></div>
         <div className="options">
           {this.renderFilters()}
+          <div>
+            <Button onClick={this.addFilter.bind(this)}>+</Button>
+          </div>
         </div>
       </div>
     )
