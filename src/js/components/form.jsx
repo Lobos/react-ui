@@ -47,9 +47,9 @@ export default class Form extends React.Component {
 
   fetchData (data) {
     if (typeof data === 'function') {
-      data(res => {
+      data.then(res => {
         this.fetchData(res)
-      })
+      })()
       return
     }
     this.setState({ data })

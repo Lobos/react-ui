@@ -25,7 +25,7 @@ export function substitute(str, obj) {
 }
 
 export function toArray(value, sep) {
-  if (!value) {
+  if (value === null || value === undefined) {
     value = []
   }
   if (typeof value === 'string' && sep) {

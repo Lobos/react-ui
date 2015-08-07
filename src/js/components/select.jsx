@@ -7,6 +7,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { toArray, substitute } from '../utils/strings'
 import { getOuterHeight, overView, withoutTransition } from '../utils/dom'
+import clone from '../utils/clone'
 import clickAway from '../higherorder/clickaway'
 import getGrid from '../higherorder/grid'
 
@@ -42,6 +43,12 @@ class Select extends React.Component {
     valueTpl: '{id}'
   }
 
+  componentWillMount () {
+    let values = toArray(this.props.value, this.props.sep)
+    let data = this.formatData(this.props.data, values)
+    this.setState({ data })
+  }
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setValue(this.formatValue(nextProps.value))
@@ -57,8 +64,8 @@ class Select extends React.Component {
 
   state = {
     active: false,
-    value: this.formatValue(this.props.value),
-    data: this.formatData(this.props.data, this.formatValue(this.props.value)),
+    value: [],
+    data: [],
     filter: ''
   }
 
@@ -134,7 +141,8 @@ class Select extends React.Component {
       return []
     }
 
-    data = data.map(d => {
+    // don't use data, clone
+    data = clone(data).map(d => {
       if (typeof d !== 'object') {
         return {
           $option: d,

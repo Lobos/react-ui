@@ -2,6 +2,7 @@
 
 import React from 'react'
 import classnames from 'classnames'
+import { forEach } from '../utils/objects'
 import Button from './Button.jsx'
 import FilterItem from './FilterItem.jsx'
 import filterStyles from '../../less/filter.less'
@@ -41,8 +42,23 @@ export default class Filter extends React.Component {
     }
   }
 
-  addFilter () {
+  onChange (index, filter) {
     let filters = this.state.filters
+    filters[index] = filter
+    this.setState({ filters })
+    console.log(filters)
+  }
+
+  getFilter () {
+    let filters = []
+    forEach(this.refs, (ref) => {
+      filters.push(ref.getFilter())
+    })
+    return filters
+  }
+
+  addFilter () {
+    let filters = this.getFilter()
     filters.push({})
     this.setState({ filters })
   }
@@ -50,10 +66,9 @@ export default class Filter extends React.Component {
   renderFilters () {
     let filters = this.state.filters.map((f, i) => {
       return (
-        <FilterItem key={i} {...f} data={this.props.data} />
+        <FilterItem onChange={this.onChange.bind(this)} ref={`fi${i}`} index={i} key={i} {...f} data={this.props.data} />
       )
     })
-    filters.push(<FilterItem key={filters.length + 1} data={this.props.data} />)
     return filters
   }
 
