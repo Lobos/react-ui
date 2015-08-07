@@ -70,7 +70,7 @@ export default class Filter extends React.Component {
     this.unbindClickAway()
     setTimeout(() => {
       options.style.display = 'none'
-    }, 400)
+    }, 450)
   }
 
   getFilter () {
@@ -101,21 +101,25 @@ export default class Filter extends React.Component {
 
   onFilter () {
     this.close()
+    let filters = this.getFilter()
+    this.setState({ filters, resultText: this.formatText(filters) })
     if (this.props.onFilter) {
-      let filters = this.getFilter(),
-          novs = []
-      this.setState({ filters })
+      let novs = []
       filters.forEach(f => {
         if (f.op && f.value) {
-          novs.push({
-            name: f.name,
-            op: f.op,
-            value: f.value
-          })
+          novs.push({ name: f.name, op: f.op, value: f.value })
         }
       })
       this.props.onFilter(novs)
     }
+  }
+
+  formatText (filters) {
+    let text = []
+    filters.forEach(f => {
+      text.push(`${f.label} ${f.op} '${f.value}'`)
+    })
+    return text.join(', ')
   }
 
   renderFilters () {
@@ -137,16 +141,21 @@ export default class Filter extends React.Component {
     return (
       <div className={className}>
         <div onClick={this.open.bind(this)} className={filterStyles.result}>
+          {this.state.resultText}
           <i className="search" />
         </div>
+
         <div className={filterStyles.optionsWrap}>
           <div ref="options" className={filterStyles.options}>
+
             {this.renderFilters()}
+
             <div>
               <Button status="success" onClick={this.addFilter.bind(this)}>+</Button>
               <Button style={{marginLeft: 10}} onClick={this.clearFilter.bind(this)}>{getLang('buttons.clear')}</Button>
               <Button style={{marginLeft: 10}} status="primary" onClick={this.onFilter.bind(this)}>{getLang('buttons.filter')}</Button>
             </div>
+
           </div>
         </div>
       </div>

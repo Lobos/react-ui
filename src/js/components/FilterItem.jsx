@@ -123,7 +123,7 @@ export default class FilterItem extends React.Component {
         control = <Datetime value={this.props.value} onChange={onChange} {...props} />
       break
       default:
-        control = <Input value={this.props.value} style={style} onChange={onChange} {...props} type="text" />
+        control = <Input value={this.props.value} type={data.type} style={style} onChange={onChange} {...props} type="text" />
       break
     }
     return control
@@ -132,9 +132,17 @@ export default class FilterItem extends React.Component {
   render () {
     return (
       <div className={styles.filterItem}>
-        <Select style={{width: 140}} value={this.state.dataIndex} onChange={this.onLabelChange.bind(this)} optionTpl="{label}" valueTpl="{dataIndex}" data={this.state.data} />
+        <Select style={{width: 140}}
+          value={this.state.dataIndex}
+          onChange={this.onLabelChange.bind(this)}
+          optionTpl="{label}"
+          valueTpl="{dataIndex}"
+          data={this.state.data} />
+
         { this.renderOp() }
+
         { this.renderControl() }
+
         <button onClick={this.remove.bind(this)} className="remove">&times;</button>
       </div>
     )

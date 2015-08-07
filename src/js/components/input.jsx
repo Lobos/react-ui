@@ -5,6 +5,7 @@ import styles from '../../less/form-control.less'
 
 import React from 'react'
 import classnames from 'classnames'
+import Regs from '../utils/regs'
 import getGrid from '../higherorder/grid'
 
 @getGrid
@@ -49,10 +50,19 @@ class Input extends React.Component {
     }
 
     let value = event.target.value
-    this.setState({ value: value })
-    if (this.props.onChange) {
-      this.props.onChange(value)
+
+    if (value && (this.props.type === 'integer' || this.props.type === 'number')) {
+      if (!Regs[this.props.type].test(value)) {
+        value = this.state.value || ''
+      }
     }
+
+    this.setState({ value: value })
+    setTimeout(() => {
+      if (this.props.onChange) {
+        this.props.onChange(value)
+      }
+    }, 0)
   }
 
   render () {
