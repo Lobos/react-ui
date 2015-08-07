@@ -11,6 +11,7 @@ class Button extends React.Component {
 
   static propTypes = {
     children: React.PropTypes.any,
+    className: React.PropTypes.string,
     disabled: React.PropTypes.bool,
     onClick: React.PropTypes.func,
     once: React.PropTypes.bool,
@@ -54,6 +55,7 @@ class Button extends React.Component {
     }
 
     const className = classnames(
+      this.props.className,
       this.getGrid(),
       'pure-button',
       status,

@@ -18,6 +18,7 @@ const data = {
   buttons: {
     add: '新建',
     back: '返回',
+    clear: '清空',
     fields: '字段',
     filter: '筛选',
     refresh: '刷新',

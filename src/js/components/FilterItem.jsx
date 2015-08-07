@@ -17,8 +17,8 @@ export default class FilterItem extends React.Component {
     index: React.PropTypes.number, // for onChange update filters
     label: React.PropTypes.string,
     name: React.PropTypes.string,
-    onChange: React.PropTypes.func,
     op: React.PropTypes.string,
+    removeFilter: React.PropTypes.func,
     type: React.PropTypes.string,
     value: React.PropTypes.any
   }
@@ -66,25 +66,14 @@ export default class FilterItem extends React.Component {
       ops: data.ops || DEFAULT_OPS
     }
     this.setState(filter)
-    //this.onChange({})
   }
 
   onOpChange (op) {
     this.setState({ op })
-    //this.onChange({})
   }
 
   onValueChange (value) {
     this.setState({ value })
-    //this.onChange({ value })
-  }
-
-  onChange (opts) {
-    let info = this.getFilter()
-    Object.keys(opts).forEach(k => {
-      info[k] = opts[k]
-    })
-    this.props.onChange(this.props.index, info)
   }
 
   getFilter () {
@@ -102,20 +91,39 @@ export default class FilterItem extends React.Component {
     }
   }
 
+  remove () {
+    // setTimeout wait parent clickaway completed
+    setTimeout(() => {
+      this.props.removeFilter(this.props.index)
+    }, 0)
+  }
+
+  renderOp () {
+    if (this.state.ops) {
+      return <Select style={{width: 120}} value={this.state.op} onChange={this.onOpChange.bind(this)} data={this.state.ops} />
+    } else {
+      return null
+    }
+  }
+
   renderControl () {
+    if (!this.state.label) {
+      return null
+    }
     let data = this.state.data[this.state.dataIndex],
         props = data.props || {},
         onChange = this.onValueChange.bind(this),
+        style = { width: 240 },
         control
     switch (data.type) {
       case 'select':
-        control = <Select {...props} />
+        control = <Select value={this.props.value} onChange={onChange} style={style} {...props} />
       break
       case 'datetime':
-        control = <Datetime {...props} />
+        control = <Datetime value={this.props.value} onChange={onChange} {...props} />
       break
       default:
-        control = <Input onChange={onChange} {...props} type="text" />
+        control = <Input value={this.props.value} style={style} onChange={onChange} {...props} type="text" />
       break
     }
     return control
@@ -124,15 +132,10 @@ export default class FilterItem extends React.Component {
   render () {
     return (
       <div className={styles.filterItem}>
-        <Select value={this.state.dataIndex} onChange={this.onLabelChange.bind(this)} optionTpl="{label}" valueTpl="{dataIndex}" data={this.state.data} />
-        {
-          this.state.ops &&
-          <Select value={this.state.op} onChange={this.onOpChange.bind(this)} data={this.state.ops} />
-        }
-        {
-          this.state.label &&
-          this.renderControl()
-        }
+        <Select style={{width: 140}} value={this.state.dataIndex} onChange={this.onLabelChange.bind(this)} optionTpl="{label}" valueTpl="{dataIndex}" data={this.state.data} />
+        { this.renderOp() }
+        { this.renderControl() }
+        <button onClick={this.remove.bind(this)} className="remove">&times;</button>
       </div>
     )
   }
