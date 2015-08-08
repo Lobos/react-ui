@@ -68,7 +68,16 @@ module.exports = {
   },
 
   Table: {
-    path: './components/table.jsx'
+    path: './components/table.jsx',
+    dependencies: [ 'TableHeader' ]
+  },
+
+  TableHeader: {
+    path: './components/tableHeader.jsx'
+  },
+
+  Filter: {
+    path: './components/filter.jsx'
   },
 
   Qwest: {
