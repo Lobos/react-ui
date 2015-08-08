@@ -555,7 +555,7 @@ class TimeSet extends React.Component {
 
 export default Datetime
 
-import FormControl from './FormControl.jsx'
+import FormControl from './formControl.jsx'
 
 FormControl.register(
 

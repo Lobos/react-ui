@@ -310,7 +310,7 @@ class Select extends React.Component {
 
 export default Select
 
-require('./FormControl.jsx').register(
+require('./formControl.jsx').register(
 
   'select',
 

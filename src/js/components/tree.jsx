@@ -394,7 +394,7 @@ class Item extends React.Component {
 
 export default Tree
 
-require('./FormControl.jsx').register(
+require('./formControl.jsx').register(
 
   'tree',
 

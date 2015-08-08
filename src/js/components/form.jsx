@@ -5,8 +5,8 @@ require('../../less/form.less')
 import React from 'react'
 import classnames from 'classnames'
 import { forEach } from '../utils/objects'
-import FormControl from './FormControl.jsx'
-import FormSubmit from './FormSubmit.jsx'
+import FormControl from './formControl.jsx'
+import FormSubmit from './formSubmit.jsx'
 
 export default class Form extends React.Component {
   static displayName = 'Form'

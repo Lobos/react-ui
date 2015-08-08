@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import Button from './Button.jsx'
+import Button from './button.jsx'
 
 export default class FormSubmit extends React.Component {
   static displayName = 'FormSubmit'

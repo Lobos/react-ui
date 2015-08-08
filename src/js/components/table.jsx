@@ -3,7 +3,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import { substitute } from '../utils/strings'
-import TableHeader from './TableHeader.jsx'
+import TableHeader from './tableHeader.jsx'
 import styles from '../../less/tables.less'
 
 class Table extends React.Component {
