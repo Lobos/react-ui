@@ -4,13 +4,12 @@ require('../../less/checkbox.less')
 import React from 'react'
 import classnames from 'classnames'
 import { toTextValue } from '../utils/objects'
-import Radio from './radio.jsx'
+import Radio from './Radio.jsx'
 
 class RadioGroup extends React.Component {
   static displayName = "RadioGroup"
 
   static propTypes = {
-    cache: React.PropTypes.bool,
     className: React.PropTypes.string,
     data: React.PropTypes.oneOfType([
       React.PropTypes.array,
@@ -103,7 +102,7 @@ class RadioGroup extends React.Component {
 
 export default RadioGroup
 
-require('./formControl.jsx').register(
+require('./FormControl.jsx').register(
 
   'radio-group',
 

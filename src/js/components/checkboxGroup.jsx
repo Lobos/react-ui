@@ -2,7 +2,7 @@
 
 import React from 'react'
 import classnames from 'classnames'
-import Checkbox from './checkbox.jsx'
+import Checkbox from './Checkbox.jsx'
 import { toArray } from '../utils/strings'
 import { toTextValue } from '../utils/objects'
 
@@ -10,7 +10,6 @@ class CheckboxGroup extends React.Component {
   static displayName = "CheckboxGroup"
 
   static propTypes = {
-    cache: React.PropTypes.bool,
     className: React.PropTypes.string,
     data: React.PropTypes.oneOfType([
       React.PropTypes.array,
@@ -129,7 +128,7 @@ class CheckboxGroup extends React.Component {
 
 export default CheckboxGroup
 
-require('./formControl.jsx').register(
+require('./FormControl.jsx').register(
 
   'checkbox-group',
 

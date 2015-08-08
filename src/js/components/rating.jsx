@@ -157,7 +157,7 @@ Rating.register = function (key, icons) {
 
 export default Rating
 
-require('./formControl.jsx').register(
+require('./FormControl.jsx').register(
 
   'rating',
 

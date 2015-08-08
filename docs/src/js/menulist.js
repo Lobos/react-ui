@@ -16,6 +16,7 @@ module.exports = [
   ],
   [
     { route: 'table', text: 'Table', handler: require('./pages/table.jsx') },
+    { route: 'filter', text: 'Filter', handler: require('./pages/filter.jsx') },
     { route: 'button', text: 'Button', handler: require('./pages/button.jsx') },
     { route: 'icon', text: 'Icon', handler: require('./pages/icon.jsx') },
     { route: 'lang', text: 'Lang', handler: require('./pages/lang.jsx') },

@@ -15,7 +15,6 @@ class Tree extends React.Component {
   static displayName = 'Tree'
 
   static propTypes = {
-    checkAble: React.PropTypes.bool,
     className: React.PropTypes.string,
     data: React.PropTypes.oneOfType([
       React.PropTypes.array,
@@ -26,6 +25,7 @@ class Tree extends React.Component {
     onClick: React.PropTypes.func,
     open: React.PropTypes.bool,
     readOnly: React.PropTypes.bool,
+    selectAble: React.PropTypes.bool,
     sep: React.PropTypes.string,
     src: React.PropTypes.string,
     textTpl: React.PropTypes.string,
@@ -191,7 +191,7 @@ class Tree extends React.Component {
 
   render () {
     let value = this.state.value
-    let { checkAble, readOnly, open } = this.props
+    let { selectAble, readOnly, open } = this.props
 
     let items = this.state.data.map(function (item, i) {
       return (
@@ -201,7 +201,7 @@ class Tree extends React.Component {
           onClick={this.onClick.bind(this)}
           onStatusChange={this.handleChange.bind(this)}
           value={value}
-          checkAble={checkAble}
+          selectAble={selectAble}
           key={i}
           data={item}
         />
@@ -224,12 +224,12 @@ class Item extends React.Component {
   static displayName = 'Tree/Item'
 
   static propTypes = {
-    checkAble: React.PropTypes.bool,
     data: React.PropTypes.object,
     onClick: React.PropTypes.func,
     onStatusChange: React.PropTypes.func,
     open: React.PropTypes.bool,
     readOnly: React.PropTypes.bool,
+    selectAble: React.PropTypes.bool,
     value: React.PropTypes.any
   }
 
@@ -329,7 +329,7 @@ class Item extends React.Component {
         type,
         marks = []
 
-    let { data, checkAble, readOnly, open, value } = this.props
+    let { data, selectAble, readOnly, open, value } = this.props
 
     if (data.children) {
       let items = data.children.map(function (item, i) {
@@ -339,7 +339,7 @@ class Item extends React.Component {
             open={open}
             readOnly={readOnly}
             value={value}
-            checkAble={checkAble}
+            selectAble={selectAble}
             data={item}
             onClick={this.onClick.bind(this)}
             onStatusChange={this.updateStatus.bind(this)}
@@ -358,7 +358,7 @@ class Item extends React.Component {
       type = "file"
     }
 
-    if (checkAble) {
+    if (selectAble) {
       check = ["square", "half-check", "check"][this.state.status]
       checkClass = classnames("check-handle", ["", "half-checked", "checked"][this.state.status])
     }
@@ -381,7 +381,7 @@ class Item extends React.Component {
           {handle}
           <i className={'tree-icon ' + type} />
           {
-            checkAble &&
+            selectAble &&
             <a className={checkClass} onClick={this.check.bind(this)}><i className={'tree-icon ' + check} /></a>
           }
           <span onClick={this.onClick.bind(this)} className="text">{data.$text}</span>
@@ -394,7 +394,7 @@ class Item extends React.Component {
 
 export default Tree
 
-require('./formControl.jsx').register(
+require('./FormControl.jsx').register(
 
   'tree',
 

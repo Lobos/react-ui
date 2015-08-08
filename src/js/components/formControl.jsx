@@ -8,7 +8,7 @@ import { nextUid, format, toArray } from '../utils/strings'
 import Regs from '../utils/regs'
 import { getLang } from '../lang'
 
-let controls = {}
+const CONTROLS = {}
 
 function getTip(key, value) {
   let text = getLang('validation.tips.' + key, null)
@@ -65,7 +65,7 @@ class FormControl extends React.Component {
     hasError: false,
     hasValue: this.props.value,
     value: this.props.value,
-    valueType: controls[this.props.type].valueType,
+    valueType: CONTROLS[this.props.type].valueType,
     data: this.props.data,
     hintText: ''
   }
@@ -232,7 +232,7 @@ class FormControl extends React.Component {
   }
 
   getControl (props) {
-    let control = controls[this.props.type]
+    let control = CONTROLS[this.props.type]
     if (!control) {
       console.warn(`${this.props.type} was not registed.`)
       return null
@@ -307,7 +307,7 @@ FormControl.register = function (types, render, component, valueType = 'string')
     types = [types]
   }
   types.forEach(type => {
-    controls[type] = { render, component, valueType }
+    CONTROLS[type] = { render, component, valueType }
   })
 }
 

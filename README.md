@@ -14,7 +14,7 @@ A collection of components for React.
 
  - npm install
 ```
-npm install rctui
+暂时没有精力更新npm，等后面完善一些再好好整一下
 ```
 ```
 var ReactUI = require('rctui')
@@ -50,8 +50,15 @@ publish: webpack --config webpack-publish.config.js [--min]
 - [Select](http://lobos.github.io/react-ui/#/select)
 - [Tree](http://lobos.github.io/react-ui/#/tree)
 - [Table](http://lobos.github.io/react-ui/#/table)
+- [Filter](http://lobos.github.io/react-ui/#/filter)
 
 # Change log
+v0.3.3
+
+ - Table, Tree的checkAble属性改为selectAble
+ - 加入 Filter
+ - Component 名称改为大写
+
 v0.3.1
 
  - 加入Table

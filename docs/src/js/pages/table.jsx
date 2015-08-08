@@ -2,7 +2,7 @@
 
 import React from 'react'
 import prettify from '../prettify'
-const {Table, TableHeader, Pagination, Checkbox, RadioGroup, dataSource} = global.uiRequire()
+const {Table, TableHeader, Filter, Pagination, Checkbox, RadioGroup, dataSource} = global.uiRequire()
 
 @prettify
 export default class Page extends React.Component {
@@ -18,8 +18,9 @@ export default class Page extends React.Component {
 
   state = {
     bordered: true,
-    checkAble: true,
+    selectAble: true,
     data: [],
+    filters: [],
     height: 370,
     pagination: false,
     striped: true,
@@ -42,6 +43,27 @@ export default class Page extends React.Component {
       return <a onClick={() => { window.alert(`确定要删除${d.name}吗`) }}>删除</a>
     }
 
+    let filterOptions = [{
+      label: '姓名',
+      name: 'name',
+      ops: ['like', '=', 'startWidth'],
+      startWidth: function (d, value) {
+        return d.name.indexOf(value) === 0
+      }
+    }, {
+      label: '地区',
+      name: 'office',
+      ops: ['='],
+      type: 'select',
+      props: { data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
+    }, {
+      label: '地区2',
+      name: 'office',
+      ops: ['in', 'not in'],
+      type: 'select',
+      props: { mult: true, data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
+    }]
+
     return (
       <div>
         <div className="header">
@@ -53,7 +75,7 @@ export default class Page extends React.Component {
           <pre className="prettyprint">
 {`<Table
   bordered={bool}          // 是否显示边框，默认值 false
-  checkAble={bool}         // 是否显示选择，默认值 false
+  selectAble={bool}        // 是否显示选择，默认值 false
   striped={bool}           // 是否交替显示背景，默认值 false
   width={number}           // 表格宽度，默认值 100%
   height={number}          // 表格高度（body部分），默认值 auto
@@ -105,7 +127,7 @@ export default class Page extends React.Component {
           <div>
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.bordered} onChange={bordered => this.setState({bordered})} text="bordered" />
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.striped} onChange={striped => this.setState({striped})} text="striped" />
-            <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.checkAble} onChange={checkAble => this.setState({checkAble})} text="checkAble" />
+            <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.selectAble} onChange={selectAble => this.setState({selectAble})} text="selectAble" />
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.pagination} onChange={page => this.setState({pagination: page})} text="pagination" />
           </div>
           <div>
@@ -115,16 +137,18 @@ export default class Page extends React.Component {
             width: <RadioGroup style={{display: 'inline-block'}} inline={true} onChange={width=> this.setState({width})} value={this.state.width} data={['100%', 1200, 2000]} />
           </div>
           {
-            this.state.checkAble &&
+            this.state.selectAble &&
             <div>
               <a onClick={this.getCheckedName.bind(this)}>获取选中 Name</a>
               <p>{this.state.checkedNames}</p>
             </div>
           }
           <div style={{marginTop: 10}}>
+            <Filter onFilter={filters => this.setState({ filters })} style={{marginBottom: 20}} local={true} options={filterOptions} />
             <Table ref="table"
               bordered={this.state.bordered}
-              checkAble={this.state.checkAble}
+              filters={this.state.filters}
+              selectAble={this.state.selectAble}
               striped={this.state.striped}
               width={this.state.width}
               height={this.state.height}
@@ -147,9 +171,34 @@ let nameTpl = (d) => {
 let removeTpl = (d) => {
   return <a onClick={() => { window.alert('确定要删除' + d.name + '吗') }}>删除</a>
 }
+
+let filterOptions = [{
+  label: '姓名',
+  name: 'name',
+  ops: ['like', '=', 'startWidth'],
+  startWidth: function (d, value) {
+    return d.name.indexOf(value) === 0
+  }
+}, {
+  label: '地区',
+  name: 'office',
+  ops: ['='],
+  type: 'select',
+  props: { data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
+}, {
+  label: '地区2',
+  name: 'office',
+  ops: ['in', 'not in'],
+  type: 'select',
+  props: { mult: true, data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
+}]
+
+<Filter onFilter={filters => this.setState({ filters })} style={{marginBottom: 20}} local={true} options={filterOptions} />
+
 <Table ref="table"
   bordered={this.state.bordered}
-  checkAble={this.state.checkAble}
+  filters={this.state.filters}
+  selectAble={this.state.selectAble}
   striped={this.state.striped}
   width={this.state.width}
   height={this.state.height}

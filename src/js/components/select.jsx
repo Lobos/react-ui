@@ -7,6 +7,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { toArray, substitute } from '../utils/strings'
 import { getOuterHeight, overView, withoutTransition } from '../utils/dom'
+import clone from '../utils/clone'
 import clickAway from '../higherorder/clickaway'
 import getGrid from '../higherorder/grid'
 
@@ -16,7 +17,6 @@ class Select extends React.Component {
   static displayName = 'Select'
 
   static propTypes = {
-    cache: React.PropTypes.bool,
     className: React.PropTypes.string,
     data: React.PropTypes.oneOfType([
       React.PropTypes.array,
@@ -43,6 +43,12 @@ class Select extends React.Component {
     valueTpl: '{id}'
   }
 
+  componentWillMount () {
+    let values = toArray(this.props.value, this.props.sep)
+    let data = this.formatData(this.props.data, values)
+    this.setState({ data })
+  }
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setValue(this.formatValue(nextProps.value))
@@ -52,16 +58,22 @@ class Select extends React.Component {
     }
   }
 
+  componentWillUnmount () {
+    this.unmounted = true
+  }
+
   componentClickAway () {
     this.close()
   }
 
   state = {
     active: false,
-    value: this.formatValue(this.props.value),
-    data: this.formatData(this.props.data, this.formatValue(this.props.value)),
+    value: [],
+    data: [],
     filter: ''
   }
+
+  unmounted = false
 
   open () {
     if (!this.state.active && !this.props.readOnly) {
@@ -130,12 +142,15 @@ class Select extends React.Component {
   formatData (data, value = this.state.value) {
     if (typeof data === 'function') {
       data.then(res => {
-        this.setState({ data: this.formatData(res) })
+        if (!this.unmounted) {
+          this.setState({ data: this.formatData(res) })
+        }
       })()
       return []
     }
 
-    data = data.map(d => {
+    // don't use data, clone
+    data = clone(data).map(d => {
       if (typeof d !== 'object') {
         return {
           $option: d,
@@ -232,14 +247,17 @@ class Select extends React.Component {
 
     let placeholder = this.state.msg || this.props.placeholder
 
-    let filter = this.props.filterAble ?
-                 (<div className="filter">
-                    <i className="search" />
-                    <input value={this.state.filter}
-                      onChange={ e=>this.setState({ filter: e.target.value }) }
-                      type="text" />
-                  </div>) :
-                 null
+    let filter
+    if (this.props.filterAble) {
+      filter = (
+        <div className="filter">
+          <i className="search" />
+          <input value={this.state.filter}
+            onChange={ e=>this.setState({ filter: e.target.value }) }
+            type="text" />
+        </div>
+      )
+    }
 
     let filterText = this.state.filter ?
                      this.state.filter.toLowerCase() :
@@ -292,7 +310,7 @@ class Select extends React.Component {
 
 export default Select
 
-require('./formControl.jsx').register(
+require('./FormControl.jsx').register(
 
   'select',
 
