@@ -12,14 +12,14 @@ export default class FilterItem extends React.Component {
   static displayName = 'FilterItem'
 
   static propTypes = {
-    options: React.PropTypes.array,
-    optionsIndex: React.PropTypes.number, // current label
     index: React.PropTypes.number, // for onChange update filters
     label: React.PropTypes.string,
     name: React.PropTypes.string,
     onChange: React.PropTypes.func,
     op: React.PropTypes.string,
     ops: React.PropTypes.array,
+    options: React.PropTypes.array,
+    optionsIndex: React.PropTypes.number,
     removeFilter: React.PropTypes.func,
     type: React.PropTypes.string,
     value: React.PropTypes.any

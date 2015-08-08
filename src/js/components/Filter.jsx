@@ -16,10 +16,10 @@ export default class Filter extends React.Component {
 
   static propTypes = {
     className: React.PropTypes.string,
-    options: React.PropTypes.array,
     local: React.PropTypes.bool,
     onFilter: React.PropTypes.func,
     onSearch: React.PropTypes.func,
+    options: React.PropTypes.array,
     style: React.PropTypes.object,
     type: React.PropTypes.string
   }
