@@ -17,24 +17,12 @@ export default class FilterItem extends React.Component {
     index: React.PropTypes.number, // for onChange update filters
     label: React.PropTypes.string,
     name: React.PropTypes.string,
+    onChange: React.PropTypes.func,
     op: React.PropTypes.string,
+    ops: React.PropTypes.array,
     removeFilter: React.PropTypes.func,
     type: React.PropTypes.string,
     value: React.PropTypes.any
-  }
-
-  static defaultProps = {
-    type: 'text'
-  }
-
-  componentWillMount () {
-    this.initData(this.props.data)
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (this.props.data !== nextProps.data) {
-      this.initData(nextProps.data)
-    }
   }
 
   state = {
@@ -47,33 +35,30 @@ export default class FilterItem extends React.Component {
     value: this.props.value
   }
 
-  initData (data) {
-    data = data.map((d, i) => {
-      d.dataIndex = i
-      return d
-    })
-    this.setState({ data })
-  }
-
   onLabelChange (dataIndex) {
     dataIndex = parseInt(dataIndex)
-    let data = this.state.data[dataIndex]
+    let data = this.props.data[dataIndex]
     let filter = {
       dataIndex: dataIndex,
       label: data.label,
       name: data.name,
       op: null,
+      value: null,
       ops: data.ops || DEFAULT_OPS
     }
-    this.setState(filter)
+    // only one op, use it
+    if (filter.ops.length === 1) {
+      filter.op = filter.ops[0]
+    }
+    this.props.onChange(this.props.index, filter)
   }
 
   onOpChange (op) {
-    this.setState({ op })
+    this.props.onChange(this.props.index, { op })
   }
 
   onValueChange (value) {
-    this.setState({ value })
+    this.props.onChange(this.props.index, { value })
   }
 
   getFilter () {
@@ -87,8 +72,51 @@ export default class FilterItem extends React.Component {
   }
 
   getFunc () {
-    return function () {
+    let data = this.props.data,
+        name = this.props.name,
+        value = this.props.value,
+        op = this.props.op,
+        func = function () {},
+        filter = data[this.props.index]
+
+    if (data.type === 'integer' || data.type === 'number') {
+      value = parseFloat(value)
     }
+
+    if (filter[op]) {
+      return function (d) {
+        return filter[op](d, value)
+      }
+    }
+
+    switch (op) {
+      case '=':
+        func = d => { return d[name].toString() === value.toString() }
+      break
+      case 'like':
+        func = d => { return d[name].indexOf(value) >= 0 }
+      break
+      case '>':
+        func = d => { return d[name] > value }
+      break
+      case '>=':
+        func = d => { return d[name] >= value }
+      break
+      case '<':
+        func = d => { return d[name] < value }
+      break
+      case '<=':
+        func = d => { return d[name] <= value }
+      break
+      case 'in':
+        func = d => { return value.split(',').indexOf(d[name].toString()) >= 0 }
+      break
+      case 'not in':
+        func = d => { return value.split(',').indexOf(d[name].toString()) < 0 }
+      break
+    }
+
+    return func
   }
 
   remove () {
@@ -99,18 +127,18 @@ export default class FilterItem extends React.Component {
   }
 
   renderOp () {
-    if (this.state.ops) {
-      return <Select style={{width: 120}} value={this.state.op} onChange={this.onOpChange.bind(this)} data={this.state.ops} />
+    if (this.props.ops) {
+      return <Select style={{width: 120}} value={this.props.op} onChange={this.onOpChange.bind(this)} data={this.props.ops} />
     } else {
       return null
     }
   }
 
   renderControl () {
-    if (!this.state.label) {
+    if (!this.props.label) {
       return null
     }
-    let data = this.state.data[this.state.dataIndex],
+    let data = this.props.data[this.props.dataIndex],
         props = data.props || {},
         onChange = this.onValueChange.bind(this),
         style = { width: 240 },
@@ -123,21 +151,25 @@ export default class FilterItem extends React.Component {
         control = <Datetime value={this.props.value} onChange={onChange} {...props} />
       break
       default:
-        control = <Input value={this.props.value} type={data.type} style={style} onChange={onChange} {...props} type="text" />
+        control = <Input value={this.props.value} type={data.type} style={style} onChange={onChange} {...props} />
       break
     }
     return control
   }
 
   render () {
+    let dataIndex = this.props.dataIndex
+    if (dataIndex !== undefined) {
+      dataIndex = dataIndex.toString()
+    }
     return (
       <div className={styles.filterItem}>
         <Select style={{width: 140}}
-          value={this.state.dataIndex}
+          value={dataIndex}
           onChange={this.onLabelChange.bind(this)}
           optionTpl="{label}"
           valueTpl="{dataIndex}"
-          data={this.state.data} />
+          data={this.props.data} />
 
         { this.renderOp() }
 

@@ -17,6 +17,7 @@ class Table extends React.Component {
       React.PropTypes.array,
       React.PropTypes.func
     ]).isRequired,
+    filters: React.PropTypes.array,
     height: React.PropTypes.oneOfType([
       React.PropTypes.number,
       React.PropTypes.string
@@ -58,7 +59,8 @@ class Table extends React.Component {
     index: this.props.pagination ? this.props.pagination.props.index : 1,
     data: [],
     headers: [],
-    sort: {}
+    sort: {},
+    total: null
   }
 
   setHeaderWidth () {
@@ -154,23 +156,46 @@ class Table extends React.Component {
   }
 
   getData () {
-    let data = this.state.data,
-        page = this.props.pagination
+    let page = this.props.pagination,
+        filters = this.props.filters,
+        data = []
+
+    if (filters) {
+      let filterCount = filters.length
+      this.state.data.forEach(d => {
+        let checked = true
+        for (let i = 0; i < filterCount; i++) {
+          let f = filters[i].func
+          checked = f(d)
+          if (!checked) {
+            break
+          }
+        }
+        if (checked) {
+          data.push(d)
+        }
+      })
+    } else {
+      data = this.state.data
+    }
+
+    let total = data.length
+
     if (!page) {
-      return data
+      return { total, data }
     }
     let size = page.props.size
     if (data.length <= size) {
-      return data
+      return { total, data }
     }
     let index = this.state.index
     data = data.slice((index - 1) * size, index * size)
-    return data
+    return { total, data }
   }
 
-  renderBody () {
+  renderBody (data) {
     let selectAble = this.props.selectAble
-    let trs = this.getData().map((d, i) => {
+    let trs = data.map((d, i) => {
       let tds = []
       if (selectAble) {
         tds.push(
@@ -233,12 +258,13 @@ class Table extends React.Component {
     return <tr>{headers}</tr>
   }
 
-  renderPagination () {
+  renderPagination (total) {
     if (!this.props.pagination) {
       return null
     }
 
     let props = {
+      total: total,
       onChange: (index) => {
         let data = this.state.data
         data.forEach(d => {
@@ -251,10 +277,13 @@ class Table extends React.Component {
   }
 
   render () {
-    let bodyStyle = {}
-    let headerStyle = {}
-    let tableStyle = {}
-    let onBodyScroll = null
+    let bodyStyle = {},
+        headerStyle = {},
+        tableStyle = {},
+        onBodyScroll = null,
+        { total, data } = this.getData()
+
+
     if (this.props.height) {
       bodyStyle.height = this.props.height
       bodyStyle.overflow = 'auto'
@@ -288,12 +317,15 @@ class Table extends React.Component {
             </table>
           </div>
         </div>
+
         <div onScroll={onBodyScroll} style={bodyStyle} className={styles.bodyContainer}>
           <table style={tableStyle} className={styles.tableBody} ref="body">
-            {this.renderBody()}
+            {this.renderBody(data)}
           </table>
         </div>
-        {this.renderPagination()}
+
+        {this.renderPagination(total)}
+
       </div>
     )
   }

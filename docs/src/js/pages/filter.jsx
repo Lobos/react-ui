@@ -23,6 +23,12 @@ export default class Page extends React.Component {
       ops: ['>=', '<'],
       type: 'number'
     }, {
+      label: '地区',
+      name: 'office',
+      ops: ['='],
+      type: 'select',
+      props: { data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
+    }, {
       label: '国籍',
       name: 'country',
       ops: ['='],
@@ -38,7 +44,7 @@ export default class Page extends React.Component {
         </div>
 
         <div className="content">
-          <Filter onFilter={fs => this.setState({ filterText: JSON.stringify(fs) })} data={data} />
+          <Filter local={true} onFilter={fs => this.setState({ filterText: JSON.stringify(fs) })} data={data} />
           <div>{this.state.filterText}</div>
         </div>
       </div>

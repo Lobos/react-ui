@@ -14,7 +14,7 @@ A collection of components for React.
 
  - npm install
 ```
-npm install rctui
+暂时没有精力更新npm，等后面完善一些再好好整一下
 ```
 ```
 var ReactUI = require('rctui')

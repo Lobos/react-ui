@@ -2,23 +2,13 @@
 
 import React from 'react'
 import classnames from 'classnames'
-import { forEach } from '../utils/objects'
+//import { forEach } from '../utils/objects'
 import Button from './Button.jsx'
 import FilterItem from './FilterItem.jsx'
 import clickAway from '../higherorder/clickaway'
 import filterStyles from '../../less/filter.less'
 import formControlStyles from '../../less/form-control.less'
 import {getLang} from '../lang'
-
-/*
-data = [{
-  label: '',
-  name: '',
-  op: ['startWidth', ''],
-  startWidth: function (d) {
-  }
-}]
-*/
 
 @clickAway
 export default class Filter extends React.Component {
@@ -27,13 +17,19 @@ export default class Filter extends React.Component {
   static propTypes = {
     className: React.PropTypes.string,
     data: React.PropTypes.array,
+    local: React.PropTypes.bool,
     onFilter: React.PropTypes.func,
     onSearch: React.PropTypes.func,
+    style: React.PropTypes.object,
     type: React.PropTypes.string
   }
 
   static defaultProps = {
     data: []
+  }
+
+  componentWillMount () {
+    this.initData(this.props.data)
   }
 
   componentClickAway () {
@@ -43,6 +39,14 @@ export default class Filter extends React.Component {
   state = {
     active: false,
     filters: []
+  }
+
+  initData (data) {
+    data = data.map((d, i) => {
+      d.dataIndex = i
+      return d
+    })
+    this.setState({ data })
   }
 
   onSearch () {
@@ -73,18 +77,8 @@ export default class Filter extends React.Component {
     }, 450)
   }
 
-  getFilter () {
-    let filters = []
-    forEach(this.refs, (ref) => {
-      if (ref.getFilter) {
-        filters.push(ref.getFilter())
-      }
-    })
-    return filters
-  }
-
   addFilter () {
-    let filters = this.getFilter()
+    let filters = this.state.filters
     filters.push({})
     this.setState({ filters })
   }
@@ -96,18 +90,36 @@ export default class Filter extends React.Component {
   }
 
   clearFilter () {
-    this.setState({ filters: [] })
+    this.setState({ filters: [], resultText: '' })
+    this.close()
+    if (this.props.onFilter) {
+      this.props.onFilter([])
+    }
+  }
+
+  onChange (index, filter) {
+    let filters = this.state.filters,
+        f = filters[index]
+    Object.keys(filter).forEach(k => {
+      f[k] = filter[k]
+    })
+    this.setState({ filters })
   }
 
   onFilter () {
     this.close()
-    let filters = this.getFilter()
-    this.setState({ filters, resultText: this.formatText(filters) })
+    let filters = this.state.filters,
+        local = this.props.local
+    this.setState({ resultText: this.formatText(filters) })
     if (this.props.onFilter) {
       let novs = []
-      filters.forEach(f => {
+      filters.forEach((f, i) => {
         if (f.op && f.value) {
-          novs.push({ name: f.name, op: f.op, value: f.value })
+          let nov = { name: f.name, op: f.op, value: f.value }
+          if (local) {
+            nov.func = this.refs[`fi${i}`].getFunc()
+          }
+          novs.push(nov)
         }
       })
       this.props.onFilter(novs)
@@ -125,7 +137,7 @@ export default class Filter extends React.Component {
   renderFilters () {
     let filters = this.state.filters.map((f, i) => {
       return (
-        <FilterItem removeFilter={this.removeFilter.bind(this)} ref={`fi${i}`} index={i} key={i} {...f} data={this.props.data} />
+        <FilterItem onChange={this.onChange.bind(this)} removeFilter={this.removeFilter.bind(this)} ref={`fi${i}`} index={i} key={i} {...f} data={this.state.data} />
       )
     })
     return filters
@@ -139,7 +151,7 @@ export default class Filter extends React.Component {
       this.state.active ? filterStyles.active : ''
     )
     return (
-      <div className={className}>
+      <div style={this.props.style} className={className}>
         <div onClick={this.open.bind(this)} className={filterStyles.result}>
           {this.state.resultText}
           <i className="search" />
@@ -153,7 +165,7 @@ export default class Filter extends React.Component {
             <div>
               <Button status="success" onClick={this.addFilter.bind(this)}>+</Button>
               <Button style={{marginLeft: 10}} onClick={this.clearFilter.bind(this)}>{getLang('buttons.clear')}</Button>
-              <Button style={{marginLeft: 10}} status="primary" onClick={this.onFilter.bind(this)}>{getLang('buttons.filter')}</Button>
+              <Button style={{marginLeft: 10}} status="primary" onClick={this.onFilter.bind(this)}>{getLang('buttons.ok')}</Button>
             </div>
 
           </div>

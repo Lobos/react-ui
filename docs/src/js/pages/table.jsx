@@ -2,7 +2,7 @@
 
 import React from 'react'
 import prettify from '../prettify'
-const {Table, TableHeader, Pagination, Checkbox, RadioGroup, dataSource} = global.uiRequire()
+const {Table, TableHeader, Filter, Pagination, Checkbox, RadioGroup, dataSource} = global.uiRequire()
 
 @prettify
 export default class Page extends React.Component {
@@ -20,6 +20,7 @@ export default class Page extends React.Component {
     bordered: true,
     selectAble: true,
     data: [],
+    filters: [],
     height: 370,
     pagination: false,
     striped: true,
@@ -42,6 +43,21 @@ export default class Page extends React.Component {
       return <a onClick={() => { window.alert(`确定要删除${d.name}吗`) }}>删除</a>
     }
 
+    let filterList = [{
+      label: '姓名',
+      name: 'name',
+      ops: ['like', '=', 'startWidth'],
+      startWidth: function (d, value) {
+        return d.name.indexOf(value) === 0
+      }
+    }, {
+      label: '地区',
+      name: 'office',
+      ops: ['='],
+      type: 'select',
+      props: { data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
+    }]
+
     return (
       <div>
         <div className="header">
@@ -53,7 +69,7 @@ export default class Page extends React.Component {
           <pre className="prettyprint">
 {`<Table
   bordered={bool}          // 是否显示边框，默认值 false
-  selectAble={bool}         // 是否显示选择，默认值 false
+  selectAble={bool}        // 是否显示选择，默认值 false
   striped={bool}           // 是否交替显示背景，默认值 false
   width={number}           // 表格宽度，默认值 100%
   height={number}          // 表格高度（body部分），默认值 auto
@@ -122,8 +138,10 @@ export default class Page extends React.Component {
             </div>
           }
           <div style={{marginTop: 10}}>
+            <Filter onFilter={filters => this.setState({ filters })} style={{marginBottom: 20}} local={true} data={filterList} />
             <Table ref="table"
               bordered={this.state.bordered}
+              filters={this.state.filters}
               selectAble={this.state.selectAble}
               striped={this.state.striped}
               width={this.state.width}

@@ -58,6 +58,10 @@ class Select extends React.Component {
     }
   }
 
+  componentWillUnmount () {
+    this.unmounted = true
+  }
+
   componentClickAway () {
     this.close()
   }
@@ -68,6 +72,8 @@ class Select extends React.Component {
     data: [],
     filter: ''
   }
+
+  unmounted = false
 
   open () {
     if (!this.state.active && !this.props.readOnly) {
@@ -136,7 +142,9 @@ class Select extends React.Component {
   formatData (data, value = this.state.value) {
     if (typeof data === 'function') {
       data.then(res => {
-        this.setState({ data: this.formatData(res) })
+        if (!this.unmounted) {
+          this.setState({ data: this.formatData(res) })
+        }
       })()
       return []
     }
@@ -239,14 +247,17 @@ class Select extends React.Component {
 
     let placeholder = this.state.msg || this.props.placeholder
 
-    let filter = this.props.filterAble ?
-                 (<div className="filter">
-                    <i className="search" />
-                    <input value={this.state.filter}
-                      onChange={ e=>this.setState({ filter: e.target.value }) }
-                      type="text" />
-                  </div>) :
-                 null
+    let filter
+    if (this.props.filterAble) {
+      filter = (
+        <div className="filter">
+          <i className="search" />
+          <input value={this.state.filter}
+            onChange={ e=>this.setState({ filter: e.target.value }) }
+            type="text" />
+        </div>
+      )
+    }
 
     let filterText = this.state.filter ?
                      this.state.filter.toLowerCase() :
