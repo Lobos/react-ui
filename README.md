@@ -57,7 +57,6 @@ v0.3.3
 
  - Table, Tree的checkAble属性改为selectAble
  - 加入 Filter
- - Component 名称改为大写
 
 v0.3.1
 
