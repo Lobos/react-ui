@@ -50,11 +50,14 @@ publish: webpack --config webpack-publish.config.js [--min]
 - [Select](http://lobos.github.io/react-ui/#/select)
 - [Tree](http://lobos.github.io/react-ui/#/tree)
 - [Table](http://lobos.github.io/react-ui/#/table)
+- [Filter](http://lobos.github.io/react-ui/#/filter)
 
 # Change log
 v0.3.3
 
  - Table, Tree的checkAble属性改为selectAble
+ - 加入 Filter
+ - Component 名称改为大写
 
 v0.3.1
 

@@ -12,8 +12,8 @@ export default class FilterItem extends React.Component {
   static displayName = 'FilterItem'
 
   static propTypes = {
-    data: React.PropTypes.array,
-    dataIndex: React.PropTypes.number, // current label
+    options: React.PropTypes.array,
+    optionsIndex: React.PropTypes.number, // current label
     index: React.PropTypes.number, // for onChange update filters
     label: React.PropTypes.string,
     name: React.PropTypes.string,
@@ -25,26 +25,16 @@ export default class FilterItem extends React.Component {
     value: React.PropTypes.any
   }
 
-  state = {
-    data: [],
-    dataIndex: this.props.dataIndex,
-    label: this.props.label,
-    name: this.props.name,
-    op: this.props.op,
-    ops: null,
-    value: this.props.value
-  }
-
-  onLabelChange (dataIndex) {
-    dataIndex = parseInt(dataIndex)
-    let data = this.props.data[dataIndex]
+  onLabelChange (optionsIndex) {
+    optionsIndex = parseInt(optionsIndex)
+    let options = this.props.options[optionsIndex]
     let filter = {
-      dataIndex: dataIndex,
-      label: data.label,
-      name: data.name,
+      optionsIndex: optionsIndex,
+      label: options.label,
+      name: options.name,
       op: null,
       value: null,
-      ops: data.ops || DEFAULT_OPS
+      ops: options.ops || DEFAULT_OPS
     }
     // only one op, use it
     if (filter.ops.length === 1) {
@@ -61,25 +51,15 @@ export default class FilterItem extends React.Component {
     this.props.onChange(this.props.index, { value })
   }
 
-  getFilter () {
-    return {
-      dataIndex: this.state.dataIndex,
-      label: this.state.label,
-      name: this.state.name,
-      op: this.state.op,
-      value: this.state.value
-    }
-  }
-
   getFunc () {
-    let data = this.props.data,
+    let options = this.props.options,
         name = this.props.name,
         value = this.props.value,
         op = this.props.op,
         func = function () {},
-        filter = data[this.props.index]
+        filter = options[this.props.index]
 
-    if (data.type === 'integer' || data.type === 'number') {
+    if (options.type === 'integer' || options.type === 'number') {
       value = parseFloat(value)
     }
 
@@ -138,12 +118,12 @@ export default class FilterItem extends React.Component {
     if (!this.props.label) {
       return null
     }
-    let data = this.props.data[this.props.dataIndex],
-        props = data.props || {},
+    let options = this.props.options[this.props.optionsIndex],
+        props = options.props || {},
         onChange = this.onValueChange.bind(this),
         style = { width: 240 },
         control
-    switch (data.type) {
+    switch (options.type) {
       case 'select':
         control = <Select value={this.props.value} onChange={onChange} style={style} {...props} />
       break
@@ -151,25 +131,25 @@ export default class FilterItem extends React.Component {
         control = <Datetime value={this.props.value} onChange={onChange} {...props} />
       break
       default:
-        control = <Input value={this.props.value} type={data.type} style={style} onChange={onChange} {...props} />
+        control = <Input value={this.props.value} type={options.type} style={style} onChange={onChange} {...props} />
       break
     }
     return control
   }
 
   render () {
-    let dataIndex = this.props.dataIndex
-    if (dataIndex !== undefined) {
-      dataIndex = dataIndex.toString()
+    let optionsIndex = this.props.optionsIndex
+    if (optionsIndex !== undefined) {
+      optionsIndex = optionsIndex.toString()
     }
     return (
       <div className={styles.filterItem}>
         <Select style={{width: 140}}
-          value={dataIndex}
+          value={optionsIndex}
           onChange={this.onLabelChange.bind(this)}
           optionTpl="{label}"
-          valueTpl="{dataIndex}"
-          data={this.props.data} />
+          valueTpl="{optionsIndex}"
+          data={this.props.options} />
 
         { this.renderOp() }
 

@@ -43,7 +43,7 @@ export default class Page extends React.Component {
       return <a onClick={() => { window.alert(`确定要删除${d.name}吗`) }}>删除</a>
     }
 
-    let filterList = [{
+    let filterOptions = [{
       label: '姓名',
       name: 'name',
       ops: ['like', '=', 'startWidth'],
@@ -56,6 +56,12 @@ export default class Page extends React.Component {
       ops: ['='],
       type: 'select',
       props: { data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
+    }, {
+      label: '地区2',
+      name: 'office',
+      ops: ['in', 'not in'],
+      type: 'select',
+      props: { mult: true, data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
     }]
 
     return (
@@ -138,7 +144,7 @@ export default class Page extends React.Component {
             </div>
           }
           <div style={{marginTop: 10}}>
-            <Filter onFilter={filters => this.setState({ filters })} style={{marginBottom: 20}} local={true} data={filterList} />
+            <Filter onFilter={filters => this.setState({ filters })} style={{marginBottom: 20}} local={true} options={filterOptions} />
             <Table ref="table"
               bordered={this.state.bordered}
               filters={this.state.filters}
@@ -165,8 +171,33 @@ let nameTpl = (d) => {
 let removeTpl = (d) => {
   return <a onClick={() => { window.alert('确定要删除' + d.name + '吗') }}>删除</a>
 }
+
+let filterOptions = [{
+  label: '姓名',
+  name: 'name',
+  ops: ['like', '=', 'startWidth'],
+  startWidth: function (d, value) {
+    return d.name.indexOf(value) === 0
+  }
+}, {
+  label: '地区',
+  name: 'office',
+  ops: ['='],
+  type: 'select',
+  props: { data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
+}, {
+  label: '地区2',
+  name: 'office',
+  ops: ['in', 'not in'],
+  type: 'select',
+  props: { mult: true, data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
+}]
+
+<Filter onFilter={filters => this.setState({ filters })} style={{marginBottom: 20}} local={true} options={filterOptions} />
+
 <Table ref="table"
   bordered={this.state.bordered}
+  filters={this.state.filters}
   selectAble={this.state.selectAble}
   striped={this.state.striped}
   width={this.state.width}

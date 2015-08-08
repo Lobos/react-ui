@@ -16,7 +16,7 @@ export default class Filter extends React.Component {
 
   static propTypes = {
     className: React.PropTypes.string,
-    data: React.PropTypes.array,
+    options: React.PropTypes.array,
     local: React.PropTypes.bool,
     onFilter: React.PropTypes.func,
     onSearch: React.PropTypes.func,
@@ -25,11 +25,11 @@ export default class Filter extends React.Component {
   }
 
   static defaultProps = {
-    data: []
+    options: []
   }
 
   componentWillMount () {
-    this.initData(this.props.data)
+    this.initData(this.props.options)
   }
 
   componentClickAway () {
@@ -41,12 +41,12 @@ export default class Filter extends React.Component {
     filters: []
   }
 
-  initData (data) {
-    data = data.map((d, i) => {
-      d.dataIndex = i
+  initData (options) {
+    options = options.map((d, i) => {
+      d.optionsIndex = i
       return d
     })
-    this.setState({ data })
+    this.setState({ options })
   }
 
   onSearch () {
@@ -129,7 +129,9 @@ export default class Filter extends React.Component {
   formatText (filters) {
     let text = []
     filters.forEach(f => {
-      text.push(`${f.label} ${f.op} '${f.value}'`)
+      if (f.op && f.value) {
+        text.push(`${f.label} ${f.op} '${f.value}'`)
+      }
     })
     return text.join(', ')
   }
@@ -137,7 +139,7 @@ export default class Filter extends React.Component {
   renderFilters () {
     let filters = this.state.filters.map((f, i) => {
       return (
-        <FilterItem onChange={this.onChange.bind(this)} removeFilter={this.removeFilter.bind(this)} ref={`fi${i}`} index={i} key={i} {...f} data={this.state.data} />
+        <FilterItem onChange={this.onChange.bind(this)} removeFilter={this.removeFilter.bind(this)} ref={`fi${i}`} index={i} key={i} {...f} options={this.state.options} />
       )
     })
     return filters
