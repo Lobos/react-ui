@@ -2,9 +2,8 @@
 
 import React from 'react'
 import classnames from 'classnames'
-//import Router from 'react-router'
 import menulist from './menulist'
-const {Icon, Utils: {Dom} } = global.uiRequire()
+const { Icon } = global.uiRequire()
 
 export default class NavList extends React.Component {
   static displayName = 'NavList'
@@ -18,8 +17,7 @@ export default class NavList extends React.Component {
   }
 
   state = {
-    active: false,
-    height: 0
+    active: true
   }
 
   getClasses (name, route) {
@@ -30,63 +28,6 @@ export default class NavList extends React.Component {
 
   routeChange (route) {
     this.context.router.transitionTo(route)
-    if (this.state.active) {
-      this.close()
-    }
-  }
-
-  mouseMove (active) {
-    if (active !== undefined && active !== this.state.active) {
-      console.log(active)
-      this.toggle(active)
-    }
-  }
-
-  toggle (active) {
-    if (active === undefined) {
-      active = !this.state.active
-    }
-    let rs = React.findDOMNode(this.refs.list).style
-    rs.display = active ? 'block' : 'none'
-
-    if (active) {
-      let height = window.innerHeight || document.documentElement.clientHeight
-      rs.maxHeight = (height - this.state.height) + 'px'
-    }
-
-    setTimeout(() => {
-      this.setState({ active })
-      this.props.onToggle(active)
-    }, 0)
-  }
-
-  show () {
-    if (this.state.active) {
-      return
-    }
-
-    let rs = React.findDOMNode(this.refs.list).style
-    rs.display = 'block'
-    let height = window.innerHeight || document.documentElement.clientHeight
-    let navheight = Dom.getOuterHeight(React.findDOMNode(this))
-    rs.maxHeight = (height - navheight) + 'px'
-
-    setTimeout(() => {
-      this.setState({ active: true })
-      this.props.onToggle(true)
-    }, 0)
-  }
-
-  close () {
-    if (this.state.active === false) {
-      return
-    }
-
-    this.setState({ active: false })
-    setTimeout(() => {
-      React.findDOMNode(this.refs.list).style.display = 'none'
-      this.props.onToggle(false)
-    }, 300)
   }
 
   getRoutesList (routes, index) {
@@ -119,15 +60,12 @@ export default class NavList extends React.Component {
     return (
       <div className={classnames("nav", {active: this.state.active})}>
         <a className="pure-menu-heading" onClick={this.routeChange.bind(this, '/')}>React UI</a>
-        <a className="link-github" href="https://github.com/Lobos/react-ui"><Icon icon="github" /> github</a>
-        <div onMouseEnter={this.show.bind(this)} onMouseLeave={this.close.bind(this)} className="nav-inner pure-menu">
-          <a onClick={this.show.bind(this)} className="nav-handler"><Icon icon="menu" size="lg" /></a>
+        <a className="link-github" href="https://github.com/Lobos/react-ui"><Icon size={2} icon="github" /></a>
+        <div className="nav-inner">
           <div ref="list" className="nav-list">
-            <div className="mouse-move-pad" />
             {list}
           </div>
         </div>
-        <div onClick={this.close.bind(this)} className="overlay"></div>
       </div>
     )
   }
