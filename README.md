@@ -53,6 +53,10 @@ publish: webpack --config webpack-publish.config.js [--min]
 - [Filter](http://lobos.github.io/react-ui/#/filter)
 
 # Change log
+v0.3.4
+
+ - 加入Modal
+
 v0.3.3
 
  - Table, Tree的checkAble属性改为selectAble

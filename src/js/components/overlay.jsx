@@ -9,7 +9,8 @@ export default class Overlay extends React.Component {
 
   static propTypes = {
     className: React.PropTypes.string,
-    onClick: React.PropTypes.func
+    onClick: React.PropTypes.func,
+    style: React.PropTypes.object
   }
 
   static defaultProps = {
@@ -23,7 +24,7 @@ export default class Overlay extends React.Component {
     )
 
     return (
-      <div className={className} onClick={this.props.onClick} />
+      <div className={className} style={this.props.style} onClick={this.props.onClick} />
     )
   }
 }

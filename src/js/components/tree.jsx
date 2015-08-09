@@ -59,10 +59,16 @@ class Tree extends React.Component {
     }
   }
 
+  componentWillUnmount () {
+    this.unmounted = true
+  }
+
   state = {
     data: [],
     value: this.formatValue(this.props.value)
   }
+
+  unmounted = false
 
   formatValue (value) {
     return toArray(value, this.props.sep)
@@ -158,7 +164,9 @@ class Tree extends React.Component {
     for (let i = 0, count = data.length; i < count; i++) {
       getStatus(data[i], i === (count - 1))
     }
-    this.setState({ data })
+    if (!this.unmounted) {
+      this.setState({ data })
+    }
   }
 
   isInitialed () {

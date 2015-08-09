@@ -20,7 +20,7 @@ export const Pagination = require('./components/pagination.jsx')
 export const Table = require('./components/table.jsx')
 export const TableHeader = require('./components/tableHeader.jsx')
 export const Filter = require('./components/filter.jsx')
-
+export const Modal = require('./components/modal.jsx')
 export const Message = require('./components/message.jsx')
 export const Lang = require('./lang')
 

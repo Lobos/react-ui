@@ -64,15 +64,14 @@ export default class Message extends React.Component {
   }
 
   componentDidMount () {
-    let self = this
-    PubSub.subscribe(ADD_MESSAGE, function (topic, data) {
+    PubSub.subscribe(ADD_MESSAGE, (topic, data) => {
       messages.push(data)
-      self.setState({ messages: messages })
+      this.setState({ messages: messages })
     })
 
-    PubSub.subscribe(REMOVE_MESSAGE, function (topic, index) {
+    PubSub.subscribe(REMOVE_MESSAGE, (topic, index) => {
       messages.splice(index, 1)
-      self.setState({ messages: messages })
+      this.setState({ messages: messages })
     })
   }
 
@@ -119,12 +118,3 @@ export default class Message extends React.Component {
     )
   }
 }
-
-/*
-Message.show = function (content, type) {
-  PubSub.publish(ADD_MESSAGE, {
-    content: content,
-    type: type || 'info'
-  })
-}
-*/
