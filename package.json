@@ -1,7 +1,7 @@
 {
   "name": "rctui",
   "author": "lobos841@gmail.com",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "a collection of components for React",
   "main": "./src/js/index.js",
   "scripts": {

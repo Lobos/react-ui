@@ -2,40 +2,41 @@
 
 .nav {
   position: fixed;
-  width: 100%;
+  width: 220px;
   left: 0;
-  height: 50px;
+  height: 100%;
   top: 0;
   z-index: 999;
   background-color: #f2f2f2;
-  border-bottom: solid 1px #ddd;
-  .box-shadow(0 2px 6px rgba(0, 0, 0, 0.1));
 
   .pure-menu-heading {
     font-size: 18px;
-    padding: 0;
-    display: inline-block;
+    padding: 0 0 0 1em;
     line-height: 50px;
-    margin-left: 70px;
+    border-bottom: solid 1px #ddd;
   }
 
   .link-github {
     position: absolute;
-    top: 14px;
+    top: 12px;
+    color: #888;
     right: 1em;
   }
 
   .nav-inner {
+    overflow: auto;
     position: absolute;
-    z-index: 999;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px 0 20px;
 
     a { 
-      color: #999;
-      font-size: 16px;
-      padding: 10px 16px;
+      color: #777;
 
       &:hover, &:focus {
-        background-color: #333;
+        color: #333;
       }
 
       &.active {
@@ -68,28 +69,15 @@
     }
 
     .nav-list {
-      background-color: #181818;
-      padding: 15px 0;
-      display: none;
-      overflow: auto;
-      .opacity(0);
       .transition(opacity 0.4s);
       .box-sizing(border-box);
-      .box-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+    }
 
-      .mouse-move-pad {
-        position: absolute;
-        width: 100%;
-        height: 50px;
-        bottom: 100%;
-        background-color: transparent;
-      }
+    .pure-menu-link {
+      //padding: 0 1em;
     }
 
     .pure-menu-list {
-      vertical-align: top;
-      width: 200px;
-      display: inline-block;
       hr {
         margin: 0;
         border: solid 0px #333;
@@ -109,13 +97,6 @@
     .nav-handler {
       color: #fff;
       background-color: #181818;
-    }
-
-    .overlay {
-      z-index: 998;
-      .opacity(1);
-      left: 0;
-      background-color: rgba(0,0,0,0.01);
     }
   }
 }

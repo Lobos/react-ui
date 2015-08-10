@@ -55,6 +55,12 @@ class Table extends React.Component {
     this.setHeaderWidth()
   }
 
+  componentWillUnmount () {
+    this.unmounted = true
+  }
+
+  unmounted = false
+
   state = {
     index: this.props.pagination ? this.props.pagination.props.index : 1,
     data: [],
@@ -102,7 +108,9 @@ class Table extends React.Component {
         this.fetchData(res)
       })()
     } else {
-      this.setState({ data })
+      if (!this.unmounted) {
+        this.setState({ data })
+      }
     }
   }
 

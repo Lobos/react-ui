@@ -62,6 +62,8 @@ class Select extends React.Component {
     this.unmounted = true
   }
 
+  unmounted = false
+
   componentClickAway () {
     this.close()
   }
@@ -72,8 +74,6 @@ class Select extends React.Component {
     data: [],
     filter: ''
   }
-
-  unmounted = false
 
   open () {
     if (!this.state.active && !this.props.readOnly) {

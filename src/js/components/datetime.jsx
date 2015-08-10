@@ -72,7 +72,7 @@ class Datetime extends React.Component {
   }
 
   setValue (value) {
-    value = datetime.convert(value)
+    value = datetime.convert(value, null)
     this.setState({ value: value })
   }
 
