@@ -8,10 +8,12 @@ import Overlay from './overlay.jsx'
 import {getLang} from '../lang'
 import modalStyle from '../../less/modal.less'
 
-let modals = []
 const ADD_MODAL = 'id39hxqm'
 const REMOVE_MODAL = 'id39i40m'
+const CLICKAWAY = 'id5bok7e'
 const ZINDEX = 1100
+let modals = []
+let modalContainer = null
 
 export default class Modal extends React.Component {
   static displayName = 'Modal'
@@ -29,6 +31,13 @@ export default class Modal extends React.Component {
       }
       this.setState({ modals })
     })
+
+    PubSub.subscribe(CLICKAWAY, () => {
+      let props = modals[modals.length - 1]
+      if (props.clickaway) {
+        PubSub.publish(REMOVE_MODAL)
+      }
+    })
   }
 
   state = {
@@ -39,20 +48,44 @@ export default class Modal extends React.Component {
     PubSub.publish(REMOVE_MODAL)
   }
 
+  clickaway () {
+    PubSub.publish(CLICKAWAY)
+  }
+
   renderModals () {
     return this.state.modals.map((options, i) => {
       let style = {
         width: options.width || 500,
         zIndex: ZINDEX + i
       }
-      style.marginLeft = 0 - style.width / 2
+      if (typeof style.width === 'number' || style.width.indexOf('px') > 0) {
+        style.width = parseInt(style.width)
+        style.marginLeft = 0 - style.width / 2
+      } else if (style.width.indexOf('%') > 0) {
+        style.marginLeft = (0 - parseInt(style.width) / 2) + '%'
+      }
 
-      let header, btnOk
+      let header, buttons = []
       if (options.header) {
         header = <div className={modalStyle.header}>{options.header}</div>
       }
-      if (options.onOk) {
-        btnOk = <Button status="primary" onClick={() => {this.close(); options.onOk()}}>{getLang('buttons.ok')}</Button>
+
+      if (options.buttons) {
+        let lastButton = Object.keys(options.buttons).length - 1
+        buttons = Object.keys(options.buttons).map((btn, j) => {
+          let func = options.buttons[btn],
+              status = j === lastButton ? 'primary' : '',
+              handle = () => {
+                if (func === true) {
+                  this.close()
+                } else {
+                  if (func()) {
+                    this.close()
+                  }
+                }
+              }
+          return <Button status={status} key={j} onClick={handle}>{btn}</Button>
+        })
       }
 
       let modal = (
@@ -62,9 +95,12 @@ export default class Modal extends React.Component {
           <div className={modalStyle.content}>
             {options.content}
           </div>
-          <div className={modalStyle.footer}>
-            {btnOk}
-          </div>
+          {
+            buttons.length > 0 &&
+            <div className={modalStyle.footer}>
+              {buttons}
+            </div>
+          }
         </div>
       )
       return modal
@@ -75,25 +111,53 @@ export default class Modal extends React.Component {
     let mlen = this.state.modals.length
     let className = classnames(
       modalStyle.modalContainer,
-      { active: mlen > 0}
+      { active: mlen > 0 }
     )
 
     return (
       <div className={className}>
-        <Overlay className={classnames({active: mlen > 0})} style={{zIndex: ZINDEX + mlen - 1}} />
+        <Overlay onClick={this.clickaway.bind(this)} className={classnames({active: mlen > 0})} style={{zIndex: ZINDEX + mlen - 1}} />
         { this.renderModals() }
       </div>
     )
   }
 }
 
-Modal.show = function (options) {
+Modal.open = function (options) {
+  if (!modalContainer) {
+    createContainer()
+  }
   PubSub.publish(ADD_MODAL, options)
 }
 
 Modal.alert = function (content) {
-  Modal.show({
+  let buttons = {}
+  buttons[getLang('buttons.ok')] = true
+
+  Modal.open({
+    clickaway: false,
     content,
-    onOk: () => {}
+    buttons: buttons
   })
+}
+
+Modal.confirm = function (content, onOk) {
+  let buttons = {}
+  buttons[getLang('buttons.cancel')] = true
+  buttons[getLang('buttons.ok')] = () => {
+    onOk()
+    return true
+  }
+
+  Modal.open({
+    clickaway: false,
+    content,
+    buttons: buttons
+  })
+}
+
+function createContainer () {
+  modalContainer = document.createElement('div')
+  document.body.appendChild(modalContainer)
+  React.render(<Modal />, modalContainer)
 }
