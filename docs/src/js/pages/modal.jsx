@@ -2,7 +2,7 @@
 
 import React from 'react'
 import prettify from '../prettify'
-const {Modal, Form, FormControl} = global.uiRequire()
+const {Button, Modal, Form, FormControl} = global.uiRequire()
 
 @prettify
 export default class Page extends React.Component {
@@ -96,7 +96,7 @@ export default class Page extends React.Component {
 }`}
           </pre>
           <div>
-            <a onClick={() => Modal.open(openOptions)}>open a form</a>
+            <Button status="primary" onClick={() => Modal.open(openOptions)}>open a form</Button>
           </div>
           <pre className="prettyprint">
 {`Modal.open(
@@ -132,19 +132,19 @@ export default class Page extends React.Component {
           <h2 className="subhead">Modal.alert(content)</h2>
           <div>快捷方式， <em>content</em> 为 <em>string</em> 或者 <em>ReactElement</em></div>
           <div>
-            <a onClick={() => Modal.alert('这是一个alert')}>alert example</a>
+            <Button status="primary" onClick={() => Modal.alert('这是一个alert')}>alert example</Button>
           </div>
           <pre className="prettyprint">{`Modal.alert('这是一个alert')`}</pre>
 
           <h2 className="subhead">Modal.confirm(content, onOk)</h2>
           <div>快捷方式， <em>content</em> 为 <em>string</em> 或者 <em>ReactElement</em>。 <em>onOk</em> 为 <em>function </em>，点击确定后回调。</div>
           <div>
-            <a onClick={() => Modal.confirm(
+            <Button status="primary" onClick={() => Modal.confirm(
               <div>
                 <p>如果你知道要做什么，请点确定。</p>
                 <p>如果你不知道，点取消吧。</p>
               </div>,
-              () => { alert('点击了确定') })}>confirm example</a>
+              () => { alert('点击了确定') })}>confirm example</Button>
           </div>
           <pre className="prettyprint">
 {`Modal.confirm(
@@ -161,7 +161,7 @@ export default class Page extends React.Component {
 
           <h2 className="subhead">多层弹出</h2>
           <div>
-            <a onClick={this.multOpen.bind(this)}>mult open</a>
+            <Button status="primary" onClick={this.multOpen.bind(this)}>mult open</Button>
           </div>
           <pre className="prettyprint">
 {`multOpen () {
