@@ -51,11 +51,13 @@ publish: webpack --config webpack-publish.config.js [--min]
 - [Tree](http://lobos.github.io/react-ui/#/tree)
 - [Table](http://lobos.github.io/react-ui/#/table)
 - [Filter](http://lobos.github.io/react-ui/#/filter)
+- [Modal](http://lobos.github.io/react-ui/#/modal)
 
 # Change log
 v0.3.4
 
  - 加入Modal
+ - Message 改为动态创建
 
 v0.3.3
 

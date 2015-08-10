@@ -67,6 +67,11 @@ module.exports = {
     path: './components/message.jsx'
   },
 
+  Modal: {
+    path: './components/modal.jsx',
+    dependencies: [ 'Button' ]
+  },
+
   Table: {
     path: './components/table.jsx',
     dependencies: [ 'TableHeader' ]
