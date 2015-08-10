@@ -123,6 +123,10 @@ export default class Modal extends React.Component {
   }
 }
 
+Modal.close = function (data) {
+  PubSub.publish(REMOVE_MODAL, data)
+}
+
 Modal.open = function (options) {
   if (!modalContainer) {
     createContainer()

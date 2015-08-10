@@ -8,6 +8,39 @@ const {Modal, Form, FormControl} = global.uiRequire()
 export default class Page extends React.Component {
   static displayName = 'Pages/Modal'
 
+  state = {
+    index: 0
+  }
+
+  multOpen () {
+    let index = this.state.index + 1,
+        width = Math.ceil((Math.random() + 1) * 400),
+        ps = []
+
+    for (var i = 1; i <= index; i++) {
+      ps.push(<p key={i}>{`第 ${i} 层弹出`}</p>)
+    }
+
+    let options = {
+      header: `第 ${index} 层弹出`,
+      width: width,
+      content: (
+        <div>
+          {ps}
+          <a onClick={this.multOpen.bind(this)}>弹出新的Modal</a>
+        </div>
+      ),
+      onClose: () => {
+        this.setState({ index: index - 1 })
+      },
+      buttons: {
+        '关闭': true
+      }
+    }
+    Modal.open(options)
+    this.setState({ index })
+  }
+
   render () {
     let openOptions = {
       header: '一个弹出表单',
@@ -54,8 +87,9 @@ export default class Page extends React.Component {
   header: {string|element},  // 标题，值为 string 或者 ReactElement，可为空
   content: {string|element}, // 内容，值为 string 或者 ReactElement，必填
   width: {int|string},       // 宽度，默认值为 500
+  onClose: function,         // 当Modal关闭时触发
   buttons: {
-    {text}: function         // text 为按钮文字，function 返回 true 关闭 Modal
+    {text}: function         // text 为按钮文字，function 返回 true 或者值为 true，关闭 Modal
   }
 }`}
           </pre>
@@ -118,6 +152,46 @@ export default class Page extends React.Component {
   </div>,
   () => { alert('点击了确定') }
 )`}
+          </pre>
+
+          <h2 className="subhead">Modal.close(data)</h2>
+          <div>关闭最上层弹出的Modal</div>
+
+          <h2 className="subhead">多层弹出</h2>
+          <div>
+            <a onClick={this.multOpen.bind(this)}>mult open</a>
+          </div>
+          <pre className="prettyprint">
+{`multOpen () {
+  let index = this.state.index + 1,
+      width = Math.ceil((Math.random() + 1) * 400),
+      ps = []
+
+  for (var i = 1; i <= index; i++) {
+    ps.push(<p key={i}>{'第 ' + i + ' 层弹出'}</p>)
+  }
+
+  let options = {
+    header: '第 ' + index + ' 层弹出',
+    width: width,
+    content: (
+      <div>
+        {ps}
+        <a onClick={this.multOpen.bind(this)}>弹出新的Modal</a>
+      </div>
+    ),
+    onClose: () => {
+      this.setState({ index: index - 1 })
+    },
+    buttons: {
+      '关闭': true
+    }
+  }
+  Modal.open(options)
+  this.setState({ index })
+}
+<a onClick={this.multOpen.bind(this)}>mult open</a>
+`}
           </pre>
         </div>
       </div>
