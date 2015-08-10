@@ -18,16 +18,18 @@ export default class Page extends React.Component {
         ps = []
 
     for (var i = 1; i <= index; i++) {
-      ps.push(<p key={i}>{`第 ${i} 层弹出`}</p>)
+      ps.push(<p key={i}>{`第 ${i} 层Modal`}</p>)
     }
 
     let options = {
-      header: `第 ${index} 层弹出`,
+      header: `第 ${index} 层Modal`,
       width: width,
       content: (
         <div>
           {ps}
-          <a onClick={this.multOpen.bind(this)}>弹出新的Modal</a>
+          <a style={{marginRight: 20}} onClick={this.multOpen.bind(this)}>弹出新的Modal</a>
+          <a style={{marginRight: 20}} onClick={() => Modal.alert('alert')}>alert</a>
+          <a onClick={() => Modal.close()}>关闭</a>
         </div>
       ),
       onClose: () => {
@@ -168,16 +170,18 @@ export default class Page extends React.Component {
       ps = []
 
   for (var i = 1; i <= index; i++) {
-    ps.push(<p key={i}>{'第 ' + i + ' 层弹出'}</p>)
+    ps.push(<p key={i}>{'第 ' + i + ' 层Modal'}</p>)
   }
 
   let options = {
-    header: '第 ' + index + ' 层弹出',
+    header: '第 ' + index + ' 层Modal',
     width: width,
     content: (
       <div>
         {ps}
-        <a onClick={this.multOpen.bind(this)}>弹出新的Modal</a>
+        <a style={{marginRight: 20}} onClick={this.multOpen.bind(this)}>弹出新的Modal</a>
+        <a style={{marginRight: 20}} onClick={() => Modal.alert('alert')}>alert</a>
+        <a onClick={() => Modal.close()}>关闭</a>
       </div>
     ),
     onClose: () => {
