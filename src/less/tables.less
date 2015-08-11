@@ -1,6 +1,6 @@
 @import "mixins";
 
-:local(.table) {
+.rct-table {
   overflow: hidden;
 
   table {
@@ -54,7 +54,7 @@
     }
   }
 
-  &.bordered {
+  &.rct-bordered {
     th, td {
       border-left: solid 1px #ddd;
       &:first-child {
@@ -62,32 +62,34 @@
       }
     }
 
-    &.scrolled {
+    &.rct-scrolled {
       th:last-child {
         border-right: solid 1px #ddd;
       }
     }
 
-    :local(.headerContainer), :local(.bodyContainer) {
+    .header-container, .body-container {
       border: solid 1px #ddd;
     }
   }
 
-  &.striped {
+  &.rct-striped {
     tbody tr:nth-of-type(odd) {
       background-color: #f9f9f9;
     }
   }
+
+  .rct-table-body {
+    width: 100%;
+  }
+
+  .header-container {
+    border-bottom: solid 2px #ddd;
+  }
+
+  .body-container {
+    margin-bottom: 10px;
+  }
 }
 
-:local(.tableBody) {
-  width: 100%;
-}
 
-:local(.headerContainer) {
-  border-bottom: solid 2px #ddd;
-}
-
-:local(.bodyContainer) {
-  margin-bottom: 10px;
-}

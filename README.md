@@ -56,7 +56,7 @@ publish: webpack --config webpack-publish.config.js [--min]
 # Change log
 v0.3.5
 
- - 所有css改为 local，需要扩展的话，使用 className
+ - css 去除 local，使用 rct- 前缀
 
 v0.3.4
 

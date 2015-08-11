@@ -43,8 +43,8 @@ class Item extends React.Component {
   render () {
     let className = classnames(
       this.props.className,
-      'message',
-      `message-${this.props.type}`,
+      'rct-message',
+      `rct-message-${this.props.type}`,
       { 'dismissed': this.state.dismissed }
     )
 
@@ -109,8 +109,7 @@ export default class Message extends React.Component {
 
     let className = classnames(
       this.props.className,
-      'rui-message',
-      'message-extend',
+      'rct-message-container',
       { 'has-message': this.state.messages.length > 0 }
     )
 

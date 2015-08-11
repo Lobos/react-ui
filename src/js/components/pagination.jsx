@@ -12,9 +12,9 @@ export default class Pagination extends React.Component {
   static propTypes = {
     className: React.PropTypes.string,
     index: React.PropTypes.number,
+    jumper: React.PropTypes.bool,
     onChange: React.PropTypes.func,
     pages: React.PropTypes.number,
-    showGo: React.PropTypes.bool,
     size: React.PropTypes.number,
     style: React.PropTypes.object,
     total: React.PropTypes.number
@@ -141,18 +141,18 @@ export default class Pagination extends React.Component {
 
     let className = classnames(
       this.props.className,
-      "pagination-wrap"
+      "rct-pagination-wrap"
     )
     return (
       <div style={this.props.style} className={className}>
-        <ul className="pagination">
+        <ul className="rct-pagination">
           {items}
         </ul>
         {
-          this.props.showGo &&
+          this.props.jumper &&
           <form onSubmit={this.setInput.bind(this)}>
-            <div className="input-group">
-              <input ref="input" type="text" className="form-control" />
+            <div className="rct-input-group">
+              <input ref="input" type="text" className="rct-form-control" />
               <span onClick={this.setInput.bind(this)} className="addon">go</span>
             </div>
           </form>

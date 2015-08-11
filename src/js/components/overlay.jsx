@@ -20,7 +20,7 @@ export default class Overlay extends React.Component {
   render () {
     let className = classnames(
       this.props.className,
-      'overlay'
+      'rct-overlay'
     )
 
     return (

@@ -278,7 +278,7 @@ export default class Page extends React.Component {
           <h2 className="subhead">Children</h2>
           <p>可以使用 children 来处理一些复杂结构。<b>注意每个 FormControl 只能有一个表单组件，类型必须和 FormControl 的 <em>type</em> 相同。</b></p>
           <FormControl name="email" label="email" type="email">
-            <span className="input-group">
+            <span className="rct-input-group">
               <span className="addon"><Icon icon="email" /></span>
               <Input type="email" />
             </span>
@@ -286,7 +286,7 @@ export default class Page extends React.Component {
 
           <pre className="prettyprint">
 {`<FormControl type="email">
-  <span className="input-group">
+  <span className="rct-input-group">
     <span className="addon"><Icon icon="email" /></span>
     <Input type="email" />
   </span>

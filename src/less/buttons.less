@@ -2,7 +2,7 @@
 
 @import "mixins";
 
-:local(.button) {
+.rct-button {
   /* Structure */
   display: inline-block;
   zoom: 1;
@@ -65,28 +65,27 @@
   }
 }
 
-:local(.primary), :local(.success), :local(.error), :local(.info), :local(.warning) {
+.rct-button-primary, .rct-button-success, .rct-button-error, .rct-button-info, .rct-button-warning {
   color: #fff;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-:local(.primary) {
+.rct-button-primary {
   background-color: @primary;
 }
 
-:local(.success) {
+.rct-button-success {
   background: @green;
 }
 
-:local(.error) {
+.rct-button-error {
   background: @red;
 }
 
-:local(.warning) {
+.rct-button-warning {
   background: @orange;
 }
 
-:local(.info) {
+.rct-button-info {
   background: @teal;
 }
-

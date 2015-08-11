@@ -1,10 +1,11 @@
 'use strict'
 
+require('../../less/tables.less')
+
 import React from 'react'
 import classnames from 'classnames'
 import { substitute } from '../utils/strings'
 import TableHeader from './tableHeader.jsx'
-import styles from '../../less/tables.less'
 
 class Table extends React.Component {
   static displayName = 'Table'
@@ -308,17 +309,17 @@ class Table extends React.Component {
 
     let className = classnames(
       this.props.className,
-      styles.table,
+      'rct-table',
       {
-        'bordered': this.props.bordered,
-        'scrolled': this.props.height,
-        'striped': this.props.striped
+        'rct-bordered': this.props.bordered,
+        'rct-scrolled': this.props.height,
+        'rct-striped': this.props.striped
       }
     )
 
     return (
       <div style={this.props.style} className={className}>
-        <div className={styles.headerContainer}>
+        <div className="header-container">
           <div ref="headerContainer" style={headerStyle}>
             <table ref="header">
               <thead>{this.renderHeader()}</thead>
@@ -326,8 +327,8 @@ class Table extends React.Component {
           </div>
         </div>
 
-        <div onScroll={onBodyScroll} style={bodyStyle} className={styles.bodyContainer}>
-          <table style={tableStyle} className={styles.tableBody} ref="body">
+        <div onScroll={onBodyScroll} style={bodyStyle} className="body-container">
+          <table style={tableStyle} className="rct-table-body" ref="body">
             {this.renderBody(data)}
           </table>
         </div>

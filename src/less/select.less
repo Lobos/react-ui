@@ -1,6 +1,6 @@
 @import "mixins";
 
-.select {
+.rct-select {
   position: relative;
   min-width: 100px;
   cursor: pointer;
@@ -23,7 +23,7 @@
     .rotate(180deg);
   }
 
-  .result {
+  .rct-select-result {
     position: relative;
     cursor: pointer;
     display: inline-block;
@@ -46,7 +46,7 @@
     content: '';
   }
 
-  .options-wrap {
+  .rct-select-options-wrap {
     top: 100%;
     z-index: 1050;
     position: absolute;
@@ -55,7 +55,7 @@
     right: -13px;
   }
 
-  .options {
+  .rct-select-options {
     display: none;
     border: solid 1px #ccc;
     border-radius: 0 0 4px 4px;
@@ -96,7 +96,7 @@
     hr {
       display: block;
     }
-    .options {
+    .rct-select-options {
       .translate(0, 0);
     }
   }
@@ -105,11 +105,11 @@
     hr {
       display: none;
     }
-    .options-wrap {
+    .rct-select-options-wrap {
       top: auto;
       bottom: 100%;
     }
-    .options {
+    .rct-select-options {
       margin: 0 12px;
       border-top-width: 1px;
       .box-shadow(0px 2px 12px rgba(0,0,0,0.175));
@@ -118,7 +118,7 @@
 
     &.active {
       border-radius: 0 0 4px 4px;
-      .options {
+      .rct-select-options {
         border-radius: 4px 4px 0 0;
         .translate(0, 0);
       }

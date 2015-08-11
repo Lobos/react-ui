@@ -3,7 +3,6 @@
 // 所以用了很多匿名函数
 
 require('../../less/datetime.less')
-import styles from '../../less/form-control.less'
 
 import React from 'react'
 import classnames from 'classnames'
@@ -287,8 +286,8 @@ class Datetime extends React.Component {
   render () {
     let className = classnames(
       this.props.className,
-      'datetime',
-      styles.control,
+      'rct-datetime',
+      'rct-form-control',
       {
         'active': this.state.active && !this.props.readOnly,
         'popup': this.state.popup,

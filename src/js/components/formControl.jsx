@@ -1,10 +1,12 @@
 "use strict"
 
+require('../../less/form-control.less')
+
 import React from 'react'
 import classnames from 'classnames'
 import deepmerge from 'deepmerge'
 import { isEmpty, forEach } from '../utils/objects'
-import { nextUid, format, toArray } from '../utils/strings'
+import { format, toArray } from '../utils/strings'
 import Regs from '../utils/regs'
 import { getLang } from '../lang'
 
@@ -46,7 +48,6 @@ class FormControl extends React.Component {
   }
 
   static defaultProps = {
-    id: nextUid(),
     layout: 'inline',
     responsive: 'md',
     type: 'text'
@@ -249,7 +250,7 @@ class FormControl extends React.Component {
 
   renderInline (className) {
     if (this.props.width) {
-      className = `${className} pure-u-1 pure-u-${this.props.responsive}-${this.props.width}-24`
+      className = `${className} rct-g-1 rct-g-${this.props.responsive}-${this.props.width}-24`
     }
     return (
       <div style={this.props.style} className={className}>
@@ -266,8 +267,8 @@ class FormControl extends React.Component {
   renderStacked (className) {
     return (
       <div style={this.props.style} className={className}>
-        <label className="label" htmlFor={this.props.id}>{this.props.label}</label>
-        <div className="pure-control-inner">
+        <label className="label">{this.props.label}</label>
+        <div>
           {this.getControl()}
           {
             this.state.errorText ?
@@ -285,10 +286,10 @@ class FormControl extends React.Component {
                    ( this.props.layout === 'inline' ? 'pop' : 'block' )
     let className = classnames(
       this.props.className,
-      'pure-control-group',
-      `hint-${hintType}`,
+      'rct-control-group',
+      `rct-hint-${hintType}`,
       {
-        'has-error': this.state.hasError,
+        'rct-has-error': this.state.hasError,
         'focused': this.state.focused
       }
     )

@@ -51,7 +51,7 @@ class Checkbox extends React.Component {
 
   render () {
     return (
-      <label style={this.props.style} className={ classnames(this.props.className, "checkbox") }>
+      <label style={this.props.style} className={ classnames(this.props.className, "rct-checkbox") }>
         <input ref="input"
           type="checkbox"
           disabled={this.props.readOnly}

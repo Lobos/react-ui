@@ -1,6 +1,6 @@
 @import "mixins";
 
-:local(.control) {
+.rct-form-control {
   position: relative;
   padding: 7px 9px;
   display: inline-block;
@@ -23,8 +23,89 @@
   }
 }
 
-.has-error {
-  :local(.control) {
+.rct-has-error {
+  .rct-form-control {
     border-color: @red;
+  }
+}
+
+.rct-control-group {
+  position: relative;
+  margin-bottom: 1em;
+
+  &.rct-hint-pop, &.rct-hint-none {
+    .hint, .error {
+      display: none;
+    }
+  }
+
+  &.rct-hint-pop {
+    .hint, .error {
+      padding: 0.4em 0.6em;
+      background-color: #fff;
+      border: solid 1px #ccc;
+      position: absolute;
+      bottom: 100%;
+      border-radius: 5px;
+      left: 50%;
+      width: 220px;
+      margin: 0 0 11px -110px;
+      .box-shadow(0 2px 10px rgba(0, 0, 0, 0.2));
+      .box-sizing(border-box);
+
+      &:after, &:before {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+
+      &:after {
+        border-color: rgba(255, 255, 255, 0);
+        border-top-color: #ffffff;
+        border-width: 9px;
+        margin-left: -9px;
+      }
+
+      &:before {
+        border-color: rgba(204, 204, 204, 0);
+        border-top-color: #ccc;
+        border-width: 10px;
+        margin-left: -10px;
+      }
+    }
+
+    .error {
+      border-color: @red;
+      &:before {
+        border-top-color: @red;
+      }
+    }
+
+    &.focused {
+      .hint {
+        display: block;
+      }
+    }
+
+    &.has-error {
+      .error {
+        display: block;
+      }
+    }
+  }
+
+  &.rct-hint-block {
+    .hint, .error {
+      display: block;
+    }
+  }
+
+  &.rct-has-error {
+    color: @red;
   }
 }

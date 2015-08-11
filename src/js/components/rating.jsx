@@ -80,7 +80,7 @@ class Rating extends React.Component {
       items.push(React.addons.cloneWithProps(icon, { key: i }))
     }
 
-    return <div className="rating-bg">{items}</div>
+    return <div className="rct-rating-bg">{items}</div>
   }
 
   handleChange (val) {
@@ -110,13 +110,13 @@ class Rating extends React.Component {
           style={{cursor: 'pointer'}}
           onMouseOver={this.handleHover(i + 1)}
           onClick={this.handleChange.bind(this, i + 1)}
-          className={classnames('handle', { 'active': active, 'wink': active && wink })}>
+          className={classnames('rct-rating-handle', { 'active': active, 'wink': active && wink })}>
           {React.addons.cloneWithProps(icon)}
         </span>
       )
     }
 
-    return <div onMouseOut={this.handleLeave.bind(this)} className="rating-front">{items}</div>
+    return <div onMouseOut={this.handleLeave.bind(this)} className="rct-rating-front">{items}</div>
   }
 
   getMute () {
@@ -129,8 +129,8 @@ class Rating extends React.Component {
     }
 
     return (
-      <div style={{ width: width }} className="rating-front">
-        <div className="rating-inner">
+      <div style={{ width: width }} className="rct-rating-front">
+        <div className="rct-rating-inner">
           {items}
         </div>
       </div>
@@ -140,7 +140,7 @@ class Rating extends React.Component {
   render () {
     let className = classnames(
       this.props.className,
-      "rating"
+      "rct-rating"
     )
     return (
       <div style={this.props.style} className={className}>

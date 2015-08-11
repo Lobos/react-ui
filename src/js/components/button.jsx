@@ -1,9 +1,10 @@
 "use strict"
 
+require('../../less/buttons.less')
+
 import React from 'react'
 import classnames from 'classnames'
 import getGrid from '../higherorder/grid'
-import buttonStyles from '../../less/buttons.less'
 
 @getGrid
 class Button extends React.Component {
@@ -51,13 +52,13 @@ class Button extends React.Component {
   render() {
     let status = this.props.status
     if (status) {
-      status = buttonStyles[status]
+      status = `rct-button-${status}`
     }
 
     const className = classnames(
       this.props.className,
       this.getGrid(),
-      buttonStyles.button,
+      'rct-button',
       status
     )
 

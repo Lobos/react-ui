@@ -1,12 +1,13 @@
 'use strict'
 
+require('../../less/modal.less')
+
 import classnames from 'classnames'
 import React from 'react'
 import PubSub from 'pubsub-js'
 import Button from './button.jsx'
 import Overlay from './overlay.jsx'
 import {getLang} from '../lang'
-import modalStyle from '../../less/modal.less'
 
 const ADD_MODAL = 'id39hxqm'
 const REMOVE_MODAL = 'id39i40m'
@@ -67,7 +68,7 @@ export default class Modal extends React.Component {
 
       let header, buttons = []
       if (options.header) {
-        header = <div className={modalStyle.header}>{options.header}</div>
+        header = <div className="rct-modal-header">{options.header}</div>
       }
 
       if (options.buttons) {
@@ -89,15 +90,15 @@ export default class Modal extends React.Component {
       }
 
       let modal = (
-        <div key={i} style={style} className={modalStyle.modal}>
-          <a className={modalStyle.close} onClick={this.close.bind(this)}>&times;</a>
+        <div key={i} style={style} className="rct-modal">
+          <a className="rct-modal-close" onClick={this.close.bind(this)}>&times;</a>
           {header}
-          <div className={modalStyle.content}>
+          <div className="rct-modal-content">
             {options.content}
           </div>
           {
             buttons.length > 0 &&
-            <div className={modalStyle.footer}>
+            <div className="rct-modal-footer">
               {buttons}
             </div>
           }
@@ -110,7 +111,7 @@ export default class Modal extends React.Component {
   render () {
     let mlen = this.state.modals.length
     let className = classnames(
-      modalStyle.modalContainer,
+      "rct-modal-container",
       { active: mlen > 0 }
     )
 

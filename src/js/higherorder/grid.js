@@ -1,8 +1,7 @@
 'use strict'
 
-import { nextUid } from '../utils/strings'
-const pre = nextUid()
-require('../utils/grids').create(pre)
+const grid = 'rct-g'
+require('../utils/grids').create(grid)
 
 export default function getGrid (component) {
   component.prototype.getGrid = function (width) {
@@ -12,9 +11,9 @@ export default function getGrid (component) {
     width = width || parseInt(this.props.width)
     if (width && width <= 24) {
       if (responsive) {
-        return `${pre} ${pre}-1 ${pre}-${responsive}-${width}-24`
+        return `${grid} ${grid}-1 ${grid}-${responsive}-${width}-24`
       } else {
-        return `${pre} ${pre}-${width}-24`
+        return `${grid} ${grid}-${width}-24`
       }
     }
     return ''
