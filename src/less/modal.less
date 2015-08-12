@@ -54,6 +54,28 @@
         margin-left: 10px;
       }
     }
+
+    &.fadein {
+      @keyframes ~"modal" {
+        0% {
+          .opacity(0);
+        }
+        100% {
+          .opacity(1);
+        }
+      }  
+
+      @-webkit-keyframes ~"modal" {
+        0% {
+          .opacity(0);
+        }
+        100% {
+          .opacity(1);
+        }
+      } 
+
+      .animation(modal 0.218s ease-in);
+    }
   }
 }
 

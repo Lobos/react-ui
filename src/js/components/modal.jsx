@@ -22,7 +22,7 @@ export default class Modal extends React.Component {
   componentDidMount () {
     PubSub.subscribe(ADD_MODAL, (topic, props) => {
       modals.push(props)
-      this.setState({ modals })
+      this.setState({ modals, isAdd: true })
     })
 
     PubSub.subscribe(REMOVE_MODAL, (data) => {
@@ -30,7 +30,7 @@ export default class Modal extends React.Component {
       if (props.onClose) {
         props.onClose(data)
       }
-      this.setState({ modals })
+      this.setState({ modals, isAdd: false })
     })
 
     PubSub.subscribe(CLICKAWAY, () => {
@@ -42,6 +42,7 @@ export default class Modal extends React.Component {
   }
 
   state = {
+    isAdd: false,
     modals: modals
   }
 
@@ -54,6 +55,7 @@ export default class Modal extends React.Component {
   }
 
   renderModals () {
+    let modalLength = this.state.modals.length
     return this.state.modals.map((options, i) => {
       let style = {
         width: options.width || 500,
@@ -89,8 +91,13 @@ export default class Modal extends React.Component {
         })
       }
 
-      let modal = (
-        <div key={i} style={style} className="rct-modal">
+      let className = classnames(
+        'rct-modal',
+        { fadein: this.state.isAdd && modalLength - 1 === i }
+      )
+
+      return (
+        <div key={i} style={style} className={className}>
           <a className="rct-modal-close" onClick={this.close.bind(this)}>&times;</a>
           {header}
           <div className="rct-modal-content">
@@ -104,7 +111,6 @@ export default class Modal extends React.Component {
           }
         </div>
       )
-      return modal
     })
   }
 
