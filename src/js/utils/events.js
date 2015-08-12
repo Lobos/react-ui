@@ -1,6 +1,6 @@
 "use strict"
 
-export const on = function (el, type, callback) {
+function on (el, type, callback) {
   if(el.addEventListener) {
     el.addEventListener(type, callback)
   } else {
@@ -10,7 +10,7 @@ export const on = function (el, type, callback) {
   }
 }
 
-export const off = function (el, type, callback) {
+function off (el, type, callback) {
   if(el.removeEventListener) {
     el.removeEventListener(type, callback)
   } else {
@@ -18,7 +18,7 @@ export const off = function (el, type, callback) {
   }
 }
 
-export const once = function (el, type, callback) {
+function once (el, type, callback) {
   let typeArray = type.split(' ')
   let recursiveFunction = function(e){
     e.target.removeEventListener(e.type, recursiveFunction)
@@ -29,3 +29,5 @@ export const once = function (el, type, callback) {
     on(el, typeArray[i], recursiveFunction)
   }
 }
+
+export default { on, off, once }

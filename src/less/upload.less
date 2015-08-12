@@ -1,0 +1,24 @@
+@import "mixins.less";
+
+.@{prefix}-upload-container {
+  .@{prefix}-file {
+    line-height: normal;
+    padding: 7px 9px;
+    margin-top: 10px;
+    background-color: #f2f2f2;
+
+    .remove {
+      float: right;
+      color: #666;
+
+      &:hover, &:active {
+        color: @red;
+      }
+    }
+  }
+
+  .@{prefix}-upload-progress {
+    width: 0;
+    border-bottom: solid 2px @green;
+  }
+}

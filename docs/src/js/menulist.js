@@ -12,7 +12,8 @@ module.exports = [
     { route: 'radioGroup', text: 'RadioGroup', handler: require('./pages/radioGroup.jsx') },
     { route: 'rating', text: 'Rating', handler: require('./pages/rating.jsx') },
     { route: 'select', text: 'Select', handler: require('./pages/select.jsx') },
-    { route: 'tree', text: 'Tree', handler: require('./pages/tree.jsx') }
+    { route: 'tree', text: 'Tree', handler: require('./pages/tree.jsx') },
+    { route: 'upload', text: 'Upload', handler: require('./pages/upload.jsx') }
   ],
   [
     { route: 'table', text: 'Table', handler: require('./pages/table.jsx') },

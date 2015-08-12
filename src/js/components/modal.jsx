@@ -22,7 +22,7 @@ export default class Modal extends React.Component {
   componentDidMount () {
     PubSub.subscribe(ADD_MODAL, (topic, props) => {
       modals.push(props)
-      this.setState({ modals, isAdd: true })
+      this.setState({ modals, increase: true })
     })
 
     PubSub.subscribe(REMOVE_MODAL, (data) => {
@@ -30,7 +30,7 @@ export default class Modal extends React.Component {
       if (props.onClose) {
         props.onClose(data)
       }
-      this.setState({ modals, isAdd: false })
+      this.setState({ modals, increase: false })
     })
 
     PubSub.subscribe(CLICKAWAY, () => {
@@ -42,7 +42,7 @@ export default class Modal extends React.Component {
   }
 
   state = {
-    isAdd: false,
+    increase: false,
     modals: modals
   }
 
@@ -93,7 +93,7 @@ export default class Modal extends React.Component {
 
       let className = classnames(
         'rct-modal',
-        { fadein: this.state.isAdd && modalLength - 1 === i }
+        { fadein: this.state.increase && modalLength - 1 === i }
       )
 
       return (
