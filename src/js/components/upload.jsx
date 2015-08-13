@@ -6,25 +6,11 @@ import classnames from 'classnames'
 import React from 'react'
 import Events from '../utils/events'
 import { getLang } from '../lang'
-import { format } from '../utils/strings'
+import { nextUid, format } from '../utils/strings'
 import getGrid from '../higherorder/grid'
 import Message from './message.jsx'
 import {cssPrefix} from '../config'
 import upload from '../utils/upload'
-
-class Progress extends React.Component {
-  static displayName = 'Upload/Progress'
-
-  static propTypes = {
-    progress: React.PropTypes.number
-  }
-
-  render () {
-    return (
-      <div style={{width: this.props.progress}} className={`${cssPrefix}-upload-progress`}></div>
-    )
-  }
-}
 
 @getGrid
 export default class Upload extends React.Component {
@@ -32,29 +18,63 @@ export default class Upload extends React.Component {
 
   static propTypes = {
     accept: React.PropTypes.string,
-    action: React.PropTypes.string,
+    action: React.PropTypes.string.isRequired,
     autoUpload: React.PropTypes.bool,
     children: React.PropTypes.any,
     className: React.PropTypes.string,
+    cors: React.PropTypes.bool,
+    disabled: React.PropTypes.bool,
     fileSize: React.PropTypes.number,
     limit: React.PropTypes.number,
-    name: React.PropTypes.string,
-    style: React.PropTypes.object
+    name: React.PropTypes.string.isRequired,
+    readOnly: React.PropTypes.bool,
+    style: React.PropTypes.object,
+    withCredentials: React.PropTypes.bool
   }
 
   static defaultProps = {
     autoUpload: false,
+    cors: true,
     fileSize: 4096,
-    limit: 1
+    limit: 1,
+    withCredentials: false
   }
 
   state = {
-    files: []
+    files: {}
   }
 
+  isCompleted () {
+    let completed = true,
+        files = this.state.files
+    Object.keys(files).forEach(id => {
+      if (files[id].state !== 2) {
+        completed = false
+      }
+    })
+    return completed
+  }
+
+  getValue () {
+    let values = [],
+        files = this.state.files
+    Object.keys(files).forEach(id => {
+      values.push(files[id].value)
+    })
+    return values()
+  }
+
+  // nope
+  setValue() {}
+
   addFile () {
+    if (this.props.disabled || this.props.readOnly) {
+      return
+    }
+
     let files = this.state.files,
-        file = document.createElement('input')
+        file = document.createElement('input'),
+        autoUpload = this.props.autoUpload
     file.type = 'file'
     file.accept = this.props.accept
     file.click()
@@ -64,39 +84,85 @@ export default class Upload extends React.Component {
         Message.show(format(getLang('validation.tips.fileSize'), this.props.fileSize), 'error')
         return
       }
-      files.push({file, progress: 0})
 
-      this.uploadFile(file)
+      let id = nextUid()
+      files[id] = {
+        file,
+        name: file.files[0].name,
+        status: autoUpload ? 1 : 0
+      }
+
+      if (autoUpload) {
+        files[id].xhr = this.uploadFile(file, id)
+      }
       this.setState({ files })
     })
   }
 
-  removeFile (i) {
+  removeFile (id) {
+    if (this.props.disabled || this.props.readOnly) {
+      return
+    }
+
     let files = this.state.files
-    files.splice(i, 1)
+    let file = files[id]
+    if (file.xhr) {
+      file.xhr.abort()
+    }
+    delete files[id]
     this.setState({ files })
   }
 
-  uploadFile (file) {
-    upload({
+  uploadFile (file, id) {
+    return upload({
       url: this.props.action,
       name: this.props.name,
+      cors: this.props.cors,
+      withCredentials: this.props.withCredentials,
       file: file.files[0],
       onProgress: (e) => {
-        console.log(e.loaded, e.total, (e.loaded / e.total) * 100)
+        let progress = React.findDOMNode(this.refs[id])
+        progress.style.width = (e.loaded / e.total) * 100 + '%'
+      },
+      onLoad: (e) => {
+        let files = this.state.files
+        files[id].status = 2
+        files[id].value = e.currentTarget.responseText
+        this.setState({ files })
+      },
+      onError: () => {
+        let files = this.state.files
+        files[id].status = 3
+        this.setState({ files })
       }
     })
   }
 
+  start () {
+    let files = this.state.files
+    Object.keys(files).forEach(id => {
+      this.uploadFile(files[id].file, id)
+    })
+  }
+
   renderFiles () {
-    return this.state.files.map((file, i) => {
+    let files = this.state.files
+    return Object.keys(files).map((id, i) => {
+      let file = this.state.files[id]
+      let className = classnames(
+        `${cssPrefix}-file`,
+        {
+          'uploaded': file.status === 2,
+          'has-error': file.status === 3
+        }
+      )
       return (
         <div key={i}>
-          <div className={`${cssPrefix}-file`}>
-            <span>{file.name || file.file.files[0].name}</span>
-            <a className="remove" onClick={this.removeFile.bind(this, i)}>&times; {getLang('buttons.cancel')}</a>
+          <div className={className}>
+            <span>{file.name}</span>
+            <a className="remove" onClick={this.removeFile.bind(this, id)}>&times; {getLang('buttons.cancel')}</a>
           </div>
-          <Progress progress={file.progress} />
+          <div ref={id} className={`${cssPrefix}-upload-progress`}></div>
         </div>
       )
     })
@@ -110,9 +176,22 @@ export default class Upload extends React.Component {
     )
     return (
       <div className={className} style={this.props.style}>
-        { this.state.files.length < this.props.limit && <div onClick={this.addFile.bind(this)}>{this.props.children}</div> }
+        { Object.keys(this.state.files).length < this.props.limit && <div onClick={this.addFile.bind(this)}>{this.props.children}</div> }
         { this.renderFiles() }
       </div>
     )
   }
 }
+
+require('./formControl.jsx').register(
+
+  'upload',
+
+  function (props) {
+    return <Upload {...props} />
+  },
+
+  Upload,
+
+  'array'
+)

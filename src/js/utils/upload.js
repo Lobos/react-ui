@@ -16,16 +16,20 @@ function createCORSRequest(method, url) {
   return xhr
 }
 
-function ajaxUpload({url, name, file, onProgress}) {
+function ajaxUpload({url, name, cors, file, onProgress, onLoad, onError, withCredentials}) {
   let data = new FormData()
   data.append(name, file)
 
-  let xhr = createCORSRequest('post', url)
-  //xhr.withCredentials = true
-  xhr.upload.addEventListener('progress', onProgress)
+  let xhr = createCORSRequest('post', url, cors)
+  xhr.withCredentials = withCredentials
+  xhr.upload.addEventListener('progress', onProgress, false)
+  xhr.onload = onLoad
+  xhr.onerror = onError
   xhr.send(data)
+
+  return xhr
 }
 
 export default function (args) {
-  ajaxUpload(args)
+  return ajaxUpload(args)
 }

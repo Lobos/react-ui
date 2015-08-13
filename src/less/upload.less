@@ -1,6 +1,12 @@
 @import "mixins.less";
 
 .@{prefix}-upload-container {
+  .@{prefix}-upload-progress {
+    width: 0;
+    border-bottom: solid 2px @green;
+    .transition(0.2s);
+  }
+
   .@{prefix}-file {
     line-height: normal;
     padding: 7px 9px;
@@ -15,10 +21,20 @@
         color: @red;
       }
     }
-  }
 
-  .@{prefix}-upload-progress {
-    width: 0;
-    border-bottom: solid 2px @green;
+    &.has-error {
+      background-color: @red;
+    }
+
+    &.uploaded {
+      background-color: @green;
+    }
+
+    &.has-error, &.uploaded {
+      color: #fff;
+      .remove, .remove:hover, .remove:active {
+        color: #fff;
+      }
+    }
   }
 }
