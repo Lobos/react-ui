@@ -63,7 +63,7 @@ export default class Page extends React.Component {
   value={string|array}
 />`}
         </pre>
-        <p><a href="#/dataSource">dataSource 参加这里</a></p>
+        <p><a href="#/dataSource">dataSource 参见这里</a></p>
 
         <h2 className="subhead">Example</h2>
         <p>

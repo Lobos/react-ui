@@ -57,49 +57,26 @@ export default class Page extends React.Component {
           </p>
           <pre className="prettyprint">{'<Button><Icon icon="home" /> Home</Button>\r<Button><Icon icon="cog" /> Settings</Button>'}</pre>
 
-          <h2 className="subhead">扩展</h2>
-          <p>Button 默认会添加 <em>button-extend</em> 类，如果需要给所有Button添加样式（如圆角，更改padding等），定义 <em>button-extend</em> 即可。</p>
-          <p><em>注意：本文档里的按钮受 <em>button-extend</em> 影响，圆角已改变，purecss圆角只有2像素</em></p>
-
-          <pre className="prettyprint">{
-`.button-extend {
-  border-radius: 4px;
-}
-.button-success, .button-error, .button-warning, .button-info {
-  color: #fff;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-}
-.button-success {
-  background: rgb(28, 184, 65);
-}
-.button-error {
-  background: rgb(202, 60, 60);
-}
-.button-warning {
-  background: rgb(223, 117, 20);
-}
-.button-info {
-  background: rgb(66, 184, 221);
-}
-.button-large {
-  font-size: 120%;
-}`
-          }</pre>
-
+          <h2 className="subhead">Status</h2>
           <p>
+            <Button status="primary">Primary Button</Button>{' '}
             <Button status="success">Success Button</Button>{' '}
             <Button status="warning">Warning Button</Button>{' '}
             <Button status="error">Error Button</Button>{' '}
-            <Button status="info">Info Button</Button><br />
+            <Button status="info">Info Button</Button>{' '}
+            <Button>Normal Button</Button>
           </p>
 
           <pre className="prettyprint">
-{`<Button status="success">Success Button</Button>
+{`<Button status="primary">Primary Button</Button>
+<Button status="success">Success Button</Button>
 <Button status="warning">Warning Button</Button>
 <Button status="error">Error Button</Button>
-<Button status="info">Info Button</Button>`}
+<Button status="info">Info Button</Button>
+<Button>Normal Button</Button>
+`}
           </pre>
-          <p>也可以直接添加className</p>
+          <p>需要扩展可以添加className</p>
           <p>
             <Button className="button-large">Large Button</Button>
           </p>
@@ -115,14 +92,14 @@ export default class Page extends React.Component {
           <p>两个实例方法 <em>enable</em>（启用） 和 <em>disable</em> （禁用），可以传入一个参数（字符串或者element）替换按钮内容</p>
           <p>
             <Button ref="button">Button</Button>{' '}
-            <label className="pure-checkbox">
+            <label>
               <input onClick={this.disableExample.bind(this)} type="checkbox" /> 禁用
             </label>
           </p>
 
           <pre className="prettyprint">
 {`<Button ref="button">Button</Button>
-<label className="pure-checkbox">
+<label>
   <input onClick={this.disableExample} type="checkbox" /> 禁用
 </label>`}
           </pre>

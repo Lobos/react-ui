@@ -4,7 +4,6 @@ import React from 'react'
 import Datetime from './datetime.jsx'
 import Input from './input.jsx'
 import Select from './select.jsx'
-import styles from '../../less/filter.less'
 
 const DEFAULT_OPS = ['=', 'like', '>', '>=', '<', '<=', 'in', 'not in']
 
@@ -143,7 +142,7 @@ export default class FilterItem extends React.Component {
       optionsIndex = optionsIndex.toString()
     }
     return (
-      <div className={styles.filterItem}>
+      <div className="rct-filter-item">
         <Select style={{width: 140}}
           value={optionsIndex}
           onChange={this.onLabelChange.bind(this)}

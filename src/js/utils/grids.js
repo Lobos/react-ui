@@ -27,7 +27,7 @@ function gridUnit(pre, responsive) {
   return text.join('')
 }
 
-export function create (pre = 'grid') {
+export function create (pre = 'rct-g') {
   let style = document.createElement('style')
   let text = []
   style.type = 'text/css'

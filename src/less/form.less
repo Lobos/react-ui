@@ -1,89 +1,21 @@
-@import (css) "../../node_modules/purecss/build/forms.css";
 @import "mixins";
 
-.pure-control-group {
-  position: relative;
-  margin-bottom: 1em;
-
-  &.hint-pop, &.hint-none {
-    .hint, .error {
-      display: none;
-    }
+.rct-form {
+  input[readonly], textarea[readonly] {
+    background-color: #eee; /* menu hover bg color */
+    color: #777; /* menu text color */
+    border-color: #ccc;
   }
 
-  &.hint-pop {
-    .hint, .error {
-      padding: 0.4em 0.6em;
-      background-color: #fff;
-      border: solid 1px #ccc;
-      position: absolute;
-      bottom: 100%;
-      border-radius: 5px;
-      left: 50%;
-      width: 220px;
-      margin: 0 0 11px -110px;
-      .box-shadow(0 2px 10px rgba(0, 0, 0, 0.2));
-      .box-sizing(border-box);
-
-      &:after, &:before {
-        top: 100%;
-        left: 50%;
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-      }
-
-      &:after {
-        border-color: rgba(255, 255, 255, 0);
-        border-top-color: #ffffff;
-        border-width: 9px;
-        margin-left: -9px;
-      }
-
-      &:before {
-        border-color: rgba(204, 204, 204, 0);
-        border-top-color: #ccc;
-        border-width: 10px;
-        margin-left: -10px;
-      }
-    }
-
-    .error {
-      border-color: @red;
-      &:before {
-        border-top-color: @red;
-      }
-    }
-
-    &.focused {
-      .hint {
-        display: block;
-      }
-    }
-
-    &.has-error {
-      .error {
-        display: block;
-      }
-    }
-  }
-
-  &.hint-block {
-    .hint, .error {
-      display: block;
-    }
-  }
-
-  &.has-error {
-    color: @red;
+  input[disabled], textarea[disabled] {
+    cursor: not-allowed;
+    background-color: #eaeded;
+    color: #cad2d3;
   }
 }
 
-.pure-form-aligned {
-  .pure-control-group {
+.rct-form-aligned {
+  .rct-control-group {
     position: relative;
     padding-left: 11em;
     margin-bottom: 1em;
@@ -95,16 +27,16 @@
       width: auto;
     }
 
-    .checkbox-group, .radio-group {
-      padding-top: 0.7em;
+    .rct-checkbox-group, .rct-radio-group {
+      padding-top: 0.4em;
 
-      &.inline label {
+      &.rct-inline label {
         display: inline-block;
       }
     }
 
-    .rating {
-      margin-top: 0.7em;
+    .rct-rating {
+      margin-top: 0.4em;
     }
 
     & > .label {
@@ -112,25 +44,25 @@
       text-align: right;
       width: 10em;
       left: 0;
-      top: 0.7em;
-    }
-
-    .form-control {
-      margin: 0.25em 0;
+      top: 0.5em;
     }
   }
 }
 
-.pure-form-inline {
-  .pure-control-group {
+.rct-form-inline {
+  .rct-control-group {
     display: inline-block;
     margin-right: 0.6em;
+  }
+
+  .rct-form-control {
+    vertical-align: middle;
   }
 }
 
 @media (max-width: 567px) {
-.pure-form-aligned {
-  .pure-control-group {
+.rct-form-aligned {
+  .rct-control-group {
     padding-left: 0;
     & > .label {
       position: relative;
@@ -140,8 +72,8 @@
   }
 }
 
-.pure-form-inline {
-  .pure-control-group {
+.rct-form-inline {
+  .rct-control-group {
     display: block;
   }
 }

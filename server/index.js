@@ -84,6 +84,20 @@ router.post('/build', koaBody, function *() {
   this.redirect(yield zip(key))
 })
 
+router.options('/upload', function *() {
+  this.set('Access-Control-Allow-Origin', this.request.header.origin)
+  this.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+  this.set('Access-Control-Allow-Credentials', true)
+  this.body = ''
+})
+
+router.post('/upload', koaBody, function *() {
+  this.set('Access-Control-Allow-Origin', this.request.header.origin)
+  this.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+  this.set('Access-Control-Allow-Credentials', true)
+  this.body = Date.now()
+})
+
 router.get('/components', function *() {
   this.body = components
 })

@@ -100,8 +100,8 @@ class CheckboxGroup extends React.Component {
   render () {
     let className = classnames(
       this.props.className,
-      'checkbox-group',
-      { 'inline': this.props.inline }
+      'rct-checkbox-group',
+      { 'rct-inline': this.props.inline }
     )
     let values = this.state.value
 

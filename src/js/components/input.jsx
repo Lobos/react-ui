@@ -1,7 +1,7 @@
 'use strict'
 
 require('../../less/input.less')
-import styles from '../../less/form-control.less'
+require('../../less/form-control.less')
 
 import React from 'react'
 import classnames from 'classnames'
@@ -69,7 +69,7 @@ class Input extends React.Component {
     const props = {
       className: classnames(
         this.props.className,
-        styles.control,
+        'rct-form-control',
         this.getGrid()
       ),
       onChange: this.handleChange.bind(this),

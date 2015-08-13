@@ -218,7 +218,7 @@ class Tree extends React.Component {
 
     let className = classnames(
       this.props.className,
-      'tree',
+      'rct-tree',
       { readonly: this.props.readOnly }
     )
 

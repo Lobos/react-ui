@@ -54,6 +54,10 @@ publish: webpack --config webpack-publish.config.js [--min]
 - [Modal](http://lobos.github.io/react-ui/#/modal)
 
 # Change log
+v0.3.5
+
+ - css 去除 local，使用 rct- 前缀
+
 v0.3.4
 
  - 加入Modal

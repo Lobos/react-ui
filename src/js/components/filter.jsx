@@ -1,13 +1,13 @@
 'use strict'
 
+require('../../less/filter.less')
+
 import React from 'react'
 import classnames from 'classnames'
 //import { forEach } from '../utils/objects'
 import Button from './button.jsx'
 import FilterItem from './filterItem.jsx'
 import clickAway from '../higherorder/clickaway'
-import filterStyles from '../../less/filter.less'
-import formControlStyles from '../../less/form-control.less'
 import {getLang} from '../lang'
 
 @clickAway
@@ -148,19 +148,19 @@ export default class Filter extends React.Component {
   render () {
     let className = classnames(
       this.props.className,
-      filterStyles.filter,
-      formControlStyles.control,
-      this.state.active ? filterStyles.active : ''
+      'rct-filter',
+      'rct-form-control',
+      this.state.active ? 'active' : ''
     )
     return (
       <div style={this.props.style} className={className}>
-        <div onClick={this.open.bind(this)} className={filterStyles.result}>
+        <div onClick={this.open.bind(this)} className="rct-filter-result">
           {this.state.resultText}
           <i className="search" />
         </div>
 
-        <div className={filterStyles.optionsWrap}>
-          <div ref="options" className={filterStyles.options}>
+        <div className="rct-filter-options-wrap">
+          <div ref="options" className="rct-filter-options">
 
             {this.renderFilters()}
 

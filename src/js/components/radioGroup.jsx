@@ -79,8 +79,8 @@ class RadioGroup extends React.Component {
   render () {
     let className = classnames(
       this.props.className,
-      'radio-group',
-      { 'inline': this.props.inline }
+      'rct-radio-group',
+      { 'rct-inline': this.props.inline }
     )
     let items = this.state.data.map(function (item, i) {
       return (

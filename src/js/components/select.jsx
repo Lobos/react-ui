@@ -1,7 +1,7 @@
 'use strict'
 
 require('../../less/select.less')
-import styles from '../../less/form-control.less'
+require('../../less/form-control.less')
 
 import React from 'react'
 import classnames from 'classnames'
@@ -235,8 +235,8 @@ class Select extends React.Component {
     let className = classnames(
       this.props.className,
       this.getGrid(),
-      styles.control,
-      'select',
+      'rct-form-control',
+      'rct-select',
       {
         active: active,
         readonly: this.props.readOnly,
@@ -271,7 +271,7 @@ class Select extends React.Component {
       if (d.$checked) {
         if (this.props.mult) {
           result.push(
-            <div key={i} className="result"
+            <div key={i} className="rct-select-result"
               onClick={this.handleRemove.bind(this, i)}
               dangerouslySetInnerHTML={{__html: d.$result}}
             />
@@ -296,9 +296,9 @@ class Select extends React.Component {
     return (
       <div onClick={this.open.bind(this)} style={this.props.style} className={className}>
         { result.length > 0 ? result : <span className="placeholder">{placeholder}&nbsp;</span> }
-        <div className="options-wrap">
+        <div className="rct-select-options-wrap">
           <hr />
-          <div ref="options" className="options">
+          <div ref="options" className="rct-select-options">
             {filter}
             <ul>{options}</ul>
           </div>

@@ -1,6 +1,6 @@
 @import "mixins";
 
-.rui-message {
+.rct-message-container {
   position: fixed;
   display: none;
   z-index: 1050;
@@ -18,12 +18,12 @@
     display: block;
   }
 
-  .overlay {
+  .rct-overlay {
     left: 0;
     .opacity(0.01);
   }
 
-  .message {
+  .rct-message {
     position: relative;
     z-index: 1051;
     padding: 20px 40px 20px 20px;
@@ -56,25 +56,25 @@
     }
   }
 
-  .message-success {
+  .rct-message-success {
     background: @green;
   }
 
-  .message-error {
+  .rct-message-error {
     background: @red;
   }
 
-  .message-warning {
+  .rct-message-warning {
     background: @orange;
   }
 
-  .message-info {
+  .rct-message-info {
     background: @teal;
   }
 }
 
 @media (max-width: 767px) {
-  .rui-message {
+  .rct-message-container {
     bottom: 0;
     width: 100%;
 
@@ -84,7 +84,7 @@
       left: 0;
     }
 
-    .message {
+    .rct-message {
       border-radius: 0;
       margin-bottom: 0;
     }

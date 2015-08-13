@@ -160,11 +160,11 @@ export default class Form extends React.Component {
   render () {
     let className = classnames(
       this.props.className,
-      'pure-form',
+      'rct-form',
       {
-        'pure-form-aligned': this.props.layout === 'aligned',
-        'pure-form-inline': this.props.layout === 'inline',
-        'pure-form-stacked': this.props.layout === 'stacked'
+        'rct-form-aligned': this.props.layout === 'aligned',
+        'rct-form-inline': this.props.layout === 'inline',
+        'rct-form-stacked': this.props.layout === 'stacked'
       }
     )
 

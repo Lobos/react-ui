@@ -35,41 +35,7 @@ function loadersByExtension(obj) {
 module.exports = function(options) {
   var minimize = options.minimize || process.argv.indexOf('--min') > 0
 	var entry = options.entry
-	var loaders = {
-		"jsx": options.hotComponents ? ["react-hot-loader", "babel-loader?stage=0"] : "babel-loader?stage=0",
-		"js": {
-			loader: "babel-loader?stage=0"//, include: path.join(__dirname, "app")
-		},
-    //,
-    //"json": "json-loader",
-		"json": "file-loader?name=./json/[name].json",
-		//"txt": "raw-loader",
-    "png|jpg|jpeg|gif|svg": "url-loader?limit=10000&name=./images/[name].[ext]",
-		//"png|jpg|jpeg|gif": "file-loader?name=./images/[name].[ext]",
-		"ttf|eot|woff|woff2|otf|svg": "file-loader?name=./font/[name].[ext]"
-		//"wav|mp3": "file-loader",
-		//"html": "html-loader",
-		//"md|markdown": ["html-loader", "markdown-loader"]
-	}
-	var cssLoader = minimize ? "css-loader?localIdentName=[hash:base64:8]" : "css-loader?localIdentName=[path][name]---[local]---[hash:base64:5]"
-	var stylesheetLoaders = {
-		"css": cssLoader,
-		"less": [cssLoader, "less-loader"]
-	}
-	var additionalLoaders = [
-    { test: /(\.js|\.jsx)$/, loader: 'eslint-loader', exclude: /(node_modules|\.css$|\.less$)/ }
-	]
-	var alias = {
 
-	}
-	var aliasLoader = {
-
-	}
-	var externals = [
-
-	]
-	var modulesDirectories = ["web_modules", "node_modules"]
-	var extensions = ["", ".web.js", ".js", ".jsx"]
 	var output = {
 		path: options.path || "./",
 		filename: options.filename || "js/[name].js",
@@ -79,14 +45,30 @@ module.exports = function(options) {
     library: options.library,
 		libraryTarget: options.libraryTarget || "umd"
 	}
-	var excludeFromStats = [
-		/node_modules[\\\/]react(-router)?[\\\/]/,
-		/node_modules[\\\/]items-store[\\\/]/
-	]
-	var plugins = [
-		new webpack.PrefetchPlugin("react"),
-		new webpack.PrefetchPlugin("react/lib/ReactComponentBrowserEnvironment")
-	]
+
+
+  // loaders ===========================================================================
+	var cssLoader = minimize ? "css-loader?localIdentName=[hash:base64:8]" : "css-loader?localIdentName=[path][name]---[local]---[hash:base64:5]",
+      lessLoader = cssLoader + '!less-loader'
+
+	var loaders = loadersByExtension({
+		"jsx": options.hotComponents ? ["react-hot-loader", "babel-loader?stage=0"] : "babel-loader?stage=0",
+		"js": "babel-loader?stage=0", // include: path.join(__dirname, "app")
+		"json": "file-loader?name=./json/[name].json",
+		//"txt": "raw-loader",
+    "png|jpg|jpeg|gif|svg": "url-loader?limit=10000&name=./images/[name].[ext]",
+		"ttf|eot|woff|woff2|otf|svg": "file-loader?name=./font/[name].[ext]",
+		//"wav|mp3": "file-loader",
+		//"html": "html-loader",
+		//"md|markdown": ["html-loader", "markdown-loader"]
+    "css": options.separateStylesheet ? ExtractTextPlugin.extract("style-loader", cssLoader, { publicPath: '.' }) : "style-loader!" + cssLoader,
+    "less": options.separateStylesheet ? ExtractTextPlugin.extract("style-loader", lessLoader, { publicPath: '.' }) : "style-loader!" + lessLoader
+	})
+
+  loaders.push({ test: /(\.js|\.jsx)$/, loader: 'eslint-loader', exclude: /(node_modules|\.css$|\.less$)/ })
+
+  // externals ========================================================================
+	var externals = []
 
   _.mapObject({"react":"React", "reflux":"Reflux", "react-router":"ReactRouter"}, function (val, key) {
     var ext = {}
@@ -94,18 +76,16 @@ module.exports = function(options) {
     externals.push(ext)
   })
 
-	Object.keys(stylesheetLoaders).forEach(function(ext) {
-		var stylesheetLoader = stylesheetLoaders[ext]
-		if(Array.isArray(stylesheetLoader)) stylesheetLoader = stylesheetLoader.join("!")
-		if(options.separateStylesheet) {
-			stylesheetLoaders[ext] = ExtractTextPlugin.extract("style-loader", stylesheetLoader, { publicPath: '.' })
-		} else {
-			stylesheetLoaders[ext] = "style-loader!" + stylesheetLoader
-		}
-	})
+  // plugins ==========================================================================
+	var plugins = [
+		new webpack.PrefetchPlugin("react"),
+		new webpack.PrefetchPlugin("react/lib/ReactComponentBrowserEnvironment")
+	]
+
 	if(options.separateStylesheet) {
 		plugins.push(new ExtractTextPlugin("css/[name].css"))
 	}
+
 	if(minimize) {
 		plugins.push(
 			new webpack.optimize.UglifyJsPlugin({
@@ -130,7 +110,7 @@ module.exports = function(options) {
 		output: output,
 		target: options.target || "web",
 		module: {
-			loaders: loadersByExtension(loaders).concat(loadersByExtension(stylesheetLoaders)).concat(additionalLoaders)
+			loaders: loaders
 		},
 		devtool: options.devtool,
 		debug: options.debug,
@@ -139,7 +119,10 @@ module.exports = function(options) {
 		devServer: {
 			stats: {
 				cached: false,
-				exclude: excludeFromStats
+				exclude: [
+          /node_modules[\\\/]react(-router)?[\\\/]/,
+          /node_modules[\\\/]items-store[\\\/]/
+        ]
 			}
 		}
 	}

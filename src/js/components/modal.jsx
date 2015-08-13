@@ -1,12 +1,13 @@
 'use strict'
 
+require('../../less/modal.less')
+
 import classnames from 'classnames'
 import React from 'react'
 import PubSub from 'pubsub-js'
 import Button from './button.jsx'
 import Overlay from './overlay.jsx'
 import {getLang} from '../lang'
-import modalStyle from '../../less/modal.less'
 
 const ADD_MODAL = 'id39hxqm'
 const REMOVE_MODAL = 'id39i40m'
@@ -21,7 +22,7 @@ export default class Modal extends React.Component {
   componentDidMount () {
     PubSub.subscribe(ADD_MODAL, (topic, props) => {
       modals.push(props)
-      this.setState({ modals })
+      this.setState({ modals, increase: true })
     })
 
     PubSub.subscribe(REMOVE_MODAL, (data) => {
@@ -29,7 +30,7 @@ export default class Modal extends React.Component {
       if (props.onClose) {
         props.onClose(data)
       }
-      this.setState({ modals })
+      this.setState({ modals, increase: false })
     })
 
     PubSub.subscribe(CLICKAWAY, () => {
@@ -41,6 +42,7 @@ export default class Modal extends React.Component {
   }
 
   state = {
+    increase: false,
     modals: modals
   }
 
@@ -53,6 +55,7 @@ export default class Modal extends React.Component {
   }
 
   renderModals () {
+    let modalLength = this.state.modals.length
     return this.state.modals.map((options, i) => {
       let style = {
         width: options.width || 500,
@@ -67,7 +70,7 @@ export default class Modal extends React.Component {
 
       let header, buttons = []
       if (options.header) {
-        header = <div className={modalStyle.header}>{options.header}</div>
+        header = <div className="rct-modal-header">{options.header}</div>
       }
 
       if (options.buttons) {
@@ -88,29 +91,33 @@ export default class Modal extends React.Component {
         })
       }
 
-      let modal = (
-        <div key={i} style={style} className={modalStyle.modal}>
-          <a className={modalStyle.close} onClick={this.close.bind(this)}>&times;</a>
+      let className = classnames(
+        'rct-modal',
+        { fadein: this.state.increase && modalLength - 1 === i }
+      )
+
+      return (
+        <div key={i} style={style} className={className}>
+          <a className="rct-modal-close" onClick={this.close.bind(this)}>&times;</a>
           {header}
-          <div className={modalStyle.content}>
+          <div className="rct-modal-content">
             {options.content}
           </div>
           {
             buttons.length > 0 &&
-            <div className={modalStyle.footer}>
+            <div className="rct-modal-footer">
               {buttons}
             </div>
           }
         </div>
       )
-      return modal
     })
   }
 
   render () {
     let mlen = this.state.modals.length
     let className = classnames(
-      modalStyle.modalContainer,
+      "rct-modal-container",
       { active: mlen > 0 }
     )
 

@@ -24,7 +24,7 @@ export default class Radio extends React.Component {
 
   render () {
     return (
-      <label style={this.props.style} className="radio">
+      <label style={this.props.style} className="rct-radio">
         <input ref="input"
           type="radio"
           disabled={this.props.readOnly}

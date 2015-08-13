@@ -10,6 +10,7 @@ export const RadioGroup = require('./components/radioGroup.jsx')
 export const Rating = require('./components/rating.jsx')
 export const Select = require('./components/select.jsx')
 export const Tree = require('./components/tree.jsx')
+export const Upload = require('./components/upload.jsx')
 export const Button = require('./components/button.jsx')
 
 export const FormControl = require('./components/formControl.jsx')

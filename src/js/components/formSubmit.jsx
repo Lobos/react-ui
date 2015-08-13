@@ -23,7 +23,7 @@ export default class FormSubmit extends React.Component {
     }
 
     return (
-      <div style={this.props.style} className="pure-control-group">
+      <div style={this.props.style} className="rct-control-group">
         <Button type="submit"
           status='primary'
           onClick={this.props.onClick}
