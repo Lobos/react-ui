@@ -38,7 +38,7 @@ export default class Page extends React.Component {
 
           <h2 className="subhead">Example</h2>
           <div>
-            <Upload ref="upload" autoUpload={true} width={12} name="test" action="http://sfexpressbg.goldfish.dev:8080/upload" accept="image/*" limit={3}>
+            <Upload ref="upload" autoUpload={true} width={12} name="test" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3}>
               <Button><Icon icon="upload" /> 选择文件</Button>
             </Upload>
           </div>
