@@ -18,8 +18,8 @@ export default class Page extends React.Component {
 
         <div className="content">
           <div>
-            <Upload width={12} name="test" action="http://216.189.159.94:8080/" accept="image/*" limit={3}>
-              <Button><Icon icon="upload" /> 上传图片</Button>
+            <Upload width={12} name="test" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3}>
+              <Button><Icon icon="upload" /> 选择文件</Button>
             </Upload>
           </div>
         </div>

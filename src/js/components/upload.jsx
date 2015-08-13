@@ -64,10 +64,9 @@ export default class Upload extends React.Component {
         Message.show(format(getLang('validation.tips.fileSize'), this.props.fileSize), 'error')
         return
       }
-      files.push(file)
+      files.push({file, progress: 0})
 
       this.uploadFile(file)
-
       this.setState({ files })
     })
   }
@@ -82,7 +81,7 @@ export default class Upload extends React.Component {
     upload({
       url: this.props.action,
       name: this.props.name,
-      file,
+      file: file.files[0],
       onProgress: (e) => {
         console.log(e.loaded, e.total, (e.loaded / e.total) * 100)
       }
@@ -94,10 +93,10 @@ export default class Upload extends React.Component {
       return (
         <div key={i}>
           <div className={`${cssPrefix}-file`}>
-            <span>{file.name || file.files[0].name}</span>
+            <span>{file.name || file.file.files[0].name}</span>
             <a className="remove" onClick={this.removeFile.bind(this, i)}>&times; {getLang('buttons.cancel')}</a>
           </div>
-          <Progress />
+          <Progress progress={file.progress} />
         </div>
       )
     })
