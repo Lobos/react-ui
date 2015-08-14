@@ -20,8 +20,8 @@ export default class Upload extends React.Component {
     accept: React.PropTypes.string,
     action: React.PropTypes.string.isRequired,
     autoUpload: React.PropTypes.bool,
-    children: React.PropTypes.any,
     className: React.PropTypes.string,
+    content: React.PropTypes.object,
     cors: React.PropTypes.bool,
     disabled: React.PropTypes.bool,
     fileSize: React.PropTypes.number,
@@ -48,7 +48,7 @@ export default class Upload extends React.Component {
     let completed = true,
         files = this.state.files
     Object.keys(files).forEach(id => {
-      if (files[id].state !== 2) {
+      if (files[id].status !== 2) {
         completed = false
       }
     })
@@ -59,9 +59,13 @@ export default class Upload extends React.Component {
     let values = [],
         files = this.state.files
     Object.keys(files).forEach(id => {
-      values.push(files[id].value)
+      if (this.props.autoUpload) {
+        values.push(files[id].value)
+      } else {
+        values.push(files[id].file.files[0])
+      }
     })
-    return values()
+    return values
   }
 
   // nope
@@ -176,7 +180,7 @@ export default class Upload extends React.Component {
     )
     return (
       <div className={className} style={this.props.style}>
-        { Object.keys(this.state.files).length < this.props.limit && <div onClick={this.addFile.bind(this)}>{this.props.children}</div> }
+        { Object.keys(this.state.files).length < this.props.limit && <div onClick={this.addFile.bind(this)}>{this.props.content}</div> }
         { this.renderFiles() }
       </div>
     )

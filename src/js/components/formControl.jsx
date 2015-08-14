@@ -156,6 +156,11 @@ class FormControl extends React.Component {
       return false
     }
 
+    if (this.refs.control.isCompleted && !this.refs.control.isCompleted()) {
+      this.validateFail()
+      return false
+    }
+
     this.validatePass()
     return true
   }

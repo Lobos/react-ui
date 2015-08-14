@@ -2,7 +2,7 @@
 
 import React from 'react'
 import prettify from '../prettify'
-let {FormControl, Input, Icon, Grid, dataSource} = global.uiRequire()
+let {FormControl, Button, Input, Icon, Grid, dataSource} = global.uiRequire()
 
 const gridProps = {
   width: 12,
@@ -270,6 +270,38 @@ export default class Page extends React.Component {
   type="rating"
   icons={[<Icon icon="favorite-outline" style={{color: 'red'}} />, <Icon icon="favorite" style={{color: 'red'}} />]}
  />`}
+                </pre>
+              </Grid>
+            </div>
+          </div>
+
+          <div>
+            <p><em><b>upload</b></em> => <a href="#/upload">Upload</a></p>
+            <div className="split">
+              <Grid {...gridProps}>
+                <FormControl
+                  type="upload"
+                  autoUpload={true}
+                  width={24}
+                  name="test"
+                  action="http://216.189.159.94:8080/upload"
+                  accept="image/*"
+                  limit={3}
+                  content={<Button><Icon icon="upload" /> 选择文件</Button>} />
+              </Grid>
+
+              <Grid {...gridProps}>
+                <pre className="prettyprint">
+{`<FormControl
+  type="upload"
+  autoUpload={true}
+  width={24}
+  name="test"
+  action="http://216.189.159.94:8080/upload"
+  accept="image/*"
+  limit={3}
+  content={<Button><Icon icon="upload" /> 选择文件</Button>}
+/>`}
                 </pre>
               </Grid>
             </div>

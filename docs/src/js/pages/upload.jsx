@@ -23,6 +23,7 @@ export default class Page extends React.Component {
   action={string}         // 服务端地址，必填
   autoUpload={bool}       // 选中文件后自动上传，默认值为 false
   className={string}      //
+  content={element}       // 显示内容
   disabled={bool}         // 禁用，默认为 false
   fileSize={number}       // 单个文件最大尺寸，单位 KB
   limit={number}          // 最大上传文件个数，默认为 1
@@ -31,16 +32,12 @@ export default class Page extends React.Component {
   style={object}
   width={number}          // grid 宽度 1-24
   withCredentials={bool}  // xhr2 withCredentials
->
-  {children}
-</Upload>`}
+/>`}
           </pre>
 
           <h2 className="subhead">Example</h2>
           <div>
-            <Upload ref="upload" autoUpload={true} width={12} name="test" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3}>
-              <Button><Icon icon="upload" /> 选择文件</Button>
-            </Upload>
+            <Upload ref="upload" autoUpload={true} width={12} name="test" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3} content={<Button><Icon icon="upload" /> 选择文件</Button>} />
           </div>
           <pre className="prettyprint">
 {`<Upload
@@ -49,9 +46,9 @@ export default class Page extends React.Component {
   name="test"
   action="http://216.189.159.94:8080/upload"
   accept="image/*"
-  limit={3}>
-  <Button><Icon icon="upload" /> 选择文件</Button>
-</Upload>`}
+  limit={3}
+  content={<Button><Icon icon="upload" /> 选择文件</Button>}
+/>`}
           </pre>
         </div>
       </div>
