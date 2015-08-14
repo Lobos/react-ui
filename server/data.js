@@ -41,6 +41,11 @@ module.exports = {
     dependencies: [ 'FormControl' ]
   },
 
+  Upload: {
+    path: './components/upload.jsx',
+    dependencies: [ 'FormControl' ]
+  },
+
   FormControl: {
     path: './components/formControl.jsx'
   },
