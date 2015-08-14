@@ -139,7 +139,10 @@ export default class Form extends React.Component {
     }
 
     event.preventDefault()
+    this.onSubmit()
+  }
 
+  onSubmit () {
     this.setState({ locked: true })
 
     let success = this.validate()
@@ -154,6 +157,7 @@ export default class Form extends React.Component {
 
     if (this.props.onSubmit) {
       this.props.onSubmit(this.getValue())
+      this.setState({ locked: false })
     }
   }
 

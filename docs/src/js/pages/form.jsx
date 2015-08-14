@@ -2,7 +2,7 @@
 
 import React from 'react'
 import prettify from '../prettify'
-const {Form, FormControl, FormSubmit, Icon, Input, RadioGroup, dataSource} = global.uiRequire()
+const {Form, FormControl, Button, FormSubmit, Icon, Input, RadioGroup, dataSource} = global.uiRequire()
 
 @prettify
 export default class Page extends React.Component {
@@ -83,6 +83,7 @@ export default class Page extends React.Component {
             <FormControl width={12} name="select" label="select" type="select" data={dataSource("json/countries.json")} mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
             <FormControl name="tree" selectAble={true} label="tree" type="tree" data={dataSource("json/tree.json")} textTpl='{text}({id})' valueTpl="{id}" />
             <FormControl width={18} name="textarea" label="textarea" rows={5} type="textarea" />
+            <FormControl label="upload" type="upload" autoUpload={true} width={12} name="upload" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3} content={<Button><Icon icon="upload" /> 选择文件</Button>} />
 
             <FormSubmit>
               <span>提交</span>
@@ -113,6 +114,7 @@ export default class Page extends React.Component {
   <FormControl width={12} name="select" label="select" type="select" data={dataSource("json/countries.json")} mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
   <FormControl name="tree" selectAble={true} label="tree" type="tree" data={dataSource("json/tree.json")} textTpl='{text}({id})' valueTpl="{id}" />
   <FormControl width={18} name="textarea" label="textarea" rows={5} type="textarea" />
+  <FormControl label="upload" type="upload" autoUpload={true} width={12} name="upload" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3} content={<Button><Icon icon="upload" /> 选择文件</Button>} />
 
   <FormSubmit>
     <span>提交</span>
@@ -123,6 +125,9 @@ export default class Page extends React.Component {
           </pre>
 
           <h2 className="subhead">Methods</h2>
+          <h2 className="subhead">getValue()</h2>
+          <p>获取当前所有注册FormControl的value，结果为json</p>
+
           <h2 className="subhead">getReference(name)</h2>
           <p><em>Form</em> 下不能使用 <em>ref</em> 获取引用，需要引用时使用 <em>getReference</em> 方法。<em>name</em> 为 FormControl 的 <em>name</em></p>
         </div>
