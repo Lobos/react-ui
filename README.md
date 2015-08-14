@@ -52,11 +52,13 @@ publish: webpack --config webpack-publish.config.js [--min]
 - [Table](http://lobos.github.io/react-ui/#/table)
 - [Filter](http://lobos.github.io/react-ui/#/filter)
 - [Modal](http://lobos.github.io/react-ui/#/modal)
+- [Upload](http://lobos.github.io/react-ui/#/upload)
 
 # Change log
 v0.3.5
 
  - css 去除 local，使用 rct- 前缀
+ - 加入 Upload
 
 v0.3.4
 
