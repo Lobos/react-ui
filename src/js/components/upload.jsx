@@ -5,12 +5,13 @@ require('../../less/upload.less')
 import classnames from 'classnames'
 import React from 'react'
 import Events from '../utils/events'
-import { getLang } from '../lang'
 import { nextUid, format } from '../utils/strings'
 import getGrid from '../higherorder/grid'
 import Message from './message.jsx'
 import {cssPrefix} from '../config'
 import upload from '../utils/upload'
+import { getLang, setLang } from '../lang'
+setLang('validation', 'buttons')
 
 @getGrid
 export default class Upload extends React.Component {

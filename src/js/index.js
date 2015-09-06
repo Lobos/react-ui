@@ -34,8 +34,10 @@ export const Utils = {
   Strings: require('./utils/strings')
 }
 
+export const HigherOrder = {
+  getGrid: require('./higherorder/grid'),
+  clickAway: require('./higherorder/clickaway')
+}
+
 // ajax
 export const Qwest = require('qwest')
-
-// set language
-//require('./lang/zh-cn')

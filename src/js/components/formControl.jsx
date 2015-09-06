@@ -8,7 +8,9 @@ import deepmerge from 'deepmerge'
 import { isEmpty, forEach } from '../utils/objects'
 import { format, toArray } from '../utils/strings'
 import Regs from '../utils/regs'
-import { getLang } from '../lang'
+import { getLang, setLang } from '../lang'
+
+setLang('validation')
 
 const CONTROLS = {}
 

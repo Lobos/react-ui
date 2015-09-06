@@ -8,8 +8,10 @@ import React from 'react'
 import classnames from 'classnames'
 import { overView, getOuterHeight } from '../utils/dom'
 import * as datetime from '../utils/datetime'
-import { getLang } from '../lang'
 import clickAway from '../higherorder/clickaway'
+
+import { getLang, setLang } from '../lang'
+setLang('datetime')
 
 const poslist = require('../utils/circle').getPostions(12, 50, -90)
 
@@ -197,7 +199,7 @@ class Datetime extends React.Component {
   }
 
   renderMonths () {
-    return getLang('date.fullMonth').map(function (m, i) {
+    return getLang('datetime.fullMonth').map(function (m, i) {
       return <button type="button" onClick={ function () { this.monthChange(i) }.bind(this) } key={i} className="month">{m}</button>
     }, this)
   }
@@ -302,7 +304,7 @@ class Datetime extends React.Component {
         inner,
         text = this.state.value ? this.formatValue(this.state.value) : ""
 
-    let weeks = getLang('date.weekday').map(function (w, i) {
+    let weeks = getLang('datetime.weekday').map(function (w, i) {
       return <div key={i} className="week">{w}</div>
     })
 

@@ -33,17 +33,17 @@ export function getDaysInMonth (d) {
 
 export function getFullMonth (d) {
   let month = d.getMonth()
-  return getLang('date.fullMonth')[month]
+  return getLang('datetime.fullMonth')[month]
 }
 
 export function getShortMonth (d) {
   let month = d.getMonth()
-  return getLang('date.shortMonth')[month]
+  return getLang('datetime.shortMonth')[month]
 }
 
 export function getDayOfWeek (d) {
   let weekday = d.getDay()
-  return getLang('date.weekday')[weekday]
+  return getLang('datetime.weekday')[weekday]
 }
 
 export function getWeekArray (d) {
@@ -124,19 +124,19 @@ export function format (date, fmt) {
 }
 
 export function getDatetime (d) {
-  return format(d, getLang('date.format.datetime'))
+  return format(d, getLang('datetime.format.datetime'))
 }
 
 export function getDate (d) {
-  return format(d, getLang('date.format.date'))
+  return format(d, getLang('datetime.format.date'))
 }
 
 export function getFullYear (d) {
-  return format(d, getLang('date.format.year'))
+  return format(d, getLang('datetime.format.year'))
 }
 
 export function getTime (d) {
-  return format(d, getLang('date.format.time'))
+  return format(d, getLang('datetime.format.time'))
 }
 
 // string, unixtimestamp convert to Date

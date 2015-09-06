@@ -9,14 +9,13 @@ export default class Page extends React.Component {
   static displayName = 'Pages/Lang'
 
   state = {
-    path: 'request.status.405',
+    path: 'buttons.ok',
     text: getLang('request.status.405')
   }
 
   handleChange (event) {
     let path = event.target.value
-    let text = JSON.stringify(getLang(path), null, 4) || 'undefined'
-    this.setState({ path, text })
+    this.setState({ path })
   }
 
   render () {
@@ -36,7 +35,7 @@ export default class Page extends React.Component {
           <p>获取信息，<em>path</em> 为 <em>.</em> 分隔字符串。</p>
           <p>
             <input onChange={this.handleChange.bind(this)} value={this.state.path} type="text" />
-            <p>{this.state.text}</p>
+            <p>{JSON.stringify(getLang(this.state.path), null, 4) || 'undefined'}</p>
           </p>
 
           <h2 className="subhead">当前信息</h2>

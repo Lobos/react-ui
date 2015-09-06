@@ -7,7 +7,8 @@ import React from 'react'
 import PubSub from 'pubsub-js'
 import Button from './button.jsx'
 import Overlay from './overlay.jsx'
-import {getLang} from '../lang'
+import {getLang, setLang} from '../lang'
+setLang('buttons')
 
 const ADD_MODAL = 'id39hxqm'
 const REMOVE_MODAL = 'id39i40m'

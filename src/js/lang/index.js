@@ -1,19 +1,23 @@
 "use strict"
 
-import merge from 'deepmerge'
-let lang = {}
+import merge from '../utils/merge'
+let langData = {}
+
+export let LOCATION = 'zh-cn'
 
 export function setLang () {
   let args = [].slice.call(arguments)
   args.forEach(function (arg) {
     if (typeof arg === 'object') {
-      lang = merge(lang, arg)
+      langData = merge({}, langData, arg)
+    } else if (typeof arg === 'string') {
+      langData = merge({}, langData, require(`./${LOCATION}/${arg}`))
     }
   })
 }
 
 export function getLang (path, def) {
-  let result = lang
+  let result = langData
 
   if (path === undefined) {
     return result
@@ -37,4 +41,8 @@ export function getLang (path, def) {
   }
 
   return result
+}
+
+export function setLocation (location) {
+  LOCATION = location
 }

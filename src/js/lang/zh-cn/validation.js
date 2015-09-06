@@ -1,47 +1,4 @@
-/*
-"use strict"
-
-const data = {
-  request: {
-    status: {
-      400: '非法请求',
-      401: '没有访问权限',
-      403: '请求被拒绝',
-      404: '所请求的地址不存在',
-      405: '请求的 HTTP 方法不被允许',
-      500: '服务器错误',
-      503: '服务器错误'
-    },
-    loading: '读取中...',
-    empty: '未知错误.',
-    failure: '操作失败.'
-  },
-  buttons: {
-    add: '新建',
-    back: '返回',
-    cancel: '取消',
-    clear: '清空',
-    fields: '字段',
-    filter: '筛选',
-    ok: '确定',
-    refresh: '刷新',
-    reset: '重置',
-    save: '保存'
-  },
-  date: {
-    year: '年',
-    month: '月',
-    fullMonth: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-    shortMonth: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'],
-    weekday: ['日', '一', '二', '三', '四', '五', '六'],
-    format: {
-      year: 'yyyy年',
-      month: 'MM月',
-      date: 'yyyy-MM-dd',
-      datetime: 'yyyy-MM-dd hh:mm:ss',
-      time: 'hh:mm:ss'
-    }
-  },
+export default {
   validation: {
     hints: {
       alpha: '英文字符，"-"，"_"',
@@ -88,6 +45,3 @@ const data = {
     }
   }
 }
-
-require('./index').setLang(data)
-*/

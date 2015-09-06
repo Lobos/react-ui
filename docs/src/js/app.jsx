@@ -13,7 +13,7 @@ const Router = require('react-router')
 const AppRoutes = require('./app-routes.jsx')
 
 // load language
-global.uiRequire('lang/zh-cn')
+// global.uiRequire('lang/zh-cn')
 
 Router.create({
   routes: AppRoutes,

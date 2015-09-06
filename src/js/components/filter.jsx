@@ -8,7 +8,8 @@ import classnames from 'classnames'
 import Button from './button.jsx'
 import FilterItem from './filterItem.jsx'
 import clickAway from '../higherorder/clickaway'
-import {getLang} from '../lang'
+import {getLang, setLang} from '../lang'
+setLang('buttons')
 
 @clickAway
 export default class Filter extends React.Component {

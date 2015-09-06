@@ -17,6 +17,8 @@
         "no-alert": 0,
         "semi": [2, "never"],
         "quotes": [0],
+        "no-undef": [2],
+        "no-unused-vars": [2, {vars: local}],
         "react/display-name": 1,
         "react/jsx-boolean-value": 1,
         "react/jsx-no-undef": 2,
