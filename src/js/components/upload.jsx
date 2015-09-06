@@ -8,7 +8,6 @@ import Events from '../utils/events'
 import { nextUid, format } from '../utils/strings'
 import getGrid from '../higherorder/grid'
 import Message from './message.jsx'
-import {cssPrefix} from '../config'
 import upload from '../utils/upload'
 import { getLang, setLang } from '../lang'
 setLang('validation', 'buttons')
@@ -155,7 +154,7 @@ export default class Upload extends React.Component {
     return Object.keys(files).map((id, i) => {
       let file = this.state.files[id]
       let className = classnames(
-        `${cssPrefix}-file`,
+        `rct-file`,
         {
           'uploaded': file.status === 2,
           'has-error': file.status === 3
@@ -167,7 +166,7 @@ export default class Upload extends React.Component {
             <span>{file.name}</span>
             <a className="remove" onClick={this.removeFile.bind(this, id)}>&times; {getLang('buttons.cancel')}</a>
           </div>
-          <div ref={id} className={`${cssPrefix}-upload-progress`}></div>
+          <div ref={id} className={`rct-upload-progress`}></div>
         </div>
       )
     })
@@ -176,7 +175,7 @@ export default class Upload extends React.Component {
   render () {
     let className = classnames(
       this.getGrid(),
-      `${cssPrefix}-upload-container`,
+      `rct-upload-container`,
       this.props.className
     )
     return (
