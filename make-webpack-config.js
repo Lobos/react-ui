@@ -1,5 +1,4 @@
 var path = require("path")
-var _ = require("underscore")
 var webpack = require("webpack")
 var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
@@ -70,11 +69,14 @@ module.exports = function(options) {
   // externals ========================================================================
 	var externals = []
 
-  _.mapObject({"react":"React", "reflux":"Reflux", "react-router":"ReactRouter"}, function (val, key) {
-    var ext = {}
-    ext[key] = {root:val,commonjs2:key,commonjs:key,amd:key}
-    externals.push(ext)
-  })
+  if (options.externals) {
+    Object.keys(options.externals).forEach(function (key) {
+      var val = options.externals[key]
+      var ext = {}
+      ext[key] = {root:val,commonjs2:key,commonjs:key,amd:key}
+      externals.push(ext)
+    })
+  }
 
   // plugins ==========================================================================
 	var plugins = [

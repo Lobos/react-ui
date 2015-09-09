@@ -4,9 +4,9 @@ require('../../less/form-control.less')
 
 import React from 'react'
 import classnames from 'classnames'
-import deepmerge from 'deepmerge'
 import { isEmpty, forEach } from '../utils/objects'
 import { format, toArray } from '../utils/strings'
+import merge from '../utils/merge'
 import Regs from '../utils/regs'
 import { getLang, setLang } from '../lang'
 
@@ -250,7 +250,7 @@ class FormControl extends React.Component {
     if (children) {
       return this.getChildren(children, control.component)
     } else {
-      props = deepmerge(this.copyProps(), props || {})
+      props = merge(this.copyProps(), props || {})
       return control.render(props)
     }
   }

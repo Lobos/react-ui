@@ -13,29 +13,31 @@ export default class NavList extends React.Component {
   }
 
   static contextTypes = {
-    router: React.PropTypes.func.isRequired
+    history: React.PropTypes.object.isRequired
   }
 
   state = {
     active: true
   }
 
-  getClasses (name, route) {
+  getClasses (name, path) {
     return classnames(name, {
-      active: this.context.router.isActive(route)
+      active: this.context.history.isActive(path)
     })
   }
 
-  routeChange (route) {
-    this.context.router.transitionTo(route)
+  pathChange (path) {
+    if (!this.context.history.isActive(path)) {
+      this.context.history.pushState(null, path)
+    }
   }
 
-  getRoutesList (routes, index) {
-    let list = routes.map(function (r, i) {
-      if (r.route) {
+  getRoutesList (paths, index) {
+    let list = paths.map(function (r, i) {
+      if (r.path) {
         return (
           <li key={i} className="pure-menu-item">
-            <a onClick={this.routeChange.bind(this, r.route)} className={this.getClasses("pure-menu-link", r.route)}>{r.text}</a>
+            <a onClick={this.pathChange.bind(this, r.path)} className={this.getClasses("pure-menu-link", r.path)}>{r.text}</a>
           </li>
         )
       } else if (r.hr) {
@@ -53,13 +55,13 @@ export default class NavList extends React.Component {
   }
 
   render () {
-    let list = menulist.map(function (routes, index) {
-      return this.getRoutesList(routes, index)
+    let list = menulist.map(function (paths, index) {
+      return this.getRoutesList(paths, index)
     }, this)
 
     return (
       <div className={classnames("nav", {active: this.state.active})}>
-        <a className="pure-menu-heading" onClick={this.routeChange.bind(this, '/')}>React UI</a>
+        <a className="pure-menu-heading" onClick={this.pathChange.bind(this, '/home')}>React UI</a>
         <a className="link-github" href="https://github.com/Lobos/react-ui"><Icon size={2} icon="github" /></a>
         <div className="nav-inner">
           <div ref="list" className="nav-list">

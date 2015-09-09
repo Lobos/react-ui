@@ -8,13 +8,15 @@ global.uiRequire = function (src) {
   }
 }
 
-const React = require('react')
-const Router = require('react-router')
+import React from 'react'
 const AppRoutes = require('./app-routes.jsx')
+
+//import { Provider } from 'react-redux'
+//import configureStore from './store'
 
 // load language
 // global.uiRequire('lang/zh-cn')
-
+/*
 Router.create({
   routes: AppRoutes,
   scrollBehavior: Router.ScrollToTopBehavior
@@ -22,6 +24,12 @@ Router.create({
 .run(function (Handler) {
   React.render(<Handler />, document.body)
 })
+*/
+
+React.render(
+  AppRoutes,
+  document.body
+)
 
 // static files
 require('file?name=index.html!../index.html')

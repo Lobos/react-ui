@@ -1,20 +1,20 @@
 "use strict"
 
-import {Route, DefaultRoute} from 'react-router'
+import {Route, Router} from 'react-router'
 import Master from './pages/master.jsx'
 import Home from './pages/home.jsx'
+import createHistory from 'history/lib/createHashHistory'
 
+const history = createHistory({ queryKey: false })
 let menulist = []
-let index = 1
 
 function addMenu(list) {
-  list.forEach(function (menu) {
-    if (menu.handler) {
+  list.forEach(function (menu, index) {
+    if (menu.component) {
       menulist.push(
-        <Route key={index} name={menu.route} handler={menu.handler} />
+        <Route key={index} path={menu.path} component={menu.component} />
       )
     }
-    index++
   })
 }
 require('./menulist').forEach(function (list) {
@@ -22,12 +22,13 @@ require('./menulist').forEach(function (list) {
 })
 
 const AppRoutes = (
-  <Route name="root" path="/" handler={Master}>
-    <Route name="home" handler={Home} />
-    {menulist}
-    <Route name="build" handler={require('./pages/build.jsx')} />
-    <DefaultRoute handler={Home} />
-  </Route>
+  <Router history={history}>
+    <Route path="/" component={Master}>
+      <Route path="/home" component={Home} />
+      {menulist}
+      <Route path="/build" component={require('./pages/build.jsx')} />
+    </Route>
+  </Router>
 )
 
 export default AppRoutes

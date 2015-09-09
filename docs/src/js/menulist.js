@@ -2,28 +2,28 @@
 
 module.exports = [
   [
-    { route: 'form', text: 'Form', handler: require('./pages/form.jsx') },
-    { route: 'formControl', text: 'FormControl', handler: require('./pages/formControl.jsx') },
-    { route: 'formSubmit', text: 'FormSubmit', handler: require('./pages/formSubmit.jsx') },
-    { route: 'checkbox', text: 'Checkbox', handler: require('./pages/checkbox.jsx') },
-    { route: 'checkboxGroup', text: 'CheckboxGroup', handler: require('./pages/checkboxGroup.jsx') },
-    { route: 'datetime', text: 'Datetime', handler: require('./pages/datetime.jsx') },
-    { route: 'input', text: 'Input', handler: require('./pages/input.jsx') },
-    { route: 'radioGroup', text: 'RadioGroup', handler: require('./pages/radioGroup.jsx') },
-    { route: 'rating', text: 'Rating', handler: require('./pages/rating.jsx') },
-    { route: 'select', text: 'Select', handler: require('./pages/select.jsx') },
-    { route: 'tree', text: 'Tree', handler: require('./pages/tree.jsx') },
-    { route: 'upload', text: 'Upload', handler: require('./pages/upload.jsx') }
+    { path: '/form', text: 'Form', component: require('./pages/form.jsx') },
+    { path: '/formControl', text: 'FormControl', component: require('./pages/formControl.jsx') },
+    { path: '/formSubmit', text: 'FormSubmit', component: require('./pages/formSubmit.jsx') },
+    { path: '/checkbox', text: 'Checkbox', component: require('./pages/checkbox.jsx') },
+    { path: '/checkboxGroup', text: 'CheckboxGroup', component: require('./pages/checkboxGroup.jsx') },
+    { path: '/datetime', text: 'Datetime', component: require('./pages/datetime.jsx') },
+    { path: '/input', text: 'Input', component: require('./pages/input.jsx') },
+    { path: '/radioGroup', text: 'RadioGroup', component: require('./pages/radioGroup.jsx') },
+    { path: '/rating', text: 'Rating', component: require('./pages/rating.jsx') },
+    { path: '/select', text: 'Select', component: require('./pages/select.jsx') },
+    { path: '/tree', text: 'Tree', component: require('./pages/tree.jsx') },
+    { path: '/upload', text: 'Upload', component: require('./pages/upload.jsx') }
   ],
   [
-    { route: 'table', text: 'Table', handler: require('./pages/table.jsx') },
-    { route: 'filter', text: 'Filter', handler: require('./pages/filter.jsx') },
-    { route: 'button', text: 'Button', handler: require('./pages/button.jsx') },
-    { route: 'icon', text: 'Icon', handler: require('./pages/icon.jsx') },
-    { route: 'pagination', text: 'Pagination', handler: require('./pages/pagination.jsx') },
-    { route: 'message', text: 'Message', handler: require('./pages/message.jsx') },
-    { route: 'modal', text: 'Modal', handler: require('./pages/modal.jsx') },
-    { route: 'dataSource', text: 'DataSource', handler: require('./pages/dataSource.jsx') },
-    { route: 'lang', text: 'Lang', handler: require('./pages/lang.jsx') }
+    { path: '/table', text: 'Table', component: require('./pages/table.jsx') },
+    { path: '/filter', text: 'Filter', component: require('./pages/filter.jsx') },
+    { path: '/button', text: 'Button', component: require('./pages/button.jsx') },
+    { path: '/icon', text: 'Icon', component: require('./pages/icon.jsx') },
+    { path: '/pagination', text: 'Pagination', component: require('./pages/pagination.jsx') },
+    { path: '/message', text: 'Message', component: require('./pages/message.jsx') },
+    { path: '/modal', text: 'Modal', component: require('./pages/modal.jsx') },
+    { path: '/dataSource', text: 'DataSource', component: require('./pages/dataSource.jsx') },
+    { path: '/lang', text: 'Lang', component: require('./pages/lang.jsx') }
   ]
 ]
