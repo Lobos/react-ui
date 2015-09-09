@@ -25,7 +25,7 @@ function getIndexFile(keys) {
   var cpt, text, path
   keys.forEach(key => {
     cpt = components[key]
-    path = cpt.path.replace('./', '../../../src/js/')
+    path = cpt.path.replace('./', '../../../src/')
     if (cpt.notExport) {
       text = 'require("' + path + '")'
     } else {

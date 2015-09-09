@@ -2,96 +2,96 @@
 
 module.exports = {
   Checkbox: {
-    path: './components/checkbox.jsx',
+    path: './Checkbox',
     dependencies: [ 'FormControl' ]
   },
 
   CheckboxGroup: {
-    path: './components/checkboxGroup.jsx',
+    path: './CheckboxGroup',
     dependencies: [ 'Checkbox', 'FormControl' ]
   },
 
   Datetime: {
-    path: './components/datetime.jsx',
+    path: './Datetime',
     dependencies: [ 'FormControl', 'Lang' ]
   },
 
   Input: {
-    path: './components/input.jsx',
+    path: './Input',
     dependencies: [ 'FormControl' ]
   },
 
   RadioGroup: {
-    path: './components/radioGroup.jsx',
+    path: './RadioGroup',
     dependencies: [ 'FormControl' ]
   },
 
   Rating: {
-    path: './components/rating.jsx',
+    path: './Rating',
     dependencies: [ 'FormControl' ]
   },
 
   Select: {
-    path: './components/select.jsx',
+    path: './Select',
     dependencies: [ 'FormControl' ]
   },
 
   Tree: {
-    path: './components/tree.jsx',
+    path: './Tree',
     dependencies: [ 'FormControl' ]
   },
 
   Upload: {
-    path: './components/upload.jsx',
+    path: './Upload',
     dependencies: [ 'FormControl' ]
   },
 
   FormControl: {
-    path: './components/formControl.jsx'
+    path: './FormControl'
   },
 
   FormSubmit: {
-    path: './components/formSubmit.jsx',
+    path: './FormSubmit',
     dependencies: [ 'Button' ]
   },
 
   Form: {
-    path: './components/form.jsx',
+    path: './Form',
     dependencies: [ 'FormControl' ]
   },
 
   Button: {
-    path: './components/button.jsx'
+    path: './Button'
   },
 
   Icon: {
-    path: './components/icon.jsx'
+    path: './Icon'
   },
 
   Message: {
-    path: './components/message.jsx'
+    path: './Message'
   },
 
   Modal: {
-    path: './components/modal.jsx',
+    path: './Modal',
     dependencies: [ 'Button' ]
   },
 
   Table: {
-    path: './components/table.jsx',
+    path: './Table',
     dependencies: [ 'TableHeader' ]
   },
 
   TableHeader: {
-    path: './components/tableHeader.jsx'
+    path: './TableHeader'
   },
 
   Filter: {
-    path: './components/filter.jsx'
+    path: './Filter'
   },
 
   Qwest: {
-    path: 'qwest'
+    path: 'Qwest'
   },
 
   dataSource: {
