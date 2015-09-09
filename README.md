@@ -5,25 +5,25 @@ A collection of components for React.
 
  - 直接引用
 
-[在线生成需要的组件](http://lobos.github.io/react-ui/#/build)，在页面中引用即可。（注意需要先引用 react-with-addons 和 [es5-shim](https://github.com/es-shims/es5-shim)）
+[在线生成需要的组件](http://lobos.github.io/react-ui/#/build)，在页面中引用即可。（注意需要先引用 react 和 [es5-shim](https://github.com/es-shims/es5-shim)）
 ```
 <script src="js/es5-shim.min.js"></script>
-<script src="js/react-with-addons.js"></script>
+<script src="js/react.js"></script>
 <script src="js/ReactUI.js"></script>
 ```
 
  - npm install
 ```
-暂时没有精力更新npm，等后面完善一些再好好整一下
+npm install rctui
 ```
 ```
 var ReactUI = require('rctui')
 var Form = ReactUI.Form
 ...
 // 或者单独使用一个组件
-var Input = require('rctui/input')
-var CheckboxGroup = require('rctui/checkboxGroup')
-var FormControl = require('rctui/formControl')
+var Input = require('rctui/Input')
+var CheckboxGroup = require('rctui/CheckboxGroup')
+var FormControl = require('rctui/FormControl')
 ```
 
 # build
@@ -57,7 +57,7 @@ publish: webpack --config webpack-publish.config.js [--min]
 # Change log
 v0.4.0
 
- - 移除一些依赖
+ - 结构重新调整
  - 拆分Lang
 
 v0.3.5
