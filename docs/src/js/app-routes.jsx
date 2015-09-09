@@ -23,7 +23,7 @@ require('./menulist').forEach(function (list) {
 
 const AppRoutes = (
   <Router history={history}>
-    <Route path="/" component={Master}>
+    <Route path="/" indexRoute={{component: Home}} component={Master}>
       <Route path="/home" component={Home} />
       {menulist}
       <Route path="/build" component={require('./pages/build.jsx')} />

@@ -11,21 +11,6 @@ global.uiRequire = function (src) {
 import React from 'react'
 const AppRoutes = require('./app-routes.jsx')
 
-//import { Provider } from 'react-redux'
-//import configureStore from './store'
-
-// load language
-// global.uiRequire('lang/zh-cn')
-/*
-Router.create({
-  routes: AppRoutes,
-  scrollBehavior: Router.ScrollToTopBehavior
-})
-.run(function (Handler) {
-  React.render(<Handler />, document.body)
-})
-*/
-
 React.render(
   AppRoutes,
   document.body
