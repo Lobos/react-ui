@@ -1,9 +1,8 @@
 "use strict"
 
-require('../../less/checkbox.less')
 import React from 'react'
 import classnames from 'classnames'
-import { toTextValue } from '../utils/objects'
+import { toTextValue } from './utils/objects'
 import Radio from './Radio'
 
 class RadioGroup extends React.Component {

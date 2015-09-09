@@ -1,10 +1,11 @@
 'use strict'
 
-require('../../less/pagination.less')
-
 import React from 'react'
 import classnames from 'classnames'
-import { forEach } from '../utils/objects'
+import { forEach } from './utils/objects'
+
+import { requireCss } from './themes'
+requireCss('pagination')
 
 export default class Pagination extends React.Component {
   static displayName = 'Pagination'

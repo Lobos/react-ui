@@ -1,10 +1,10 @@
 "use strict"
 
-require('../../less/buttons.less')
-
 import React from 'react'
 import classnames from 'classnames'
-import getGrid from '../higherorder/grid'
+import getGrid from './higherorder/grid'
+import { requireCss } from './themes'
+requireCss('buttons')
 
 @getGrid
 class Button extends React.Component {

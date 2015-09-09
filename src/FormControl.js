@@ -1,15 +1,16 @@
 "use strict"
 
-require('../../less/form-control.less')
-
 import React from 'react'
 import classnames from 'classnames'
-import { isEmpty, forEach } from '../utils/objects'
-import { format, toArray } from '../utils/strings'
-import merge from '../utils/merge'
-import Regs from '../utils/regs'
-import { getLang, setLang } from '../lang'
+import { isEmpty, forEach } from './utils/objects'
+import { format, toArray } from './utils/strings'
+import merge from './utils/merge'
+import Regs from './utils/regs'
 
+import { requireCss } from './themes'
+requireCss('form-control')
+
+import { getLang, setLang } from './lang'
 setLang('validation')
 
 const CONTROLS = {}

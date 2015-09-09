@@ -1,13 +1,15 @@
 'use strict'
 
-require('../../less/modal.less')
-
 import classnames from 'classnames'
 import React from 'react'
 import PubSub from 'pubsub-js'
 import Button from './Button'
 import Overlay from './Overlay'
-import {getLang, setLang} from '../lang'
+
+import { requireCss } from './themes'
+requireCss('modal')
+
+import {getLang, setLang} from './lang'
 setLang('buttons')
 
 const ADD_MODAL = 'id39hxqm'

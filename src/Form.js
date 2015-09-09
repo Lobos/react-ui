@@ -1,12 +1,13 @@
 'use strict'
 
-require('../../less/form.less')
-
 import React from 'react'
 import classnames from 'classnames'
-import { forEach } from '../utils/objects'
+import { forEach } from './utils/objects'
 import FormControl from './FormControl'
 import FormSubmit from './FormSubmit'
+
+import { requireCss } from './themes'
+requireCss('form')
 
 export default class Form extends React.Component {
   static displayName = 'Form'

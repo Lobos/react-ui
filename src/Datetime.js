@@ -1,19 +1,18 @@
 "use strict"
-// year,month,day 没有单独写成component，因为我认为那样性能可能存在问题，只是猜测，没有证实，有空的时候测试一下
-// 所以用了很多匿名函数
-
-require('../../less/datetime.less')
 
 import React from 'react'
 import classnames from 'classnames'
-import { overView, getOuterHeight } from '../utils/dom'
-import * as datetime from '../utils/datetime'
-import clickAway from '../higherorder/clickaway'
+import { overView, getOuterHeight } from './utils/dom'
+import * as datetime from './utils/datetime'
+import clickAway from './higherorder/clickaway'
 
-import { getLang, setLang } from '../lang'
+import { requireCss } from './themes'
+requireCss('datetime')
+
+import { getLang, setLang } from './lang'
 setLang('datetime')
 
-const poslist = require('../utils/circle').getPostions(12, 50, -90)
+const poslist = require('./utils/circle').getPostions(12, 50, -90)
 
 @clickAway
 class Datetime extends React.Component {

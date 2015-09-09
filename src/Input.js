@@ -1,12 +1,13 @@
 'use strict'
 
-require('../../less/input.less')
-require('../../less/form-control.less')
-
 import React from 'react'
 import classnames from 'classnames'
-import Regs from '../utils/regs'
-import getGrid from '../higherorder/grid'
+import Regs from './utils/regs'
+import getGrid from './higherorder/grid'
+
+import { requireCss } from './themes'
+requireCss('input')
+requireCss('form-control')
 
 @getGrid
 class Input extends React.Component {

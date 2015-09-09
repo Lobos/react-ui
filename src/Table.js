@@ -1,11 +1,12 @@
 'use strict'
 
-require('../../less/tables.less')
-
 import React from 'react'
 import classnames from 'classnames'
-import { substitute } from '../utils/strings'
+import { substitute } from './utils/strings'
 import TableHeader from './TableHeader'
+
+import { requireCss } from './themes'
+requireCss('tables')
 
 class Table extends React.Component {
   static displayName = 'Table'

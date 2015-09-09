@@ -3,8 +3,8 @@
 import React from 'react'
 import classnames from 'classnames'
 import Checkbox from './Checkbox'
-import { toArray } from '../utils/strings'
-import { toTextValue } from '../utils/objects'
+import { toArray } from './utils/strings'
+import { toTextValue } from './utils/objects'
 
 class CheckboxGroup extends React.Component {
   static displayName = "CheckboxGroup"

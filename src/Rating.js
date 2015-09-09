@@ -1,9 +1,10 @@
 "use strict"
 
-require('../../less/rating.less')
-
 import React from 'react'
 import classnames from 'classnames'
+
+import { requireCss } from './themes'
+requireCss('rating')
 
 let themes = {
   // "star": [Icon, Icon],

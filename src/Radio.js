@@ -1,7 +1,9 @@
 "use strict"
 
-require('../../less/checkbox.less')
 import React from 'react'
+
+import { requireCss } from './themes'
+requireCss('checkbox')
 
 export default class Radio extends React.Component {
   static displayName = "Radio"

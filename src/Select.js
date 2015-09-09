@@ -1,15 +1,16 @@
 'use strict'
 
-require('../../less/select.less')
-require('../../less/form-control.less')
-
 import React from 'react'
 import classnames from 'classnames'
-import { toArray, substitute } from '../utils/strings'
-import { getOuterHeight, overView, withoutTransition } from '../utils/dom'
-import clone from '../utils/clone'
-import clickAway from '../higherorder/clickaway'
-import getGrid from '../higherorder/grid'
+import { toArray, substitute } from './utils/strings'
+import { getOuterHeight, overView, withoutTransition } from './utils/dom'
+import clone from './utils/clone'
+import clickAway from './higherorder/clickaway'
+import getGrid from './higherorder/grid'
+
+import { requireCss } from './themes'
+requireCss('select')
+requireCss('form-control')
 
 @clickAway
 @getGrid

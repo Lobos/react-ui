@@ -3,7 +3,7 @@
   "author": "lobos841@gmail.com",
   "version": "0.4.0",
   "description": "a collection of components for React",
-  "main": "./src/js/index.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "./node_modules/.bin/_mocha --compilers js:babel/register",
     "docs-dev": "webpack --config webpack-docs.config.js --watch",

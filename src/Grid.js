@@ -2,7 +2,7 @@
 
 import React from 'react'
 import classnames from 'classnames'
-import getGrid from '../higherorder/grid'
+import getGrid from './higherorder/grid'
 
 @getGrid
 export default class Grid extends React.Component {

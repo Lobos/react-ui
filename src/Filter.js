@@ -1,14 +1,16 @@
 'use strict'
 
-require('../../less/filter.less')
-
 import React from 'react'
 import classnames from 'classnames'
 //import { forEach } from '../utils/objects'
 import Button from './Button'
 import FilterItem from './FilterItem'
-import clickAway from '../higherorder/clickaway'
-import {getLang, setLang} from '../lang'
+import clickAway from './higherorder/clickaway'
+
+import { requireCss } from './themes'
+requireCss('filter')
+
+import {getLang, setLang} from './lang'
 setLang('buttons')
 
 @clickAway

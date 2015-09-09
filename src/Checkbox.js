@@ -1,8 +1,9 @@
 "use strict"
 
-require('../../less/checkbox.less')
 import React from 'react'
 import classnames from 'classnames'
+import { requireCss } from './themes'
+requireCss('checkbox')
 
 class Checkbox extends React.Component {
   static displayName = "Checkbox"

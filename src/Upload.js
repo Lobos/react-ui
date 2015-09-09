@@ -1,15 +1,17 @@
 'use strict'
 
-require('../../less/upload.less')
-
 import classnames from 'classnames'
 import React from 'react'
-import Events from '../utils/events'
-import { nextUid, format } from '../utils/strings'
-import getGrid from '../higherorder/grid'
+import Events from './utils/events'
+import { nextUid, format } from './utils/strings'
+import getGrid from './higherorder/grid'
 import Message from './Message'
-import upload from '../utils/upload'
-import { getLang, setLang } from '../lang'
+import upload from './utils/upload'
+
+import { requireCss } from './themes'
+requireCss('upload')
+
+import { getLang, setLang } from './lang'
 setLang('validation', 'buttons')
 
 @getGrid

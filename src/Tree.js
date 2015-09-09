@@ -4,12 +4,13 @@
 // 由于tree.state.data是一个array，当data值改变时，不经过setState，
 // 所有的Item的data也因此改变，可能破坏了react的一个原则
 
-require('../../less/tree.less')
-
 import React from 'react'
 import classnames from 'classnames'
-import { toArray, substitute } from '../utils/strings'
-import { forEach, isEmpty } from '../utils/objects'
+import { toArray, substitute } from './utils/strings'
+import { forEach, isEmpty } from './utils/objects'
+
+import { requireCss } from './themes'
+requireCss('tree')
 
 class Tree extends React.Component {
   static displayName = 'Tree'

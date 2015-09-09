@@ -1,12 +1,13 @@
 "use strict"
 
-require('../../less/message.less')
-
 import React from 'react'
 import classnames from 'classnames'
 import Overlay from './Overlay'
-import { forEach } from '../utils/objects'
+import { forEach } from './utils/objects'
 import PubSub from 'pubsub-js'
+
+import { requireCss } from './themes'
+requireCss('message')
 
 const ADD_MESSAGE = "EB3A79637B40"
 const REMOVE_MESSAGE = "73D4EF15DF50"

@@ -1,8 +1,10 @@
 "use strict"
 
-require('../../less/overlay.less')
 import React from 'react'
 import classnames from 'classnames'
+
+import { requireCss } from './themes'
+requireCss('overlay')
 
 export default class Overlay extends React.Component {
   static displayName = 'Overlay'
