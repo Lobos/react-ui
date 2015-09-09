@@ -262,7 +262,7 @@ class Table extends React.Component {
           sort: this.state.sort
         }
 
-        headers.push(React.addons.cloneWithProps(header, props))
+        headers.push(React.cloneElement(header, props))
       }
     })
     return <tr>{headers}</tr>
@@ -283,7 +283,7 @@ class Table extends React.Component {
         this.setState({index, data})
       }
     }
-    return React.addons.cloneWithProps(this.props.pagination, props)
+    return React.cloneElement(this.props.pagination, props)
   }
 
   render () {
