@@ -1,9 +1,9 @@
 'use strict'
 
 import React from 'react'
-import Datetime from './datetime.jsx'
-import Input from './input.jsx'
-import Select from './select.jsx'
+import Datetime from './Datetime'
+import Input from './Input'
+import Select from './Select'
 
 const DEFAULT_OPS = ['=', 'like', '>', '>=', '<', '<=', 'in', 'not in']
 

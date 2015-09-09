@@ -5,7 +5,7 @@ require('../../less/tables.less')
 import React from 'react'
 import classnames from 'classnames'
 import { substitute } from '../utils/strings'
-import TableHeader from './tableHeader.jsx'
+import TableHeader from './TableHeader'
 
 class Table extends React.Component {
   static displayName = 'Table'

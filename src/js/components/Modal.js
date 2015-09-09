@@ -5,8 +5,8 @@ require('../../less/modal.less')
 import classnames from 'classnames'
 import React from 'react'
 import PubSub from 'pubsub-js'
-import Button from './button.jsx'
-import Overlay from './overlay.jsx'
+import Button from './Button'
+import Overlay from './Overlay'
 import {getLang, setLang} from '../lang'
 setLang('buttons')
 

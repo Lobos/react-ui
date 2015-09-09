@@ -4,7 +4,7 @@ require('../../less/message.less')
 
 import React from 'react'
 import classnames from 'classnames'
-import Overlay from './overlay.jsx'
+import Overlay from './Overlay'
 import { forEach } from '../utils/objects'
 import PubSub from 'pubsub-js'
 

@@ -5,8 +5,8 @@ require('../../less/filter.less')
 import React from 'react'
 import classnames from 'classnames'
 //import { forEach } from '../utils/objects'
-import Button from './button.jsx'
-import FilterItem from './filterItem.jsx'
+import Button from './Button'
+import FilterItem from './FilterItem'
 import clickAway from '../higherorder/clickaway'
 import {getLang, setLang} from '../lang'
 setLang('buttons')

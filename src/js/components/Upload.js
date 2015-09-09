@@ -7,7 +7,7 @@ import React from 'react'
 import Events from '../utils/events'
 import { nextUid, format } from '../utils/strings'
 import getGrid from '../higherorder/grid'
-import Message from './message.jsx'
+import Message from './Message'
 import upload from '../utils/upload'
 import { getLang, setLang } from '../lang'
 setLang('validation', 'buttons')
@@ -187,7 +187,7 @@ export default class Upload extends React.Component {
   }
 }
 
-require('./formControl.jsx').register(
+require('./FormControl').register(
 
   'upload',
 

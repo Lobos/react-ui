@@ -55,6 +55,11 @@ publish: webpack --config webpack-publish.config.js [--min]
 - [Upload](http://lobos.github.io/react-ui/#/upload)
 
 # Change log
+v0.4.0
+
+ - 移除一些依赖
+ - 拆分Lang
+
 v0.3.5
 
  - css 去除 local，使用 rct- 前缀
