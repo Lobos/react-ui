@@ -77,7 +77,7 @@ class Rating extends React.Component {
     let items = [],
         icon = this.getIcon(0)
     for (let i = 0; i < this.props.maxValue; i++) {
-      items.push(React.addons.cloneWithProps(icon, { key: i }))
+      items.push(React.cloneElement(icon, { key: i }))
     }
 
     return <div className="rct-rating-bg">{items}</div>
@@ -111,7 +111,7 @@ class Rating extends React.Component {
           onMouseOver={this.handleHover(i + 1)}
           onClick={this.handleChange.bind(this, i + 1)}
           className={classnames('rct-rating-handle', { 'active': active, 'wink': active && wink })}>
-          {React.addons.cloneWithProps(icon)}
+          {React.cloneElement(icon)}
         </span>
       )
     }
@@ -125,7 +125,7 @@ class Rating extends React.Component {
         width = (this.state.value / this.props.maxValue * 100) + '%'
 
     for (let i = 0; i < this.props.maxValue; i++) {
-      items.push(React.addons.cloneWithProps(icon, { key: i }))
+      items.push(React.cloneElement(icon, { key: i }))
     }
 
     return (

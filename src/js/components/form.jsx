@@ -112,7 +112,7 @@ export default class Form extends React.Component {
         props.locked = this.state.locked
       }
 
-      child = React.addons.cloneWithProps(child, props)
+      child = React.cloneElement(child, props)
       return child
     })
   }

@@ -233,7 +233,7 @@ class FormControl extends React.Component {
       if (child.props && typeof child.props.children === 'object') {
         props.children = this.getChildren(child.props.children, component)
       }
-      child = React.addons.cloneWithProps(child, props)
+      child = React.cloneElement(child, props)
       newChildren.push(child)
     })
     return newChildren
