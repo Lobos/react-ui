@@ -63,6 +63,7 @@
     "mkdirp": "^0.5.1",
     "mocha": "^2.2.5",
     "object-assign": "^4.0.1",
+    "purecss": "^0.6.0",
     "qwest": "^1.7.0",
     "react": "^0.13.3",
     "react-router": "1.0.0-beta4",
