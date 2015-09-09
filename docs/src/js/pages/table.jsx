@@ -2,7 +2,7 @@
 
 import React from 'react'
 import prettify from '../prettify'
-const {Table, TableHeader, Filter, Pagination, Checkbox, RadioGroup, dataSource} = global.uiRequire()
+const {Table, Filter, Modal, Pagination, Checkbox, RadioGroup, dataSource} = global.uiRequire()
 
 @prettify
 export default class Page extends React.Component {
@@ -37,10 +37,10 @@ export default class Page extends React.Component {
     let pagination = <Pagination size={10} total={this.state.total} />
 
     let nameTpl = (d) => {
-      return <a onClick={() => { window.alert(d.name) }}>{d.name}</a>
+      return <a onClick={() => { Modal.alert(`点击了:${d.name}`) }}>{d.name}</a>
     }
     let removeTpl = (d) => {
-      return <a onClick={() => { window.alert(`确定要删除${d.name}吗`) }}>删除</a>
+      return <a onClick={() => { Modal.confirm(`确定要删除${d.name}吗`, () => {}) }}>删除</a>
     }
 
     let filterOptions = [{
@@ -64,6 +64,15 @@ export default class Page extends React.Component {
       props: { mult: true, data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
     }]
 
+    const headers = [
+      { name: 'name', sortAble: true, content: nameTpl, header: 'Name' },
+      { name: 'position', hidden: true },
+      { name: 'office', sortAble: true, header: 'Office' },
+      { name: 'start_date', sortAble: true, content: '{start_date}', header: 'Start Date' },
+      { name: 'salary', content: '{salary}', header: 'Salary' },
+      { name: 'tools', width: 60, content: removeTpl }
+    ]
+
     return (
       <div>
         <div className="header">
@@ -82,18 +91,17 @@ export default class Page extends React.Component {
   data={array|func}        // 数据，object 或者 dataSource
   pagination={Pagination}  // 分页控件
   onSort={func(name, asc)} // TableHeader的sort事件，name为TableHeader的name，asc值为1|0
->
-  <TableHeader
-    content={string|func}  // 表格显示内容，{}格式字符串模板或一个返回ReactElement的方法
-    hidden={bool}          // 是否显示，默认为true
-    name={string}          // 必填，字段名称，和data对应，如果不填content，使用name获取数据
-    sortAble={bool}        // 是否可以排序，默认值为false
-    width={number}         // 宽度
-  >
-    {children}             // 表头内容
-  </TableHeader>
-  <TableHeader ... />
-</Table>
+  headers={array}
+/>
+
+headers = [{
+  content:{string|func}   // 表格显示内容，{}格式字符串模板或一个返回ReactElement的方法
+  hidden:{bool}           // 是否显示，默认为true
+  name:{string}           // 必填，字段名称，和data对应，如果不填content，使用name获取数据
+  sortAble:{bool}         // 是否可以排序，默认值为false
+  width:{number}          // 宽度
+  header:{string|element} // 表头内容，string或者ReactElement
+}]
 `}
           </pre>
           <p><a href="#/dataSource">dataSource 参见这里</a></p>
@@ -153,23 +161,16 @@ export default class Page extends React.Component {
               width={this.state.width}
               height={this.state.height}
               data={this.state.data}
-              pagination={this.state.pagination ? pagination : null}>
-
-              <TableHeader name="name" sortAble={true} content={nameTpl}>Name</TableHeader>
-              <TableHeader name="position" hidden={true}>Position</TableHeader>
-              <TableHeader name="office" sortAble={true}>Office</TableHeader>
-              <TableHeader name="start_date" sortAble={true} content="{start_date}">Start Date</TableHeader>
-              <TableHeader name="salary" content="{salary}">Salary</TableHeader>
-              <TableHeader name="tools" width={60} content={removeTpl} />
-            </Table>
+              headers={headers}
+              pagination={this.state.pagination ? pagination : null} />
           </div>
           <pre className="prettyprint">
 {`let pagination = <Pagination size={10} total={this.state.total} />
 let nameTpl = (d) => {
-  return <a onClick={() => { window.alert(d.name) }}>{d.name}</a>
+  return <a onClick={() => { Modal.alert('点击了:' + d.name) }}>{d.name}</a>
 }
 let removeTpl = (d) => {
-  return <a onClick={() => { window.alert('确定要删除' + d.name + '吗') }}>删除</a>
+  return <a onClick={() => { Modal.confirm('确定要删除' + d.name + '吗', () => {}) }}>删除</a>
 }
 
 let filterOptions = [{
@@ -193,6 +194,15 @@ let filterOptions = [{
   props: { mult: true, data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
 }]
 
+const headers = [
+  { name: 'name', sortAble: true, content: nameTpl, header: 'Name' },
+  { name: 'position', hidden: true },
+  { name: 'office', sortAble: true, header: 'Office' },
+  { name: 'start_date', sortAble: true, content: '{start_date}', header: 'Start Date' },
+  { name: 'salary', content: '{salary}', header: 'Salary' },
+  { name: 'tools', width: 60, content: removeTpl }
+]
+
 <Filter onFilter={filters => this.setState({ filters })} style={{marginBottom: 20}} local={true} options={filterOptions} />
 
 <Table ref="table"
@@ -203,15 +213,8 @@ let filterOptions = [{
   width={this.state.width}
   height={this.state.height}
   data={this.state.data}
-  pagination={this.state.pagination ? pagination : null}>
-
-  <TableHeader name="name" sortAble={true} content={nameTpl}>Name</TableHeader>
-  <TableHeader name="position" hidden={true}>Position</TableHeader>
-  <TableHeader name="office" sortAble={true}>Office</TableHeader>
-  <TableHeader name="start_date" sortAble={true} content="{start_date}">Start Date</TableHeader>
-  <TableHeader name="salary" content="{salary}">Salary</TableHeader>
-  <TableHeader name="tools" width={60} content={removeTpl} />
-</Table>
+  pagination={this.state.pagination ? pagination : null}
+/>
 `}
           </pre>
         </div>

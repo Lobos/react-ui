@@ -20,6 +20,7 @@ class Table extends React.Component {
       React.PropTypes.func
     ]).isRequired,
     filters: React.PropTypes.array,
+    headers: React.PropTypes.array,
     height: React.PropTypes.oneOfType([
       React.PropTypes.number,
       React.PropTypes.string
@@ -37,7 +38,6 @@ class Table extends React.Component {
 
   componentWillMount () {
     this.fetchData(this.props.data)
-    this.setHeaderProps(this.props.children)
   }
 
   componentDidMount () {
@@ -48,9 +48,11 @@ class Table extends React.Component {
     if (nextProps.data !== this.props.data) {
       this.fetchData(nextProps.data)
     }
+    /*
     if (nextProps.children !== this.props.children) {
       this.setHeaderProps(nextProps.children)
     }
+    */
   }
 
   componentDidUpdate () {
@@ -66,7 +68,6 @@ class Table extends React.Component {
   state = {
     index: this.props.pagination ? this.props.pagination.props.index : 1,
     data: [],
-    headers: [],
     sort: {},
     total: null
   }
@@ -88,6 +89,7 @@ class Table extends React.Component {
     }
   }
 
+  /*
   setHeaderProps (children) {
     let headers = []
     if (children) {
@@ -103,6 +105,7 @@ class Table extends React.Component {
     }
     this.setState({headers})
   }
+  */
 
   fetchData (data) {
     if (typeof data === 'function') {
@@ -119,13 +122,13 @@ class Table extends React.Component {
   sortData (key, asc) {
     let data = this.state.data
     data = data.sort(function(a, b) {
-        var x = a[key]
-        var y = b[key]
-        if (asc) {
-          return ((x < y) ? -1 : ((x > y) ? 1 : 0))
-        } else {
-          return ((x > y) ? -1 : ((x < y) ? 1 : 0))
-        }
+      var x = a[key]
+      var y = b[key]
+      if (asc) {
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0))
+      } else {
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0))
+      }
     })
     this.setState({ data })
   }
@@ -214,21 +217,21 @@ class Table extends React.Component {
           </td>
         )
       }
-      this.state.headers.map((h, j) => {
-        if (h.props.hidden) {
+      this.props.headers.map((h, j) => {
+        if (h.hidden) {
           return
         }
-        let content = h.props.content,
+        let content = h.content,
             tdStyle = {}
         if (typeof content === 'string') {
           content = substitute(content, d)
         } else if (typeof content === 'function') {
           content = content(d)
         } else {
-          content = d[h.props.name]
+          content = d[h.name]
         }
-        if (h.props.width) {
-          tdStyle.width = h.props.width
+        if (h.width) {
+          tdStyle.width = h.width
         }
         tds.push(<td style={tdStyle} key={j}>{content}</td>)
       })
@@ -242,28 +245,32 @@ class Table extends React.Component {
     let headers = []
     if (this.props.selectAble) {
       headers.push(
-        <TableHeader key="checkbox" name="$checkbox">
+        <TableHeader key="checkbox" name="$checkbox" header={
           <input onClick={this.onCheck.bind(this, 'all')} type="checkbox" />
-        </TableHeader>
+        } />
       )
     }
-    this.state.headers.map((header, i) => {
-      if (header.type === TableHeader && !header.props.hidden) {
-        let props = {
-          key: i,
-          onSort: (name, asc) => {
-            this.setState({sort: { name, asc }})
-            if (this.props.onSort) {
-              this.props.onSort(name, asc)
-            } else {
-              this.sortData(name, asc)
-            }
-          },
-          sort: this.state.sort
-        }
-
-        headers.push(React.cloneElement(header, props))
+    this.props.headers.map((header, i) => {
+      if (header.hidden) {
+        return
       }
+
+      let props = {
+        key: i,
+        onSort: (name, asc) => {
+          this.setState({sort: { name, asc }})
+          if (this.props.onSort) {
+            this.props.onSort(name, asc)
+          } else {
+            this.sortData(name, asc)
+          }
+        },
+        sort: this.state.sort
+      }
+
+      headers.push(
+        <TableHeader {...header} {...props} />
+      )
     })
     return <tr>{headers}</tr>
   }

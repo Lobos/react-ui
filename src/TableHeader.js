@@ -1,22 +1,22 @@
 'use strict'
 
-import React from 'react'
+import { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 
-class TableHeader extends React.Component {
+class TableHeader extends Component {
   static displayName = 'TableHeader'
 
   static propTypes = {
-    children: React.PropTypes.any,
-    content: React.PropTypes.any,
-    hidden: React.PropTypes.bool,
-    name: React.PropTypes.string.isRequired,
-    onSort: React.PropTypes.func,
-    sort: React.PropTypes.object,
-    sortAble: React.PropTypes.bool,
-    width: React.PropTypes.oneOfType([
-      React.PropTypes.number,
-      React.PropTypes.string
+    content: PropTypes.any,
+    header: PropTypes.any,
+    hidden: PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    onSort: PropTypes.func,
+    sort: PropTypes.object,
+    sortAble: PropTypes.bool,
+    width: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
     ])
   }
 
@@ -49,7 +49,7 @@ class TableHeader extends React.Component {
 
     return (
       <th style={style} onClick={onSort}>
-        {this.props.children}
+        {this.props.header}
         {sort}
       </th>
     )
