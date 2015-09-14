@@ -2,11 +2,15 @@
 
 import React from 'react'
 import prettify from '../prettify'
-const {Select, dataSource} = global.uiRequire()
+const {Select, dataSource, Button} = global.uiRequire()
 
 @prettify
 export default class Page extends React.Component {
   static displayName = 'Pages/Select'
+
+  state = {
+    country: ''
+  }
 
   render () {
     return (
@@ -56,13 +60,18 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
             filterAble={true}
             optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
             valueTpl="{country}-{en}"
+            //onChange={ country => this.setState({ country }) }
+            value={this.state.country}
             data={dataSource("json/countries.json")} />
+          <Button style={{ marginLeft: 10 }} onClick={ () => this.setState({ country: '' }) }>清空</Button>
           <pre className="prettyprint">
 {`<Select placeholder="单选"
   filterAble={true}
   optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
+  value={this.state.country}
   data={dataSource("json/countries.json")} />
+<Button style={{ marginLeft: 10 }} onClick={ () => this.setState({ country: '' }) }>清空</Button>
 `}
           </pre>
 
