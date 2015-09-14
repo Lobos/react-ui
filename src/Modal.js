@@ -141,7 +141,7 @@ Modal.open = function (options) {
   if (!modalContainer) {
     createContainer()
   }
-  PubSub.publish(ADD_MODAL, options)
+  PubSub.publishSync(ADD_MODAL, options)
 }
 
 Modal.alert = function (content) {
