@@ -122,6 +122,13 @@ PubSub.subscribe(REMOVE_MESSAGE, (topic, index) => {
 })
 
 PubSub.subscribe(CLEAR_MESSAGE, () => {
-  messages = []
+  messages = messages.map((m) => {
+    m.dismissed = true
+    return m
+  })
   renderContainer()
+  setTimeout(() => {
+    messages = []
+    renderContainer()
+  }, 400)
 })
