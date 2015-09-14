@@ -3,7 +3,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import Overlay from './Overlay'
-import { forEach } from './utils/objects'
+//import { forEach } from './utils/objects'
 import PubSub from 'pubsub-js'
 
 import { requireCss } from './themes'
@@ -11,6 +11,7 @@ requireCss('message')
 
 const ADD_MESSAGE = "EB3A79637B40"
 const REMOVE_MESSAGE = "73D4EF15DF50"
+const CLEAR_MESSAGE = "73D4EF15DF52"
 let messages = []
 let messageContainer = null
 
@@ -26,19 +27,11 @@ class Item extends React.Component {
     type: React.PropTypes.string
   }
 
-  state = {
-    dismissed: this.props.dismissed
-  }
-
   dismiss () {
-    if (this.state.dismissed) {
+    if (this.props.dismissed) {
       return
     }
-    this.setState({ dismissed: true })
-    // wait transition end
-    setTimeout(function () {
-      this.props.onDismiss(this.props.index)
-    }.bind(this), 400)
+    this.props.onDismiss(this.props.index)
   }
 
   render () {
@@ -46,7 +39,7 @@ class Item extends React.Component {
       this.props.className,
       'rct-message',
       `rct-message-${this.props.type}`,
-      { 'dismissed': this.state.dismissed }
+      { 'dismissed': this.props.dismissed }
     )
 
     return (
@@ -62,19 +55,8 @@ export default class Message extends React.Component {
   static displayName = 'Message'
 
   static propTypes = {
-    className: React.PropTypes.string
-  }
-
-  componentDidMount () {
-    PubSub.subscribe(ADD_MESSAGE, (topic, data) => {
-      messages.push(data)
-      this.setState({ messages: messages })
-    })
-
-    PubSub.subscribe(REMOVE_MESSAGE, (topic, index) => {
-      messages.splice(index, 1)
-      this.setState({ messages: messages })
-    })
+    className: React.PropTypes.string,
+    messages: React.PropTypes.array
   }
 
   static show (content, type) {
@@ -87,22 +69,16 @@ export default class Message extends React.Component {
     })
   }
 
-  state = {
-    messages: messages
-  }
-
   dismiss (index) {
     PubSub.publish(REMOVE_MESSAGE, index)
   }
 
   clear () {
-    forEach(this.refs, function (ref) {
-      ref.dismiss()
-    })
+    PubSub.publish(CLEAR_MESSAGE)
   }
 
   render () {
-    let items = this.state.messages.map((msg, i) => {
+    let items = this.props.messages.map((msg, i) => {
       return (
         <Item key={i} index={i} ref={i} onDismiss={this.dismiss} {...msg} />
       )
@@ -111,7 +87,7 @@ export default class Message extends React.Component {
     let className = classnames(
       this.props.className,
       'rct-message-container',
-      { 'has-message': this.state.messages.length > 0 }
+      { 'has-message': this.props.messages.length > 0 }
     )
 
     return (
@@ -123,8 +99,29 @@ export default class Message extends React.Component {
   }
 }
 
+function renderContainer() {
+  React.render(<Message messages={messages} />, messageContainer)
+}
+
 function createContainer () {
   messageContainer = document.createElement('div')
   document.body.appendChild(messageContainer)
-  React.render(<Message />, messageContainer)
 }
+
+PubSub.subscribe(ADD_MESSAGE, (topic, data) => {
+  messages = [...messages, data]
+  renderContainer()
+})
+
+PubSub.subscribe(REMOVE_MESSAGE, (topic, index) => {
+  messages = [
+    ...messages.slice(0, index),
+    ...messages.slice(index + 1)
+  ]
+  renderContainer()
+})
+
+PubSub.subscribe(CLEAR_MESSAGE, () => {
+  messages = []
+  renderContainer()
+})
