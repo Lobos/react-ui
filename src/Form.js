@@ -22,13 +22,15 @@ export default class Form extends React.Component {
     ]).isRequired,
     hintType: React.PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
     layout: React.PropTypes.oneOf(['aligned', 'stacked', 'inline']),
+    locked: React.PropTypes.bool,
     onSubmit: React.PropTypes.func,
     style: React.PropTypes.object
   }
 
   static defaultProps = {
     data: {},
-    layout: 'inline'
+    layout: 'inline',
+    locked: false
   }
 
   componentWillMount () {
@@ -42,7 +44,6 @@ export default class Form extends React.Component {
   }
 
   state = {
-    locked: false,
     data: {}
   }
 
@@ -96,7 +97,7 @@ export default class Form extends React.Component {
     return React.Children.map(this.props.children, child => {
       let props = {
         hintType: child.props.hintType || this.props.hintType,
-        readOnly: child.props.readOnly || this.state.locked,
+        readOnly: child.props.readOnly || this.props.locked,
         layout: this.props.layout
       }
       if (child.type === FormControl) {
@@ -112,7 +113,7 @@ export default class Form extends React.Component {
           props.onValidate = this.equalValidate(child.props.equal, child.props.name)
         }
       } else if (child.type === FormSubmit) {
-        props.locked = this.state.locked
+        props.locked = this.props.locked
       }
 
       child = React.cloneElement(child, props)
@@ -137,7 +138,7 @@ export default class Form extends React.Component {
   }
 
   handleSubmit (event) {
-    if (this.state.locked) {
+    if (this.props.locked) {
       return
     }
 
@@ -146,22 +147,17 @@ export default class Form extends React.Component {
   }
 
   onSubmit () {
-    this.setState({ locked: true })
-
     let success = this.validate()
     if (success && this.props.beforeSubmit) {
       success = this.props.beforeSubmit()
     }
 
     if (!success) {
-      this.setState({ locked: false })
       return
     }
 
     if (this.props.onSubmit) {
-      this.props.onSubmit(this.getValue(), () => {
-        this.setState({ locked: false })
-      })
+      this.props.onSubmit(this.getValue())
     }
   }
 
