@@ -159,8 +159,9 @@ export default class Form extends React.Component {
     }
 
     if (this.props.onSubmit) {
-      this.props.onSubmit(this.getValue())
-      this.setState({ locked: false })
+      this.props.onSubmit(this.getValue(), () => {
+        this.setState({ locked: false })
+      })
     }
   }
 
