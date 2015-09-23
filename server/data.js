@@ -86,6 +86,10 @@ module.exports = {
     path: './TableHeader'
   },
 
+  Pagination: {
+    path: './Pagination'
+  },
+
   Filter: {
     path: './Filter'
   },
