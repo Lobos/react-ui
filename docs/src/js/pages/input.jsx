@@ -28,7 +28,7 @@ export default class Page extends React.Component {
 />`}
           </pre>
 
-          <p>示例见 <a href="#/form-control">FormControl</a></p>
+          <p>示例见 <a href="#/formControl">FormControl</a></p>
         </div>
       </div>
     )
