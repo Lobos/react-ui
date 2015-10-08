@@ -9,13 +9,12 @@ export default function clickAway(Component) {
     let fn = this.state.checkClickAwayMethod
 
     if (!fn) {
-      const self = this
-      fn = function (e) {
-        let el = ReactDOM.findDOMNode(self)
+      fn = (e) => {
+        let el = ReactDOM.findDOMNode(this)
 
         // Check if the target is inside the current component
         if (e.target !== el && !isDescendant(el, e.target)) {
-          self.componentClickAway()
+          this.componentClickAway()
         }
       }
       this.setState({ checkClickAwayMethod: fn })

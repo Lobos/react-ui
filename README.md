@@ -9,6 +9,7 @@ A collection of components for React.
 ```
 <script src="js/es5-shim.min.js"></script>
 <script src="js/react.js"></script>
+<script src="js/react-dom.js"></script>
 <script src="js/ReactUI.js"></script>
 ```
 
@@ -55,6 +56,10 @@ publish: webpack --config webpack-publish.config.js [--min]
 - [Upload](http://lobos.github.io/react-ui/#/upload)
 
 # Change log
+v0.5.0
+ - 修复bugs
+ - react版本改为0.14.0
+
 v0.4.0
 
  - 结构重新调整
