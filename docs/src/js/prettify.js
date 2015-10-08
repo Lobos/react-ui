@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+import ReactDOM from 'react-dom'
 
 export default function prettify (Component) {
   class Prettify extends React.Component {
@@ -11,7 +12,7 @@ export default function prettify (Component) {
     }
 
     componentDidMount () {
-      window.prettyPrint(null, React.findDOMNode(this.refs.component))
+      window.prettyPrint(null, ReactDOM.findDOMNode(this.refs.component))
     }
 
     render () {

@@ -127,7 +127,7 @@ export default class Upload extends React.Component {
       withCredentials: this.props.withCredentials,
       file: file.files[0],
       onProgress: (e) => {
-        let progress = React.findDOMNode(this.refs[id])
+        let progress = this.refs[id]
         progress.style.width = (e.loaded / e.total) * 100 + '%'
       },
       onLoad: (e) => {

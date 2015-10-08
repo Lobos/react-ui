@@ -48,7 +48,7 @@ Rating.register( // 注册一个主题，供重复调用
           </pre>
 
           <h2 className="subhead">Example</h2>
-          <p>
+          <div>
             <Rating maxValue={this.state.maxValue}
               theme={this.state.theme}
               icons={this.state.icons}
@@ -56,14 +56,14 @@ Rating.register( // 注册一个主题，供重复调用
               value={this.state.value}
               onChange={value=>this.setState({ value })}
             />
-          </p>
+          </div>
 
           <div style={{marginBottom: 10}}>
             <span>maxValue: </span>
             <RadioGroup className="pure-u-1 pure-u-sm-7-8" inline={true} onChange={maxValue=>this.setState({ maxValue })} value={this.state.maxValue} data={[5, 10, 12, 20]} />
           </div>
 
-          <p>
+          <div>
             <Checkbox onChange={
               checked=>this.setState({
                 icons: checked ?
@@ -71,11 +71,11 @@ Rating.register( // 注册一个主题，供重复调用
                   null
               })}
               text={'设置icons为heart'} />
-          </p>
+          </div>
 
-          <p>
+          <div>
             <Checkbox value="readOnly" onChange={readOnly=>this.setState({ readOnly })} text={'readOnly'} />
-          </p>
+          </div>
 
           <div style={{marginBottom: 10}}>
             <span>value: </span>

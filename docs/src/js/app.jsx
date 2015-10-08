@@ -8,12 +8,12 @@ global.uiRequire = function (src) {
   }
 }
 
-import React from 'react'
+import ReactDOM from 'react-dom'
 const AppRoutes = require('./app-routes.jsx')
 
-React.render(
+ReactDOM.render(
   AppRoutes,
-  document.body
+  document.getElementById('body')
 )
 
 // static files

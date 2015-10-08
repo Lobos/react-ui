@@ -4,7 +4,7 @@ module.exports = require("./make-webpack-config")({
     docs: "./docs/src/less/style.less"
   },
   separateStylesheet: true,
-  externals: {"react": "React"},
+  externals: {"react": "React", "react-dom": "ReactDOM"},
   path: "./docs/dist"
   //library: "app"
 });

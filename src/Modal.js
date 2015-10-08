@@ -2,6 +2,7 @@
 
 import classnames from 'classnames'
 import React from 'react'
+import ReactDOM from 'react-dom'
 import PubSub from 'pubsub-js'
 import Button from './Button'
 import Overlay from './Overlay'
@@ -173,5 +174,5 @@ Modal.confirm = function (content, onOk) {
 function createContainer () {
   modalContainer = document.createElement('div')
   document.body.appendChild(modalContainer)
-  React.render(<Modal />, modalContainer)
+  ReactDOM.render(<Modal />, modalContainer)
 }

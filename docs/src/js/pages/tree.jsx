@@ -63,10 +63,10 @@ export default class Page extends React.Component {
   value={string|array}
 />`}
         </pre>
-        <p><a href="#/dataSource">dataSource 参见这里</a></p>
+        <div><a href="#/dataSource">dataSource 参见这里</a></div>
 
         <h2 className="subhead">Example</h2>
-        <p>
+        <div>
           <Tree ref="tree" data={dataSource("json/tree.json")}
             readOnly={this.state.readOnly}
             selectAble={this.state.selectAble}
@@ -79,19 +79,19 @@ export default class Page extends React.Component {
             open={true}
             sep={this.state.sep}
           />
-        </p>
-        <p>
+        </div>
+        <div>
           <Checkbox onChange={(value)=>this.setState({ selectAble: value })} checked={this.state.selectAble} text="selectAble" />
           {' '}
           <Checkbox onChange={(value)=>this.setState({ readOnly: value })} checked={this.state.readOnly} text="readOnly" />
           {' '}
           <Checkbox onChange={(value)=>this.setState({ greedy: value })} checked={this.state.gre} text="greedy" />
-        </p>
-        <p>
+        </div>
+        <div>
           sep: {seps}
-        </p>
-        <p>value: {this.state.showValue}</p>
-        <p ref="textClick"></p>
+        </div>
+        <div>value: {this.state.showValue}</div>
+        <div ref="textClick"></div>
         <pre className="prettyprint">
 {`<Tree ref="tree" data={dataSource("json/tree.json")}
   readOnly={this.state.readOnly}

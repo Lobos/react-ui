@@ -78,11 +78,11 @@ class Select extends React.Component {
 
   open () {
     if (!this.state.active && !this.props.readOnly) {
-      let options = React.findDOMNode(this.refs.options)
+      let options = this.refs.options
       options.style.display = 'block'
       let offset = getOuterHeight(options) + 5
 
-      let el = React.findDOMNode(this)
+      let el = this.refs.container
       let dropup = overView(el, offset)
 
       withoutTransition(el, () => {
@@ -103,7 +103,7 @@ class Select extends React.Component {
     // use setTimeout instead of transitionEnd
     setTimeout(() => {
       if (this.state.active === false) {
-        React.findDOMNode(this.refs.options).style.display = 'none'
+        this.refs.options.style.display = 'none'
       }
     }, 500)
   }
@@ -295,7 +295,7 @@ class Select extends React.Component {
     }, this)
 
     return (
-      <div onClick={this.open.bind(this)} style={this.props.style} className={className}>
+      <div ref="container" onClick={this.open.bind(this)} style={this.props.style} className={className}>
         { result.length > 0 ? result : <span className="placeholder">{placeholder}&nbsp;</span> }
         <div className="rct-select-options-wrap">
           <hr />

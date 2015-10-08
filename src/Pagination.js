@@ -50,7 +50,7 @@ export default class Pagination extends React.Component {
   setInput (event) {
     event.preventDefault()
 
-    let value = React.findDOMNode(this.refs.input).value
+    let value = this.refs.input.value
     value = parseInt(value)
     if (!value) {
       return

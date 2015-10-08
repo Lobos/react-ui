@@ -100,14 +100,14 @@ class Datetime extends React.Component {
     today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
 
     if (!this.state.active) {
-      let picker = React.findDOMNode(this.refs.datepicker)
+      let picker = this.refs.datepicker
       picker.style.display = 'block'
       let height = getOuterHeight(picker)
 
       setTimeout(() => {
         this.setState({
           active: true,
-          popup: overView(React.findDOMNode(this), height),
+          popup: overView(this.refs.datetime, height),
           current: this.state.value || today,
           stage: this.props.timeOnly ? 'clock' : 'day'
         })
@@ -129,7 +129,7 @@ class Datetime extends React.Component {
     }
     setTimeout(() => {
       if (this.state.active === false) {
-        React.findDOMNode(this.refs.datepicker).style.display = 'none'
+        this.refs.datepicker.style.display = 'none'
       }
     }, 500)
   }
@@ -346,7 +346,7 @@ class Datetime extends React.Component {
     }
 
     return (
-      <div onClick={this.open.bind(this)} className={className}>
+      <div ref="datetime" onClick={this.open.bind(this)} className={className}>
         {text}
         <i className="icon calendar" />
         <div ref="datepicker" className="date-picker">

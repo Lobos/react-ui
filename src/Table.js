@@ -73,13 +73,13 @@ class Table extends React.Component {
   }
 
   setHeaderWidth () {
-    let body = React.findDOMNode(this.refs.body)
+    let body = this.refs.body
     let tr = body.querySelector('tr')
     if (!tr) {
       return
     }
 
-    let ths = React.findDOMNode(this.refs.header).querySelectorAll('th')
+    let ths = this.refs.header.querySelectorAll('th')
 
     let tds = tr.querySelectorAll('td')
     for (let i = 0, count = tds.length; i < count; i++) {
@@ -164,7 +164,7 @@ class Table extends React.Component {
   }
 
   onBodyScroll (e) {
-    let hc = React.findDOMNode(this.refs.headerContainer)
+    let hc = this.refs.headerContainer
     hc.style.marginLeft = (0 - e.target.scrollLeft) + 'px'
   }
 

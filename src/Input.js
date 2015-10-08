@@ -38,7 +38,7 @@ class Input extends React.Component {
   }
 
   getValue () {
-    return React.findDOMNode(this).value
+    return this.refs.input.value
   }
 
   setValue (value) {
@@ -79,9 +79,9 @@ class Input extends React.Component {
     }
 
     if (this.props.type === 'textarea') {
-      return (<textarea {...this.props} {...props} rows={this.props.rows} />)
+      return (<textarea ref="input" {...this.props} {...props} rows={this.props.rows} />)
     } else {
-      return (<input {...this.props} {...props} />)
+      return (<input ref="input" {...this.props} {...props} />)
     }
   }
 }

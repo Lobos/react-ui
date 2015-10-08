@@ -33,20 +33,20 @@ export default class Page extends React.Component {
 />`}
 
           </pre>
-          <p><a href="#/dataSource">dataSource 参见这里</a></p>
+          <div><a href="#/dataSource">dataSource 参见这里</a></div>
 
           <h2 className="subhead">数据结构</h2>
-          <p>标准结构为 <em>text</em>, <em>id</em> key组成的数组</p>
+          <div>标准结构为 <em>text</em>, <em>id</em> key组成的数组</div>
           <pre className="prettyprint">{'[{"text":"北京","id":"beijing"},{"text":"上海", "id":"shanghai"}]'}</pre>
-          <p>可以使用自定义数组，指定 <em>textTpl</em>, <em>valueTpl</em></p>
+          <div>可以使用自定义数组，指定 <em>textTpl</em>, <em>valueTpl</em></div>
           <pre className="prettyprint">{'[{"cn":"北京","py":"beijing"},{"cn":"上海", "py":"shanghai"}]'}</pre>
-          <p>可以使用一维数组，这种情况下，显示文字与值相同</p>
+          <div>可以使用一维数组，这种情况下，显示文字与值相同</div>
           <pre className="prettyprint">{'["北京","上海","广州"]'}</pre>
 
           <h2 className="subhead">Object Data</h2>
-          <p>
+          <div>
             <CheckboxGroup inline={true} data={textValue} />
-          </p>
+          </div>
           <pre className="prettyprint">{'<CheckboxGroup inline={true} data={data} />'}</pre>
           <pre className="prettyprint">
 {`data = [
@@ -61,27 +61,27 @@ export default class Page extends React.Component {
           </pre>
 
           <h2 className="subhead">Array Data</h2>
-          <p>
+          <div>
             <CheckboxGroup ref="array" sep="" onChange={()=>console.log(this.refs.array.getValue())} inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
-          </p>
+          </div>
           <pre className="prettyprint">{'<CheckboxGroup inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'}</pre>
 
           <h2 className="subhead">Readonly</h2>
-          <p>
+          <div>
             <CheckboxGroup readOnly={true} inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
-          </p>
+          </div>
           <pre className="prettyprint">{'<CheckboxGroup readOnly={true} inline={true} value={["北京", "广州"]} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'}</pre>
 
           <h2 className="subhead">Remote Data</h2>
-          <p>
+          <div>
             <CheckboxGroup ref="remote" onChange={()=>console.log(this.refs.remote.getValue())} inline={true} value="shanghai,chengdu" data={ dataSource("json/text-value.json", null, { cache: true }) } />
-          </p>
+          </div>
           <pre className="prettyprint">{'<CheckboxGroup inline={true} value="shanghai,chengdu" data={dataSource("json/text-value.json")} />'}</pre>
 
           <h2 className="subhead">Data Sep</h2>
-          <p>
+          <div>
             <CheckboxGroup ref="sep" onChange={()=>console.log(this.refs.sep.getValue())} inline={true} sep="|" value="shanghai|chengdu" data={ dataSource("json/text-value.json", null, { cache: true }) } />
-          </p>
+          </div>
           <pre className="prettyprint">{'<CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" data={dataSource("json/text-value.json")} />'}</pre>
         </div>
 

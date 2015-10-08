@@ -60,7 +60,7 @@ export default class Filter extends React.Component {
 
   open () {
     this.bindClickAway()
-    let options = React.findDOMNode(this.refs.options)
+    let options = this.refs.options
     options.style.display = 'block'
     setTimeout(() => {
       this.setState({ active: true })
@@ -71,7 +71,7 @@ export default class Filter extends React.Component {
   }
 
   close () {
-    let options = React.findDOMNode(this.refs.options)
+    let options = this.refs.options
     options.parentNode.style.overflow = 'hidden'
     this.setState({ active: false })
     this.unbindClickAway()

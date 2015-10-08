@@ -42,7 +42,7 @@ class Checkbox extends React.Component {
   }
 
   getValue () {
-    return React.findDOMNode(this.refs.input).checked ? (this.props.value || true) : false
+    return this.refs.input.checked ? (this.props.value || true) : false
   }
 
   setValue (value) {

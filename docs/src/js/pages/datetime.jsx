@@ -37,17 +37,17 @@ export default class Page extends React.Component {
 
           <h2 className="subhead">Example</h2>
           <Datetime ref="d-def" onChange={this.handleChange.bind(this, 'def')} value="2015-06-21 17:24:03" />
-          <p ref="p-def"></p>
+          <div ref="p-def"></div>
           <pre className="prettyprint">{`<Datetime value="2015-06-21 17:24:03" />`}</pre>
 
           <h2 className="subhead">dateOnly</h2>
           <Datetime ref="d-dateOnly" onChange={this.handleChange.bind(this, 'dateOnly')} dateOnly={true} />
-          <p ref="p-dateOnly"></p>
+          <div ref="p-dateOnly"></div>
           <pre className="prettyprint">{`<Datetime dateOnly={true} />`}</pre>
 
           <h2 className="subhead">timeOnly</h2>
           <Datetime ref="d-timeOnly" onChange={this.handleChange.bind(this, 'timeOnly')} timeOnly={true} />
-          <p ref="p-timeOnly"></p>
+          <div ref="p-timeOnly"></div>
           <pre className="prettyprint">{`<Datetime timeOnly={true} />`}</pre>
 
           <h2 className="subhead">readOnly</h2>
@@ -56,7 +56,7 @@ export default class Page extends React.Component {
 
           <h2 className="subhead">unixtime</h2>
           <Datetime ref="d-unixtime" onChange={this.handleChange.bind(this, 'unixtime')} unixtime={true} />
-          <p ref="p-unixtime"></p>
+          <div ref="p-unixtime"></div>
           <pre className="prettyprint">{`<Datetime unixtime={true} />`}</pre>
         </div>
       </div>

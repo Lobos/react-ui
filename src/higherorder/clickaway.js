@@ -1,6 +1,6 @@
 'use strict'
 
-import React from 'react'
+import ReactDOM from 'react-dom'
 import * as Events from '../utils/events'
 import { isDescendant } from '../utils/dom'
 
@@ -11,7 +11,7 @@ export default function clickAway(Component) {
     if (!fn) {
       const self = this
       fn = function (e) {
-        let el = React.findDOMNode(self)
+        let el = ReactDOM.findDOMNode(self)
 
         // Check if the target is inside the current component
         if (e.target !== el && !isDescendant(el, e.target)) {

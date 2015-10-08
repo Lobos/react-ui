@@ -1,6 +1,7 @@
 "use strict"
 
 import React from 'react'
+import ReactDOM from 'react-dom'
 import classnames from 'classnames'
 import Overlay from './Overlay'
 //import { forEach } from './utils/objects'
@@ -100,7 +101,7 @@ export default class Message extends React.Component {
 }
 
 function renderContainer() {
-  React.render(<Message messages={messages} />, messageContainer)
+  ReactDOM.render(<Message messages={messages} />, messageContainer)
 }
 
 function createContainer () {
