@@ -1,3 +1,5 @@
+var path = require('path')
+
 module.exports = require("./make-webpack-config")({
   entry: {
     app: "./docs/src/js/app.jsx",
@@ -5,6 +7,6 @@ module.exports = require("./make-webpack-config")({
   },
   separateStylesheet: true,
   externals: {"react": "React", "react-dom": "ReactDOM"},
-  path: "./docs/dist"
+  path: path.join(__dirname, 'docs/dist')
   //library: "app"
 });

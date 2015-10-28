@@ -51,8 +51,8 @@ module.exports = function(options) {
       lessLoader = cssLoader + '!less-loader'
 
 	var loaders = loadersByExtension({
-		"jsx": options.hotComponents ? ["react-hot-loader", "babel-loader?stage=0"] : "babel-loader?stage=0",
-		"js": "babel-loader?stage=0", // include: path.join(__dirname, "app")
+		"jsx": options.hotComponents ? "babel" : "babel-loader?stage=0",
+		"js": options.hotComponents ? "babel" : "babel-loader?stage=0",
 		"json": "file-loader?name=./json/[name].json",
 		//"txt": "raw-loader",
     "png|jpg|jpeg|gif|svg": "url-loader?limit=10000&name=./images/[name].[ext]",
@@ -107,6 +107,10 @@ module.exports = function(options) {
 		)
 	}
 
+  if (options.plugins) {
+    plugins = plugins.concat(options.plugins)
+  } 
+
 	return {
 		entry: entry,
 		output: output,
@@ -117,15 +121,6 @@ module.exports = function(options) {
 		devtool: options.devtool,
 		debug: options.debug,
 		externals: externals,
-		plugins: plugins,
-		devServer: {
-			stats: {
-				cached: false,
-				exclude: [
-          /node_modules[\\\/]react(-router)?[\\\/]/,
-          /node_modules[\\\/]items-store[\\\/]/
-        ]
-			}
-		}
+		plugins: plugins
 	}
 }
