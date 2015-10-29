@@ -7,7 +7,7 @@
   "scripts": {
     "test": "./node_modules/.bin/_mocha --compilers js:babel/register",
     "dev": "node devServer.js",
-    "publish": "webpack --config webpack-docs.config.js --min"
+    "build": "NODE_ENV=production webpack --config webpack.config.docs.js"
   },
   "keywords": [
     "react ui",

@@ -9,4 +9,5 @@ publish
 *.swp
 *.bat
 *.sh
+*.log
 /components

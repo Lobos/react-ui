@@ -37,9 +37,9 @@ module.exports = function(options) {
 
 	var output = {
 		path: options.path || "./",
-		filename: options.filename || "js/[name].js",
+		filename: options.filename || "[name].js",
 		//chunkFilename: (options.devServer ? "[id].js" : "[name].js") + (options.longTermCaching ? "?[chunkhash]" : ""),
-		sourceMapFilename: "js/[file].map",
+		sourceMapFilename: "[file].map",
 		pathinfo: options.debug,
     library: options.library,
 		libraryTarget: options.libraryTarget || "umd"
@@ -53,9 +53,9 @@ module.exports = function(options) {
 	var loaders = loadersByExtension({
 		"jsx": options.hotComponents ? "babel" : "babel-loader?stage=0",
 		"js": options.hotComponents ? "babel" : "babel-loader?stage=0",
-		"json": "file-loader?name=./json/[name].json",
+		"json": "file-loader?name=./[name].json",
 		//"txt": "raw-loader",
-    "png|jpg|jpeg|gif|svg": "url-loader?limit=10000&name=./images/[name].[ext]",
+    "png|jpg|jpeg|gif": "url-loader?limit=10000&name=./images/[name].[ext]",
 		"ttf|eot|woff|woff2|otf|svg": "file-loader?name=./font/[name].[ext]",
 		//"wav|mp3": "file-loader",
 		//"html": "html-loader",
@@ -85,7 +85,7 @@ module.exports = function(options) {
 	]
 
 	if(options.separateStylesheet) {
-		plugins.push(new ExtractTextPlugin("css/[name].css"))
+		plugins.push(new ExtractTextPlugin("[name].css"))
 	}
 
 	if(minimize) {
@@ -94,17 +94,18 @@ module.exports = function(options) {
 				compressor: {
 					warnings: false
 				}
-			}),
-			new webpack.optimize.DedupePlugin()
-		)
+			})
+    )
+    plugins.push(new webpack.optimize.OccurenceOrderPlugin())
+    plugins.push(new webpack.NoErrorsPlugin())
+    plugins.push(new webpack.optimize.DedupePlugin())
 		plugins.push(
 			new webpack.DefinePlugin({
 				"process.env": {
 					NODE_ENV: JSON.stringify("production")
 				}
-			}),
-			new webpack.NoErrorsPlugin()
-		)
+			})
+    )
 	}
 
   if (options.plugins) {
