@@ -1,9 +1,9 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import prettify from '../prettify'
-import textValue from '../data/text-value'
-const {CheckboxGroup, dataSource } = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+import textValue from '../data/text-value';
+const {CheckboxGroup, dataSource } = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
@@ -87,6 +87,6 @@ export default class Page extends React.Component {
 
 
       </div>
-    )
+    );
   }
 }

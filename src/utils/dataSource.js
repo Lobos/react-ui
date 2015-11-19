@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-import Qwest from 'qwest'
+import Qwest from 'qwest';
 
 export default function (src, data, options) {
   let stacks = {
@@ -12,23 +12,23 @@ export default function (src, data, options) {
       req = null,
 
   qwest = function () {
-    req = Qwest.get(src, data, options)
+    req = Qwest.get(src, data, options);
     promises.forEach(p => {
       req[p](res => {
         stacks[p].forEach(func => {
-          func(res)
-        })
-      })
-    })
-    return qwest
-  }
+          func(res);
+        });
+      });
+    });
+    return qwest;
+  };
 
   promises.forEach(p => {
     qwest[p] = func => {
-      stacks[p].push(func)
-      return qwest
-    }
-  })
+      stacks[p].push(func);
+      return qwest;
+    };
+  });
 
-  return qwest
+  return qwest;
 }

@@ -1,19 +1,19 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import prettify from '../prettify'
-const {Button, Icon} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Button, Icon} = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
   static displayName: 'Pages/Button'
 
   disableExample (event) {
-    let button = this.refs.button
+    let button = this.refs.button;
     if (event.target.checked) {
-      button.disable(<span><Icon icon="lock" />我被禁用了</span>)
+      button.disable(<span><Icon icon="lock" />我被禁用了</span>);
     } else {
-      button.enable('我又可以使用了')
+      button.enable('我又可以使用了');
     }
   }
 
@@ -117,7 +117,7 @@ export default class Page extends React.Component {
 
         </div>
       </div>
-    )
+    );
   }
 }
 

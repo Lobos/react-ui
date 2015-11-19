@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import classnames from 'classnames'
-import getGrid from './higherorder/grid'
+import React from 'react';
+import classnames from 'classnames';
+import getGrid from './higherorder/grid';
 
 @getGrid
 export default class Grid extends React.Component {
@@ -18,11 +18,11 @@ export default class Grid extends React.Component {
     const className = classnames(
       this.props.className,
       this.getGrid()
-    )
+    );
     return (
       <div style={this.props.style} className={className}>
         {this.props.children}
       </div>
-    )
+    );
   }
 }

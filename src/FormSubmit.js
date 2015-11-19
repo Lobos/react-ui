@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import Button from './Button'
+import React from 'react';
+import Button from './Button';
 
 export default class FormSubmit extends React.Component {
   static displayName = 'FormSubmit'
@@ -14,12 +14,12 @@ export default class FormSubmit extends React.Component {
   }
 
   render () {
-    let children = this.props.children
-    let content
+    let children = this.props.children;
+    let content;
     if (Array.isArray(children)) {
-      content = this.props.locked ? children[1] : children[0]
+      content = this.props.locked ? children[1] : children[0];
     } else {
-      content = children
+      content = children;
     }
 
     return (
@@ -31,7 +31,7 @@ export default class FormSubmit extends React.Component {
           {content}
         </Button>
       </div>
-    )
+    );
   }
 }
 

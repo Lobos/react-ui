@@ -1,48 +1,48 @@
-"use strict"
+"use strict";
 
-import { substitute } from './strings'
+import { substitute } from './strings';
 
 export function isEmpty (obj) {
   // null and undefined are "empty"
   if (obj === null || obj === undefined) {
-    return true
+    return true;
   }
 
   if (typeof obj === 'number' && isNaN(obj)) {
-    return true
+    return true;
   }
 
   if (obj.length !== undefined) {
-    return obj.length === 0
+    return obj.length === 0;
   }
 
   if (obj instanceof Date) {
-    return false
+    return false;
   }
 
   if (typeof obj === 'object') {
-    return Object.keys(obj).length === 0
+    return Object.keys(obj).length === 0;
   }
 
-  return false
+  return false;
 }
 
 export function forEach (obj, fn, context) {
-  Object.keys(obj).forEach(key => fn.call(context, obj[key], key))
+  Object.keys(obj).forEach(key => fn.call(context, obj[key], key));
 }
 
 export function toTextValue (arr, textTpl='{text}', valueTpl='{id}') {
   if (!arr) {
-    return []
+    return [];
   }
   arr = arr.map(function (s) {
     if (typeof s !== 'object') {
-      return { $text: s, $value: s }
+      return { $text: s, $value: s };
     } else {
-      s.$text = substitute(textTpl, s)
-      s.$value = substitute(valueTpl, s)
-      return s
+      s.$text = substitute(textTpl, s);
+      s.$value = substitute(valueTpl, s);
+      return s;
     }
-  })
-  return arr
+  });
+  return arr;
 }

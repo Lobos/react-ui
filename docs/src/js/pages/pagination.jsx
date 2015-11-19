@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import prettify from '../prettify'
-const {Pagination, Input, Checkbox} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Pagination, Input, Checkbox} = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
@@ -17,7 +17,7 @@ export default class Page extends React.Component {
   }
 
   onChange (index) {
-    this.setState({ index })
+    this.setState({ index });
   }
 
   render () {
@@ -56,6 +56,6 @@ export default class Page extends React.Component {
           <p><Checkbox text="jumper" onChange={jumper => this.setState({jumper})} value={this.state.jumper} /></p>
         </div>
       </div>
-    )
+    );
   }
 }

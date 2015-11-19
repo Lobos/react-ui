@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import prettify from '../prettify'
-const {Button, Modal, Form, FormControl} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Button, Modal, Form, FormControl} = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
@@ -15,10 +15,10 @@ export default class Page extends React.Component {
   multOpen () {
     let index = this.state.index + 1,
         width = Math.ceil((Math.random() + 1) * 400),
-        ps = []
+        ps = [];
 
     for (var i = 1; i <= index; i++) {
-      ps.push(<p key={i}>{`第 ${i} 层Modal`}</p>)
+      ps.push(<p key={i}>{`第 ${i} 层Modal`}</p>);
     }
 
     let options = {
@@ -33,14 +33,14 @@ export default class Page extends React.Component {
         </div>
       ),
       onClose: () => {
-        this.setState({ index: index - 1 })
+        this.setState({ index: index - 1 });
       },
       buttons: {
         '关闭': true
       }
-    }
-    Modal.open(options)
-    this.setState({ index })
+    };
+    Modal.open(options);
+    this.setState({ index });
   }
 
   render () {
@@ -59,19 +59,19 @@ export default class Page extends React.Component {
       buttons: {
         '取消': true,
         '重置': () => {
-          let form = this.refs.form
-          form.setData({})
+          let form = this.refs.form;
+          form.setData({});
         },
         '确定': () => {
-          let form = this.refs.form
-          let suc = form.validate()
+          let form = this.refs.form;
+          let suc = form.validate();
           if (suc) {
-            alert(JSON.stringify(form.getValue()))
-            return true
+            alert(JSON.stringify(form.getValue()));
+            return true;
           }
         }
       }
-    }
+    };
 
     return (
       <div>
@@ -144,7 +144,7 @@ export default class Page extends React.Component {
                 <p>如果你知道要做什么，请点确定。</p>
                 <p>如果你不知道，点取消吧。</p>
               </div>,
-              () => { alert('点击了确定') })}>confirm example</Button>
+              () => { alert('点击了确定'); })}>confirm example</Button>
           </div>
           <pre className="prettyprint">
 {`Modal.confirm(
@@ -199,6 +199,6 @@ export default class Page extends React.Component {
           </pre>
         </div>
       </div>
-    )
+    );
   }
 }

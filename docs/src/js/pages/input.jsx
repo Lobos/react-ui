@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import prettify from '../prettify'
+import React from 'react';
+import prettify from '../prettify';
 
 @prettify
 export default class Page extends React.Component {
@@ -31,6 +31,6 @@ export default class Page extends React.Component {
           <p>示例见 <a href="#/form-control">FormControl</a></p>
         </div>
       </div>
-    )
+    );
   }
 }

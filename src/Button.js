@@ -1,10 +1,10 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import classnames from 'classnames'
-import getGrid from './higherorder/grid'
-import { requireCss } from './themes'
-requireCss('buttons')
+import React from 'react';
+import classnames from 'classnames';
+import getGrid from './higherorder/grid';
+import { requireCss } from './themes';
+requireCss('buttons');
 
 @getGrid
 class Button extends React.Component {
@@ -23,7 +23,7 @@ class Button extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.disabled !== this.props.disabled) {
-      this.setState({ disabled: nextProps.disabled })
+      this.setState({ disabled: nextProps.disabled });
     }
   }
 
@@ -33,26 +33,26 @@ class Button extends React.Component {
   }
 
   disable(elem) {
-    this.setState({ disabled: true, show: elem })
+    this.setState({ disabled: true, show: elem });
   }
 
   enable(elem) {
-    this.setState({ disabled: false, show: elem })
+    this.setState({ disabled: false, show: elem });
   }
 
   handleClick() {
     if (this.props.onClick) {
-      this.props.onClick()
+      this.props.onClick();
     }
     if (this.props.once) {
-      this.disable()
+      this.disable();
     }
   }
 
   render() {
-    let status = this.props.status
+    let status = this.props.status;
     if (status) {
-      status = `rct-button-${status}`
+      status = `rct-button-${status}`;
     }
 
     const className = classnames(
@@ -60,7 +60,7 @@ class Button extends React.Component {
       this.getGrid(),
       'rct-button',
       status
-    )
+    );
 
     return (
       <button onClick={this.handleClick.bind(this)}
@@ -70,9 +70,9 @@ class Button extends React.Component {
         type={this.props.type || "button"}>
         { this.state.show || this.props.children }
       </button>
-    )
+    );
   }
 }
 
-export default Button
+export default Button;
 

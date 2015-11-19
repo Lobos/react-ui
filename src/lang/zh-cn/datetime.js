@@ -13,4 +13,4 @@ export default {
       time: 'hh:mm:ss'
     }
   }
-}
+};

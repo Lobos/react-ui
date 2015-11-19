@@ -1,9 +1,9 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import classnames from 'classnames'
-import { requireCss } from './themes'
-requireCss('checkbox')
+import React from 'react';
+import classnames from 'classnames';
+import { requireCss } from './themes';
+requireCss('checkbox');
 
 class Checkbox extends React.Component {
   static displayName = "Checkbox"
@@ -22,7 +22,7 @@ class Checkbox extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.checked !== this.props.checked) {
-      this.setState({ checked: nextProps.checked })
+      this.setState({ checked: nextProps.checked });
     }
   }
 
@@ -32,22 +32,22 @@ class Checkbox extends React.Component {
 
   handleChange (event) {
     if (this.props.readOnly) {
-      return
+      return;
     }
 
-    this.setState({ checked: event.target.checked })
+    this.setState({ checked: event.target.checked });
     if (this.props.onChange) {
-      this.props.onChange(event.target.checked, this.props.value, this.props.index)
+      this.props.onChange(event.target.checked, this.props.value, this.props.index);
     }
   }
 
   getValue () {
-    return this.refs.input.checked ? (this.props.value || true) : false
+    return this.refs.input.checked ? (this.props.value || true) : false;
   }
 
   setValue (value) {
-    var checked = value === true || value === 1 || value === this.state.value
-    this.setState({ checked: checked })
+    var checked = value === true || value === 1 || value === this.state.value;
+    this.setState({ checked: checked });
   }
 
   render () {
@@ -63,7 +63,7 @@ class Checkbox extends React.Component {
         {this.props.text}
         {this.props.children}
       </label>
-    )
+    );
   }
 }
 
@@ -72,10 +72,10 @@ require('./FormControl').register(
   'checkbox',
 
   function (props) {
-    return <Checkbox {...props} />
+    return <Checkbox {...props} />;
   },
 
   Checkbox
-)
+);
 
-export default Checkbox
+export default Checkbox;

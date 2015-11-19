@@ -1,8 +1,8 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import classnames from 'classnames'
-import NavList from '../nav-list.jsx'
+import React from 'react';
+import classnames from 'classnames';
+import NavList from '../nav-list.jsx';
 
 export default class Page extends React.Component {
   static displayName = 'Master'
@@ -16,7 +16,7 @@ export default class Page extends React.Component {
   }
 
   navToggle (show) {
-    this.setState({ navShow: show })
+    this.setState({ navShow: show });
   }
 
   render () {
@@ -25,6 +25,6 @@ export default class Page extends React.Component {
         <NavList onToggle={this.navToggle.bind(this)} />
         <div className="main">{this.props.children}</div>
       </div>
-    )
+    );
   }
 }

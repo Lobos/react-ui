@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-import { Component, PropTypes } from 'react'
-import classnames from 'classnames'
+import { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 
 class TableHeader extends Component {
   static displayName = 'TableHeader'
@@ -29,22 +29,22 @@ class TableHeader extends Component {
   }
 
   onSort () {
-    let asc = this.state.asc === 0 ? 1 : 0
-    this.setState({ asc })
-    this.props.onSort(this.props.name, asc)
+    let asc = this.state.asc === 0 ? 1 : 0;
+    this.setState({ asc });
+    this.props.onSort(this.props.name, asc);
   }
 
   render () {
     let sort = [],
         onSort = null,
-        style = {}
+        style = {};
 
     if (this.props.sortAble) {
-      sort.push(<i key="up" className={classnames("arrow-up", {active: this.props.name === this.props.sort.name && this.state.asc === 1})} />)
-      sort.push(<i key="down" className={classnames("arrow-down", {active: this.props.name === this.props.sort.name && this.state.asc === 0})} />)
+      sort.push(<i key="up" className={classnames("arrow-up", {active: this.props.name === this.props.sort.name && this.state.asc === 1})} />);
+      sort.push(<i key="down" className={classnames("arrow-down", {active: this.props.name === this.props.sort.name && this.state.asc === 0})} />);
 
-      onSort = this.onSort.bind(this)
-      style = { cursor: 'pointer' }
+      onSort = this.onSort.bind(this);
+      style = { cursor: 'pointer' };
     }
 
     return (
@@ -52,8 +52,8 @@ class TableHeader extends Component {
         {this.props.header}
         {sort}
       </th>
-    )
+    );
   }
 }
 
-export default TableHeader
+export default TableHeader;

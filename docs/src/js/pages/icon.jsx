@@ -1,8 +1,8 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import prettify from '../prettify'
-const {Icon} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Icon} = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
@@ -63,6 +63,6 @@ export default class Page extends React.Component {
           <pre className="prettyprint">{'icon.spin()\ricon.unspin()'}</pre>
         </div>
       </div>
-    )
+    );
   }
 }

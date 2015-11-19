@@ -1,8 +1,8 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import prettify from '../prettify'
-const {Tree, Checkbox, Qwest, dataSource} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Tree, Checkbox, Qwest, dataSource} = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
@@ -11,8 +11,8 @@ export default class Page extends React.Component {
   componentWillMount () {
     Qwest.get('json/tree.json', null, {cache: true})
       .then(res => {
-        this.setState({ treeData: JSON.stringify(res, null, 2) })
-      })
+        this.setState({ treeData: JSON.stringify(res, null, 2) });
+      });
   }
 
   state = {
@@ -26,21 +26,21 @@ export default class Page extends React.Component {
   }
 
   handleChange () {
-    let value = JSON.stringify(this.refs.tree.getValue())
-    this.setState({ showValue: value })
+    let value = JSON.stringify(this.refs.tree.getValue());
+    this.setState({ showValue: value });
   }
 
   sepChange (sep) {
-    this.setState({ sep })
-    setTimeout(()=>this.handleChange(), 0)
+    this.setState({ sep });
+    setTimeout(()=>this.handleChange(), 0);
   }
 
   render () {
     let seps = ([',', '|', '#', null]).map((sep, i) => {
       return (
         <a key={i} style={{margin: "0 10px"}} onClick={this.sepChange.bind(this, sep)}>{JSON.stringify(sep)}</a>
-      )
-    })
+      );
+    });
     return (
       <div>
         <div className="header">
@@ -120,6 +120,6 @@ export default class Page extends React.Component {
         <pre className="prettyprint">{this.state.treeData}</pre>
         </div>
       </div>
-    )
+    );
   }
 }

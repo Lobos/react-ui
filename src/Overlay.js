@@ -1,10 +1,10 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import classnames from 'classnames'
+import React from 'react';
+import classnames from 'classnames';
 
-import { requireCss } from './themes'
-requireCss('overlay')
+import { requireCss } from './themes';
+requireCss('overlay');
 
 export default class Overlay extends React.Component {
   static displayName = 'Overlay'
@@ -23,10 +23,10 @@ export default class Overlay extends React.Component {
     let className = classnames(
       this.props.className,
       'rct-overlay'
-    )
+    );
 
     return (
       <div className={className} style={this.props.style} onClick={this.props.onClick} />
-    )
+    );
   }
 }

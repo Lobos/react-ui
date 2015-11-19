@@ -1,9 +1,9 @@
-"use strict"
+"use strict";
 
-import React from 'react'
+import React from 'react';
 
-import { requireCss } from './themes'
-requireCss('checkbox')
+import { requireCss } from './themes';
+requireCss('checkbox');
 
 export default class Radio extends React.Component {
   static displayName = "Radio"
@@ -20,7 +20,7 @@ export default class Radio extends React.Component {
 
   handleClick () {
     if (this.props.onClick) {
-      this.props.onClick(this.props.value, this.props.index)
+      this.props.onClick(this.props.value, this.props.index);
     }
   }
 
@@ -37,6 +37,6 @@ export default class Radio extends React.Component {
         />
         <span>{this.props.text}</span>
       </label>
-    )
+    );
   }
 }

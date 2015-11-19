@@ -44,4 +44,4 @@ export default {
       fileSize: '最大上传文件大小不能超过 {0} KB'
     }
   }
-}
+};

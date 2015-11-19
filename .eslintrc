@@ -15,7 +15,7 @@
     "parser": "babel-eslint",
     "rules": {
         "no-alert": 0,
-        "semi": [2, "never"],
+        "semi": [2],
         "quotes": [0],
         "no-undef": [2],
         "no-unused-vars": [2, {vars: local}],

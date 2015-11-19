@@ -1,9 +1,9 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import prettify from '../prettify'
-const {RadioGroup, dataSource} = global.uiRequire()
-const textValue = require('../data/text-value')
+import React from 'react';
+import prettify from '../prettify';
+const {RadioGroup, dataSource} = global.uiRequire();
+const textValue = require('../data/text-value');
 
 @prettify
 export default class Page extends React.Component {
@@ -81,6 +81,6 @@ export default class Page extends React.Component {
           <pre className="prettyprint">{'<RadioGroup inline={true} stringify={true} value="chengdu" data={ dataSource("json/text-value.json") } />'}</pre>
         </div>
       </div>
-    )
+    );
   }
 }

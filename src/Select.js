@@ -1,16 +1,16 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import classnames from 'classnames'
-import { toArray, substitute } from './utils/strings'
-import { getOuterHeight, overView, withoutTransition } from './utils/dom'
-import clone from './utils/clone'
-import clickAway from './higherorder/clickaway'
-import getGrid from './higherorder/grid'
+import React from 'react';
+import classnames from 'classnames';
+import { toArray, substitute } from './utils/strings';
+import { getOuterHeight, overView, withoutTransition } from './utils/dom';
+import clone from './utils/clone';
+import clickAway from './higherorder/clickaway';
+import getGrid from './higherorder/grid';
 
-import { requireCss } from './themes'
-requireCss('select')
-requireCss('form-control')
+import { requireCss } from './themes';
+requireCss('select');
+requireCss('form-control');
 
 @clickAway
 @getGrid
@@ -45,28 +45,28 @@ class Select extends React.Component {
   }
 
   componentWillMount () {
-    let values = toArray(this.props.value, this.props.sep)
-    let data = this.formatData(this.props.data, values)
-    this.setState({ data })
+    let values = toArray(this.props.value, this.props.sep);
+    let data = this.formatData(this.props.data, values);
+    this.setState({ data });
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
-      this.setValue(this.formatValue(nextProps.value))
+      this.setValue(this.formatValue(nextProps.value));
     }
     if (nextProps.data !== this.props.data) {
-      this.setState({ data: this.formatData(nextProps.data) })
+      this.setState({ data: this.formatData(nextProps.data) });
     }
   }
 
   componentWillUnmount () {
-    this.unmounted = true
+    this.unmounted = true;
   }
 
   unmounted = false
 
   componentClickAway () {
-    this.close()
+    this.close();
   }
 
   state = {
@@ -78,76 +78,76 @@ class Select extends React.Component {
 
   open () {
     if (!this.state.active && !this.props.readOnly) {
-      let options = this.refs.options
-      options.style.display = 'block'
-      let offset = getOuterHeight(options) + 5
+      let options = this.refs.options;
+      options.style.display = 'block';
+      let offset = getOuterHeight(options) + 5;
 
-      let el = this.refs.container
-      let dropup = overView(el, offset)
+      let el = this.refs.container;
+      let dropup = overView(el, offset);
 
       withoutTransition(el, () => {
-        this.setState({ dropup })
-      })
+        this.setState({ dropup });
+      });
 
-      this.bindClickAway()
+      this.bindClickAway();
 
       setTimeout(() => {
-        this.setState({ filter: '', active: true })
-      }, 0)
+        this.setState({ filter: '', active: true });
+      }, 0);
     }
   }
 
   close () {
-    this.setState({ active: false })
-    this.unbindClickAway()
+    this.setState({ active: false });
+    this.unbindClickAway();
     // use setTimeout instead of transitionEnd
     setTimeout(() => {
       if (this.state.active === false) {
-        this.refs.options.style.display = 'none'
+        this.refs.options.style.display = 'none';
       }
-    }, 500)
+    }, 500);
   }
 
   getValue (sep = this.props.sep, data = this.state.data) {
-    let value = []
+    let value = [];
     data.forEach(d => {
       if (d.$checked) {
-        value.push(d.$value)
+        value.push(d.$value);
       }
-    })
+    });
 
     if (sep) {
-      value = value.join(sep)
+      value = value.join(sep);
     }
 
-    return value
+    return value;
   }
 
   setValue (value) {
-    this.setState({ value: this.formatValue(value) })
+    this.setState({ value: this.formatValue(value) });
   }
 
   formatValue (value) {
-    value = toArray(value, this.props.sep)
+    value = toArray(value, this.props.sep);
     if (this.state) {
       //let data = clone(this.state.data).map(d => {
       let data = this.state.data.map(d => {
-        d.$checked = value.indexOf(d.$value) >= 0
-        return d
-      })
-      this.setState({ data: data })
+        d.$checked = value.indexOf(d.$value) >= 0;
+        return d;
+      });
+      this.setState({ data: data });
     }
-    return value
+    return value;
   }
 
   formatData (data, value = this.state.value) {
     if (typeof data === 'function') {
       data.then(res => {
         if (!this.unmounted) {
-          this.setState({ data: this.formatData(res) })
+          this.setState({ data: this.formatData(res) });
         }
-      })()
-      return []
+      })();
+      return [];
     }
 
     // don't use data, clone
@@ -159,79 +159,79 @@ class Select extends React.Component {
           $value: d,
           $filter: d,
           $checked: value.indexOf(d) >= 0
-        }
+        };
       }
 
       // speed filter
       if (this.props.filterAble) {
-        d.$filter = (Object.keys(d).map(k => d[k])).join(',').toLowerCase()
+        d.$filter = (Object.keys(d).map(k => d[k])).join(',').toLowerCase();
       }
 
-      let val = substitute(this.props.valueTpl, d)
-      d.$option = substitute(this.props.optionTpl, d)
-      d.$result = substitute(this.props.resultTpl || this.props.optionTpl, d)
-      d.$value = val
-      d.$checked = value.indexOf(val) >= 0
-      return d
-    })
+      let val = substitute(this.props.valueTpl, d);
+      d.$option = substitute(this.props.optionTpl, d);
+      d.$result = substitute(this.props.resultTpl || this.props.optionTpl, d);
+      d.$value = val;
+      d.$checked = value.indexOf(val) >= 0;
+      return d;
+    });
 
     if (this.props.groupBy) {
       let groups = {},
-          groupBy = this.props.groupBy
+          groupBy = this.props.groupBy;
       data.forEach(d => {
-        let key = d[groupBy]
+        let key = d[groupBy];
         if (!groups[key]) {
-          groups[key] = []
+          groups[key] = [];
         }
-        groups[key].push(d)
-      })
-      data = []
+        groups[key].push(d);
+      });
+      data = [];
       Object.keys(groups).forEach(k => {
-        data.push(k)
-        data = data.concat(groups[k])
-      })
+        data.push(k);
+        data = data.concat(groups[k]);
+      });
     }
 
-    return data
+    return data;
   }
 
   handleChange (i) {
     if (this.props.readOnly) {
-      return
+      return;
     }
 
-    let data = this.state.data
+    let data = this.state.data;
     if (this.props.mult) {
-      data[i].$checked = !data[i].$checked
-      this.setState({ data })
+      data[i].$checked = !data[i].$checked;
+      this.setState({ data });
     } else {
       data.map(d => {
         if (typeof d !== 'string') {
-          d.$checked = false
+          d.$checked = false;
         }
-      })
-      data[i].$checked = true
-      this.setState({ data })
-      this.close()
+      });
+      data[i].$checked = true;
+      this.setState({ data });
+      this.close();
     }
     if (this.props.onChange) {
-      let value = this.getValue(this.props.sep, data)
+      let value = this.getValue(this.props.sep, data);
       setTimeout(() => {
-        this.props.onChange(value)
-      }, 0)
+        this.props.onChange(value);
+      }, 0);
     }
   }
 
   handleRemove (i) {
     // wait checkClickAway completed
     setTimeout(() => {
-      this.handleChange(i)
-    }, 0)
+      this.handleChange(i);
+    }, 0);
   }
 
   render () {
-    let active = this.state.active
-    let result = []
+    let active = this.state.active;
+    let result = [];
 
     let className = classnames(
       this.props.className,
@@ -244,11 +244,11 @@ class Select extends React.Component {
         dropup: this.state.dropup,
         single: !this.props.mult
       }
-    )
+    );
 
-    let placeholder = this.state.msg || this.props.placeholder
+    let placeholder = this.state.msg || this.props.placeholder;
 
-    let filter
+    let filter;
     if (this.props.filterAble) {
       filter = (
         <div className="filter">
@@ -257,16 +257,16 @@ class Select extends React.Component {
             onChange={ e=>this.setState({ filter: e.target.value }) }
             type="text" />
         </div>
-      )
+      );
     }
 
     let filterText = this.state.filter ?
                      this.state.filter.toLowerCase() :
-                     null
+                     null;
 
     let options = this.state.data.map(function (d, i) {
       if (typeof d === 'string') {
-        return <span key={i} className="show group">{d}</span>
+        return <span key={i} className="show group">{d}</span>;
       }
 
       if (d.$checked) {
@@ -276,23 +276,23 @@ class Select extends React.Component {
               onClick={this.handleRemove.bind(this, i)}
               dangerouslySetInnerHTML={{__html: d.$result}}
             />
-          )
+          );
         } else {
-          result.push(<span key={i} dangerouslySetInnerHTML={{__html: d.$result}} />)
+          result.push(<span key={i} dangerouslySetInnerHTML={{__html: d.$result}} />);
         }
       }
       let optionClassName = classnames({
         active: d.$checked,
         show: filterText ? d.$filter.indexOf(filterText) >= 0 : true
-      })
+      });
       return (
         <li key={i}
           onClick={this.handleChange.bind(this, i)}
           className={ optionClassName }
           dangerouslySetInnerHTML={{__html: d.$option}}
         />
-      )
-    }, this)
+      );
+    }, this);
 
     return (
       <div ref="container" onClick={this.open.bind(this)} style={this.props.style} className={className}>
@@ -305,21 +305,21 @@ class Select extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Select
+export default Select;
 
 require('./FormControl').register(
 
   'select',
 
   function (props) {
-    return <Select {...props} />
+    return <Select {...props} />;
   },
 
   Select,
 
   'array'
-)
+);

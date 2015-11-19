@@ -1,9 +1,9 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import classnames from 'classnames'
-import { toTextValue } from './utils/objects'
-import Radio from './Radio'
+import React from 'react';
+import classnames from 'classnames';
+import { toTextValue } from './utils/objects';
+import Radio from './Radio';
 
 class RadioGroup extends React.Component {
   static displayName = "RadioGroup"
@@ -30,10 +30,10 @@ class RadioGroup extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
-      this.setValue(nextProps.value)
+      this.setValue(nextProps.value);
     }
     if (nextProps.data !== this.props.data) {
-      this.setState({ data: this.formatData(nextProps.data) })
+      this.setState({ data: this.formatData(nextProps.data) });
     }
   }
 
@@ -45,33 +45,33 @@ class RadioGroup extends React.Component {
   formatData (data) {
     if (typeof data === 'function') {
       data.then(res => {
-        this.setState({ data: this.formatData(res) })
-      })()
-      return []
+        this.setState({ data: this.formatData(res) });
+      })();
+      return [];
     } else {
-      return toTextValue(data, this.props.textTpl, this.props.valueTpl)
+      return toTextValue(data, this.props.textTpl, this.props.valueTpl);
     }
   }
 
   setValue (value) {
-    this.setState({ value: value })
+    this.setState({ value: value });
   }
 
   getValue () {
-    return this.state.value
+    return this.state.value;
   }
 
   handleChange (value) {
     if (this.props.readOnly) {
-      return
+      return;
     }
 
-    this.setState({ value: value })
-    let change = this.props.onChange
+    this.setState({ value: value });
+    let change = this.props.onChange;
     if (change) {
       setTimeout(function () {
-        change(value)
-      }, 0)
+        change(value);
+      }, 0);
     }
   }
 
@@ -80,7 +80,7 @@ class RadioGroup extends React.Component {
       this.props.className,
       'rct-radio-group',
       { 'rct-inline': this.props.inline }
-    )
+    );
     let items = this.state.data.map(function (item, i) {
       return (
         <Radio key={i}
@@ -90,25 +90,25 @@ class RadioGroup extends React.Component {
           text={item.$text}
           value={item.$value}
         />
-      )
-    }, this)
+      );
+    }, this);
 
     return (
       <div style={this.props.style} className={className}>{items}</div>
-    )
+    );
   }
 }
 
-export default RadioGroup
+export default RadioGroup;
 
 require('./FormControl').register(
 
   'radio-group',
 
   function (props) {
-    return <RadioGroup {...props} />
+    return <RadioGroup {...props} />;
   },
 
   RadioGroup
 
-)
+);

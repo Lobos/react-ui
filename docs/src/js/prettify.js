@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 export default function prettify (Component) {
   class Prettify extends React.Component {
@@ -12,7 +12,7 @@ export default function prettify (Component) {
     }
 
     componentDidMount () {
-      window.prettyPrint(null, ReactDOM.findDOMNode(this.refs.component))
+      window.prettyPrint(null, ReactDOM.findDOMNode(this.refs.component));
     }
 
     render () {
@@ -20,9 +20,9 @@ export default function prettify (Component) {
         <Component ref="component">
           {this.props.children}
         </Component>
-      )
+      );
     }
   }
 
-  return Prettify
+  return Prettify;
 }

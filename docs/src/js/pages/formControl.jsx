@@ -1,20 +1,20 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import prettify from '../prettify'
-let {FormControl, Button, Input, Icon, Grid, dataSource} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+let {FormControl, Button, Input, Icon, Grid, dataSource} = global.uiRequire();
 
 const gridProps = {
   width: 12,
   responsive: 'lg'
-}
+};
 
 @prettify
 export default class Page extends React.Component {
   static displayName = 'Pages/FormControl'
 
   renderExample (type, component) {
-    component = component || 'Input'
+    component = component || 'Input';
     return (
       <div>
         <p><em><b>{type}</b></em> => <a href={"#/" + component.toLowerCase()}>{component}</a></p>
@@ -30,7 +30,7 @@ export default class Page extends React.Component {
           </Grid>
         </div>
       </div>
-    )
+    );
   }
 
   render () {
@@ -339,6 +339,6 @@ export default class Page extends React.Component {
           </pre>
         </div>
       </div>
-    )
+    );
   }
 }

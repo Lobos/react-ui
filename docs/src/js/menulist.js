@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 module.exports = [
   [
@@ -26,4 +26,4 @@ module.exports = [
     { path: '/dataSource', text: 'DataSource', component: require('./pages/dataSource.jsx') },
     { path: '/lang', text: 'Lang', component: require('./pages/lang.jsx') }
   ]
-]
+];

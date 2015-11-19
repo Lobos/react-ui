@@ -1,41 +1,41 @@
-"use strict"
+"use strict";
 
-let uid = Date.now()
+let uid = Date.now();
 export function nextUid() {
-  return (uid++).toString(36)
+  return (uid++).toString(36);
 }
 
 export function format() {
   let args = [].slice.call(arguments),
-      str = args.shift()
+      str = args.shift();
   return str.replace(/{(\d+)}/g, function(match, number) {
     return typeof args[number] !== undefined
       ? args[number]
-      : match
-  })
+      : match;
+  });
 }
 
 export function substitute(str, obj) {
   return str.replace((/\\?\{([^{}]+)\}/g), function(match, name){
     if (match.charAt(0) === '\\') {
-      return match.slice(1)
+      return match.slice(1);
     }
-    return (obj[name] !== null) ? obj[name] : ''
-  })
+    return (obj[name] !== null) ? obj[name] : '';
+  });
 }
 
 export function toArray(value, sep) {
   if (value === null || value === undefined) {
-    value = []
+    value = [];
   }
   if (typeof value === 'string' && sep) {
-    value = value.split(sep)
+    value = value.split(sep);
   } else if (!(value instanceof Array)) {
-    value = [value]
+    value = [value];
   } else if (sep) {
     // if use sep, convert every value to string
-    value = value.map(v=>v.toString())
+    value = value.map(v=>v.toString());
   }
 
-  return value
+  return value;
 }

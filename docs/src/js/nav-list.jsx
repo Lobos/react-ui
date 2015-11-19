@@ -1,9 +1,9 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import classnames from 'classnames'
-import menulist from './menulist'
-const { Icon } = global.uiRequire()
+import React from 'react';
+import classnames from 'classnames';
+import menulist from './menulist';
+const { Icon } = global.uiRequire();
 
 export default class NavList extends React.Component {
   static displayName = 'NavList'
@@ -23,12 +23,12 @@ export default class NavList extends React.Component {
   getClasses (name, path) {
     return classnames(name, {
       active: this.context.history.isActive(path)
-    })
+    });
   }
 
   pathChange (path) {
     if (!this.context.history.isActive(path)) {
-      this.context.history.pushState(null, path)
+      this.context.history.pushState(null, path);
     }
   }
 
@@ -39,25 +39,25 @@ export default class NavList extends React.Component {
           <li key={i} className="pure-menu-item">
             <a onClick={this.pathChange.bind(this, r.path)} className={this.getClasses("pure-menu-link", r.path)}>{r.text}</a>
           </li>
-        )
+        );
       } else if (r.hr) {
-        return (<hr key={i} />)
+        return (<hr key={i} />);
       } else if (r.text) {
         return (
           <li key={i} className="pure-menu-item">
             <span className="pure-menu-link">{r.text}</span>
           </li>
-        )
+        );
       }
-    }, this)
+    }, this);
 
-    return <ul key={index} className="pure-menu-list">{list}</ul>
+    return <ul key={index} className="pure-menu-list">{list}</ul>;
   }
 
   render () {
     let list = menulist.map(function (paths, index) {
-      return this.getRoutesList(paths, index)
-    }, this)
+      return this.getRoutesList(paths, index);
+    }, this);
 
     return (
       <div className={classnames("nav", {active: this.state.active})}>
@@ -69,6 +69,6 @@ export default class NavList extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

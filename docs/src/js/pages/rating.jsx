@@ -1,13 +1,13 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import prettify from '../prettify'
-const {Rating, Icon, RadioGroup, Checkbox} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Rating, Icon, RadioGroup, Checkbox} = global.uiRequire();
 
 Rating.register('star', [
   <Icon size={2} style={{color: 'gold'}} icon="star-border" />,
   <Icon size={2} style={{color: 'gold'}} icon="star" />
-])
+]);
 
 @prettify
 export default class Page extends React.Component {
@@ -131,6 +131,6 @@ value: <input onChange={event=>this.setState({ value: event.target.value })}
           </pre>
         </div>
       </div>
-    )
+    );
   }
 }

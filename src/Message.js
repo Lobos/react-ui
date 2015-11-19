@@ -1,20 +1,20 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import classnames from 'classnames'
-import Overlay from './Overlay'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import classnames from 'classnames';
+import Overlay from './Overlay';
 //import { forEach } from './utils/objects'
-import PubSub from 'pubsub-js'
+import PubSub from 'pubsub-js';
 
-import { requireCss } from './themes'
-requireCss('message')
+import { requireCss } from './themes';
+requireCss('message');
 
-const ADD_MESSAGE = "EB3A79637B40"
-const REMOVE_MESSAGE = "73D4EF15DF50"
-const CLEAR_MESSAGE = "73D4EF15DF52"
-let messages = []
-let messageContainer = null
+const ADD_MESSAGE = "EB3A79637B40";
+const REMOVE_MESSAGE = "73D4EF15DF50";
+const CLEAR_MESSAGE = "73D4EF15DF52";
+let messages = [];
+let messageContainer = null;
 
 class Item extends React.Component {
   static displayName = 'Message.Item'
@@ -30,9 +30,9 @@ class Item extends React.Component {
 
   dismiss () {
     if (this.props.dismissed) {
-      return
+      return;
     }
-    this.props.onDismiss(this.props.index)
+    this.props.onDismiss(this.props.index);
   }
 
   render () {
@@ -41,14 +41,14 @@ class Item extends React.Component {
       'rct-message',
       `rct-message-${this.props.type}`,
       { 'dismissed': this.props.dismissed }
-    )
+    );
 
     return (
       <div className={className}>
         <button type="button" onClick={this.dismiss.bind(this)} className="close">&times;</button>
         {this.props.content}
       </div>
-    )
+    );
   }
 }
 
@@ -62,74 +62,74 @@ export default class Message extends React.Component {
 
   static show (content, type) {
     if (!messageContainer) {
-      createContainer()
+      createContainer();
     }
     PubSub.publish(ADD_MESSAGE, {
       content: content,
       type: type || 'info'
-    })
+    });
   }
 
   dismiss (index) {
-    PubSub.publish(REMOVE_MESSAGE, index)
+    PubSub.publish(REMOVE_MESSAGE, index);
   }
 
   clear () {
-    PubSub.publish(CLEAR_MESSAGE)
+    PubSub.publish(CLEAR_MESSAGE);
   }
 
   render () {
     let items = this.props.messages.map((msg, i) => {
       return (
         <Item key={i} index={i} ref={i} onDismiss={this.dismiss} {...msg} />
-      )
-    })
+      );
+    });
 
     let className = classnames(
       this.props.className,
       'rct-message-container',
       { 'has-message': this.props.messages.length > 0 }
-    )
+    );
 
     return (
       <div className={className}>
         <Overlay onClick={this.clear.bind(this)} />
         {items}
       </div>
-    )
+    );
   }
 }
 
 function renderContainer() {
-  ReactDOM.render(<Message messages={messages} />, messageContainer)
+  ReactDOM.render(<Message messages={messages} />, messageContainer);
 }
 
 function createContainer () {
-  messageContainer = document.createElement('div')
-  document.body.appendChild(messageContainer)
+  messageContainer = document.createElement('div');
+  document.body.appendChild(messageContainer);
 }
 
 PubSub.subscribe(ADD_MESSAGE, (topic, data) => {
-  messages = [...messages, data]
-  renderContainer()
-})
+  messages = [...messages, data];
+  renderContainer();
+});
 
 PubSub.subscribe(REMOVE_MESSAGE, (topic, index) => {
   messages = [
     ...messages.slice(0, index),
     ...messages.slice(index + 1)
-  ]
-  renderContainer()
-})
+  ];
+  renderContainer();
+});
 
 PubSub.subscribe(CLEAR_MESSAGE, () => {
   messages = messages.map((m) => {
-    m.dismissed = true
-    return m
-  })
-  renderContainer()
+    m.dismissed = true;
+    return m;
+  });
+  renderContainer();
   setTimeout(() => {
-    messages = []
-    renderContainer()
-  }, 400)
-})
+    messages = [];
+    renderContainer();
+  }, 400);
+});

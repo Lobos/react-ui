@@ -1,8 +1,8 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import prettify from '../prettify'
-const {Lang: {getLang}} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Lang: {getLang}} = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
@@ -14,8 +14,8 @@ export default class Page extends React.Component {
   }
 
   handleChange (event) {
-    let path = event.target.value
-    this.setState({ path })
+    let path = event.target.value;
+    this.setState({ path });
   }
 
   render () {
@@ -42,6 +42,6 @@ export default class Page extends React.Component {
           <pre className="prettyprint">{JSON.stringify(getLang(), null, 4)}</pre>
         </div>
       </div>
-    )
+    );
   }
 }

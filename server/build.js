@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-var webpack = require('webpack')
-var ExtractTextPlugin = require("extract-text-webpack-plugin")
+var webpack = require('webpack');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 function build(key, minimize, separateStylesheet, callback) {
   var config = {
@@ -42,7 +42,7 @@ function build(key, minimize, separateStylesheet, callback) {
 				}
 			})
     ]
-  }
+  };
 
   if (minimize) {
     config.plugins.push(
@@ -52,37 +52,37 @@ function build(key, minimize, separateStylesheet, callback) {
 				}
 			}),
 			new webpack.optimize.DedupePlugin()
-    )
+    );
   }
 
   if (separateStylesheet) {
 		config.plugins.push(
       new ExtractTextPlugin("[name].css")
-    )
+    );
     config.module.loaders.push(
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') }
-    )
+    );
     config.module.loaders.push(
       { test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') }
-    )
+    );
   } else {
     config.module.loaders.push(
       { test: /\.css$/, loader: 'style-loader!css-loader' }
-    )
+    );
     config.module.loaders.push(
       { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' }
-    )
+    );
   }
 
   webpack(config, (err, stats) => {
-    callback(null, key)
-  })
+    callback(null, key);
+  });
 }
 
 function getBuildThunk(key, minimize, css) {
   return function(callback) {
-    build(key, minimize, css, callback)
-  }
+    build(key, minimize, css, callback);
+  };
 }
 
-module.exports = { getBuildThunk: getBuildThunk }
+module.exports = { getBuildThunk: getBuildThunk };

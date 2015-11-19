@@ -1,8 +1,8 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import prettify from '../prettify'
-const {Select, dataSource, Button} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Select, dataSource, Button} = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
@@ -114,6 +114,6 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           </pre>
         </div>
       </div>
-    )
+    );
   }
 }

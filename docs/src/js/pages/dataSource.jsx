@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import prettify from '../prettify'
+import React from 'react';
+import prettify from '../prettify';
 
 @prettify
 export default class Page extends React.Component {
@@ -53,6 +53,6 @@ export default class Page extends React.Component {
           </pre>
         </div>
       </div>
-    )
+    );
   }
 }

@@ -1,16 +1,16 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import prettify from '../prettify'
-const {Datetime} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Datetime} = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
   static displayName = 'Pages/Datetime'
 
   handleChange (ref) {
-    var value = 'value：' + this.refs['d-' + ref].getValue()
-    React.findDOMNode(this.refs['p-' + ref]).innerHTML = value
+    var value = 'value：' + this.refs['d-' + ref].getValue();
+    React.findDOMNode(this.refs['p-' + ref]).innerHTML = value;
   }
 
   render () {
@@ -60,6 +60,6 @@ export default class Page extends React.Component {
           <pre className="prettyprint">{`<Datetime unixtime={true} />`}</pre>
         </div>
       </div>
-    )
+    );
   }
 }

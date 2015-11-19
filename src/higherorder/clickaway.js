@@ -1,39 +1,39 @@
-'use strict'
+'use strict';
 
-import ReactDOM from 'react-dom'
-import * as Events from '../utils/events'
-import { isDescendant } from '../utils/dom'
+import ReactDOM from 'react-dom';
+import * as Events from '../utils/events';
+import { isDescendant } from '../utils/dom';
 
 export default function clickAway(Component) {
   Component.prototype.getClickAwayEvent = function () {
-    let fn = this.state.checkClickAwayMethod
+    let fn = this.state.checkClickAwayMethod;
 
     if (!fn) {
       fn = (e) => {
-        let el = ReactDOM.findDOMNode(this)
+        let el = ReactDOM.findDOMNode(this);
 
         // Check if the target is inside the current component
         if (e.target !== el && !isDescendant(el, e.target)) {
-          this.componentClickAway()
+          this.componentClickAway();
         }
-      }
-      this.setState({ checkClickAwayMethod: fn })
+      };
+      this.setState({ checkClickAwayMethod: fn });
     }
 
-    return fn
-  }
+    return fn;
+  };
 
   Component.prototype.bindClickAway = function () {
-    let fn = this.getClickAwayEvent()
-    Events.on(document, 'click', fn)
-    Events.on(document, 'touchstart', fn)
-  }
+    let fn = this.getClickAwayEvent();
+    Events.on(document, 'click', fn);
+    Events.on(document, 'touchstart', fn);
+  };
 
   Component.prototype.unbindClickAway = function () {
-    let fn = this.getClickAwayEvent()
-    Events.off(document, 'click', fn)
-    Events.off(document, 'touchstart', fn)
-  }
+    let fn = this.getClickAwayEvent();
+    Events.off(document, 'click', fn);
+    Events.off(document, 'touchstart', fn);
+  };
 
-  return Component
+  return Component;
 }

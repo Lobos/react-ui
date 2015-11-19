@@ -1,8 +1,8 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-import prettify from '../prettify'
-const {Message, Icon} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Message, Icon} = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
@@ -39,6 +39,6 @@ export default class Page extends React.Component {
           <p>默认会添加 <em>message-extend</em> 类，可以通过这个类进行扩展。</p>
         </div>
       </div>
-    )
+    );
   }
 }

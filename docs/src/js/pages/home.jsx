@@ -1,7 +1,7 @@
-"use strict"
+"use strict";
 
-import React from 'react'
-const {Icon} = global.uiRequire()
+import React from 'react';
+const {Icon} = global.uiRequire();
 
 export default class Home extends React.Component {
   static displayName = 'Home'
@@ -20,6 +20,6 @@ export default class Home extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

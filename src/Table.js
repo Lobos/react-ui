@@ -1,12 +1,12 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import classnames from 'classnames'
-import { substitute } from './utils/strings'
-import TableHeader from './TableHeader'
+import React from 'react';
+import classnames from 'classnames';
+import { substitute } from './utils/strings';
+import TableHeader from './TableHeader';
 
-import { requireCss } from './themes'
-requireCss('tables')
+import { requireCss } from './themes';
+requireCss('tables');
 
 class Table extends React.Component {
   static displayName = 'Table'
@@ -37,16 +37,16 @@ class Table extends React.Component {
   }
 
   componentWillMount () {
-    this.fetchData(this.props.data)
+    this.fetchData(this.props.data);
   }
 
   componentDidMount () {
-    this.setHeaderWidth()
+    this.setHeaderWidth();
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.data !== this.props.data) {
-      this.fetchData(nextProps.data)
+      this.fetchData(nextProps.data);
     }
     /*
     if (nextProps.children !== this.props.children) {
@@ -56,11 +56,11 @@ class Table extends React.Component {
   }
 
   componentDidUpdate () {
-    this.setHeaderWidth()
+    this.setHeaderWidth();
   }
 
   componentWillUnmount () {
-    this.unmounted = true
+    this.unmounted = true;
   }
 
   unmounted = false
@@ -73,18 +73,18 @@ class Table extends React.Component {
   }
 
   setHeaderWidth () {
-    let body = this.refs.body
-    let tr = body.querySelector('tr')
+    let body = this.refs.body;
+    let tr = body.querySelector('tr');
     if (!tr) {
-      return
+      return;
     }
 
-    let ths = this.refs.header.querySelectorAll('th')
+    let ths = this.refs.header.querySelectorAll('th');
 
-    let tds = tr.querySelectorAll('td')
+    let tds = tr.querySelectorAll('td');
     for (let i = 0, count = tds.length; i < count; i++) {
       if (ths[i]) {
-        ths[i].style.width = tds[i].offsetWidth + 'px'
+        ths[i].style.width = tds[i].offsetWidth + 'px';
       }
     }
   }
@@ -110,27 +110,27 @@ class Table extends React.Component {
   fetchData (data) {
     if (typeof data === 'function') {
       data.then(res => {
-        this.fetchData(res)
-      })()
+        this.fetchData(res);
+      })();
     } else {
       if (!this.unmounted) {
-        this.setState({ data })
+        this.setState({ data });
       }
     }
   }
 
   sortData (key, asc) {
-    let data = this.state.data
+    let data = this.state.data;
     data = data.sort(function(a, b) {
-      var x = a[key]
-      var y = b[key]
+      var x = a[key];
+      var y = b[key];
       if (asc) {
-        return ((x < y) ? -1 : ((x > y) ? 1 : 0))
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
       } else {
-        return ((x > y) ? -1 : ((x < y) ? 1 : 0))
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0));
       }
-    })
-    this.setState({ data })
+    });
+    this.setState({ data });
   }
 
   onCheck (i, e) {
@@ -139,158 +139,158 @@ class Table extends React.Component {
         index = this.state.index,
         size = this.props.pagination ? this.props.pagination.props.size : data.length,
         start = 0,
-        end = 0
+        end = 0;
     if (i === 'all') {
-      start = (index - 1) * size
-      end = index * size
+      start = (index - 1) * size;
+      end = index * size;
     } else {
-      start = (index - 1) * size + i
-      end = start + 1
+      start = (index - 1) * size + i;
+      end = start + 1;
     }
     for (; start < end; start++) {
-      data[start].$checked = checked
+      data[start].$checked = checked;
     }
-    this.setState({data})
+    this.setState({data});
   }
 
   getChecked (name) {
-    let values = []
+    let values = [];
     this.state.data.forEach(d => {
       if (d.$checked) {
-        values.push(name ? d[name] : d)
+        values.push(name ? d[name] : d);
       }
-    })
-    return values
+    });
+    return values;
   }
 
   onBodyScroll (e) {
-    let hc = this.refs.headerContainer
-    hc.style.marginLeft = (0 - e.target.scrollLeft) + 'px'
+    let hc = this.refs.headerContainer;
+    hc.style.marginLeft = (0 - e.target.scrollLeft) + 'px';
   }
 
   getData () {
     let page = this.props.pagination,
         filters = this.props.filters,
-        data = []
+        data = [];
 
     if (filters) {
-      let filterCount = filters.length
+      let filterCount = filters.length;
       this.state.data.forEach(d => {
-        let checked = true
+        let checked = true;
         for (let i = 0; i < filterCount; i++) {
-          let f = filters[i].func
-          checked = f(d)
+          let f = filters[i].func;
+          checked = f(d);
           if (!checked) {
-            break
+            break;
           }
         }
         if (checked) {
-          data.push(d)
+          data.push(d);
         }
-      })
+      });
     } else {
-      data = this.state.data
+      data = this.state.data;
     }
 
-    let total = data.length
+    let total = data.length;
 
     if (!page) {
-      return { total, data }
+      return { total, data };
     }
-    let size = page.props.size
+    let size = page.props.size;
     if (data.length <= size) {
-      return { total, data }
+      return { total, data };
     }
-    let index = this.state.index
-    data = data.slice((index - 1) * size, index * size)
-    return { total, data }
+    let index = this.state.index;
+    data = data.slice((index - 1) * size, index * size);
+    return { total, data };
   }
 
   renderBody (data) {
-    let selectAble = this.props.selectAble
+    let selectAble = this.props.selectAble;
     let trs = data.map((d, i) => {
-      let tds = []
+      let tds = [];
       if (selectAble) {
         tds.push(
           <td style={{width: 13}} key="checkbox">
             <input checked={d.$checked} onChange={this.onCheck.bind(this, i)} type="checkbox" />
           </td>
-        )
+        );
       }
       this.props.headers.map((h, j) => {
         if (h.hidden) {
-          return
+          return;
         }
         let content = h.content,
-            tdStyle = {}
+            tdStyle = {};
         if (typeof content === 'string') {
-          content = substitute(content, d)
+          content = substitute(content, d);
         } else if (typeof content === 'function') {
-          content = content(d)
+          content = content(d);
         } else {
-          content = d[h.name]
+          content = d[h.name];
         }
         if (h.width) {
-          tdStyle.width = h.width
+          tdStyle.width = h.width;
         }
-        tds.push(<td style={tdStyle} key={j}>{content}</td>)
-      })
-      return <tr key={i}>{tds}</tr>
-    })
+        tds.push(<td style={tdStyle} key={j}>{content}</td>);
+      });
+      return <tr key={i}>{tds}</tr>;
+    });
 
-    return <tbody>{trs}</tbody>
+    return <tbody>{trs}</tbody>;
   }
 
   renderHeader () {
-    let headers = []
+    let headers = [];
     if (this.props.selectAble) {
       headers.push(
         <TableHeader key="checkbox" name="$checkbox" header={
           <input onClick={this.onCheck.bind(this, 'all')} type="checkbox" />
         } />
-      )
+      );
     }
     this.props.headers.map((header, i) => {
       if (header.hidden) {
-        return
+        return;
       }
 
       let props = {
         key: i,
         onSort: (name, asc) => {
-          this.setState({sort: { name, asc }})
+          this.setState({sort: { name, asc }});
           if (this.props.onSort) {
-            this.props.onSort(name, asc)
+            this.props.onSort(name, asc);
           } else {
-            this.sortData(name, asc)
+            this.sortData(name, asc);
           }
         },
         sort: this.state.sort
-      }
+      };
 
       headers.push(
         <TableHeader {...header} {...props} />
-      )
-    })
-    return <tr>{headers}</tr>
+      );
+    });
+    return <tr>{headers}</tr>;
   }
 
   renderPagination (total) {
     if (!this.props.pagination) {
-      return null
+      return null;
     }
 
     let props = {
       total: total,
       onChange: (index) => {
-        let data = this.state.data
+        let data = this.state.data;
         data.forEach(d => {
-          d.$checked = false
-        })
-        this.setState({index, data})
+          d.$checked = false;
+        });
+        this.setState({index, data});
       }
-    }
-    return React.cloneElement(this.props.pagination, props)
+    };
+    return React.cloneElement(this.props.pagination, props);
   }
 
   render () {
@@ -298,21 +298,20 @@ class Table extends React.Component {
         headerStyle = {},
         tableStyle = {},
         onBodyScroll = null,
-        { total, data } = this.getData()
-
+        { total, data } = this.getData();
 
     if (this.props.height) {
-      bodyStyle.height = this.props.height
-      bodyStyle.overflow = 'auto'
+      bodyStyle.height = this.props.height;
+      bodyStyle.overflow = 'auto';
     }
     if (this.props.width) {
-      headerStyle.width = this.props.width
+      headerStyle.width = this.props.width;
       if (typeof headerStyle.width === 'number') {
-        headerStyle.width += 20
+        headerStyle.width += 20;
       }
-      tableStyle.width = this.props.width
-      bodyStyle.overflow = 'auto'
-      onBodyScroll = this.onBodyScroll.bind(this)
+      tableStyle.width = this.props.width;
+      bodyStyle.overflow = 'auto';
+      onBodyScroll = this.onBodyScroll.bind(this);
     }
 
     let className = classnames(
@@ -323,7 +322,7 @@ class Table extends React.Component {
         'rct-scrolled': this.props.height,
         'rct-striped': this.props.striped
       }
-    )
+    );
 
     return (
       <div style={this.props.style} className={className}>
@@ -344,8 +343,8 @@ class Table extends React.Component {
         {this.renderPagination(total)}
 
       </div>
-    )
+    );
   }
 }
 
-export default Table
+export default Table;

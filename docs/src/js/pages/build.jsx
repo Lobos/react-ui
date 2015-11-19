@@ -1,9 +1,9 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import data from '../../../../server/data'
-const {Button, Grid} = global.uiRequire()
-const clone = global.uiRequire('utils/clone')
+import React from 'react';
+import data from '../../../../server/data';
+const {Button, Grid} = global.uiRequire();
+const clone = global.uiRequire('utils/clone');
 
 export default class Page extends React.Component {
   static displayName = 'Pages/Build'
@@ -14,47 +14,47 @@ export default class Page extends React.Component {
   }
 
   handleChange (key) {
-    let components = this.state.components
-    let target = components[key]
+    let components = this.state.components;
+    let target = components[key];
     if (!target.$checked) {
-      target.$checked = true
-      let keys = target.dependencies || []
+      target.$checked = true;
+      let keys = target.dependencies || [];
       keys.forEach(k => {
-        components[k].$checked = true
-      })
+        components[k].$checked = true;
+      });
     } else {
-      target.$checked = false
-      let keys = Object.keys(components)
+      target.$checked = false;
+      let keys = Object.keys(components);
       for (let i = 0, count = keys.length; i < count; i++) {
-        let c = components[keys[i]]
+        let c = components[keys[i]];
         if (c.$checked && c.dependencies && c.dependencies.indexOf(key) >= 0) {
-          target.$checked = true
-          break
+          target.$checked = true;
+          break;
         }
       }
     }
-    this.setState({ components })
+    this.setState({ components });
   }
 
   selectAll (e) {
-    let checked = e.target.checked
-    let components = this.state.components
+    let checked = e.target.checked;
+    let components = this.state.components;
     Object.keys(components).map((key) => {
-      components[key].$checked = checked
-    })
-    this.setState({ components })
+      components[key].$checked = checked;
+    });
+    this.setState({ components });
   }
 
   submit () {
-    this.setState({ building: true })
+    this.setState({ building: true });
   }
 
   render () {
-    let components = this.state.components
-    let checkedNum = 0
+    let components = this.state.components;
+    let checkedNum = 0;
     let list = Object.keys(components).map((key, i) => {
-      let component = components[key]
-      checkedNum += component.$checked ? 1 : 0
+      let component = components[key];
+      checkedNum += component.$checked ? 1 : 0;
       return (
         <Grid className="checkbox" key={i} width={8}>
           <label>
@@ -67,8 +67,8 @@ export default class Page extends React.Component {
             <span> {key}</span>
           </label>
         </Grid>
-      )
-    })
+      );
+    });
 
     return (
       <div>
@@ -113,6 +113,6 @@ export default class Page extends React.Component {
           </form>
         </div>
       </div>
-    )
+    );
   }
 }

@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import prettify from '../prettify'
-const {Button, Icon, Upload} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Button, Icon, Upload} = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
@@ -52,6 +52,6 @@ export default class Page extends React.Component {
           </pre>
         </div>
       </div>
-    )
+    );
   }
 }

@@ -1,48 +1,48 @@
-'use strict'
+'use strict';
 
-import classnames from 'classnames'
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PubSub from 'pubsub-js'
-import Button from './Button'
-import Overlay from './Overlay'
+import classnames from 'classnames';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import PubSub from 'pubsub-js';
+import Button from './Button';
+import Overlay from './Overlay';
 
-import { requireCss } from './themes'
-requireCss('modal')
+import { requireCss } from './themes';
+requireCss('modal');
 
-import {getLang, setLang} from './lang'
-setLang('buttons')
+import {getLang, setLang} from './lang';
+setLang('buttons');
 
-const ADD_MODAL = 'id39hxqm'
-const REMOVE_MODAL = 'id39i40m'
-const CLICKAWAY = 'id5bok7e'
-const ZINDEX = 1100
-let modals = []
-let modalContainer = null
+const ADD_MODAL = 'id39hxqm';
+const REMOVE_MODAL = 'id39i40m';
+const CLICKAWAY = 'id5bok7e';
+const ZINDEX = 1100;
+let modals = [];
+let modalContainer = null;
 
 export default class Modal extends React.Component {
   static displayName = 'Modal'
 
   componentDidMount () {
     PubSub.subscribe(ADD_MODAL, (topic, props) => {
-      modals.push(props)
-      this.setState({ modals, increase: true })
-    })
+      modals.push(props);
+      this.setState({ modals, increase: true });
+    });
 
     PubSub.subscribe(REMOVE_MODAL, (data) => {
-      let props = modals.pop()
+      let props = modals.pop();
       if (props.onClose) {
-        props.onClose(data)
+        props.onClose(data);
       }
-      this.setState({ modals, increase: false })
-    })
+      this.setState({ modals, increase: false });
+    });
 
     PubSub.subscribe(CLICKAWAY, () => {
-      let props = modals[modals.length - 1]
+      let props = modals[modals.length - 1];
       if (props.clickaway) {
-        PubSub.publish(REMOVE_MODAL)
+        PubSub.publish(REMOVE_MODAL);
       }
-    })
+    });
   }
 
   state = {
@@ -51,54 +51,54 @@ export default class Modal extends React.Component {
   }
 
   close () {
-    PubSub.publish(REMOVE_MODAL)
+    PubSub.publish(REMOVE_MODAL);
   }
 
   clickaway () {
-    PubSub.publish(CLICKAWAY)
+    PubSub.publish(CLICKAWAY);
   }
 
   renderModals () {
-    let modalLength = this.state.modals.length
+    let modalLength = this.state.modals.length;
     return this.state.modals.map((options, i) => {
       let style = {
         width: options.width || 500,
         zIndex: ZINDEX + i
-      }
+      };
       if (typeof style.width === 'number' || style.width.indexOf('px') > 0) {
-        style.width = parseInt(style.width)
-        style.marginLeft = 0 - style.width / 2
+        style.width = parseInt(style.width);
+        style.marginLeft = 0 - style.width / 2;
       } else if (style.width.indexOf('%') > 0) {
-        style.marginLeft = (0 - parseInt(style.width) / 2) + '%'
+        style.marginLeft = (0 - parseInt(style.width) / 2) + '%';
       }
 
-      let header, buttons = []
+      let header, buttons = [];
       if (options.header) {
-        header = <div className="rct-modal-header">{options.header}</div>
+        header = <div className="rct-modal-header">{options.header}</div>;
       }
 
       if (options.buttons) {
-        let lastButton = Object.keys(options.buttons).length - 1
+        let lastButton = Object.keys(options.buttons).length - 1;
         buttons = Object.keys(options.buttons).map((btn, j) => {
           let func = options.buttons[btn],
               status = j === lastButton ? 'primary' : '',
               handle = () => {
                 if (func === true) {
-                  this.close()
+                  this.close();
                 } else {
                   if (func()) {
-                    this.close()
+                    this.close();
                   }
                 }
-              }
-          return <Button status={status} key={j} onClick={handle}>{btn}</Button>
-        })
+              };
+          return <Button status={status} key={j} onClick={handle}>{btn}</Button>;
+        });
       }
 
       let className = classnames(
         'rct-modal',
         { fadein: this.state.increase && modalLength - 1 === i }
-      )
+      );
 
       return (
         <div key={i} style={style} className={className}>
@@ -114,65 +114,65 @@ export default class Modal extends React.Component {
             </div>
           }
         </div>
-      )
-    })
+      );
+    });
   }
 
   render () {
-    let mlen = this.state.modals.length
+    let mlen = this.state.modals.length;
     let className = classnames(
       "rct-modal-container",
       { active: mlen > 0 }
-    )
+    );
 
     return (
       <div className={className}>
         <Overlay onClick={this.clickaway.bind(this)} className={classnames({active: mlen > 0})} style={{zIndex: ZINDEX + mlen - 1}} />
         { this.renderModals() }
       </div>
-    )
+    );
   }
 }
 
 Modal.close = function (data) {
-  PubSub.publish(REMOVE_MODAL, data)
-}
+  PubSub.publish(REMOVE_MODAL, data);
+};
 
 Modal.open = function (options) {
   if (!modalContainer) {
-    createContainer()
+    createContainer();
   }
-  PubSub.publishSync(ADD_MODAL, options)
-}
+  PubSub.publishSync(ADD_MODAL, options);
+};
 
 Modal.alert = function (content) {
-  let buttons = {}
-  buttons[getLang('buttons.ok')] = true
+  let buttons = {};
+  buttons[getLang('buttons.ok')] = true;
 
   Modal.open({
     clickaway: false,
     content,
     buttons: buttons
-  })
-}
+  });
+};
 
 Modal.confirm = function (content, onOk) {
-  let buttons = {}
-  buttons[getLang('buttons.cancel')] = true
+  let buttons = {};
+  buttons[getLang('buttons.cancel')] = true;
   buttons[getLang('buttons.ok')] = () => {
-    onOk()
-    return true
-  }
+    onOk();
+    return true;
+  };
 
   Modal.open({
     clickaway: false,
     content,
     buttons: buttons
-  })
-}
+  });
+};
 
 function createContainer () {
-  modalContainer = document.createElement('div')
-  document.body.appendChild(modalContainer)
-  ReactDOM.render(<Modal />, modalContainer)
+  modalContainer = document.createElement('div');
+  document.body.appendChild(modalContainer);
+  ReactDOM.render(<Modal />, modalContainer);
 }

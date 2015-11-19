@@ -1,19 +1,19 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import prettify from '../prettify'
-const {Table, Filter, Modal, Pagination, Checkbox, RadioGroup, dataSource} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Table, Filter, Modal, Pagination, Checkbox, RadioGroup, dataSource} = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
   static displayName = 'Pages/Table'
 
   componentWillMount () {
-    let data = dataSource('json/table.json', null, { cache: true })
+    let data = dataSource('json/table.json', null, { cache: true });
     data.then(res => {
-      this.setState({ total: res.length })
-    })
-    this.setState({ data })
+      this.setState({ total: res.length });
+    });
+    this.setState({ data });
   }
 
   state = {
@@ -29,26 +29,26 @@ export default class Page extends React.Component {
   }
 
   getCheckedName () {
-    let names = (this.refs.table.getChecked('name')).join(',')
-    this.setState({ checkedNames: names })
+    let names = (this.refs.table.getChecked('name')).join(',');
+    this.setState({ checkedNames: names });
   }
 
   render () {
-    let pagination = <Pagination size={10} total={this.state.total} />
+    let pagination = <Pagination size={10} total={this.state.total} />;
 
     let nameTpl = (d) => {
-      return <a onClick={() => { Modal.alert(`点击了:${d.name}`) }}>{d.name}</a>
-    }
+      return <a onClick={() => { Modal.alert(`点击了:${d.name}`); }}>{d.name}</a>;
+    };
     let removeTpl = (d) => {
-      return <a onClick={() => { Modal.confirm(`确定要删除${d.name}吗`, () => {}) }}>删除</a>
-    }
+      return <a onClick={() => { Modal.confirm(`确定要删除${d.name}吗`, () => {}); }}>删除</a>;
+    };
 
     let filterOptions = [{
       label: '姓名',
       name: 'name',
       ops: ['like', '=', 'startWidth'],
       startWidth: function (d, value) {
-        return d.name.indexOf(value) === 0
+        return d.name.indexOf(value) === 0;
       }
     }, {
       label: '地区',
@@ -62,7 +62,7 @@ export default class Page extends React.Component {
       ops: ['in', 'not in'],
       type: 'select',
       props: { mult: true, data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
-    }]
+    }];
 
     const headers = [
       { name: 'name', sortAble: true, content: nameTpl, header: 'Name' },
@@ -71,7 +71,7 @@ export default class Page extends React.Component {
       { name: 'start_date', sortAble: true, content: '{start_date}', header: 'Start Date' },
       { name: 'salary', content: '{salary}', header: 'Salary' },
       { name: 'tools', width: 60, content: removeTpl }
-    ]
+    ];
 
     return (
       <div>
@@ -219,6 +219,6 @@ const headers = [
           </pre>
         </div>
       </div>
-    )
+    );
   }
 }

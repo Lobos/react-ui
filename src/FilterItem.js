@@ -1,11 +1,11 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import Datetime from './Datetime'
-import Input from './Input'
-import Select from './Select'
+import React from 'react';
+import Datetime from './Datetime';
+import Input from './Input';
+import Select from './Select';
 
-const DEFAULT_OPS = ['=', 'like', '>', '>=', '<', '<=', 'in', 'not in']
+const DEFAULT_OPS = ['=', 'like', '>', '>=', '<', '<=', 'in', 'not in'];
 
 export default class FilterItem extends React.Component {
   static displayName = 'FilterItem'
@@ -25,8 +25,8 @@ export default class FilterItem extends React.Component {
   }
 
   onLabelChange (optionsIndex) {
-    optionsIndex = parseInt(optionsIndex)
-    let options = this.props.options[optionsIndex]
+    optionsIndex = parseInt(optionsIndex);
+    let options = this.props.options[optionsIndex];
     let filter = {
       optionsIndex: optionsIndex,
       label: options.label,
@@ -34,20 +34,20 @@ export default class FilterItem extends React.Component {
       op: null,
       value: null,
       ops: options.ops || DEFAULT_OPS
-    }
+    };
     // only one op, use it
     if (filter.ops.length === 1) {
-      filter.op = filter.ops[0]
+      filter.op = filter.ops[0];
     }
-    this.props.onChange(this.props.index, filter)
+    this.props.onChange(this.props.index, filter);
   }
 
   onOpChange (op) {
-    this.props.onChange(this.props.index, { op })
+    this.props.onChange(this.props.index, { op });
   }
 
   onValueChange (value) {
-    this.props.onChange(this.props.index, { value })
+    this.props.onChange(this.props.index, { value });
   }
 
   getFunc () {
@@ -56,90 +56,90 @@ export default class FilterItem extends React.Component {
         value = this.props.value,
         op = this.props.op,
         func = function () {},
-        filter = options[this.props.index]
+        filter = options[this.props.index];
 
     if (options.type === 'integer' || options.type === 'number') {
-      value = parseFloat(value)
+      value = parseFloat(value);
     }
 
     if (filter[op]) {
       return function (d) {
-        return filter[op](d, value)
-      }
+        return filter[op](d, value);
+      };
     }
 
     switch (op) {
       case '=':
-        func = d => { return d[name].toString() === value.toString() }
-      break
+        func = d => { return d[name].toString() === value.toString(); };
+      break;
       case 'like':
-        func = d => { return d[name].indexOf(value) >= 0 }
-      break
+        func = d => { return d[name].indexOf(value) >= 0; };
+      break;
       case '>':
-        func = d => { return d[name] > value }
-      break
+        func = d => { return d[name] > value; };
+      break;
       case '>=':
-        func = d => { return d[name] >= value }
-      break
+        func = d => { return d[name] >= value; };
+      break;
       case '<':
-        func = d => { return d[name] < value }
-      break
+        func = d => { return d[name] < value; };
+      break;
       case '<=':
-        func = d => { return d[name] <= value }
-      break
+        func = d => { return d[name] <= value; };
+      break;
       case 'in':
-        func = d => { return value.split(',').indexOf(d[name].toString()) >= 0 }
-      break
+        func = d => { return value.split(',').indexOf(d[name].toString()) >= 0; };
+      break;
       case 'not in':
-        func = d => { return value.split(',').indexOf(d[name].toString()) < 0 }
-      break
+        func = d => { return value.split(',').indexOf(d[name].toString()) < 0; };
+      break;
     }
 
-    return func
+    return func;
   }
 
   remove () {
     // setTimeout wait parent clickaway completed
     setTimeout(() => {
-      this.props.removeFilter(this.props.index)
-    }, 0)
+      this.props.removeFilter(this.props.index);
+    }, 0);
   }
 
   renderOp () {
     if (this.props.ops) {
-      return <Select style={{width: 120}} value={this.props.op} onChange={this.onOpChange.bind(this)} data={this.props.ops} />
+      return <Select style={{width: 120}} value={this.props.op} onChange={this.onOpChange.bind(this)} data={this.props.ops} />;
     } else {
-      return null
+      return null;
     }
   }
 
   renderControl () {
     if (!this.props.label) {
-      return null
+      return null;
     }
     let options = this.props.options[this.props.optionsIndex],
         props = options.props || {},
         onChange = this.onValueChange.bind(this),
         style = { width: 240 },
-        control
+        control;
     switch (options.type) {
       case 'select':
-        control = <Select value={this.props.value} onChange={onChange} style={style} {...props} />
-      break
+        control = <Select value={this.props.value} onChange={onChange} style={style} {...props} />;
+      break;
       case 'datetime':
-        control = <Datetime value={this.props.value} onChange={onChange} {...props} />
-      break
+        control = <Datetime value={this.props.value} onChange={onChange} {...props} />;
+      break;
       default:
-        control = <Input value={this.props.value} type={options.type} style={style} onChange={onChange} {...props} />
-      break
+        control = <Input value={this.props.value} type={options.type} style={style} onChange={onChange} {...props} />;
+      break;
     }
-    return control
+    return control;
   }
 
   render () {
-    let optionsIndex = this.props.optionsIndex
+    let optionsIndex = this.props.optionsIndex;
     if (optionsIndex !== undefined) {
-      optionsIndex = optionsIndex.toString()
+      optionsIndex = optionsIndex.toString();
     }
     return (
       <div className="rct-filter-item">
@@ -156,7 +156,7 @@ export default class FilterItem extends React.Component {
 
         <button onClick={this.remove.bind(this)} className="remove">&times;</button>
       </div>
-    )
+    );
   }
 }
 

@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import prettify from '../prettify'
-const { Filter, dataSource } = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const { Filter, dataSource } = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
@@ -39,7 +39,7 @@ export default class Page extends React.Component {
       ops: ['='],
       type: 'select',
       props: { data: dataSource('json/countries.json'), optionTpl: '{country}', valueTpl: '{en}' }
-    }]
+    }];
 
     return (
       <div>
@@ -114,6 +114,6 @@ options = {
           </pre>
         </div>
       </div>
-    )
+    );
   }
 }

@@ -1,11 +1,11 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import classnames from 'classnames'
-import { forEach } from './utils/objects'
+import React from 'react';
+import classnames from 'classnames';
+import { forEach } from './utils/objects';
 
-import { requireCss } from './themes'
-requireCss('pagination')
+import { requireCss } from './themes';
+requireCss('pagination');
 
 export default class Pagination extends React.Component {
   static displayName = 'Pagination'
@@ -30,7 +30,7 @@ export default class Pagination extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.index !== this.props.index) {
-      this.setState({ index: nextProps.index })
+      this.setState({ index: nextProps.index });
     }
   }
 
@@ -39,33 +39,33 @@ export default class Pagination extends React.Component {
   }
 
   getIndex () {
-    return this.state.index
+    return this.state.index;
   }
 
   setIndex (index) {
-    index = parseInt(index)
-    this.setState({index})
+    index = parseInt(index);
+    this.setState({index});
   }
 
   setInput (event) {
-    event.preventDefault()
+    event.preventDefault();
 
-    let value = this.refs.input.value
-    value = parseInt(value)
+    let value = this.refs.input.value;
+    value = parseInt(value);
     if (!value) {
-      return
+      return;
     }
 
-    this.setIndex(value)
+    this.setIndex(value);
     if (this.props.onChange) {
-      this.props.onChange(value)
+      this.props.onChange(value);
     }
   }
 
   handleChange (index) {
-    this.setIndex(index)
+    this.setIndex(index);
     if (this.props.onChange) {
-      this.props.onChange(index)
+      this.props.onChange(index);
     }
   }
 
@@ -77,73 +77,73 @@ export default class Pagination extends React.Component {
         max = Math.ceil(total / size),
         pages = [],
         left,
-        right
+        right;
 
     if (index > max) {
-      index = max
+      index = max;
     }
 
-    left = index - Math.floor(span / 2) + 1
+    left = index - Math.floor(span / 2) + 1;
     if (left < 1) {
-      left = 1
+      left = 1;
     }
-    right = left + span - 2
+    right = left + span - 2;
     if (right >= max) {
-      right = max
-      left = right - span + 2
+      right = max;
+      left = right - span + 2;
       if (left < 1) {
-        left = 1
+        left = 1;
       }
     } else {
-      right -= left > 1 ? 1 : 0
+      right -= left > 1 ? 1 : 0;
     }
 
     // add first
     if (left > 1) {
-      pages.push(1)
+      pages.push(1);
     }
     for (let i = left; i < right + 1; i++) {
-      pages.push(i)
+      pages.push(i);
     }
     // add last
     if (right < max) {
-      pages.push(max)
+      pages.push(max);
     }
 
-    return {pages, max}
+    return {pages, max};
   }
 
   render () {
     let index = this.state.index,
         {pages, max} = this.getPages(),
-        items = []
+        items = [];
 
     // Previous
     items.push(
       <li key="previous" onClick={index <= 1 ? null : this.handleChange.bind(this, index - 1)} className={classnames({ disabled: index <= 1 })}>
         <a>&laquo;</a>
       </li>
-    )
+    );
 
     forEach(pages, function (i) {
       items.push(
         <li onClick={this.handleChange.bind(this, i)} className={classnames({ active: i === index })} key={i}>
           <a>{i}</a>
         </li>
-      )
-    }, this)
+      );
+    }, this);
 
     // Next
     items.push(
       <li key="next" onClick={index >= max ? null : this.handleChange.bind(this, index + 1)} className={classnames({ disabled: index >= max })}>
         <a>&raquo;</a>
       </li>
-    )
+    );
 
     let className = classnames(
       this.props.className,
       "rct-pagination-wrap"
-    )
+    );
     return (
       <div style={this.props.style} className={className}>
         <ul className="rct-pagination">
@@ -159,6 +159,6 @@ export default class Pagination extends React.Component {
           </form>
         }
       </div>
-    )
+    );
   }
 }

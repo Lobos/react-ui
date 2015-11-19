@@ -1,8 +1,8 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import prettify from '../prettify'
-const {Form, FormControl, Button, FormSubmit, Icon, Input, RadioGroup, dataSource} = global.uiRequire()
+import React from 'react';
+import prettify from '../prettify';
+const {Form, FormControl, Button, FormSubmit, Icon, Input, RadioGroup, dataSource} = global.uiRequire();
 
 @prettify
 export default class Page extends React.Component {
@@ -132,6 +132,6 @@ export default class Page extends React.Component {
           <p><em>Form</em> 下不能使用 <em>ref</em> 获取引用，需要引用时使用 <em>getReference</em> 方法。<em>name</em> 为 FormControl 的 <em>name</em></p>
         </div>
       </div>
-    )
+    );
   }
 }

@@ -11,4 +11,4 @@ export default {
     reset: '重置',
     save: '保存'
   }
-}
+};

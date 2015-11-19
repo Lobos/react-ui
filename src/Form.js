@@ -1,13 +1,13 @@
-'use strict'
+'use strict';
 
-import React from 'react'
-import classnames from 'classnames'
-import { forEach } from './utils/objects'
-import FormControl from './FormControl'
-import FormSubmit from './FormSubmit'
+import React from 'react';
+import classnames from 'classnames';
+import { forEach } from './utils/objects';
+import FormControl from './FormControl';
+import FormSubmit from './FormSubmit';
 
-import { requireCss } from './themes'
-requireCss('form')
+import { requireCss } from './themes';
+requireCss('form');
 
 export default class Form extends React.Component {
   static displayName = 'Form'
@@ -34,12 +34,12 @@ export default class Form extends React.Component {
   }
 
   componentWillMount () {
-    this.fetchData(this.props.data)
+    this.fetchData(this.props.data);
   }
 
   componentWillReceiveProps (nextProps) {
     if (this.props.data !== this.props.data) {
-      this.fetchData(nextProps.data)
+      this.fetchData(nextProps.data);
     }
   }
 
@@ -50,47 +50,47 @@ export default class Form extends React.Component {
   fetchData (data) {
     if (typeof data === 'function') {
       data.then(res => {
-        this.fetchData(res)
-      })()
-      return
+        this.fetchData(res);
+      })();
+      return;
     }
-    this.setState({ data })
-    this.setData(data)
+    this.setState({ data });
+    this.setData(data);
   }
 
   getValue () {
-    let data = this.state.data
+    let data = this.state.data;
     forEach(this.refs, (ref, k) => {
       if (!ref.props.ignore) {
-        data[k] = ref.getValue()
+        data[k] = ref.getValue();
       }
-    })
-    return data
+    });
+    return data;
   }
 
   setValue (key, value) {
-    let data = this.state.data
-    data[key] = value
-    this.setState({ data })
+    let data = this.state.data;
+    data[key] = value;
+    this.setState({ data });
   }
 
   setData (data) {
     forEach(this.refs, (ref, k) => {
-      ref.setValue(data[k])
-    })
+      ref.setValue(data[k]);
+    });
   }
 
   equalValidate (targetRef, equalRef) {
-    let self = this
+    let self = this;
     return function () {
-      let target = self.refs[targetRef]
+      let target = self.refs[targetRef];
       if (!target) {
-        console.warn(`equal target '${targetRef}' not existed`)
-        return false
+        console.warn(`equal target '${targetRef}' not existed`);
+        return false;
       }
-      let equal = self.refs[equalRef]
-      return target.getValue() === equal.getValue()
-    }
+      let equal = self.refs[equalRef];
+      return target.getValue() === equal.getValue();
+    };
   }
 
   renderChildren () {
@@ -99,65 +99,65 @@ export default class Form extends React.Component {
         hintType: child.props.hintType || this.props.hintType,
         readOnly: child.props.readOnly || this.props.locked,
         layout: this.props.layout
-      }
+      };
       if (child.type === FormControl) {
         if (!child.props.name) {
-          console.warn('FormControl must have a name!')
-          return null
+          console.warn('FormControl must have a name!');
+          return null;
         }
-        props.ref = child.props.name
+        props.ref = child.props.name;
         if (this.state.data[child.props.name] !== undefined) {
-          props.value = this.state.data[child.props.name]
+          props.value = this.state.data[child.props.name];
         }
         if (child.props.equal) {
-          props.onValidate = this.equalValidate(child.props.equal, child.props.name)
+          props.onValidate = this.equalValidate(child.props.equal, child.props.name);
         }
       } else if (child.type === FormSubmit) {
-        props.locked = this.props.locked
+        props.locked = this.props.locked;
       }
 
-      child = React.cloneElement(child, props)
-      return child
-    })
+      child = React.cloneElement(child, props);
+      return child;
+    });
   }
 
   getReference (name) {
-    return this.refs[name]
+    return this.refs[name];
   }
 
   validate () {
-    let success = true
+    let success = true;
     forEach(this.refs, function (child) {
       if (child.props.ignore) {
-        return
+        return;
       }
-      let suc = child.validate()
-      success = success && suc
-    })
-    return success
+      let suc = child.validate();
+      success = success && suc;
+    });
+    return success;
   }
 
   handleSubmit (event) {
     if (this.props.locked) {
-      return
+      return;
     }
 
-    event.preventDefault()
-    this.onSubmit()
+    event.preventDefault();
+    this.onSubmit();
   }
 
   onSubmit () {
-    let success = this.validate()
+    let success = this.validate();
     if (success && this.props.beforeSubmit) {
-      success = this.props.beforeSubmit()
+      success = this.props.beforeSubmit();
     }
 
     if (!success) {
-      return
+      return;
     }
 
     if (this.props.onSubmit) {
-      this.props.onSubmit(this.getValue())
+      this.props.onSubmit(this.getValue());
     }
   }
 
@@ -170,12 +170,12 @@ export default class Form extends React.Component {
         'rct-form-inline': this.props.layout === 'inline',
         'rct-form-stacked': this.props.layout === 'stacked'
       }
-    )
+    );
 
     return (
       <form onSubmit={this.handleSubmit.bind(this)} style={this.props.style} className={className}>
         {this.renderChildren()}
       </form>
-    )
+    );
   }
 }

@@ -1,11 +1,11 @@
-'use strict'
+'use strict';
 
-export let THEME = 'pure'
+export let THEME = 'pure';
 
 export function requireCss(pack) {
-  require(`./${THEME}/${pack}.less`)
+  require(`./${THEME}/${pack}.less`);
 }
 
 export function setTheme (theme) {
-  THEME = theme
+  THEME = theme;
 }

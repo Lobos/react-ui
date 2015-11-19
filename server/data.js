@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 module.exports = {
   Checkbox: {
@@ -113,4 +113,4 @@ module.exports = {
     dependencies: [ 'Lang' ]
   }
 
-}
+};

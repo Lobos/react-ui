@@ -6,5 +6,5 @@ module.exports = [
   { "id": "chengdu", "text": "成都" },
   { "id": "chongqing", "text": "重庆" },
   { "id": "shanghai", "text": "上海" }
-]
+];
 
