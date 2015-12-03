@@ -1,6 +1,12 @@
 // https://github.com/component/clone
 /**
  * Module dependencies.
+ *
+ * don't clone class instance, it will be trouble
+ *
+ * class Person {}
+ * var a = new Person()
+ * isEqual(a, clone(a)) // false
  */
 
 import type from './type';
@@ -16,12 +22,13 @@ export default function clone(obj) {
   switch (type(obj)) {
     case 'object':
       let copy = {};
-      for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          copy[key] = clone(obj[key]);
-        }
-      }
+      Object.keys(obj).forEach((key) => {
+        copy[key] = clone(obj[key]);
+      });
       return copy;
+
+    case 'element':
+      return obj.cloneNode(true);
 
     case 'array':
       let arr = new Array(obj.length);

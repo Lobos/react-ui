@@ -12,7 +12,7 @@ requireCss('datetime');
 import { getLang, setLang } from './lang';
 setLang('datetime');
 
-const poslist = require('./utils/circle').getPostions(12, 50, -90);
+const poslist = require('./utils/circle').getPositions(12, 50, -90);
 
 @clickAway
 class Datetime extends React.Component {

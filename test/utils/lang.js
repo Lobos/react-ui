@@ -1,14 +1,22 @@
-var expect = require('chai').expect
+import { expect } from 'chai';
+import { getLang, setLang, setLocation } from '../../src/lang';
 
 describe('lang', function () {
-  var Lang = require('../../src/js/lang')
-
   it('set / get', function () {
-    require('../../src/js/lang/zh-cn')
+    setLocation('zh-cn');
 
-    var _ = Lang.get
-    _('request.status.400').should.equal('非法请求')
-    _('date.format.year').should.equal('yyyy年')
-    expect(_('data.format.tt')).to.be.undefined
-  })
-})
+    setLang({}, undefined, null);
+    setLang('datetime');
+
+    getLang().datetime.format.year.should.equal('yyyy年');
+
+    getLang('datetime.format.year').should.equal('yyyy年');
+    expect(getLang('datetime.format.tt')).to.be.undefined;
+    getLang('datetime.format.tt', 'none').should.equal('none');
+
+    setLang('buttons');
+    getLang('buttons.add').should.equal('新建');
+
+    expect(getLang(null)).to.be.undefined;
+  });
+});

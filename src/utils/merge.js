@@ -2,7 +2,7 @@
 
 export default function merge(target) {
   if (target === undefined || target === null) {
-    throw new TypeError('Cannot convert first argument to object');
+    return {};
   }
 
   var to = Object(target);
@@ -16,10 +16,12 @@ export default function merge(target) {
     var keysArray = Object.keys(Object(nextSource));
     for (var nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
       var nextKey = keysArray[nextIndex];
-      var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
-      if (desc !== undefined && desc.enumerable) {
+
+      // Object.Keys can't get enumerable key
+      //var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
+      //if (desc !== undefined && desc.enumerable) {
         to[nextKey] = nextSource[nextKey];
-      }
+      //}
     }
   }
   return to;

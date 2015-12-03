@@ -9,7 +9,7 @@ export function format() {
   let args = [].slice.call(arguments),
       str = args.shift();
   return str.replace(/{(\d+)}/g, function(match, number) {
-    return typeof args[number] !== undefined
+    return args[number] !== undefined
       ? args[number]
       : match;
   });
@@ -20,7 +20,7 @@ export function substitute(str, obj) {
     if (match.charAt(0) === '\\') {
       return match.slice(1);
     }
-    return (obj[name] !== null) ? obj[name] : '';
+    return (obj[name] === null || obj[name] === undefined) ? '' : obj[name];
   });
 }
 

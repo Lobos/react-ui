@@ -2,6 +2,7 @@ build
 dist
 lib-cov
 coverage.html
+/coverage
 .DS_Store
 node_modules
 publish

@@ -76,6 +76,10 @@ export function getWeekArray (d) {
 }
 
 export function isEqualDate (d1, d2) {
+  if (!d1 || !d2 || !(d1 instanceof Date) || !(d2 instanceof Date)) {
+    return false;
+  }
+
   return d1 && d2 &&
     (d1.getFullYear() === d2.getFullYear()) &&
     (d1.getMonth() === d2.getMonth()) &&
@@ -159,10 +163,11 @@ export function convert (obj, def) {
     obj = obj.replace(/-/g, "/");
   }
 
-  try {
-    obj = new Date(obj);
-  } catch (e) {
+  obj = new Date(obj);
+  // Invalid Date
+  if (isNaN(obj.getTime())) {
     obj = def;
   }
+
   return obj;
 }
