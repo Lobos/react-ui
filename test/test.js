@@ -9,3 +9,4 @@ require('./utils/lang');
 require('./utils/datetime');
 require('./utils/isEqual');
 require('./utils/circle');
+//require('./utils/dom');

@@ -29,6 +29,7 @@ export function offset (el) {
   };
 }
 
+/*
 export function addClass (el, className) {
   if (el.classList) {
     el.classList.add(className);
@@ -60,6 +61,7 @@ export function toggleClass (el, className) {
     addClass(el, className);
   }
 }
+*/
 
 export function forceRedraw (el) {
   let originalDisplay = el.style.display;
