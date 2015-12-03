@@ -157,7 +157,7 @@ class Select extends React.Component {
           $option: d,
           $result: d,
           $value: d,
-          $filter: d,
+          $filter: d.toLowerCase(),
           $checked: value.indexOf(d) >= 0
         }
       }
