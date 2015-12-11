@@ -5,8 +5,8 @@
   "description": "a collection of components for React",
   "main": "./src/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/_mocha --compilers js:babel/register",
-    "test-cov": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --compilers js:babel/register",
+    "test": "NODE_ENV=test ./node_modules/.bin/_mocha --compilers js:babel/register --recursive",
+    "test-cov": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --compilers js:babel/register --recursive",
     "dev": "node devServer.js",
     "build": "NODE_ENV=production webpack --config webpack.config.docs.js"
   },
@@ -40,7 +40,6 @@
     "pubsub-js": "^1.5.2"
   },
   "devDependencies": {
-    "MD5": "^1.2.2",
     "babel": "^5.5.8",
     "babel-core": "^5.8.34",
     "babel-eslint": "^3.1.26",
@@ -66,6 +65,7 @@
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
     "material-design-iconic-font": "^2.2.0",
+    "md5": "~2.0.0",
     "mkdirp": "^0.5.1",
     "mocha": "^2.3.4",
     "mocha-jsdom": "~1.0.0",

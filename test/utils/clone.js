@@ -2,7 +2,6 @@
 
 import clone from '../../src/utils/clone';
 import isEqual from '../../src/utils/isEqual';
-import jsdom from 'mocha-jsdom';
 
 class Person {
   constructor(name) {
@@ -13,8 +12,6 @@ class Person {
 }
 
 describe('utils clone', () => {
-  jsdom();
-
   it('clone', function (c = 1) {
     let a = {
       a: 1,

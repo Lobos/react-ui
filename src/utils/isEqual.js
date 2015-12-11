@@ -9,7 +9,7 @@ export default function compare (x, y) {
     return true;
   }
 
-  // Compare primitives and functions.     
+  // Compare primitives and functions.
   // Check if both arguments link to the same object.
   // Especially useful on step when comparing prototypes
   if (x === y) {
@@ -29,7 +29,6 @@ export default function compare (x, y) {
   if (x instanceof Date && y instanceof Date) {
     return x.getTime() === y.getTime();
   }
-    
 
   // At last checking prototypes as good a we can
   if (!(x instanceof Object && y instanceof Object)) {
@@ -57,7 +56,7 @@ export default function compare (x, y) {
     if (!y.hasOwnProperty(p)) {
       return false;
     }
-    
+
     if (typeof y[p] !== typeof x[p]) {
       return false;
     }

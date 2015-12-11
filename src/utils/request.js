@@ -1,21 +1,41 @@
 'use strict';
 
-//import Qwest from 'qwest';
+import qwest from 'qwest';
+import md5 from 'md5';
+import jsonp from './jsonp';
 
-const cache = {};
+//const globalCache = {};
 
-function ajax(options) {
-  console.log(options);
+function getKey(url, data, method) {
+  //let key = `${method}_${url}_${}`;
+  console.log(md5(url));
+  console.log(url, data, method);
 }
 
-function jsonp(options) {
-  console.log(options);
+function getItem(key) {
+  console.log(key);
 }
 
-export default function request({ type, ...opts }) {
-  if (type === 'jsonp') {
-    jsonp(opts);
+function setItem(key, data, expired) {
+  console.log(key, data, expired);
+}
+
+export default function request({ type='ajax', cache=0, url, data, method='get', success, error, options }) {
+
+  const key = getKey(url, data, method);
+  console.log(getItem(key));
+  setItem(data);
+
+  if (type === 'ajax') {
+    method = method.toLowerCase();
+    qwest[method](url, data, options).then(success).catch(error);
   } else {
-    ajax(opts);
+    jsonp(url, (err, res) => {
+      if (err && typeof error === 'function') {
+        error(err);
+      } else if (success) {
+        success(res);
+      }
+    });
   }
 }

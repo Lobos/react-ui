@@ -1,6 +1,7 @@
 "use strict";
 
-import { getLang } from '../lang';
+import { getLang, setLang } from '../lang';
+setLang('datetime');
 
 export function clone (d) {
   return new Date(d.getTime());

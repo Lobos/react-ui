@@ -2,7 +2,6 @@
 
 import * as Dom from '../../src/utils/dom';
 import isEqual from '../../src/utils/isEqual';
-import jsdom from 'mocha-jsdom';
 
 function getElement() {
   let outer = document.createElement('div');
@@ -19,7 +18,6 @@ function getElement() {
 }
 
 describe('utils dom', () => {
-  jsdom();
 
   it('isDescendant', () => {
     let outer = getElement();
@@ -74,7 +72,5 @@ describe('utils dom', () => {
   it('getOuterHeight', () => {
     let outer = getElement();
     document.body.appendChild(outer);
-    console.log(outer.offsetHeight);
-    console.log(Dom.getOuterHeight(outer));
   });
 });

@@ -99,7 +99,7 @@ export default class Page extends React.Component {
             <Button status="primary" onClick={() => Modal.open(openOptions)}>open a form</Button>
           </div>
           <pre className="prettyprint">
-{`Modal.open(
+{`Modal.open({
   header: '一个弹出表单',
   content: (
     <div>
@@ -126,7 +126,7 @@ export default class Page extends React.Component {
       }
     }
   }
-)`}
+})`}
           </pre>
 
           <h2 className="subhead">Modal.alert(content)</h2>

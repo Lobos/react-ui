@@ -1,7 +1,8 @@
 "use strict";
 
+import * as Datetime from '../../src/utils/datetime';
+
 describe('utils datetime', function () {
-  let Datetime = require('../../src/utils/datetime');
   let eql = Datetime.isEqual;
   let eqld = Datetime.isEqualDate;
 

@@ -46,3 +46,16 @@ export function toTextValue (arr, textTpl='{text}', valueTpl='{id}') {
   });
   return arr;
 }
+
+export function sortByKey (obj) {
+  if (!arr) {
+    return {};
+  }
+
+  let newObj = {};
+  Objects.keys(obj).sort().forEach((key) => {
+    newObj[key] = obj[key];
+  })
+
+  return newObj;
+}
