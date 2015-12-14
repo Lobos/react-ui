@@ -37,9 +37,9 @@ module.exports = function(options) {
 
 	var output = {
 		path: options.path || "./",
-		filename: options.filename || "[name].js",
+		filename: options.filename || "./js/[name].js",
 		//chunkFilename: (options.devServer ? "[id].js" : "[name].js") + (options.longTermCaching ? "?[chunkhash]" : ""),
-		sourceMapFilename: "[file].map",
+		sourceMapFilename: "./js/[file].map",
 		pathinfo: options.debug,
     library: options.library,
 		libraryTarget: options.libraryTarget || "umd"
@@ -53,7 +53,7 @@ module.exports = function(options) {
 	var loaders = loadersByExtension({
 		"jsx": options.hotComponents ? "babel" : "babel-loader?stage=0",
 		"js": options.hotComponents ? "babel" : "babel-loader?stage=0",
-		"json": "file-loader?name=./[name].json",
+		"json": "file-loader?name=./json/[name].json",
 		//"txt": "raw-loader",
     "png|jpg|jpeg|gif": "url-loader?limit=10000&name=./images/[name].[ext]",
 		"ttf|eot|woff|woff2|otf|svg": "file-loader?name=./font/[name].[ext]",
