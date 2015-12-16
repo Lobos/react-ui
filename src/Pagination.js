@@ -1,24 +1,25 @@
 'use strict';
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { forEach } from './utils/objects';
 
 import { requireCss } from './themes';
 requireCss('pagination');
 
-export default class Pagination extends React.Component {
+export default class Pagination extends Component {
   static displayName = 'Pagination'
 
   static propTypes = {
-    className: React.PropTypes.string,
-    index: React.PropTypes.number,
-    jumper: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
-    pages: React.PropTypes.number,
-    size: React.PropTypes.number,
-    style: React.PropTypes.object,
-    total: React.PropTypes.number
+    className: PropTypes.string,
+    index: PropTypes.number,
+    jumper: PropTypes.bool,
+    mini: PropTypes.bool,
+    onChange: PropTypes.func,
+    pages: PropTypes.number,
+    size: PropTypes.number,
+    style: PropTypes.object,
+    total: PropTypes.number
   }
 
   static defaultProps = {
@@ -52,7 +53,11 @@ export default class Pagination extends React.Component {
 
     let value = this.refs.input.value;
     value = parseInt(value);
-    if (!value) {
+    if (isNaN(value)) {
+      return;
+    }
+    if (value < 1) {
+      this.handleChange(1);
       return;
     }
 
@@ -64,6 +69,9 @@ export default class Pagination extends React.Component {
 
   handleChange (index) {
     this.setIndex(index);
+    if (this.refs.input) {
+      this.refs.input.value = index;
+    }
     if (this.props.onChange) {
       this.props.onChange(index);
     }
@@ -115,6 +123,7 @@ export default class Pagination extends React.Component {
 
   render () {
     let index = this.state.index,
+        {mini} = this.props,
         {pages, max} = this.getPages(),
         items = [];
 
@@ -125,13 +134,22 @@ export default class Pagination extends React.Component {
       </li>
     );
 
-    forEach(pages, function (i) {
+    if (mini) {
       items.push(
-        <li onClick={this.handleChange.bind(this, i)} className={classnames({ active: i === index })} key={i}>
-          <a>{i}</a>
-        </li>
+        <form key="i" onSubmit={this.setInput.bind(this)}>
+          <input ref="input" defaultValue={this.state.index} type="text" className="rct-form-control" />
+        </form>
       );
-    }, this);
+      items.push(<span key="s"> / {max}</span>);
+    } else {
+      forEach(pages, function (i) {
+        items.push(
+          <li onClick={this.handleChange.bind(this, i)} className={classnames({ active: i === index })} key={i}>
+            <a>{i}</a>
+          </li>
+        );
+      }, this);
+    }
 
     // Next
     items.push(
@@ -142,7 +160,8 @@ export default class Pagination extends React.Component {
 
     let className = classnames(
       this.props.className,
-      "rct-pagination-wrap"
+      "rct-pagination-wrap",
+      { "rct-pagination-mini": mini }
     );
     return (
       <div style={this.props.style} className={className}>
@@ -150,10 +169,10 @@ export default class Pagination extends React.Component {
           {items}
         </ul>
         {
-          this.props.jumper &&
+          this.props.jumper && !mini &&
           <form onSubmit={this.setInput.bind(this)}>
             <div className="rct-input-group">
-              <input ref="input" type="text" className="rct-form-control" />
+              <input ref="input" defaultValue={this.state.index} type="text" className="rct-form-control" />
               <span onClick={this.setInput.bind(this)} className="addon">go</span>
             </div>
           </form>

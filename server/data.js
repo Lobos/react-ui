@@ -95,7 +95,7 @@ module.exports = {
   },
 
   Qwest: {
-    path: 'Qwest'
+    path: 'qwest'
   },
 
   dataSource: {
@@ -105,12 +105,6 @@ module.exports = {
 
   Lang: {
     path: './lang'
-  },
-
-  'zh-cn': {
-    path: './lang/zh-cn',
-    notExport: true,
-    dependencies: [ 'Lang' ]
   }
 
 };

@@ -12,3 +12,4 @@ publish
 *.sh
 *.log
 /components
+/coverage

@@ -53,4 +53,10 @@ describe('utils objects', function () {
 
     _(null).should.eql([]);
   });
+
+  it('sortByKey', () => {
+    let obj = { a: 1, c: 2, b: 3 };
+    JSON.stringify(Objects.sortByKey(obj)).should.eql(JSON.stringify({a:1, b:3, c:2}));
+    Objects.sortByKey(null).should.eql({});
+  });
 });
