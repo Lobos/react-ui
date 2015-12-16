@@ -95,7 +95,7 @@ module.exports = {
   },
 
   Qwest: {
-    path: 'Qwest'
+    path: 'qwest'
   },
 
   dataSource: {
