@@ -105,12 +105,6 @@ module.exports = {
 
   Lang: {
     path: './lang'
-  },
-
-  'zh-cn': {
-    path: './lang/zh-cn',
-    notExport: true,
-    dependencies: [ 'Lang' ]
   }
 
 }
