@@ -10,7 +10,7 @@ export default function clickAway(Component) {
 
     if (!fn) {
       fn = (e) => {
-        let el = ReactDOM.findDOMNode(this)
+        let el = ReactDOM.findDOMNode(this).lastChild
 
         // Check if the target is inside the current component
         if (e.target !== el && !isDescendant(el, e.target)) {
