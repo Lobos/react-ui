@@ -222,11 +222,18 @@ class Select extends React.Component {
     }
   }
 
-  handleRemove (i) {
+  handleRemove (i, e) {
     // wait checkClickAway completed
     setTimeout(() => {
       this.handleChange(i)
     }, 0)
+
+    if (e && e.stopPropagation){
+      e.stopPropagation()
+    }
+    else{
+      e.cancelBubble = true
+    }
   }
 
   render () {
