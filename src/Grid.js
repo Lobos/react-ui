@@ -1,19 +1,10 @@
 'use strict';
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import getGrid from './higherorder/grid';
 
-@getGrid
-export default class Grid extends React.Component {
-  static displayName = 'Grid'
-
-  static propTypes = {
-    children: React.PropTypes.any,
-    className: React.PropTypes.string,
-    style: React.PropTypes.object
-  }
-
+class Grid extends Component {
   render () {
     const className = classnames(
       this.props.className,
@@ -26,3 +17,11 @@ export default class Grid extends React.Component {
     );
   }
 }
+
+Grid.propTypes = {
+  children: PropTypes.any,
+  className: PropTypes.string,
+  style: PropTypes.object
+};
+
+module.exports = getGrid(Grid);

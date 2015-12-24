@@ -1,23 +1,16 @@
 "use strict";
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import menulist from './menulist';
 const { Icon } = global.uiRequire();
 
-export default class NavList extends React.Component {
-  static displayName = 'NavList'
-
-  static propTypes = {
-    onToggle: React.PropTypes.func
-  }
-
-  static contextTypes = {
-    history: React.PropTypes.object.isRequired
-  }
-
-  state = {
-    active: true
+class NavList extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      active: true
+    };
   }
 
   getClasses (name, path) {
@@ -72,3 +65,13 @@ export default class NavList extends React.Component {
     );
   }
 }
+
+NavList.propTypes = {
+  onToggle: PropTypes.func
+};
+
+NavList.contextTypes = {
+  history: PropTypes.object.isRequired
+};
+
+module.exports = NavList;

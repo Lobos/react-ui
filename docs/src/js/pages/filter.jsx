@@ -4,12 +4,12 @@ import React from 'react';
 import prettify from '../prettify';
 const { Filter, dataSource } = global.uiRequire();
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/Filter'
-
-  state = {
-    filterText: ''
+class Page extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      filterText: ''
+    };
   }
 
   render () {
@@ -117,3 +117,5 @@ options = {
     );
   }
 }
+
+module.exports = prettify(Page);

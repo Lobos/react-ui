@@ -1,6 +1,6 @@
 "use strict";
 
-import React from 'react';
+import { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 
 import { requireCss } from './themes';
@@ -11,35 +11,20 @@ let themes = {
   // "heart": [img, img]
 };
 
-class Rating extends React.Component {
-  static displayName = 'Rating'
-
-  static propTypes = {
-    className: React.PropTypes.string,
-    icons: React.PropTypes.array,
-    maxValue: React.PropTypes.number,
-    onChange: React.PropTypes.func,
-    readOnly: React.PropTypes.bool,
-    size: React.PropTypes.number,
-    style: React.PropTypes.object,
-    theme: React.PropTypes.string,
-    value: React.PropTypes.number
+class Rating extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      value: this.props.value,
+      hover: 0,
+      wink: false
+    };
   }
-
-  static defaultProps = {
-    maxValue: 5
-  }
-
+  
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
     }
-  }
-
-  state = {
-    value: this.props.value,
-    hover: 0,
-    wink: false
   }
 
   handleHover (value) {
@@ -78,7 +63,7 @@ class Rating extends React.Component {
     let items = [],
         icon = this.getIcon(0);
     for (let i = 0; i < this.props.maxValue; i++) {
-      items.push(React.cloneElement(icon, { key: i }));
+      items.push(cloneElement(icon, { key: i }));
     }
 
     return <div className="rct-rating-bg">{items}</div>;
@@ -111,8 +96,8 @@ class Rating extends React.Component {
           style={{cursor: 'pointer'}}
           onMouseOver={this.handleHover(i + 1)}
           onClick={this.handleChange.bind(this, i + 1)}
-          className={classnames('rct-rating-handle', { 'active': active, 'wink': active && wink })}>
-          {React.cloneElement(icon)}
+          className={classnames('rct-rating-handle', { active, wink: active && wink })}>
+          {cloneElement(icon)}
         </span>
       );
     }
@@ -126,11 +111,11 @@ class Rating extends React.Component {
         width = (this.state.value / this.props.maxValue * 100) + '%';
 
     for (let i = 0; i < this.props.maxValue; i++) {
-      items.push(React.cloneElement(icon, { key: i }));
+      items.push(cloneElement(icon, { key: i }));
     }
 
     return (
-      <div style={{ width: width }} className="rct-rating-front">
+      <div style={{ width }} className="rct-rating-front">
         <div className="rct-rating-inner">
           {items}
         </div>
@@ -141,7 +126,7 @@ class Rating extends React.Component {
   render () {
     let className = classnames(
       this.props.className,
-      "rct-rating"
+      'rct-rating'
     );
     return (
       <div style={this.props.style} className={className}>
@@ -156,9 +141,24 @@ Rating.register = function (key, icons) {
   themes[key] = icons;
 };
 
-export default Rating;
+Rating.propTypes = {
+  className: PropTypes.string,
+  icons: PropTypes.array,
+  maxValue: PropTypes.number,
+  onChange: PropTypes.func,
+  readOnly: PropTypes.bool,
+  size: PropTypes.number,
+  style: PropTypes.object,
+  theme: PropTypes.string,
+  value: PropTypes.number
+};
 
-require('./FormControl').register(
+Rating.defaultProps = {
+  maxValue: 5
+};
+
+import FormControl from './FormControl';
+FormControl.register(
 
   'rating',
 
@@ -169,3 +169,5 @@ require('./FormControl').register(
   Rating
 
 );
+
+module.exports = Rating;

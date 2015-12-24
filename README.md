@@ -3,16 +3,6 @@ A collection of components for React.
 
 # 使用
 
- - 直接引用
-
-[在线生成需要的组件](http://lobos.github.io/react-ui/#/build)，在页面中引用即可。（注意需要先引用 react 和 [es5-shim](https://github.com/es-shims/es5-shim)）
-```
-<script src="js/es5-shim.min.js"></script>
-<script src="js/react.js"></script>
-<script src="js/react-dom.js"></script>
-<script src="js/ReactUI.js"></script>
-```
-
  - npm install
 ```
 npm install rctui
@@ -28,10 +18,9 @@ var FormControl = require('rctui/FormControl')
 ```
 
 # build
-使用 [webpack](http://webpack.github.io/) 打包，可以修改 'src/js/index.js' 自定义需要的组件。
+使用 [webpack](http://webpack.github.io/) 打包，可以修改 'src/index.js' 自定义需要的组件。
 ```
-docs:    webpack --config webpack-docs.config.js [--min]
-publish: webpack --config webpack-publish.config.js [--min]
+build: npm run build
 ```
 
 # Components
@@ -56,6 +45,13 @@ publish: webpack --config webpack-publish.config.js [--min]
 - [Upload](http://lobos.github.io/react-ui/#/upload)
 
 # Change log
+v0.5.2
+ - babel 5 => 6，移除es7的语法
+ - 移除在线build(木有精力维护了……)
+
+v0.5.1
+ - Pagination 增加mini选项
+
 v0.5.0
  - 修复bugs
  - react版本改为0.14.0

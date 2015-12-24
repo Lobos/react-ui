@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 import React, { PropTypes } from 'react';
@@ -7,13 +8,13 @@ export const DATA_SUCCESS = 1;
 export const DATA_FAILURE = 2;
 
 export default function dataSource(Component) {
-  return class DataSource extends React.Component {
-    static displayName = 'DataSource'
-
-    static propTypes = {
-      children: PropTypes.any,
-      data: PropTypes.any,
-      fetch: PropTypes.object
+  class DataSource extends React.Component {
+    constructor (props) {
+      super(props);
+      this.state = {
+        data: this.props.data,
+        fetchStatus: this.props.data ? DATA_SUCCESS : DATA_PENDING
+      };
     }
 
     componentWillMount () {
@@ -31,11 +32,6 @@ export default function dataSource(Component) {
       }
     }
 
-    static defaultState = {
-      data: this.props.data,
-      fetchStatus: this.props.data ? DATA_SUCCESS : DATA_PENDING
-    }
-
     fetchData (config) {
       console.log(config);
     }
@@ -47,4 +43,13 @@ export default function dataSource(Component) {
       );
     }
   };
+
+  DataSource.propTypes = {
+    children: PropTypes.any,
+    data: PropTypes.any,
+    fetch: PropTypes.object
+  };
+
+  return DataSource;
 }
+*/

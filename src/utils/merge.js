@@ -1,6 +1,6 @@
 'use strict';
 
-export default function merge(target) {
+module.exports = function merge(target) {
   if (target === undefined || target === null) {
     return {};
   }

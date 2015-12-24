@@ -9,10 +9,7 @@ const gridProps = {
   responsive: 'lg'
 };
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/FormControl'
-
+class Page extends React.Component {
   renderExample (type, component) {
     component = component || 'Input';
     return (
@@ -342,3 +339,5 @@ export default class Page extends React.Component {
     );
   }
 }
+
+module.exports = prettify(Page);

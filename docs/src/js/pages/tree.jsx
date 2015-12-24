@@ -4,25 +4,25 @@ import React from 'react';
 import prettify from '../prettify';
 const {Tree, Checkbox, Qwest, dataSource} = global.uiRequire();
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/Tree'
+class Page extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      readOnly: false,
+      selectAble: true,
+      greedy: false,
+      sep: ',',
+      value: 'role_delete',
+      showValue: 'role_delete',
+      treeData: null
+    };
+  }
 
   componentWillMount () {
     Qwest.get('json/tree.json', null, {cache: true})
       .then(res => {
         this.setState({ treeData: JSON.stringify(res, null, 2) });
       });
-  }
-
-  state = {
-    readOnly: false,
-    selectAble: true,
-    greedy: false,
-    sep: ',',
-    value: 'role_delete',
-    showValue: 'role_delete',
-    treeData: null
   }
 
   handleChange () {
@@ -123,3 +123,5 @@ export default class Page extends React.Component {
     );
   }
 }
+
+module.exports = prettify(Page);

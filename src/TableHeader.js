@@ -4,28 +4,11 @@ import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 
 class TableHeader extends Component {
-  static displayName = 'TableHeader'
-
-  static propTypes = {
-    content: PropTypes.any,
-    header: PropTypes.any,
-    hidden: PropTypes.bool,
-    name: PropTypes.string.isRequired,
-    onSort: PropTypes.func,
-    sort: PropTypes.object,
-    sortAble: PropTypes.bool,
-    width: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ])
-  }
-
-  static defaultProps = {
-    hidden: false
-  }
-
-  state = {
-    asc: 0
+  constructor (props) {
+    super(props);
+    this.state = {
+      asc: 0
+    };
   }
 
   onSort () {
@@ -40,8 +23,8 @@ class TableHeader extends Component {
         style = {};
 
     if (this.props.sortAble) {
-      sort.push(<i key="up" className={classnames("arrow-up", {active: this.props.name === this.props.sort.name && this.state.asc === 1})} />);
-      sort.push(<i key="down" className={classnames("arrow-down", {active: this.props.name === this.props.sort.name && this.state.asc === 0})} />);
+      sort.push(<i key="up" className={classnames('arrow-up', {active: this.props.name === this.props.sort.name && this.state.asc === 1})} />);
+      sort.push(<i key="down" className={classnames('arrow-down', {active: this.props.name === this.props.sort.name && this.state.asc === 0})} />);
 
       onSort = this.onSort.bind(this);
       style = { cursor: 'pointer' };
@@ -56,4 +39,22 @@ class TableHeader extends Component {
   }
 }
 
-export default TableHeader;
+TableHeader.propTypes = {
+  content: PropTypes.any,
+  header: PropTypes.any,
+  hidden: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  onSort: PropTypes.func,
+  sort: PropTypes.object,
+  sortAble: PropTypes.bool,
+  width: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ])
+};
+
+TableHeader.defaultProps = {
+  hidden: false
+};
+
+module.exports = TableHeader;

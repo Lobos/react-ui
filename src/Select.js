@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toArray, substitute } from './utils/strings';
 import { getOuterHeight, overView, withoutTransition } from './utils/dom';
@@ -12,38 +12,18 @@ import { requireCss } from './themes';
 requireCss('select');
 requireCss('form-control');
 
-@clickAway
-@getGrid
-class Select extends React.Component {
-  static displayName = 'Select'
-
-  static propTypes = {
-    className: React.PropTypes.string,
-    data: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.func
-    ]).isRequired,
-    filterAble: React.PropTypes.bool,
-    groupBy: React.PropTypes.string,
-    mult: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
-    optionTpl: React.PropTypes.string,
-    placeholder: React.PropTypes.string,
-    readOnly: React.PropTypes.bool,
-    resultTpl: React.PropTypes.string,
-    sep: React.PropTypes.string,
-    style: React.PropTypes.object,
-    value: React.PropTypes.any,
-    valueTpl: React.PropTypes.string
+class Select extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      active: false,
+      value: [],
+      data: [],
+      filter: ''
+    };
+    this.unmounted = false;
   }
-
-  static defaultProps = {
-    dropup: false,
-    sep: ',',
-    optionTpl: '{text}',
-    valueTpl: '{id}'
-  }
-
+  
   componentWillMount () {
     let values = toArray(this.props.value, this.props.sep);
     let data = this.formatData(this.props.data, values);
@@ -63,17 +43,8 @@ class Select extends React.Component {
     this.unmounted = true;
   }
 
-  unmounted = false
-
   componentClickAway () {
     this.close();
-  }
-
-  state = {
-    active: false,
-    value: [],
-    data: [],
-    filter: ''
   }
 
   open () {
@@ -110,7 +81,7 @@ class Select extends React.Component {
 
   getValue (sep = this.props.sep, data = this.state.data) {
     let value = [];
-    data.forEach(d => {
+    data.forEach((d) => {
       if (d.$checked) {
         value.push(d.$value);
       }
@@ -131,18 +102,18 @@ class Select extends React.Component {
     value = toArray(value, this.props.sep);
     if (this.state) {
       //let data = clone(this.state.data).map(d => {
-      let data = this.state.data.map(d => {
+      let data = this.state.data.map((d) => {
         d.$checked = value.indexOf(d.$value) >= 0;
         return d;
       });
-      this.setState({ data: data });
+      this.setState({ data });
     }
     return value;
   }
 
   formatData (data, value = this.state.value) {
     if (typeof data === 'function') {
-      data.then(res => {
+      data.then((res) => {
         if (!this.unmounted) {
           this.setState({ data: this.formatData(res) });
         }
@@ -151,7 +122,7 @@ class Select extends React.Component {
     }
 
     // don't use data, clone
-    data = clone(data).map(d => {
+    data = clone(data).map((d) => {
       if (typeof d !== 'object') {
         return {
           $option: d,
@@ -164,7 +135,7 @@ class Select extends React.Component {
 
       // speed filter
       if (this.props.filterAble) {
-        d.$filter = (Object.keys(d).map(k => d[k])).join(',').toLowerCase();
+        d.$filter = (Object.keys(d).map((k) => d[k])).join(',').toLowerCase();
       }
 
       let val = substitute(this.props.valueTpl, d);
@@ -178,7 +149,7 @@ class Select extends React.Component {
     if (this.props.groupBy) {
       let groups = {},
           groupBy = this.props.groupBy;
-      data.forEach(d => {
+      data.forEach((d) => {
         let key = d[groupBy];
         if (!groups[key]) {
           groups[key] = [];
@@ -186,7 +157,7 @@ class Select extends React.Component {
         groups[key].push(d);
       });
       data = [];
-      Object.keys(groups).forEach(k => {
+      Object.keys(groups).forEach((k) => {
         data.push(k);
         data = data.concat(groups[k]);
       });
@@ -205,7 +176,7 @@ class Select extends React.Component {
       data[i].$checked = !data[i].$checked;
       this.setState({ data });
     } else {
-      data.map(d => {
+      data.map((d) => {
         if (typeof d !== 'string') {
           d.$checked = false;
         }
@@ -239,7 +210,7 @@ class Select extends React.Component {
       'rct-form-control',
       'rct-select',
       {
-        active: active,
+        active,
         readonly: this.props.readOnly,
         dropup: this.state.dropup,
         single: !this.props.mult
@@ -254,7 +225,7 @@ class Select extends React.Component {
         <div className="filter">
           <i className="search" />
           <input value={this.state.filter}
-            onChange={ e=>this.setState({ filter: e.target.value }) }
+            onChange={ (e) => this.setState({ filter: e.target.value }) }
             type="text" />
         </div>
       );
@@ -264,7 +235,7 @@ class Select extends React.Component {
                      this.state.filter.toLowerCase() :
                      null;
 
-    let options = this.state.data.map(function (d, i) {
+    let options = this.state.data.map((d, i) => {
       if (typeof d === 'string') {
         return <span key={i} className="show group">{d}</span>;
       }
@@ -292,7 +263,7 @@ class Select extends React.Component {
           dangerouslySetInnerHTML={{__html: d.$option}}
         />
       );
-    }, this);
+    });
 
     return (
       <div ref="container" onClick={this.open.bind(this)} style={this.props.style} className={className}>
@@ -309,9 +280,37 @@ class Select extends React.Component {
   }
 }
 
-export default Select;
+Select.propTypes = {
+  className: PropTypes.string,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]).isRequired,
+  filterAble: PropTypes.bool,
+  groupBy: PropTypes.string,
+  mult: PropTypes.bool,
+  onChange: PropTypes.func,
+  optionTpl: PropTypes.string,
+  placeholder: PropTypes.string,
+  readOnly: PropTypes.bool,
+  resultTpl: PropTypes.string,
+  sep: PropTypes.string,
+  style: PropTypes.object,
+  value: PropTypes.any,
+  valueTpl: PropTypes.string
+};
 
-require('./FormControl').register(
+Select.defaultProps = {
+  dropup: false,
+  sep: ',',
+  optionTpl: '{text}',
+  valueTpl: '{id}'
+};
+
+Select = getGrid(clickAway(Select))
+
+import FormControl from './FormControl';
+FormControl.register(
 
   'select',
 
@@ -323,3 +322,5 @@ require('./FormControl').register(
 
   'array'
 );
+
+module.exports = Select;

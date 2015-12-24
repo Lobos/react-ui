@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import Regs from './utils/regs';
 import getGrid from './higherorder/grid';
@@ -9,32 +9,18 @@ import { requireCss } from './themes';
 requireCss('input');
 requireCss('form-control');
 
-@getGrid
-class Input extends React.Component {
-  static displayName = 'Input'
-
-  static propTypes = {
-    className: React.PropTypes.string,
-    id: React.PropTypes.string,
-    onBlur: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    onFocus: React.PropTypes.func,
-    placeholder: React.PropTypes.string,
-    readOnly: React.PropTypes.bool,
-    rows: React.PropTypes.number,
-    style: React.PropTypes.object,
-    type: React.PropTypes.string,
-    value: React.PropTypes.any
+class Input extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      value: this.props.value
+    };
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
     }
-  }
-
-  state = {
-    value: this.props.value
   }
 
   getValue () {
@@ -58,7 +44,7 @@ class Input extends React.Component {
       }
     }
 
-    this.setState({ value: value });
+    this.setState({ value });
     setTimeout(() => {
       if (this.props.onChange) {
         this.props.onChange(value);
@@ -86,7 +72,21 @@ class Input extends React.Component {
   }
 }
 
-export default Input;
+Input.propTypes = {
+  className: PropTypes.string,
+  id: PropTypes.string,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  placeholder: PropTypes.string,
+  readOnly: PropTypes.bool,
+  rows: PropTypes.number,
+  style: PropTypes.object,
+  type: PropTypes.string,
+  value: PropTypes.any
+};
+
+Input = getGrid(Input);
 
 import FormControl from './FormControl';
 
@@ -115,3 +115,5 @@ FormControl.register(
   'number'
 
 );
+
+module.exports = Input;

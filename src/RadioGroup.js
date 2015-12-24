@@ -1,33 +1,19 @@
 "use strict";
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toTextValue } from './utils/objects';
 import Radio from './Radio';
 
-class RadioGroup extends React.Component {
-  static displayName = "RadioGroup"
-
-  static propTypes = {
-    className: React.PropTypes.string,
-    data: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.func
-    ]).isRequired,
-    inline: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
-    readOnly: React.PropTypes.bool,
-    style: React.PropTypes.object,
-    textTpl: React.PropTypes.string,
-    value: React.PropTypes.any,
-    valueTpl: React.PropTypes.string
+class RadioGroup extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      value: this.props.value,
+      data: this.formatData(this.props.data)
+    };
   }
-
-  static defaultProps = {
-    textTpl: '{text}',
-    valueTpl: '{id}'
-  }
-
+  
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
@@ -37,14 +23,9 @@ class RadioGroup extends React.Component {
     }
   }
 
-  state = {
-    value: this.props.value,
-    data: this.formatData(this.props.data)
-  }
-
   formatData (data) {
     if (typeof data === 'function') {
-      data.then(res => {
+      data.then((res) => {
         this.setState({ data: this.formatData(res) });
       })();
       return [];
@@ -54,7 +35,7 @@ class RadioGroup extends React.Component {
   }
 
   setValue (value) {
-    this.setState({ value: value });
+    this.setState({ value });
   }
 
   getValue () {
@@ -66,7 +47,7 @@ class RadioGroup extends React.Component {
       return;
     }
 
-    this.setState({ value: value });
+    this.setState({ value });
     let change = this.props.onChange;
     if (change) {
       setTimeout(function () {
@@ -99,9 +80,28 @@ class RadioGroup extends React.Component {
   }
 }
 
-export default RadioGroup;
+RadioGroup.propTypes = {
+  className: PropTypes.string,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]).isRequired,
+  inline: PropTypes.bool,
+  onChange: PropTypes.func,
+  readOnly: PropTypes.bool,
+  style: PropTypes.object,
+  textTpl: PropTypes.string,
+  value: PropTypes.any,
+  valueTpl: PropTypes.string
+};
 
-require('./FormControl').register(
+RadioGroup.defaultProps = {
+  textTpl: '{text}',
+  valueTpl: '{id}'
+};
+
+import FormControl from './FormControl';
+FormControl.register(
 
   'radio-group',
 
@@ -112,3 +112,5 @@ require('./FormControl').register(
   RadioGroup
 
 );
+
+module.exports = RadioGroup;

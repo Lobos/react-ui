@@ -7,36 +7,18 @@ import { forEach } from './utils/objects';
 import { requireCss } from './themes';
 requireCss('pagination');
 
-export default class Pagination extends Component {
-  static displayName = 'Pagination'
-
-  static propTypes = {
-    className: PropTypes.string,
-    index: PropTypes.number,
-    jumper: PropTypes.bool,
-    mini: PropTypes.bool,
-    onChange: PropTypes.func,
-    pages: PropTypes.number,
-    size: PropTypes.number,
-    style: PropTypes.object,
-    total: PropTypes.number
-  }
-
-  static defaultProps = {
-    index: 1,
-    pages: 10,
-    size: 20,
-    total: 0
+class Pagination extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      index: this.props.index
+    };
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.index !== this.props.index) {
       this.setState({ index: nextProps.index });
     }
-  }
-
-  state = {
-    index: this.props.index
   }
 
   getIndex () {
@@ -160,8 +142,8 @@ export default class Pagination extends Component {
 
     let className = classnames(
       this.props.className,
-      "rct-pagination-wrap",
-      { "rct-pagination-mini": mini }
+      'rct-pagination-wrap',
+      { 'rct-pagination-mini': mini }
     );
     return (
       <div style={this.props.style} className={className}>
@@ -181,3 +163,24 @@ export default class Pagination extends Component {
     );
   }
 }
+
+Pagination.propTypes = {
+  className: PropTypes.string,
+  index: PropTypes.number,
+  jumper: PropTypes.bool,
+  mini: PropTypes.bool,
+  onChange: PropTypes.func,
+  pages: PropTypes.number,
+  size: PropTypes.number,
+  style: PropTypes.object,
+  total: PropTypes.number
+};
+
+Pagination.defaultProps = {
+  index: 1,
+  pages: 10,
+  size: 20,
+  total: 0
+};
+
+module.exports = Pagination;

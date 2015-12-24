@@ -7,9 +7,8 @@ class Person {
   constructor(name) {
     this.name = name;
   }
-
-  valueOf = null
 }
+Person.valueOf = null
 
 describe('utils clone', () => {
   it('clone', function (c = 1) {

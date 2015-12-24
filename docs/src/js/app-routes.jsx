@@ -31,4 +31,4 @@ const AppRoutes = (
   </Router>
 );
 
-export default AppRoutes;
+module.exports = AppRoutes;

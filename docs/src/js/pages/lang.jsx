@@ -4,13 +4,13 @@ import React from 'react';
 import prettify from '../prettify';
 const {Lang: {getLang}} = global.uiRequire();
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/Lang'
-
-  state = {
-    path: 'buttons.ok',
-    text: getLang('request.status.405')
+class Page extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      path: 'buttons.ok',
+      text: getLang('request.status.405')
+    };
   }
 
   handleChange (event) {
@@ -45,3 +45,5 @@ export default class Page extends React.Component {
     );
   }
 }
+
+module.exports = prettify(Page);

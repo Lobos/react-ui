@@ -1,13 +1,8 @@
-"use strict";
-
 import React from 'react';
 import prettify from '../prettify';
 const {Button, Icon} = global.uiRequire();
 
-@prettify
-export default class Page extends React.Component {
-  static displayName: 'Pages/Button'
-
+class Page extends React.Component {
   disableExample (event) {
     let button = this.refs.button;
     if (event.target.checked) {
@@ -121,3 +116,4 @@ export default class Page extends React.Component {
   }
 }
 
+module.exports = prettify(Page);

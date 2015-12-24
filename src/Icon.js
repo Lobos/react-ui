@@ -1,25 +1,15 @@
-"use strict";
+'use strict';
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-let prefix = "icon";
+let prefix = 'icon';
 
-export default class Icon extends React.Component {
-  static displayName = 'Icon'
-
-  static propTypes = {
-    icon: React.PropTypes.string,
-    size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-    spin: React.PropTypes.bool,
-    style: React.PropTypes.object
-  }
-
-  static setPrefix (pre) {
-    prefix = pre;
-  }
-
-  state = {
-    spin: this.props.spin
+class Icon extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      spin: this.props.spin
+    };
   }
 
   spin () {
@@ -54,3 +44,16 @@ export default class Icon extends React.Component {
     );
   }
 }
+
+Icon.propTypes = {
+  icon: PropTypes.string,
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  spin: PropTypes.bool,
+  style: PropTypes.object
+};
+
+Icon.setPrefix = function (pre) {
+  prefix = pre;
+};
+
+module.exports = Icon;

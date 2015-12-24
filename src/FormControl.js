@@ -1,6 +1,6 @@
 "use strict";
 
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { isEmpty, forEach } from './utils/objects';
 import { format, toArray } from './utils/strings';
@@ -30,31 +30,19 @@ function getHint(hints, key, value) {
   }
 }
 
-class FormControl extends React.Component {
-  static displayName = 'FormControl'
-
-  static propTypes = {
-    children: React.PropTypes.any,
-    className: React.PropTypes.string,
-    data: React.PropTypes.any,
-    hintType: React.PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
-    id: React.PropTypes.string,
-    label: React.PropTypes.string,
-    layout: React.PropTypes.oneOf(['aligned', 'stacked', 'inline']),
-    name: React.PropTypes.string,
-    onChange: React.PropTypes.func,
-    responsive: React.PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
-    style: React.PropTypes.object,
-    type: React.PropTypes.string,
-    value: React.PropTypes.any,
-    width: React.PropTypes.number
-  }
-
-  static defaultProps = {
-    layout: 'inline',
-    responsive: 'md',
-    type: 'text'
-  }
+class FormControl extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      focused: false,
+      hasError: false,
+      hasValue: this.props.value,
+      value: this.props.value,
+      valueType: CONTROLS[this.props.type].valueType,
+      data: this.props.data,
+      hintText: ''
+    };
+  } 
 
   componentWillMount () {
     this.setHint(this.props);
@@ -62,16 +50,6 @@ class FormControl extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     this.setHint(nextProps);
-  }
-
-  state = {
-    focused: false,
-    hasError: false,
-    hasValue: this.props.value,
-    value: this.props.value,
-    valueType: CONTROLS[this.props.type].valueType,
-    data: this.props.data,
-    hintText: ''
   }
 
   setHint (props) {
@@ -315,9 +293,32 @@ FormControl.register = function (types, render, component, valueType = 'string')
   if (typeof types === 'string') {
     types = [types];
   }
-  types.forEach(type => {
+  types.forEach((type) => {
     CONTROLS[type] = { render, component, valueType };
   });
 };
 
-export default FormControl;
+FormControl.propTypes = {
+  children: PropTypes.any,
+  className: PropTypes.string,
+  data: PropTypes.any,
+  hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
+  id: PropTypes.string,
+  label: PropTypes.string,
+  layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
+  name: PropTypes.string,
+  onChange: PropTypes.func,
+  responsive: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
+  style: PropTypes.object,
+  type: PropTypes.string,
+  value: PropTypes.any,
+  width: PropTypes.number
+};
+
+FormControl.defaultProps = {
+  layout: 'inline',
+  responsive: 'md',
+  type: 'text'
+};
+
+module.exports = FormControl;

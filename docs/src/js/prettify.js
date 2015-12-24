@@ -3,12 +3,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-export default function prettify (Component) {
+module.exports = function prettify (Component) {
   class Prettify extends React.Component {
-    static displayName = 'Prettify'
-
-    static propTypes = {
-      children: React.PropTypes.array
+    constructor (props) {
+      super(props);
     }
 
     componentDidMount () {
@@ -24,5 +22,9 @@ export default function prettify (Component) {
     }
   }
 
+  Prettify.propTypes = {
+    children: React.PropTypes.any
+  };
+
   return Prettify;
-}
+};

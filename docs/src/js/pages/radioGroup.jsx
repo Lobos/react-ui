@@ -5,12 +5,12 @@ import prettify from '../prettify';
 const {RadioGroup, dataSource} = global.uiRequire();
 const textValue = require('../data/text-value');
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/Checkbox'
-
-  state = {
-    inline: false
+class Page extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      inline: false
+    };
   }
 
   render () {
@@ -84,3 +84,5 @@ export default class Page extends React.Component {
     );
   }
 }
+
+module.exports = prettify(Page);

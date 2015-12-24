@@ -1,40 +1,31 @@
 {
-    "plugins": [
-        "react"
-    ],
-    "ecmaFeatures": {
-        "ecmascript": 6,
-        "jsx": true,
-        "modules": true
-    },
-    "env": {
-        "es6": true,
-        "browser": true,
-        "node": true
-    },
-    "parser": "babel-eslint",
-    "rules": {
-        "no-alert": 0,
-        "semi": [2],
-        "quotes": [0],
-        "no-undef": [2],
-        "no-unused-vars": [2, {vars: local}],
-        "react/display-name": 1,
-        "react/jsx-boolean-value": 1,
-        "react/jsx-no-undef": 2,
-        "react/jsx-quotes": 1,
-        "react/jsx-sort-prop-types": 1,
-        "react/jsx-sort-props": 0,
-        "react/jsx-uses-react": 1,
-        "react/jsx-uses-vars": 1,
-        "react/no-did-mount-set-state": 1,
-        "react/no-did-update-set-state": 1,
-        "react/no-multi-comp": 0,
-        "react/no-unknown-property": 1,
-        "react/prop-types": 1,
-        "react/react-in-jsx-scope": 0,
-        "react/self-closing-comp": 1,
-        "react/sort-comp": 1,
-        "react/wrap-multilines": 1
-    }
+  "ecmaFeatures": {
+    "ecmascript": 6,
+    "jsx": true,
+    "modules": true
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "quotes": [2, "single"],
+    "strict": [2, "never"],
+    "no-undef": [2],
+    "no-unused-vars": [2, {vars: local}],
+    "babel/generator-star-spacing": 1,
+    "babel/new-cap": 1,
+    "babel/object-shorthand": 1,
+    "babel/arrow-parens": 1,
+    "babel/no-await-in-loop": 1,
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 0
+  },
+  "plugins": [
+    "babel",
+    "react"
+  ]
 }

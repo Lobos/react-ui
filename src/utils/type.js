@@ -13,7 +13,7 @@ let toString = Object.prototype.toString;
  * @api public
  */
 
-export default function (val) {
+module.exports = function (val) {
   switch (toString.call(val)) {
     case '[object Date]': return 'date';
     case '[object RegExp]': return 'regexp';

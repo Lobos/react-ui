@@ -5,12 +5,13 @@ import data from '../../../../server/data';
 const {Button, Grid} = global.uiRequire();
 const clone = global.uiRequire('utils/clone');
 
-export default class Page extends React.Component {
-  static displayName = 'Pages/Build'
-
-  state = {
-    building: false,
-    components: clone(data)
+module.exports = class Page extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      building: false,
+      components: clone(data)
+    };
   }
 
   handleChange (key) {

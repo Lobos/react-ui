@@ -1,18 +1,9 @@
 'use strict';
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import Button from './Button';
 
-export default class FormSubmit extends React.Component {
-  static displayName = 'FormSubmit'
-
-  static propTypes = {
-    children: React.PropTypes.any,
-    locked: React.PropTypes.bool,
-    onClick: React.PropTypes.func,
-    style: React.PropTypes.object
-  }
-
+class FormSubmit extends Component {
   render () {
     let children = this.props.children;
     let content;
@@ -35,3 +26,11 @@ export default class FormSubmit extends React.Component {
   }
 }
 
+FormSubmit.propTypes = {
+  children: PropTypes.any,
+  locked: PropTypes.bool,
+  onClick: PropTypes.func,
+  style: PropTypes.object
+};
+
+module.exports = FormSubmit;

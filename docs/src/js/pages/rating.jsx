@@ -9,15 +9,15 @@ Rating.register('star', [
   <Icon size={2} style={{color: 'gold'}} icon="star" />
 ]);
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/Rating'
-
-  state = {
-    readOnly: false,
-    maxValue: 5,
-    value: 3,
-    theme: 'star'
+class Page extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      readOnly: false,
+      maxValue: 5,
+      value: 3,
+      theme: 'star'
+    };
   }
 
   render () {
@@ -134,3 +134,5 @@ value: <input onChange={event=>this.setState({ value: event.target.value })}
     );
   }
 }
+
+module.exports = prettify(Page);

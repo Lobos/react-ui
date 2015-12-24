@@ -1,16 +1,14 @@
 "use strict";
 
-import React from 'react';
+import { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 import prettify from '../prettify';
 const {Datetime} = global.uiRequire();
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/Datetime'
-
+class Page extends Component {
   handleChange (ref) {
     var value = 'value：' + this.refs['d-' + ref].getValue();
-    React.findDOMNode(this.refs['p-' + ref]).innerHTML = value;
+    findDOMNode(this.refs['p-' + ref]).innerHTML = value;
   }
 
   render () {
@@ -63,3 +61,5 @@ export default class Page extends React.Component {
     );
   }
 }
+
+module.exports = prettify(Page);

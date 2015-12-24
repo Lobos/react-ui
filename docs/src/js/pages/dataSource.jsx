@@ -3,10 +3,7 @@
 import React from 'react';
 import prettify from '../prettify';
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/DataSource'
-
+class Page extends React.Component {
   render () {
     return (
       <div>
@@ -56,3 +53,5 @@ export default class Page extends React.Component {
     );
   }
 }
+
+module.exports = prettify(Page);

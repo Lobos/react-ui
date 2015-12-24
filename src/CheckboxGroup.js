@@ -1,36 +1,20 @@
-"use strict";
+'use strict';
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import Checkbox from './Checkbox';
 import { toArray } from './utils/strings';
 import { toTextValue } from './utils/objects';
 
-class CheckboxGroup extends React.Component {
-  static displayName = "CheckboxGroup"
-
-  static propTypes = {
-    className: React.PropTypes.string,
-    data: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.func
-    ]).isRequired,
-    inline: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
-    readOnly: React.PropTypes.bool,
-    sep: React.PropTypes.string,
-    style: React.PropTypes.object,
-    textTpl: React.PropTypes.string,
-    value: React.PropTypes.any,
-    valueTpl: React.PropTypes.string
+class CheckboxGroup extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      value: this.formatValue(this.props.value),
+      data: this.formatData(this.props.data)
+    };
   }
-
-  static defaultProps = {
-    sep: ',',
-    textTpl: '{text}',
-    valueTpl: '{id}'
-  }
-
+ 
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
@@ -38,11 +22,6 @@ class CheckboxGroup extends React.Component {
     if (nextProps.data !== this.props.data) {
       this.setState({ data: this.formatData(nextProps.data) });
     }
-  }
-
-  state = {
-    value: this.formatValue(this.props.value),
-    data: this.formatData(this.props.data)
   }
 
   formatValue (value) {
@@ -66,7 +45,7 @@ class CheckboxGroup extends React.Component {
 
   formatData (data) {
     if (typeof data === 'function') {
-      data.then(res => {
+      data.then((res) => {
         this.setState({ data: this.formatData(res) });
       })();
       return [];
@@ -126,9 +105,30 @@ class CheckboxGroup extends React.Component {
   }
 }
 
-export default CheckboxGroup;
+CheckboxGroup.propTypes = {
+  className: PropTypes.string,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]).isRequired,
+  inline: PropTypes.bool,
+  onChange: PropTypes.func,
+  readOnly: PropTypes.bool,
+  sep: PropTypes.string,
+  style: PropTypes.object,
+  textTpl: PropTypes.string,
+  value: PropTypes.any,
+  valueTpl: PropTypes.string
+};
+ 
+CheckboxGroup.defaultProps = {
+  sep: ',',
+  textTpl: '{text}',
+  valueTpl: '{id}'
+};
 
-require('./FormControl').register(
+import FormControl from './FormControl';
+FormControl.register(
 
   'checkbox-group',
 
@@ -140,3 +140,5 @@ require('./FormControl').register(
 
   'array'
 );
+
+module.exports = CheckboxGroup;

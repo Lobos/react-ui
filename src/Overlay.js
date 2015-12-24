@@ -1,24 +1,12 @@
 "use strict";
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 
 import { requireCss } from './themes';
 requireCss('overlay');
 
-export default class Overlay extends React.Component {
-  static displayName = 'Overlay'
-
-  static propTypes = {
-    className: React.PropTypes.string,
-    onClick: React.PropTypes.func,
-    style: React.PropTypes.object
-  }
-
-  static defaultProps = {
-    onClick: function () {}
-  }
-
+class Overlay extends Component {
   render () {
     let className = classnames(
       this.props.className,
@@ -30,3 +18,15 @@ export default class Overlay extends React.Component {
     );
   }
 }
+
+Overlay.propTypes = {
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+  style: PropTypes.object
+};
+
+Overlay.defaultProps = {
+  onClick: () => {}
+};
+
+module.exports = Overlay;

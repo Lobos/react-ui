@@ -1,18 +1,15 @@
 "use strict";
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import NavList from '../nav-list.jsx';
 
-export default class Page extends React.Component {
-  static displayName = 'Master'
-
-  static propTypes = {
-    children: React.PropTypes.any
-  }
-
-  state = {
-    navShow: false
+class Page extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      navShow: false
+    };
   }
 
   navToggle (show) {
@@ -28,3 +25,9 @@ export default class Page extends React.Component {
     );
   }
 }
+
+Page.propTypes = {
+  children: PropTypes.any
+}
+
+module.exports = Page;

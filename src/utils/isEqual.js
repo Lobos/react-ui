@@ -1,6 +1,6 @@
 'use strict';
 
-export default function compare (x, y) {
+module.exports = function compare (x, y) {
   let p;
 
   // remember that NaN === NaN returns false

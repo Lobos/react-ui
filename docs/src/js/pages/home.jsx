@@ -3,9 +3,7 @@
 import React from 'react';
 const {Icon} = global.uiRequire();
 
-export default class Home extends React.Component {
-  static displayName = 'Home'
-
+module.exports = class Home extends React.Component {
   render () {
     return (
       <div>

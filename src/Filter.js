@@ -1,8 +1,7 @@
 'use strict';
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-//import { forEach } from '../utils/objects'
 import Button from './Button';
 import FilterItem from './FilterItem';
 import clickAway from './higherorder/clickaway';
@@ -13,22 +12,13 @@ requireCss('filter');
 import {getLang, setLang} from './lang';
 setLang('buttons');
 
-@clickAway
-export default class Filter extends React.Component {
-  static displayName = 'Filter'
-
-  static propTypes = {
-    className: React.PropTypes.string,
-    local: React.PropTypes.bool,
-    onFilter: React.PropTypes.func,
-    onSearch: React.PropTypes.func,
-    options: React.PropTypes.array,
-    style: React.PropTypes.object,
-    type: React.PropTypes.string
-  }
-
-  static defaultProps = {
-    options: []
+class Filter extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      active: false,
+      filters: []
+    };
   }
 
   componentWillMount () {
@@ -37,11 +27,6 @@ export default class Filter extends React.Component {
 
   componentClickAway () {
     this.close();
-  }
-
-  state = {
-    active: false,
-    filters: []
   }
 
   initData (options) {
@@ -103,7 +88,7 @@ export default class Filter extends React.Component {
   onChange (index, filter) {
     let filters = this.state.filters,
         f = filters[index];
-    Object.keys(filter).forEach(k => {
+    Object.keys(filter).forEach((k) => {
       f[k] = filter[k];
     });
     this.setState({ filters });
@@ -131,7 +116,7 @@ export default class Filter extends React.Component {
 
   formatText (filters) {
     let text = [];
-    filters.forEach(f => {
+    filters.forEach((f) => {
       if (f.op && f.value) {
         text.push(`${f.label} ${f.op} '${f.value}'`);
       }
@@ -179,3 +164,19 @@ export default class Filter extends React.Component {
     );
   }
 }
+
+Filter.propTypes = {
+  className: PropTypes.string,
+  local: PropTypes.bool,
+  onFilter: PropTypes.func,
+  onSearch: PropTypes.func,
+  options: PropTypes.array,
+  style: PropTypes.object,
+  type: PropTypes.string
+};
+
+Filter.defaultProps = {
+  options: []
+};
+
+module.exports = clickAway(Filter);

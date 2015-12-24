@@ -3,7 +3,7 @@
 const grid = 'rct-g';
 require('../utils/grids').create(grid);
 
-export default function getGrid (component) {
+module.exports = function getGrid (component) {
   component.prototype.getGrid = function (width) {
     const responsive = this.props.responsive !== null ?
                        this.props.responsive :

@@ -1,23 +1,11 @@
 "use strict";
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 
 import { requireCss } from './themes';
 requireCss('checkbox');
 
-export default class Radio extends React.Component {
-  static displayName = "Radio"
-
-  static propTypes = {
-    checked: React.PropTypes.bool,
-    index: React.PropTypes.number,
-    onClick: React.PropTypes.func,
-    readOnly: React.PropTypes.bool,
-    style: React.PropTypes.object,
-    text: React.PropTypes.any,
-    value: React.PropTypes.any
-  }
-
+class Radio extends Component {
   handleClick () {
     if (this.props.onClick) {
       this.props.onClick(this.props.value, this.props.index);
@@ -40,3 +28,15 @@ export default class Radio extends React.Component {
     );
   }
 }
+
+Radio.propTypes = {
+  checked: PropTypes.bool,
+  index: PropTypes.number,
+  onClick: PropTypes.func,
+  readOnly: PropTypes.bool,
+  style: PropTypes.object,
+  text: PropTypes.any,
+  value: PropTypes.any
+};
+
+module.exports = Radio;

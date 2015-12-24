@@ -28,7 +28,7 @@ export function isEmpty (obj) {
 }
 
 export function forEach (obj, fn, context) {
-  Object.keys(obj).forEach(key => fn.call(context, obj[key], key));
+  Object.keys(obj).forEach((key) => fn.call(context, obj[key], key));
 }
 
 export function toTextValue (arr, textTpl='{text}', valueTpl='{id}') {

@@ -4,12 +4,12 @@ import React from 'react';
 import prettify from '../prettify';
 const {Button, Modal, Form, FormControl} = global.uiRequire();
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/Modal'
-
-  state = {
-    index: 0
+class Page extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      index: 0
+    };
   }
 
   multOpen () {
@@ -202,3 +202,5 @@ export default class Page extends React.Component {
     );
   }
 }
+
+module.exports = prettify(Page);

@@ -1,7 +1,7 @@
 'use strict';
 
 import classnames from 'classnames';
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import Events from './utils/events';
 import { nextUid, format } from './utils/strings';
 import getGrid from './higherorder/grid';
@@ -14,42 +14,18 @@ requireCss('upload');
 import { getLang, setLang } from './lang';
 setLang('validation', 'buttons');
 
-@getGrid
-export default class Upload extends React.Component {
-  static displayName = 'Upload'
-
-  static propTypes = {
-    accept: React.PropTypes.string,
-    action: React.PropTypes.string.isRequired,
-    autoUpload: React.PropTypes.bool,
-    className: React.PropTypes.string,
-    content: React.PropTypes.object,
-    cors: React.PropTypes.bool,
-    disabled: React.PropTypes.bool,
-    fileSize: React.PropTypes.number,
-    limit: React.PropTypes.number,
-    name: React.PropTypes.string.isRequired,
-    readOnly: React.PropTypes.bool,
-    style: React.PropTypes.object,
-    withCredentials: React.PropTypes.bool
-  }
-
-  static defaultProps = {
-    autoUpload: false,
-    cors: true,
-    fileSize: 4096,
-    limit: 1,
-    withCredentials: false
-  }
-
-  state = {
-    files: {}
+class Upload extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      files: {}
+    };
   }
 
   isCompleted () {
     let completed = true,
         files = this.state.files;
-    Object.keys(files).forEach(id => {
+    Object.keys(files).forEach((id) => {
       if (files[id].status !== 2) {
         completed = false;
       }
@@ -60,7 +36,7 @@ export default class Upload extends React.Component {
   getValue () {
     let values = [],
         files = this.state.files;
-    Object.keys(files).forEach(id => {
+    Object.keys(files).forEach((id) => {
       if (this.props.autoUpload) {
         values.push(files[id].value);
       } else {
@@ -146,7 +122,7 @@ export default class Upload extends React.Component {
 
   start () {
     let files = this.state.files;
-    Object.keys(files).forEach(id => {
+    Object.keys(files).forEach((id) => {
       this.uploadFile(files[id].file, id);
     });
   }
@@ -189,7 +165,34 @@ export default class Upload extends React.Component {
   }
 }
 
-require('./FormControl').register(
+Upload.propTypes = {
+  accept: PropTypes.string,
+  action: PropTypes.string.isRequired,
+  autoUpload: PropTypes.bool,
+  className: PropTypes.string,
+  content: PropTypes.object,
+  cors: PropTypes.bool,
+  disabled: PropTypes.bool,
+  fileSize: PropTypes.number,
+  limit: PropTypes.number,
+  name: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool,
+  style: PropTypes.object,
+  withCredentials: PropTypes.bool
+};
+
+Upload.defaultProps = {
+  autoUpload: false,
+  cors: true,
+  fileSize: 4096,
+  limit: 1,
+  withCredentials: false
+};
+
+Upload = getGrid(Upload);
+
+import FormControl from './FormControl';
+FormControl.register(
 
   'upload',
 
@@ -201,3 +204,5 @@ require('./FormControl').register(
 
   'array'
 );
+
+module.exports = Upload;

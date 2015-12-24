@@ -1,35 +1,24 @@
 "use strict";
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import getGrid from './higherorder/grid';
 import { requireCss } from './themes';
 requireCss('buttons');
 
-@getGrid
-class Button extends React.Component {
-  static displayName = 'Button'
-
-  static propTypes = {
-    children: React.PropTypes.any,
-    className: React.PropTypes.string,
-    disabled: React.PropTypes.bool,
-    onClick: React.PropTypes.func,
-    once: React.PropTypes.bool,
-    status: React.PropTypes.string,
-    style: React.PropTypes.object,
-    type: React.PropTypes.oneOf(['submit', 'button'])
+class Button extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      disabled: this.props.disabled,
+      show: null
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.disabled !== this.props.disabled) {
       this.setState({ disabled: nextProps.disabled });
     }
-  }
-
-  state = {
-    disabled: this.props.disabled,
-    show: null
   }
 
   disable(elem) {
@@ -67,12 +56,23 @@ class Button extends React.Component {
         style={this.props.style}
         disabled={this.state.disabled}
         className={className}
-        type={this.props.type || "button"}>
+        type={this.props.type || 'button'}>
         { this.state.show || this.props.children }
       </button>
     );
   }
 }
 
-export default Button;
+Button.propTypes = {
+  children: PropTypes.any,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  once: PropTypes.bool,
+  status: PropTypes.string,
+  style: PropTypes.object,
+  type: PropTypes.oneOf(['submit', 'button'])
+};
+
+module.exports = getGrid(Button);
 

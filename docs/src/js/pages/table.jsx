@@ -4,9 +4,21 @@ import React from 'react';
 import prettify from '../prettify';
 const {Table, Filter, Modal, Pagination, Checkbox, RadioGroup, dataSource} = global.uiRequire();
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/Table'
+class Page extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      bordered: true,
+      selectAble: true,
+      data: [],
+      filters: [],
+      height: 370,
+      pagination: false,
+      striped: true,
+      total: 0,
+      width: '100%'
+    };
+  }
 
   componentWillMount () {
     let data = dataSource('json/table.json', null, { cache: true });
@@ -14,18 +26,6 @@ export default class Page extends React.Component {
       this.setState({ total: res.length });
     });
     this.setState({ data });
-  }
-
-  state = {
-    bordered: true,
-    selectAble: true,
-    data: [],
-    filters: [],
-    height: 370,
-    pagination: false,
-    striped: true,
-    total: 0,
-    width: '100%'
   }
 
   getCheckedName () {
@@ -222,3 +222,5 @@ const headers = [
     );
   }
 }
+
+module.exports = prettify(Page);

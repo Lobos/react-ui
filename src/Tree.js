@@ -4,7 +4,7 @@
 // 由于tree.state.data是一个array，当data值改变时，不经过setState，
 // 所有的Item的data也因此改变，可能破坏了react的一个原则
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toArray, substitute } from './utils/strings';
 import { forEach, isEmpty } from './utils/objects';
@@ -12,34 +12,18 @@ import { forEach, isEmpty } from './utils/objects';
 import { requireCss } from './themes';
 requireCss('tree');
 
-class Tree extends React.Component {
-  static displayName = 'Tree'
+class Tree extends Component {
+  constructor (props) {
+    super(props);
 
-  static propTypes = {
-    className: React.PropTypes.string,
-    data: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.func
-    ]).isRequired,
-    greedy: React.PropTypes.bool,
-    onChange: React.PropTypes.func,
-    onClick: React.PropTypes.func,
-    open: React.PropTypes.bool,
-    readOnly: React.PropTypes.bool,
-    selectAble: React.PropTypes.bool,
-    sep: React.PropTypes.string,
-    src: React.PropTypes.string,
-    textTpl: React.PropTypes.string,
-    value: React.PropTypes.any,
-    valueTpl: React.PropTypes.string
+    this.state = {
+      data: [],
+      value: this.formatValue(this.props.value)
+    };
+
+    this.unmounted = false;
   }
-
-  static defaultProps = {
-    sep: ',',
-    textTpl: '{text}',
-    valueTpl: '{id}'
-  }
-
+  
   componentWillMount () {
     this.formatData(this.props.data);
   }
@@ -63,13 +47,6 @@ class Tree extends React.Component {
   componentWillUnmount () {
     this.unmounted = true;
   }
-
-  state = {
-    data: [],
-    value: this.formatValue(this.props.value)
-  }
-
-  unmounted = false
 
   formatValue (value) {
     return toArray(value, this.props.sep);
@@ -103,7 +80,7 @@ class Tree extends React.Component {
 
   formatData (data) {
     if (typeof data === 'function') {
-      data.then(res => {
+      data.then((res) => {
         this.formatData(res);
       })();
       return [];
@@ -111,7 +88,7 @@ class Tree extends React.Component {
     let tt = this.props.textTpl;
     let vt = this.props.valueTpl;
     let setTpl = function (arr) {
-      arr.forEach(d => {
+      arr.forEach((d) => {
         d.$text = substitute(tt, d);
         d.$value = substitute(vt, d);
         if (d.children) {
@@ -229,37 +206,54 @@ class Tree extends React.Component {
   }
 }
 
-class Item extends React.Component {
-  static displayName = 'Tree/Item'
+Tree.propTypes = {
+  className: PropTypes.string,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]).isRequired,
+  greedy: PropTypes.bool,
+  onChange: PropTypes.func,
+  onClick: PropTypes.func,
+  open: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  selectAble: PropTypes.bool,
+  sep: PropTypes.string,
+  src: PropTypes.string,
+  textTpl: PropTypes.string,
+  value: PropTypes.any,
+  valueTpl: PropTypes.string
+};
 
-  static propTypes = {
-    data: React.PropTypes.object,
-    onClick: React.PropTypes.func,
-    onStatusChange: React.PropTypes.func,
-    open: React.PropTypes.bool,
-    readOnly: React.PropTypes.bool,
-    selectAble: React.PropTypes.bool,
-    value: React.PropTypes.any
+Tree.defaultProps = {
+  sep: ',',
+  textTpl: '{text}',
+  valueTpl: '{id}'
+};
+
+class Item extends Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      open: this.props.open,
+      status: this.props.data.$status || 0
+    };
   }
-
+  
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setState({status: this.props.data.$status});
     }
   }
 
-  state = {
-    open: this.props.open,
-    status: this.props.data.$status || 0
-  }
-
   toggle () {
     let open = !this.state.open;
-    this.setState({open: open});
+    this.setState({open});
   }
 
   toggleAll (open) {
-    this.setState({open: open});
+    this.setState({open});
     forEach(this.refs, function (ref) {
       ref.toggleAll(open);
     });
@@ -281,7 +275,7 @@ class Item extends React.Component {
   }
 
   setStatus (status) {
-    this.setState({ status: status });
+    this.setState({ status });
 
     forEach(this.refs, function (ref) {
       ref.setStatus(status);
@@ -316,7 +310,7 @@ class Item extends React.Component {
         }
       }
     }
-    this.setState({ status: status });
+    this.setState({ status });
     this.props.onStatusChange();
   }
 
@@ -357,27 +351,27 @@ class Item extends React.Component {
       }, this);
 
       children = <ul className={classnames({open: this.state.open})}>{items}</ul>;
-      type = this.state.open ? "folder-open" : "folder";
+      type = this.state.open ? 'folder-open' : 'folder';
       handle = (
         <a onClick={this.toggle.bind(this)} className="handle">
-          <i className={'tree-icon ' + (this.state.open ? "minus" : "plus")} />
+          <i className={'tree-icon ' + (this.state.open ? 'minus' : 'plus')} />
         </a>
       );
     } else {
-      type = "file";
+      type = 'file';
     }
 
     if (selectAble) {
-      check = ["square", "half-check", "check"][this.state.status];
-      checkClass = classnames("check-handle", ["", "half-checked", "checked"][this.state.status]);
+      check = ['square', 'half-check', 'check'][this.state.status];
+      checkClass = classnames('check-handle', ['', 'half-checked', 'checked'][this.state.status]);
     }
 
     for (let i = 0, count = data.$deep.length; i < count; i++) {
       let d = data.$deep[i];
-      let mc = classnames("marks", {
-        "marks-h": d > 1 || (isEmpty(data.children) && count - 1 === i),
-        "marks-v": d === 1,
-        "marks-l": d === 2
+      let mc = classnames('marks', {
+        'marks-h': d > 1 || (isEmpty(data.children) && count - 1 === i),
+        'marks-v': d === 1,
+        'marks-l': d === 2
       });
       marks.push(
         <span key={i} className={mc}>&nbsp;</span>
@@ -401,9 +395,18 @@ class Item extends React.Component {
   }
 }
 
-export default Tree;
+Item.propTypes = {
+  data: PropTypes.object,
+  onClick: PropTypes.func,
+  onStatusChange: PropTypes.func,
+  open: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  selectAble: PropTypes.bool,
+  value: PropTypes.any
+};
 
-require('./FormControl').register(
+import FormControl from './FormControl';
+FormControl.register(
 
   'tree',
 
@@ -415,3 +418,5 @@ require('./FormControl').register(
 
   'array'
 );
+
+module.exports = Tree;

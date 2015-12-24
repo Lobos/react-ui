@@ -1,6 +1,6 @@
 "use strict";
 
-function on (el, type, callback) {
+export function on (el, type, callback) {
   if(el.addEventListener) {
     el.addEventListener(type, callback);
   } else {
@@ -10,7 +10,7 @@ function on (el, type, callback) {
   }
 }
 
-function off (el, type, callback) {
+export function off (el, type, callback) {
   if(el.removeEventListener) {
     el.removeEventListener(type, callback);
   } else {
@@ -18,7 +18,7 @@ function off (el, type, callback) {
   }
 }
 
-function once (el, type, callback) {
+export function once (el, type, callback) {
   let typeArray = type.split(' ');
   let recursiveFunction = function(e){
     e.target.removeEventListener(e.type, recursiveFunction);
@@ -29,5 +29,3 @@ function once (el, type, callback) {
     on(el, typeArray[i], recursiveFunction);
   }
 }
-
-export default { on, off, once };

@@ -4,17 +4,17 @@ import React from 'react';
 import prettify from '../prettify';
 const {Pagination, Input, Checkbox} = global.uiRequire();
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/Pagination'
-
-  state = {
-    index: 2,
-    size: 20,
-    total: 1000,
-    pages: 10,
-    mini: false,
-    jumper: false
+class Page extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      index: 2,
+      size: 20,
+      total: 1000,
+      pages: 10,
+      mini: false,
+      jumper: false
+    };
   }
 
   onChange (index) {
@@ -63,3 +63,5 @@ export default class Page extends React.Component {
     );
   }
 }
+
+module.exports = prettify(Page);

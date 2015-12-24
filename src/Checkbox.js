@@ -1,33 +1,22 @@
-"use strict";
+'use strict';
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { requireCss } from './themes';
 requireCss('checkbox');
 
-class Checkbox extends React.Component {
-  static displayName = "Checkbox"
-
-  static propTypes = {
-    checked: React.PropTypes.bool,
-    children: React.PropTypes.any,
-    className: React.PropTypes.string,
-    index: React.PropTypes.number,
-    onChange: React.PropTypes.func,
-    readOnly: React.PropTypes.bool,
-    style: React.PropTypes.object,
-    text: React.PropTypes.any,
-    value: React.PropTypes.any
+class Checkbox extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      checked: !!this.props.checked
+    };
   }
-
+  
   componentWillReceiveProps (nextProps) {
     if (nextProps.checked !== this.props.checked) {
       this.setState({ checked: nextProps.checked });
     }
-  }
-
-  state = {
-    checked: !!this.props.checked
   }
 
   handleChange (event) {
@@ -47,14 +36,14 @@ class Checkbox extends React.Component {
 
   setValue (value) {
     var checked = value === true || value === 1 || value === this.state.value;
-    this.setState({ checked: checked });
+    this.setState({ checked });
   }
 
   render () {
     return (
-      <label style={this.props.style} className={ classnames(this.props.className, "rct-checkbox") }>
-        <input ref="input"
-          type="checkbox"
+      <label style={this.props.style} className={ classnames(this.props.className, 'rct-checkbox') }>
+        <input ref='input'
+          type='checkbox'
           disabled={this.props.readOnly}
           onChange={this.handleChange.bind(this)}
           checked={this.state.checked}
@@ -67,7 +56,20 @@ class Checkbox extends React.Component {
   }
 }
 
-require('./FormControl').register(
+Checkbox.propTypes = {
+  checked: PropTypes.bool,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  index: PropTypes.number,
+  onChange: PropTypes.func,
+  readOnly: PropTypes.bool,
+  style: PropTypes.object,
+  text: PropTypes.any,
+  value: PropTypes.any
+};
+
+import FormControl from './FormControl';
+FormControl.register(
 
   'checkbox',
 
@@ -78,4 +80,4 @@ require('./FormControl').register(
   Checkbox
 );
 
-export default Checkbox;
+module.exports = Checkbox;

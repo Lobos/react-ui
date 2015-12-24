@@ -1,6 +1,6 @@
 "use strict";
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import Overlay from './Overlay';
@@ -10,24 +10,13 @@ import PubSub from 'pubsub-js';
 import { requireCss } from './themes';
 requireCss('message');
 
-const ADD_MESSAGE = "EB3A79637B40";
-const REMOVE_MESSAGE = "73D4EF15DF50";
-const CLEAR_MESSAGE = "73D4EF15DF52";
+const ADD_MESSAGE = 'EB3A79637B40';
+const REMOVE_MESSAGE = '73D4EF15DF50';
+const CLEAR_MESSAGE = '73D4EF15DF52';
 let messages = [];
 let messageContainer = null;
 
-class Item extends React.Component {
-  static displayName = 'Message.Item'
-
-  static propTypes = {
-    className: React.PropTypes.string,
-    content: React.PropTypes.any,
-    dismissed: React.PropTypes.bool,
-    index: React.PropTypes.number,
-    onDismiss: React.PropTypes.func,
-    type: React.PropTypes.string
-  }
-
+class Item extends Component {
   dismiss () {
     if (this.props.dismissed) {
       return;
@@ -52,24 +41,16 @@ class Item extends React.Component {
   }
 }
 
-export default class Message extends React.Component {
-  static displayName = 'Message'
+Item.propTypes = {
+  className: PropTypes.string,
+  content: PropTypes.any,
+  dismissed: PropTypes.bool,
+  index: PropTypes.number,
+  onDismiss: PropTypes.func,
+  type: PropTypes.string
+};
 
-  static propTypes = {
-    className: React.PropTypes.string,
-    messages: React.PropTypes.array
-  }
-
-  static show (content, type) {
-    if (!messageContainer) {
-      createContainer();
-    }
-    PubSub.publish(ADD_MESSAGE, {
-      content: content,
-      type: type || 'info'
-    });
-  }
-
+class Message extends Component {
   dismiss (index) {
     PubSub.publish(REMOVE_MESSAGE, index);
   }
@@ -99,6 +80,21 @@ export default class Message extends React.Component {
     );
   }
 }
+
+Message.propTypes = {
+  className: PropTypes.string,
+  messages: PropTypes.array
+};
+
+Message.show = function (content, type) {
+  if (!messageContainer) {
+    createContainer();
+  }
+  PubSub.publish(ADD_MESSAGE, {
+    content,
+    type: type || 'info'
+  });
+};
 
 function renderContainer() {
   ReactDOM.render(<Message messages={messages} />, messageContainer);
@@ -133,3 +129,5 @@ PubSub.subscribe(CLEAR_MESSAGE, () => {
     renderContainer();
   }, 400);
 });
+
+module.exports = Message;

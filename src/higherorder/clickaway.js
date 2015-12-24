@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import * as Events from '../utils/events';
 import { isDescendant } from '../utils/dom';
 
-export default function clickAway(Component) {
+module.exports = function clickAway(Component) {
   Component.prototype.getClickAwayEvent = function () {
     let fn = this.state.checkClickAwayMethod;
 

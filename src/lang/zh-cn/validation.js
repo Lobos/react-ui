@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   validation: {
     hints: {
       alpha: '英文字符，"-"，"_"',

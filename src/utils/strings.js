@@ -34,7 +34,7 @@ export function toArray(value, sep) {
     value = [value];
   } else if (sep) {
     // if use sep, convert every value to string
-    value = value.map(v=>v.toString());
+    value = value.map((v)=>v.toString());
   }
 
   return value;

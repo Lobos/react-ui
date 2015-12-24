@@ -1,34 +1,18 @@
 'use strict';
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import Datetime from './Datetime';
 import Input from './Input';
 import Select from './Select';
 
 const DEFAULT_OPS = ['=', 'like', '>', '>=', '<', '<=', 'in', 'not in'];
 
-export default class FilterItem extends React.Component {
-  static displayName = 'FilterItem'
-
-  static propTypes = {
-    index: React.PropTypes.number, // for onChange update filters
-    label: React.PropTypes.string,
-    name: React.PropTypes.string,
-    onChange: React.PropTypes.func,
-    op: React.PropTypes.string,
-    ops: React.PropTypes.array,
-    options: React.PropTypes.array,
-    optionsIndex: React.PropTypes.number,
-    removeFilter: React.PropTypes.func,
-    type: React.PropTypes.string,
-    value: React.PropTypes.any
-  }
-
+class FilterItem extends Component {
   onLabelChange (optionsIndex) {
     optionsIndex = parseInt(optionsIndex);
     let options = this.props.options[optionsIndex];
     let filter = {
-      optionsIndex: optionsIndex,
+      optionsIndex,
       label: options.label,
       name: options.name,
       op: null,
@@ -70,28 +54,28 @@ export default class FilterItem extends React.Component {
 
     switch (op) {
       case '=':
-        func = d => { return d[name].toString() === value.toString(); };
+        func = (d) => { return d[name].toString() === value.toString(); };
       break;
       case 'like':
-        func = d => { return d[name].indexOf(value) >= 0; };
+        func = (d) => { return d[name].indexOf(value) >= 0; };
       break;
       case '>':
-        func = d => { return d[name] > value; };
+        func = (d) => { return d[name] > value; };
       break;
       case '>=':
-        func = d => { return d[name] >= value; };
+        func = (d) => { return d[name] >= value; };
       break;
       case '<':
-        func = d => { return d[name] < value; };
+        func = (d) => { return d[name] < value; };
       break;
       case '<=':
-        func = d => { return d[name] <= value; };
+        func = (d) => { return d[name] <= value; };
       break;
       case 'in':
-        func = d => { return value.split(',').indexOf(d[name].toString()) >= 0; };
+        func = (d) => { return value.split(',').indexOf(d[name].toString()) >= 0; };
       break;
       case 'not in':
-        func = d => { return value.split(',').indexOf(d[name].toString()) < 0; };
+        func = (d) => { return value.split(',').indexOf(d[name].toString()) < 0; };
       break;
     }
 
@@ -160,3 +144,18 @@ export default class FilterItem extends React.Component {
   }
 }
 
+FilterItem.propTypes = {
+  index: PropTypes.number, // for onChange update filters
+  label: PropTypes.string,
+  name: PropTypes.string,
+  onChange: PropTypes.func,
+  op: PropTypes.string,
+  ops: PropTypes.array,
+  options: PropTypes.array,
+  optionsIndex: PropTypes.number,
+  removeFilter: PropTypes.func,
+  type: PropTypes.string,
+  value: PropTypes.any
+};
+
+module.exports = FilterItem;

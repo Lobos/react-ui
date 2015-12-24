@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react';
+import React, { Children, Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { forEach } from './utils/objects';
 import FormControl from './FormControl';
@@ -9,30 +9,14 @@ import FormSubmit from './FormSubmit';
 import { requireCss } from './themes';
 requireCss('form');
 
-export default class Form extends React.Component {
-  static displayName = 'Form'
-
-  static propTypes = {
-    beforeSubmit: React.PropTypes.func,
-    children: React.PropTypes.any,
-    className: React.PropTypes.string,
-    data: React.PropTypes.oneOfType([
-      React.PropTypes.object,
-      React.PropTypes.func
-    ]).isRequired,
-    hintType: React.PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
-    layout: React.PropTypes.oneOf(['aligned', 'stacked', 'inline']),
-    locked: React.PropTypes.bool,
-    onSubmit: React.PropTypes.func,
-    style: React.PropTypes.object
+class Form extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      data: {}
+    };
   }
-
-  static defaultProps = {
-    data: {},
-    layout: 'inline',
-    locked: false
-  }
-
+  
   componentWillMount () {
     this.fetchData(this.props.data);
   }
@@ -43,13 +27,9 @@ export default class Form extends React.Component {
     }
   }
 
-  state = {
-    data: {}
-  }
-
   fetchData (data) {
     if (typeof data === 'function') {
-      data.then(res => {
+      data.then((res) => {
         this.fetchData(res);
       })();
       return;
@@ -94,7 +74,7 @@ export default class Form extends React.Component {
   }
 
   renderChildren () {
-    return React.Children.map(this.props.children, child => {
+    return Children.map(this.props.children, (child) => {
       let props = {
         hintType: child.props.hintType || this.props.hintType,
         readOnly: child.props.readOnly || this.props.locked,
@@ -179,3 +159,26 @@ export default class Form extends React.Component {
     );
   }
 }
+
+Form.propTypes = {
+  beforeSubmit: PropTypes.func,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  data: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.func
+  ]).isRequired,
+  hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
+  layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
+  locked: PropTypes.bool,
+  onSubmit: PropTypes.func,
+  style: PropTypes.object
+};
+
+Form.defaultProps = {
+  data: {},
+  layout: 'inline',
+  locked: false
+};
+
+module.exports = Form;

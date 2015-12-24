@@ -2,21 +2,28 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
   entry: [
-    'webpack-hot-middleware/client', 
-    './docs/src/js/app.jsx',
-    './docs/src/less/style.less'
+    './src/index'
   ],
   output: {
-    path: path.join(__dirname, 'docs'),
-    filename: 'js/app.js',
+    path: path.join(__dirname, 'dist'),
+    filename: 'ReactUI.js',
     publicPath: '/'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
+    })
   ],
   module: {
     loaders: [

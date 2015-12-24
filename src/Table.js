@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react';
+import { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { substitute } from './utils/strings';
 import TableHeader from './TableHeader';
@@ -8,32 +8,16 @@ import TableHeader from './TableHeader';
 import { requireCss } from './themes';
 requireCss('tables');
 
-class Table extends React.Component {
-  static displayName = 'Table'
-
-  static propTypes = {
-    bordered: React.PropTypes.bool,
-    children: React.PropTypes.array,
-    className: React.PropTypes.string,
-    data: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.func
-    ]).isRequired,
-    filters: React.PropTypes.array,
-    headers: React.PropTypes.array,
-    height: React.PropTypes.oneOfType([
-      React.PropTypes.number,
-      React.PropTypes.string
-    ]),
-    onSort: React.PropTypes.func,
-    pagination: React.PropTypes.object,
-    selectAble: React.PropTypes.bool,
-    striped: React.PropTypes.bool,
-    style: React.PropTypes.object,
-    width: React.PropTypes.oneOfType([
-      React.PropTypes.number,
-      React.PropTypes.string
-    ])
+class Table extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      index: this.props.pagination ? this.props.pagination.props.index : 1,
+      data: [],
+      sort: {},
+      total: null
+    };
+    this.unmounted = false;
   }
 
   componentWillMount () {
@@ -48,11 +32,6 @@ class Table extends React.Component {
     if (nextProps.data !== this.props.data) {
       this.fetchData(nextProps.data);
     }
-    /*
-    if (nextProps.children !== this.props.children) {
-      this.setHeaderProps(nextProps.children)
-    }
-    */
   }
 
   componentDidUpdate () {
@@ -62,16 +41,7 @@ class Table extends React.Component {
   componentWillUnmount () {
     this.unmounted = true;
   }
-
-  unmounted = false
-
-  state = {
-    index: this.props.pagination ? this.props.pagination.props.index : 1,
-    data: [],
-    sort: {},
-    total: null
-  }
-
+  
   setHeaderWidth () {
     let body = this.refs.body;
     let tr = body.querySelector('tr');
@@ -89,27 +59,9 @@ class Table extends React.Component {
     }
   }
 
-  /*
-  setHeaderProps (children) {
-    let headers = []
-    if (children) {
-      if (children.constructor === Array) {
-        children.forEach(child => {
-          if (child.type === TableHeader) {
-            headers.push(child)
-          }
-        })
-      } else if (children.type === TableHeader) {
-        headers.push(children)
-      }
-    }
-    this.setState({headers})
-  }
-  */
-
   fetchData (data) {
     if (typeof data === 'function') {
-      data.then(res => {
+      data.then((res) => {
         this.fetchData(res);
       })();
     } else {
@@ -155,7 +107,7 @@ class Table extends React.Component {
 
   getChecked (name) {
     let values = [];
-    this.state.data.forEach(d => {
+    this.state.data.forEach((d) => {
       if (d.$checked) {
         values.push(name ? d[name] : d);
       }
@@ -175,7 +127,7 @@ class Table extends React.Component {
 
     if (filters) {
       let filterCount = filters.length;
-      this.state.data.forEach(d => {
+      this.state.data.forEach((d) => {
         let checked = true;
         for (let i = 0; i < filterCount; i++) {
           let f = filters[i].func;
@@ -281,16 +233,16 @@ class Table extends React.Component {
     }
 
     let props = {
-      total: total,
+      total,
       onChange: (index) => {
         let data = this.state.data;
-        data.forEach(d => {
+        data.forEach((d) => {
           d.$checked = false;
         });
         this.setState({index, data});
       }
     };
-    return React.cloneElement(this.props.pagination, props);
+    return cloneElement(this.props.pagination, props);
   }
 
   render () {
@@ -347,4 +299,29 @@ class Table extends React.Component {
   }
 }
 
-export default Table;
+Table.propTypes = {
+  bordered: PropTypes.bool,
+  children: PropTypes.array,
+  className: PropTypes.string,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]).isRequired,
+  filters: PropTypes.array,
+  headers: PropTypes.array,
+  height: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
+  onSort: PropTypes.func,
+  pagination: PropTypes.object,
+  selectAble: PropTypes.bool,
+  striped: PropTypes.bool,
+  style: PropTypes.object,
+  width: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ])
+};
+
+module.exports = Table;

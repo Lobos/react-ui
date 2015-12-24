@@ -1,7 +1,7 @@
 'use strict';
 
 import classnames from 'classnames';
-import React from 'react';
+import { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PubSub from 'pubsub-js';
 import Button from './Button';
@@ -20,8 +20,14 @@ const ZINDEX = 1100;
 let modals = [];
 let modalContainer = null;
 
-export default class Modal extends React.Component {
-  static displayName = 'Modal'
+class Modal extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      increase: false,
+      modals
+    };
+  }
 
   componentDidMount () {
     PubSub.subscribe(ADD_MODAL, (topic, props) => {
@@ -43,11 +49,6 @@ export default class Modal extends React.Component {
         PubSub.publish(REMOVE_MODAL);
       }
     });
-  }
-
-  state = {
-    increase: false,
-    modals: modals
   }
 
   close () {
@@ -121,7 +122,7 @@ export default class Modal extends React.Component {
   render () {
     let mlen = this.state.modals.length;
     let className = classnames(
-      "rct-modal-container",
+      'rct-modal-container',
       { active: mlen > 0 }
     );
 
@@ -152,7 +153,7 @@ Modal.alert = function (content) {
   Modal.open({
     clickaway: false,
     content,
-    buttons: buttons
+    buttons
   });
 };
 
@@ -167,7 +168,7 @@ Modal.confirm = function (content, onOk) {
   Modal.open({
     clickaway: false,
     content,
-    buttons: buttons
+    buttons
   });
 };
 
@@ -176,3 +177,5 @@ function createContainer () {
   document.body.appendChild(modalContainer);
   ReactDOM.render(<Modal />, modalContainer);
 }
+
+module.exports = Modal;

@@ -1,51 +1,35 @@
 "use strict";
 
-import React from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import { overView, getOuterHeight } from './utils/dom';
-import * as datetime from './utils/datetime';
-import clickAway from './higherorder/clickaway';
+import { overView, getOuterHeight } from '../utils/dom';
+import * as datetime from '../utils/datetime';
+import clickAway from '../higherorder/clickaway';
+import TimeSet from './TimeSet';
+import Clock from './Clock';
 
-import { requireCss } from './themes';
+import { requireCss } from '../themes';
 requireCss('datetime');
 
-import { getLang, setLang } from './lang';
+import { getLang, setLang } from '../lang';
 setLang('datetime');
 
-const poslist = require('./utils/circle').getPositions(12, 50, -90);
-
-@clickAway
-class Datetime extends React.Component {
-  static displayName = 'Datetime'
-
-  static propTypes = {
-    bindClickAway: React.PropTypes.func,
-    className: React.PropTypes.string,
-    dateOnly: React.PropTypes.bool,
-    format: React.PropTypes.string,
-    onChange: React.PropTypes.func,
-    placeholder: React.PropTypes.string,
-    readOnly: React.PropTypes.bool,
-    style: React.PropTypes.object,
-    timeOnly: React.PropTypes.bool,
-    unbindClickAway: React.PropTypes.func,
-    unixtime: React.PropTypes.bool,
-    value: React.PropTypes.any
+class Datetime extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      active: false,
+      popup: false,
+      stage: this.props.timeOnly ? 'clock' : 'day',
+      current: datetime.convert(this.props.value, new Date()),
+      value: datetime.convert(this.props.value, null)
+    };
   }
-
+  
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setState({ value: datetime.convert(nextProps.value) });
     }
-  }
-
-  state = {
-    active: false,
-    popup: false,
-    //format: this.props.format,
-    stage: this.props.timeOnly ? 'clock' : 'day',
-    current: datetime.convert(this.props.value, new Date()),
-    value: datetime.convert(this.props.value, null)
   }
 
   componentClickAway () {
@@ -73,7 +57,7 @@ class Datetime extends React.Component {
 
   setValue (value) {
     value = datetime.convert(value, null);
-    this.setState({ value: value });
+    this.setState({ value });
   }
 
   formatValue (value) {
@@ -158,16 +142,16 @@ class Datetime extends React.Component {
   }
 
   stageChange (stage) {
-    this.stateChange({ stage: stage });
+    this.stateChange({ stage });
   }
 
   yearChange (year) {
-    let d = this.changeDate({ year: year, day: 1 });
+    let d = this.changeDate({ year, day: 1 });
     this.stateChange({ stage: 'month', current: d });
   }
 
   monthChange (month) {
-    let d = this.changeDate({ month: month, day: 1 });
+    let d = this.changeDate({ month, day: 1 });
     this.stateChange({ stage: 'day', current: d });
   }
 
@@ -301,7 +285,7 @@ class Datetime extends React.Component {
         stage = this.state.stage,
         header,
         inner,
-        text = this.state.value ? this.formatValue(this.state.value) : "";
+        text = this.state.value ? this.formatValue(this.state.value) : '';
 
     let weeks = getLang('datetime.weekday').map(function (w, i) {
       return <div key={i} className="week">{w}</div>;
@@ -360,202 +344,24 @@ class Datetime extends React.Component {
   }
 }
 
-class Clock extends React.Component {
-  static displayName = 'Datetime.Clock'
+Datetime.propTypes = {
+  bindClickAway: PropTypes.func,
+  className: PropTypes.string,
+  dateOnly: PropTypes.bool,
+  format: PropTypes.string,
+  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  readOnly: PropTypes.bool,
+  style: PropTypes.object,
+  timeOnly: PropTypes.bool,
+  unbindClickAway: PropTypes.func,
+  unixtime: PropTypes.bool,
+  value: PropTypes.any
+};
 
-  static propTypes = {
-    active: React.PropTypes.bool,
-    current: React.PropTypes.instanceOf(Date),
-    onTimeChange: React.PropTypes.func,
-    stage: React.PropTypes.string,
-    timeOnly: React.PropTypes.bool
-  }
+Datetime = clickAway(Datetime);
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.current !== this.props.current) {
-      this.setState({ current: nextProps.current, am: nextProps.current.getHours() < 12 });
-    }
-  }
-
-  state = {
-    current: this.props.current,
-    stage: this.props.stage || 'clock',
-    active: this.props.active,
-    am: this.props.current.getHours() < 12
-  }
-
-  changeTimeStage (stage) {
-    this.setState({ stage: stage, active: true });
-  }
-
-  setValue (value) {
-    let d = {};
-    d[this.state.stage] = value;
-    this.props.onTimeChange(d);
-  }
-
-  close () {
-    if (!this.props.timeOnly) {
-      this.setState({ active: false });
-    }
-  }
-
-  getRotate (type) {
-    let current = this.state.current,
-        value,
-        max = type === 'hour' ? 12 : 60;
-
-    switch (type) {
-      case 'hour':
-        value = current.getHours() + current.getMinutes() / 60;
-        break;
-      case 'minute':
-        value = current.getMinutes() + current.getSeconds() / 60;
-        break;
-      case 'second':
-        value = current.getSeconds();
-        break;
-    }
-
-    value = value * 360 / max - 90;
-    return 'rotate(' + value + 'deg)';
-  }
-
-  renderPointer () {
-    let stage = this.state.stage;
-
-    let pointer = function (type, context) {
-      let rotate = context.getRotate(type);
-      return (
-        <div style={{transform: rotate, WebkitTransform: rotate }} className={classnames(type, {active: stage === type})}></div>
-      );
-    };
-
-    return (
-      <div className="pointer">
-        {pointer('hour', this)}
-        {pointer('minute', this)}
-        {pointer('second', this)}
-      </div>
-    );
-  }
-
-  render () {
-    let steps = [],
-        //current = this.state.current,
-        stage = this.state.stage,
-        step = (stage === 'hour' || stage === 'clock') ? 1 : 5;
-
-    for (let i = 0, s; i < 12; i++) {
-      s = i * step;
-      if (!this.state.am && stage === 'hour') {
-        s += 12;
-      }
-      steps.push(s);
-    }
-
-    let sets = steps.map(function (s, i) {
-      let pos = poslist[i],
-          left = pos[0] + '%',
-          top = pos[1] + '%';
-      return (
-        <div onClick={() => { this.setValue(s); }} className={classnames('clock-set')} key={i} style={{left: left, top: top}}>{s}</div>
-      );
-    }, this);
-
-    let className = classnames('clock-wrapper', { active: this.state.active });
-
-    return (
-      <div className={className}>
-        <div onClick={this.close.bind(this)} className="clock-overlay" />
-        {!this.props.timeOnly && <div onClick={this.close.bind(this)} className="clock-close"><i className="icon close" /></div>}
-        <div className="clock">
-          <div className="clock-inner">
-            {sets}
-          </div>
-          {this.renderPointer()}
-          {stage === 'hour' && <div>
-            <div onClick={() => { this.setState({ am: true }); }} className={classnames("time-am", { active: this.state.am })}>AM</div>
-            <div onClick={() => { this.setState({ am: false }); }} className={classnames("time-pm", { active: !this.state.am })}>PM</div>
-          </div>}
-        </div>
-      </div>
-    );
-  }
-}
-
-class TimeSet extends React.Component {
-  static displayName = 'Datetime/TimeSet'
-
-  static propTypes = {
-    onStageChange: React.PropTypes.func,
-    onTimeChange: React.PropTypes.func,
-    type: React.PropTypes.string,
-    value: React.PropTypes.number
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setState({ value: nextProps.value });
-    }
-  }
-
-  state = {
-    value: this.props.value || 0,
-    type: this.props.type
-  }
-
-  add () {
-    let value = this.state.value,
-        max = this.props.type === 'hour' ? 24 : 60;
-    value += 1;
-    if (value >= max) {
-      value = 0;
-    }
-    this.changeTime(value);
-  }
-
-  sub () {
-    let value = this.state.value,
-        max = this.props.type === 'hour' ? 23 : 59;
-    value -= 1;
-    if (value < 0) {
-      value = max;
-    }
-    this.changeTime(value);
-  }
-
-  changeTime (value) {
-    this.setState({ value: value });
-    let d = {};
-    d[this.props.type] = value;
-    this.props.onTimeChange(d);
-  }
-
-  setValue (value) {
-    this.setState({ value: value });
-  }
-
-  changeStage () {
-    this.props.onStageChange(this.props.type);
-  }
-
-  render () {
-    return (
-      <div onClick={this.changeStage.bind(this)} className="time-set">
-        <div className="text">
-          <span>{this.state.value}</span>
-          <a onClick={this.add.bind(this)} className="add"><i className="icon angle-up" /></a>
-          <a onClick={this.sub.bind(this)} className="sub"><i className="icon angle-down" /></a>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default Datetime;
-
-import FormControl from './FormControl';
+import FormControl from '../FormControl';
 
 FormControl.register(
 
@@ -592,3 +398,5 @@ FormControl.register(
   Datetime
 
 );
+
+module.exports = Datetime;

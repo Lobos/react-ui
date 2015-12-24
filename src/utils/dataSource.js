@@ -2,7 +2,7 @@
 
 import Qwest from 'qwest';
 
-export default function (src, data, options) {
+module.exports = function (src, data, options) {
   let stacks = {
         'then': [],
         'catch': [],
@@ -13,9 +13,9 @@ export default function (src, data, options) {
 
   qwest = function () {
     req = Qwest.get(src, data, options);
-    promises.forEach(p => {
-      req[p](res => {
-        stacks[p].forEach(func => {
+    promises.forEach((p) => {
+      req[p]((res) => {
+        stacks[p].forEach((func) => {
           func(res);
         });
       });
@@ -23,8 +23,8 @@ export default function (src, data, options) {
     return qwest;
   };
 
-  promises.forEach(p => {
-    qwest[p] = func => {
+  promises.forEach((p) => {
+    qwest[p] = (func) => {
       stacks[p].push(func);
       return qwest;
     };

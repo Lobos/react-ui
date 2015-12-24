@@ -4,12 +4,12 @@ import React from 'react';
 import prettify from '../prettify';
 const {Form, FormControl, Button, FormSubmit, Icon, Input, RadioGroup, dataSource} = global.uiRequire();
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/Form'
-
-  state = {
-    layout: 'inline'
+class Page extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      layout: 'inline'
+    };
   }
 
   render () {
@@ -135,3 +135,5 @@ export default class Page extends React.Component {
     );
   }
 }
+
+module.exports = prettify(Page);

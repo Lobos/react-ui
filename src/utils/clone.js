@@ -18,7 +18,7 @@ import type from './type';
  * @api public
  */
 
-export default function clone(obj) {
+module.exports = function clone(obj) {
   switch (type(obj)) {
     case 'object':
       let copy = {};

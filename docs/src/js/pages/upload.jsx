@@ -4,10 +4,7 @@ import React from 'react';
 import prettify from '../prettify';
 const {Button, Icon, Upload} = global.uiRequire();
 
-@prettify
-export default class Page extends React.Component {
-  static displayName = 'Pages/Upload'
-
+class Page extends React.Component {
   render () {
     return (
       <div>
@@ -55,3 +52,5 @@ export default class Page extends React.Component {
     );
   }
 }
+
+module.exports = prettify(Page);
