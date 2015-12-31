@@ -5,7 +5,7 @@ import prettify from '../prettify';
 let {FormControl, Button, Input, Icon, Grid, dataSource} = global.uiRequire();
 
 const gridProps = {
-  width: 12,
+  grid: 1/2,
   responsive: 'lg'
 };
 
@@ -17,7 +17,7 @@ class Page extends React.Component {
         <p><em><b>{type}</b></em> => <a href={"#/" + component.toLowerCase()}>{component}</a></p>
         <div className="split">
           <Grid {...gridProps}>
-            <FormControl width={24} type={type} />
+            <FormControl grid={1} type={type} />
           </Grid>
 
           <Grid {...gridProps}>
@@ -47,7 +47,7 @@ class Page extends React.Component {
   name={string}           // 数据key名称，唯一
   ignore={bool}           // 为true时，不提交该项数据，默认为 false
   type={string}           // 控件注册名称
-  width={int}             // grid 宽度，1-24
+  grid={[width, responsive]} // 
   {...validate}           // 数据验证
   {...props}              // 控件属性
 />`}
@@ -72,7 +72,7 @@ class Page extends React.Component {
             <p><em><b>text</b></em> => <a href="#/input">Input</a></p>
             <div className="split">
               <Grid {...gridProps}>
-                <FormControl width={24} required={true} type="text" min={2} max={10} />
+                <FormControl grid={1} required={true} type="text" min={2} max={10} />
               </Grid>
 
               <Grid {...gridProps}>
@@ -103,12 +103,12 @@ class Page extends React.Component {
             <p><em><b>textarea</b></em> => <a href="#/input">Input</a></p>
             <div className="split">
               <Grid {...gridProps}>
-                <FormControl width={24} type="textarea" rows={5} />
+                <FormControl grid={1} type="textarea" rows={5} />
               </Grid>
 
               <Grid {...gridProps}>
                 <pre className="prettyprint">
-                  {`<FormControl width={24} type="textarea" rows={5} />`}
+                  {`<FormControl grid={1} type="textarea" rows={5} />`}
                 </pre>
               </Grid>
             </div>
@@ -118,7 +118,7 @@ class Page extends React.Component {
             <p><em><b>select</b></em> => <a href="#/select">Select</a></p>
             <div className="split">
               <Grid {...gridProps}>
-                <FormControl width={24}
+                <FormControl grid={1}
                   type="select"
                   required={true}
                   data={dataSource("json/countries.json")}
@@ -133,7 +133,7 @@ class Page extends React.Component {
 
               <Grid {...gridProps}>
                 <pre className="prettyprint">
-{`<FormControl width={24}
+{`<FormControl grid={1}
   type="select"
   required={true}
   data={dataSource("json/countries.json")}
@@ -279,7 +279,7 @@ class Page extends React.Component {
                 <FormControl
                   type="upload"
                   autoUpload={true}
-                  width={24}
+                  grid={1}
                   name="test"
                   action="http://216.189.159.94:8080/upload"
                   accept="image/*"
@@ -292,7 +292,7 @@ class Page extends React.Component {
 {`<FormControl
   type="upload"
   autoUpload={true}
-  width={24}
+  grid={1}
   name="test"
   action="http://216.189.159.94:8080/upload"
   accept="image/*"

@@ -152,7 +152,7 @@ class Upload extends Component {
 
   render () {
     let className = classnames(
-      getGrid(this.props),
+      getGrid(this.props.grid),
       `rct-upload-container`,
       this.props.className
     );

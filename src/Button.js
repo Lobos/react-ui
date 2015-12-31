@@ -46,7 +46,7 @@ class Button extends Component {
 
     const className = classnames(
       this.props.className,
-      getGrid(this.props),
+      getGrid(this.props.grid),
       'rct-button',
       status
     );

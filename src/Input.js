@@ -57,7 +57,7 @@ class Input extends Component {
       className: classnames(
         this.props.className,
         'rct-form-control',
-        getGrid(this.props)
+        getGrid(this.props.grid)
       ),
       onChange: this.handleChange.bind(this),
       type: this.props.type === 'password' ? 'password' : 'text',
