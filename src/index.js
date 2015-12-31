@@ -29,14 +29,14 @@ export const dataSource = require('./utils/dataSource');
 export const Utils = {
   Datetime: require('./utils/datetime'),
   Dom: require('./utils/dom'),
+  Grids: require('./utils/grids'),
   Objects: require('./utils/objects'),
   Strings: require('./utils/strings')
 };
 
 export const HigherOrder = {
-  getGrid: require('./higherorder/grid'),
   clickAway: require('./higherorder/clickaway')
 };
 
 // ajax
-export const Qwest = require('qwest');
+export const Refetch = require('refetch');

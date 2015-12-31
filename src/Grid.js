@@ -2,17 +2,18 @@
 
 import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import getGrid from './higherorder/grid';
+import { getGrid } from './utils/grids';
 
 class Grid extends Component {
   render () {
-    const className = classnames(
-      this.props.className,
-      this.getGrid()
+    let { className, grid, style, children } = this.props;
+    className = classnames(
+      className,
+      getGrid(grid)
     );
     return (
-      <div style={this.props.style} className={className}>
-        {this.props.children}
+      <div style={style} className={className}>
+        {children}
       </div>
     );
   }
@@ -21,7 +22,11 @@ class Grid extends Component {
 Grid.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
+  grid: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.array
+  ]),
   style: PropTypes.object
 };
 
-module.exports = getGrid(Grid);
+module.exports = Grid;

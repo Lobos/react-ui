@@ -2,7 +2,7 @@
 
 import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import getGrid from './higherorder/grid';
+import { getGrid } from './utils/grids';
 import { requireCss } from './themes';
 requireCss('buttons');
 
@@ -46,7 +46,7 @@ class Button extends Component {
 
     const className = classnames(
       this.props.className,
-      this.getGrid(),
+      getGrid(this.props),
       'rct-button',
       status
     );
@@ -74,5 +74,5 @@ Button.propTypes = {
   type: PropTypes.oneOf(['submit', 'button'])
 };
 
-module.exports = getGrid(Button);
+module.exports = Button;
 

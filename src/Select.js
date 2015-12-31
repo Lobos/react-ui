@@ -5,8 +5,9 @@ import classnames from 'classnames';
 import { toArray, substitute } from './utils/strings';
 import { getOuterHeight, overView, withoutTransition } from './utils/dom';
 import clone from './utils/clone';
+import isEqual from './utils/isEqual';
 import clickAway from './higherorder/clickaway';
-import getGrid from './higherorder/grid';
+import { getGrid } from './utils/grids';
 
 import { requireCss } from './themes';
 requireCss('select');
@@ -15,26 +16,29 @@ requireCss('form-control');
 class Select extends Component {
   constructor (props) {
     super(props);
+    this.unmounted = false;
+
+    let values = toArray(this.props.value, this.props.sep);
+    let data = this.formatData(this.props.data, values);
     this.state = {
       active: false,
-      value: [],
-      data: [],
-      filter: ''
+      data,
+      filter: '',
+      value: values
     };
-    this.unmounted = false;
   }
   
   componentWillMount () {
-    let values = toArray(this.props.value, this.props.sep);
-    let data = this.formatData(this.props.data, values);
-    this.setState({ data });
+    //let values = toArray(this.props.value, this.props.sep);
+    //let data = this.formatData(this.props.data, values);
+    //this.setState({ data });
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
-      this.setValue(this.formatValue(nextProps.value));
+      this.setValue(nextProps.value);
     }
-    if (nextProps.data !== this.props.data) {
+    if (!isEqual(nextProps.data, this.props.data)) {
       this.setState({ data: this.formatData(nextProps.data) });
     }
   }
@@ -95,10 +99,6 @@ class Select extends Component {
   }
 
   setValue (value) {
-    this.setState({ value: this.formatValue(value) });
-  }
-
-  formatValue (value) {
     value = toArray(value, this.props.sep);
     if (this.state) {
       //let data = clone(this.state.data).map(d => {
@@ -106,9 +106,10 @@ class Select extends Component {
         d.$checked = value.indexOf(d.$value) >= 0;
         return d;
       });
-      this.setState({ data });
+      this.setState({ value, data });
+    } else {
+      this.setState({ value });
     }
-    return value;
   }
 
   formatData (data, value = this.state.value) {
@@ -203,21 +204,20 @@ class Select extends Component {
   render () {
     let active = this.state.active;
     let result = [];
+    let { grid, readOnly, mult, placeholder, style } = this.props;
 
     let className = classnames(
       this.props.className,
-      this.getGrid(),
+      getGrid(grid),
       'rct-form-control',
       'rct-select',
       {
         active,
-        readonly: this.props.readOnly,
+        readonly: readOnly,
         dropup: this.state.dropup,
-        single: !this.props.mult
+        single: !mult
       }
     );
-
-    let placeholder = this.state.msg || this.props.placeholder;
 
     let filter;
     if (this.props.filterAble) {
@@ -266,8 +266,8 @@ class Select extends Component {
     });
 
     return (
-      <div ref="container" onClick={this.open.bind(this)} style={this.props.style} className={className}>
-        { result.length > 0 ? result : <span className="placeholder">{placeholder}&nbsp;</span> }
+      <div ref="container" onClick={this.open.bind(this)} style={style} className={className}>
+        { result.length > 0 ? result : <span className="placeholder">{this.state.msg || placeholder}&nbsp;</span> }
         <div className="rct-select-options-wrap">
           <hr />
           <div ref="options" className="rct-select-options">
@@ -287,17 +287,23 @@ Select.propTypes = {
     PropTypes.func
   ]).isRequired,
   filterAble: PropTypes.bool,
+  grid: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.array
+  ]),
   groupBy: PropTypes.string,
   mult: PropTypes.bool,
   onChange: PropTypes.func,
   optionTpl: PropTypes.string,
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
+  responsive: PropTypes.string,
   resultTpl: PropTypes.string,
   sep: PropTypes.string,
   style: PropTypes.object,
   value: PropTypes.any,
-  valueTpl: PropTypes.string
+  valueTpl: PropTypes.string,
+  width: PropTypes.number
 };
 
 Select.defaultProps = {
@@ -307,7 +313,7 @@ Select.defaultProps = {
   valueTpl: '{id}'
 };
 
-Select = getGrid(clickAway(Select))
+Select = clickAway(Select);
 
 import FormControl from './FormControl';
 FormControl.register(

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import prettify from '../prettify';
-const {Tree, Checkbox, Qwest, dataSource} = global.uiRequire();
+const {Tree, Checkbox, Refetch, dataSource} = global.uiRequire();
 
 class Page extends React.Component {
   constructor (props) {
@@ -19,7 +19,7 @@ class Page extends React.Component {
   }
 
   componentWillMount () {
-    Qwest.get('json/tree.json', null, {cache: true})
+    Refetch.get('json/tree.json', null, {cache: 3600})
       .then(res => {
         this.setState({ treeData: JSON.stringify(res, null, 2) });
       });

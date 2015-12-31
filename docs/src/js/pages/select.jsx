@@ -45,9 +45,9 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 
           <h2 className="subhead">简单数组</h2>
           <div>
-            <Select width={6} placeholder="简单数组" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
+            <Select grid={1/4} placeholder="简单数组" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
             {' '}
-            <Select width={12} mult={true} data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
+            <Select grid={1/2} mult={true} data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
           </div>
           <pre className="prettyprint">
 {`<Select placeholder="简单数组" data={["中国", "美国", "俄罗斯", "德国"]} />
@@ -55,10 +55,10 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           </pre>
 
           <h2 className="subhead">单选</h2>
-          <Select width={12}
+          <Select grid={1/2}
             placeholder="单选"
             filterAble={true}
-            optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
+            optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
             valueTpl="{country}-{en}"
             //onChange={ country => this.setState({ country }) }
             value={this.state.country}
@@ -76,12 +76,12 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           </pre>
 
           <h2 className="subhead">多选</h2>
-          <Select width={24}
+          <Select grid={1}
             mult={true}
             placeholder="多选"
             filterAble={true}
-            optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
-            resultTpl='<img src="images/flags/{code}.png" /> {country}'
+            optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
+            resultTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}'
             valueTpl="{en}"
             data={dataSource("json/countries.json", null, {cache: true})} />
           <pre className="prettyprint">
@@ -96,11 +96,11 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           </pre>
 
           <h2 className="subhead">groupBy</h2>
-          <Select width={12}
+          <Select grid={1}
             placeholder="Group by continent"
             groupBy="continent"
             filterAble={true}
-            optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
+            optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
             valueTpl="{country}-{en}"
             data={dataSource("json/countries.json", null, {cache: true})} />
           <pre className="prettyprint">

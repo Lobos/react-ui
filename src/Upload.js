@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { Component, PropTypes } from 'react';
 import Events from './utils/events';
 import { nextUid, format } from './utils/strings';
-import getGrid from './higherorder/grid';
+import { getGrid } from './utils/grids';
 import Message from './Message';
 import upload from './utils/upload';
 
@@ -152,7 +152,7 @@ class Upload extends Component {
 
   render () {
     let className = classnames(
-      this.getGrid(),
+      getGrid(this.props),
       `rct-upload-container`,
       this.props.className
     );
@@ -188,8 +188,6 @@ Upload.defaultProps = {
   limit: 1,
   withCredentials: false
 };
-
-Upload = getGrid(Upload);
 
 import FormControl from './FormControl';
 FormControl.register(

@@ -3,7 +3,7 @@
 import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import Regs from './utils/regs';
-import getGrid from './higherorder/grid';
+import { getGrid } from './utils/grids';
 
 import { requireCss } from './themes';
 requireCss('input');
@@ -57,7 +57,7 @@ class Input extends Component {
       className: classnames(
         this.props.className,
         'rct-form-control',
-        this.getGrid()
+        getGrid(this.props)
       ),
       onChange: this.handleChange.bind(this),
       type: this.props.type === 'password' ? 'password' : 'text',
@@ -85,8 +85,6 @@ Input.propTypes = {
   type: PropTypes.string,
   value: PropTypes.any
 };
-
-Input = getGrid(Input);
 
 import FormControl from './FormControl';
 

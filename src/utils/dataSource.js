@@ -1,6 +1,6 @@
 'use strict';
 
-import Qwest from 'qwest';
+import refetch from 'refetch';
 
 module.exports = function (src, data, options) {
   let stacks = {
@@ -11,8 +11,8 @@ module.exports = function (src, data, options) {
       promises = ['then', 'catch', 'complete'],
       req = null,
 
-  qwest = function () {
-    req = Qwest.get(src, data, options);
+  pinky = function () {
+    req = refetch.get(src, data, options);
     promises.forEach((p) => {
       req[p]((res) => {
         stacks[p].forEach((func) => {
@@ -20,15 +20,15 @@ module.exports = function (src, data, options) {
         });
       });
     });
-    return qwest;
+    return pinky;
   };
 
   promises.forEach((p) => {
-    qwest[p] = (func) => {
+    pinky[p] = (func) => {
       stacks[p].push(func);
-      return qwest;
+      return pinky;
     };
   });
 
-  return qwest;
+  return pinky;
 }

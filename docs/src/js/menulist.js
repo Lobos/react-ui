@@ -24,6 +24,7 @@ module.exports = [
     { path: '/message', text: 'Message', component: require('./pages/message.jsx') },
     { path: '/modal', text: 'Modal', component: require('./pages/modal.jsx') },
     { path: '/dataSource', text: 'DataSource', component: require('./pages/dataSource.jsx') },
+    { path: '/grid', text: 'Grid', component: require('./pages/grid.jsx') },
     { path: '/lang', text: 'Lang', component: require('./pages/lang.jsx') }
   ]
 ];

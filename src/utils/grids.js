@@ -1,39 +1,70 @@
 'use strict';
 
-function getGcd(m, n) {
-	let u = m, v = n;
-	while (v !== 0) {
-    [u, v] = [v, u % v];
-	}
-  return u;
+const GRIDS = {};
+const RESPONSIVE = {
+  'sm': '35.5',
+  'md': '48',
+  'lg': '64',
+  'xl': '80'
+};
+let prefix = 'e97deffa';
+let defaultResponsive = 'md';
+
+export function setOptions(options) {
+  if (!options) {
+    return;
+  }
+  if (options.prefix) {
+    prefix = options.prefix;
+  }
+  if (options.responsive) {
+    defaultResponsive = options.responsive;
+  }
 }
 
-function gridUnit(pre, responsive) {
-  responsive = responsive ? responsive + '-' : '';
-  let text = [], width;
-  for (let i = 1; i <= 24; i++) {
-    let gcd = getGcd(i, 24);
-    width = (i * 100 / 24).toFixed(6);
-    text.push(`.${pre}-${responsive}${i}-24`);
-    if (gcd > 1) {
-      text.push(`,.${pre}-${responsive}` + (i / gcd) + '-' + (24 / gcd));
-    }
-    text.push(`{width:${width}%;}`);
+export function getGrid(grid) {
+  if (!grid) {
+    return '';
   }
-  for (let i = 1; i <= 5; i++) {
-    width = (i * 20).toFixed(6);
-    text.push(`.${pre}-${responsive}${i}-5{width:${width}%;}`);
+  if (typeof grid === 'number') {
+    grid = [grid];
   }
-  return text.join('');
+  if (!Array.isArray(grid)) {
+    console.warn('grid must be number or array');
+    return '';
+  }
+
+  let width = (grid[0] * 100).toFixed(4);
+  width = width.substr(0, width.length - 1);
+  let responsive = grid[1] || defaultResponsive;
+  let key = responsive + '-' + width.replace('.', '-');
+
+  if (!GRIDS[key]) {
+    generateGrid(width, key, responsive);
+  }
+  return `${prefix} ${prefix}-1 ${prefix}-${key}`;
 }
 
-export function create (pre = 'rct-g') {
+function createStyle(text) {
   let style = document.createElement('style');
-  let text = [];
   style.type = 'text/css';
+  style.innerHTML = text
+  document.head.appendChild(style);
+}
+
+function generateGrid(width, key, responsive) {
+  GRIDS[key] = true;
+  let minWidth = RESPONSIVE[responsive];
+  let text = `@media screen and (min-width: ${minWidth}em) { .${prefix}-${key}{width: ${width}%} }`;
+
+  createStyle(text);
+}
+
+(function () {
+  let text = [];
 
   text.push(`
-.${pre} {
+.${prefix} {
   display: inline-block;
   zoom: 1;
   letter-spacing: normal;
@@ -42,15 +73,7 @@ export function create (pre = 'rct-g') {
   text-rendering: auto;
 }`);
 
-  text.push(`.${pre}-1{width:100%}`);
-  text.push(gridUnit(pre));
+  text.push(`.${prefix}-1{width:100%}`);
+  createStyle(text.join(''));
+})();
 
-   [['35.5', 'sm'], ['48', 'md'], ['64', 'lg'], ['80', 'xl']].forEach(([x, m]) => {
-    text.push(`@media screen and (min-width: ${x}em) {`);
-    text.push(gridUnit(pre, m));
-    text.push('}');
-  });
-
-  style.innerHTML = text.join('');
-  document.head.appendChild(style);
-}
