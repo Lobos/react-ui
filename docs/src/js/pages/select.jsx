@@ -25,6 +25,7 @@ class Page extends React.Component {
 {`<Select
   className={string}    // class
   data={array|func}     // 数据，array 或者 dataSource
+  grid={{width, offset, responsive}} // 宽度，详见Grid
   sep={string|null}     // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   filterAble={bool}     // 是否显示筛选，默认为 false
   readOnly={bool}       // 是否只读。默认为 false
@@ -45,9 +46,9 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 
           <h2 className="subhead">简单数组</h2>
           <div>
-            <Select grid={1/4} placeholder="简单数组" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
+            <Select grid={{width:1/4}} placeholder="简单数组" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
             {' '}
-            <Select grid={1/2} mult={true} data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
+            <Select grid={{width:1/2}} mult={true} data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
           </div>
           <pre className="prettyprint">
 {`<Select placeholder="简单数组" data={["中国", "美国", "俄罗斯", "德国"]} />
@@ -55,7 +56,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           </pre>
 
           <h2 className="subhead">单选</h2>
-          <Select grid={1/2}
+          <Select grid={{width:1/2}}
             placeholder="单选"
             filterAble={true}
             optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
@@ -76,7 +77,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           </pre>
 
           <h2 className="subhead">多选</h2>
-          <Select grid={1}
+          <Select grid={{width:1}}
             mult={true}
             placeholder="多选"
             filterAble={true}
@@ -96,7 +97,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           </pre>
 
           <h2 className="subhead">groupBy</h2>
-          <Select grid={1}
+          <Select grid={{width:1}}
             placeholder="Group by continent"
             groupBy="continent"
             filterAble={true}

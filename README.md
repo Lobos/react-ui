@@ -48,6 +48,8 @@ build: npm run build
 v0.5.2
  - babel 5 => 6，移除es7的语法
  - 移除在线build(木有精力维护了……)
+ - getGrid 改为utils下的方法，不再使用highorder component
+ - 增加Grid文档
 
 v0.5.1
  - Pagination 增加mini选项

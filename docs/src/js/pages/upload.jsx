@@ -27,7 +27,7 @@ class Page extends React.Component {
   name={string}           // field name，必填
   readOnly={bool}         // 只读，默认为 false
   style={object}
-  width={number}          // grid 宽度 1-24
+  grid={[width, responsive]} // 宽度，详见Grid
   withCredentials={bool}  // xhr2 withCredentials
 />`}
           </pre>

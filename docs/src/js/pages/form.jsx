@@ -40,7 +40,7 @@ class Page extends React.Component {
           <div>
             <span>layout: </span>
             <RadioGroup
-              width={16}
+              grid={{width:16/24}}
               inline={true}
               data={['inline', 'aligned', 'stacked']}
               value={this.state.layout}
@@ -48,7 +48,7 @@ class Page extends React.Component {
           </div>
           <br />
           <Form layout={this.state.layout}>
-            <FormControl name="text" label="text" type="text" width={6} responsive="sm" min={2} max={6} />
+            <FormControl name="text" label="text" type="text" grid={{width:6/24}} responsive="sm" min={2} max={6} />
             <FormControl name="email" label="email" type="email" />
             <FormControl name="select" label="select" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} type="select" />
             <FormSubmit>
@@ -60,30 +60,30 @@ class Page extends React.Component {
           <p>注：本文档使用了一个 <em>json</em> 文件模拟服务端返回数据，提交会提示 <em>500</em> 错误</p>
 
           <Form layout="aligned" onSubmit={data => console.log(data)} data={dataSource("json/form.json")}>
-            <FormControl name="text" label="text" type="text" width={12} min={2} max={6} />
+            <FormControl name="text" label="text" type="text" grid={{width:12/24}} min={2} max={6} />
             <FormControl name="email" label="email" type="email">
               <span className="rct-input-group pure-u-1">
                 <span className="addon"><Icon icon="email" /></span>
                 <Input type="email" />
               </span>
             </FormControl>
-            <FormControl width={13} name="alpha" label="alpha" type="alpha" />
-            <FormControl width={14} name="alphanum" label="alphanum" type="alphanum" />
-            <FormControl width={15} name="integer" label="integer" type="integer" />
-            <FormControl width={16} name="number" label="number" type="number" />
-            <FormControl width={16} name="password" min={6} max={20} label="password" type="password" />
-            <FormControl width={16} name="repassword" ignore={true} label="repeat password" type="password" equal="password" tip="必须与password相同" />
-            <FormControl width={17} name="url" label="url" type="url" />
-            <FormControl width={17} name="readonly" readOnly={true} label="readonly" type="text" />
+            <FormControl grid={{width:13/24}} name="alpha" label="alpha" type="alpha" />
+            <FormControl grid={{width:14/24}} name="alphanum" label="alphanum" type="alphanum" />
+            <FormControl grid={{width:15/24}} name="integer" label="integer" type="integer" />
+            <FormControl grid={{width:16/24}} name="number" label="number" type="number" />
+            <FormControl grid={{width:16/24}} name="password" min={6} max={20} label="password" type="password" />
+            <FormControl grid={{width:16/24}} name="repassword" ignore={true} label="repeat password" type="password" equal="password" tip="必须与password相同" />
+            <FormControl grid={{width:17/24}} name="url" label="url" type="url" />
+            <FormControl grid={{width:17/24}} name="readonly" readOnly={true} label="readonly" type="text" />
             <FormControl name="checkbox" type="checkbox" text="It's a checkbox" />
             <FormControl name="datetime" type="datetime" label="datetime" />
             <FormControl name="checkboxgroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="checkbox group" type="checkbox-group" />
             <FormControl name="radiogroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="radio group" inline={true} type="radio-group" />
             <FormControl name="rating" label="rating" required={true} maxValue={10} tip="亲，给个好评吧" type="rating" />
-            <FormControl width={12} name="select" label="select" type="select" data={dataSource("json/countries.json")} mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
+            <FormControl grid={{width:12/24}} name="select" label="select" type="select" data={dataSource("json/countries.json")} mult={true} filterAble={true} optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
             <FormControl name="tree" selectAble={true} label="tree" type="tree" data={dataSource("json/tree.json")} textTpl='{text}({id})' valueTpl="{id}" />
-            <FormControl width={18} name="textarea" label="textarea" rows={5} type="textarea" />
-            <FormControl label="upload" type="upload" autoUpload={true} width={12} name="upload" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3} content={<Button><Icon icon="upload" /> 选择文件</Button>} />
+            <FormControl grid={{width:18/24}} name="textarea" label="textarea" rows={5} type="textarea" />
+            <FormControl label="upload" type="upload" autoUpload={true} grid={{width:12/24}} name="upload" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3} content={<Button><Icon icon="upload" /> 选择文件</Button>} />
 
             <FormSubmit>
               <span>提交</span>
@@ -93,28 +93,28 @@ class Page extends React.Component {
 
           <pre className="prettyprint">
 {`<Form layout="aligned" onSubmit={data => console.log(data)} data={dataSource("json/form.json")}>
-  <FormControl name="text" label="text" type="text" width={12} min={2} max={6} />
+  <FormControl name="text" label="text" type="text" grid={{width:12/24}} min={2} max={6} />
   <FormControl name="email" label="email" type="email">
     <span className="rct-input-group">
       <span className="addon"><Icon icon="email" /></span>
       <Input type="email" />
     </span>
   </FormControl>
-  <FormControl width={13} name="alpha" label="alpha" type="alpha" />
-  <FormControl width={14} name="alphanum" label="alphanum" type="alphanum" />
-  <FormControl width={15} name="integer" label="integer" type="integer" />
-  <FormControl width={16} name="number" label="number" type="number" />
-  <FormControl width={17} name="url" label="url" type="url" />
-  <FormControl width={17} name="readonly" readOnly={true} label="readonly" type="text" />
+  <FormControl grid={{width:13/24}} name="alpha" label="alpha" type="alpha" />
+  <FormControl grid={{width:14/24}} name="alphanum" label="alphanum" type="alphanum" />
+  <FormControl grid={{width:15/24}} name="integer" label="integer" type="integer" />
+  <FormControl grid={{width:16/24}} name="number" label="number" type="number" />
+  <FormControl grid={{width:17/24}} name="url" label="url" type="url" />
+  <FormControl grid={{width:17/24}} name="readonly" readOnly={true} label="readonly" type="text" />
   <FormControl name="checkbox" type="checkbox" text="It's a checkbox" />
   <FormControl name="datetime" type="datetime" label="datetime" />
   <FormControl name="checkboxgroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="checkbox group" type="checkbox-group" />
   <FormControl name="radiogroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="radio group" inline={true} type="radio-group" />
   <FormControl name="rating" label="rating" required={true} maxValue={10} tip="亲，给个好评吧" type="rating" />
-  <FormControl width={12} name="select" label="select" type="select" data={dataSource("json/countries.json")} mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
+  <FormControl grid={{width:12/24}} name="select" label="select" type="select" data={dataSource("json/countries.json")} mult={true} filterAble={true} optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
   <FormControl name="tree" selectAble={true} label="tree" type="tree" data={dataSource("json/tree.json")} textTpl='{text}({id})' valueTpl="{id}" />
-  <FormControl width={18} name="textarea" label="textarea" rows={5} type="textarea" />
-  <FormControl label="upload" type="upload" autoUpload={true} width={12} name="upload" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3} content={<Button><Icon icon="upload" /> 选择文件</Button>} />
+  <FormControl grid={{width:18/24}} name="textarea" label="textarea" rows={5} type="textarea" />
+  <FormControl label="upload" type="upload" autoUpload={true} grid={{width:12/24}} name="upload" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3} content={<Button><Icon icon="upload" /> 选择文件</Button>} />
 
   <FormSubmit>
     <span>提交</span>

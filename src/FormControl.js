@@ -6,6 +6,7 @@ import { isEmpty, forEach } from './utils/objects';
 import { format, toArray } from './utils/strings';
 import merge from './utils/merge';
 import Regs from './utils/regs';
+import { getGrid } from './utils/grids';
 
 import { requireCss } from './themes';
 requireCss('form-control');
@@ -235,12 +236,10 @@ class FormControl extends Component {
   }
 
   renderInline (className) {
-    if (this.props.width) {
-      className = `${className} rct-g-1 rct-g-${this.props.responsive}-${this.props.width}-24`;
-    }
+    className = classnames(className, getGrid(this.props.grid));
     return (
       <div style={this.props.style} className={className}>
-        {this.getControl({ width: this.props.width ? 24 : undefined })}
+        {this.getControl({grid: { width: 1 }})}
         {
           this.state.errorText ?
           <span className="error">{this.state.errorText}</span> :
@@ -302,22 +301,20 @@ FormControl.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   data: PropTypes.any,
+  grid: PropTypes.object,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
   id: PropTypes.string,
   label: PropTypes.string,
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
   name: PropTypes.string,
   onChange: PropTypes.func,
-  responsive: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
   style: PropTypes.object,
   type: PropTypes.string,
-  value: PropTypes.any,
-  width: PropTypes.number
+  value: PropTypes.any
 };
 
 FormControl.defaultProps = {
   layout: 'inline',
-  responsive: 'md',
   type: 'text'
 };
 

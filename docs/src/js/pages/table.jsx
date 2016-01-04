@@ -213,6 +213,7 @@ const headers = [
   width={this.state.width}
   height={this.state.height}
   data={this.state.data}
+  headers={headers}
   pagination={this.state.pagination ? pagination : null}
 />
 `}

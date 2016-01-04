@@ -6,10 +6,10 @@ import { getGrid } from './utils/grids';
 
 class Grid extends Component {
   render () {
-    let { className, grid, style, children } = this.props;
+    let { className, width, offset, responsive, style, children } = this.props;
     className = classnames(
       className,
-      getGrid(grid)
+      getGrid({ width, offset, responsive })
     );
     return (
       <div style={style} className={className}>
@@ -22,11 +22,10 @@ class Grid extends Component {
 Grid.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
-  grid: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.array
-  ]),
-  style: PropTypes.object
+  offset: PropTypes.offset,
+  responsive: PropTypes.string,
+  style: PropTypes.object,
+  width: PropTypes.number
 };
 
 module.exports = Grid;
