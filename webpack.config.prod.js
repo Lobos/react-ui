@@ -8,8 +8,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'ReactUI.js',
-    publicPath: '/'
+    filename: 'ReactUI.js'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},
   plugins: [

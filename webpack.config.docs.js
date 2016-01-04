@@ -8,8 +8,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'docs/dist'),
-    filename: 'js/app.js',
-    publicPath: '/'
+    filename: 'js/app.js'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},
   plugins: [
