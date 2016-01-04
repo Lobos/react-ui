@@ -1,4 +1,3 @@
-/*
 'use strict';
 
 import React, { PropTypes } from 'react';
@@ -52,4 +51,3 @@ export default function dataSource(Component) {
 
   return DataSource;
 }
-*/

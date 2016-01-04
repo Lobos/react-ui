@@ -43,8 +43,15 @@ build: npm run build
 - [Filter](http://lobos.github.io/react-ui/#/filter)
 - [Modal](http://lobos.github.io/react-ui/#/modal)
 - [Upload](http://lobos.github.io/react-ui/#/upload)
+- [Grid](http://lobos.github.io/react-ui/#/grid)
 
 # Change log
+v0.6.0
+ - dataSource 改为highorder component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
+ - clickaway 改为highorder component 
+ - select 弹出后单击关闭
+ - datetime 加入today
+
 v0.5.2
  - babel 5 => 6，移除es7的语法
  - 移除在线build(木有精力维护了……)
