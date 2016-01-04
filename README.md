@@ -47,15 +47,15 @@ build: npm run build
 
 # Change log
 v0.6.0
- - dataSource 改为highorder component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
- - clickaway 改为highorder component 
+ - dataSource 改为higher order component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
+ - clickaway 改为higher order component 
  - select 弹出后单击关闭
  - datetime 加入today
 
 v0.5.2
  - babel 5 => 6，移除es7的语法
  - 移除在线build(木有精力维护了……)
- - getGrid 改为utils下的方法，不再使用highorder component
+ - getGrid 改为utils下的方法，不再使用higher order function
  - 增加Grid文档
 
 v0.5.1
