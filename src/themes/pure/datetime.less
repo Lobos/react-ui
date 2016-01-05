@@ -17,7 +17,7 @@
   }
 
   .date-text {
-    height: 15px;
+    height: 14px;
     display: inline-block;
   }
 
@@ -29,8 +29,7 @@
 
     &.calendar {
       position: absolute;
-      right: 0.6em;
-      top: 0.65em; 
+      right: 6px;
       background-position: -60px 0;
     }
 
@@ -145,6 +144,7 @@
         font-size: 14px;
         text-align: center;
         display: inline-block;
+        outline: 0;
       }
 
       .day, .year, .month {
@@ -162,6 +162,11 @@
           color: #fff;
           border-color: transparent;
         }
+
+        &:disabled {
+          color: #ccc;
+          cursor: not-allowed;
+        }
       }
 
       .year {
@@ -175,6 +180,11 @@
       }
 
       .today {
+        color: @primary;
+        border-color: @primary;
+      }
+
+      .active, .active:hover {
         background-color: @primary;
         color: #fff;
         border-color: transparent;

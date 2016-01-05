@@ -1,16 +1,15 @@
 'use strict';
 
-import React from 'react';
+import { Component } from 'react';
 import ReactDOM from 'react-dom';
 import * as Events from '../utils/events';
 import { isDescendant } from '../utils/dom';
 
-class ClickAway extends React.Component {
+module.exports = (Component) => class extends Component {
   constructor (props) {
     super(props);
   }
 
-  // if subclass use componentWillUnmount, must execute super.componentWillUnmount()
   componentWillUnmount () {
     this.unbindClickAway();
   }
@@ -49,6 +48,4 @@ class ClickAway extends React.Component {
     }
     return fn;
   }
-}
-
-module.exports = ClickAway;
+};

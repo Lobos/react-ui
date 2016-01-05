@@ -6,6 +6,14 @@ import prettify from '../prettify';
 const {Datetime} = global.uiRequire();
 
 class Page extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      min: null,
+      max: null
+    }
+  }
+
   handleChange (ref) {
     var value = 'value：' + this.refs['d-' + ref].getValue();
     findDOMNode(this.refs['p-' + ref]).innerHTML = value;
@@ -26,6 +34,8 @@ class Page extends Component {
   timeOnly={bool}       // 只选择时间部分，默认为 false
   readOnly={bool}       // 只读，默认为 false
   format={string}       // 返回值格式，如 'yyyy-MM-dd'，默认值 在 Lang.date.format 下设置
+  min={string|int|Date} // 最小值，可以为string，unixtimestamp或者Date对象
+  max={string|int|Date} // 最大值，可以为string，unixtimestamp或者Date对象
   unixtime={bool}       // 为 true 时，getValue 返回 unixtimestamp
   placeholder={string}  // 占位提示文字
   onChange={function}   // 值改变时触发事件，参数为 value
@@ -47,6 +57,11 @@ class Page extends Component {
           <Datetime ref="d-timeOnly" onChange={this.handleChange.bind(this, 'timeOnly')} timeOnly={true} />
           <div ref="p-timeOnly"></div>
           <pre className="prettyprint">{`<Datetime timeOnly={true} />`}</pre>
+
+          <h2 className="subhead">min & max</h2>
+          <Datetime min="2016-01-12" max="2016-02-14 14:23:00" />
+          <pre className="prettyprint">{`<Datetime min="2016-01-12" max="2016-02-14 14:23:00" />`}</pre>
+          <Datetime min="2016-01-10" onChange={(value) => this.setState({ min: value })} dateOnly max={this.state.max} /> - <Datetime  onChange={(value) => this.setState({ max: value })} dateOnly min={this.state.min} />
 
           <h2 className="subhead">readOnly</h2>
           <Datetime readOnly={true} value="2015-06-21 17:24:03" />

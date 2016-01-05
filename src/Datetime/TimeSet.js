@@ -38,10 +38,13 @@ class TimeSet extends Component {
   }
 
   changeTime (value) {
-    this.setState({ value });
     let d = {};
     d[this.props.type] = value;
-    this.props.onTimeChange(d);
+    let success = this.props.onTimeChange(d);
+    if (!success) {
+      return;
+    }
+    this.setState({ value });
   }
 
   setValue (value) {

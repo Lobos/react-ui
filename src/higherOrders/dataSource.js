@@ -6,7 +6,7 @@ export const DATA_PENDING = 0;
 export const DATA_SUCCESS = 1;
 export const DATA_FAILURE = 2;
 
-export default function dataSource(Component) {
+export function dataSource(Component) {
   class DataSource extends React.Component {
     constructor (props) {
       super(props);

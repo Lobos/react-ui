@@ -6,14 +6,14 @@ import { toArray, substitute } from './utils/strings';
 import { getOuterHeight, overView, withoutTransition } from './utils/dom';
 import clone from './utils/clone';
 import isEqual from './utils/isEqual';
-import clickAway from './higherorder/clickaway';
+import ClickAway from './mixins/ClickAway';
 import { getGrid } from './utils/grids';
 
 import { requireCss } from './themes';
 requireCss('select');
 requireCss('form-control');
 
-class Select extends Component {
+class Select extends ClickAway(Component) {
   constructor (props) {
     super(props);
     this.unmounted = false;
@@ -27,13 +27,7 @@ class Select extends Component {
       value: values
     };
   }
-  
-  componentWillMount () {
-    //let values = toArray(this.props.value, this.props.sep);
-    //let data = this.formatData(this.props.data, values);
-    //this.setState({ data });
-  }
-
+ 
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
@@ -45,10 +39,12 @@ class Select extends Component {
 
   componentWillUnmount () {
     this.unmounted = true;
+    super.componentWillUnmount();
   }
 
-  componentClickAway () {
-    this.close();
+  componentDidMount () {
+    let target = this.props.mult ? undefined : this.refs.options;
+    this.registerClickAway(this.close, target);
   }
 
   open () {
@@ -309,8 +305,6 @@ Select.defaultProps = {
   optionTpl: '{text}',
   valueTpl: '{id}'
 };
-
-Select = clickAway(Select);
 
 import FormControl from './FormControl';
 FormControl.register(
