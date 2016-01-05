@@ -87,34 +87,32 @@ class Datetime extends ClickAway(Component) {
   }
 
   open () {
-    if (this.props.readOnly) {
+    if (this.props.readOnly || this.state.active) {
       return;
     }
 
-    if (!this.state.active) {
-      let today = new Date();
-      // remove time
-      today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    let today = new Date();
+    // remove time
+    today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
-      let picker = this.refs.datepicker;
-      picker.style.display = 'block';
-      let height = getOuterHeight(picker);
+    let picker = this.refs.datepicker;
+    picker.style.display = 'block';
+    let height = getOuterHeight(picker);
 
-      setTimeout(() => {
-        this.setState({
-          active: true,
-          popup: overView(this.refs.datetime, height),
-          current: this.state.value || today,
-          stage: this.props.timeOnly ? 'clock' : 'day'
-        });
+    setTimeout(() => {
+      this.setState({
+        active: true,
+        popup: overView(this.refs.datetime, height),
+        current: this.state.value || today,
+        stage: this.props.timeOnly ? 'clock' : 'day'
+      });
 
-        this.bindClickAway();
+      this.bindClickAway();
 
-        if (this.props.timeOnly) {
-          this.refs.clock.changeTimeStage('hour');
-        }
-      }, 0);
-    }
+      if (this.props.timeOnly) {
+        this.refs.clock.changeTimeStage('hour');
+      }
+    }, 0);
   }
 
   close () {

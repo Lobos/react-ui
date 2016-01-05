@@ -48,24 +48,26 @@ class Select extends ClickAway(Component) {
   }
 
   open () {
-    if (!this.state.active && !this.props.readOnly) {
-      let options = this.refs.options;
-      options.style.display = 'block';
-      let offset = getOuterHeight(options) + 5;
-
-      let el = this.refs.container;
-      let dropup = overView(el, offset);
-
-      withoutTransition(el, () => {
-        this.setState({ dropup });
-      });
-
-      this.bindClickAway();
-
-      setTimeout(() => {
-        this.setState({ filter: '', active: true });
-      }, 0);
+    if (this.state.active || this.props.readOnly) {
+      return;
     }
+
+    let options = this.refs.options;
+    options.style.display = 'block';
+    let offset = getOuterHeight(options) + 5;
+
+    let el = this.refs.container;
+    let dropup = overView(el, offset);
+
+    withoutTransition(el, () => {
+      this.setState({ dropup });
+    });
+
+    this.bindClickAway();
+
+    setTimeout(() => {
+      this.setState({ filter: '', active: true });
+    }, 0);
   }
 
   close () {

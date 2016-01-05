@@ -44,6 +44,9 @@ class Filter extends ClickAway(Component) {
   }
 
   open () {
+    if (this.state.active) {
+      return;
+    }
     this.bindClickAway();
     let options = this.refs.options;
     options.style.display = 'block';

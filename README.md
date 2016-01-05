@@ -48,8 +48,7 @@ build: npm run build
 # Change log
 v0.6.0
  - dataSource 改为higher order component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
- - clickaway 改为 class.extends
- - select 弹出后单击关闭，更接近原生select
+ - clickaway 改为 Mixins，增加registerClickAway
  - datetime 加入today, min, max
 
 v0.5.2
