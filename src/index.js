@@ -34,8 +34,8 @@ export const Utils = {
   Strings: require('./utils/strings')
 };
 
-export const HigherOrder = {
-  clickAway: require('./higherorder/clickaway')
+export const Mixins = {
+  ClickAway: require('./mixins/ClickAway')
 };
 
 // ajax
