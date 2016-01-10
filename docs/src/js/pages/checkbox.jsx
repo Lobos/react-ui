@@ -1,10 +1,11 @@
 "use strict";
 
 import React from 'react';
-import prettify from '../prettify';
+import Code from '../Code';
+import Example from '../Example';
 const {Checkbox} = global.uiRequire();
 
-class Page extends React.Component {
+module.exports = class extends React.Component {
   render () {
     return (
       <div>
@@ -15,7 +16,7 @@ class Page extends React.Component {
 
         <div className="content">
 
-          <pre className="prettyprint">
+          <Code>
 {`<Checkbox
   className={string}  // class
   text="string"       // 显示的文字信息
@@ -24,30 +25,19 @@ class Page extends React.Component {
   readOnly={bool}     // 是否只读，默认为 false
   onChange={function} // 状态改变回调事件
 />`}
-          </pre>
+          </Code>
 
           <h2 className="subhead">Example</h2>
-          <p>
-            <Checkbox text="checkbox" />
-          </p>
-          <pre className="prettyprint">{'<Checkbox text="checkbox" />'}</pre>
+          <Example>
+<Checkbox text="checkbox" />
+          </Example>
 
           <h2 className="subhead">Readonly</h2>
-          <p>
-            <Checkbox checked={true} readOnly={true} text="readonly checkbox" />
-          </p>
-          <pre className="prettyprint">{'<Checkbox checked={true} readOnly={true} text="readonly checkbox" />'}</pre>
-
-          <h2 className="subhead">getValue()</h2>
-          <p>获取值，选中状态下如果有 <em>value</em>，返回 <em>value</em> ，否则返回 <em>true</em> ，未选中状态返回 <em>false</em></p>
-
-          <h2 className="subhead">setValue(value)</h2>
-          <p>如果 <em>value</em> 值与 <em>props.value</em> 相等，或者值为 <em>true</em> 或者 <em>1</em> ，设置为选中状态</p>
-
+          <Example>
+<Checkbox checked={true} readOnly={true} text="readonly checkbox" />
+          </Example>
         </div>
       </div>
     );
   }
 }
-
-module.exports = prettify(Page);

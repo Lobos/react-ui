@@ -2,7 +2,7 @@
 
 import classnames from 'classnames';
 import { Component, PropTypes } from 'react';
-import Events from './utils/events';
+import * as Events from './utils/events';
 import { nextUid, format } from './utils/strings';
 import { getGrid } from './utils/grids';
 import Message from './Message';

@@ -37,6 +37,9 @@ class Tree extends Component {
     if (!isEqual(nextProps.data, this.props.data)) {
       this.formatData(nextProps.data);
     }
+    if (nextProps.sep !== this.props.sep || nextProps.greedy !== this.props.greedy) {
+      this.handleChange();
+    }
   }
 
   componentWillUpdate (nextProps, nextState) {

@@ -2,21 +2,17 @@
 
 import { Component } from 'react';
 import { findDOMNode } from 'react-dom';
-import prettify from '../prettify';
+import Code from '../Code';
+import Example from '../Example';
 const {Datetime} = global.uiRequire();
 
-class Page extends Component {
+module.exports = class extends Component {
   constructor (props) {
     super(props);
     this.state = {
       min: null,
       max: null
     }
-  }
-
-  handleChange (ref) {
-    var value = 'value：' + this.refs['d-' + ref].getValue();
-    findDOMNode(this.refs['p-' + ref]).innerHTML = value;
   }
 
   render () {
@@ -28,7 +24,7 @@ class Page extends Component {
         </div>
 
         <div className="content">
-          <pre className="prettyprint">
+          <Code>
 {`<Datetime
   readOnly={bool}       // 只读，默认为 false
   format={string}       // 返回值格式，如 'yyyy-MM-dd'，默认值 在 Lang.date.format 下设置
@@ -40,47 +36,68 @@ class Page extends Component {
   type={string}         // 可选值为 'datetime|date|time'，默认值为'datetime'
   value={string|number} // 初始值
 />`}
-          </pre>
+          </Code>
           <p style={{color:'red'}}>0.6.0 删除了 dateOnly and timeOnly，使用type="date|time"代替</p>
 
           <h2 className="subhead">Example</h2>
-          <Datetime ref="d-def" onChange={this.handleChange.bind(this, 'def')} value="2015-06-21 17:24:03" />
-          <div ref="p-def"></div>
-          <pre className="prettyprint">{`<Datetime value="2015-06-21 17:24:03" />`}</pre>
+          <Example>
+<Datetime
+  onChange={(value) => this.setState({ normal: value })}
+  value="2015-06-21 17:24:03" />
+<span>{this.state.normal}</span>
+          </Example>
 
           <h2 className="subhead">date</h2>
-          <Datetime ref="d-dateOnly" onChange={this.handleChange.bind(this, 'dateOnly')} type="date" />
-          <div ref="p-dateOnly"></div>
-          <pre className="prettyprint">{`<Datetime type="date" />`}</pre>
+          <Example>
+<Datetime type="date"
+  onChange={(value) => this.setState({ dateValue: value })} />
+<span>{this.state.dateValue}</span>
+          </Example>
 
-          <h2 className="subhead">timeOnly</h2>
-          <Datetime ref="d-timeOnly" onChange={this.handleChange.bind(this, 'timeOnly')} type="time" />
-          <div ref="p-timeOnly"></div>
-          <pre className="prettyprint">{`<Datetime type="time" />`}</pre>
+          <h2 className="subhead">time</h2>
+          <Example>
+<Datetime type="time"
+  onChange={(value) => this.setState({ timeValue: value })} />
+<span>{this.state.timeValue}</span>
+          </Example>
 
           <h2 className="subhead">min & max</h2>
-          <Datetime min="2016-01-12" max="2016-02-14 14:23:00" />
-          <pre className="prettyprint">{`<Datetime min="2016-01-12" max="2016-02-14 14:23:00" />`}</pre>
-          <Datetime min="2016-01-10" onChange={(value) => this.setState({ min: value })} type="date" max={this.state.max} /> - <Datetime  onChange={(value) => this.setState({ max: value })} type="date" min={this.state.min} />
-          <pre className="prettyprint">{`<Datetime min="2016-01-10" onChange={(value) => this.setState({ min: value })} type="date" max={this.state.max} /> - <Datetime  onChange={(value) => this.setState({ max: value })} type="date" min={this.state.min} />`}</pre>
+          <Example>
+<Datetime min="2016-01-12" max="2016-02-14 14:23:00" />
+          </Example>
+
+          <Example>
+<Datetime min="2016-01-10"
+  onChange={(value) => this.setState({ min: value })}
+  type="date"
+  max={this.state.max} />
+-
+<Datetime onChange={(value) => this.setState({ max: value })}
+  type="date"
+  min={this.state.min} />
+          </Example>
 
           <h2 className="subhead">format</h2>
-          <Datetime ref="d-format" format="yyyy/MM/dd hh:mm" onChange={this.handleChange.bind(this, 'format')} value="2015-06-21 17:24" />
-          <div ref="p-format"></div>
-          <pre className="prettyprint">{`<Datetime format="yyyy/MM/dd hh:mm" value="2015-06-21 17:24" />`}</pre>
+          <Example>
+<Datetime format="yyyy/MM/dd hh:mm"
+  onChange={(value) => this.setState({ formatValue: value })}
+  value="2015-06-21 17:24" />
+<span>{this.state.formatValue}</span>
+          </Example>
 
           <h2 className="subhead">readOnly</h2>
-          <Datetime readOnly={true} value="2015-06-21 17:24:03" />
-          <pre className="prettyprint">{`<Datetime readOnly={true} value="2015-06-21 17:24:03" />`}</pre>
+          <Example>
+<Datetime readOnly={true} value="2015-06-21 17:24:03" />
+          </Example>
 
           <h2 className="subhead">unixtime</h2>
-          <Datetime ref="d-unixtime" onChange={this.handleChange.bind(this, 'unixtime')} unixtime={true} />
-          <div ref="p-unixtime"></div>
-          <pre className="prettyprint">{`<Datetime unixtime={true} />`}</pre>
+          <Example>
+<Datetime unixtime={true}
+  onChange={(value) => this.setState({ unixtimeValue: value })} />
+<span>{this.state.unixtimeValue}</span>
+          </Example>
         </div>
       </div>
     );
   }
 }
-
-module.exports = prettify(Page);

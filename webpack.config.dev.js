@@ -29,6 +29,9 @@ module.exports = {
       { test: /\.(ttf|eot|woff|woff2|otf|svg)/, loader: 'file-loader?name=./font/[name].[ext]' },
       { test: /\.json$/, loader: 'file-loader?name=./json/[name].json' },
       { test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=10000&name=./images/[name].[ext]' }
+    ],
+    preLoaders: [
+      { test: /\.jsx?$/, loader: 'rctui-example-loader', include: [path.resolve(__dirname, 'docs')] }
     ]
   }
 };

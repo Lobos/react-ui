@@ -50,6 +50,7 @@ v0.6.0
  - dataSource 改为higher order component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
  - clickaway 改为 Mixins，增加registerClickAway
  - datetime 加入today, min, max, 移除 dateOnly, timeOnly, 使用 type 代替
+ - 文档重构，增加rctui-example-loader把Example转为Code，避免文档和示例不同步造成误导
 
 v0.5.2
  - babel 5 => 6，移除es7的语法

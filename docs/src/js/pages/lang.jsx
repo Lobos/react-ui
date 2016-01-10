@@ -1,10 +1,10 @@
 "use strict";
 
-import React from 'react';
-import prettify from '../prettify';
+import { Component } from 'react';
+import Code from '../Code';
 const {Lang: {getLang}} = global.uiRequire();
 
-class Page extends React.Component {
+module.exports = class extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -39,11 +39,9 @@ class Page extends React.Component {
           </div>
 
           <h2 className="subhead">当前信息</h2>
-          <pre className="prettyprint">{JSON.stringify(getLang(), null, 4)}</pre>
+          <Code>{JSON.stringify(getLang(), null, 4)}</Code>
         </div>
       </div>
     );
   }
 }
-
-module.exports = prettify(Page);

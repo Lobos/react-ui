@@ -16,8 +16,13 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', function(req, res) {
+app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'docs/src/index.html'));
+});
+
+app.get('/raw/*', function(req, res) {
+  var file = req.path.replace('/raw', path.join(__dirname, 'docs/src/js/pages'));
+  res.sendFile(file);
 });
 
 app.listen(3000, 'localhost', function(err) {

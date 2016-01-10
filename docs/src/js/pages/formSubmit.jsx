@@ -1,9 +1,9 @@
 'use strict';
 
 import React from 'react';
-import prettify from '../prettify';
+import Code from '../Code';
 
-class Page extends React.Component {
+module.exports = class extends React.Component {
   render () {
     return (
       <div>
@@ -14,15 +14,15 @@ class Page extends React.Component {
 
         <div className="content">
           <p><a href="#/button">Button</a> 的一个马甲，封装了一层响应 <a href="#/form">Form</a> 状态</p>
-          <pre className="prettyprint">{`<FormSubmit>{children}</FormSubmit>`}</pre>
+          <Code>{`<FormSubmit>{children}</FormSubmit>`}</Code>
           <p>如果children为两个元素，只会显示第一个元素内容，当按钮锁定时，显示第二个元素内容。</p>
-          <pre className="prettyprint">
+          <Code>
 {`<FormSubmit>
   <span>提交</span>
   <span>处理中...</span>
 </FormSubmit>
 `}
-          </pre>
+          </Code>
 
           <p>示例参见 <a href="#/form">Form</a></p>
         </div>
@@ -30,5 +30,3 @@ class Page extends React.Component {
     );
   }
 }
-
-module.exports = prettify(Page);

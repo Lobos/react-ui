@@ -79,10 +79,9 @@ class Modal extends Component {
       }
 
       if (options.buttons) {
-        let lastButton = Object.keys(options.buttons).length - 1;
         buttons = Object.keys(options.buttons).map((btn, j) => {
           let func = options.buttons[btn],
-              status = j === lastButton ? 'primary' : '',
+              status = j === 0 ? 'primary' : '',
               handle = () => {
                 if (func === true) {
                   this.close();
@@ -159,11 +158,11 @@ Modal.alert = function (content) {
 
 Modal.confirm = function (content, onOk) {
   let buttons = {};
-  buttons[getLang('buttons.cancel')] = true;
   buttons[getLang('buttons.ok')] = () => {
     onOk();
     return true;
   };
+  buttons[getLang('buttons.cancel')] = true;
 
   Modal.open({
     clickaway: false,

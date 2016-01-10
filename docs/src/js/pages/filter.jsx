@@ -1,10 +1,11 @@
 'use strict';
 
 import React from 'react';
-import prettify from '../prettify';
+import Code from '../Code';
+import Example from '../Example';
 const { Filter, dataSource } = global.uiRequire();
 
-class Page extends React.Component {
+module.exports = class extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -49,7 +50,7 @@ class Page extends React.Component {
         </div>
 
         <div className="content">
-          <pre className="prettyprint">
+          <Code>
 {`<Filter
   options={array} // 选项数据
   local={bool}    // 本地数据过滤，默认值为 false
@@ -65,7 +66,7 @@ options = {
   props: object    // type 为 Component 的参数
   'op': function   // 如果ops包含自定义方法，需要在前端做筛选，在此实现
 }`}
-          </pre>
+          </Code>
 
           <h2 className="subhead">local</h2>
           <div>
@@ -79,9 +80,13 @@ options = {
           </div>
 
           <h2 className="subhead">Example</h2>
-          <Filter local={true} onFilter={fs => this.setState({ filterText: JSON.stringify(fs) })} options={options} />
-          <div>{this.state.filterText}</div>
-          <pre className="prettyprint">
+          <Example>
+<Filter local={true}
+  onFilter={fs => this.setState({ filterText: JSON.stringify(fs) })}
+  options={options} />
+<div>{this.state.filterText}</div>
+          </Example>
+          <Code>
 {`let options = [{
   label: '姓名',
   name: 'name',
@@ -108,14 +113,10 @@ options = {
   ops: ['='],
   type: 'select',
   props: { data: dataSource('json/countries.json'), optionTpl: '{country}', valueTpl: '{en}' }
-}]
-<Filter onFilter={fs => this.setState({ filterText: JSON.stringify(fs) })} options={options} />
-`}
-          </pre>
+}];`}
+          </Code>
         </div>
       </div>
     );
   }
 }
-
-module.exports = prettify(Page);

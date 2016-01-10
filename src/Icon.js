@@ -12,12 +12,8 @@ class Icon extends Component {
     };
   }
 
-  spin () {
-    this.setState({ spin: true });
-  }
-
-  unspin () {
-    this.setState({ spin: false });
+  componentWillReceiveProps (nextProps) {
+    this.setState({ spin: nextProps.spin });
   }
 
   render () {

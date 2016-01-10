@@ -1,9 +1,9 @@
 'use strict';
 
 import React from 'react';
-import prettify from '../prettify';
+import Code from '../Code';
 
-class Page extends React.Component {
+module.exports = class extends React.Component {
   render () {
     return (
       <div>
@@ -17,7 +17,7 @@ class Page extends React.Component {
           <p>Select, Tree 等控件需要从服务器远程获取数据的接口。</p>
           <p>接口返回一个方法，<em>then</em>成功回调，<em>catch</em>失败回调，<em>complete</em>成功与失败都会调用</p>
           <p>ReactUI内部提供了一个dataSource，使用Qwest实现的，可以用其他的Ajax框架自行实现。</p>
-          <pre className="prettyprint">
+          <Code>
 {`function (src, data, options) {
   let stacks = {
         'then': [],
@@ -48,11 +48,9 @@ class Page extends React.Component {
 
   return qwest
 }`}
-          </pre>
+          </Code>
         </div>
       </div>
     );
   }
 }
-
-module.exports = prettify(Page);

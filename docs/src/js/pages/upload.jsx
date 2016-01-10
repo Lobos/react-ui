@@ -1,10 +1,11 @@
 'use strict';
 
-import React from 'react';
-import prettify from '../prettify';
+import { Component } from 'react';
+import Code from '../Code';
+import Example from '../Example';
 const {Button, Icon, Upload} = global.uiRequire();
 
-class Page extends React.Component {
+module.exports = class extends Component {
   render () {
     return (
       <div>
@@ -14,7 +15,7 @@ class Page extends React.Component {
         </div>
 
         <div className="content">
-          <pre className="prettyprint">
+          <Code>
 {`<Upload
   accept={string}         // input accept
   action={string}         // 服务端地址，必填
@@ -30,27 +31,20 @@ class Page extends React.Component {
   grid={[width, responsive]} // 宽度，详见Grid
   withCredentials={bool}  // xhr2 withCredentials
 />`}
-          </pre>
+          </Code>
 
           <h2 className="subhead">Example</h2>
-          <div>
-            <Upload ref="upload" autoUpload={true} width={12} name="test" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3} content={<Button><Icon icon="upload" /> 选择文件</Button>} />
-          </div>
-          <pre className="prettyprint">
-{`<Upload
-  autoUpload={true}
-  width={12}
+          <Example>
+<Upload autoUpload={true}
+  grid={1/2}
   name="test"
   action="http://216.189.159.94:8080/upload"
   accept="image/*"
   limit={3}
-  content={<Button><Icon icon="upload" /> 选择文件</Button>}
-/>`}
-          </pre>
+  content={<Button><Icon icon="upload" /> 选择文件</Button>} />
+          </Example>
         </div>
       </div>
     );
   }
 }
-
-module.exports = prettify(Page);

@@ -1,11 +1,12 @@
 "use strict";
 
-import React from 'react';
-import prettify from '../prettify';
+import { Component } from 'react';
+import Code from '../Code';
+import Example from '../Example';
 const {RadioGroup} = global.uiRequire();
 const textValue = require('../data/text-value');
 
-class Page extends React.Component {
+module.exports = class extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -23,7 +24,7 @@ class Page extends React.Component {
 
         <div className="content">
 
-          <pre className="prettyprint">
+          <Code>
 {`<RadioGroup
   className={string}  // class
   data={array}   // 数据，array 或者 dataSource
@@ -34,24 +35,23 @@ class Page extends React.Component {
   valueTpl="string"   // 返回数据模板，默认为 "{id}"
   value={any}
 />`}
-          </pre>
+          </Code>
           <div><a href="#/dataSource">dataSource 参见这里</a></div>
 
           <h2 className="subhead">数据结构</h2>
           <div>标准结构为 <em>text</em>, <em>value</em> key组成的数组</div>
-          <pre className="prettyprint">{'[{"text":"北京","id":"beijing"},{"text":"上海", "id":"shanghai"}]'}</pre>
+          <Code>{'[{"text":"北京","id":"beijing"},{"text":"上海", "id":"shanghai"}]'}</Code>
           <div>可以使用自定义数组，指定 <em>textTpl</em>, <em>valueTpl</em></div>
-          <pre className="prettyprint">{'[{"cn":"北京","en":"beijing"},{"cn":"上海", "en":"shanghai"}]'}</pre>
+          <Code>{'[{"cn":"北京","en":"beijing"},{"cn":"上海", "en":"shanghai"}]'}</Code>
           <div>可以使用一维数组，这种情况下，显示文字与值相同</div>
-          <pre className="prettyprint">{'["北京","上海","广州"]'}</pre>
+          <Code>{'["北京","上海","广州"]'}</Code>
 
           <h2 className="subhead">Object Data</h2>
-          <div>
-            <RadioGroup inline={true} data={textValue} />
-          </div>
-          <pre className="prettyprint">{'<RadioGroup inline={true} data={data} />'}</pre>
-          <pre className="prettyprint">
-{`data = [
+          <Example>
+<RadioGroup inline={true} data={textValue} />
+          </Example>
+          <Code>
+{`textValue = [
   { "id": "nanjing", "text": "南京" },
   { "id": "beijing", "text": "北京" },
   { "id": "guangzhou", "text": "广州" },
@@ -60,29 +60,31 @@ class Page extends React.Component {
   { "id": "chongqing", "text": "重庆" },
   { "id": "shanghai", "text": "上海" }
 ]`}
-          </pre>
+          </Code>
 
           <h2 className="subhead">Array Data</h2>
-          <div>
-            <RadioGroup inline={true} value="北京" data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
-          </div>
-          <pre className="prettyprint">{'<RadioGroup inline={true} value="北京" data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'}</pre>
+          <Example>
+<RadioGroup inline={true}
+  value="北京"
+  data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
+          </Example>
 
           <h2 className="subhead">Readonly</h2>
-          <div>
-            <RadioGroup readOnly={true} inline={true} value={"北京"} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
-          </div>
-          <pre className="prettyprint">{'<RadioGroup readOnly={true} inline={true} value={"北京"} data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />'}</pre>
+          <Example>
+<RadioGroup readOnly={true}
+  inline={true}
+  value="北京"
+  data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
+          </Example>
 
           <h2 className="subhead">Remote Data</h2>
-          <div>
-            <RadioGroup inline={true} stringify={true} value="chengdu" fetch={{url:"json/text-value.json", cache: 3600 }} />
-          </div>
-          <pre className="prettyprint">{'<RadioGroup inline={true} stringify={true} value="chengdu" fetch={{url:"json/text-value.json", cache: 3600 }} />'}</pre>
+          <Example>
+<RadioGroup inline={true}
+  value="chengdu"
+  fetch={{url:"json/text-value.json", cache: 3600 }} />
+          </Example>
         </div>
       </div>
     );
   }
 }
-
-module.exports = prettify(Page);

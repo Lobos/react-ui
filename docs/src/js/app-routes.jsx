@@ -26,7 +26,6 @@ const AppRoutes = (
     <Route path="/" indexRoute={{component: Home}} component={Master}>
       <Route path="/home" component={Home} />
       {menulist}
-      <Route path="/build" component={require('./pages/build.jsx')} />
     </Route>
   </Router>
 );

@@ -1,10 +1,11 @@
 'use strict';
 
-import React from 'react';
-import prettify from '../prettify';
+import { Component } from 'react';
+import Code from '../Code';
+import Example from '../Example';
 const {Table, Filter, Modal, Pagination, Checkbox, RadioGroup, Refetch} = global.uiRequire();
 
-class Page extends React.Component {
+module.exports = class extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -34,45 +35,6 @@ class Page extends React.Component {
   }
 
   render () {
-    let pagination = <Pagination size={10} total={this.state.total} />;
-
-    let nameTpl = (d) => {
-      return <a onClick={() => { Modal.alert(`点击了:${d.name}`); }}>{d.name}</a>;
-    };
-    let removeTpl = (d) => {
-      return <a onClick={() => { Modal.confirm(`确定要删除${d.name}吗`, () => {}); }}>删除</a>;
-    };
-
-    let filterOptions = [{
-      label: '姓名',
-      name: 'name',
-      ops: ['like', '=', 'startWidth'],
-      startWidth: function (d, value) {
-        return d.name.indexOf(value) === 0;
-      }
-    }, {
-      label: '地区',
-      name: 'office',
-      ops: ['='],
-      type: 'select',
-      props: { data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
-    }, {
-      label: '地区2',
-      name: 'office',
-      ops: ['in', 'not in'],
-      type: 'select',
-      props: { mult: true, data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
-    }];
-
-    const headers = [
-      { name: 'name', sortAble: true, content: nameTpl, header: 'Name' },
-      { name: 'position', hidden: true },
-      { name: 'office', sortAble: true, header: 'Office' },
-      { name: 'start_date', sortAble: true, content: '{start_date}', header: 'Start Date' },
-      { name: 'salary', content: '{salary}', header: 'Salary' },
-      { name: 'tools', width: 60, content: removeTpl }
-    ];
-
     return (
       <div>
         <div className="header">
@@ -81,7 +43,7 @@ class Page extends React.Component {
         </div>
 
         <div className="content">
-          <pre className="prettyprint">
+          <Code>
 {`<Table
   bordered={bool}          // 是否显示边框，默认值 false
   selectAble={bool}        // 是否显示选择，默认值 false
@@ -103,7 +65,7 @@ headers = [{
   header:{string|element} // 表头内容，string或者ReactElement
 }]
 `}
-          </pre>
+          </Code>
           <p><a href="#/dataSource">dataSource 参见这里</a></p>
 
           <h2 className="subhead">pagination</h2>
@@ -152,73 +114,31 @@ headers = [{
             </div>
           }
           <div style={{marginTop: 10}}>
-            <Filter onFilter={filters => this.setState({ filters })} style={{marginBottom: 20}} local={true} options={filterOptions} />
-            <Table ref="table"
-              bordered={this.state.bordered}
-              filters={this.state.filters}
-              selectAble={this.state.selectAble}
-              striped={this.state.striped}
-              width={this.state.width}
-              height={this.state.height}
-              fetch={this.state.fetch}
-              headers={headers}
-              pagination={this.state.pagination ? pagination : null} />
-          </div>
-          <pre className="prettyprint">
-{`// 获取数据，可以用refetch做一些预处理
-let fetch = Refetch.get('json/table.json', null, {catch: 3600});
-fetch.then(res => {
-  this.setState({ total: res.length });
-  return res;
-});
-// 如果不需要预处理，可以直接使用config
-fecth = {url: 'json/table.json'};
 
-// 分页
-let pagination = <Pagination size={10} total={this.state.total} />
-
-// 定义筛选选项
-let filterOptions = [{
-  label: '姓名',
-  name: 'name',
-  ops: ['like', '=', 'startWidth'],
-  startWidth: function (d, value) {
-    return d.name.indexOf(value) === 0
-  }
-}, {
-  label: '地区',
-  name: 'office',
-  ops: ['='],
-  type: 'select',
-  props: { data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
-}, {
-  label: '地区2',
-  name: 'office',
-  ops: ['in', 'not in'],
-  type: 'select',
-  props: { mult: true, data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
-}]
-
-<Filter onFilter={filters => this.setState({ filters })} style={{marginBottom: 20}} local={true} options={filterOptions} />
-
-// 复杂的模版，可以用function定义
-let nameTpl = (d) => {
-  return <a onClick={() => { Modal.alert('点击了:' + d.name) }}>{d.name}</a>
-}
-let removeTpl = (d) => {
-  return <a onClick={() => { Modal.confirm('确定要删除' + d.name + '吗', () => {}) }}>删除</a>
-}
-
-// 表头
-const headers = [
-  { name: 'name', sortAble: true, content: nameTpl, header: 'Name' },
-  { name: 'position', hidden: true },
-  { name: 'office', sortAble: true, header: 'Office' },
-  { name: 'start_date', sortAble: true, content: '{start_date}', header: 'Start Date' },
-  { name: 'salary', content: '{salary}', header: 'Salary' },
-  { name: 'tools', width: 60, content: removeTpl }
-]
-
+            <Example>
+<Filter onFilter={(filters) => this.setState({ filters })}
+  style={{marginBottom: 20}}
+  local={true}
+  options={[{
+    label: '姓名',
+    name: 'name',
+    ops: ['like', '=', 'startWidth'],
+    startWidth: function (d, value) {
+      return d.name.indexOf(value) === 0;
+    }
+  }, {
+    label: '地区',
+    name: 'office',
+    ops: ['='],
+    type: 'select',
+    props: { data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
+  }, {
+    label: '地区2',
+    name: 'office',
+    ops: ['in', 'not in'],
+    type: 'select',
+    props: { mult: true, data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
+  }]} />
 <Table ref="table"
   bordered={this.state.bordered}
   filters={this.state.filters}
@@ -227,15 +147,36 @@ const headers = [
   width={this.state.width}
   height={this.state.height}
   fetch={this.state.fetch}
-  headers={headers}
-  pagination={this.state.pagination ? pagination : null}
-/>
-`}
-          </pre>
+  headers={[
+    { name: 'name', sortAble: true, header: 'Name',
+      content: (d) => {
+        return <a onClick={() => { Modal.alert('点击了:' + d.name); }}>{d.name}</a>;
+      }
+    },
+    { name: 'position', hidden: true },
+    { name: 'office', sortAble: true, header: 'Office' },
+    { name: 'start_date', sortAble: true, content: '{start_date}', header: 'Start Date' },
+    { name: 'salary', content: '{salary}', header: 'Salary' },
+    { name: 'tools', width: 60,
+      content: (d) => {
+        return <a onClick={() => { Modal.confirm('确定要删除' + d.name + '吗', () => {}); }}>删除</a>;
+      }
+    }
+  ]}
+  pagination={this.state.pagination ? <Pagination size={10} total={this.state.total} /> : null} />
+            </Example>
+            <Code>
+{`// set fetch
+let fetch = Refetch.get('json/table.json', null, {catch: 3600});
+fetch.then(res => {
+  this.setState({ total: res.length });
+  return res;
+});
+this.setState({ fetch });`}
+            </Code>
+          </div>
         </div>
       </div>
     );
   }
 }
-
-module.exports = prettify(Page);
