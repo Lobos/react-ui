@@ -3,6 +3,8 @@
 import { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { substitute } from './utils/strings';
+import isEqual from './utils/isEqual';
+import { dataSource } from './higherOrders/dataSource';
 import TableHeader from './TableHeader';
 
 import { requireCss } from './themes';
@@ -12,16 +14,11 @@ class Table extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      index: this.props.pagination ? this.props.pagination.props.index : 1,
-      data: [],
+      index: props.pagination ? props.pagination.props.index : 1,
+      data: props.data,
       sort: {},
       total: null
     };
-    this.unmounted = false;
-  }
-
-  componentWillMount () {
-    this.fetchData(this.props.data);
   }
 
   componentDidMount () {
@@ -29,17 +26,13 @@ class Table extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.data !== this.props.data) {
-      this.fetchData(nextProps.data);
+    if (!isEqual(nextProps.data, this.props.data)) {
+      this.setState({ data: nextProps.data });
     }
   }
 
   componentDidUpdate () {
     this.setHeaderWidth();
-  }
-
-  componentWillUnmount () {
-    this.unmounted = true;
   }
   
   setHeaderWidth () {
@@ -55,18 +48,6 @@ class Table extends Component {
     for (let i = 0, count = tds.length; i < count; i++) {
       if (ths[i]) {
         ths[i].style.width = tds[i].offsetWidth + 'px';
-      }
-    }
-  }
-
-  fetchData (data) {
-    if (typeof data === 'function') {
-      data.then((res) => {
-        this.fetchData(res);
-      })();
-    } else {
-      if (!this.unmounted) {
-        this.setState({ data });
       }
     }
   }
@@ -303,10 +284,7 @@ Table.propTypes = {
   bordered: PropTypes.bool,
   children: PropTypes.array,
   className: PropTypes.string,
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]).isRequired,
+  data: PropTypes.array,
   filters: PropTypes.array,
   headers: PropTypes.array,
   height: PropTypes.oneOfType([
@@ -323,5 +301,11 @@ Table.propTypes = {
     PropTypes.string
   ])
 };
+
+Table.defaultProps = {
+  data: []
+}
+
+Table = dataSource(Table);
 
 module.exports = Table;

@@ -3,7 +3,7 @@
 import React from 'react';
 import prettify from '../prettify';
 import textValue from '../data/text-value';
-const {CheckboxGroup, dataSource } = global.uiRequire();
+const {CheckboxGroup} = global.uiRequire();
 
 class Page extends React.Component {
   render () {
@@ -71,15 +71,15 @@ class Page extends React.Component {
 
           <h2 className="subhead">Remote Data</h2>
           <div>
-            <CheckboxGroup ref="remote" onChange={()=>console.log(this.refs.remote.getValue())} inline={true} value="shanghai,chengdu" data={ dataSource("json/text-value.json", null, { cache: true }) } />
+            <CheckboxGroup ref="remote" onChange={()=>console.log(this.refs.remote.getValue())} inline={true} value="shanghai,chengdu" fetch={{url: "json/text-value.json", cache: 3600}} />
           </div>
-          <pre className="prettyprint">{'<CheckboxGroup inline={true} value="shanghai,chengdu" data={dataSource("json/text-value.json")} />'}</pre>
+          <pre className="prettyprint">{'<CheckboxGroup inline={true} value="shanghai,chengdu" fetch={{url: "json/text-value.json", cache: 3600}} />'}</pre>
 
           <h2 className="subhead">Data Sep</h2>
           <div>
-            <CheckboxGroup ref="sep" onChange={()=>console.log(this.refs.sep.getValue())} inline={true} sep="|" value="shanghai|chengdu" data={ dataSource("json/text-value.json", null, { cache: true }) } />
+            <CheckboxGroup ref="sep" onChange={()=>console.log(this.refs.sep.getValue())} inline={true} sep="|" value="shanghai|chengdu" fetch={{url: "json/text-value.json", cache: 3600}} />
           </div>
-          <pre className="prettyprint">{'<CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" data={dataSource("json/text-value.json")} />'}</pre>
+          <pre className="prettyprint">{'<CheckboxGroup inline={true} sep="|" value="shanghai|chengdu" fetch={{url: "json/text-value.json", cache: 3600}} />'}</pre>
         </div>
 
 

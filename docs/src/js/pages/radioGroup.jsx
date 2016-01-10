@@ -2,7 +2,7 @@
 
 import React from 'react';
 import prettify from '../prettify';
-const {RadioGroup, dataSource} = global.uiRequire();
+const {RadioGroup} = global.uiRequire();
 const textValue = require('../data/text-value');
 
 class Page extends React.Component {
@@ -26,7 +26,7 @@ class Page extends React.Component {
           <pre className="prettyprint">
 {`<RadioGroup
   className={string}  // class
-  data={array|func}   // 数据，array 或者 dataSource
+  data={array}   // 数据，array 或者 dataSource
   inline={bool}       // 为 true 时，各选项横向排列。默认为 false
   onChange={function} // 当选项改变时回调方法，参数为 value
   readOnly={bool}     // 为 true 时，只读。默认为 false
@@ -76,9 +76,9 @@ class Page extends React.Component {
 
           <h2 className="subhead">Remote Data</h2>
           <div>
-            <RadioGroup inline={true} stringify={true} value="chengdu" data={ dataSource("json/text-value.json", null, { cache: true }) } />
+            <RadioGroup inline={true} stringify={true} value="chengdu" fetch={{url:"json/text-value.json", cache: 3600 }} />
           </div>
-          <pre className="prettyprint">{'<RadioGroup inline={true} stringify={true} value="chengdu" data={ dataSource("json/text-value.json") } />'}</pre>
+          <pre className="prettyprint">{'<RadioGroup inline={true} stringify={true} value="chengdu" fetch={{url:"json/text-value.json", cache: 3600 }} />'}</pre>
         </div>
       </div>
     );

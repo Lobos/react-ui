@@ -4,10 +4,10 @@ import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toArray, substitute } from './utils/strings';
 import { getOuterHeight, overView, withoutTransition } from './utils/dom';
-import clone from './utils/clone';
 import isEqual from './utils/isEqual';
 import ClickAway from './mixins/ClickAway';
 import { getGrid } from './utils/grids';
+import { dataSource } from './higherOrders/dataSource';
 
 import { requireCss } from './themes';
 requireCss('select');
@@ -16,7 +16,6 @@ requireCss('form-control');
 class Select extends ClickAway(Component) {
   constructor (props) {
     super(props);
-    this.unmounted = false;
 
     let values = toArray(this.props.value, this.props.sep);
     let data = this.formatData(this.props.data, values);
@@ -38,7 +37,6 @@ class Select extends ClickAway(Component) {
   }
 
   componentWillUnmount () {
-    this.unmounted = true;
     super.componentWillUnmount();
   }
 
@@ -99,7 +97,6 @@ class Select extends ClickAway(Component) {
   setValue (value) {
     value = toArray(value, this.props.sep);
     if (this.state) {
-      //let data = clone(this.state.data).map(d => {
       let data = this.state.data.map((d) => {
         d.$checked = value.indexOf(d.$value) >= 0;
         return d;
@@ -111,17 +108,7 @@ class Select extends ClickAway(Component) {
   }
 
   formatData (data, value = this.state.value) {
-    if (typeof data === 'function') {
-      data.then((res) => {
-        if (!this.unmounted) {
-          this.setState({ data: this.formatData(res) });
-        }
-      })();
-      return [];
-    }
-
-    // don't use data, clone
-    data = clone(data).map((d) => {
+    data = data.map((d) => {
       if (typeof d !== 'object') {
         return {
           $option: d,
@@ -280,10 +267,7 @@ class Select extends ClickAway(Component) {
 
 Select.propTypes = {
   className: PropTypes.string,
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]).isRequired,
+  data: PropTypes.array,
   filterAble: PropTypes.bool,
   grid: PropTypes.object,
   groupBy: PropTypes.string,
@@ -304,9 +288,12 @@ Select.propTypes = {
 Select.defaultProps = {
   dropup: false,
   sep: ',',
+  data: [],
   optionTpl: '{text}',
   valueTpl: '{id}'
 };
+
+Select = dataSource(Select);
 
 import FormControl from './FormControl';
 FormControl.register(

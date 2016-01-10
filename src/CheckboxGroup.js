@@ -4,7 +4,9 @@ import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import Checkbox from './Checkbox';
 import { toArray } from './utils/strings';
+import isEqual from './utils/isEqual';
 import { toTextValue } from './utils/objects';
+import { dataSource } from './higherOrders/dataSource';
 
 class CheckboxGroup extends Component {
   constructor (props) {
@@ -19,7 +21,7 @@ class CheckboxGroup extends Component {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
     }
-    if (nextProps.data !== this.props.data) {
+    if (!isEqual(nextProps.data, this.props.data)) {
       this.setState({ data: this.formatData(nextProps.data) });
     }
   }
@@ -44,14 +46,7 @@ class CheckboxGroup extends Component {
   }
 
   formatData (data) {
-    if (typeof data === 'function') {
-      data.then((res) => {
-        this.setState({ data: this.formatData(res) });
-      })();
-      return [];
-    } else {
-      return toTextValue(data, this.props.textTpl, this.props.valueTpl);
-    }
+    return toTextValue(data, this.props.textTpl, this.props.valueTpl);
   }
 
   handleChange (checked, value) {
@@ -107,10 +102,7 @@ class CheckboxGroup extends Component {
 
 CheckboxGroup.propTypes = {
   className: PropTypes.string,
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]).isRequired,
+  data: PropTypes.array,
   inline: PropTypes.bool,
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
@@ -122,10 +114,13 @@ CheckboxGroup.propTypes = {
 };
  
 CheckboxGroup.defaultProps = {
+  data: [],
   sep: ',',
   textTpl: '{text}',
   valueTpl: '{id}'
 };
+
+CheckboxGroup = dataSource(CheckboxGroup);
 
 import FormControl from './FormControl';
 FormControl.register(

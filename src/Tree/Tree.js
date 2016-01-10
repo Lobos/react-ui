@@ -6,11 +6,15 @@
 
 import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import { toArray, substitute } from './utils/strings';
-import { forEach, isEmpty } from './utils/objects';
+import { toArray, substitute } from '../utils/strings';
+import { forEach } from '../utils/objects';
+import isEqual from '../utils/isEqual';
+import { dataSource } from '../higherOrders/dataSource';
 
-import { requireCss } from './themes';
+import { requireCss } from '../themes';
 requireCss('tree');
+
+import Item from './Item';
 
 class Tree extends Component {
   constructor (props) {
@@ -20,8 +24,6 @@ class Tree extends Component {
       data: [],
       value: this.formatValue(this.props.value)
     };
-
-    this.unmounted = false;
   }
   
   componentWillMount () {
@@ -32,7 +34,7 @@ class Tree extends Component {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
     }
-    if (nextProps.data !== this.props.data) {
+    if (!isEqual(nextProps.data, this.props.data)) {
       this.formatData(nextProps.data);
     }
   }
@@ -42,10 +44,6 @@ class Tree extends Component {
     if (nextState.value !== this.state.value) {
       this.initValue(nextState.value);
     }
-  }
-
-  componentWillUnmount () {
-    this.unmounted = true;
   }
 
   formatValue (value) {
@@ -79,12 +77,6 @@ class Tree extends Component {
   }
 
   formatData (data) {
-    if (typeof data === 'function') {
-      data.then((res) => {
-        this.formatData(res);
-      })();
-      return [];
-    }
     let tt = this.props.textTpl;
     let vt = this.props.valueTpl;
     let setTpl = function (arr) {
@@ -142,9 +134,7 @@ class Tree extends Component {
     for (let i = 0, count = data.length; i < count; i++) {
       getStatus(data[i], i === (count - 1));
     }
-    if (!this.unmounted) {
-      this.setState({ data });
-    }
+    this.setState({ data });
   }
 
   isInitialed () {
@@ -163,9 +153,11 @@ class Tree extends Component {
 
   handleChange () {
     if (this.props.onChange) {
-      //setTimeout(() => {
-        this.props.onChange(this.getValue());
-      //})
+      setTimeout(() => {
+        let value = this.getValue();
+        //this.setValue(value);
+        this.props.onChange(value);
+      });
     }
   }
 
@@ -208,10 +200,7 @@ class Tree extends Component {
 
 Tree.propTypes = {
   className: PropTypes.string,
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]).isRequired,
+  data: PropTypes.array,
   greedy: PropTypes.bool,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
@@ -227,185 +216,14 @@ Tree.propTypes = {
 
 Tree.defaultProps = {
   sep: ',',
+  data: [],
   textTpl: '{text}',
   valueTpl: '{id}'
 };
 
-class Item extends Component {
-  constructor (props) {
-    super(props);
+Tree = dataSource(Tree);
 
-    this.state = {
-      open: this.props.open,
-      status: this.props.data.$status || 0
-    };
-  }
-  
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setState({status: this.props.data.$status});
-    }
-  }
-
-  toggle () {
-    let open = !this.state.open;
-    this.setState({open});
-  }
-
-  toggleAll (open) {
-    this.setState({open});
-    forEach(this.refs, function (ref) {
-      ref.toggleAll(open);
-    });
-  }
-
-  check () {
-    if (this.props.readOnly) {
-      return;
-    }
-
-    let status = this.state.status;
-    status = status < 2 ? 2 : 0;
-    this.setStatus(status);
-
-    // setTimeout wait state changed
-    setTimeout(function () {
-      this.props.onStatusChange();
-    }.bind(this), 0);
-  }
-
-  setStatus (status) {
-    this.setState({ status });
-
-    forEach(this.refs, function (ref) {
-      ref.setStatus(status);
-    });
-  }
-
-  getStatus () {
-    return this.state.status;
-  }
-
-  onClick (data) {
-    // check if event
-    data = data.hasOwnProperty('_dispatchListeners') ? this.props.data : data;
-    if (this.props.onClick) {
-      this.props.onClick(data);
-    }
-  }
-
-  updateStatus () {
-    let status;
-    for (let k in this.refs) {
-      if (this.refs.hasOwnProperty(k)) {
-        let s = this.refs[k].getStatus();
-        if (status === undefined) {
-          status = s;
-          if (status === 1) {
-            break;
-          }
-        } else if (s === 1 || s !== status) {
-          status = 1;
-          break;
-        }
-      }
-    }
-    this.setState({ status });
-    this.props.onStatusChange();
-  }
-
-  getChecked (list, greedy) {
-    let checked = greedy ? 1 : 2;
-    if (this.state.status >= checked) {
-      list.push(this.props.data);
-    }
-    forEach(this.refs, function (ref) {
-      ref.getChecked(list, greedy);
-    });
-  }
-
-  render () {
-    let children,
-        handle,
-        check,
-        checkClass,
-        type,
-        marks = [];
-
-    let { data, selectAble, readOnly, open, value } = this.props;
-
-    if (data.children) {
-      let items = data.children.map(function (item, i) {
-        return (
-          <Item ref={i}
-            key={i}
-            open={open}
-            readOnly={readOnly}
-            value={value}
-            selectAble={selectAble}
-            data={item}
-            onClick={this.onClick.bind(this)}
-            onStatusChange={this.updateStatus.bind(this)}
-          />
-        );
-      }, this);
-
-      children = <ul className={classnames({open: this.state.open})}>{items}</ul>;
-      type = this.state.open ? 'folder-open' : 'folder';
-      handle = (
-        <a onClick={this.toggle.bind(this)} className="handle">
-          <i className={'tree-icon ' + (this.state.open ? 'minus' : 'plus')} />
-        </a>
-      );
-    } else {
-      type = 'file';
-    }
-
-    if (selectAble) {
-      check = ['square', 'half-check', 'check'][this.state.status];
-      checkClass = classnames('check-handle', ['', 'half-checked', 'checked'][this.state.status]);
-    }
-
-    for (let i = 0, count = data.$deep.length; i < count; i++) {
-      let d = data.$deep[i];
-      let mc = classnames('marks', {
-        'marks-h': d > 1 || (isEmpty(data.children) && count - 1 === i),
-        'marks-v': d === 1,
-        'marks-l': d === 2
-      });
-      marks.push(
-        <span key={i} className={mc}>&nbsp;</span>
-      );
-    }
-    return (
-      <li>
-        <label>
-          {marks}
-          {handle}
-          <i className={'tree-icon ' + type} />
-          {
-            selectAble &&
-            <a className={checkClass} onClick={this.check.bind(this)}><i className={'tree-icon ' + check} /></a>
-          }
-          <span onClick={this.onClick.bind(this)} className="text">{data.$text}</span>
-        </label>
-        {children}
-      </li>
-    );
-  }
-}
-
-Item.propTypes = {
-  data: PropTypes.object,
-  onClick: PropTypes.func,
-  onStatusChange: PropTypes.func,
-  open: PropTypes.bool,
-  readOnly: PropTypes.bool,
-  selectAble: PropTypes.bool,
-  value: PropTypes.any
-};
-
-import FormControl from './FormControl';
+import FormControl from '../FormControl';
 FormControl.register(
 
   'tree',
@@ -420,3 +238,4 @@ FormControl.register(
 );
 
 module.exports = Tree;
+

@@ -56,6 +56,12 @@ describe('utils isEqual', () => {
     isEqual({ a: 1, b: 1 }, { b: 1, a: 1 }).should.be.true;
     isEqual({ a: 1, b: { c: 1 } }, { b: { c: 1 }, a: 1 }).should.be.true;
     isEqual({ a: 1, b: { c: function () {} } }, { b: { c: 1 }, a: 1 }).should.be.false;
+
+    isEqual([1, 2, 3], [1, 2, 3]).should.be.true;
+    isEqual([1, 2, 3], [1, 2]).should.be.false;
+    isEqual([1, 2, 3], [1, 3, 2]).should.be.false;
+    isEqual({a: [1, 2, 3]}, {a: [1, 3, 2]}).should.be.false;
+    isEqual({a: [1, 2, 3]}, {a: [1, 2, 3]}).should.be.true;
   });
 
 });

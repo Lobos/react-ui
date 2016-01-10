@@ -63,7 +63,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
             valueTpl="{country}-{en}"
             //onChange={ country => this.setState({ country }) }
             value={this.state.country}
-            data={dataSource("json/countries.json")} />
+            fetch={"json/countries.json"} />
           <Button style={{ marginLeft: 10 }} onClick={ () => this.setState({ country: '' }) }>清空</Button>
           <pre className="prettyprint">
 {`<Select placeholder="单选"
@@ -71,7 +71,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
   value={this.state.country}
-  data={dataSource("json/countries.json")} />
+  fetch={"json/countries.json"} />
 <Button style={{ marginLeft: 10 }} onClick={ () => this.setState({ country: '' }) }>清空</Button>
 `}
           </pre>
@@ -84,7 +84,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
             optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
             resultTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}'
             valueTpl="{en}"
-            data={dataSource("json/countries.json", null, {cache: true})} />
+            fetch={{url:"json/countries.json", cache:3600}} />
           <pre className="prettyprint">
 {`<Select placeholder="多选"
   mult={true}
@@ -92,7 +92,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   optionTpl='<img src="images/flags/{code}.png" /> {country}-{en}'
   resultTpl='<img src="images/flags/{code}.png" /> {country}'
   valueTpl="{en}"
-  data={dataSource("json/countries.json", null, {cache: true})} />
+  fetch={{url:"json/countries.json", cache:3600}} />
 `}
           </pre>
 

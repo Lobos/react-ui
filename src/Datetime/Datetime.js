@@ -14,13 +14,18 @@ requireCss('datetime');
 import { getLang, setLang } from '../lang';
 setLang('datetime');
 
+const DATETIME = 'datetime';
+const DATE = 'date';
+const TIME = 'time';
+
 class Datetime extends ClickAway(Component) {
   constructor (props) {
     super(props);
+
     this.state = {
       active: false,
       popup: false,
-      stage: this.props.timeOnly ? 'clock' : 'day',
+      stage: this.props.type === TIME ? 'clock' : 'day',
       current: datetime.convert(this.props.value, new Date()),
       value: datetime.convert(this.props.value, null)
     };
@@ -28,6 +33,9 @@ class Datetime extends ClickAway(Component) {
 
   componentWillMount () {
     this.setMinMax(this.props);
+    if (this.props.timeOnly || this.props.dateOnly) {
+      console.warn('timeOnly and dateOnly is deprecated, use type="date|time" instead.');
+    }
   }
 
   componentDidMount () {
@@ -55,7 +63,7 @@ class Datetime extends ClickAway(Component) {
     }
 
     // if dateOnly, remove time
-    if (this.props.dateOnly) {
+    if (this.props.type === DATE) {
       value = new Date(value.getFullYear(), value.getMonth(), value.getDate());
     }
 
@@ -78,9 +86,9 @@ class Datetime extends ClickAway(Component) {
     }
 
     let format = datetime.getDatetime;
-    if (this.props.dateOnly) {
+    if (this.props.type === DATE) {
       format = datetime.getDate;
-    } else if (this.props.timeOnly) {
+    } else if (this.props.type === TIME) {
       format = datetime.getTime;
     }
     return format(value);
@@ -104,12 +112,12 @@ class Datetime extends ClickAway(Component) {
         active: true,
         popup: overView(this.refs.datetime, height),
         current: this.state.value || today,
-        stage: this.props.timeOnly ? 'clock' : 'day'
+        stage: this.props.type === TIME ? 'clock' : 'day'
       });
 
       this.bindClickAway();
 
-      if (this.props.timeOnly) {
+      if (this.props.type === TIME) {
         this.refs.clock.changeTimeStage('hour');
       }
     }, 0);
@@ -172,7 +180,7 @@ class Datetime extends ClickAway(Component) {
       day: day.getDate()
     });
     this.stateChange({ value: d, current: d });
-    if (this.props.dateOnly) {
+    if (this.props.type === DATE) {
       this.close();
     }
   }
@@ -203,7 +211,7 @@ class Datetime extends ClickAway(Component) {
 
     return (
       <div className="time-container">
-        <Clock current={current} timeOnly={this.props.timeOnly} onTimeChange={this.timeChange.bind(this)} ref="clock" />
+        <Clock current={current} timeOnly={this.props.type === TIME} onTimeChange={this.timeChange.bind(this)} ref="clock" />
         <TimeSet onTimeChange={this.timeChange.bind(this)} onStageChange={this.timeStageChange.bind(this)} type="hour" value={current.getHours()} />
         <TimeSet onTimeChange={this.timeChange.bind(this)} onStageChange={this.timeStageChange.bind(this)} type="minute" value={current.getMinutes()} />
         <TimeSet onTimeChange={this.timeChange.bind(this)} onStageChange={this.timeStageChange.bind(this)} type="second" value={current.getSeconds()} />
@@ -312,7 +320,7 @@ class Datetime extends ClickAway(Component) {
   }
 
   renderHeader () {
-    if (this.props.timeOnly) {
+    if (this.props.type === TIME) {
       return null;
     }
 
@@ -362,7 +370,7 @@ class Datetime extends ClickAway(Component) {
         'active': this.state.active && !this.props.readOnly,
         'popup': this.state.popup,
         'readonly': this.props.readOnly,
-        'short': this.props.dateOnly || this.props.timeOnly
+        'short': this.props.type !== DATETIME
       }
     );
 
@@ -379,7 +387,7 @@ class Datetime extends ClickAway(Component) {
         <div ref="datepicker" className="date-picker">
           {this.renderHeader()}
           {this.renderInner()}
-          {(stage === 'day' || stage === 'clock') && (!this.props.dateOnly) && this.getTime()}
+          {(stage === 'day' || stage === 'clock') && this.props.type !== DATE && this.getTime()}
         </div>
         <div className="overlay" onClick={this.close.bind(this)} />
       </div>
@@ -389,7 +397,6 @@ class Datetime extends ClickAway(Component) {
 
 Datetime.propTypes = {
   className: PropTypes.string,
-  dateOnly: PropTypes.bool,
   format: PropTypes.string,
   max: PropTypes.oneOfType([
     PropTypes.string,
@@ -405,43 +412,23 @@ Datetime.propTypes = {
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   style: PropTypes.object,
-  timeOnly: PropTypes.bool,
+  type: PropTypes.oneOf([DATETIME, DATE, TIME]),
   unixtime: PropTypes.bool,
   value: PropTypes.any
 };
+
+Datetime.defaultProps = {
+  type: DATETIME
+}
 
 import FormControl from '../FormControl';
 
 FormControl.register(
 
-  'datetime',
+  ['datetime', 'time', 'date'],
 
   function (props) {
     return <Datetime {...props} />;
-  },
-
-  Datetime
-
-);
-
-FormControl.register(
-
-  'date',
-
-  function (props) {
-    return <Datetime {...props} dateOnly={true} />;
-  },
-
-  Datetime
-
-);
-
-FormControl.register(
-
-  'time',
-
-  function (props) {
-    return <Datetime {...props} timeOnly={true} />;
   },
 
   Datetime

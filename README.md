@@ -49,7 +49,7 @@ build: npm run build
 v0.6.0
  - dataSource 改为higher order component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
  - clickaway 改为 Mixins，增加registerClickAway
- - datetime 加入today, min, max
+ - datetime 加入today, min, max, 移除 dateOnly, timeOnly, 使用 type 代替
 
 v0.5.2
  - babel 5 => 6，移除es7的语法

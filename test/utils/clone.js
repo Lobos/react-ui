@@ -36,6 +36,9 @@ describe('utils clone', () => {
     a = new Person('a');
     isEqual(a, clone(a)).should.be.false;
 
+    (clone(null) === null).should.be.true;
+    (clone(undefined) === undefined).should.be.true;
+
     let div = document.createElement('div');
     div.innerHTML = 'i am div';
     let div2 = clone(div);

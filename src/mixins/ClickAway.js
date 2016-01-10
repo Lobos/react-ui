@@ -1,6 +1,5 @@
 'use strict';
 
-import { Component } from 'react';
 import ReactDOM from 'react-dom';
 import * as Events from '../utils/events';
 import { isDescendant } from '../utils/dom';

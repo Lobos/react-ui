@@ -38,5 +38,4 @@ export const Mixins = {
   ClickAway: require('./mixins/ClickAway')
 };
 
-// ajax
 export const Refetch = require('refetch');

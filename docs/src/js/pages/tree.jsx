@@ -2,7 +2,7 @@
 
 import React from 'react';
 import prettify from '../prettify';
-const {Tree, Checkbox, Refetch, dataSource} = global.uiRequire();
+const {Tree, Checkbox, Refetch} = global.uiRequire();
 
 class Page extends React.Component {
   constructor (props) {
@@ -25,8 +25,7 @@ class Page extends React.Component {
       });
   }
 
-  handleChange () {
-    let value = JSON.stringify(this.refs.tree.getValue());
+  handleChange (value) {
     this.setState({ showValue: value });
   }
 
@@ -51,8 +50,8 @@ class Page extends React.Component {
           <pre className="prettyprint">
 {`<Tree
   className={string}  // class
-  selectAble={bool}    // 是否可编辑，默认为 false
-  data={array|func}   // 数据，array 或者 dataSource
+  selectAble={bool}   // 是否可编辑，默认为 false
+  data={array}        // 数据
   sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   greedy={bool}       // 为true时，getValue返回的值包含半选中项
   onClick={function(data)}  // 点击某元素触发事件，参数为当前节点
@@ -67,11 +66,10 @@ class Page extends React.Component {
 
         <h2 className="subhead">Example</h2>
         <div>
-          <Tree ref="tree" data={dataSource("json/tree.json")}
+          <Tree fetch={{url:"json/tree.json", cache:3600}}
             readOnly={this.state.readOnly}
             selectAble={this.state.selectAble}
             greedy={this.state.greedy}
-            onClick={item => this.refs.textClick.getDOMNode().innerText = `clicked ${item.text}`}
             onChange={this.handleChange.bind(this)}
             textTpl="{text}({id})"
             valueTpl="{id}"
@@ -93,7 +91,7 @@ class Page extends React.Component {
         <div>value: {this.state.showValue}</div>
         <div ref="textClick"></div>
         <pre className="prettyprint">
-{`<Tree ref="tree" data={dataSource("json/tree.json")}
+{`<Tree fetch={{url:"json/tree.json", cache:3600}}
   readOnly={this.state.readOnly}
   selectAble={this.state.selectAble}
   greedy={this.state.greedy}

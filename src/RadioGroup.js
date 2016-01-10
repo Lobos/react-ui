@@ -3,6 +3,8 @@
 import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toTextValue } from './utils/objects';
+import isEqual from './utils/isEqual';
+import { dataSource } from './higherOrders/dataSource';
 import Radio from './Radio';
 
 class RadioGroup extends Component {
@@ -18,20 +20,13 @@ class RadioGroup extends Component {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
     }
-    if (nextProps.data !== this.props.data) {
+    if (!isEqual(nextProps.data, this.props.data)) {
       this.setState({ data: this.formatData(nextProps.data) });
     }
   }
 
   formatData (data) {
-    if (typeof data === 'function') {
-      data.then((res) => {
-        this.setState({ data: this.formatData(res) });
-      })();
-      return [];
-    } else {
-      return toTextValue(data, this.props.textTpl, this.props.valueTpl);
-    }
+    return toTextValue(data, this.props.textTpl, this.props.valueTpl);
   }
 
   setValue (value) {
@@ -82,10 +77,7 @@ class RadioGroup extends Component {
 
 RadioGroup.propTypes = {
   className: PropTypes.string,
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]).isRequired,
+  data: PropTypes.array,
   inline: PropTypes.bool,
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
@@ -99,6 +91,8 @@ RadioGroup.defaultProps = {
   textTpl: '{text}',
   valueTpl: '{id}'
 };
+
+RadioGroup = dataSource(RadioGroup);
 
 import FormControl from './FormControl';
 FormControl.register(
