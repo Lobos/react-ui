@@ -12,6 +12,6 @@ module.exports = class extends Component {
   }
 
   render () {
-    return (<div ref="code"><pre className="prettyprint">{this.props.children}</pre></div>);
+    return (<div className="code" ref="code"><pre className="prettyprint">{this.props.children}</pre></div>);
   }
 }

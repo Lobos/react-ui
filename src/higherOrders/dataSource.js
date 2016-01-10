@@ -102,10 +102,19 @@ export const dataSource = (ComposedComponent) => class extends Component {
     }
   }
 
+  getValue () {
+    return this.refs.component.getValue(...arguments);
+  }
+
+  // table function
+  getChecked () {
+    return this.refs.component.getChecked(...arguments);
+  }
+
   render () {
     const { data, ...others } = this.props;
     return (
-      <ComposedComponent data={this.state.data} fetchStatus={this.state.fetchStatus} {...others} />
+      <ComposedComponent ref="component" data={this.state.data} fetchStatus={this.state.fetchStatus} {...others} />
     );
   }
 }

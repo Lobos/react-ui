@@ -1,7 +1,7 @@
 @import "../../../src/themes/mixins/mixins";
 
 body {
-  font-family: "微软雅黑" "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #555;
   line-height: 1.6;
@@ -109,6 +109,33 @@ a {
     .prettyprint {
       margin: 0;
     }
+  }
+
+  .docs-example {
+    border: solid 1px #ddd;
+    padding: 45px 15px 15px;
+    position: relative;
+
+    &:before {
+      content: 'EXAMPLE';
+      font-size: 12px;
+      font-weight: 700;
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      color: #aaa;
+    }
+  }
+
+  .docs-example + .code, .code + .code {
+    pre {
+      border-top: 0;
+      margin: 0;
+    }
+  }
+
+  pre {
+    padding: 9px 14px;
   }
 }
 
