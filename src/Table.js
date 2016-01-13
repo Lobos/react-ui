@@ -4,8 +4,8 @@ import { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { substitute } from './utils/strings';
 import isEqual from './utils/isEqual';
-import { dataSource } from './higherOrders/dataSource';
 import TableHeader from './TableHeader';
+import { fetchEnhance } from './higherOrders/Fetch';
 
 import { requireCss } from './themes';
 requireCss('tables');
@@ -306,6 +306,4 @@ Table.defaultProps = {
   data: []
 }
 
-Table = dataSource(Table);
-
-module.exports = Table;
+module.exports = fetchEnhance(Table);

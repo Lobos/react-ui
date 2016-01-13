@@ -3,7 +3,7 @@
 import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const {Select, dataSource, Button} = global.uiRequire();
+const {Select, Button} = global.uiRequire();
 
 module.exports = class extends Component {
   constructor (props) {
@@ -25,7 +25,7 @@ module.exports = class extends Component {
           <Code>
 {`<Select
   className={string}    // class
-  data={array|func}     // 数据，array 或者 dataSource
+  data={array}          // 数据
   grid={{width, offset, responsive}} // 宽度，详见Grid
   sep={string|null}     // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   filterAble={bool}     // 是否显示筛选，默认为 false
@@ -89,7 +89,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   filterAble={true}
   optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
-  data={dataSource("json/countries.json", null, {cache: true})} />
+  fetch={{url: "json/countries.json", cache: true}} />
           </Example>
         </div>
       </div>

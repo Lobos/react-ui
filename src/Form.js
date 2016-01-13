@@ -3,8 +3,10 @@
 import React, { Children, Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { forEach } from './utils/objects';
+import isEqual from './utils/isEqual';
 import FormControl from './FormControl';
 import FormSubmit from './FormSubmit';
+import { fetchEnhance } from './higherOrders/Fetch';
 
 import { requireCss } from './themes';
 requireCss('form');
@@ -22,18 +24,12 @@ class Form extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (this.props.data !== this.props.data) {
+    if (!isEqual(this.props.data, nextProps.data)) {
       this.fetchData(nextProps.data);
     }
   }
 
   fetchData (data) {
-    if (typeof data === 'function') {
-      data.then((res) => {
-        this.fetchData(res);
-      })();
-      return;
-    }
     this.setState({ data });
     this.setData(data);
   }
@@ -54,10 +50,12 @@ class Form extends Component {
     this.setState({ data });
   }
 
-  setData (data) {
+  setData () {
+    /*
     forEach(this.refs, (ref, k) => {
       ref.setValue(data[k]);
     });
+    */
   }
 
   equalValidate (targetRef, equalRef) {
@@ -74,6 +72,7 @@ class Form extends Component {
   }
 
   renderChildren () {
+    let { data } = this.state;
     return Children.map(this.props.children, (child) => {
       let props = {
         hintType: child.props.hintType || this.props.hintType,
@@ -86,8 +85,8 @@ class Form extends Component {
           return null;
         }
         props.ref = child.props.name;
-        if (this.state.data[child.props.name] !== undefined) {
-          props.value = this.state.data[child.props.name];
+        if (data[child.props.name] !== undefined) {
+          props.value = data[child.props.name];
         }
         if (child.props.equal) {
           props.onValidate = this.equalValidate(child.props.equal, child.props.name);
@@ -164,10 +163,7 @@ Form.propTypes = {
   beforeSubmit: PropTypes.func,
   children: PropTypes.any,
   className: PropTypes.string,
-  data: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.func
-  ]).isRequired,
+  data: PropTypes.object,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
   locked: PropTypes.bool,
@@ -181,4 +177,4 @@ Form.defaultProps = {
   locked: false
 };
 
-module.exports = Form;
+module.exports = fetchEnhance(Form);

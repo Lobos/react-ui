@@ -3,7 +3,7 @@
 import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
-let {FormControl, Button, Input, Icon, Grid, dataSource} = global.uiRequire();
+let {FormControl, Button, Input, Icon, Grid} = global.uiRequire();
 
 module.exports = class extends React.Component {
   renderExample (type, component) {
@@ -91,7 +91,7 @@ module.exports = class extends React.Component {
 <FormControl
   type="select"
   required={true}
-  data={dataSource("json/countries.json")}
+  fetch={{url:"json/countries.json", cache: 3600}}
   filterAble={true}
   optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
@@ -108,7 +108,7 @@ module.exports = class extends React.Component {
 <FormControl
   type="tree"
   checkAble={true}
-  data={dataSource("json/tree.json")}
+  fetch={{url:"json/tree.json", cache:3600}}
   textTpl="{text}({id})"
   valueTpl="{id}"
  />
@@ -127,7 +127,7 @@ module.exports = class extends React.Component {
             <Example>
 <FormControl
   type="checkbox-group"
-  data={dataSource("json/text-value.json")}
+  fetch={{url:"json/text-value.json", cache:3600}}
   textTpl="{text}"
   valueTpl="{id}"
   min={2}
@@ -141,7 +141,7 @@ module.exports = class extends React.Component {
             <Example>
 <FormControl
   type="radio-group"
-  data={dataSource("json/text-value.json")}
+  fetch={{url:"json/text-value.json", cache:3600}}
   textTpl="{text}"
   valueTpl="{id}"
  />

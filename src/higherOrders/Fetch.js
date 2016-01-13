@@ -10,17 +10,21 @@ export const DATA_SUCCESS = 1;
 export const DATA_FAILURE = 2;
 
 // handle response data
-function dataPeer (res) {
+function peerData (res) {
   return res;
 }
 
-export function setDataPeer(fn) {
-  dataPeer = fn;
+export function setPeer(fn) {
+  peerData = fn;
 }
 
-export const dataSource = (ComposedComponent) => class extends Component {
+export const fetchEnhance = (ComposedComponent) => class extends Component {
   constructor (props) {
     super(props);
+
+    this.state = {
+      data: undefined
+    }
   }
 
   componentWillMount () {
@@ -80,7 +84,7 @@ export const dataSource = (ComposedComponent) => class extends Component {
     }
     let { method='get', url, data, ...options } = fetch;
     let request = refetch[method](url, data, options);
-    request.then(dataPeer.bind(request))
+    request.then(peerData.bind(request))
       .then((data) => {
         this.setData(data);
       })

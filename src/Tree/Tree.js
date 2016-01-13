@@ -9,7 +9,7 @@ import classnames from 'classnames';
 import { toArray, substitute } from '../utils/strings';
 import { forEach } from '../utils/objects';
 import isEqual from '../utils/isEqual';
-import { dataSource } from '../higherOrders/dataSource';
+import { fetchEnhance } from '../higherOrders/Fetch';
 
 import { requireCss } from '../themes';
 requireCss('tree');
@@ -224,7 +224,7 @@ Tree.defaultProps = {
   valueTpl: '{id}'
 };
 
-Tree = dataSource(Tree);
+Tree = fetchEnhance(Tree);
 
 import FormControl from '../FormControl';
 FormControl.register(

@@ -7,7 +7,7 @@ import { getOuterHeight, overView, withoutTransition } from './utils/dom';
 import isEqual from './utils/isEqual';
 import ClickAway from './mixins/ClickAway';
 import { getGrid } from './utils/grids';
-import { dataSource } from './higherOrders/dataSource';
+import { fetchEnhance } from './higherOrders/Fetch';
 
 import { requireCss } from './themes';
 requireCss('select');
@@ -293,7 +293,7 @@ Select.defaultProps = {
   valueTpl: '{id}'
 };
 
-Select = dataSource(Select);
+Select = fetchEnhance(Select);
 
 import FormControl from './FormControl';
 FormControl.register(

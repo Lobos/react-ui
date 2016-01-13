@@ -24,7 +24,6 @@ export const Modal = require('./Modal');
 export const Message = require('./Message');
 
 export const Lang = require('./lang');
-export const dataSource = require('./utils/dataSource');
 
 export const Utils = {
   Datetime: require('./utils/datetime'),
@@ -36,6 +35,10 @@ export const Utils = {
 
 export const Mixins = {
   ClickAway: require('./mixins/ClickAway')
+};
+
+export const HigherOrder = {
+  Fetch: require('./higherOrders/Fetch')
 };
 
 export const Refetch = require('refetch');

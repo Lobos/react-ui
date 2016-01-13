@@ -3,7 +3,7 @@
 import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const {Form, FormControl, Button, FormSubmit, Icon, Input, RadioGroup, dataSource} = global.uiRequire();
+const {Form, FormControl, Button, FormSubmit, Icon, Input, RadioGroup} = global.uiRequire();
 
 module.exports = class extends React.Component {
   constructor (props) {
@@ -24,7 +24,7 @@ module.exports = class extends React.Component {
         <div className="content">
           <Code>
 {`<Form
-  data={object|func}    // 数据，object 或者 dataSource
+  data={object}         // 数据，object
   hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
                            layout 为 stacked, aligned 时，默认为 "block"
                            layout 为 inline 时，默认为 "pop"
@@ -35,7 +35,10 @@ module.exports = class extends React.Component {
 </Form>`}
           </Code>
           <p><a href="#/dataSource">dataSource 参见这里</a></p>
-          <p>0.3 版更新，From 不再提供内置 Ajax 提交功能，需要在onSubmit中进行提交</p>
+          <p>
+            0.6 版更新，data不再支持dataSource，改用fetch<br />
+            0.3 版更新，From 不再提供内置 Ajax 提交功能，需要在onSubmit中进行提交
+          </p>
 
           <h2 className="subhead">layout</h2>
           <div>
@@ -63,7 +66,7 @@ module.exports = class extends React.Component {
           <p>注：本文档使用了一个 <em>json</em> 文件模拟服务端返回数据，提交会提示 <em>500</em> 错误</p>
 
           <Example>
-<Form layout="aligned" onSubmit={data => console.log(data)} data={dataSource("json/form.json")}>
+<Form layout="aligned" onSubmit={data => console.log(data)} fetch={"json/form.json"}>
   <FormControl name="text" label="text" type="text" grid={{width:12/24}} min={2} max={6} />
   <FormControl name="email" label="email" type="email">
     <span className="rct-input-group pure-u-1">
@@ -84,8 +87,8 @@ module.exports = class extends React.Component {
   <FormControl name="checkboxgroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="checkbox group" type="checkbox-group" />
   <FormControl name="radiogroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="radio group" inline={true} type="radio-group" />
   <FormControl name="rating" label="rating" required={true} maxValue={10} tip="亲，给个好评吧" type="rating" />
-  <FormControl grid={{width:12/24}} name="select" label="select" type="select" data={dataSource("json/countries.json")} mult={true} filterAble={true} optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
-  <FormControl name="tree" selectAble={true} label="tree" type="tree" data={dataSource("json/tree.json")} textTpl='{text}({id})' valueTpl="{id}" />
+  <FormControl grid={{width:12/24}} name="select" label="select" type="select" fetch={{url:"json/countries.json", cache:3600}} mult={true} filterAble={true} optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
+  <FormControl name="tree" selectAble={true} label="tree" type="tree" fetch={{url:"json/tree.json", cache:3600}} textTpl='{text}({id})' valueTpl="{id}" />
   <FormControl grid={{width:18/24}} name="textarea" label="textarea" rows={5} type="textarea" />
   <FormControl label="upload" type="upload" autoUpload={true} grid={{width:12/24}} name="upload" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3} content={<Button><Icon icon="upload" /> 选择文件</Button>} />
 

@@ -4,7 +4,7 @@ import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toTextValue } from './utils/objects';
 import isEqual from './utils/isEqual';
-import { dataSource } from './higherOrders/dataSource';
+import { fetchEnhance } from './higherOrders/Fetch';
 import Radio from './Radio';
 
 class RadioGroup extends Component {
@@ -92,7 +92,7 @@ RadioGroup.defaultProps = {
   valueTpl: '{id}'
 };
 
-RadioGroup = dataSource(RadioGroup);
+RadioGroup = fetchEnhance(RadioGroup);
 
 import FormControl from './FormControl';
 FormControl.register(

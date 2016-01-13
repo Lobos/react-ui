@@ -6,7 +6,7 @@ import Checkbox from './Checkbox';
 import { toArray } from './utils/strings';
 import isEqual from './utils/isEqual';
 import { toTextValue } from './utils/objects';
-import { dataSource } from './higherOrders/dataSource';
+import { fetchEnhance } from './higherOrders/Fetch';
 
 class CheckboxGroup extends Component {
   constructor (props) {
@@ -120,7 +120,7 @@ CheckboxGroup.defaultProps = {
   valueTpl: '{id}'
 };
 
-CheckboxGroup = dataSource(CheckboxGroup);
+CheckboxGroup = fetchEnhance(CheckboxGroup);
 
 import FormControl from './FormControl';
 FormControl.register(
