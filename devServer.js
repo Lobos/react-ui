@@ -33,3 +33,14 @@ app.listen(3000, 'localhost', function(err) {
 
   console.log('Listening at http://localhost:3000');
 });
+
+module.exports = {
+  start: function (port) {
+    port = port || '3000';
+    app.listen(port);
+  },
+
+  close: function () {
+    app.close();
+  }
+};
