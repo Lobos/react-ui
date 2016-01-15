@@ -11,4 +11,4 @@ publish
 *.sh
 *.log
 /components
-/coverage
+/test/static
