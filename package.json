@@ -10,7 +10,8 @@
     "dev": "node devServer.js",
     "docs": "NODE_ENV=production webpack --config webpack.config.docs.js",
     "build": "NODE_ENV=production webpack --config webpack.config.prod.js",
-    "lint": "./node_modules/.bin/eslint src && ./node_modules/.bin/eslint docs/src"
+    "lint": "./node_modules/.bin/eslint src && ./node_modules/.bin/eslint docs/src",
+    "test-component": "NODE_ENV=test ./node_modules/.bin/gulp test"
   },
   "keywords": [
     "react ui",
