@@ -3,24 +3,19 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
+  watch: true,
   entry: './test/components/index.js',
   output: {
     path: path.join(__dirname, 'test'),
-    filename: 'testBundle.js',
+    filename: 'static/testBundle.js',
     publicPath: '/'
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},
   module: {
     loaders: [{
       test: /\.jsx?$/, loaders: ['babel'], include: [
         path.resolve(__dirname, 'src'),
-        path.resolve(__dirname, 'test/components'),
-        path.resolve(__dirname, 'docs'),
-        path.resolve(__dirname, 'node_modules/refetch')
+        path.resolve(__dirname, 'test/components')
       ]
     },
       {test: /\.(css|less)$/, loader: 'style-loader!css-loader?localIdentName=[hash:base64:8]!less-loader'},
