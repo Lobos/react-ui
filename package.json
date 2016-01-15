@@ -11,7 +11,7 @@
     "docs": "NODE_ENV=production webpack --config webpack.config.docs.js",
     "build": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "lint": "./node_modules/.bin/eslint src && ./node_modules/.bin/eslint docs/src",
-    "test-component":"mocha-phantomjs /test/components/index.html --reporter spec"
+    "test-component": "./node_modules/.bin/gulp test"
   },
   "keywords": [
     "react ui",
@@ -60,6 +60,9 @@
     "express": "~4.13.3",
     "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
+    "gulp": "^3.9.0",
+    "gulp-mocha-phantomjs": "^0.10.1",
+    "gulp-watch": "^4.3.5",
     "history": "1.13.1",
     "istanbul": "~0.4.1",
     "jsdom": "~7.1.1",
@@ -82,6 +85,7 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
-    "webpack-hot-middleware": "^2.6.0"
+    "webpack-hot-middleware": "^2.6.0",
+    "webpack-stream": "^3.1.0"
   }
 }

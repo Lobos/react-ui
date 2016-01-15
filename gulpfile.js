@@ -1,27 +1,30 @@
 const gulp = require('gulp');
-//const webpack = require('webpack-stream');
-const server = require('./devServer');
 const watch = require('gulp-watch');
-//const mochaPhantomJS = require('gulp-mocha-phantomjs');
+const mochaPhantomJS = require('gulp-mocha-phantomjs');
+const server = require('./testServer');
 const config = require('./webpack.config.test');
 
-function test() {
-  return gulp
-    .src('test/components/index.html')
-    .pipe(mochaPhantomJS({reporter: 'spec'}));
+function testComponents() {
+  const options={
+    reporter:'spec'
+  }
+
+  const stream = mochaPhantomJS(options);
+
+  stream.write({path: 'http://localhost:3001'});
+  stream.end();
+
+  return stream;
 }
 
-gulp.task('test', () => {
-  //gulp.src('./').pipe(webpack(config)).pipe(gulp.dest('test/static'));
-
-  //watch('devServer.js', () => {
-  //    server.close();
-  //    server.start();
-  //    test();
-  //});
-  server.start();
-
-  watch('src/*', () => {
-    test();
+gulp.task('watch', () => {
+  watch('src/*.js', () => {
+    testComponents();
   });
+
+  return server.start();
 });
+
+gulp.task('test', ['watch'], ()=> {
+  testComponents();
+})
