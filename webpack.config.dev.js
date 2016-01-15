@@ -3,19 +3,14 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
-  entry: {
-    app: [
-      'webpack-hot-middleware/client',
-      './docs/src/js/app.jsx',
-      './docs/src/less/style.less'
-    ],
-    test: [
-      'mocha!./test/components/index.js'
-    ]
-  },
+  entry: [
+    'webpack-hot-middleware/client', 
+    './docs/src/js/app.jsx',
+    './docs/src/less/style.less'
+  ],
   output: {
     path: path.join(__dirname, 'docs'),
-    filename: 'js/[name].js',
+    filename: 'js/app.js',
     publicPath: '/'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},
@@ -23,11 +18,11 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
-  module: { loaders: [{
-        test: /\.jsx?$/, loaders: ['babel'], include: [
-        path.resolve(__dirname, 'src'),
-        path.resolve(__dirname, 'test/components'),
-        path.resolve(__dirname, 'docs'),
+  module: {
+    loaders: [
+      { test: /\.jsx?$/, loaders: ['babel'], include: [
+        path.resolve(__dirname, 'src'), 
+        path.resolve(__dirname, 'docs'), 
         path.resolve(__dirname, 'node_modules/refetch')
       ] },
       { test: /\.(css|less)$/, loader: 'style-loader!css-loader?localIdentName=[hash:base64:8]!less-loader' },
