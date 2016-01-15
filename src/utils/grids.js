@@ -44,6 +44,7 @@ function generate(width, type, responsive) {
     return '';
   }
 
+  if (width > 1) { width = 1; }
   width = (width * 100).toFixed(4);
   width = width.substr(0, width.length - 1);
 
