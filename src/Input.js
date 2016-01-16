@@ -4,6 +4,7 @@ import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import Regs from './utils/regs';
 import { getGrid } from './utils/grids';
+import { register } from './higherOrders/FormItem';
 
 import { requireCss } from './themes';
 requireCss('input');
@@ -45,11 +46,11 @@ class Input extends Component {
     }
 
     this.setState({ value });
-    setTimeout(() => {
+    //setTimeout(() => {
       if (this.props.onChange) {
         this.props.onChange(value);
       }
-    }, 0);
+    //}, 0);
   }
 
   render () {
@@ -86,6 +87,8 @@ Input.propTypes = {
   value: PropTypes.any
 };
 
+
+/*
 import FormControl from './FormControl';
 
 FormControl.register(
@@ -113,5 +116,6 @@ FormControl.register(
   'number'
 
 );
+*/
 
-module.exports = Input;
+module.exports = register(Input, ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'textarea', 'integer', 'number']);

@@ -31,6 +31,9 @@ export function getGrid(options) {
   if (!options) {
     return '';
   }
+  if (typeof options === 'number') {
+    options = { width: options };
+  }
 
   let { width, offset, responsive } = options;
   let gridClass = generate(width, 'grid', responsive);

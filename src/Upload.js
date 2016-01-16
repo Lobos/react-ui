@@ -7,6 +7,7 @@ import { nextUid, format } from './utils/strings';
 import { getGrid } from './utils/grids';
 import Message from './Message';
 import upload from './utils/upload';
+import { register } from './higherOrders/FormItem';
 
 import { requireCss } from './themes';
 requireCss('upload');
@@ -189,18 +190,4 @@ Upload.defaultProps = {
   withCredentials: false
 };
 
-import FormControl from './FormControl';
-FormControl.register(
-
-  'upload',
-
-  function (props) {
-    return <Upload {...props} />;
-  },
-
-  Upload,
-
-  'array'
-);
-
-module.exports = Upload;
+module.exports = register(Upload, 'upload', {valueType: 'array'});

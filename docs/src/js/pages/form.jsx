@@ -68,11 +68,9 @@ module.exports = class extends React.Component {
           <Example>
 <Form layout="aligned" onSubmit={data => console.log(data)} fetch={"json/form.json"}>
   <FormControl name="text" label="text" type="text" grid={{width:12/24}} min={2} max={6} />
-  <FormControl name="email" label="email" type="email">
-    <span className="rct-input-group pure-u-1">
-      <span className="addon"><Icon icon="email" /></span>
-      <Input type="email" />
-    </span>
+  <FormControl label="email">
+    <span className="addon"><Icon icon="email" /></span>
+    <Input name="email" type="email" />
   </FormControl>
   <FormControl grid={{width:13/24}} name="alpha" label="alpha" type="alpha" />
   <FormControl grid={{width:14/24}} name="alphanum" label="alphanum" type="alphanum" />
@@ -87,7 +85,7 @@ module.exports = class extends React.Component {
   <FormControl name="checkboxgroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="checkbox group" type="checkbox-group" />
   <FormControl name="radiogroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="radio group" inline={true} type="radio-group" />
   <FormControl name="rating" label="rating" required={true} maxValue={10} tip="亲，给个好评吧" type="rating" />
-  <FormControl grid={{width:12/24}} name="select" label="select" type="select" fetch={{url:"json/countries.json", cache:3600}} mult={true} filterAble={true} optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
+  <FormControl grid={{width:1}} name="select" label="select" type="select" fetch={{url:"json/countries.json", cache:3600}} mult={true} filterAble={true} optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
   <FormControl name="tree" selectAble={true} label="tree" type="tree" fetch={{url:"json/tree.json", cache:3600}} textTpl='{text}({id})' valueTpl="{id}" />
   <FormControl grid={{width:18/24}} name="textarea" label="textarea" rows={5} type="textarea" />
   <FormControl label="upload" type="upload" autoUpload={true} grid={{width:12/24}} name="upload" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3} content={<Button><Icon icon="upload" /> 选择文件</Button>} />

@@ -7,6 +7,7 @@ import { toArray } from './utils/strings';
 import isEqual from './utils/isEqual';
 import { toTextValue } from './utils/objects';
 import { fetchEnhance } from './higherOrders/Fetch';
+import { register } from './higherOrders/FormItem';
 
 class CheckboxGroup extends Component {
   constructor (props) {
@@ -122,18 +123,4 @@ CheckboxGroup.defaultProps = {
 
 CheckboxGroup = fetchEnhance(CheckboxGroup);
 
-import FormControl from './FormControl';
-FormControl.register(
-
-  'checkbox-group',
-
-  function (props) {
-    return <CheckboxGroup {...props} />;
-  },
-
-  CheckboxGroup,
-
-  'array'
-);
-
-module.exports = CheckboxGroup;
+module.exports = register(CheckboxGroup, 'checkbox-group', { valueType: 'array' });

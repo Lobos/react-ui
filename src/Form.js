@@ -15,25 +15,34 @@ class Form extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      data: {}
+      data: this.props.data
     };
+
+    this.form = {
+      itemBind: (props) => {
+        console.log(props);
+      },
+
+      itemUnbind: (name) => {
+        console.log(`unbind ${name}`);
+      },
+
+      itemChange: (name, value) => {
+        console.log(name, value);
+      }
+    }
   }
   
   componentWillMount () {
-    this.fetchData(this.props.data);
   }
 
   componentWillReceiveProps (nextProps) {
     if (!isEqual(this.props.data, nextProps.data)) {
-      this.fetchData(nextProps.data);
+      this.setState({ data: nextProps.data });
     }
   }
 
-  fetchData (data) {
-    this.setState({ data });
-    this.setData(data);
-  }
-
+  /*
   getValue () {
     let data = this.state.data;
     forEach(this.refs, (ref, k) => {
@@ -50,14 +59,6 @@ class Form extends Component {
     this.setState({ data });
   }
 
-  setData () {
-    /*
-    forEach(this.refs, (ref, k) => {
-      ref.setValue(data[k]);
-    });
-    */
-  }
-
   equalValidate (targetRef, equalRef) {
     let self = this;
     return function () {
@@ -70,38 +71,32 @@ class Form extends Component {
       return target.getValue() === equal.getValue();
     };
   }
+  */
+
 
   renderChildren () {
     let { data } = this.state;
     return Children.map(this.props.children, (child) => {
+      let { hintType, readOnly, name } = child.props;
       let props = {
-        hintType: child.props.hintType || this.props.hintType,
-        readOnly: child.props.readOnly || this.props.locked,
+        hintType: hintType || this.props.hintType,
+        readOnly: readOnly || this.props.disabled,
         layout: this.props.layout
       };
       if (child.type === FormControl) {
-        if (!child.props.name) {
-          console.warn('FormControl must have a name!');
-          return null;
+        if (data[name] !== undefined) {
+          props.value = data[name];
         }
-        props.ref = child.props.name;
-        if (data[child.props.name] !== undefined) {
-          props.value = data[child.props.name];
-        }
-        if (child.props.equal) {
-          props.onValidate = this.equalValidate(child.props.equal, child.props.name);
-        }
+        //if (child.props.equal) {
+        //  props.onValidate = this.equalValidate(child.props.equal, child.props.name);
+        //}
+        props.form = this.form;
       } else if (child.type === FormSubmit) {
-        props.locked = this.props.locked;
+        props.disabled = this.props.disabled;
       }
 
-      child = React.cloneElement(child, props);
-      return child;
+      return React.cloneElement(child, props);
     });
-  }
-
-  getReference (name) {
-    return this.refs[name];
   }
 
   validate () {
@@ -117,7 +112,7 @@ class Form extends Component {
   }
 
   handleSubmit (event) {
-    if (this.props.locked) {
+    if (this.props.disabled) {
       return;
     }
 
@@ -166,7 +161,7 @@ Form.propTypes = {
   data: PropTypes.object,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
-  locked: PropTypes.bool,
+  disabled: PropTypes.bool,
   onSubmit: PropTypes.func,
   style: PropTypes.object
 };
@@ -174,7 +169,7 @@ Form.propTypes = {
 Form.defaultProps = {
   data: {},
   layout: 'inline',
-  locked: false
+  disabled: false
 };
 
 module.exports = fetchEnhance(Form);

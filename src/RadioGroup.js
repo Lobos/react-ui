@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { toTextValue } from './utils/objects';
 import isEqual from './utils/isEqual';
 import { fetchEnhance } from './higherOrders/Fetch';
+import { register } from './higherOrders/FormItem';
 import Radio from './Radio';
 
 class RadioGroup extends Component {
@@ -94,17 +95,4 @@ RadioGroup.defaultProps = {
 
 RadioGroup = fetchEnhance(RadioGroup);
 
-import FormControl from './FormControl';
-FormControl.register(
-
-  'radio-group',
-
-  function (props) {
-    return <RadioGroup {...props} />;
-  },
-
-  RadioGroup
-
-);
-
-module.exports = RadioGroup;
+module.exports = register(RadioGroup, 'radio-group');

@@ -8,6 +8,7 @@ import isEqual from './utils/isEqual';
 import ClickAway from './mixins/ClickAway';
 import { getGrid } from './utils/grids';
 import { fetchEnhance } from './higherOrders/Fetch';
+import { register } from './higherOrders/FormItem';
 
 import { requireCss } from './themes';
 requireCss('select');
@@ -295,18 +296,4 @@ Select.defaultProps = {
 
 Select = fetchEnhance(Select);
 
-import FormControl from './FormControl';
-FormControl.register(
-
-  'select',
-
-  function (props) {
-    return <Select {...props} />;
-  },
-
-  Select,
-
-  'array'
-);
-
-module.exports = Select;
+module.exports = register(Select, 'select', {valueType: 'array'});

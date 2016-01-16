@@ -2,6 +2,8 @@
 
 import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
+import { register } from './higherOrders/FormItem';
+
 import { requireCss } from './themes';
 requireCss('checkbox');
 
@@ -68,16 +70,4 @@ Checkbox.propTypes = {
   value: PropTypes.any
 };
 
-import FormControl from './FormControl';
-FormControl.register(
-
-  'checkbox',
-
-  function (props) {
-    return <Checkbox {...props} />;
-  },
-
-  Checkbox
-);
-
-module.exports = Checkbox;
+module.exports = register(Checkbox, 'checkbox');

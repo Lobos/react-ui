@@ -2,6 +2,7 @@
 
 import { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
+import { register } from './higherOrders/FormItem';
 
 import { requireCss } from './themes';
 requireCss('rating');
@@ -137,10 +138,6 @@ class Rating extends Component {
   }
 }
 
-Rating.register = function (key, icons) {
-  themes[key] = icons;
-};
-
 Rating.propTypes = {
   className: PropTypes.string,
   icons: PropTypes.array,
@@ -157,17 +154,10 @@ Rating.defaultProps = {
   maxValue: 5
 };
 
-import FormControl from './FormControl';
-FormControl.register(
+Rating = register(Rating, 'rating');
 
-  'rating',
-
-  function (props) {
-    return <Rating {...props} />;
-  },
-
-  Rating
-
-);
+Rating.register = function (key, icons) {
+  themes[key] = icons;
+};
 
 module.exports = Rating;
