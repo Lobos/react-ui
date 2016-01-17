@@ -11,7 +11,8 @@
     "docs": "env NODE_ENV=production webpack --config webpack.config.docs.js",
     "build": "env NODE_ENV=production webpack --config webpack.config.prod.js",
     "lint": "./node_modules/.bin/eslint src && ./node_modules/.bin/eslint docs/src",
-    "test-component": "env NODE_ENV=test ./node_modules/.bin/gulp test"
+    "test-component": "env NODE_ENV=test ./node_modules/.bin/gulp test",
+    "test-component-cov": "env NODE_ENV=test ./node_modules/.bin/gulp coverage"
   },
   "keywords": [
     "react ui",
@@ -61,7 +62,10 @@
     "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
     "gulp": "^3.9.0",
+    "gulp-babel-istanbul": "^0.11.0",
     "gulp-mocha-phantomjs": "^0.10.1",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.5",
     "history": "1.13.1",
     "istanbul": "~0.4.1",
