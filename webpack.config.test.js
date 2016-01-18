@@ -1,20 +1,22 @@
 var path = require('path');
-var webpack = require('webpack');
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
-  watch: true,
-  entry: './test/components/index.js',
-  output: {
-    path: path.join(__dirname, 'test'),
-    filename: 'static/testBundle.js',
-    publicPath: '/'
-  },
-  externals: {'react': 'React', 'react-dom': 'ReactDOM'},
+  devtool: 'inline-source-map',
+
   module: {
+    preLoaders: [{
+      test: /\.jsx?$/,
+      include: [
+        path.resolve(__dirname, 'src')
+      ],
+      loader: 'isparta-instrumenter'
+    }],
+
     loaders: [{
-      test: /\.jsx?$/, loaders: ['babel'], include: [
+      test: /\.jsx?$/, loaders: ['babel'],
+      include: [
         path.resolve(__dirname, 'src'),
+        path.resolve(__dirname, 'test/utils'),
         path.resolve(__dirname, 'test/components')
       ]
     },
