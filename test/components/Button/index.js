@@ -1,9 +1,9 @@
 'use strict';
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Button from '../../../src/Button.js'
+import TestUtils from 'react/lib/ReactTestUtils.js'
 
-const TestUtils = React.addons.TestUtils;
+import Button from '../../../src/Button.js'
 
 describe('components button', () => {
   it('basic', () => {

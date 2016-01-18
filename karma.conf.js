@@ -2,24 +2,34 @@
 // Generated on Mon Jan 18 2016 12:43:59 GMT+0800 (CST)
 const path = require('path');
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
+    urlRoot: '/test/',
+
+    proxies: {
+      '/test': 'http://localhost:3001/test'
+    },
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha','chai'],
+    frameworks: ['mocha', 'chai'],
 
     // list of files / patterns to load in the browser
     files: [
+      './node_modules/babel-polyfill/dist/polyfill.min.js',
+      './node_modules/react/dist/react.min.js',
+      './node_modules/react-dom/dist/react-dom.min.js',
+      'test/lib/react-dom.min.js',
       'test/index.js'
     ],
 
     preprocessors: {
       // add webpack as preprocessor
-      'test/index.js': ['webpack','coverage']
+      'test/index.js': ['webpack', 'sourcemap'],
+      'src/**/*.js': ['webpack', 'sourcemap', 'coverage']
     },
 
     webpack: require('./webpack.config.test'),
@@ -34,7 +44,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha','coverage'],
+    reporters: ['mocha', 'coverage'],
 
     coverageReporter: {
       reporters: [
@@ -71,10 +81,7 @@ module.exports = function(config) {
       'karma-mocha',
       'karma-mocha-reporter',
       'karma-chai',
-
-      //'karma-chrome-launcher',
       'karma-phantomjs-launcher',
-
       'karma-webpack',
       'karma-sourcemap-loader',
       'karma-coverage'

@@ -1,1 +1,2 @@
 require('./utils');
+require('./components');

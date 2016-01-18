@@ -2,9 +2,19 @@ var path = require('path');
 
 module.exports = {
   devtool: 'inline-source-map',
+
   module: {
+    preLoaders: [{
+      test: /\.jsx?$/,
+      include: [
+        path.resolve(__dirname, 'src')
+      ],
+      loader: 'isparta-instrumenter'
+    }],
+
     loaders: [{
-      test: /\.jsx?$/, loaders: ['babel'], include: [
+      test: /\.jsx?$/, loaders: ['babel'],
+      include: [
         path.resolve(__dirname, 'src'),
         path.resolve(__dirname, 'test/utils'),
         path.resolve(__dirname, 'test/components')

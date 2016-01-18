@@ -5,14 +5,11 @@
   "description": "a collection of components for React",
   "main": "./src/index.js",
   "scripts": {
-    "test-util": "env NODE_ENV=test ./node_modules/.bin/_mocha test/utils --compilers js:babel-core/register --recursive",
-    "test-cov": "env NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --compilers js:babel-core/register --recursive",
     "dev": "node devServer.js",
     "docs": "env NODE_ENV=production webpack --config webpack.config.docs.js",
     "build": "env NODE_ENV=production webpack --config webpack.config.prod.js",
     "lint": "./node_modules/.bin/eslint src && ./node_modules/.bin/eslint docs/src",
-    "test-component": "env NODE_ENV=test ./node_modules/.bin/gulp test",
-    "test-component-cov": "env NODE_ENV=test ./node_modules/.bin/gulp coverage"
+    "test": "env NODE_ENV=test ./node_modules/.bin/karma start"
   },
   "keywords": [
     "react ui",
@@ -50,6 +47,7 @@
     "babel-loader": "^6.2.0",
     "babel-plugin-react-transform": "^2.0.0-beta1",
     "babel-plugin-transform-object-rest-spread": "^6.3.13",
+    "babel-polyfill": "^6.3.14",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-react-hmre": "^1.0.1",
@@ -61,18 +59,13 @@
     "express": "~4.13.3",
     "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
-    "gulp": "^3.9.0",
-    "gulp-babel-istanbul": "^0.11.0",
-    "gulp-mocha-phantomjs": "^0.10.1",
-    "gulp-rimraf": "^0.2.0",
-    "gulp-util": "^3.0.7",
-    "gulp-watch": "^4.3.5",
     "history": "1.13.1",
-    "istanbul": "~0.4.1",
+    "isparta-instrumenter-loader": "^1.0.0",
     "jsdom": "~7.1.1",
     "karma": "^0.13.19",
     "karma-chai": "^0.1.0",
     "karma-coverage": "^0.5.3",
+    "karma-firefox-launcher": "^0.1.7",
     "karma-mocha": "^0.2.1",
     "karma-mocha-reporter": "^1.1.5",
     "karma-phantomjs-launcher": "^0.2.3",
@@ -98,7 +91,6 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.12.9",
     "webpack-dev-middleware": "^1.4.0",
-    "webpack-hot-middleware": "^2.6.0",
-    "webpack-stream": "^3.1.0"
+    "webpack-hot-middleware": "^2.6.0"
   }
 }
