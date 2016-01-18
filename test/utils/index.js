@@ -1,0 +1,8 @@
+require('./datetime')
+require('./circle')
+require('./clone')
+require('./isEqual')
+require('./lang')
+require('./merge')
+require('./objects')
+require('./strings')
