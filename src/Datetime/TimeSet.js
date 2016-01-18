@@ -9,6 +9,9 @@ class TimeSet extends Component {
       value: this.props.value || 0,
       type: this.props.type
     };
+    this.changeStage = this.changeStage.bind(this);
+    this.add = this.add.bind(this);
+    this.sub = this.sub.bind(this);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -57,11 +60,11 @@ class TimeSet extends Component {
 
   render () {
     return (
-      <div onClick={this.changeStage.bind(this)} className="time-set">
+      <div onClick={this.changeStage} className="time-set">
         <div className="text">
           <span>{this.state.value}</span>
-          <a onClick={this.add.bind(this)} className="add"><i className="icon angle-up" /></a>
-          <a onClick={this.sub.bind(this)} className="sub"><i className="icon angle-down" /></a>
+          <a onClick={this.add} className="add"><i className="icon angle-up" /></a>
+          <a onClick={this.sub} className="sub"><i className="icon angle-down" /></a>
         </div>
       </div>
     );

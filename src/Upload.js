@@ -21,6 +21,7 @@ class Upload extends Component {
     this.state = {
       files: {}
     };
+    this.addFile = this.addFile.bind(this);
   }
 
   isCompleted () {
@@ -159,7 +160,7 @@ class Upload extends Component {
     );
     return (
       <div className={className} style={this.props.style}>
-        { Object.keys(this.state.files).length < this.props.limit && <div onClick={this.addFile.bind(this)}>{this.props.content}</div> }
+        { Object.keys(this.state.files).length < this.props.limit && <div onClick={this.addFile}>{this.props.content}</div> }
         { this.renderFiles() }
       </div>
     );

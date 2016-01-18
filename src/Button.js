@@ -13,6 +13,7 @@ class Button extends Component {
       disabled: this.props.disabled,
       show: null
     };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,7 +53,7 @@ class Button extends Component {
     );
 
     return (
-      <button onClick={this.handleClick.bind(this)}
+      <button onClick={this.handleClick}
         style={this.props.style}
         disabled={this.state.disabled}
         className={className}

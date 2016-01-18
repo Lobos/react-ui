@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
+import { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { COMPONENTS } from './higherOrders/FormItem';
 import merge from './utils/merge';
@@ -37,6 +37,14 @@ class FormControl extends Component {
     this.setState({ controls });
   }
 
+  getValue (form, props) {
+    let { name, value } = props;
+    if (form) {
+      value = form.getValue(name, value);
+    }
+    return value;
+  }
+
   renderChildren (children) {
     if (!Array.isArray(children)) {
       children = [children];
@@ -46,10 +54,11 @@ class FormControl extends Component {
       let props = { key: i };
       if (child.type.name === 'FormData') {
         props.form = this.props.form;
+        props.value = this.getValue(props.form, child.props);
       } else if (child.props && typeof child.props.children === 'object') {
         props.children = this.renderChildren(child.props.children);
       }
-      child = React.cloneElement(child, props);
+      child = cloneElement(child, props);
       newChildren.push(child);
     });
     return newChildren;
@@ -70,6 +79,7 @@ class FormControl extends Component {
       if (component) {
         props.form = this.props.form;
         props.key = i;
+        props.value = this.getValue(props.form, props);
         props = merge({}, props, grid);
         return component.render(props);
       }

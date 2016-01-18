@@ -16,6 +16,7 @@ class CheckboxGroup extends Component {
       value: this.formatValue(this.props.value),
       data: this.formatData(this.props.data)
     };
+    this.handleChange = this.handleChange.bind(this);
   }
  
   componentWillReceiveProps (nextProps) {
@@ -50,7 +51,7 @@ class CheckboxGroup extends Component {
     return toTextValue(data, this.props.textTpl, this.props.valueTpl);
   }
 
-  handleChange (checked, value) {
+  handleChange (value, checked) {
     if (typeof value !== 'string') {
       value = value.toString();
     }
@@ -88,7 +89,7 @@ class CheckboxGroup extends Component {
           index={i}
           readOnly={this.props.readOnly}
           checked={checked}
-          onChange={this.handleChange.bind(this)}
+          onChange={this.handleChange}
           text={item.$text}
           value={item.$value}
         />

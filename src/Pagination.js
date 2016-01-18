@@ -13,6 +13,7 @@ class Pagination extends Component {
     this.state = {
       index: this.props.index
     };
+    this.setInput = this.setInput.bind(this);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -118,7 +119,7 @@ class Pagination extends Component {
 
     if (mini) {
       items.push(
-        <form key="i" onSubmit={this.setInput.bind(this)}>
+        <form key="i" onSubmit={this.setInput}>
           <input ref="input" defaultValue={this.state.index} type="text" className="rct-form-control" />
         </form>
       );
@@ -152,10 +153,10 @@ class Pagination extends Component {
         </ul>
         {
           this.props.jumper && !mini &&
-          <form onSubmit={this.setInput.bind(this)}>
+          <form onSubmit={this.setInput}>
             <div className="rct-input-group">
               <input ref="input" defaultValue={this.state.index} type="text" className="rct-form-control" />
-              <span onClick={this.setInput.bind(this)} className="addon">go</span>
+              <span onClick={this.setInput} className="addon">go</span>
             </div>
           </form>
         }

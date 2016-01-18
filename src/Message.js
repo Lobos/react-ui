@@ -17,6 +17,11 @@ let messages = [];
 let messageContainer = null;
 
 class Item extends Component {
+  constructor (props) {
+    super(props);
+    this.dismiss = this.dismiss.bind(this);
+  }
+
   dismiss () {
     if (this.props.dismissed) {
       return;
@@ -34,7 +39,7 @@ class Item extends Component {
 
     return (
       <div className={className}>
-        <button type="button" onClick={this.dismiss.bind(this)} className="close">&times;</button>
+        <button type="button" onClick={this.dismiss} className="close">&times;</button>
         {this.props.content}
       </div>
     );
@@ -51,6 +56,11 @@ Item.propTypes = {
 };
 
 class Message extends Component {
+  constructor (props) {
+    super(props);
+    this.clear.bind(this);
+  }
+
   dismiss (index) {
     PubSub.publish(REMOVE_MESSAGE, index);
   }
@@ -74,7 +84,7 @@ class Message extends Component {
 
     return (
       <div className={className}>
-        <Overlay onClick={this.clear.bind(this)} />
+        <Overlay onClick={this.clear} />
         {items}
       </div>
     );

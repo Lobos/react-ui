@@ -14,6 +14,7 @@ class Clock extends Component {
       active: this.props.active,
       am: this.props.current.getHours() < 12
     };
+    this.close = this.close.bind(this);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -105,8 +106,8 @@ class Clock extends Component {
 
     return (
       <div className={className}>
-        <div onClick={this.close.bind(this)} className="clock-overlay" />
-        {!this.props.timeOnly && <div onClick={this.close.bind(this)} className="clock-close"><i className="icon close" /></div>}
+        <div onClick={this.close} className="clock-overlay" />
+        {!this.props.timeOnly && <div onClick={this.close} className="clock-close"><i className="icon close" /></div>}
         <div className="clock">
           <div className="clock-inner">
             {sets}

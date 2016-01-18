@@ -16,6 +16,7 @@ class Input extends Component {
     this.state = {
       value: this.props.value
     };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -60,7 +61,7 @@ class Input extends Component {
         'rct-form-control',
         getGrid(this.props.grid)
       ),
-      onChange: this.handleChange.bind(this),
+      onChange: this.handleChange,
       type: this.props.type === 'password' ? 'password' : 'text',
       value: this.state.value
     };
@@ -86,36 +87,5 @@ Input.propTypes = {
   type: PropTypes.string,
   value: PropTypes.any
 };
-
-
-/*
-import FormControl from './FormControl';
-
-FormControl.register(
-
-  ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'textarea'],
-
-  function (props) {
-    return <Input {...props} />;
-  },
-
-  Input
-
-);
-
-FormControl.register(
-
-  ['integer', 'number'],
-
-  function (props) {
-    return <Input {...props} />;
-  },
-
-  Input,
-
-  'number'
-
-);
-*/
 
 module.exports = register(Input, ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'textarea', 'integer', 'number']);

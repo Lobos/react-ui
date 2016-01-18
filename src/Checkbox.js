@@ -13,6 +13,7 @@ class Checkbox extends Component {
     this.state = {
       checked: !!this.props.checked
     };
+    this.handleChange = this.handleChange.bind(this);
   }
   
   componentWillReceiveProps (nextProps) {
@@ -26,9 +27,10 @@ class Checkbox extends Component {
       return;
     }
 
-    this.setState({ checked: event.target.checked });
+    let checked = event.target.checked;
+    this.setState({ checked });
     if (this.props.onChange) {
-      this.props.onChange(event.target.checked, this.props.value, this.props.index);
+      this.props.onChange(checked ? (this.props.value || true) : false, event.target.checked, this.props.index);
     }
   }
 
@@ -47,7 +49,7 @@ class Checkbox extends Component {
         <input ref='input'
           type='checkbox'
           disabled={this.props.readOnly}
-          onChange={this.handleChange.bind(this)}
+          onChange={this.handleChange}
           checked={this.state.checked}
           value={this.props.value}
         />

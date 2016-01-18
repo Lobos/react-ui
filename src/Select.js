@@ -26,6 +26,8 @@ class Select extends ClickAway(Component) {
       filter: '',
       value: values
     };
+
+    this.open = this.open.bind(this);
   }
  
   componentWillReceiveProps (nextProps) {
@@ -252,7 +254,7 @@ class Select extends ClickAway(Component) {
     });
 
     return (
-      <div ref="container" onClick={this.open.bind(this)} style={style} className={className}>
+      <div ref="container" onClick={this.open} style={style} className={className}>
         { result.length > 0 ? result : <span className="placeholder">{this.state.msg || placeholder}&nbsp;</span> }
         <div className="rct-select-options-wrap">
           <hr />

@@ -15,6 +15,7 @@ class RadioGroup extends Component {
       value: this.props.value,
       data: this.formatData(this.props.data)
     };
+    this.handleChange = this.handleChange.bind(this);
   }
   
   componentWillReceiveProps (nextProps) {
@@ -61,7 +62,7 @@ class RadioGroup extends Component {
     let items = this.state.data.map(function (item, i) {
       return (
         <Radio key={i}
-          onClick={this.handleChange.bind(this)}
+          onClick={this.handleChange}
           readOnly={this.props.readOnly}
           checked={this.state.value === item.$value}
           text={item.$text}

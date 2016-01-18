@@ -2,15 +2,16 @@
 
 import { Component, createElement, PropTypes } from 'react';
 import classnames from 'classnames';
-import { isEmpty } from '../utils/objects';
+import { isEmpty, isEqual, shallowEqual } from '../utils/objects';
 
 export const COMPONENTS = {};
 
+// 后面做个性能测试，决定是否在这里加入immutablejs
 export const enhance = (ComposedComponent) => {
   class FormData extends Component {
     constructor (props) {
       super(props);
-      // 后面做性能测试，决定是否在这里加入immutablejs
+      this.onChange = this.onChange.bind(this);
     }
 
     componentWillMount () {
@@ -20,22 +21,30 @@ export const enhance = (ComposedComponent) => {
       }
     }
 
+    shouldComponentUpdate (nextProps) {
+      return !shallowEqual(nextProps, this.props);
+    }
+
     onChange (value) {
       let props = this.props;
       if (props.form) {
         props.form.itemChange(props.name, value);
       }
       if (props.onChange) {
-        props.onChange(value);
+        props.onChange(...arguments);
       }
     }
 
     render () {
-      let { className, hasError, onChange, ...props } = this.props;
+      let { className, form, hasError, onChange, value, ...props } = this.props;
+      //if (form) {
+      //  value = form.getValue(props.name, value);
+      //}
       className = classnames(className, {
         'has-error': hasError
       });
-      return <ComposedComponent className={className} onChange={this.onChange.bind(this)} {...props} />
+      console.log(props.name, value);
+      return <ComposedComponent className={className} value={value} onChange={this.onChange} {...props} />
     }
   }
 

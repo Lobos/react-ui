@@ -19,6 +19,8 @@ class Table extends Component {
       sort: {},
       total: null
     };
+
+    this.onBodyScroll = this.onBodyScroll.bind(this);
   }
 
   componentDidMount () {
@@ -244,7 +246,7 @@ class Table extends Component {
       }
       tableStyle.width = this.props.width;
       bodyStyle.overflow = 'auto';
-      onBodyScroll = this.onBodyScroll.bind(this);
+      onBodyScroll = this.onBodyScroll;
     }
 
     let className = classnames(

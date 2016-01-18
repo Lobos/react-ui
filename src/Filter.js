@@ -19,6 +19,13 @@ class Filter extends ClickAway(Component) {
       active: false,
       filters: []
     };
+
+    this.addFilter = this.addFilter.bind(this);
+    this.clearFilter = this.clearFilter.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onFilter = this.onFilter.bind(this);
+    this.open = this.open.bind(this);
+    this.removeFilter = this.removeFilter.bind(this);
   }
 
   componentWillMount () {
@@ -130,7 +137,13 @@ class Filter extends ClickAway(Component) {
   renderFilters () {
     let filters = this.state.filters.map((f, i) => {
       return (
-        <FilterItem onChange={this.onChange.bind(this)} removeFilter={this.removeFilter.bind(this)} ref={`fi${i}`} index={i} key={i} {...f} options={this.state.options} />
+        <FilterItem ref={`fi${i}`}
+          onChange={this.onChange}
+          removeFilter={this.removeFilter}
+          index={i}
+          key={i}
+          {...f}
+          options={this.state.options} />
       );
     });
     return filters;
@@ -145,7 +158,7 @@ class Filter extends ClickAway(Component) {
     );
     return (
       <div style={this.props.style} className={className}>
-        <div onClick={this.open.bind(this)} className="rct-filter-result">
+        <div onClick={this.open} className="rct-filter-result">
           {this.state.resultText}
           <i className="search" />
         </div>
@@ -156,9 +169,9 @@ class Filter extends ClickAway(Component) {
             {this.renderFilters()}
 
             <div>
-              <Button status="success" onClick={this.addFilter.bind(this)}>+</Button>
-              <Button style={{marginLeft: 10}} onClick={this.clearFilter.bind(this)}>{getLang('buttons.clear')}</Button>
-              <Button style={{marginLeft: 10}} status="primary" onClick={this.onFilter.bind(this)}>{getLang('buttons.ok')}</Button>
+              <Button status="success" onClick={this.addFilter}>+</Button>
+              <Button style={{marginLeft: 10}} onClick={this.clearFilter}>{getLang('buttons.clear')}</Button>
+              <Button style={{marginLeft: 10}} status="primary" onClick={this.onFilter}>{getLang('buttons.ok')}</Button>
             </div>
 
           </div>

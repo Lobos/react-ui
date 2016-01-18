@@ -57,7 +57,7 @@ module.exports = class extends React.Component {
           <h2 className="subhead">Array Data</h2>
           <Example>
 <CheckboxGroup ref="array" sep=""
-  onChange={()=>console.log(this.refs.array.getValue())}
+  onChange={(value)=>console.log(value)}
   inline={true} 
   value={["北京", "广州"]}
   data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
@@ -75,7 +75,7 @@ module.exports = class extends React.Component {
           <h2 className="subhead">Remote Data</h2>
           <Example>
 <CheckboxGroup ref="remote"
-  onChange={()=>console.log(this.refs.remote.getValue())}
+  onChange={(value)=>console.log(value)}
   inline={true}
   value="shanghai,chengdu"
   fetch={{url: "json/text-value.json", cache: 3600}}
@@ -85,7 +85,7 @@ module.exports = class extends React.Component {
           <h2 className="subhead">Data Sep</h2>
           <Example>
 <CheckboxGroup ref="sep"
-  onChange={()=>console.log(this.refs.sep.getValue())}
+  onChange={(value)=>console.log(value)}
   inline={true}
   sep="|"
   value="shanghai|chengdu"

@@ -20,6 +20,7 @@ class Rating extends Component {
       hover: 0,
       wink: false
     };
+    this.handleLeave = this.handleLeave.bind(this);
   }
   
   componentWillReceiveProps (nextProps) {
@@ -29,9 +30,7 @@ class Rating extends Component {
   }
 
   handleHover (value) {
-    return function () {
-      this.setState({ hover: value });
-    }.bind(this);
+    this.setState({ hover: value });
   }
 
   handleLeave () {
@@ -95,7 +94,7 @@ class Rating extends Component {
       items.push(
         <span key={i}
           style={{cursor: 'pointer'}}
-          onMouseOver={this.handleHover(i + 1)}
+          onMouseOver={this.handleHover.bind(this, i + 1)}
           onClick={this.handleChange.bind(this, i + 1)}
           className={classnames('rct-rating-handle', { active, wink: active && wink })}>
           {cloneElement(icon)}
@@ -103,7 +102,7 @@ class Rating extends Component {
       );
     }
 
-    return <div onMouseOut={this.handleLeave.bind(this)} className="rct-rating-front">{items}</div>;
+    return <div onMouseOut={this.handleLeave} className="rct-rating-front">{items}</div>;
   }
 
   getMute () {

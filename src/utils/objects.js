@@ -2,6 +2,8 @@
 
 import { substitute } from './strings';
 
+export const isEqual = require('./isEqual');
+
 export function isEmpty (obj) {
   // null and undefined are "empty"
   if (obj === null || obj === undefined) {
@@ -58,4 +60,30 @@ export function sortByKey (obj) {
   });
 
   return newObj;
+}
+
+export function shallowEqual(objA, objB) {
+  if (objA === objB) {
+    return true;
+  }
+
+  if (typeof objA !== 'object' || objA === null ||
+      typeof objB !== 'object' || objB === null) {
+    return false;
+  }
+
+  const keysA = Object.keys(objA);
+
+  if (keysA.length !== Object.keys(objB).length) {
+    return false;
+  }
+
+  for (let i = 0, key; i < keysA.length; i++) {
+    key = keysA[i];
+    if (!objB.hasOwnProperty(key) || objA[key] !== objB[key]) {
+      return false;
+    }
+  }
+
+  return true;
 }

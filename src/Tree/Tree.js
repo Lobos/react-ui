@@ -7,9 +7,9 @@
 import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toArray, substitute } from '../utils/strings';
-import { forEach } from '../utils/objects';
-import isEqual from '../utils/isEqual';
+import { forEach, isEqual } from '../utils/objects';
 import { fetchEnhance } from '../higherOrders/Fetch';
+import { register } from '../higherOrders/FormItem';
 
 import { requireCss } from '../themes';
 requireCss('tree');
@@ -24,6 +24,9 @@ class Tree extends Component {
       data: [],
       value: this.formatValue(this.props.value)
     };
+
+    this.onClick = this.onClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   
   componentWillMount () {
@@ -179,8 +182,8 @@ class Tree extends Component {
         <Item ref={i}
           open={open}
           readOnly={readOnly}
-          onClick={this.onClick.bind(this)}
-          onStatusChange={this.handleChange.bind(this)}
+          onClick={this.onClick}
+          onStatusChange={this.handleChange}
           value={value}
           selectAble={selectAble}
           key={i}
@@ -226,19 +229,5 @@ Tree.defaultProps = {
 
 Tree = fetchEnhance(Tree);
 
-import FormControl from '../FormControl';
-FormControl.register(
-
-  'tree',
-
-  function (props) {
-    return <Tree {...props} />;
-  },
-
-  Tree,
-
-  'array'
-);
-
-module.exports = Tree;
+module.exports = register(Tree, 'tree', { valueType: 'array' });
 

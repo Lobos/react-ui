@@ -27,6 +27,8 @@ class Modal extends Component {
       increase: false,
       modals
     };
+    this.close = this.close.bind(this);
+    this.clickaway = this.clickaway.bind(this);
   }
 
   componentDidMount () {
@@ -102,7 +104,7 @@ class Modal extends Component {
 
       return (
         <div key={i} style={style} className={className}>
-          <a className="rct-modal-close" onClick={this.close.bind(this)}>&times;</a>
+          <a className="rct-modal-close" onClick={this.close}>&times;</a>
           {header}
           <div className="rct-modal-content">
             {options.content}
@@ -127,7 +129,7 @@ class Modal extends Component {
 
     return (
       <div className={className}>
-        <Overlay onClick={this.clickaway.bind(this)} className={classnames({active: mlen > 0})} style={{zIndex: ZINDEX + mlen - 1}} />
+        <Overlay onClick={this.clickaway} className={classnames({active: mlen > 0})} style={{zIndex: ZINDEX + mlen - 1}} />
         { this.renderModals() }
       </div>
     );

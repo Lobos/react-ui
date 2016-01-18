@@ -7,6 +7,7 @@ import * as datetime from '../utils/datetime';
 import ClickAway from '../mixins/ClickAway';
 import TimeSet from './TimeSet';
 import Clock from './Clock';
+import { register } from '../higherOrders/FormItem';
 
 import { requireCss } from '../themes';
 requireCss('datetime');
@@ -29,6 +30,13 @@ class Datetime extends ClickAway(Component) {
       current: datetime.convert(this.props.value, new Date()),
       value: datetime.convert(this.props.value, null)
     };
+
+    this.timeChange = this.timeChange.bind(this);
+    this.timeStageChange = this.timeStageChange.bind(this);
+    this.pre = this.pre.bind(this);
+    this.next = this.next.bind(this);
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
   }
 
   componentWillMount () {
@@ -211,10 +219,10 @@ class Datetime extends ClickAway(Component) {
 
     return (
       <div className="time-container">
-        <Clock current={current} timeOnly={this.props.type === TIME} onTimeChange={this.timeChange.bind(this)} ref="clock" />
-        <TimeSet onTimeChange={this.timeChange.bind(this)} onStageChange={this.timeStageChange.bind(this)} type="hour" value={current.getHours()} />
-        <TimeSet onTimeChange={this.timeChange.bind(this)} onStageChange={this.timeStageChange.bind(this)} type="minute" value={current.getMinutes()} />
-        <TimeSet onTimeChange={this.timeChange.bind(this)} onStageChange={this.timeStageChange.bind(this)} type="second" value={current.getSeconds()} />
+        <Clock current={current} timeOnly={this.props.type === TIME} onTimeChange={this.timeChange} ref="clock" />
+        <TimeSet onTimeChange={this.timeChange} onStageChange={this.timeStageChange} type="hour" value={current.getHours()} />
+        <TimeSet onTimeChange={this.timeChange} onStageChange={this.timeStageChange} type="minute" value={current.getMinutes()} />
+        <TimeSet onTimeChange={this.timeChange} onStageChange={this.timeStageChange} type="second" value={current.getSeconds()} />
       </div>
     );
   }
@@ -259,13 +267,13 @@ class Datetime extends ClickAway(Component) {
     }
 
     return years.map(function (y, i) {
-      return <button type="button" onClick={ function () { this.yearChange(y); }.bind(this) } key={i} className="year">{y}</button>;
+      return <button type="button" onClick={ () => { this.yearChange(y); } } key={i} className="year">{y}</button>;
     }, this);
   }
 
   renderMonths () {
     return getLang('datetime.fullMonth').map(function (m, i) {
-      return <button type="button" onClick={ function () { this.monthChange(i); }.bind(this) } key={i} className="month">{m}</button>;
+      return <button type="button" onClick={ () => { this.monthChange(i); } } key={i} className="month">{m}</button>;
     }, this);
   }
 
@@ -328,7 +336,7 @@ class Datetime extends ClickAway(Component) {
 
     return (
       <div style={this.props.style} className="date-picker-header">
-        <a onClick={this.pre.bind(this)} className="pre">
+        <a onClick={this.pre} className="pre">
           <i className="icon arrow-left" />
         </a>
         <a onClick={() => { this.stageChange('year'); }} className="year">
@@ -337,7 +345,7 @@ class Datetime extends ClickAway(Component) {
         <a onClick={() => { this.stageChange('month'); }} className="month">
           {datetime.getFullMonth(current)}
         </a>
-        <a onClick={this.next.bind(this)} className="next">
+        <a onClick={this.next} className="next">
           <i className="icon arrow-right" />
         </a>
       </div>
@@ -381,7 +389,7 @@ class Datetime extends ClickAway(Component) {
       <span className="placeholder">{this.props.placeholder}&nbsp;</span>;
     
     return (
-      <div ref="datetime" onClick={this.open.bind(this)} className={className}>
+      <div ref="datetime" onClick={this.open} className={className}>
         {text}
         <i className="icon calendar" />
         <div ref="datepicker" className="date-picker">
@@ -389,7 +397,7 @@ class Datetime extends ClickAway(Component) {
           {this.renderInner()}
           {(stage === 'day' || stage === 'clock') && this.props.type !== DATE && this.getTime()}
         </div>
-        <div className="overlay" onClick={this.close.bind(this)} />
+        <div className="overlay" onClick={this.close} />
       </div>
     );
   }
@@ -421,18 +429,4 @@ Datetime.defaultProps = {
   type: DATETIME
 }
 
-import FormControl from '../FormControl';
-
-FormControl.register(
-
-  ['datetime', 'time', 'date'],
-
-  function (props) {
-    return <Datetime {...props} />;
-  },
-
-  Datetime
-
-);
-
-module.exports = Datetime;
+module.exports = register(Datetime, ['datetime', 'time', 'date']);

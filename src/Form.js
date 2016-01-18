@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Children, Component, PropTypes } from 'react';
+import { Children, Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { forEach } from './utils/objects';
 import isEqual from './utils/isEqual';
@@ -28,9 +28,21 @@ class Form extends Component {
       },
 
       itemChange: (name, value) => {
-        console.log(name, value);
+        let data = this.state.data;
+        data[name] = value;
+        this.setState({ data });
+      },
+
+      getValue: (name, defautlValue) => {
+        let value = this.state.data[name];
+        if (value === undefined && defautlValue !== undefined) {
+          value = defautlValue;
+        }
+        return value;
       }
-    }
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   
   componentWillMount () {
@@ -91,11 +103,12 @@ class Form extends Component {
         //  props.onValidate = this.equalValidate(child.props.equal, child.props.name);
         //}
         props.form = this.form;
+        props.formData = this.state.data;
       } else if (child.type === FormSubmit) {
         props.disabled = this.props.disabled;
       }
 
-      return React.cloneElement(child, props);
+      return cloneElement(child, props);
     });
   }
 
@@ -147,7 +160,7 @@ class Form extends Component {
     );
 
     return (
-      <form onSubmit={this.handleSubmit.bind(this)} style={this.props.style} className={className}>
+      <form onSubmit={this.handleSubmit} style={this.props.style} className={className}>
         {this.renderChildren()}
       </form>
     );

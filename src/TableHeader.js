@@ -9,6 +9,7 @@ class TableHeader extends Component {
     this.state = {
       asc: 0
     };
+    this.onSort = this.onSort.bind(this);
   }
 
   onSort () {
@@ -26,7 +27,7 @@ class TableHeader extends Component {
       sort.push(<i key="up" className={classnames('arrow-up', {active: this.props.name === this.props.sort.name && this.state.asc === 1})} />);
       sort.push(<i key="down" className={classnames('arrow-down', {active: this.props.name === this.props.sort.name && this.state.asc === 0})} />);
 
-      onSort = this.onSort.bind(this);
+      onSort = this.onSort;
       style = { cursor: 'pointer' };
     }
 

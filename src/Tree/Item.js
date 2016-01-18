@@ -12,6 +12,11 @@ class Item extends Component {
       open: this.props.open,
       status: this.props.data.$status || 0
     };
+
+    this.onClick = this.onClick.bind(this);
+    this.updateStatus = this.updateStatus.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.check = this.check.bind(this);
   }
   
   componentWillReceiveProps (nextProps) {
@@ -42,9 +47,9 @@ class Item extends Component {
     this.setStatus(status);
 
     // setTimeout wait state changed
-    setTimeout(function () {
+    setTimeout(() => {
       this.props.onStatusChange();
-    }.bind(this), 0);
+    }, 0);
   }
 
   setStatus (status) {
@@ -117,8 +122,8 @@ class Item extends Component {
             value={value}
             selectAble={selectAble}
             data={item}
-            onClick={this.onClick.bind(this)}
-            onStatusChange={this.updateStatus.bind(this)}
+            onClick={this.onClick}
+            onStatusChange={this.updateStatus}
           />
         );
       }, this);
@@ -126,7 +131,7 @@ class Item extends Component {
       children = <ul className={classnames({open: this.state.open})}>{items}</ul>;
       type = this.state.open ? 'folder-open' : 'folder';
       handle = (
-        <a onClick={this.toggle.bind(this)} className="handle">
+        <a onClick={this.toggle} className="handle">
           <i className={'tree-icon ' + (this.state.open ? 'minus' : 'plus')} />
         </a>
       );
@@ -158,9 +163,9 @@ class Item extends Component {
           <i className={'tree-icon ' + type} />
           {
             selectAble &&
-            <a className={checkClass} onClick={this.check.bind(this)}><i className={'tree-icon ' + check} /></a>
+            <a className={checkClass} onClick={this.check}><i className={'tree-icon ' + check} /></a>
           }
-          <span onClick={this.onClick.bind(this)} className="text">{data.$text}</span>
+          <span onClick={this.onClick} className="text">{data.$text}</span>
         </label>
         {children}
       </li>
