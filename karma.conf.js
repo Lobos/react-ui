@@ -22,7 +22,6 @@ module.exports = function (config) {
       './node_modules/babel-polyfill/dist/polyfill.min.js',
       './node_modules/react/dist/react.min.js',
       './node_modules/react-dom/dist/react-dom.min.js',
-      'test/lib/react-dom.min.js',
       'test/index.js'
     ],
 
