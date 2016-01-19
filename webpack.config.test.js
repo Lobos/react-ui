@@ -1,17 +1,23 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   devtool: 'inline-source-map',
+  context: path.resolve(__dirname, 'test'),
 
+  entry: ['webpack-hot-middleware/client',
+    'mocha!./index.js'],
+  output: {
+    path: path.join(__dirname, 'test'),
+    filename: 'static/testBundle.js',
+    publicPath: '/'
+  },
+  externals: {'react': 'React', 'react-dom': 'ReactDOM'},
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ],
   module: {
-    preLoaders: [{
-      test: /\.jsx?$/,
-      include: [
-        path.resolve(__dirname, 'src')
-      ],
-      loader: 'isparta-instrumenter'
-    }],
-
     loaders: [{
       test: /\.jsx?$/, loaders: ['babel'],
       include: [

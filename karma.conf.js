@@ -19,9 +19,9 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      './node_modules/babel-polyfill/dist/polyfill.min.js',
-      './node_modules/react/dist/react.min.js',
-      './node_modules/react-dom/dist/react-dom.min.js',
+      'node_modules/babel-polyfill/dist/polyfill.min.js',
+      'node_modules/react/dist/react-with-addons.min.js',
+      'node_modules/react-dom/dist/react-dom.min.js',
       'test/index.js'
     ],
 
@@ -31,7 +31,32 @@ module.exports = function (config) {
       'src/**/*.js': ['webpack', 'sourcemap', 'coverage']
     },
 
-    webpack: require('./webpack.config.test'),
+    webpack: {
+      devtool: 'inline-source-map',
+      entry: './test/index.js',
+      module: {
+        preLoaders: [{
+          test: /\.jsx?$/,
+          include: [
+            path.resolve(__dirname, 'src')
+          ],
+          loader: 'isparta-instrumenter'
+        }],
+        externals: {'react': 'React', 'react-dom': 'ReactDOM'},
+        loaders: [{
+          test: /\.jsx?$/, loaders: ['babel'],
+          include: [
+            path.resolve(__dirname, 'src'),
+            path.resolve(__dirname, 'test')
+          ]
+        },
+          {test: /\.(css|less)$/, loader: 'style-loader!css-loader?localIdentName=[hash:base64:8]!less-loader'},
+          {test: /\.(ttf|eot|woff|woff2|otf|svg)/, loader: 'file-loader?name=./font/[name].[ext]'},
+          {test: /\.json$/, loader: 'file-loader?name=./json/[name].json'},
+          {test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=10000&name=./images/[name].[ext]'}
+        ]
+      }
+    },
 
     webpackServer: {
       noInfo: true
@@ -54,7 +79,6 @@ module.exports = function (config) {
     // web server port
     port: 9876,
 
-
     // enable / disable colors in the output (reporters and logs)
     colors: true,
 
@@ -65,7 +89,6 @@ module.exports = function (config) {
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
-
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
