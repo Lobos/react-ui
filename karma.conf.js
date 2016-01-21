@@ -20,7 +20,7 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       'node_modules/babel-polyfill/dist/polyfill.min.js',
-      'node_modules/react/dist/react-with-addons.min.js',
+      'node_modules/react/dist/react.min.js',
       'node_modules/react-dom/dist/react-dom.min.js',
       'test/index.js'
     ],
