@@ -1,1 +1,2 @@
 require('./Button');
+require('./Icon');
