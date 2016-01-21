@@ -2,57 +2,104 @@
 
 import { Component, createElement, PropTypes } from 'react';
 import classnames from 'classnames';
-import { isEmpty, isEqual, shallowEqual } from '../utils/objects';
+import { isEmpty, shallowEqual } from '../utils/objects';
+import * as Validation from '../utils/validation';
 
 export const COMPONENTS = {};
 
-// 后面做个性能测试，决定是否在这里加入immutablejs
 export const enhance = (ComposedComponent) => {
-  class FormData extends Component {
+  class FormItem extends Component {
     constructor (props) {
       super(props);
-      this.onChange = this.onChange.bind(this);
-    }
 
-    componentWillMount () {
-      const { form, ...props } = this.props;
-      if (form) {
-        form.itemBind(props);
+      this.state = {
+        hasError: false,
+        value: props.value
+      };
+
+      this.valueType = getValueType(props.type);
+      this.handleChange = this.handleChange.bind(this);
+
+      const { name, value, itemBind, itemChange } = props;
+      if (name) {
+        itemBind({
+          name,
+          validate: this.validate.bind(this)
+        });
+
+        if (value !== undefined) {
+          itemChange(name, value);
+        }
       }
     }
 
-    shouldComponentUpdate (nextProps) {
-      return !shallowEqual(nextProps, this.props);
+    componentWillUnmount () {
+      const { itemUnbind, name } = this.props;
+      if (itemUnbind && name) {
+        itemUnbind(name);
+      }
     }
 
-    onChange (value) {
-      let props = this.props;
-      if (props.form) {
-        props.form.itemChange(props.name, value);
+    componentWillReceiveProps (nextProps) {
+      let { name, formData } = nextProps;
+      if (formData) {
+        let value = formData[name];
+        if (value !== this.state.value) {
+          this.handleChange(value);
+        }
       }
-      if (props.onChange) {
-        props.onChange(...arguments);
+    }
+
+    shouldComponentUpdate (nextProps, nextState) {
+      return !shallowEqual(nextProps, this.props) || !shallowEqual(this.state, nextState);
+    }
+
+    validate (value) {
+      let { name, onValidate, ...props } = this.props;
+      let result = Validation.validate(value, this.valueType, props);
+      this.setState({ hasError: result !== true });
+      return result;
+    }
+
+    getValue () {
+      return this.state.value;
+    }
+
+    handleChange (value) {
+      let { name, formData, itemChange, onChange } = this.props;
+      let result = this.validate(value, formData);
+      if (name && itemChange) {
+        itemChange(name, value, result);
       }
+      if (onChange) {
+        onChange(...arguments);
+      }
+      this.setState({ value });
     }
 
     render () {
-      let { className, form, hasError, onChange, value, ...props } = this.props;
-      //if (form) {
-      //  value = form.getValue(props.name, value);
-      //}
+      let { className, form, onChange, value, ...props } = this.props;
+
       className = classnames(className, {
-        'has-error': hasError
+        'has-error': this.state.hasError
       });
-      console.log(props.name, value);
-      return <ComposedComponent className={className} value={value} onChange={this.onChange} {...props} />
+      value = this.state.value;
+
+      // handle checkbox
+      if (props.type === 'checkbox') {
+        props.checked = value === true || value === 1;
+      }
+
+      console.log('formitem', props.name, value, props.formData);
+      return <ComposedComponent {...props} value={value} className={className} onChange={this.handleChange} />
     }
   }
 
-  FormData.propTypes = {
+  FormItem.propTypes = {
     name: PropTypes.string
   }
 
-  return FormData;
+  return FormItem;
 }
 
 export const register = (ComposedComponent, types, options) => {
@@ -87,4 +134,12 @@ export const register = (ComposedComponent, types, options) => {
   });
 
   return newComponent;
+}
+
+export const getValueType = (type) => {
+  let valueType = 'string';
+  if (COMPONENTS[type]) {
+    valueType = COMPONENTS[type].valueType;
+  }
+  return valueType;
 }

@@ -20,25 +20,32 @@ class Input extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setValue(nextProps.value);
+    let value = nextProps.value;
+    if (value !== this.props.value && value !== this.state.value) {
+      this.setState({ value });
     }
   }
 
-  getValue () {
-    return this.refs.input.value;
+  componentDidMount () {
   }
 
   setValue (value) {
-    this.setState({ value });
+    //this.setState({ value });
+    this.handleChange(null, value);
   }
 
-  handleChange (event) {
+  getValue () {
+    return this._input.value;
+  }
+
+  handleChange (event, value) {
     if (this.props.readOnly) {
       return;
     }
 
-    let value = event.target.value;
+    if (value === undefined) {
+      value = this._input.value;
+    }
 
     if (value && (this.props.type === 'integer' || this.props.type === 'number')) {
       if (!Regs[this.props.type].test(value)) {
@@ -47,11 +54,11 @@ class Input extends Component {
     }
 
     this.setState({ value });
-    //setTimeout(() => {
+    setTimeout(() => {
       if (this.props.onChange) {
         this.props.onChange(value);
       }
-    //}, 0);
+    }, 0);
   }
 
   render () {
@@ -67,9 +74,9 @@ class Input extends Component {
     };
 
     if (this.props.type === 'textarea') {
-      return (<textarea ref="input" {...this.props} {...props} rows={this.props.rows} />);
+      return (<textarea ref={(c) => this._input = c} {...this.props} {...props} rows={this.props.rows} />);
     } else {
-      return (<input ref="input" {...this.props} {...props} />);
+      return (<input ref={(c) => this._input = c} {...this.props} {...props} />);
     }
   }
 }

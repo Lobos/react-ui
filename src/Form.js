@@ -2,8 +2,7 @@
 
 import { Children, Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
-import { forEach } from './utils/objects';
-import isEqual from './utils/isEqual';
+import { forEach, isEqual } from './utils/objects';
 import FormControl from './FormControl';
 import FormSubmit from './FormSubmit';
 import { fetchEnhance } from './higherOrders/Fetch';
@@ -18,31 +17,29 @@ class Form extends Component {
       data: this.props.data
     };
 
-    this.form = {
-      itemBind: (props) => {
-        console.log(props);
-      },
+    this.handleSubmit = this.handleSubmit.bind(this);
 
-      itemUnbind: (name) => {
-        console.log(`unbind ${name}`);
-      },
+    // don't need state
+    this.items = {};
 
-      itemChange: (name, value) => {
-        let data = this.state.data;
-        data[name] = value;
-        this.setState({ data });
-      },
-
-      getValue: (name, defautlValue) => {
-        let value = this.state.data[name];
-        if (value === undefined && defautlValue !== undefined) {
-          value = defautlValue;
-        }
-        return value;
-      }
+    this.itemBind = (props) => {
+      this.items[props.name] = props;
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.itemUnbind = (name) => {
+      delete this.items[name];
+    };
+
+    this.itemChange = (name, value, err) => {
+      let data = this.state.data;
+      //data = merge({}, data, {[name]: value});
+      if (data[name] !== value) {
+        data[name] = value;
+        this.setState({ data });
+      }
+
+      this.items[name].$validation = err;
+    };
   }
   
   componentWillMount () {
@@ -54,72 +51,14 @@ class Form extends Component {
     }
   }
 
-  /*
-  getValue () {
-    let data = this.state.data;
-    forEach(this.refs, (ref, k) => {
-      if (!ref.props.ignore) {
-        data[k] = ref.getValue();
-      }
-    });
-    return data;
-  }
-
-  setValue (key, value) {
-    let data = this.state.data;
-    data[key] = value;
-    this.setState({ data });
-  }
-
-  equalValidate (targetRef, equalRef) {
-    let self = this;
-    return function () {
-      let target = self.refs[targetRef];
-      if (!target) {
-        console.warn(`equal target '${targetRef}' not existed`);
-        return false;
-      }
-      let equal = self.refs[equalRef];
-      return target.getValue() === equal.getValue();
-    };
-  }
-  */
-
-
-  renderChildren () {
-    let { data } = this.state;
-    return Children.map(this.props.children, (child) => {
-      let { hintType, readOnly, name } = child.props;
-      let props = {
-        hintType: hintType || this.props.hintType,
-        readOnly: readOnly || this.props.disabled,
-        layout: this.props.layout
-      };
-      if (child.type === FormControl) {
-        if (data[name] !== undefined) {
-          props.value = data[name];
-        }
-        //if (child.props.equal) {
-        //  props.onValidate = this.equalValidate(child.props.equal, child.props.name);
-        //}
-        props.form = this.form;
-        props.formData = this.state.data;
-      } else if (child.type === FormSubmit) {
-        props.disabled = this.props.disabled;
-      }
-
-      return cloneElement(child, props);
-    });
-  }
-
   validate () {
     let success = true;
-    forEach(this.refs, function (child) {
-      if (child.props.ignore) {
-        return;
+    forEach(this.items, function (item) {
+      let suc = item.$validation;
+      if (suc === undefined) {
+        suc = item.validate();
       }
-      let suc = child.validate();
-      success = success && suc;
+      success = success && (suc === true);
     });
     return success;
   }
@@ -130,10 +69,10 @@ class Form extends Component {
     }
 
     event.preventDefault();
-    this.onSubmit();
+    this.submit();
   }
 
-  onSubmit () {
+  submit () {
     let success = this.validate();
     if (success && this.props.beforeSubmit) {
       success = this.props.beforeSubmit();
@@ -146,6 +85,28 @@ class Form extends Component {
     if (this.props.onSubmit) {
       this.props.onSubmit(this.getValue());
     }
+  }
+
+  renderChildren () {
+    let { data } = this.state;
+    return Children.map(this.props.children, (child) => {
+      let { hintType, readOnly } = child.props;
+      let props = {
+        hintType: hintType || this.props.hintType,
+        readOnly: readOnly || this.props.disabled,
+        layout: this.props.layout
+      };
+      if (child.type === FormControl) {
+        props.itemBind = this.itemBind;
+        props.itemUnbind = this.itemUnbind;
+        props.itemChange = this.itemChange;
+        props.formData = data;
+      } else if (child.type === FormSubmit) {
+        props.disabled = this.props.disabled;
+      }
+
+      return cloneElement(child, props);
+    });
   }
 
   render () {

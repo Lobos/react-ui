@@ -2,7 +2,7 @@
 
 import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import Checkbox from './Checkbox';
+import { Checkbox } from './Checkbox';
 import { toArray } from './utils/strings';
 import isEqual from './utils/isEqual';
 import { toTextValue } from './utils/objects';
@@ -12,9 +12,11 @@ import { register } from './higherOrders/FormItem';
 class CheckboxGroup extends Component {
   constructor (props) {
     super(props);
+
+    let values = toArray(props.value, props.sep);
     this.state = {
-      value: this.formatValue(this.props.value),
-      data: this.formatData(this.props.data)
+      value: values,
+      data: this.formatData(props.data, values)
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -28,34 +30,49 @@ class CheckboxGroup extends Component {
     }
   }
 
-  formatValue (value) {
-    return toArray(value, this.props.sep);
+  setValue (value) {
+    value = toArray(value, this.props.sep);
+    if (this.state) {
+      let data = this.state.data.map((d) => {
+        d.$checked = value.indexOf(d.$value) >= 0;
+        return d;
+      });
+      this.setState({ value, data });
+    } else {
+      this.setState({ value });
+    }
   }
 
-  getValue (sep) {
-    let value = this.state.value;
-    if (sep === undefined) {
-      sep = this.props.sep;
-    }
-    if (sep) {
+  formatData (data, value=this.state.value) {
+    data = toTextValue(data, this.props.textTpl, this.props.valueTpl).map((d) => {
+      d.$checked = value.indexOf(d.$value) >= 0;
+      return d;
+    });
+    return data;
+  }
+
+  getValue (sep=this.props.sep, data=this.state.data) {
+    let value = [],
+        raw = [];
+    data.forEach((d) => {
+      if (d.$checked) {
+        value.push(d.$value);
+        raw.push(d);
+      }
+    });
+
+    if (typeof sep === 'string') {
       value = value.join(sep);
+    } else if (typeof sep === 'function') {
+      value = sep(raw);
     }
+
     return value;
   }
 
-  setValue (value) {
-    this.setState({ value: this.formatValue(value) });
-  }
-
-  formatData (data) {
-    return toTextValue(data, this.props.textTpl, this.props.valueTpl);
-  }
-
-  handleChange (value, checked) {
-    if (typeof value !== 'string') {
-      value = value.toString();
-    }
-
+  handleChange (value, checked, index) {
+    /*
+    console.log(index);
     let values = this.state.value;
     if (checked) {
       values.push(value);
@@ -65,12 +82,16 @@ class CheckboxGroup extends Component {
         values.splice(i, 1);
       }
     }
+    */
+    let data = this.state.data;
+    data[index].$checked = checked;
+    value = this.getValue(this.props.sep, data);
+
+    this.setState({ value, data });
 
     if (this.props.onChange) {
-      this.props.onChange(this.props.sep ? values.join(this.props.sep) : values);
+      this.props.onChange(value);
     }
-
-    this.setState({ value: values });
   }
 
   render () {

@@ -17,25 +17,30 @@ class Checkbox extends Component {
   }
   
   componentWillReceiveProps (nextProps) {
-    if (nextProps.checked !== this.props.checked) {
-      this.setState({ checked: nextProps.checked });
+    if (nextProps.checked !== this.props.checked && nextProps.checked !== this.state.checked) {
+      //this.setState({ checked: nextProps.checked });
+      this.handleChange(null, nextProps.checked);
     }
   }
 
-  handleChange (event) {
+  handleChange (event, checked) {
     if (this.props.readOnly) {
       return;
     }
 
-    let checked = event.target.checked;
-    this.setState({ checked });
-    if (this.props.onChange) {
-      this.props.onChange(checked ? (this.props.value || true) : false, event.target.checked, this.props.index);
+    if (event) {
+      checked = event.target.checked;
     }
+    this.setState({ checked });
+    setTimeout(() => {
+      if (this.props.onChange) {
+        this.props.onChange(this.props.value, checked, this.props.index);
+      }
+    }, 0);
   }
 
   getValue () {
-    return this.refs.input.checked ? (this.props.value || true) : false;
+    return this._input.checked ? (this.props.value || true) : false;
   }
 
   setValue (value) {
@@ -46,7 +51,7 @@ class Checkbox extends Component {
   render () {
     return (
       <label style={this.props.style} className={ classnames(this.props.className, 'rct-checkbox') }>
-        <input ref='input'
+        <input ref={(c) => this._input = c}
           type='checkbox'
           disabled={this.props.readOnly}
           onChange={this.handleChange}
@@ -73,3 +78,6 @@ Checkbox.propTypes = {
 };
 
 module.exports = register(Checkbox, 'checkbox');
+
+// export for CheckboxGroup
+module.exports.Checkbox = Checkbox;

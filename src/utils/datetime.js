@@ -106,7 +106,11 @@ export function monthDiff (d1, d2) {
 export function format (date, fmt) {
   if (!date) { return ''; }
   if (!(date instanceof Date)) {
-    date = new Date(date);
+    date = convert(date);
+  }
+
+  if (isNaN(date.getTime())) {
+    return '';
   }
   let o = {
     'M+': date.getMonth() + 1,

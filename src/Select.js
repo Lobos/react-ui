@@ -18,8 +18,8 @@ class Select extends ClickAway(Component) {
   constructor (props) {
     super(props);
 
-    let values = toArray(this.props.value, this.props.sep);
-    let data = this.formatData(this.props.data, values);
+    let values = toArray(props.value, props.sep);
+    let data = this.formatData(props.data, values);
     this.state = {
       active: false,
       data,
@@ -27,7 +27,8 @@ class Select extends ClickAway(Component) {
       value: values
     };
 
-    this.open = this.open.bind(this);
+    this.showOptions = this.showOptions.bind(this);
+    this.hideOptions = this.hideOptions.bind(this);
   }
  
   componentWillReceiveProps (nextProps) {
@@ -45,10 +46,10 @@ class Select extends ClickAway(Component) {
 
   componentDidMount () {
     let target = this.props.mult ? undefined : this.refs.options;
-    this.registerClickAway(this.close, target);
+    this.registerClickAway(this.hideOptions, target);
   }
 
-  open () {
+  showOptions () {
     if (this.state.active || this.props.readOnly) {
       return;
     }
@@ -71,7 +72,7 @@ class Select extends ClickAway(Component) {
     }, 0);
   }
 
-  close () {
+  hideOptions () {
     this.setState({ active: false });
     this.unbindClickAway();
     // use setTimeout instead of transitionEnd
@@ -82,16 +83,20 @@ class Select extends ClickAway(Component) {
     }, 500);
   }
 
-  getValue (sep = this.props.sep, data = this.state.data) {
-    let value = [];
+  getValue (sep=this.props.sep, data=this.state.data) {
+    let value = [],
+        raw = [];
     data.forEach((d) => {
       if (d.$checked) {
         value.push(d.$value);
+        raw.push(d);
       }
     });
 
-    if (sep) {
+    if (typeof sep === 'string') {
       value = value.join(sep);
+    } else if (typeof sep === 'function') {
+      value = sep(raw);
     }
 
     return value;
@@ -163,7 +168,6 @@ class Select extends ClickAway(Component) {
     let data = this.state.data;
     if (this.props.mult) {
       data[i].$checked = !data[i].$checked;
-      this.setState({ data });
     } else {
       data.map((d) => {
         if (typeof d !== 'string') {
@@ -171,14 +175,15 @@ class Select extends ClickAway(Component) {
         }
       });
       data[i].$checked = true;
-      this.setState({ data });
-      this.close();
+      this.hideOptions();
     }
+
+    let value = this.getValue(this.props.sep, data);
+    this.setState({ value, data });
     if (this.props.onChange) {
-      let value = this.getValue(this.props.sep, data);
-      setTimeout(() => {
+      //setTimeout(() => {
         this.props.onChange(value);
-      }, 0);
+      //}, 0);
     }
   }
 
@@ -254,7 +259,7 @@ class Select extends ClickAway(Component) {
     });
 
     return (
-      <div ref="container" onClick={this.open} style={style} className={className}>
+      <div ref="container" onClick={this.showOptions} style={style} className={className}>
         { result.length > 0 ? result : <span className="placeholder">{this.state.msg || placeholder}&nbsp;</span> }
         <div className="rct-select-options-wrap">
           <hr />

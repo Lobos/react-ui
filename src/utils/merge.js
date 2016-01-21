@@ -13,7 +13,7 @@ module.exports = function merge(target) {
     }
     nextSource = Object(nextSource);
 
-    var keysArray = Object.keys(Object(nextSource));
+    var keysArray = Object.keys(nextSource);
     for (var nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
       var nextKey = keysArray[nextIndex];
 

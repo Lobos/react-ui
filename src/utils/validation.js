@@ -17,7 +17,7 @@ function handleError(value, key, tip) {
   return new Error(text);
 }
 
-module.exports = function (value, valueType, {
+export function validate(value, valueType, {
   required,
   min,
   max,
@@ -26,6 +26,7 @@ module.exports = function (value, valueType, {
   tip,
   type,
   validation,
+  formData
 }) {
   let len = 0;
 
@@ -40,7 +41,7 @@ module.exports = function (value, valueType, {
 
   // custom validation
   if (validation) {
-    return validation(value);
+    return validation(value, formData);
   }
 
   if (value === undefined || value === null || value === '') {
