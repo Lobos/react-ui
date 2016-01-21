@@ -110,8 +110,9 @@ export function format (date, fmt) {
   }
 
   if (isNaN(date.getTime())) {
-    return '';
+    return 'Invalid Date';
   }
+
   let o = {
     'M+': date.getMonth() + 1,
     'd+': date.getDate(),
