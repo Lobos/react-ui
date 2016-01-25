@@ -20,10 +20,19 @@ export const enhance = (ComposedComponent) => {
       this.valueType = getValueType(props.type);
       this.handleChange = this.handleChange.bind(this);
 
-      const { name, value, itemBind, itemChange } = props;
+      const { name, value, validation, itemBind, itemChange } = props;
+      let validationBind;
+      if (validation && validation.bind) {
+        validationBind = validation.bind;
+        if (typeof validationBind === 'string') {
+          validationBind = [validationBind];
+        }
+      }
+
       if (name) {
         itemBind({
           name,
+          validationBind,
           validate: this.validate.bind(this)
         });
 
@@ -60,7 +69,7 @@ export const enhance = (ComposedComponent) => {
       return !shallowEqual(nextProps, this.props) || !shallowEqual(this.state, nextState);
     }
 
-    validate (value) {
+    validate (value = this.state.value) {
       let { name, onValidate, ...props } = this.props;
       let result = Validation.validate(value, this.valueType, props);
       this.setState({ hasError: result !== true });

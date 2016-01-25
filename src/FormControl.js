@@ -151,13 +151,13 @@ class FormControl extends Component {
   }
 
   renderTip () {
-    let { tip } = this.props;
+    let { tip, errorText } = this.props;
     let { validations, hints } = this.state;
     hints = tip || hints;
 
     if (validations) {
       // if has tip，use tip
-      if (tip) { validations = tip; }
+      if (errorText) { validations = errorText; }
       return <span key="tip" className="error">{validations}</span>;
     }
 
@@ -177,9 +177,6 @@ class FormControl extends Component {
   }
 
   renderChildren (children) {
-    //if (!Array.isArray(children)) {
-    //  children = [children];
-    //}
     let newChildren = Children.toArray(children).map((child, i) => {
       if (typeof child === 'string') {
         return <span key={i}>{child}</span>;

@@ -79,7 +79,15 @@ module.exports = class extends React.Component {
   <FormControl grid={{width:15/24}} name="integer" label="integer" type="integer" />
   <FormControl grid={{width:16/24}} name="number" label="number" type="number" />
   <FormControl grid={{width:16/24}} name="password" min={6} max={20} label="password" type="password" />
-  <FormControl grid={{width:16/24}} name="repassword" ignore={true} label="repeat password" type="password" equal="password" tip="必须与password相同" />
+  <FormControl grid={{width:16/24}} name="repassword" ignore={true} label="repeat password" type="password" tip="必须与password相同"
+    validation={{ fn: (value, formData) => {
+      let password = formData.password;
+      if (!value ? !password : value === password) {
+        return true;
+      } else {
+        return new Error('两次输入密码不一致');
+      }
+    }, bind: ['password'] }} />
   <FormControl grid={{width:17/24}} name="url" label="url" type="url" />
   <FormControl grid={{width:17/24}} name="readonly" readOnly={true} label="readonly" type="text" />
   <FormControl name="checkbox" type="checkbox" text="It's a checkbox" />
@@ -97,7 +105,7 @@ module.exports = class extends React.Component {
   </FormControl>
   <FormControl name="checkboxgroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="checkbox group" type="checkbox-group" />
   <FormControl name="radiogroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="radio group" inline={true} type="radio-group" />
-  <FormControl name="rating" label="rating" required maxValue={10} tip="亲，给个好评吧" type="rating" />
+  <FormControl name="rating" label="rating" required maxValue={10} tip="亲，给个好评吧" errorText="必须给一个评分哦" type="rating" />
   <FormControl grid={{width:12/24}} name="select" label="select" type="select" fetch={{url:"json/countries.json", cache:3600}} mult={true} filterAble={true} optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
   <FormControl name="tree" selectAble={true} label="tree" type="tree" fetch={{url:"json/tree.json", cache:3600}} textTpl='{text}({id})' valueTpl="{id}" />
   <FormControl grid={{width:18/24}} name="textarea" label="textarea" rows={5} type="textarea" />

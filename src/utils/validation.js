@@ -40,17 +40,30 @@ export function validate(value, valueType, {
     return handleError(label, value, 'required', tip);
   }
 
+  let reg = Regs[type];
+
   // custom validation
   if (validation) {
-    return validation(value, formData);
+    if (typeof validation === 'function') {
+      validation = { fn: validation };
+    }
+    if (validation.fn) {
+      return validation.fn(value, formData);
+    }
+    if (validation.reg) {
+      reg = validation.reg;
+      if (typeof reg === 'string') {
+        reg = new RegExp(reg);
+      }
+    }
   }
 
+  // skip empty value
   if (value === undefined || value === null || value === '') {
     return true;
   }
 
   // validate type
-  let reg = Regs[type];
   if (reg && !reg.test(value)) {
     return handleError(label, value, type, tip);
   }

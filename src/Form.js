@@ -22,15 +22,21 @@ class Form extends Component {
 
     // don't need state
     this.items = {};
+    this.validationPools = {};
 
     this.itemBind = (props) => {
       this.items[props.name] = props;
-      console.log('bind', props.name);
+
+      // bind triger item
+      if (props.validationBind) {
+        props.validationBind.forEach((vb) => {
+          this.validationPools[vb] = (this.validationPools[vb] || []).concat(props.validate);
+        });
+      }
     };
 
     this.itemUnbind = (name) => {
       delete this.items[name];
-      console.log('unbind', name);
     };
 
     this.itemChange = (name, value, err) => {
@@ -43,6 +49,13 @@ class Form extends Component {
         data[name] = value;
         // setState only triger render, data was changed
         this.setState({ data });
+      }
+
+      let validationBind = this.validationPools[name];
+      if (validationBind) {
+        validationBind.forEach((validation) => {
+          validation();
+        });
       }
 
       this.items[name].$validation = err;
@@ -101,10 +114,6 @@ class Form extends Component {
 
   renderChildren () {
     let { data } = this.state;
-    let children = this.props.children;
-    if (!Array.isArray(children)) {
-      children = [children];
-    }
     return Children.map(this.props.children, (child) => {
       if (!child) { return null };
       let { hintType, readOnly } = child.props;
