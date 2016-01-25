@@ -26,12 +26,7 @@
   &.has-error {
     border-color: @red;
   }
-}
 
-.rct-has-error {
-  .rct-form-control {
-    border-color: @red;
-  }
 }
 
 .rct-control-group {
@@ -91,7 +86,7 @@
       }
     }
 
-    &.focused {
+    &:hover {
       .hint {
         display: block;
       }
@@ -110,7 +105,7 @@
     }
   }
 
-  &.rct-has-error {
+  span.error {
     color: @red;
   }
 }

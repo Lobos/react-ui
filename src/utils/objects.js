@@ -2,7 +2,7 @@
 
 import { substitute } from './strings';
 
-export const isEqual = require('./isEqual');
+export const deepEqual = require('./deepEqual');
 
 export function isEmpty (obj) {
   // null and undefined are "empty"

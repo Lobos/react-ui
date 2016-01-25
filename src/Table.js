@@ -3,7 +3,7 @@
 import { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { substitute } from './utils/strings';
-import isEqual from './utils/isEqual';
+import { deepEqual } from './utils/objects';
 import TableHeader from './TableHeader';
 import { fetchEnhance } from './higherOrders/Fetch';
 
@@ -28,7 +28,7 @@ class Table extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!isEqual(nextProps.data, this.props.data)) {
+    if (!deepEqual(nextProps.data, this.props.data)) {
       this.setState({ data: nextProps.data });
     }
   }

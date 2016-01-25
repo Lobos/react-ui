@@ -1,7 +1,7 @@
 require('./datetime')
 require('./circle')
 require('./clone')
-require('./isEqual')
+require('./deepEqual')
 require('./lang')
 require('./merge')
 require('./objects')

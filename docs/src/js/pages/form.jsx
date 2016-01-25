@@ -3,7 +3,7 @@
 import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const {Form, FormControl, Button, FormSubmit, Icon, Input, RadioGroup} = global.uiRequire();
+const {Form, FormControl, Button, FormSubmit, Icon, Input, Datetime, RadioGroup} = global.uiRequire();
 
 module.exports = class extends React.Component {
   constructor (props) {
@@ -63,14 +63,16 @@ module.exports = class extends React.Component {
           </Example>
 
           <h2 className="subhead">获取 / 提交数据</h2>
-          <p>注：本文档使用了一个 <em>json</em> 文件模拟服务端返回数据，提交会提示 <em>500</em> 错误</p>
+          <p>注：本文档提交后只在下方显示json格式，不提交到服务端。</p>
 
           <Example>
-<Form layout="aligned" onSubmit={data => console.log(data)} fetch={"json/form.json"}>
+<Form layout="aligned" onSubmit={formData => this.setState({ formData })}>
   <FormControl name="text" label="text" type="text" grid={{width:12/24}} min={2} max={6} />
   <FormControl label="email">
-    <span className="addon"><Icon icon="email" /></span>
-    <Input name="email" type="email" />
+    <span className="rct-input-group">
+      <span className="addon"><Icon icon="email" /></span>
+      <Input name="email" type="email" />
+    </span>
   </FormControl>
   <FormControl grid={{width:13/24}} name="alpha" label="alpha" type="alpha" />
   <FormControl grid={{width:14/24}} name="alphanum" label="alphanum" type="alphanum" />
@@ -82,10 +84,21 @@ module.exports = class extends React.Component {
   <FormControl grid={{width:17/24}} name="readonly" readOnly={true} label="readonly" type="text" />
   <FormControl name="checkbox" type="checkbox" text="It's a checkbox" />
   <FormControl name="datetime" type="datetime" label="datetime" />
+  <FormControl label="two item">
+    <Datetime type="date" min="2016-1-22" onChange={(startTime) => this.setState({ startTime })} max={this.state.endTime} placeholder="startTime" name="startTime" />
+    至
+    <Datetime type="date" max="2017-1-22" onChange={(endTime) => this.setState({ endTime })} min={this.state.startTime}  placeholder="endTime" name="endTime" />
+  </FormControl>
+  <FormControl label="mult input" tip="每个输入框可以输入数字和字符，长度为5">
+    <Input name="mult1" type="alphanum" min={5} max={5} grid={1/6} />-
+    <Input name="mult2" type="alphanum" min={5} max={5} grid={1/6} />-
+    <Input name="mult3" type="alphanum" min={5} max={5} grid={1/6} />-
+    <Input name="mult4" type="alphanum" min={5} max={5} grid={1/6} />
+  </FormControl>
   <FormControl name="checkboxgroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="checkbox group" type="checkbox-group" />
   <FormControl name="radiogroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="radio group" inline={true} type="radio-group" />
-  <FormControl name="rating" label="rating" required={true} maxValue={10} tip="亲，给个好评吧" type="rating" />
-  <FormControl grid={{width:1}} name="select" label="select" type="select" fetch={{url:"json/countries.json", cache:3600}} mult={true} filterAble={true} optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
+  <FormControl name="rating" label="rating" required maxValue={10} tip="亲，给个好评吧" type="rating" />
+  <FormControl grid={{width:12/24}} name="select" label="select" type="select" fetch={{url:"json/countries.json", cache:3600}} mult={true} filterAble={true} optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
   <FormControl name="tree" selectAble={true} label="tree" type="tree" fetch={{url:"json/tree.json", cache:3600}} textTpl='{text}({id})' valueTpl="{id}" />
   <FormControl grid={{width:18/24}} name="textarea" label="textarea" rows={5} type="textarea" />
   <FormControl label="upload" type="upload" autoUpload={true} grid={{width:12/24}} name="upload" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3} content={<Button><Icon icon="upload" /> 选择文件</Button>} />
@@ -95,14 +108,10 @@ module.exports = class extends React.Component {
     <span>处理中</span>
   </FormSubmit>
 </Form>
+
+{ this.state.formData && <Code>提交表单数据:<br />{JSON.stringify(this.state.formData, null, 4)}</Code> }
           </Example>
 
-          <h2 className="subhead">Methods</h2>
-          <h2 className="subhead">getValue()</h2>
-          <p>获取当前所有注册FormControl的value，结果为json</p>
-
-          <h2 className="subhead">getReference(name)</h2>
-          <p><em>Form</em> 下不能使用 <em>ref</em> 获取引用，需要引用时使用 <em>getReference</em> 方法。<em>name</em> 为 FormControl 的 <em>name</em></p>
         </div>
       </div>
     );

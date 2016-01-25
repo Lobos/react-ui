@@ -2,7 +2,8 @@
 
 import { Children, Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
-import { forEach, isEqual } from './utils/objects';
+import { forEach, deepEqual } from './utils/objects';
+import clone from './utils/clone';
 import FormControl from './FormControl';
 import FormSubmit from './FormSubmit';
 import { fetchEnhance } from './higherOrders/Fetch';
@@ -24,39 +25,48 @@ class Form extends Component {
 
     this.itemBind = (props) => {
       this.items[props.name] = props;
+      console.log('bind', props.name);
     };
 
     this.itemUnbind = (name) => {
       delete this.items[name];
+      console.log('unbind', name);
     };
 
     this.itemChange = (name, value, err) => {
       let data = this.state.data;
+
+      // don't use merge or immutablejs
       //data = merge({}, data, {[name]: value});
+
       if (data[name] !== value) {
         data[name] = value;
+        // setState only triger render, data was changed
         this.setState({ data });
       }
 
       this.items[name].$validation = err;
     };
   }
-  
-  componentWillMount () {
-  }
 
   componentWillReceiveProps (nextProps) {
-    if (!isEqual(this.props.data, nextProps.data)) {
+    if (!deepEqual(this.props.data, nextProps.data)) {
       this.setState({ data: nextProps.data });
+
+      // if data changed, clear validation
+      forEach(this.items, (item) => {
+        delete item.$validation;
+      });
     }
   }
 
   validate () {
     let success = true;
-    forEach(this.items, function (item) {
+    forEach(this.items, (item) => {
       let suc = item.$validation;
       if (suc === undefined) {
         suc = item.validate();
+        this.items[item.name].$validation = suc;
       }
       success = success && (suc === true);
     });
@@ -83,13 +93,20 @@ class Form extends Component {
     }
 
     if (this.props.onSubmit) {
-      this.props.onSubmit(this.getValue());
+      // send clone data
+      let data = clone(this.state.data);
+      this.props.onSubmit(data);
     }
   }
 
   renderChildren () {
     let { data } = this.state;
+    let children = this.props.children;
+    if (!Array.isArray(children)) {
+      children = [children];
+    }
     return Children.map(this.props.children, (child) => {
+      if (!child) { return null };
       let { hintType, readOnly } = child.props;
       let props = {
         hintType: hintType || this.props.hintType,

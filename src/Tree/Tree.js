@@ -7,7 +7,7 @@
 import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toArray, substitute } from '../utils/strings';
-import { forEach, isEqual } from '../utils/objects';
+import { forEach, deepEqual } from '../utils/objects';
 import { fetchEnhance } from '../higherOrders/Fetch';
 import { register } from '../higherOrders/FormItem';
 
@@ -37,7 +37,7 @@ class Tree extends Component {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
     }
-    if (!isEqual(nextProps.data, this.props.data)) {
+    if (!deepEqual(nextProps.data, this.props.data)) {
       this.formatData(nextProps.data);
     }
     if (nextProps.sep !== this.props.sep || nextProps.greedy !== this.props.greedy) {

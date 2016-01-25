@@ -2,7 +2,7 @@
 
 import { Component } from 'react';
 import refetch from 'refetch';
-import isEqual from '../utils/isEqual';
+import { deepEqual } from '../utils/objects';
 import clone from '../utils/clone';
 
 export const DATA_PENDING = 0;
@@ -43,10 +43,10 @@ export const fetchEnhance = (ComposedComponent) => class extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!isEqual(this.props.data, nextProps.data)) {
+    if (!deepEqual(this.props.data, nextProps.data)) {
       this.handleData(nextProps.data);
     }
-    if (!isEqual(this.props.fetch, nextProps.fetch)) {
+    if (!deepEqual(this.props.fetch, nextProps.fetch)) {
       this.fetchData(nextProps.fetch);
     }
   }

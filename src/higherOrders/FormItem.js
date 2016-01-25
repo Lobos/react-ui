@@ -33,6 +33,12 @@ export const enhance = (ComposedComponent) => {
       }
     }
 
+    /*
+    componentWillReceiveProps (nextProps) {
+      console.log(nextProps);
+    }
+    */
+
     componentWillUnmount () {
       const { itemUnbind, name } = this.props;
       if (itemUnbind && name) {
@@ -58,6 +64,9 @@ export const enhance = (ComposedComponent) => {
       let { name, onValidate, ...props } = this.props;
       let result = Validation.validate(value, this.valueType, props);
       this.setState({ hasError: result !== true });
+      if (onValidate) {
+        onValidate(name, result);
+      }
       return result;
     }
 
@@ -90,7 +99,6 @@ export const enhance = (ComposedComponent) => {
         props.checked = value === true || value === 1;
       }
 
-      console.log('formitem', props.name, value, props.formData);
       return <ComposedComponent {...props} value={value} className={className} onChange={this.handleChange} />
     }
   }

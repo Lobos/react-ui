@@ -4,8 +4,7 @@ import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { Checkbox } from './Checkbox';
 import { toArray } from './utils/strings';
-import isEqual from './utils/isEqual';
-import { toTextValue } from './utils/objects';
+import { deepEqual, toTextValue } from './utils/objects';
 import { fetchEnhance } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
 
@@ -25,7 +24,7 @@ class CheckboxGroup extends Component {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
     }
-    if (!isEqual(nextProps.data, this.props.data)) {
+    if (!deepEqual(nextProps.data, this.props.data)) {
       this.setState({ data: this.formatData(nextProps.data) });
     }
   }

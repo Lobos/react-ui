@@ -6,11 +6,11 @@ import { format, toArray } from './strings';
 import { getLang, setLang } from '../lang';
 setLang('validation');
 
-function handleError(value, key, tip) {
+function handleError(label, value, key, tip) {
   // handle error
   let text = getLang('validation.tips.' + key, null);
   if (text) {
-    text = format(text, value);
+    text = (label || '') + format(text, value);
   } else {
     text = tip;
   }
@@ -18,6 +18,7 @@ function handleError(value, key, tip) {
 }
 
 export function validate(value, valueType, {
+  label,
   required,
   min,
   max,
@@ -36,7 +37,7 @@ export function validate(value, valueType, {
 
   // validate required
   if (required && (value === undefined || value === null || value.length === 0)) {
-    return handleError(value, 'required', tip);
+    return handleError(label, value, 'required', tip);
   }
 
   // custom validation
@@ -51,7 +52,7 @@ export function validate(value, valueType, {
   // validate type
   let reg = Regs[type];
   if (reg && !reg.test(value)) {
-    return handleError(value, type, tip);
+    return handleError(label, value, type, tip);
   }
 
   switch(valueType) {
@@ -67,11 +68,11 @@ export function validate(value, valueType, {
   }
 
   if (max && len > max) {
-    return handleError(max, `max.${valueType}`, tip);
+    return handleError(label, max, `max.${valueType}`, tip);
   }
 
   if (min && len < min) {
-    return handleError(min, `min.${valueType}`, tip);
+    return handleError(label, min, `min.${valueType}`, tip);
   }
 
   return true;

@@ -4,7 +4,7 @@ import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toArray, substitute } from './utils/strings';
 import { getOuterHeight, overView, withoutTransition } from './utils/dom';
-import isEqual from './utils/isEqual';
+import { deepEqual } from './utils/objects';
 import ClickAway from './mixins/ClickAway';
 import { getGrid } from './utils/grids';
 import { fetchEnhance } from './higherOrders/Fetch';
@@ -35,7 +35,7 @@ class Select extends ClickAway(Component) {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
     }
-    if (!isEqual(nextProps.data, this.props.data)) {
+    if (!deepEqual(nextProps.data, this.props.data)) {
       this.setState({ data: this.formatData(nextProps.data) });
     }
   }

@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, PropTypes, cloneElement } from 'react';
+import { Component, PropTypes, cloneElement, Children } from 'react';
 import classnames from 'classnames';
 import { COMPONENTS, getValueType } from './higherOrders/FormItem';
 import merge from './utils/merge';
@@ -30,6 +30,7 @@ class FormControl extends Component {
     this.itemBind = this.itemBind.bind(this);
     this.itemUnbind = this.itemUnbind.bind(this);
     this.itemChange = this.itemChange.bind(this);
+    this.handleValidate = this.handleValidate.bind(this);
   }
 
   componentWillMount () {
@@ -71,13 +72,22 @@ class FormControl extends Component {
   itemUnbind (name) {
     delete this.items[name];
 
-    if (this.props.itemBind) {
-      this.props.itemBind(...arguments);
+    if (this.props.itemUnbind) {
+      this.props.itemUnbind(...arguments);
     }
   }
 
   itemChange (name, value, result) {
     this.items[name].$value = value;
+
+    this.handleValidate(name, result);
+
+    if (this.props.itemChange) {
+      this.props.itemChange(...arguments);
+    }
+  }
+
+  handleValidate (name, result) {
     this.items[name].$validation = result;
 
     let validations = [];
@@ -89,10 +99,6 @@ class FormControl extends Component {
     validations = validations.join(', ');
     if (validations !== this.state.validations) {
       this.setState({ validations });
-    }
-
-    if (this.props.itemChange) {
-      this.props.itemChange(...arguments);
     }
   }
 
@@ -145,35 +151,49 @@ class FormControl extends Component {
   }
 
   renderTip () {
+    let { tip } = this.props;
     let { validations, hints } = this.state;
-    let tip = this.props.tip;
+    hints = tip || hints;
 
-    // error first 
-      console.log('tip', validations);
     if (validations) {
+      // if has tip，use tip
+      if (tip) { validations = tip; }
       return <span key="tip" className="error">{validations}</span>;
     }
 
-    return <span key="tip" className="hint">{tip || hints}</span>;
+    if (hints) {
+      return <span key="tip" className="hint">{hints}</span>;
+    } else {
+      return;
+    }
+  }
+
+  propsExtend (props) {
+    props.itemBind = this.itemBind;
+    props.itemUnbind = this.itemUnbind;
+    props.itemChange = this.itemChange;
+    props.formData = this.props.formData;
+    props.onValidate = this.handleValidate;
   }
 
   renderChildren (children) {
-    if (!Array.isArray(children)) {
-      children = [children];
-    }
-    let newChildren = [];
-    children.map((child, i) => {
+    //if (!Array.isArray(children)) {
+    //  children = [children];
+    //}
+    let newChildren = Children.toArray(children).map((child, i) => {
+      if (typeof child === 'string') {
+        return <span key={i}>{child}</span>;
+      }
+
       let props = { key: i };
       if (child.type.name === 'FormItem') {
-        props.itemBind = this.itemBind;
-        props.itemUnbind = this.itemUnbind;
-        props.itemChange = this.itemChange;
-        props.formData = this.props.formData;
+        this.propsExtend(props);
       } else if (child.props && typeof child.props.children === 'object') {
         props.children = this.renderChildren(child.props.children);
       }
+      
       child = cloneElement(child, props);
-      newChildren.push(child);
+      return child;
     });
     return newChildren;
   }
@@ -185,17 +205,14 @@ class FormControl extends Component {
       controls = this.renderChildren(children);
     } else {
       controls = this.state.controls.map((props, i) => {
-        if (typeof props !== 'object') {
-          return props;
+        if (typeof props === 'string') {
+          return <span key={i} dangerouslySetInnerHTML={{__html: props}} />;
         }
         let component = COMPONENTS[props.type];
         if (component) {
-          props.itemBind = this.itemBind;
-          props.itemUnbind = this.itemUnbind;
-          props.itemChange = this.itemChange;
+          this.propsExtend(props);
           props.key = i;
           props.$controlId = this.id;
-          props.formData = this.props.formData;
           props = merge({}, props, grid);
           return component.render(props);
         }
@@ -211,7 +228,7 @@ class FormControl extends Component {
     className = classnames(className, getGrid(this.props.grid));
     return (
       <div style={this.props.style} className={className}>
-        {this.renderControl({grid: { width: 1 }})}
+        {this.renderControl({grid: { width: 1 }, placeholder: this.props.placeholder || this.props.label})}
       </div>
     );
   }
@@ -228,7 +245,6 @@ class FormControl extends Component {
   }
 
   render () {
-    console.log(1111);
     let { hintType, layout, className } = this.props;
     if (!hintType) {
       hintType = layout === 'inline' ? 'pop' : 'block';
@@ -239,7 +255,7 @@ class FormControl extends Component {
       'rct-control-group',
       `rct-hint-${hintType}`,
       {
-        'rct-has-error': this.state.hasError
+        'rct-has-error': this.state.validations.length > 0
       }
     );
 

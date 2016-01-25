@@ -14,7 +14,5 @@
   "rating": 6,
   "select": "China,Cuba",
   "textarea": "long text",
-  "tree": "user_edit",
-  "progress": 200,
-  "colorpicker": "#33ff23"
+  "tree": "user_edit"
 }
