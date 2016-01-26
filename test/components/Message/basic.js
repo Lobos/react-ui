@@ -7,6 +7,10 @@ const Overlay = require('../../../src/Overlay.js');
 const ReactTestUtils = React.addons ? React.addons.TestUtils : require('react-addons-test-utils');
 
 describe('Basic', ()=> {
+  const _containerRegex = /\brct-message-container\b/,
+    _overlayRegex = /\brct-overlay\b/,
+    _messageRegex = /\brct-message-(info|error|success|primary|warning)\b/;
+
   const _foo = {
       type: 'info',
       content: 'foo'
@@ -26,26 +30,34 @@ describe('Basic', ()=> {
 
   it('Should generate a div container tag', ()=> {
     assert.equal(ReactDOM.findDOMNode(_defaultInstance).nodeName, 'DIV');
-    assert.ok(ReactDOM.findDOMNode(_defaultInstance).className.match(/\brct-message-container\b/))
+    assert.ok(ReactDOM.findDOMNode(_defaultInstance).className.match(_containerRegex))
   });
 
   it('Should have Overlay as child component', ()=> {
     const overlayInstance = ReactTestUtils.findRenderedComponentWithType(_defaultInstance, Overlay);
-    const overlayCss=ReactDOM.findDOMNode(overlayInstance).className;
+    const overlayCss = ReactDOM.findDOMNode(overlayInstance).className;
     assert.ok(ReactTestUtils.isCompositeComponentWithType(overlayInstance, Overlay));
-    assert.ok(overlayCss.match(/\brct-overlay\b/))
+    assert.ok(overlayCss.match(_overlayRegex))
   });
 
   it('Should have 0 items if message array is empty', ()=> {
-    const itemArray = ReactTestUtils.scryRenderedDOMComponentsWithTag(_defaultInstance, 'div');
-    assert.equal(itemArray.length - 2, 0);
+    const itemArray = ReactTestUtils.scryRenderedDOMComponentsWithTag(_defaultInstance, 'div').filter((item)=> {
+      return ReactDOM.findDOMNode(item).className.match(_messageRegex)
+    });
+
+    assert.equal(itemArray.length, 0);
   });
 
   it('Should have n items if message array\'s length is n', ()=> {
-    const itemArray1 = ReactTestUtils.scryRenderedDOMComponentsWithTag(_singleInstance, 'div');
-    const itemArray2 = ReactTestUtils.scryRenderedDOMComponentsWithTag(_multiInstance, 'div');
-    assert.equal(itemArray1.length - 2, 1);
-    assert.equal(itemArray2.length - 2, 3);
+    const itemArray1 = ReactTestUtils.scryRenderedDOMComponentsWithTag(_singleInstance, 'div').filter((item)=> {
+      return ReactDOM.findDOMNode(item).className.match(_messageRegex)
+    });
+    const itemArray2 = ReactTestUtils.scryRenderedDOMComponentsWithTag(_multiInstance, 'div').filter((item)=> {
+      return ReactDOM.findDOMNode(item).className.match(_messageRegex)
+    });
+
+    assert.equal(itemArray1.length, 1);
+    assert.equal(itemArray2.length, 3);
   });
 
   it('Item Should have type=info by default', ()=> {
