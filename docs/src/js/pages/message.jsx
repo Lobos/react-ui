@@ -33,7 +33,7 @@ module.exports = () => {
         </Example>
 
         <Example>
-<a onClick={() => Message.show(<span><Icon icon="music" /> success and icon</span>, "success")}>success message</a>
+<a onClick={() => Message.show(<span><Icon icon="check" /> success and icon</span>, "success")}>success message</a>
         </Example>
       </div>
     </div>
