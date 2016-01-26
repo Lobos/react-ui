@@ -1,7 +1,7 @@
 'use strict';
 
 import classnames from 'classnames';
-import { Component } from 'react';
+import { Component, PropTypes, DOM } from 'react';
 import ReactDOM from 'react-dom';
 import PubSub from 'pubsub-js';
 import Button from './Button';
@@ -20,7 +20,7 @@ const ZINDEX = 1100;
 let modals = [];
 let modalContainer = null;
 
-class Modal extends Component {
+class ModalContainer extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -39,6 +39,9 @@ class Modal extends Component {
 
     PubSub.subscribe(REMOVE_MODAL, (data) => {
       let props = modals.pop();
+      if (!props) {
+        return;
+      }
       if (props.onClose) {
         props.onClose(data);
       }
@@ -129,46 +132,53 @@ class Modal extends Component {
 
     return (
       <div className={className}>
-        <Overlay onClick={this.clickaway} className={classnames({active: mlen > 0})} style={{zIndex: ZINDEX + mlen - 1}} />
+        <Overlay onClick={this.clickaway}
+          className={classnames({active: mlen > 0})}
+          style={{zIndex: ZINDEX + mlen - 1}} />
         { this.renderModals() }
       </div>
     );
   }
 }
 
-Modal.close = function (data) {
+// static method ===============================================================
+
+function close (data) {
   PubSub.publish(REMOVE_MODAL, data);
 };
 
-Modal.open = function (options) {
+function open (options) {
   if (!modalContainer) {
     createContainer();
   }
   PubSub.publishSync(ADD_MODAL, options);
 };
 
-Modal.alert = function (content) {
+function alert (content, header) {
   let buttons = {};
   buttons[getLang('buttons.ok')] = true;
 
-  Modal.open({
+  open({
     clickaway: false,
     content,
+    header,
     buttons
   });
 };
 
-Modal.confirm = function (content, onOk) {
+function confirm (content, callback, header) {
   let buttons = {};
+
   buttons[getLang('buttons.ok')] = () => {
-    onOk();
+    callback();
     return true;
   };
   buttons[getLang('buttons.cancel')] = true;
 
-  Modal.open({
+  open({
     clickaway: false,
     content,
+    header,
     buttons
   });
 };
@@ -176,7 +186,64 @@ Modal.confirm = function (content, onOk) {
 function createContainer () {
   modalContainer = document.createElement('div');
   document.body.appendChild(modalContainer);
-  ReactDOM.render(<Modal />, modalContainer);
+  ReactDOM.render(<ModalContainer />, modalContainer);
 }
+
+// modal ===================================================================
+
+class Modal extends Component {
+  constructor (props) {
+    super(props);
+  }
+
+  componentDidMount () {
+    if (this.props.isOpen) {
+      this.renderModal(this.props);
+    }
+  }
+
+  componentWillReceiveProps (newProps) {
+    if (newProps.isOpen === this.props.isOpen) {
+      return;
+    }
+
+    if (newProps.isOpen) {
+      this.renderModal(newProps);
+    } else {
+      close();
+    }
+  }
+
+  renderModal (props) {
+    open({
+      buttons: props.buttons,
+      content: props.children,
+      onClose: props.onClose,
+      header: props.header,
+      width: props.width
+    });
+  }
+
+  render () {
+    return DOM.noscript();
+  }
+}
+
+Modal.propTypes = {
+  buttons: PropTypes.object,
+  children: PropTypes.any,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element
+  ]),
+  width: PropTypes.number
+};
+
+Modal.open = open;
+Modal.alert = alert;
+Modal.confirm = confirm;
+Modal.close = close;
 
 module.exports = Modal;

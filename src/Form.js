@@ -19,6 +19,7 @@ class Form extends Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.submit = this.submit.bind(this);
 
     // don't need state
     this.items = {};
@@ -118,6 +119,8 @@ class Form extends Component {
 
       this.props.onSubmit(data);
     }
+
+    return true;
   }
 
   renderChildren () {

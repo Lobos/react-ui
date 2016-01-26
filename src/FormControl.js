@@ -270,7 +270,10 @@ FormControl.propTypes = {
   data: PropTypes.any,
   errorText: PropTypes.string,
   formData: PropTypes.object,
-  grid: PropTypes.object,
+  grid: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object
+  ]),
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
   itemBind: PropTypes.func,
   itemChange: PropTypes.func,

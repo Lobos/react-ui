@@ -53,7 +53,44 @@ module.exports = class extends Component {
         </div>
 
         <div className="content">
-          <div><em>Modal</em> 为全局对象，所有的方法都为静态方法。</div>
+          <Code>
+{`<Modal
+  clickaway: {bool},         // 为 true 时，点击页面空白部分关闭Modal，默认值为 false
+  width={700}                // 宽度，默认值为 500
+  header={string|element}    // 标题，值为 string 或者 ReactElement，可为空
+  isOpen={bool}              // 是否打开
+  onClose={function}         // 关闭Modal时触发，一般用来关闭Modal
+  buttons: {
+    {text}: function         // text 为按钮文字，function 返回 true 或者值为 true，关闭 Modal
+  }
+>
+  {children}                 // 内容，任意对象
+</Modal>
+`}
+          </Code>
+
+          <Example>
+<Modal width={700} header="一个弹出表单"
+  isOpen={this.state.modalIsOpen}
+  onClose={() => this.setState({ modalIsOpen: false })}
+  buttons={{
+    '确定': () => {
+      this.form.submit();
+    },
+    '取消': true
+  }}>
+  <div>
+    <Form ref={(c) => this.form = c} onSubmit={(data) => { alert(JSON.stringify(data)); this.setState({ modalIsOpen: false }) }} layout="aligned">
+      <FormControl name="name" grid={7/8} required={true} label="姓名" type="text" />
+      <FormControl name="birthday" required={true} label="生日" type="date" />
+      <FormControl name="description" grid={7/8} label="简介" type="textarea" rows={6} />
+    </Form>
+  </div>
+</Modal>
+<Button status="primary" onClick={ () => this.setState({ modalIsOpen: true }) }>open form</Button>
+          </Example>
+
+          <div><em>Modal</em> Modal提供了一个静态方法，供任意位置调用。</div>
           <h2 className="subhead">Modal.open(options)</h2>
           <Code>
 {`options = {
@@ -68,49 +105,23 @@ module.exports = class extends Component {
 }`}
           </Code>
 
-          <Example>
-<Button status="primary" 
-  onClick={ () => {
-    Modal.open({
-      header: '一个弹出表单',
-      content: (
-        <div>
-          <Form layout="aligned">
-            <FormControl name="name" required={true} label="姓名" type="text" />
-            <FormControl name="birthday" required={true} label="生日" type="date" />
-            <FormControl name="description" label="简介" type="textarea" width={20} rows={6} />
-          </Form>
-        </div>
-      ),
-      width: 700,
-      buttons: {
-        '确定': () => {
-          return true;
-        },
-        '重置': () => {
-        },
-        '取消': true
-      }
-    });
-  }
-}>open a form</Button>
-          </Example>
-
           <h2 className="subhead">Modal.alert(content)</h2>
           <div>快捷方式， <em>content</em> 为 <em>string</em> 或者 <em>ReactElement</em></div>
           <Example>
 <Button status="primary" onClick={() => Modal.alert('这是一个alert')}>alert example</Button>
           </Example>
 
-          <h2 className="subhead">Modal.confirm(content, onOk)</h2>
-          <div>快捷方式， <em>content</em> 为 <em>string</em> 或者 <em>ReactElement</em>。 <em>onOk</em> 为 <em>function </em>，点击确定后回调。</div>
+          <h2 className="subhead">Modal.confirm(content, callback)</h2>
+          <div>快捷方式， <em>content</em> 为 <em>string</em> 或者 <em>ReactElement</em>。 <em>callback</em> 为 <em>function </em>，点击确定后回调。</div>
           <Example>
 <Button status="primary" onClick={() => Modal.confirm(
   <div>
     <p>如果你知道要做什么，请点确定。</p>
     <p>如果你不知道，点取消吧。</p>
   </div>,
-  () => { alert('点击了确定'); })}
+  () => { alert('点击了确定'); },
+  '警告'
+)}
 >confirm example</Button>
           </Example>
 

@@ -70,6 +70,18 @@ export const enhance = (ComposedComponent) => {
       }
     }
 
+    componentDidMount () {
+      let component = this.component;
+      Object.keys(component).forEach((key) => {
+        if (!this.hasOwnProperty(key)) {
+          let func = component[key];
+          if (typeof func === 'function') {
+            this[key] = func;
+          }
+        }
+      });
+    }
+
     validate (value = this.state.value) {
       let { name, onValidate, ...props } = this.props;
       let result = Validation.validate(value, this.valueType, props);
@@ -109,7 +121,7 @@ export const enhance = (ComposedComponent) => {
         props.checked = value === true || value === 1;
       }
 
-      return <ComposedComponent {...props} value={value} className={className} onChange={this.handleChange} />
+      return <ComposedComponent ref={(c) => this.component = c} {...props} value={value} className={className} onChange={this.handleChange} />
     }
   }
 

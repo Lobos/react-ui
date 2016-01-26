@@ -52,6 +52,18 @@ export const fetchEnhance = (ComposedComponent) => {
       this._isMounted = false;
     }
 
+    componentDidMount () {
+      let component = this.component;
+      Object.keys(component).forEach((key) => {
+        if (!this.hasOwnProperty(key)) {
+          let func = component[key];
+          if (typeof func === 'function') {
+            this[key] = func;
+          }
+        }
+      });
+    }
+
     handleData (data) {
       // old dataSource api
       if (typeof data === 'function') {
@@ -105,15 +117,6 @@ export const fetchEnhance = (ComposedComponent) => {
       } else {
         this.setState({ data: clone(data), fetchStatus: DATA_SUCCESS });
       }
-    }
-
-    getValue () {
-      return this.component.getValue(...arguments);
-    }
-
-    // table function
-    getChecked () {
-      return this.component.getChecked(...arguments);
     }
 
     render () {
