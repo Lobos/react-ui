@@ -23,7 +23,8 @@ module.exports = {
       include: [
         path.resolve(__dirname, 'src'),
         path.resolve(__dirname, 'test/utils'),
-        path.resolve(__dirname, 'test/components')
+        path.resolve(__dirname, 'test/components'),
+        path.resolve(__dirname, 'node_modules/refetch')
       ]
     },
       {test: /\.(css|less)$/, loader: 'style-loader!css-loader?localIdentName=[hash:base64:8]!less-loader'},
