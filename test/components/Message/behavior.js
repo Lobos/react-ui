@@ -1,10 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-
 const Message = require('../../../src/Message.js');
 const Overlay = require('../../../src/Overlay.js');
 
-const ReactTestUtils = React.addons ? React.addons.TestUtils : require('react-addons-test-utils');
+const ReactTestUtils = React.addons.TestUtils;
 
 describe('Behavior', ()=> {
   const _containerRegex = /\brct-message-container\b/,

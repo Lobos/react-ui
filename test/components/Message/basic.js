@@ -1,10 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-
 const Message = require('../../../src/Message.js');
 const Overlay = require('../../../src/Overlay.js');
 
-const ReactTestUtils = React.addons ? React.addons.TestUtils : require('react-addons-test-utils');
+const ReactTestUtils = React.addons.TestUtils;
 
 describe('Basic', ()=> {
   const _containerRegex = /\brct-message-container\b/,
@@ -26,7 +23,7 @@ describe('Basic', ()=> {
 
   const _defaultInstance = ReactTestUtils.renderIntoDocument(<Message messages={[]}/>),
     _singleInstance = ReactTestUtils.renderIntoDocument(<Message messages={[_foo]}/>),
-    _multiInstance = ReactTestUtils.renderIntoDocument(<Message messages={[_foo,_bar,_baz]}/>);
+  _multiInstance = ReactTestUtils.renderIntoDocument(<Message messages={[_foo,_bar,_baz]}/>);
 
   it('Should generate a div container tag', ()=> {
     assert.equal(ReactDOM.findDOMNode(_defaultInstance).nodeName, 'DIV');

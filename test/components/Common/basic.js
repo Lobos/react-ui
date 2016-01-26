@@ -1,13 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-
-const ReactUI = require('../../../src');
-const ReactTestUtils = React.addons ? React.addons.TestUtils : require('react-addons-test-utils');
+const Button = require('../../../src/Button.js');
+const ReactTestUtils = React.addons.TestUtils;
 
 describe('Basic', ()=> {
   it('Should exist as a React Component', ()=> {
-    const button = ReactTestUtils.renderIntoDocument(<ReactUI.Button>Button</ReactUI.Button>);
-    assert.ok(ReactTestUtils.isCompositeComponent(button, ReactUI.Button));
+    const button = ReactTestUtils.renderIntoDocument(<Button>Button</Button>);
+    assert.ok(ReactTestUtils.isCompositeComponent(button, Button));
     //TODO the rest of components
   });
 });
