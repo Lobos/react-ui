@@ -22,6 +22,7 @@ class Upload extends Component {
       files: {}
     };
     this.addFile = this.addFile.bind(this);
+    this.files = {};
   }
 
   isCompleted () {
@@ -105,7 +106,7 @@ class Upload extends Component {
       withCredentials: this.props.withCredentials,
       file: file.files[0],
       onProgress: (e) => {
-        let progress = this.refs[id];
+        let progress = this.files[id];
         progress.style.width = (e.loaded / e.total) * 100 + '%';
       },
       onLoad: (e) => {
@@ -146,7 +147,7 @@ class Upload extends Component {
             <span>{file.name}</span>
             <a className="remove" onClick={this.removeFile.bind(this, id)}>&times; {getLang('buttons.cancel')}</a>
           </div>
-          <div ref={id} className={`rct-upload-progress`}></div>
+          <div ref={(c) => this.files[id] = c} className={`rct-upload-progress`}></div>
         </div>
       );
     });
@@ -176,6 +177,7 @@ Upload.propTypes = {
   cors: PropTypes.bool,
   disabled: PropTypes.bool,
   fileSize: PropTypes.number,
+  grid: PropTypes.object,
   limit: PropTypes.number,
   name: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,

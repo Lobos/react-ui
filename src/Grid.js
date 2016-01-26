@@ -1,9 +1,10 @@
 'use strict';
 
+import { PropTypes } from 'react';
 import classnames from 'classnames';
 import { getGrid } from './utils/grids';
 
-module.exports = (props) => {
+const Grid = (props) => {
   let { className, width, offset, responsive, style, children } = props;
   className = classnames(
     className,
@@ -15,3 +16,14 @@ module.exports = (props) => {
     </div>
   );
 };
+
+Grid.propTypes = {
+  children: PropTypes.any,
+  className: PropTypes.string,
+  offset: PropTypes.number,
+  responsive: PropTypes.string,
+  style: PropTypes.object,
+  width: PropTypes.number
+};
+
+module.exports = Grid;

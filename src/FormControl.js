@@ -34,12 +34,12 @@ class FormControl extends Component {
   }
 
   componentWillMount () {
-    this.setControls(this.props);
+    this.setItems(this.props);
   }
 
   componentWillReceiveProps (nextProps) {
     if (!shallowEqual(this.props, nextProps)) {
-      this.setControls(nextProps);
+      this.setItems(nextProps);
     }
   }
 
@@ -132,22 +132,22 @@ class FormControl extends Component {
     });
   }
 
-  setControls (props) {
-    let { label, layout, controls, children, ...props } = props;
+  setItems (props) {
+    let { label, layout, items, children, ...props } = props;
     let hints = [];
 
     if (children) {
       this.setChildrenHint(hints, children);
     } else {
-      if (!controls) {
-        controls = [props];
+      if (!items) {
+        items = [props];
       }
-      controls.forEach((control) => {
+      items.forEach((control) => {
         hints.push(this.getHint(control));
       });
     }
 
-    this.setState({ controls, hints: hints.join(', ') });
+    this.setState({ items, hints: hints.join(', ') });
   }
 
   renderTip () {
@@ -195,13 +195,13 @@ class FormControl extends Component {
     return newChildren;
   }
 
-  renderControl (grid) {
+  renderItems (grid) {
     const { children } = this.props;
-    let controls;
+    let items;
     if (children) {
-      controls = this.renderChildren(children);
+      items = this.renderChildren(children);
     } else {
-      controls = this.state.controls.map((props, i) => {
+      items = this.state.items.map((props, i) => {
         if (typeof props === 'string') {
           return <span key={i} dangerouslySetInnerHTML={{__html: props}} />;
         }
@@ -216,16 +216,16 @@ class FormControl extends Component {
       });
     }
 
-    controls.push(this.renderTip());
+    items.push(this.renderTip());
     
-    return controls;
+    return items;
   }
 
   renderInline (className) {
     className = classnames(className, getGrid(this.props.grid));
     return (
       <div style={this.props.style} className={className}>
-        {this.renderControl({grid: { width: 1 }, placeholder: this.props.placeholder || this.props.label})}
+        {this.renderItems({grid: { width: 1 }, placeholder: this.props.placeholder || this.props.label})}
       </div>
     );
   }
@@ -235,7 +235,7 @@ class FormControl extends Component {
       <div style={this.props.style} className={className}>
         <label className="label">{this.props.label}</label>
         <div>
-          {this.renderControl()}
+          {this.renderItems()}
         </div>
       </div>
     );
@@ -268,9 +268,13 @@ FormControl.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   data: PropTypes.any,
-  formItemBind: PropTypes.func,
+  errorText: PropTypes.string,
+  formData: PropTypes.object,
   grid: PropTypes.object,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
+  itemBind: PropTypes.func,
+  itemChange: PropTypes.func,
+  itemUnbind: PropTypes.func,
   label: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element
@@ -278,6 +282,7 @@ FormControl.propTypes = {
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
   name: PropTypes.string,
   onChange: PropTypes.func,
+  placeholder: PropTypes.string,
   style: PropTypes.object,
   tip: PropTypes.oneOfType([
     PropTypes.element,

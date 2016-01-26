@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component } from 'react';
+import { Component, PropTypes } from 'react';
 import refetch from 'refetch';
 import { deepEqual } from '../utils/objects';
 import clone from '../utils/clone';
@@ -18,107 +18,120 @@ export function setPeer(fn) {
   peerData = fn;
 }
 
-export const fetchEnhance = (ComposedComponent) => class extends Component {
-  constructor (props) {
-    super(props);
+export const fetchEnhance = (ComposedComponent) => {
+  class Fetch extends Component {
+    constructor (props) {
+      super(props);
 
-    this.state = {
-      data: undefined
+      this.state = {
+        data: undefined
+      }
+    }
+
+    componentWillMount () {
+      this._isMounted = true;
+      let { data, fetch } = this.props;
+      if (data) {
+        this.handleData(data);
+      }
+      if (fetch) {
+        this.fetchData(fetch);
+      }
+    }
+
+    componentWillReceiveProps (nextProps) {
+      if (!deepEqual(this.props.data, nextProps.data)) {
+        this.handleData(nextProps.data);
+      }
+      if (!deepEqual(this.props.fetch, nextProps.fetch)) {
+        this.fetchData(nextProps.fetch);
+      }
+    }
+
+    componentWillUnmount () {
+      this._isMounted = false;
+    }
+
+    handleData (data) {
+      // old dataSource api
+      if (typeof data === 'function') {
+        data.then((res) => {
+          if (this._isMounted) {
+            this.setState({ data: clone(res) });
+          }
+        })();
+        this.setState({ data: undefined });
+      } else {
+        this.setState({ data: clone(data) });
+      }
+    }
+
+    fetchData (fetch) {
+      if (!fetch) {
+        return;
+      }
+
+      this.setState({ fetchStatus: DATA_PENDING });
+
+      if (typeof fetch === 'function') {
+        fetch.then((data) => {
+          this.setData(data);
+        });
+        return;
+      }
+
+      if (typeof fetch === 'string') {
+        fetch = { url: fetch };
+      }
+      let { method='get', url, data, ...options } = fetch;
+      let request = refetch[method](url, data, options);
+      request.then(peerData.bind(request))
+        .then((data) => {
+          this.setData(data);
+        })
+        .catch((err) => {
+          console.warn(err);
+          this.setData(new Error());
+        });
+    }
+
+    setData (data) {
+      if (!this._isMounted) {
+        return;
+      }
+
+      if (data instanceof Error) {
+        this.setState({ fetchStatus: DATA_FAILURE });
+      } else {
+        this.setState({ data: clone(data), fetchStatus: DATA_SUCCESS });
+      }
+    }
+
+    getValue () {
+      return this.component.getValue(...arguments);
+    }
+
+    // table function
+    getChecked () {
+      return this.component.getChecked(...arguments);
+    }
+
+    render () {
+      const { data, ...others } = this.props;
+      return (
+        <ComposedComponent ref={(c) => this.component = c} data={this.state.data} fetchStatus={this.state.fetchStatus} {...others} />
+      );
     }
   }
 
-  componentWillMount () {
-    this._isMounted = true;
-    let { data, fetch } = this.props;
-    if (data) {
-      this.handleData(data);
-    }
-    if (fetch) {
-      this.fetchData(fetch);
-    }
-  }
+  Fetch.propTypes = {
+    data: PropTypes.any,
+    fetch: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+      PropTypes.object
+    ])
+  };
 
-  componentWillUnmount () {
-    this._isMounted = false;
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (!deepEqual(this.props.data, nextProps.data)) {
-      this.handleData(nextProps.data);
-    }
-    if (!deepEqual(this.props.fetch, nextProps.fetch)) {
-      this.fetchData(nextProps.fetch);
-    }
-  }
-
-  handleData (data) {
-    // old dataSource api
-    if (typeof data === 'function') {
-      data.then((res) => {
-        if (this._isMounted) {
-          this.setState({ data: clone(res) });
-        }
-      })();
-      this.setState({ data: undefined });
-    } else {
-      this.setState({ data: clone(data) });
-    }
-  }
-
-  fetchData (fetch) {
-    if (!fetch) {
-      return;
-    }
-
-    this.setState({ fetchStatus: DATA_PENDING });
-
-    if (typeof fetch === 'function') {
-      fetch.then((data) => {
-        this.setData(data);
-      });
-      return;
-    }
-
-    if (typeof fetch === 'string') {
-      fetch = { url: fetch };
-    }
-    let { method='get', url, data, ...options } = fetch;
-    let request = refetch[method](url, data, options);
-    request.then(peerData.bind(request))
-      .then((data) => {
-        this.setData(data);
-      })
-      .catch((err) => {
-        console.warn(err);
-        this.setData(new Error());
-      });
-  }
-
-  setData (data) {
-    if (!this._isMounted) {
-      return;
-    }
-
-    if (data instanceof Error) {
-      this.setState({ fetchStatus: DATA_FAILURE });
-    } else {
-      this.setState({ data: clone(data), fetchStatus: DATA_SUCCESS });
-    }
-  }
-
-  getValue () {
-    return this.refs.component.getValue(...arguments);
-  }
-
-  // table function
-  getChecked () {
-    return this.refs.component.getChecked(...arguments);
-  }
-
-  render () {
-    const { data, ...others } = this.props;
-    return (
-      <ComposedComponent ref="component" data={this.state.data} fetchStatus={this.state.fetchStatus} {...others} />
-    );
-  }
+  return Fetch;
 }

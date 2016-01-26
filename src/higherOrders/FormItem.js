@@ -20,19 +20,20 @@ export const enhance = (ComposedComponent) => {
       this.valueType = getValueType(props.type);
       this.handleChange = this.handleChange.bind(this);
 
-      const { name, value, validation, itemBind, itemChange } = props;
-      let validationBind;
-      if (validation && validation.bind) {
-        validationBind = validation.bind;
-        if (typeof validationBind === 'string') {
-          validationBind = [validationBind];
+      const { name, value, validator, ignore, itemBind, itemChange } = props;
+      let valiBind;
+      if (validator && validator.bind) {
+        valiBind = validator.bind;
+        if (typeof valiBind === 'string') {
+          valiBind = [valiBind];
         }
       }
 
       if (name) {
         itemBind({
           name,
-          validationBind,
+          valiBind,
+          ignore,
           validate: this.validate.bind(this)
         });
 
@@ -48,13 +49,6 @@ export const enhance = (ComposedComponent) => {
     }
     */
 
-    componentWillUnmount () {
-      const { itemUnbind, name } = this.props;
-      if (itemUnbind && name) {
-        itemUnbind(name);
-      }
-    }
-
     componentWillReceiveProps (nextProps) {
       let { name, formData } = nextProps;
       if (formData) {
@@ -67,6 +61,13 @@ export const enhance = (ComposedComponent) => {
 
     shouldComponentUpdate (nextProps, nextState) {
       return !shallowEqual(nextProps, this.props) || !shallowEqual(this.state, nextState);
+    }
+
+    componentWillUnmount () {
+      const { itemUnbind, name } = this.props;
+      if (itemUnbind && name) {
+        itemUnbind(name);
+      }
     }
 
     validate (value = this.state.value) {
@@ -96,7 +97,7 @@ export const enhance = (ComposedComponent) => {
     }
 
     render () {
-      let { className, form, onChange, value, ...props } = this.props;
+      let { className, onChange, value, ...props } = this.props;
 
       className = classnames(className, {
         'has-error': this.state.hasError
@@ -113,7 +114,21 @@ export const enhance = (ComposedComponent) => {
   }
 
   FormItem.propTypes = {
-    name: PropTypes.string
+    className: PropTypes.string,
+    formData: PropTypes.object,
+    ignore: PropTypes.bool,
+    itemBind: PropTypes.func,
+    itemChange: PropTypes.func,
+    itemUnbind: PropTypes.func,
+    name: PropTypes.string,
+    onChange: PropTypes.func,
+    onValidate: PropTypes.func,
+    type: PropTypes.string,
+    validator: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.object
+    ]),
+    value: PropTypes.any
   }
 
   return FormItem;

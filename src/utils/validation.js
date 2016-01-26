@@ -26,7 +26,7 @@ export function validate(value, valueType, {
   sep,
   tip,
   type,
-  validation,
+  validator,
   formData
 }) {
   let len = 0;
@@ -42,16 +42,16 @@ export function validate(value, valueType, {
 
   let reg = Regs[type];
 
-  // custom validation
-  if (validation) {
-    if (typeof validation === 'function') {
-      validation = { fn: validation };
+  // custom validator
+  if (validator) {
+    if (typeof validator === 'function') {
+      validator = { func: validator };
     }
-    if (validation.fn) {
-      return validation.fn(value, formData);
+    if (validator.func) {
+      return validator.func(value, formData);
     }
-    if (validation.reg) {
-      reg = validation.reg;
+    if (validator.reg) {
+      reg = validator.reg;
       if (typeof reg === 'string') {
         reg = new RegExp(reg);
       }

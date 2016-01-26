@@ -26,11 +26,7 @@ class Input extends Component {
     }
   }
 
-  componentDidMount () {
-  }
-
   setValue (value) {
-    //this.setState({ value });
     this.handleChange(null, value);
   }
 
@@ -83,6 +79,10 @@ class Input extends Component {
 
 Input.propTypes = {
   className: PropTypes.string,
+  grid: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object
+  ]),
   id: PropTypes.string,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,

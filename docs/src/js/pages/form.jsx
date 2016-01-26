@@ -80,7 +80,7 @@ module.exports = class extends React.Component {
   <FormControl grid={{width:16/24}} name="number" label="number" type="number" />
   <FormControl grid={{width:16/24}} name="password" min={6} max={20} label="password" type="password" />
   <FormControl grid={{width:16/24}} name="repassword" ignore={true} label="repeat password" type="password" tip="必须与password相同"
-    validation={{ fn: (value, formData) => {
+    validator={{ func: (value, formData) => {
       let password = formData.password;
       if (!value ? !password : value === password) {
         return true;

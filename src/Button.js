@@ -68,6 +68,7 @@ Button.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   disabled: PropTypes.bool,
+  grid: PropTypes.object,
   onClick: PropTypes.func,
   once: PropTypes.bool,
   status: PropTypes.string,

@@ -24,13 +24,13 @@ class Form extends Component {
     this.items = {};
     this.validationPools = {};
 
-    this.itemBind = (props) => {
-      this.items[props.name] = props;
+    this.itemBind = (item) => {
+      this.items[item.name] =item;
 
       // bind triger item
-      if (props.validationBind) {
-        props.validationBind.forEach((vb) => {
-          this.validationPools[vb] = (this.validationPools[vb] || []).concat(props.validate);
+      if (item.valiBind) {
+        item.valiBind.forEach((vb) => {
+          this.validationPools[vb] = (this.validationPools[vb] || []).concat(item.validate);
         });
       }
     };
@@ -51,10 +51,10 @@ class Form extends Component {
         this.setState({ data });
       }
 
-      let validationBind = this.validationPools[name];
-      if (validationBind) {
-        validationBind.forEach((validation) => {
-          validation();
+      let valiBind = this.validationPools[name];
+      if (valiBind) {
+        valiBind.forEach((validate) => {
+          validate();
         });
       }
 
@@ -108,6 +108,14 @@ class Form extends Component {
     if (this.props.onSubmit) {
       // send clone data
       let data = clone(this.state.data);
+
+      // remove ignore value
+      forEach(this.items, (item) => {
+        if (item.ignore) {
+          delete data[item.name];
+        }
+      });
+
       this.props.onSubmit(data);
     }
   }
@@ -159,9 +167,9 @@ Form.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   data: PropTypes.object,
+  disabled: PropTypes.bool,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
-  disabled: PropTypes.bool,
   onSubmit: PropTypes.func,
   style: PropTypes.object
 };
