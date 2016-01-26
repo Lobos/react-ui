@@ -1,8 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-
 const Button = require('../../../src/Button.js');
-const ReactTestUtils = React.addons ? React.addons.TestUtils : require('react-addons-test-utils');
+const ReactTestUtils = React.addons.TestUtils;
 
 describe('Feature', ()=> {
   it('Should change to disabled after click when once="true"', ()=> {
