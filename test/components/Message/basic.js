@@ -34,9 +34,9 @@ describe('Basic', ()=> {
   });
 
   it('Should have Overlay as child component', ()=> {
-    const overlayInstance = ReactTestUtils.findRenderedComponentWithType(_defaultInstance, Overlay);
-    const overlayCss = ReactDOM.findDOMNode(overlayInstance).className;
-    assert.ok(ReactTestUtils.isCompositeComponentWithType(overlayInstance, Overlay));
+    const _overlayInstance = ReactTestUtils.findRenderedComponentWithType(_defaultInstance, Overlay);
+    const overlayCss = ReactDOM.findDOMNode(_overlayInstance).className;
+    assert.ok(ReactTestUtils.isCompositeComponentWithType(_overlayInstance, Overlay));
     assert.ok(overlayCss.match(_overlayRegex))
   });
 
