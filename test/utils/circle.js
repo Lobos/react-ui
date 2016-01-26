@@ -1,7 +1,7 @@
 'use strict';
 
 import { getPositions } from '../../src/utils/circle';
-import isEqual from '../../src/utils/isEqual';
+import { deepEqual } from '../../src/utils/objects';
 
 describe('utils circle', () => {
   it('circle', () => {
@@ -18,7 +18,7 @@ describe('utils circle', () => {
       [ '50.00', '0.00' ],
       [ '75.00', '6.70' ],
       [ '93.30', '25.00' ] ];
-    isEqual(pos, pos1).should.be.true;
+    deepEqual(pos, pos1).should.be.true;
 
     pos = getPositions(6, 100, 90, 0, 0);
     pos1 = [ [ '0.00', '100.00' ],
@@ -27,6 +27,6 @@ describe('utils circle', () => {
       [ '-0.00', '-100.00' ],
       [ '86.60', '-50.00' ],
       [ '86.60', '50.00' ] ];
-    isEqual(pos, pos1).should.be.true;
+    deepEqual(pos, pos1).should.be.true;
   });
 });
