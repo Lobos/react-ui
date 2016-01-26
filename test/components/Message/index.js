@@ -1,4 +1,4 @@
 describe('Message', ()=> {
   require('./basic');
-  //require('./behavior');
+  require('./behavior');
 });
