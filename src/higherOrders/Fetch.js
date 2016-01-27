@@ -119,9 +119,7 @@ export const fetchEnhance = (ComposedComponent) => {
       if (data instanceof Error) {
         this.setState({ fetchStatus: FETCH_FAILURE });
       } else {
-        setTimeout(() => {
-          this.setState({ data: clone(data), fetchStatus: FETCH_SUCCESS });
-        }, 1000)
+        this.setState({ data: clone(data), fetchStatus: FETCH_SUCCESS });
       }
     }
 

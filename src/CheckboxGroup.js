@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
+import { Component, PropTypes, Children } from 'react';
 import classnames from 'classnames';
 import { Checkbox } from './Checkbox';
 import { toArray } from './utils/strings';
@@ -48,6 +48,15 @@ class CheckboxGroup extends Component {
       d.$checked = value.indexOf(d.$value) >= 0;
       return d;
     });
+    Children.map(this.props.children, (child) => {
+      if (typeof child === 'object') {
+        data.push({
+          $checked: value.indexOf(child.props.value) >= 0,
+          $value: child.props.value,
+          $text: child.props.children || child.props.text
+        });
+      }
+    });
     return data;
   }
 
@@ -61,7 +70,7 @@ class CheckboxGroup extends Component {
       }
     });
 
-    if (typeof sep === 'string') {
+    if (sep && typeof sep === 'string') {
       value = value.join(sep);
     } else if (typeof sep === 'function') {
       value = sep(raw);
@@ -116,6 +125,10 @@ class CheckboxGroup extends Component {
 }
 
 CheckboxGroup.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.array
+  ]),
   className: PropTypes.string,
   data: PropTypes.array,
   inline: PropTypes.bool,

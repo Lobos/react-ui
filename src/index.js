@@ -5,6 +5,7 @@ export const CheckboxGroup = require('./CheckboxGroup');
 export const Datetime = require('./Datetime');
 export const Icon = require('./Icon');
 export const Input = require('./Input');
+export const Radio = require('./Radio');
 export const RadioGroup = require('./RadioGroup');
 export const Rating = require('./Rating');
 export const Select = require('./Select');

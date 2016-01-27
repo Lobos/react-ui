@@ -1,6 +1,6 @@
 "use strict";
 
-import { Component, PropTypes } from 'react';
+import { Component, PropTypes, Children } from 'react';
 import classnames from 'classnames';
 import { deepEqual, toTextValue } from './utils/objects';
 import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
@@ -28,7 +28,17 @@ class RadioGroup extends Component {
   }
 
   formatData (data) {
-    return toTextValue(data, this.props.textTpl, this.props.valueTpl);
+    data = toTextValue(data, this.props.textTpl, this.props.valueTpl);
+    Children.map(this.props.children, (child) => {
+      if (typeof child === 'object') {
+        data.push({
+          $value: child.props.value,
+          $text: child.props.children || child.props.text
+        });
+      }
+    });
+    return data;
+
   }
 
   setValue (value) {
@@ -85,6 +95,10 @@ class RadioGroup extends Component {
 }
 
 RadioGroup.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.array
+  ]),
   className: PropTypes.string,
   data: PropTypes.array,
   inline: PropTypes.bool,

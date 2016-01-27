@@ -4,7 +4,7 @@ import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
 import exampleData from '../data/text-value';
-const {CheckboxGroup} = global.uiRequire();
+const {CheckboxGroup, Checkbox, Icon} = global.uiRequire();
 
 module.exports = class extends React.Component {
   render () {
@@ -91,6 +91,18 @@ module.exports = class extends React.Component {
   value="shanghai|chengdu"
   fetch={{url: "json/text-value.json", cache: 3600}}
 />
+          </Example>
+
+          <h2 className="subhead">混合</h2>
+          <Example>
+<CheckboxGroup sep=""
+  onChange={(value)=>console.log(value)}
+  inline={true} 
+  value={["北京", "广州"]}
+  data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
+  >
+  <Checkbox value="香港"><Icon icon="cloud-outline" />香港</Checkbox>
+</CheckboxGroup>
           </Example>
         </div>
       </div>
