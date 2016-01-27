@@ -11,6 +11,7 @@ describe('Behavior', ()=> {
       );
 
     ReactTestUtils.Simulate.click(ReactDOM.findDOMNode(instance));
+    instance.handleClick();
   });
 
   it('Should call enable(elem) to enable disabled Button', ()=> {
