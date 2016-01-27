@@ -8,9 +8,9 @@ import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toArray, substitute } from '../utils/strings';
 import { forEach, deepEqual } from '../utils/objects';
-import { fetchEnhance } from '../higherOrders/Fetch';
+import { fetchEnhance, FETCH_SUCCESS } from '../higherOrders/Fetch';
 import { register } from '../higherOrders/FormItem';
-
+import { getLang } from '../lang';
 import { requireCss } from '../themes';
 requireCss('tree');
 
@@ -161,7 +161,6 @@ class Tree extends Component {
     if (this.props.onChange) {
       setTimeout(() => {
         let value = this.getValue();
-        //this.setValue(value);
         this.props.onChange(value);
       });
     }
@@ -174,8 +173,14 @@ class Tree extends Component {
   }
 
   render () {
+    let { fetchStatus, selectAble, readOnly, open } = this.props;
+
+    // if get remote data pending or failure, render message
+    if (fetchStatus !== FETCH_SUCCESS) {
+      return <span className={`fetch-${fetchStatus}`}>{getLang('fetch.status')[fetchStatus]}</span>;
+    }
+
     let value = this.state.value;
-    let { selectAble, readOnly, open } = this.props;
 
     let items = this.state.data.map(function (item, i) {
       return (

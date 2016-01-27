@@ -47,12 +47,13 @@ build: npm run build
 
 # Change log
 v0.6.0
- - dataSource 改为higher order component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
+ - dataSource 方式改为higher order component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
  - clickaway 改为 Mixins，增加registerClickAway
  - datetime 加入today, min, max, 移除 dateOnly, timeOnly, 使用 type 代替
  - 文档重构，增加rctui-example-loader把Example转为Code，避免文档和示例不同步造成误导
+ - 加入FormItem，拆分FormControl，重构整个Form结构
  - CheckboxGroup, RadioGroup 支持data和children混合输入
- - 加入FormItem，拆分FormControl，重构整个Form解构
+ - Tree替换图片图标，改用传入icon
 
 v0.5.2
  - babel 5 => 6，移除es7的语法

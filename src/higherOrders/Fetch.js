@@ -5,9 +5,12 @@ import refetch from 'refetch';
 import { deepEqual } from '../utils/objects';
 import clone from '../utils/clone';
 
-export const DATA_PENDING = 0;
-export const DATA_SUCCESS = 1;
-export const DATA_FAILURE = 2;
+import { setLang } from '../lang';
+setLang('fetch');
+
+export const FETCH_PENDING = 'pending';
+export const FETCH_SUCCESS = 'success';
+export const FETCH_FAILURE = 'failure';
 
 // handle response data
 function peerData (res) {
@@ -24,7 +27,8 @@ export const fetchEnhance = (ComposedComponent) => {
       super(props);
 
       this.state = {
-        data: undefined
+        data: undefined,
+        fetchStatus: FETCH_SUCCESS
       }
     }
 
@@ -67,14 +71,14 @@ export const fetchEnhance = (ComposedComponent) => {
     handleData (data) {
       // old dataSource api
       if (typeof data === 'function') {
+        this.setState({ data: undefined, fetchStatus: FETCH_PENDING });
         data.then((res) => {
           if (this._isMounted) {
             this.setState({ data: clone(res) });
           }
         })();
-        this.setState({ data: undefined });
       } else {
-        this.setState({ data: clone(data) });
+        this.setState({ data: clone(data), fetchStatus: FETCH_SUCCESS });
       }
     }
 
@@ -83,7 +87,7 @@ export const fetchEnhance = (ComposedComponent) => {
         return;
       }
 
-      this.setState({ fetchStatus: DATA_PENDING });
+      this.setState({ fetchStatus: FETCH_PENDING });
 
       if (typeof fetch === 'function') {
         fetch.then((data) => {
@@ -113,9 +117,11 @@ export const fetchEnhance = (ComposedComponent) => {
       }
 
       if (data instanceof Error) {
-        this.setState({ fetchStatus: DATA_FAILURE });
+        this.setState({ fetchStatus: FETCH_FAILURE });
       } else {
-        this.setState({ data: clone(data), fetchStatus: DATA_SUCCESS });
+        setTimeout(() => {
+          this.setState({ data: clone(data), fetchStatus: FETCH_SUCCESS });
+        }, 1000)
       }
     }
 

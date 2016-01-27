@@ -8,7 +8,7 @@ class FormSubmit extends Component {
     let children = this.props.children;
     let content;
     if (Array.isArray(children)) {
-      content = this.props.locked ? children[1] : children[0];
+      content = this.props.disabled ? children[1] : children[0];
     } else {
       content = children;
     }
@@ -18,7 +18,7 @@ class FormSubmit extends Component {
         <Button type="submit"
           status='primary'
           onClick={this.props.onClick}
-          disabled={this.props.locked}>
+          disabled={this.props.disabled}>
           {content}
         </Button>
       </div>
@@ -28,7 +28,7 @@ class FormSubmit extends Component {
 
 FormSubmit.propTypes = {
   children: PropTypes.any,
-  locked: PropTypes.bool,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
   style: PropTypes.object
 };

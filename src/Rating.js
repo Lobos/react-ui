@@ -150,6 +150,7 @@ Rating.propTypes = {
 };
 
 Rating.defaultProps = {
+  value: 0,
   maxValue: 5
 };
 

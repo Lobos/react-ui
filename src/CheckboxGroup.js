@@ -5,8 +5,9 @@ import classnames from 'classnames';
 import { Checkbox } from './Checkbox';
 import { toArray } from './utils/strings';
 import { deepEqual, toTextValue } from './utils/objects';
-import { fetchEnhance } from './higherOrders/Fetch';
+import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
+import { getLang } from './lang';
 
 class CheckboxGroup extends Component {
   constructor (props) {
@@ -70,18 +71,6 @@ class CheckboxGroup extends Component {
   }
 
   handleChange (value, checked, index) {
-    /*
-    console.log(index);
-    let values = this.state.value;
-    if (checked) {
-      values.push(value);
-    } else {
-      let i = values.indexOf(value);
-      if (i >= 0) {
-        values.splice(i, 1);
-      }
-    }
-    */
     let data = this.state.data;
     data[index].$checked = checked;
     value = this.getValue(this.props.sep, data);
@@ -94,21 +83,25 @@ class CheckboxGroup extends Component {
   }
 
   render () {
-    let className = classnames(
-      this.props.className,
+    let { className, fetchStatus, inline, readOnly } = this.props;
+
+    // if get remote data pending or failure, render message
+    if (fetchStatus !== FETCH_SUCCESS) {
+      return <span className={`fetch-${fetchStatus}`}>{getLang('fetch.status')[fetchStatus]}</span>;
+    }
+
+    className = classnames(
+      className,
       'rct-checkbox-group',
-      { 'rct-inline': this.props.inline }
+      { 'rct-inline': inline }
     );
-    let values = this.state.value;
 
     let items = this.state.data.map((item, i) => {
-      let value = this.props.sep ? item.$value.toString() : item.$value;
-      let checked = values.indexOf(value) >= 0;
       return (
         <Checkbox key={i}
           index={i}
-          readOnly={this.props.readOnly}
-          checked={checked}
+          readOnly={readOnly}
+          checked={item.$checked}
           onChange={this.handleChange}
           text={item.$text}
           value={item.$value}

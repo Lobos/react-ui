@@ -3,8 +3,9 @@
 import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { deepEqual, toTextValue } from './utils/objects';
-import { fetchEnhance } from './higherOrders/Fetch';
+import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
+import { getLang } from './lang';
 import Radio from './Radio';
 
 class RadioGroup extends Component {
@@ -53,16 +54,23 @@ class RadioGroup extends Component {
   }
 
   render () {
-    let className = classnames(
-      this.props.className,
+    let { className, fetchStatus, inline, readOnly } = this.props;
+
+    // if get remote data pending or failure, render message
+    if (fetchStatus !== FETCH_SUCCESS) {
+      return <span className={`fetch-${fetchStatus}`}>{getLang('fetch.status')[fetchStatus]}</span>;
+    }
+
+    className = classnames(
+      className,
       'rct-radio-group',
-      { 'rct-inline': this.props.inline }
+      { 'rct-inline': inline }
     );
     let items = this.state.data.map(function (item, i) {
       return (
         <Radio key={i}
           onClick={this.handleChange}
-          readOnly={this.props.readOnly}
+          readOnly={readOnly}
           checked={this.state.value === item.$value}
           text={item.$text}
           value={item.$value}
