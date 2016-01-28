@@ -7,8 +7,9 @@ import { getOuterHeight, overView, withoutTransition } from './utils/dom';
 import { deepEqual } from './utils/objects';
 import ClickAway from './mixins/ClickAway';
 import { getGrid } from './utils/grids';
-import { fetchEnhance } from './higherOrders/Fetch';
+import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
+import { getLang } from './lang';
 
 import { requireCss } from './themes';
 requireCss('select');
@@ -195,12 +196,10 @@ class Select extends ClickAway(Component) {
   }
 
   render () {
-    let active = this.state.active;
-    let result = [];
-    let { grid, readOnly, mult, placeholder, style } = this.props;
-
-    let className = classnames(
-      this.props.className,
+    let { className, fetchStatus, grid, readOnly, mult, placeholder, style } = this.props;
+ 
+    className = classnames(
+      className,
       getGrid(grid),
       'rct-form-control',
       'rct-select',
@@ -211,6 +210,14 @@ class Select extends ClickAway(Component) {
         single: !mult
       }
     );
+   
+    // if get remote data pending or failure, render message
+    if (fetchStatus !== FETCH_SUCCESS) {
+      return <div className={className}>{getLang('fetch.status')[fetchStatus]}</div>;
+    }
+
+    let active = this.state.active;
+    let result = [];
 
     let filter;
     if (this.props.filterAble) {

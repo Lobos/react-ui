@@ -66,7 +66,7 @@ module.exports = class extends React.Component {
           <p>注：本文档提交后只在下方显示json格式，不提交到服务端。</p>
 
           <Example>
-<Form layout="aligned" onSubmit={formData => this.setState({ formData })}>
+<Form layout="aligned" onSubmit={formData => this.setState({ formData })} fetch={'json/form.json'}>
   <FormControl name="text" label="text" type="text" grid={{width:12/24}} min={2} max={6} />
   <FormControl label="email">
     <span className="rct-input-group">
@@ -103,8 +103,8 @@ module.exports = class extends React.Component {
     <Input name="mult3" type="alphanum" min={5} max={5} grid={1/6} />-
     <Input name="mult4" type="alphanum" min={5} max={5} grid={1/6} />
   </FormControl>
-  <FormControl name="checkboxgroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="checkbox group" type="checkbox-group" />
-  <FormControl name="radiogroup" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} label="radio group" inline={true} type="radio-group" />
+  <FormControl name="checkboxgroup" fetch={{url: "json/text-value.json", cache: 3600}} label="checkbox group" type="checkbox-group" />
+  <FormControl name="radiogroup" fetch={{url: "json/text-value.json", cache: 3600}} label="radio group" inline={true} type="radio-group" />
   <FormControl name="rating" label="rating" required maxValue={10} tip="亲，给个好评吧" errorText="必须给一个评分哦" type="rating" />
   <FormControl grid={{width:12/24}} name="select" label="select" type="select" fetch={{url:"json/countries.json", cache:3600}} mult={true} filterAble={true} optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
   <FormControl name="tree" selectAble={true} label="tree" type="tree" fetch={{url:"json/tree.json", cache:3600}} textTpl='{text}({id})' valueTpl="{id}" />

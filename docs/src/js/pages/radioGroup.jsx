@@ -3,7 +3,7 @@
 import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const {RadioGroup} = global.uiRequire();
+const {RadioGroup, Radio, Icon} = global.uiRequire();
 const textValue = require('../data/text-value');
 
 module.exports = class extends Component {
@@ -83,6 +83,19 @@ module.exports = class extends Component {
   value="chengdu"
   fetch={{url:"json/text-value.json", cache: 3600 }} />
           </Example>
+
+          <h2 className="subhead">data && children</h2>
+          <Example>
+<RadioGroup
+  onChange={(value)=>console.log(value)}
+  inline={true} 
+  value="北京"
+  data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
+  >
+  <Radio value="香港"><Icon icon="cloud-outline" />香港</Radio>
+</RadioGroup>
+          </Example>
+
         </div>
       </div>
     );

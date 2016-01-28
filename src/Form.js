@@ -6,7 +6,8 @@ import { forEach, deepEqual } from './utils/objects';
 import clone from './utils/clone';
 import FormControl from './FormControl';
 import FormSubmit from './FormSubmit';
-import { fetchEnhance } from './higherOrders/Fetch';
+import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
+import { getLang } from './lang';
 
 import { requireCss } from './themes';
 requireCss('form');
@@ -125,12 +126,14 @@ class Form extends Component {
 
   renderChildren () {
     let { data } = this.state;
+    let { fetchStatus, disabled } = this.props;
+
     return Children.map(this.props.children, (child) => {
       if (!child) { return null };
       let { hintType, readOnly } = child.props;
       let props = {
         hintType: hintType || this.props.hintType,
-        readOnly: readOnly || this.props.disabled,
+        readOnly: readOnly || disabled,
         layout: this.props.layout
       };
       if (child.type === FormControl) {
@@ -139,7 +142,10 @@ class Form extends Component {
         props.itemChange = this.itemChange;
         props.formData = data;
       } else if (child.type === FormSubmit) {
-        props.disabled = this.props.disabled;
+        props.disabled = disabled;
+        if (fetchStatus !== FETCH_SUCCESS) {
+          props.children = getLang('fetch.status')[fetchStatus];
+        }
       }
 
       return cloneElement(child, props);
@@ -147,6 +153,8 @@ class Form extends Component {
   }
 
   render () {
+    let { fetchStatus } = this.props;
+
     let className = classnames(
       this.props.className,
       'rct-form',
@@ -160,6 +168,7 @@ class Form extends Component {
     return (
       <form onSubmit={this.handleSubmit} style={this.props.style} className={className}>
         {this.renderChildren()}
+        {fetchStatus !== FETCH_SUCCESS && <div className="rct-form-mask" />}
       </form>
     );
   }

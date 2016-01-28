@@ -174,6 +174,7 @@ class FormControl extends Component {
     props.itemChange = this.itemChange;
     props.formData = this.props.formData;
     props.onValidate = this.handleValidate;
+    props.readOnly = props.readOnly || this.props.readOnly;
   }
 
   renderChildren (children) {
@@ -286,6 +287,7 @@ FormControl.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  readOnly: PropTypes.bool,
   style: PropTypes.object,
   tip: PropTypes.oneOfType([
     PropTypes.element,

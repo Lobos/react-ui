@@ -14,7 +14,8 @@ const ADD_MESSAGE = 'EB3A79637B40';
 const REMOVE_MESSAGE = '73D4EF15DF50';
 const CLEAR_MESSAGE = '73D4EF15DF52';
 let messages = [];
-let messageContainer = null;
+let containerDOM = null;
+let containerElement = null;
 
 class Item extends Component {
   constructor (props) {
@@ -97,22 +98,19 @@ Message.propTypes = {
 };
 
 Message.show = function (content, type) {
-  if (!messageContainer) {
-    createContainer();
+  if (!containerDOM) {
+    containerDOM = document.createElement('div');
+    document.body.appendChild(containerDOM);
   }
-  PubSub.publish(ADD_MESSAGE, {
+  PubSub.publishSync(ADD_MESSAGE, {
     content,
     type: type || 'info'
   });
+  return containerElement;
 };
 
 function renderContainer() {
-  ReactDOM.render(<Message messages={messages} />, messageContainer);
-}
-
-function createContainer () {
-  messageContainer = document.createElement('div');
-  document.body.appendChild(messageContainer);
+  containerElement = ReactDOM.render(<Message messages={messages} />, containerDOM);
 }
 
 PubSub.subscribe(ADD_MESSAGE, (topic, data) => {
