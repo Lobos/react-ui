@@ -1,4 +1,7 @@
 "use strict";
+import {setTheme} from '../../../src/themes';
+
+setTheme('mui');
 
 global.uiRequire = function (src) {
   if (src) {

@@ -1,0 +1,76 @@
+@import "mixins";
+@import "keyframes";
+
+.make-keyframe();
+.rct-checkbox, .rct-radio {
+  display: block;
+  user-select: none;
+  vertical-align: middle;
+  * {
+    vertical-align: middle;
+  }
+
+  input {
+    margin-right: 5px;
+  }
+
+
+  input[type="checkbox"]{
+    .default-status();
+    line-height: 1;
+    &:checked::after{
+      content: url(//img.alicdn.com/tps/i1/TB190qpJFXXXXbzXXXXsHLJJFXX-9-8.png);
+      display: block;
+      position: absolute;
+      top: -2px;
+      left: 1px;
+      font-size: 13px;
+      .animation(radio .2s ease-out);
+      .animation-fill-mode(forwards);
+    }
+    &:indeterminate {
+      background-image: url("//img.alicdn.com/tps/i4/TB1CPzqHpXXXXaUXpXXqsJyFVXX-26-26.png");
+      background-size: 11px 11px;
+      &:hover{
+        background-image: url("//img.alicdn.com/tps/i4/TB1e.6mHpXXXXa3XFXXqsJyFVXX-26-26.png");
+      }
+      &[disabled]{
+        background-image: url("//img.alicdn.com/tps/i3/TB15OTmHpXXXXbFXFXXqsJyFVXX-26-26.png");
+      }
+    }
+  }
+
+
+  @width: 6px;
+  @height: 6px;
+  input[type="radio"]{
+	.default-status();
+	  border-radius: 50%;
+	  width: 14px;
+	  height: 14px;
+	  &:checked::after{
+		  content: '';
+		  display: block;
+		  position: relative;
+		  top: 50%;
+		  left: 50%;
+		  width: @width;
+		  height: @height;
+		  margin-left: -@width/2px;
+		  margin-top: -@height/2px;
+		  background: #666;
+		  border-radius: 50%;
+          animation: radio 0.2s ease-out;
+          animation-fill-mode: forwards;
+	  }
+}
+}
+
+.rct-checkbox-group, .rct-radio-group {
+  &.rct-inline {
+    .rct-checkbox, .rct-radio {
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+}

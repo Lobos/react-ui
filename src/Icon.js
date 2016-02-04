@@ -40,12 +40,15 @@ class Icon extends Component {
     }
 
     return (
-      <i style={this.props.style} className={classnames(...classes)}></i>
+      <i style={this.props.style} className={classnames(...classes)}>
+        {this.props.children}
+      </i>
     );
   }
 }
 
 Icon.propTypes = {
+  children: PropTypes.any,
   icon: PropTypes.string,
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   spin: PropTypes.bool,

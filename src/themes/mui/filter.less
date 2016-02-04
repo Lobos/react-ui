@@ -1,0 +1,73 @@
+@import "mixins";
+
+.rct-filter {
+  position: relative;
+  cursor: pointer;
+
+  .rct-filter-options-wrap {
+    top: 100%;
+    margin-top: 1px;
+    z-index: 1050;
+    position: absolute;
+    overflow: hidden;
+    width: 590px;
+    left: -13px;
+    right: -13px;
+  }
+
+  .rct-filter-options {
+    display: none;
+    left: -1px;
+    padding: 10px;
+    width: 535px;
+    margin: 0 12px 20px;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+    .box-shadow(0px 6px 12px rgba(0,0,0,0.175));
+    background-color: #f2f2f2;
+    .transition(0.45s);
+    .translate(0, -100%);
+
+    .right {
+      float: right;
+      margin-left: 12px;
+    }
+  }
+
+  &.active {
+    .rct-filter-options {
+      display: block;
+      .translate(0, 0);
+    }
+  }
+
+  .rct-filter-result {
+    padding-right: 24px;
+    min-width: 300px;
+    min-height: 20px;
+    .search {
+      position: absolute;
+      top: .8em;
+      right: 10px;
+      width: 15px;
+      height: 14px;
+      background: url('./images/icon-search.png');
+    }
+  }
+
+  .rct-filter-item {
+    margin-bottom: 8px;
+
+    button.remove {
+      color: @red;
+      background-color: transparent;
+      border: none;
+      font-size: 22px;
+      height: 22px;
+      line-height: 22px;
+      padding: 0 8px;
+      vertical-align: middle;
+      font-weight: bold;
+    }
+  }
+}

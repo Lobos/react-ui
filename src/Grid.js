@@ -22,7 +22,7 @@ class Grid extends Component {
 Grid.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
-  offset: PropTypes.offset,
+  offset: PropTypes.number,
   responsive: PropTypes.string,
   style: PropTypes.object,
   width: PropTypes.number

@@ -1,0 +1,80 @@
+@import "mixins";
+
+.rct-form {
+  input[readonly], textarea[readonly] {
+    background-color: #eee; /* menu hover bg color */
+    color: #777; /* menu text color */
+    border-color: #ccc;
+  }
+
+  input[disabled], textarea[disabled] {
+    cursor: not-allowed;
+    background-color: #eaeded;
+    color: #cad2d3;
+  }
+}
+
+.rct-form-aligned {
+  .rct-control-group {
+    position: relative;
+    padding-left: 11em;
+    margin-bottom: 1em;
+    .box-sizing(border-box);
+
+    label {
+      text-align: left;
+      display: block;
+      width: auto;
+    }
+
+    .rct-checkbox-group, .rct-radio-group {
+      padding-top: 0.4em;
+
+      &.rct-inline label {
+        display: inline-block;
+      }
+    }
+
+    .rct-rating {
+      margin-top: 0.4em;
+    }
+
+    & > .label {
+      position: absolute;
+      text-align: right;
+      width: 10em;
+      left: 0;
+      top: 0.5em;
+    }
+  }
+}
+
+.rct-form-inline {
+  .rct-control-group {
+    display: inline-block;
+    margin-right: 0.6em;
+  }
+
+  .rct-form-control {
+    vertical-align: middle;
+  }
+}
+
+@media (max-width: 567px) {
+.rct-form-aligned {
+  .rct-control-group {
+    padding-left: 0;
+    & > .label {
+      position: relative;
+      top: 0;
+      text-align: left;
+    }
+  }
+}
+
+.rct-form-inline {
+  .rct-control-group {
+    display: block;
+  }
+}
+}
