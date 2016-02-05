@@ -33,7 +33,8 @@ class Checkbox extends Component {
     this.setState({ checked });
     setTimeout(() => {
       if (this.props.onChange) {
-        this.props.onChange(this.props.value, checked, this.props.index);
+        let value = checked ? this.props.value : undefined;
+        this.props.onChange(value, checked, this.props.index);
       }
     }, 0);
   }
@@ -75,6 +76,10 @@ Checkbox.propTypes = {
   text: PropTypes.any,
   value: PropTypes.any
 };
+
+Checkbox.defaultProps = {
+  value: true
+}
 
 module.exports = register(Checkbox, 'checkbox');
 

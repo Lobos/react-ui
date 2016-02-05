@@ -9,7 +9,7 @@ global.uiRequire = function (src) {
 };
 
 import ReactDOM from 'react-dom';
-const AppRoutes = require('./app-routes.jsx');
+const AppRoutes = require('./appRoutes.jsx');
 
 ReactDOM.render(
   AppRoutes,

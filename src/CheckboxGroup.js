@@ -91,12 +91,31 @@ class CheckboxGroup extends Component {
     }
   }
 
+  renderItems () {
+    return this.state.data.map((item, i) => {
+      return (
+        <Checkbox key={i}
+          index={i}
+          readOnly={this.props.readOnly}
+          checked={item.$checked}
+          onChange={this.handleChange}
+          text={item.$text}
+          value={item.$value}
+        />
+      );
+    });
+  }
+
   render () {
-    let { className, fetchStatus, inline, readOnly } = this.props;
+    let { className, fetchStatus, inline } = this.props;
 
     // if get remote data pending or failure, render message
     if (fetchStatus !== FETCH_SUCCESS) {
-      return <span className={`fetch-${fetchStatus}`}>{getLang('fetch.status')[fetchStatus]}</span>;
+      return (
+        <span className={`fetch-${fetchStatus}`}>
+          {getLang('fetch.status')[fetchStatus]}
+        </span>
+      );
     }
 
     className = classnames(
@@ -105,21 +124,10 @@ class CheckboxGroup extends Component {
       { 'rct-inline': inline }
     );
 
-    let items = this.state.data.map((item, i) => {
-      return (
-        <Checkbox key={i}
-          index={i}
-          readOnly={readOnly}
-          checked={item.$checked}
-          onChange={this.handleChange}
-          text={item.$text}
-          value={item.$value}
-        />
-      );
-    });
-
     return (
-      <div style={this.props.style} className={className}>{this.state.msg || items}</div>
+      <div style={this.props.style} className={className}>
+        {this.renderItems()}
+      </div>
     );
   }
 }
@@ -131,6 +139,7 @@ CheckboxGroup.propTypes = {
   ]),
   className: PropTypes.string,
   data: PropTypes.array,
+  fetchStatus: PropTypes.string,
   inline: PropTypes.bool,
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
@@ -150,4 +159,4 @@ CheckboxGroup.defaultProps = {
 
 CheckboxGroup = fetchEnhance(CheckboxGroup);
 
-module.exports = register(CheckboxGroup, 'checkbox-group', { valueType: 'array' });
+module.exports = register(CheckboxGroup, 'checkbox-group', {valueType: 'array'});

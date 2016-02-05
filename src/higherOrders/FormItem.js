@@ -43,11 +43,17 @@ export const enhance = (ComposedComponent) => {
       }
     }
 
-    /*
-    componentWillReceiveProps (nextProps) {
-      console.log(nextProps);
+    componentDidMount () {
+      let component = this.component;
+      Object.keys(component).forEach((key) => {
+        if (!this.hasOwnProperty(key)) {
+          let func = component[key];
+          if (typeof func === 'function') {
+            this[key] = func;
+          }
+        }
+      });
     }
-    */
 
     componentWillReceiveProps (nextProps) {
       let { name, formData } = nextProps;
@@ -68,18 +74,6 @@ export const enhance = (ComposedComponent) => {
       if (itemUnbind && name) {
         itemUnbind(name);
       }
-    }
-
-    componentDidMount () {
-      let component = this.component;
-      Object.keys(component).forEach((key) => {
-        if (!this.hasOwnProperty(key)) {
-          let func = component[key];
-          if (typeof func === 'function') {
-            this[key] = func;
-          }
-        }
-      });
     }
 
     validate (value = this.state.value) {
