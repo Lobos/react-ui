@@ -1,0 +1,32 @@
+@import "mixins.less";
+
+.rct-rating {
+  position: relative;
+  display: inline-block;
+
+  .rct-rating-front {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    overflow: hidden;
+
+    .rct-rating-inner {
+      width: 1000px;
+    }
+
+    .rct-rating-handle {
+      display: inline-block;
+      .opacity(0.01);
+      .transition(opacity 0.3s);
+    }
+
+    .active {
+      .opacity(1);
+    }
+  }
+
+  .wink {
+    .wink(wink, 0.3s);
+  }
+}

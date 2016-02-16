@@ -43,3 +43,5 @@ export const HigherOrder = {
 };
 
 export const Refetch = require('refetch');
+
+export const Themes = require('./themes');

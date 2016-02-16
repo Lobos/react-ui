@@ -2,10 +2,18 @@
 
 export let THEME = 'pure';
 
+let styles = [];
+
 export function requireCss(pack) {
-  require(`./${THEME}/${pack}.less`);
+  if (styles.indexOf(pack) < 0) {
+    styles.push(pack);
+  }
 }
 
-export function setTheme (theme) {
-  THEME = theme;
+export function setTheme (theme = THEME) {
+  styles.forEach((pack) => {
+    require(`./${theme}/${pack}.less`);
+  });
 }
+
+export const loadStyles = setTheme;

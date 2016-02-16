@@ -1,0 +1,81 @@
+@import "mixins.less";
+
+.rct-modal-container {
+  position: fixed;
+  display: none;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1100;
+  overflow: auto;
+
+  &.active {
+    display: block;
+  }
+
+  .rct-modal {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    border: solid 1px #eee;
+    background-color: #fff;
+    border-radius: 4px;
+    max-width: 92%;
+    margin-bottom: 100px;
+
+    .rct-modal-close {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      color: #666;
+      font-weight: bold;
+      line-height: 20px;
+      font-size: 20px;
+    }
+
+    .rct-modal-header {
+      padding: 15px 20px;
+      font-size: 16px;
+      border-bottom: solid 1px #eee;
+    }
+
+    .rct-modal-content {
+      padding: 20px;
+      min-height: 80px;
+    }
+
+    .rct-modal-footer {
+      padding: 10px 20px;
+      text-align: right;
+      border-top: solid 1px #eee;
+
+      button {
+        margin-left: 10px;
+      }
+    }
+
+    &.fadein {
+      @keyframes ~"modal" {
+        0% {
+          .opacity(0);
+        }
+        100% {
+          .opacity(1);
+        }
+      }  
+
+      @-webkit-keyframes ~"modal" {
+        0% {
+          .opacity(0);
+        }
+        100% {
+          .opacity(1);
+        }
+      } 
+
+      .animation(modal 0.218s ease-in);
+    }
+  }
+}
+

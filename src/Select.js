@@ -107,7 +107,9 @@ class Select extends ClickAway(Component) {
     value = toArray(value, this.props.sep);
     if (this.state) {
       let data = this.state.data.map((d) => {
-        d.$checked = value.indexOf(d.$value) >= 0;
+        if (typeof d !== 'string') {
+          d.$checked = value.indexOf(d.$value) >= 0;
+        }
         return d;
       });
       this.setState({ value, data });
@@ -170,12 +172,11 @@ class Select extends ClickAway(Component) {
     if (this.props.mult) {
       data[i].$checked = !data[i].$checked;
     } else {
-      data.map((d) => {
+      data.map((d, index) => {
         if (typeof d !== 'string') {
-          d.$checked = false;
+          d.$checked = index === i ? true : false;
         }
       });
-      data[i].$checked = true;
       this.hideOptions();
     }
 
@@ -195,8 +196,23 @@ class Select extends ClickAway(Component) {
     }, 0);
   }
 
+  renderFilter () {
+    if (this.props.filterAble) {
+      return (
+        <div className="filter">
+          <i className="search" />
+          <input value={this.state.filter}
+            onChange={ (e) => this.setState({ filter: e.target.value }) }
+            type="text" />
+        </div>
+      );
+    }
+  }
+
   render () {
     let { className, fetchStatus, grid, readOnly, mult, placeholder, style } = this.props;
+    let { filter, active, msg, data } = this.state;
+    let result = [];
  
     className = classnames(
       className,
@@ -216,32 +232,15 @@ class Select extends ClickAway(Component) {
       return <div className={className}>{getLang('fetch.status')[fetchStatus]}</div>;
     }
 
-    let active = this.state.active;
-    let result = [];
+    let filterText = filter ? filter.toLowerCase() : null;
 
-    let filter;
-    if (this.props.filterAble) {
-      filter = (
-        <div className="filter">
-          <i className="search" />
-          <input value={this.state.filter}
-            onChange={ (e) => this.setState({ filter: e.target.value }) }
-            type="text" />
-        </div>
-      );
-    }
-
-    let filterText = this.state.filter ?
-                     this.state.filter.toLowerCase() :
-                     null;
-
-    let options = this.state.data.map((d, i) => {
+    let options = data.map((d, i) => {
       if (typeof d === 'string') {
         return <span key={i} className="show group">{d}</span>;
       }
 
       if (d.$checked) {
-        if (this.props.mult) {
+        if (mult) {
           result.push(
             <div key={i} className="rct-select-result"
               onClick={this.handleRemove.bind(this, i)}
@@ -252,6 +251,7 @@ class Select extends ClickAway(Component) {
           result.push(<span key={i} dangerouslySetInnerHTML={{__html: d.$result}} />);
         }
       }
+
       let optionClassName = classnames({
         active: d.$checked,
         show: filterText ? d.$filter.indexOf(filterText) >= 0 : true
@@ -267,11 +267,11 @@ class Select extends ClickAway(Component) {
 
     return (
       <div ref="container" onClick={this.showOptions} style={style} className={className}>
-        { result.length > 0 ? result : <span className="placeholder">{this.state.msg || placeholder}&nbsp;</span> }
+        { result.length > 0 ? result : <span className="placeholder">{msg || placeholder}&nbsp;</span> }
         <div className="rct-select-options-wrap">
           <hr />
           <div ref="options" className="rct-select-options">
-            {filter}
+            {this.renderFilter()}
             <ul>{options}</ul>
           </div>
         </div>

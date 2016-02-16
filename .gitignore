@@ -10,4 +10,5 @@ publish
 *.bat
 *.sh
 *.log
+.idea
 /components

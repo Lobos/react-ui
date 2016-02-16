@@ -1,0 +1,37 @@
+@import "mixins";
+
+.rct-input-group {
+  input {
+    border-radius: 0;
+    margin: 0;
+    border-right-width: 0;
+  }
+
+  .addon {
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #eee;
+    border: solid 1px #ccc;
+    line-height: normal;
+    padding: .5em .8em;
+    border-right-width: 0;
+    .box-sizing(border-box);
+  }
+
+  :first-child {
+    border-radius: 4px 0 0 4px;
+  }
+
+  :last-child {
+    border-radius: 0 4px 4px 0;
+    border-right-width: 1px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .rct-input-group {
+    input {
+      display: inline-block;
+    }
+  }
+}

@@ -69,6 +69,14 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 <Button style={{ marginLeft: 10 }} onClick={ () => this.setState({ country: '' }) }>清空</Button>
           </Example>
 
+          <Example>
+<Select value="0" data={[
+    { text: '有效活动', id: '0' },
+    { text: '失效活动', id: '-1' }
+  ]}
+/>
+          </Example>
+
           <h2 className="subhead">多选</h2>
           <Example>
 <Select grid={{width:1}}

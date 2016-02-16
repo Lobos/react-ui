@@ -1,0 +1,40 @@
+@import "mixins.less";
+
+.rct-upload-container {
+  .rct-upload-progress {
+    width: 0;
+    border-bottom: solid 2px @green;
+    .transition(0.2s);
+  }
+
+  .rct-file {
+    line-height: normal;
+    padding: 7px 9px;
+    margin-top: 10px;
+    background-color: #f2f2f2;
+
+    .remove {
+      float: right;
+      color: #666;
+
+      &:hover, &:active {
+        color: @red;
+      }
+    }
+
+    &.has-error {
+      background-color: @red;
+    }
+
+    &.uploaded {
+      background-color: @green;
+    }
+
+    &.has-error, &.uploaded {
+      color: #fff;
+      .remove, .remove:hover, .remove:active {
+        color: #fff;
+      }
+    }
+  }
+}
