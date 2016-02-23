@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import PubSub from 'pubsub-js';
 import Button from './Button';
 import Overlay from './Overlay';
+import { nextUid } from './utils/strings';
 
 import { requireCss } from './themes';
 requireCss('modal');
@@ -33,7 +34,18 @@ class ModalContainer extends Component {
 
   componentDidMount () {
     PubSub.subscribe(ADD_MODAL, (topic, props) => {
-      modals.push(props);
+      let isReplace = false;
+      modals = modals.map((m) => {
+        if (m.id === props.id) {
+          isReplace = true;
+          m = props;
+        }
+        return m;
+      });
+      if (!isReplace) {
+        modals.push(props);
+      }
+
       this.setState({ modals, increase: true });
     });
 
@@ -194,6 +206,7 @@ function createContainer () {
 class Modal extends Component {
   constructor (props) {
     super(props);
+    this.id = nextUid();
   }
 
   componentDidMount () {
@@ -203,7 +216,7 @@ class Modal extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    if (newProps.isOpen === this.props.isOpen) {
+    if (!newProps.isOpen && !this.props.isOpen) {
       return;
     }
 
@@ -216,6 +229,7 @@ class Modal extends Component {
 
   renderModal (props) {
     open({
+      id: this.id,
       buttons: props.buttons,
       content: props.children,
       onClose: props.onClose,

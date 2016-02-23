@@ -27,10 +27,34 @@ a {
   text-decoration: none;
 }
 
-.main {
+header {
+  line-height: 50px;
+  height: 50px;
+  background-color: #1f8dd6;
+  box-shadow: 0px 2px 5px 0px rgba(31,141,214,0.5);
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  a {
+    color: #fff;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .link-github {
+    float: right;
+  }
+}
+
+.wrapper {
+  padding-top: 50px;
   position: relative;
-  margin-left: 220px;
-  top: 20px;
+  border-left: solid #fafafa 220px;
 }
 
 .hero {
@@ -54,35 +78,32 @@ a {
 }
 
 .header {
-  max-width: 768px;
-  margin: 0 auto;
-  padding: 1em;
-  text-align: center;
-  border-bottom: 1px solid #eee;
+  padding: 2em 3em;
   background: #fff;
-  letter-spacing: 0.05em;
+
+  h1, h2 {
+    display: inline-block;
+  }
 
   h1 {
     font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 300%;
+    font-size: 2.4em;
     font-weight: 100;
     margin: 0;
   }
 
   h2 {
-    font-size: 125%;
+    font-size: 1.2em;
     font-weight: 100;
     line-height: 1.5;
-    margin: 0;
-    color: #666;
+    margin: 0 0 0 0.5em;
+    color: #999;
     letter-spacing: -0.02em;
   }
 }
 
 .content {
-  margin: 0 auto 4em;
-  padding: 0 1em;
-  max-width: 768px;
+  padding: 0 3em 4em;
 
   p {
     b {
@@ -141,7 +162,8 @@ a {
 
 @media (min-width: 768px) {
   .header, .content {
-    padding: 1em 2em;
+    padding-left: 4em;
+    padding-right: 4em;
   }
 }
 

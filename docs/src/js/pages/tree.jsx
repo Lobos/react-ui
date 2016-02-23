@@ -3,7 +3,13 @@
 import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const {Tree, Checkbox, Refetch} = global.uiRequire();
+const {Tree, Checkbox, Refetch, Icon} = global.uiRequire();
+
+Tree.setDefaultIcons([
+  <Icon style={{color: '#f2da81'}} icon="folder-star" />,
+  <Icon style={{color: '#f2da81'}} icon="folder" />,
+  <Icon icon="file" />
+]);
 
 module.exports = class extends Component {
   constructor (props) {
@@ -15,6 +21,7 @@ module.exports = class extends Component {
       sep: ',',
       value: 'role_delete',
       showValue: 'role_delete',
+      showAccountsIcon: false,
       treeData: null
     };
   }
@@ -64,6 +71,15 @@ module.exports = class extends Component {
   readOnly={this.state.readOnly}
   selectAble={this.state.selectAble}
   greedy={this.state.greedy}
+  icons={
+    this.state.showAccountsIcon ?
+      [
+        <Icon icon="accounts-add" />,
+        <Icon icon="accounts" />,
+        <Icon icon="account" />
+      ]:
+      undefined
+  }
   onChange={this.handleChange.bind(this)}
   textTpl="{text}({id})"
   valueTpl="{id}"
@@ -75,6 +91,7 @@ module.exports = class extends Component {
   <Checkbox onChange={(value)=>this.setState({ selectAble: value })} checked={this.state.selectAble} text="selectAble" />
   <Checkbox onChange={(value)=>this.setState({ readOnly: value })} checked={this.state.readOnly} text="readOnly" />
   <Checkbox onChange={(value)=>this.setState({ greedy: value })} checked={this.state.gre} text="greedy" />
+  <Checkbox onChange={(value)=>this.setState({ showAccountsIcon: value })} checked={this.state.showAccountsIcon} text="show accounts icon" />
   {
     ([',', '|', '#', null]).map((sep, i) => {
       return (
@@ -88,6 +105,13 @@ module.exports = class extends Component {
 </div>
 <div>value: {this.state.showValue}</div>
           </Example>
+          <Code>
+{`Tree.setDefaultIcons([
+  <Icon style={{color: '#f2da81'}} icon="folder-star" />,
+  <Icon style={{color: '#f2da81'}} icon="folder" />,
+  <Icon icon="file" />
+]);`}
+          </Code>
           
           <h2 className="subhead">数据格式</h2>
           <pre className="prettyprint">{this.state.treeData}</pre>

@@ -8,17 +8,12 @@ import createHistory from 'history/lib/createHashHistory';
 const history = createHistory({ queryKey: false });
 let menulist = [];
 
-function addMenu(list) {
-  list.forEach(function (menu, index) {
-    if (menu.component) {
-      menulist.push(
-        <Route key={index} path={menu.path} component={menu.component} />
-      );
-    }
-  });
-}
-require('./menulist').forEach(function (list) {
-  addMenu(list);
+require('./menuList').forEach(function (menu, index) {
+  if (typeof menu === 'object' && menu.component) {
+    menulist.push(
+      <Route key={index} path={menu.path} component={menu.component} />
+    );
+  }
 });
 
 const AppRoutes = (

@@ -93,7 +93,7 @@ module.exports = class extends React.Component {
 />
           </Example>
 
-          <h2 className="subhead">混合</h2>
+          <h2 className="subhead">data && children</h2>
           <Example>
 <CheckboxGroup sep=""
   onChange={(value)=>console.log(value)}

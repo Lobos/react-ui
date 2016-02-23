@@ -102,21 +102,55 @@ class Item extends Component {
     });
   }
 
+  renderCheckbox () {
+    let { selectAble } = this.props;
+    if (!selectAble) {
+      return;
+    }
+
+    let { status } = this.state;
+    let check = ['unchecked', 'half-checked', 'checked'][status];
+    let className = classnames(
+      'check-handle',
+      ['', 'half-checked', 'checked'][status]
+    );
+
+    return (
+      <a className={className} onClick={this.check}>
+        <i className={'tree-icon ' + check} />
+      </a>
+    );
+  }
+
+  renderMarks () {
+    let className;
+    let { $deep, children } = this.props.data;
+    let noChild = isEmpty(children);
+    let count = $deep.length;
+
+    return $deep.map((deep, i) => {
+      className = classnames('marks', {
+        'marks-h': deep > 1 || (noChild && count - 1 === i),
+        'marks-v': deep === 1,
+        'marks-l': deep === 2
+      });
+      return <span key={i} className={className}>&nbsp;</span>;
+    });
+  }
+
   render () {
+    let { data, selectAble, readOnly, open, value, icons } = this.props;
+
     let children,
         handle,
-        check,
-        checkClass,
-        type,
-        marks = [];
-
-    let { data, selectAble, readOnly, open, value } = this.props;
+        icon;
 
     if (data.children) {
       let items = data.children.map(function (item, i) {
         return (
           <Item ref={i}
             key={i}
+            icons={icons}
             open={open}
             readOnly={readOnly}
             value={value}
@@ -129,42 +163,23 @@ class Item extends Component {
       }, this);
 
       children = <ul className={classnames({open: this.state.open})}>{items}</ul>;
-      type = this.state.open ? 'folder-open' : 'folder';
+      icon = this.state.open ? icons[1] : icons[0];
       handle = (
         <a onClick={this.toggle} className="handle">
           <i className={'tree-icon ' + (this.state.open ? 'minus' : 'plus')} />
         </a>
       );
     } else {
-      type = 'file';
+      icon = icons[2];
     }
 
-    if (selectAble) {
-      check = ['square', 'half-check', 'check'][this.state.status];
-      checkClass = classnames('check-handle', ['', 'half-checked', 'checked'][this.state.status]);
-    }
-
-    for (let i = 0, count = data.$deep.length; i < count; i++) {
-      let d = data.$deep[i];
-      let mc = classnames('marks', {
-        'marks-h': d > 1 || (isEmpty(data.children) && count - 1 === i),
-        'marks-v': d === 1,
-        'marks-l': d === 2
-      });
-      marks.push(
-        <span key={i} className={mc}>&nbsp;</span>
-      );
-    }
     return (
       <li>
         <label>
-          {marks}
+          {this.renderMarks()}
           {handle}
-          <i className={'tree-icon ' + type} />
-          {
-            selectAble &&
-            <a className={checkClass} onClick={this.check}><i className={'tree-icon ' + check} /></a>
-          }
+          {icon}
+          {this.renderCheckbox()}
           <span onClick={this.onClick} className="text">{data.$text}</span>
         </label>
         {children}
@@ -175,6 +190,7 @@ class Item extends Component {
 
 Item.propTypes = {
   data: PropTypes.object,
+  icons: PropTypes.array,
   onClick: PropTypes.func,
   onStatusChange: PropTypes.func,
   open: PropTypes.bool,

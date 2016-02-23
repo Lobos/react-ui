@@ -16,6 +16,8 @@ requireCss('tree');
 
 import Item from './Item';
 
+let defaultIcons = [];
+
 class Tree extends Component {
   constructor (props) {
     super(props);
@@ -40,7 +42,8 @@ class Tree extends Component {
     if (!deepEqual(nextProps.data, this.props.data)) {
       this.formatData(nextProps.data);
     }
-    if (nextProps.sep !== this.props.sep || nextProps.greedy !== this.props.greedy) {
+    if (nextProps.sep !== this.props.sep ||
+        nextProps.greedy !== this.props.greedy) {
       this.handleChange();
     }
   }
@@ -173,11 +176,16 @@ class Tree extends Component {
   }
 
   render () {
-    let { fetchStatus, selectAble, readOnly, open } = this.props;
+    let { fetchStatus, selectAble, readOnly, open, icons } = this.props;
+    icons = icons || defaultIcons;
 
     // if get remote data pending or failure, render message
     if (fetchStatus !== FETCH_SUCCESS) {
-      return <span className={`fetch-${fetchStatus}`}>{getLang('fetch.status')[fetchStatus]}</span>;
+      return (
+        <span className={`fetch-${fetchStatus}`}>
+          {getLang('fetch.status')[fetchStatus]}
+        </span>
+      );
     }
 
     let value = this.state.value;
@@ -185,6 +193,7 @@ class Tree extends Component {
     let items = this.state.data.map(function (item, i) {
       return (
         <Item ref={i}
+          icons={icons}
           open={open}
           readOnly={readOnly}
           onClick={this.onClick}
@@ -212,7 +221,9 @@ class Tree extends Component {
 Tree.propTypes = {
   className: PropTypes.string,
   data: PropTypes.array,
+  fetchStatus: PropTypes.string,
   greedy: PropTypes.bool,
+  icons: PropTypes.array,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   open: PropTypes.bool,
@@ -234,5 +245,10 @@ Tree.defaultProps = {
 
 Tree = fetchEnhance(Tree);
 
-module.exports = register(Tree, 'tree', { valueType: 'array' });
+Tree = register(Tree, 'tree', { valueType: 'array' });
 
+Tree.setDefaultIcons = function (icons) {
+  defaultIcons = icons;
+};
+
+module.exports = Tree;

@@ -180,6 +180,7 @@ Form.propTypes = {
   className: PropTypes.string,
   data: PropTypes.object,
   disabled: PropTypes.bool,
+  fetchStatus: PropTypes.string,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
   onSubmit: PropTypes.func,

@@ -101,6 +101,7 @@ RadioGroup.propTypes = {
   ]),
   className: PropTypes.string,
   data: PropTypes.array,
+  fetchStatus: PropTypes.string,
   inline: PropTypes.bool,
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,

@@ -25,6 +25,7 @@ module.exports = class extends React.Component {
           <Code>
 {`<Form
   data={object}         // 数据，object
+  fetch={object}        // 远程数据获取配置 @1
   hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
                            layout 为 stacked, aligned 时，默认为 "block"
                            layout 为 inline 时，默认为 "pop"
@@ -34,7 +35,7 @@ module.exports = class extends React.Component {
   {children}
 </Form>`}
           </Code>
-          <p><a href="#/dataSource">dataSource 参见这里</a></p>
+          <p>@1 <a href="#/fetch">fetch 属性参见这里</a></p>
           <p>
             0.6 版更新，data不再支持dataSource，改用fetch<br />
             0.3 版更新，From 不再提供内置 Ajax 提交功能，需要在onSubmit中进行提交
