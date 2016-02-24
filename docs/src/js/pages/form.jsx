@@ -141,6 +141,7 @@ module.exports = class extends React.Component {
 
   <FormControl name="checkbox"
     type="checkbox"
+    checkValue={1}
     text="It's a checkbox" />
 
   <FormControl name="datetime"

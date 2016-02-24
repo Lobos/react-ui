@@ -117,9 +117,9 @@ export const enhance = (ComposedComponent) => {
       value = this.state.value;
 
       // handle checkbox
-      if (props.type === 'checkbox') {
-        props.checked = value === true || value === 1;
-      }
+      //if (props.type === 'checkbox') {
+      //  props.checked = value === true || value === 1;
+      //}
 
       return <ComposedComponent ref={(c) => this.component = c} {...props} value={value} className={className} onChange={this.handleChange} />
     }

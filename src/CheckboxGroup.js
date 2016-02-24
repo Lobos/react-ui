@@ -100,7 +100,7 @@ class CheckboxGroup extends Component {
           checked={item.$checked}
           onChange={this.handleChange}
           text={item.$text}
-          value={item.$value}
+          checkValue={item.$value}
         />
       );
     });

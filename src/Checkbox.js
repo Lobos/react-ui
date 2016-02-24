@@ -11,7 +11,7 @@ class Checkbox extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      checked: !!this.props.checked
+      checked: !!props.checked || props.value === props.checkValue
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -19,6 +19,9 @@ class Checkbox extends Component {
   componentWillReceiveProps (nextProps) {
     if (nextProps.checked !== this.props.checked && nextProps.checked !== this.state.checked) {
       this.handleChange(null, nextProps.checked);
+    }
+    if (nextProps.value !== this.props.value || nextProps.checkValue !== this.props.checkValue) {
+      this.setValue(nextProps.value, nextProps.checkValue);
     }
   }
 
@@ -33,19 +36,20 @@ class Checkbox extends Component {
     this.setState({ checked });
     setTimeout(() => {
       if (this.props.onChange) {
-        let value = checked ? this.props.value : undefined;
+        let value = checked ? this.props.checkValue : undefined;
         this.props.onChange(value, checked, this.props.index);
       }
     }, 0);
   }
 
+  /*
   getValue () {
     return this._input.checked ? (this.props.value || true) : false;
   }
+  */
 
-  setValue (value) {
-    var checked = value === true || value === 1 || value === this.state.value;
-    this.setState({ checked });
+  setValue (value, checkValue=this.props.checkValue) {
+    this.setState({ checked: value === checkValue });
   }
 
   render () {
@@ -66,6 +70,7 @@ class Checkbox extends Component {
 }
 
 Checkbox.propTypes = {
+  checkValue: PropTypes.any,
   checked: PropTypes.bool,
   children: PropTypes.any,
   className: PropTypes.string,
@@ -78,7 +83,7 @@ Checkbox.propTypes = {
 };
 
 Checkbox.defaultProps = {
-  value: true
+  checkValue: true
 }
 
 module.exports = register(Checkbox, 'checkbox');
