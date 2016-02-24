@@ -37,6 +37,14 @@
       text-align: left;
       display: block;
       width: auto;
+
+      &.required:before {
+        content: '*';
+        display: inline-block;
+        font-family: SimSun;
+        margin-right: 4px;
+        color: @red;
+      }
     }
 
     .rct-checkbox-group, .rct-radio-group {

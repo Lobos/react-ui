@@ -153,20 +153,20 @@ class Form extends Component {
   }
 
   render () {
-    let { fetchStatus } = this.props;
+    let { fetchStatus, className, onSubmit, layout, ...props } = this.props;
 
-    let className = classnames(
-      this.props.className,
+    className = classnames(
+      className,
       'rct-form',
       {
-        'rct-form-aligned': this.props.layout === 'aligned',
-        'rct-form-inline': this.props.layout === 'inline',
-        'rct-form-stacked': this.props.layout === 'stacked'
+        'rct-form-aligned': layout === 'aligned',
+        'rct-form-inline': layout === 'inline',
+        'rct-form-stacked': layout === 'stacked'
       }
     );
 
     return (
-      <form onSubmit={this.handleSubmit} style={this.props.style} className={className}>
+      <form onSubmit={this.handleSubmit} className={className} {...props}>
         {this.renderChildren()}
         {fetchStatus !== FETCH_SUCCESS && <div className="rct-form-mask" />}
       </form>
@@ -175,6 +175,7 @@ class Form extends Component {
 }
 
 Form.propTypes = {
+  autoComplete: PropTypes.bool,
   beforeSubmit: PropTypes.func,
   children: PropTypes.any,
   className: PropTypes.string,

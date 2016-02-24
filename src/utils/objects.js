@@ -37,6 +37,14 @@ export function toTextValue (arr, textTpl='{text}', valueTpl='{id}') {
   if (!arr) {
     return [];
   }
+  if (!Array.isArray(arr)) {
+    arr = Object.keys(arr).map((key) => {
+      return {
+        id: key,
+        text: arr[key]
+      };
+    });
+  }
   arr = arr.map(function (s) {
     if (typeof s !== 'object') {
       return { $text: s, $value: s };

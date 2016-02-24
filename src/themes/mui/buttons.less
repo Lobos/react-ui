@@ -18,7 +18,8 @@
 
   font-family: inherit;
   font-size: 100%;
-  padding: 0.25em 1em;
+  padding: 7px 16px;
+  line-height: 14px;
   color: #8a8a8a; /* rgba not supported (IE 8) */
   border: 1px solid #ccc;  /*IE 6/7/8*/
   background-color: #f9f9f9;
@@ -32,18 +33,13 @@
     border: 0;
   }
 
-  &:hover, &:focus {
-
+  &:hover {
     text-decoration: none;
     box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.1);
     color: #333;
     transition: 0.2s ease-in-out;
     outline: 0;
 
-  }
-  &:active {
-    box-shadow: 0 0 0 1px rgba(0,0,0, 0.15) inset, 0 0 6px rgba(0,0,0, 0.20) inset;
-    border-color: #000\9;
   }
 
   &[disabled] {

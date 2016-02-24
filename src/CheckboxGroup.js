@@ -138,7 +138,10 @@ CheckboxGroup.propTypes = {
     PropTypes.array
   ]),
   className: PropTypes.string,
-  data: PropTypes.array,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]),
   fetchStatus: PropTypes.string,
   inline: PropTypes.bool,
   onChange: PropTypes.func,
@@ -153,6 +156,7 @@ CheckboxGroup.propTypes = {
 CheckboxGroup.defaultProps = {
   data: [],
   sep: ',',
+  inline: true,
   textTpl: '{text}',
   valueTpl: '{id}'
 };

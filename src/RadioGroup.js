@@ -8,11 +8,23 @@ import { register } from './higherOrders/FormItem';
 import { getLang } from './lang';
 import Radio from './Radio';
 
+function transformValue(value) {
+  if (value === null || value === undefined) {
+    return value;
+  }
+
+  if (typeof value !== 'string') {
+    value = value.toString();
+  }
+
+  return value;
+}
+
 class RadioGroup extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: this.props.value,
+      value: transformValue(this.props.value),
       data: this.formatData(this.props.data)
     };
     this.handleChange = this.handleChange.bind(this);
@@ -42,6 +54,7 @@ class RadioGroup extends Component {
   }
 
   setValue (value) {
+    value = transformValue(value);
     this.setState({ value });
   }
 
@@ -100,7 +113,10 @@ RadioGroup.propTypes = {
     PropTypes.array
   ]),
   className: PropTypes.string,
-  data: PropTypes.array,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]),
   fetchStatus: PropTypes.string,
   inline: PropTypes.bool,
   onChange: PropTypes.func,
@@ -113,7 +129,8 @@ RadioGroup.propTypes = {
 
 RadioGroup.defaultProps = {
   textTpl: '{text}',
-  valueTpl: '{id}'
+  valueTpl: '{id}',
+  inline: true
 };
 
 RadioGroup = fetchEnhance(RadioGroup);

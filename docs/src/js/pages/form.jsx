@@ -68,50 +68,154 @@ module.exports = class extends React.Component {
 
           <Example>
 <Form layout="aligned" onSubmit={formData => this.setState({ formData })} fetch={'json/form.json'}>
-  <FormControl name="text" label="text" type="text" grid={{width:12/24}} min={2} max={6} />
+  <FormControl name="text"
+    label="text"
+    type="text"
+    grid={{width:12/24}}
+    min={2}
+    max={6} />
+
   <FormControl label="email">
     <span className="rct-input-group">
       <span className="addon"><Icon icon="email" /></span>
       <Input name="email" type="email" />
     </span>
   </FormControl>
-  <FormControl grid={{width:13/24}} name="alpha" label="alpha" type="alpha" />
-  <FormControl grid={{width:14/24}} name="alphanum" label="alphanum" type="alphanum" />
-  <FormControl grid={{width:15/24}} name="integer" label="integer" type="integer" />
-  <FormControl grid={{width:16/24}} name="number" label="number" type="number" />
-  <FormControl grid={{width:16/24}} name="password" min={6} max={20} label="password" type="password" />
-  <FormControl grid={{width:16/24}} name="repassword" ignore={true} label="repeat password" type="password" tip="必须与password相同"
-    validator={{ func: (value, formData) => {
-      let password = formData.password;
-      if (!value ? !password : value === password) {
-        return true;
-      } else {
-        return new Error('两次输入密码不一致');
-      }
-    }, bind: ['password'] }} />
-  <FormControl grid={{width:17/24}} name="url" label="url" type="url" />
-  <FormControl grid={{width:17/24}} name="readonly" readOnly={true} label="readonly" type="text" />
-  <FormControl name="checkbox" type="checkbox" text="It's a checkbox" />
-  <FormControl name="datetime" type="datetime" label="datetime" />
+
+  <FormControl grid={{width:13/24}}
+    name="alpha"
+    label="alpha"
+    required
+    type="alpha" />
+
+  <FormControl grid={{width:14/24}}
+    name="alphanum"
+    label="alphanum"
+    type="alphanum" />
+
+  <FormControl grid={{width:15/24}}
+    name="integer"
+    label="integer"
+    type="integer" />
+
+  <FormControl grid={{width:16/24}}
+    name="number"
+    label="number"
+    type="number" />
+
+  <FormControl grid={{width:16/24}}
+    name="password"
+    min={6}
+    max={20}
+    label="password"
+    type="password" />
+
+  <FormControl grid={{width:16/24}}
+    name="repassword"
+    ignore={true}
+    label="repeat password"
+    type="password"
+    tip="必须与password相同"
+    validator={
+      { func: (value, formData) => {
+        let password = formData.password;
+        if (!value ? !password : value === password) {
+          return true;
+        } else {
+          return new Error('两次输入密码不一致');
+        }
+      },
+      bind: ['password'] }
+    } />
+
+  <FormControl grid={{width:17/24}}
+    name="url"
+    label="url"
+    type="url" />
+
+  <FormControl grid={{width:17/24}}
+    name="readonly"
+    readOnly={true}
+    label="readonly"
+    type="text" />
+
+  <FormControl name="checkbox"
+    type="checkbox"
+    text="It's a checkbox" />
+
+  <FormControl name="datetime"
+    type="datetime"
+    label="datetime" />
+
   <FormControl label="two item">
-    <Datetime type="date" min="2016-1-22" onChange={(startTime) => this.setState({ startTime })} max={this.state.endTime} placeholder="startTime" name="startTime" />
+    <Datetime type="date"
+      min="2016-1-22"
+      required
+      onChange={(startTime) => this.setState({ startTime })}
+      max={this.state.endTime}
+      placeholder="startTime"
+      name="startTime" />
     至
-    <Datetime type="date" max="2017-1-22" onChange={(endTime) => this.setState({ endTime })} min={this.state.startTime}  placeholder="endTime" name="endTime" />
+    <Datetime type="date"
+      max="2017-1-22"
+      onChange={(endTime) => this.setState({ endTime })}
+      min={this.state.startTime}
+      placeholder="endTime"
+      name="endTime" />
   </FormControl>
+
   <FormControl label="mult input" tip="每个输入框可以输入数字和字符，长度为5">
     <Input name="mult1" type="alphanum" min={5} max={5} grid={1/6} />-
     <Input name="mult2" type="alphanum" min={5} max={5} grid={1/6} />-
     <Input name="mult3" type="alphanum" min={5} max={5} grid={1/6} />-
     <Input name="mult4" type="alphanum" min={5} max={5} grid={1/6} />
   </FormControl>
-  <FormControl name="checkboxgroup" fetch={{url: "json/text-value.json", cache: 3600}} label="checkbox group" type="checkbox-group" />
-  <FormControl name="radiogroup" fetch={{url: "json/text-value.json", cache: 3600}} label="radio group" inline={true} type="radio-group" />
-  <FormControl name="rating" label="rating" required maxValue={10} tip="亲，给个好评吧" errorText="必须给一个评分哦" type="rating" />
-  <FormControl grid={{width:12/24}} name="select" label="select" type="select" fetch={{url:"json/countries.json", cache:3600}} mult={true} filterAble={true} optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}' valueTpl="{en}" />
-  <FormControl name="tree" selectAble={true} label="tree" type="tree" fetch={{url:"json/tree.json", cache:3600}} textTpl='{text}({id})' valueTpl="{id}" />
-  <FormControl grid={{width:18/24}} name="textarea" label="textarea" rows={5} type="textarea" />
-  <FormControl label="upload" type="upload" autoUpload={true} grid={{width:12/24}} name="upload" action="http://216.189.159.94:8080/upload" accept="image/*" limit={3} content={<Button><Icon icon="upload" /> 选择文件</Button>} />
 
+  <FormControl name="checkboxgroup"
+    required
+    fetch={{url: "json/text-value.json", cache: 3600}}
+    label="checkbox group"
+    type="checkbox-group" />
+
+  <FormControl name="radiogroup"
+    required
+    fetch={{url: "json/text-value.json", cache: 3600}}
+    label="radio group"
+    inline={false}
+    type="radio-group" />
+
+  <FormControl name="rating"
+    label="rating"
+    required
+    maxValue={10}
+    tip="亲，给个好评吧"
+    errorText="必须给一个评分哦"
+    type="rating" />
+
+  <FormControl grid={{width:12/24}}
+    name="select"
+    label="select"
+    type="select"
+    fetch={{url:"json/countries.json", cache:3600}}
+    mult={true}
+    filterAble={true}
+    optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
+    valueTpl="{en}" />
+
+  <FormControl name="tree"
+    selectAble={true}
+    label="tree"
+    type="tree"
+    fetch={{url:"json/tree.json", cache:3600}}
+    textTpl='{text}({id})'
+    valueTpl="{id}" />
+
+  <FormControl grid={{width:18/24}}
+    name="textarea"
+    label="textarea"
+    rows={5}
+    type="textarea" />
+  
   <FormSubmit>
     <span>提交</span>
     <span>处理中</span>

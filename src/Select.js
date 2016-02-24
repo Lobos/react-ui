@@ -119,6 +119,12 @@ class Select extends ClickAway(Component) {
   }
 
   formatData (data, value = this.state.value) {
+    if (!Array.isArray(data)) {
+      data = Object.keys(data).map((key) => {
+        return { text: data[key], id: key };
+      });
+    }
+
     data = data.map((d) => {
       if (typeof d !== 'object') {
         return {
@@ -282,7 +288,10 @@ class Select extends ClickAway(Component) {
 
 Select.propTypes = {
   className: PropTypes.string,
-  data: PropTypes.array,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]),
   filterAble: PropTypes.bool,
   grid: PropTypes.object,
   groupBy: PropTypes.string,
@@ -311,3 +320,4 @@ Select.defaultProps = {
 Select = fetchEnhance(Select);
 
 module.exports = register(Select, 'select', {valueType: 'array'});
+

@@ -12,15 +12,21 @@ export const enhance = (ComposedComponent) => {
     constructor (props) {
       super(props);
 
+      const { name, validator, ignore, itemBind, itemChange, formData } = props;
+
+      let value = props.value;
+      if (formData && formData[name] !== undefined) {
+        value = formData[name];
+      }
+
       this.state = {
         hasError: false,
-        value: props.value
+        value
       };
 
       this.valueType = getValueType(props.type);
       this.handleChange = this.handleChange.bind(this);
 
-      const { name, value, validator, ignore, itemBind, itemChange } = props;
       let valiBind;
       if (validator && validator.bind) {
         valiBind = validator.bind;

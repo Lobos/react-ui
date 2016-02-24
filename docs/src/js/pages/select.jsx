@@ -51,14 +51,21 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   placeholder="简单数组"
   data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
 &nbsp; 
-<Select grid={{width:1/2}}
+<Select grid={{width:1/4}}
   mult={true}
   data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
           </Example>
 
+          <h2 className="subhead">KeyValue</h2>
+          <Example>
+<Select grid={{width:1/4}}
+  placeholder="Key Value"
+  data={{ jiangsu: '江苏', shanghai: '上海', beijing: '北京', guangdong: '广东', zhejiang: '浙江' }} />
+          </Example>
+
           <h2 className="subhead">单选</h2>
           <Example>
-<Select grid={{width:1/2}}
+<Select grid={{width:1/4}}
   placeholder="单选"
   filterAble={true}
   optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
@@ -69,17 +76,9 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 <Button style={{ marginLeft: 10 }} onClick={ () => this.setState({ country: '' }) }>清空</Button>
           </Example>
 
-          <Example>
-<Select value="0" data={[
-    { text: '有效活动', id: '0' },
-    { text: '失效活动', id: '-1' }
-  ]}
-/>
-          </Example>
-
           <h2 className="subhead">多选</h2>
           <Example>
-<Select grid={{width:1}}
+<Select grid={{width:1/2}}
   mult={true}
   placeholder="多选"
   filterAble={true}
@@ -91,7 +90,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 
           <h2 className="subhead">groupBy</h2>
           <Example>
-<Select grid={{width:1}}
+<Select grid={{width:1/2}}
   placeholder="Group by continent"
   groupBy="continent"
   filterAble={true}

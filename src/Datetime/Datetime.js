@@ -429,4 +429,4 @@ Datetime.defaultProps = {
   type: DATETIME
 }
 
-module.exports = register(Datetime, ['datetime', 'time', 'date']);
+module.exports = register(Datetime, ['datetime', 'time', 'date'], {valueType: 'datetime'});

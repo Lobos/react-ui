@@ -31,7 +31,7 @@ export function toArray(value, sep) {
   if (typeof value === 'string' && sep) {
     value = value.split(sep);
   } else if (!(value instanceof Array)) {
-    value = [value];
+    value = [value.toString()];
   } else if (sep) {
     // if use sep, convert every value to string
     value = value.map((v)=>v.toString());

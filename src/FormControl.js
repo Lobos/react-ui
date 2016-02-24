@@ -103,6 +103,10 @@ class FormControl extends Component {
   }
 
   getHint (props) {
+    if (props.required) {
+      this.required = true;
+    }
+
     if (props.tip) {
       return '';
     }
@@ -110,7 +114,6 @@ class FormControl extends Component {
     let valueType = getValueType(props.type);
     let hints = [];
 
-    if (props.required) { setHint(hints, 'required'); }
     setHint(hints, this.props.type);
     if (props.min) { setHint(hints, `min.${valueType}`, props.min); }
     if (props.max) { setHint(hints, `max.${valueType}`, props.max); }
@@ -119,15 +122,14 @@ class FormControl extends Component {
   }
 
   setChildrenHint (hints, children) {
-    if (!Array.isArray(children)) {
-      children = [children];
-    }
-
-    children.forEach((child) => {
-      if (child.type === 'FormItem') {
-        hints.push(this.getHint(child.props));
+    Children.toArray(children).forEach((child) => {
+      if (child.type && child.type.name === 'FormItem') {
+        let hint = this.getHint(child.props);
+        if (hint) {
+          hints.push(hint);
+        }
       } else if (child.children) {
-        this.getChildrenHint(hints, children);
+        this.setChildrenHint(hints, children);
       }
     });
   }
@@ -232,9 +234,10 @@ class FormControl extends Component {
   }
 
   renderStacked (className) {
+    let labelClass = classnames('label', { required: this.props.required || this.required });
     return (
       <div style={this.props.style} className={className}>
-        <label className="label">{this.props.label}</label>
+        <label className={labelClass}>{this.props.label}</label>
         <div>
           {this.renderItems()}
         </div>
@@ -303,3 +306,4 @@ FormControl.defaultProps = {
 };
 
 module.exports = FormControl;
+
