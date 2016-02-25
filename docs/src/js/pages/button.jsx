@@ -19,8 +19,7 @@ module.exports = class extends React.Component {
   type="submit|button" // 按钮类型，可选值为 submit|button ，不填默认值为 button
   disabled={bool}      // 与 button 的 disabled 属性相同
   once={bool}          // 值为 true 时，当button点击过后，状态会变更为 disabled
-                       // 必须调用 enable 方法激活才能再次使用。默认值为 false
-  status="string"      // 按钮类别，会为按钮添加 pure-button-[status] 的 className
+  status="string"      // primary|success|warning|error|info
   onClick={function}>  // 点击事件
   {string|element}     // 文字或元素
 </Button>`}

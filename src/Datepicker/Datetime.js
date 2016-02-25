@@ -7,7 +7,6 @@ import * as datetime from '../utils/datetime';
 import ClickAway from '../mixins/ClickAway';
 import TimeSet from './TimeSet';
 import Clock from './Clock';
-import { register } from '../higherOrders/FormItem';
 
 import { requireCss } from '../themes';
 requireCss('datetime');
@@ -23,12 +22,14 @@ class Datetime extends ClickAway(Component) {
   constructor (props) {
     super(props);
 
+    let value = props.value;
+
     this.state = {
       active: false,
       popup: false,
-      stage: this.props.type === TIME ? 'clock' : 'day',
-      current: datetime.convert(this.props.value, new Date()),
-      value: datetime.convert(this.props.value, null)
+      stage: props.type === TIME ? 'clock' : 'day',
+      current: datetime.convert(value, new Date()),
+      value: datetime.convert(value, null)
     };
 
     this.timeChange = this.timeChange.bind(this);
@@ -65,7 +66,7 @@ class Datetime extends ClickAway(Component) {
   }
 
   getValue () {
-    let value = this.value || this.state.value;
+    let value = this.state.value;
     if (!value) {
       return null;
     }
@@ -157,11 +158,11 @@ class Datetime extends ClickAway(Component) {
     return d;
   }
 
-  stateChange (state) {
+  stateChange (state, pop) {
     // setTimeout wait checkClickAway completed
     setTimeout(() => {
       this.setState(state);
-      if (this.props.onChange) {
+      if (pop && this.props.onChange) {
         this.props.onChange(this.getValue());
       }
     }, 0);
@@ -187,7 +188,7 @@ class Datetime extends ClickAway(Component) {
       month: day.getMonth(),
       day: day.getDate()
     });
-    this.stateChange({ value: d, current: d });
+    this.stateChange({ value: d, current: d }, true);
     if (this.props.type === DATE) {
       this.close();
     }
@@ -207,7 +208,7 @@ class Datetime extends ClickAway(Component) {
     }
 
     if (valid) {
-      this.stateChange({ value: d, current: d });
+      this.stateChange({ value: d, current: d }, true);
       return true;
     }
 
@@ -319,7 +320,13 @@ class Datetime extends ClickAway(Component) {
         disabled = speedTime > max;
       }
       
-      return <button type="button" disabled={disabled} onClick={() => { this.dayChange(d); }} key={i} className={className}>{d.getDate()}</button>;
+      return (
+        <button type="button" disabled={disabled}
+          onClick={() => { this.dayChange(d); }} key={i}
+          className={className}>
+          {d.getDate()}
+        </button>
+      );
     }, this);
   }
 
@@ -429,4 +436,5 @@ Datetime.defaultProps = {
   type: DATETIME
 }
 
-module.exports = register(Datetime, ['datetime', 'time', 'date'], {valueType: 'datetime'});
+module.exports = Datetime;
+

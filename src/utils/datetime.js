@@ -169,6 +169,10 @@ export function convert (obj, def) {
     obj = obj.replace(/-/g, '/');
   }
 
+  if (/^\d?\d:\d?\d/.test(obj)) {
+    obj = getDate(new Date()) + ' ' + obj;
+  }
+
   obj = new Date(obj);
   // Invalid Date
   if (isNaN(obj.getTime())) {

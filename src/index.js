@@ -2,7 +2,8 @@
 
 export const Checkbox = require('./Checkbox');
 export const CheckboxGroup = require('./CheckboxGroup');
-export const Datetime = require('./Datetime');
+export const Datetime = require('./Datepicker');
+export const Datepicker = require('./Datepicker');
 export const Icon = require('./Icon');
 export const Input = require('./Input');
 export const Radio = require('./Radio');

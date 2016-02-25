@@ -48,7 +48,7 @@ input[type=checkbox], .tree-icon.checked, .tree-icon.unchecked, .tree-icon.half-
 }
 
 .rct-checkbox, .rct-radio {
-  display: block;
+  display: inline-block;
   vertical-align: middle;
   * {
     vertical-align: middle;
@@ -64,6 +64,12 @@ input[type=checkbox], .tree-icon.checked, .tree-icon.unchecked, .tree-icon.half-
     .rct-checkbox, .rct-radio {
       display: inline-block;
       margin-right: 10px;
+    }
+  }
+
+  &.rct-block {
+    .rct-checkbox, .rct-radio {
+      display: block;
     }
   }
 }

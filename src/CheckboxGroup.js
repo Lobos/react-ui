@@ -48,13 +48,22 @@ class CheckboxGroup extends Component {
       d.$checked = value.indexOf(d.$value) >= 0;
       return d;
     });
+
     Children.map(this.props.children, (child) => {
       if (typeof child === 'object') {
-        data.push({
-          $checked: value.indexOf(child.props.value) >= 0,
-          $value: child.props.value,
-          $text: child.props.children || child.props.text
-        });
+        let position = child.props.position;
+        if (position === undefined) {
+          position = data.length;
+        }
+        data = [
+          ...data.slice(0, position),
+          {
+            $checked: value.indexOf(child.props.checkValue) >= 0,
+            $value: child.props.checkValue,
+            $text: child.props.children || child.props.text
+          },
+          ...data.slice(position)
+        ];
       }
     });
     return data;
@@ -121,7 +130,10 @@ class CheckboxGroup extends Component {
     className = classnames(
       className,
       'rct-checkbox-group',
-      { 'rct-inline': inline }
+      {
+        'rct-inline': inline,
+        'rct-block': !inline
+      }
     );
 
     return (

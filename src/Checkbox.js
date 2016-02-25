@@ -76,6 +76,7 @@ Checkbox.propTypes = {
   className: PropTypes.string,
   index: PropTypes.number,
   onChange: PropTypes.func,
+  position: PropTypes.number,
   readOnly: PropTypes.bool,
   style: PropTypes.object,
   text: PropTypes.any,

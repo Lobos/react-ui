@@ -20,9 +20,9 @@ module.exports = class extends React.Component {
           <Code>
 {`<CheckboxGroup
   className={string}
-  data={array}        // 数据，默认值为[]
+  data={array|object} // 数据，默认值为[]
   fetch={object}
-  inline={bool}       // 为 true 时，各选项横向排列。默认为 false
+  inline={bool}       // 为 true 时，各选项横向排列。默认为 true 
   onChange={function} // 当选项改变时回调方法，参数为 value
   readOnly={bool}     // 为 true 时，只读。默认为 false
   sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
@@ -38,12 +38,9 @@ module.exports = class extends React.Component {
           <div>可以使用自定义数组，指定 <em>textTpl</em>, <em>valueTpl</em></div>
           <div>可以使用一维数组，这种情况下，显示文字与值相同</div>
 
-          <h2 className="subhead">Object Data</h2>
+          <h2 className="subhead">默认结构数据</h2>
           <Example>
-<CheckboxGroup inline={true} data={exampleData} />
-          </Example>
-          <Code>
-{`exampleData = [
+<CheckboxGroup value="shenzhen,chongqing" data={[
   { "id": "nanjing", "text": "南京" },
   { "id": "beijing", "text": "北京" },
   { "id": "guangzhou", "text": "广州" },
@@ -51,20 +48,35 @@ module.exports = class extends React.Component {
   { "id": "chengdu", "text": "成都" },
   { "id": "chongqing", "text": "重庆" },
   { "id": "shanghai", "text": "上海" }
-]`}
-          </Code>
+]} />
+          </Example>
 
-          <h2 className="subhead">Array Data</h2>
+          <h2 className="subhead">key value 结构数据</h2>
+          <div>0.6 后可以使用key value结构的object作为数据</div>
           <Example>
-<CheckboxGroup ref="array" sep=""
+<CheckboxGroup value="beijing" data={{
+  "nanjing": "南京",
+  "beijing": "北京",
+  "guangzhou": "广州",
+  "shenzhen": "深圳",
+  "chengdu": "成都",
+  "chongqing": "重庆",
+  "shanghai": "上海"
+}} />
+          </Example>
+
+
+          <h2 className="subhead">简单数组</h2>
+          <div>显示文本和选中值一样时，可以使用简单数组</div>
+          <Example>
+<CheckboxGroup sep=""
   onChange={(value)=>console.log(value)}
-  inline={true} 
   value={["北京", "广州"]}
   data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
 />
           </Example>
 
-          <h2 className="subhead">Readonly</h2>
+          <h2 className="subhead">只读</h2>
           <Example>
 <CheckboxGroup readOnly={true} inline={true}
   value={["北京", "广州"]}
@@ -72,21 +84,31 @@ module.exports = class extends React.Component {
 />
           </Example>
 
-          <h2 className="subhead">Remote Data</h2>
+          <h2 className="subhead">远程数据</h2>
+          <div>支持<a href="#/fetch">fetch</a>从服务端获取数据</div>
           <Example>
-<CheckboxGroup ref="remote"
+<CheckboxGroup 
   onChange={(value)=>console.log(value)}
-  inline={true}
+  value="shanghai,chengdu"
+  fetch={{url: "json/text-value.json", cache: 3600}}
+/>
+          </Example>
+
+          <h2 className="subhead">单行数据</h2>
+          <Example>
+<CheckboxGroup 
+  onChange={(value)=>console.log(value)}
+  inline={false}
   value="shanghai,chengdu"
   fetch={{url: "json/text-value.json", cache: 3600}}
 />
           </Example>
 
           <h2 className="subhead">Data Sep</h2>
+          <div>使用自定义数据分隔符</div>
           <Example>
-<CheckboxGroup ref="sep"
+<CheckboxGroup
   onChange={(value)=>console.log(value)}
-  inline={true}
   sep="|"
   value="shanghai|chengdu"
   fetch={{url: "json/text-value.json", cache: 3600}}
@@ -94,14 +116,14 @@ module.exports = class extends React.Component {
           </Example>
 
           <h2 className="subhead">data && children</h2>
+          <div>0.6 支持数据和Checkbox元素混合传入，position为插入位置，正整数</div>
           <Example>
 <CheckboxGroup sep=""
   onChange={(value)=>console.log(value)}
-  inline={true} 
-  value={["北京", "广州"]}
+  value={["北京", "香港"]}
   data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
   >
-  <Checkbox value="香港"><Icon icon="cloud-outline" />香港</Checkbox>
+  <Checkbox position={3} checkValue="香港"><Icon icon="cloud-outline" />香港</Checkbox>
 </CheckboxGroup>
           </Example>
         </div>
