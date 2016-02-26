@@ -1,7 +1,7 @@
 'use strict';
 
 import { Component, PropTypes } from 'react';
-import Datetime from './Datetime';
+import Datepicker from './Datepicker';
 import Input from './Input';
 import Select from './Select';
 
@@ -120,7 +120,9 @@ class FilterItem extends Component {
         control = <Select value={this.props.value} onChange={onChange} style={style} {...props} />;
       break;
       case 'datetime':
-        control = <Datetime value={this.props.value} onChange={onChange} {...props} />;
+      case 'date':
+      case 'time':
+        control = <Datepicker value={this.props.value} onChange={onChange} {...props} />;
       break;
       default:
         control = <Input value={this.props.value} type={options.type} style={style} onChange={onChange} {...props} />;

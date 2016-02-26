@@ -3,7 +3,7 @@
 import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
-let {FormControl, Button, Input, Icon, Grid} = global.uiRequire();
+let {FormControl, Button, Input, Icon, Datepicker, Grid} = global.uiRequire();
 
 module.exports = class extends React.Component {
   renderExample (type, component) {
@@ -12,10 +12,10 @@ module.exports = class extends React.Component {
       <div>
         <p><em><b>{type}</b></em> => <a href={"#/" + component.toLowerCase()}>{component}</a></p>
         <div>
-          <FormControl grid={{width: 1/2}} type={type} />
+          <FormControl grid={{width: 1/4}} type={type} />
         </div>
         <Code>
-          {`<FormControl grid={{width: 1/2}} type="${type}" />`}
+          {`<FormControl grid={{width: 1/4}} type="${type}" />`}
         </Code>
       </div>
     );
@@ -30,31 +30,40 @@ module.exports = class extends React.Component {
         </div>
 
         <div className="content pure-form">
-          <p>一系列表单控件的马甲，统一封装用来实现表单数据验证，输入提示，动态创建表单等功能。<b>可以通过 <em>getReference()</em> 这个方法获取被封装的控件。</b></p>
+          <p>一系列表单控件的马甲，统一封装用来实现表单数据验证，输入提示，动态创建表单等功能。</p>
           <Code>
 {`<FormControl
   className="string",     // 需要额外添加的 className
   label={string|element}  // 提示文字
   name={string}           // 数据key名称，唯一
   ignore={bool}           // 为true时，不提交该项数据，默认为 false
-  type={string}           // 控件注册名称
+  type={string}           // 控件注册名
   grid={{width, offset, responsive}} // 宽度，详见Grid
   {...validate}           // 数据验证
   {...props}              // 控件属性
-/>`}
+>
+  {children}              // 表单组件
+</FormControl>
+  `}
           </Code>
 
           <h2 className="subhead">数据验证属性</h2>
           <p><em>FormControl</em> 会根据这些属性自动验证输入，自动生成提示文字和错误信息，文字在 <a href="#/lang">Lang</a> 中设置。</p>
           <Code>
 {`<FormControl
-  equal={string}  // 判断值是否与另一个 FormControl 相等，string 为另一个 FormControl name
   min={int}       // 值类型为 string 时，最小长度；为 number 时，最小值；为 array 时，最少选项数
   max={int}       // 值类型为 string 时，最大长度；为 number 时，最大值；为 array 时，最多选项数
   required={bool} // 是否必填，默认为 false
-  tip={string}    // 额外提示信息
-  type={string}   // 会自动判断某些类型 type，如 email, integer, url 等
-/>`}
+  tip={string}    // 额外提示信息，如果设置，会替换自动生成提示信息
+  type={string}   // 自动验证以下type: email,integer,number,alpha,alphanum,tel,url
+  validator       // 自定义校验
+/>
+validator = {
+  func: (value, form), // 指定一个方法校验。value为当前选中值，form为整个form表单数据
+  reg: {string},       // 指定一个正则表达式，和func 二选一
+  bind: [string]       // 当form内其他控件数据变化时，触发校验，参数为控件name
+}
+  `}
           </Code>
 
           <h2 className="subhead">已注册控件</h2>
@@ -62,7 +71,7 @@ module.exports = class extends React.Component {
           <div>
             <p><em><b>text</b></em> => <a href="#/input">Input</a></p>
             <Example>
-<FormControl required={true} grid={{width: 1/2}} type="text" min={2} max={10} />
+<FormControl required={true} grid={{width: 1/4}} type="text" min={2} max={10} />
             </Example>
           </div>
 
@@ -74,9 +83,9 @@ module.exports = class extends React.Component {
           {this.renderExample('number')}
           {this.renderExample('password')}
 
-          {this.renderExample('date', 'Datetime')}
-          {this.renderExample('time', 'Datetime')}
-          {this.renderExample('datetime', 'Datetime')}
+          {this.renderExample('date', 'Datepicker')}
+          {this.renderExample('time', 'Datepicker')}
+          {this.renderExample('datetime', 'Datepicker')}
 
           <div>
             <p><em><b>textarea</b></em> => <a href="#/input">Input</a></p>
@@ -177,28 +186,22 @@ module.exports = class extends React.Component {
           </div>
 
           <h2 className="subhead">Children</h2>
-          <p>可以使用 children 来处理一些复杂结构。<b>注意每个 FormControl 只能有一个表单组件，类型必须和 FormControl 的 <em>type</em> 相同。</b></p>
+          <p>0.6 可以任意使用已注册的表单组件，未注册组件需要自己实现数据校验和数据获取</p>
           <Example>
 <FormControl name="email" label="email" type="email">
-  <span className="rct-input-group">
-    <span className="addon"><Icon icon="email" /></span>
-    <Input type="email" />
-  </span>
+  <Datepicker type="date"
+    min="2016-1-22"
+    required
+    onChange={(startTime) => this.setState({ startTime })}
+    placeholder="startTime" />
+  至
+  <Datepicker type="date"
+    max="2017-1-22"
+    onChange={(endTime) => this.setState({ endTime })}
+    placeholder="endTime" />
 </FormControl>
           </Example>
 
-          <h2 className="subhead">自定义 FormControl</h2>
-          <p>
-            <em>FormControl</em> 提供一个静态方法 <em>register</em>，将一个 <em>Component</em> 注册为 <em>FormControl</em> 成员。<br />
-            每个注册为 <em>FormControl</em> 的控件必须实现 <em>getValue()</em> , <em>setValue(data)</em> 这两个接口。
-          </p>
-          <Code>
-{`FormControl.register(
-  type,       // string，控件类型，唯一。如果同名，后注册的将会覆盖先注册的控件
-  render,     // function，匹配到类型时，调用render方法返回相应控件
-  valueType,  // 'string|array|number'，控件值类型，三选一，数据验证时调用
-)`}
-          </Code>
         </div>
       </div>
     );

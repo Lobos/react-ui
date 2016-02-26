@@ -190,7 +190,7 @@ Form.propTypes = {
 
 Form.defaultProps = {
   data: {},
-  layout: 'inline',
+  layout: 'aligned',
   disabled: false
 };
 

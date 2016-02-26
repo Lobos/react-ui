@@ -3,7 +3,7 @@
 import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const {Form, FormControl, Button, FormSubmit, Icon, Input, Datetime, RadioGroup} = global.uiRequire();
+const {Form, FormControl, Button, FormSubmit, Icon, Input, Datepicker, RadioGroup} = global.uiRequire();
 
 module.exports = class extends React.Component {
   constructor (props) {
@@ -25,17 +25,17 @@ module.exports = class extends React.Component {
           <Code>
 {`<Form
   data={object}         // 数据，object
-  fetch={object}        // 远程数据获取配置 @1
+  fetch={object}        // 远程数据获取表单数据
   hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
                            layout 为 stacked, aligned 时，默认为 "block"
                            layout 为 inline 时，默认为 "pop"
                            会被 FormControl 的 hintType 覆盖
-  layout={string}       // 布局，可选值为 "aligned", "stacked", "inline"，默认为 "inline"
+  layout={string}       // 布局，可选值为 "aligned", "stacked", "inline"，默认为 "aligned"
   onSubmit={function}>  // 数据验证成功后回调事件
   {children}
 </Form>`}
           </Code>
-          <p>@1 <a href="#/fetch">fetch 属性参见这里</a></p>
+          <p><a href="#/fetch">fetch 属性参见这里</a></p>
           <p>
             0.6 版更新，data不再支持dataSource，改用fetch<br />
             0.3 版更新，From 不再提供内置 Ajax 提交功能，需要在onSubmit中进行提交
@@ -64,10 +64,9 @@ module.exports = class extends React.Component {
           </Example>
 
           <h2 className="subhead">获取 / 提交数据</h2>
-          <p>注：本文档提交后只在下方显示json格式，不提交到服务端。</p>
 
           <Example>
-<Form layout="aligned" onSubmit={formData => this.setState({ formData })} fetch={'json/form.json'}>
+<Form onSubmit={formData => this.setState({ formData })} fetch={'json/form.json'}>
   <FormControl name="text"
     label="text"
     type="text"
@@ -117,15 +116,17 @@ module.exports = class extends React.Component {
     type="password"
     tip="必须与password相同"
     validator={
-      { func: (value, formData) => {
-        let password = formData.password;
-        if (!value ? !password : value === password) {
-          return true;
-        } else {
-          return new Error('两次输入密码不一致');
-        }
-      },
-      bind: ['password'] }
+      {
+        func: (value, formData) => {
+          let password = formData.password;
+          if (!value ? !password : value === password) {
+            return true;
+          } else {
+            return new Error('两次输入密码不一致');
+          }
+        },
+        bind: ['password']
+      }
     } />
 
   <FormControl grid={{width:17/24}}
@@ -149,7 +150,7 @@ module.exports = class extends React.Component {
     label="datetime" />
 
   <FormControl label="two item">
-    <Datetime type="date"
+    <Datepicker type="date"
       min="2016-1-22"
       required
       onChange={(startTime) => this.setState({ startTime })}
@@ -157,7 +158,7 @@ module.exports = class extends React.Component {
       placeholder="startTime"
       name="startTime" />
     至
-    <Datetime type="date"
+    <Datepicker type="date"
       max="2017-1-22"
       onChange={(endTime) => this.setState({ endTime })}
       min={this.state.startTime}

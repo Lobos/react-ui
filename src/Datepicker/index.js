@@ -21,4 +21,6 @@ class Datepicker extends Component {
   }
 }
 
-module.exports = register(Datepicker, ['datetime', 'time', 'date'], {valueType: 'datetime'});
+Datepicker = register(Datepicker, ['datetime', 'time', 'date'], {valueType: 'datetime'});
+
+module.exports = Datepicker;
