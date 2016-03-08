@@ -1,6 +1,6 @@
 "use strict";
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { overView, getOuterHeight } from '../utils/dom';
 import * as datetime from '../utils/datetime';

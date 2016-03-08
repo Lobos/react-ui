@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { substitute } from './utils/strings';
 import { deepEqual } from './utils/objects';

@@ -1,12 +1,14 @@
+import React from 'react/lib/ReactWithAddons'
+import createComponent from 'react-unit'
+
 import Select from '../../../src/Select.js'
 
-const ReactTestUtils = React.addons.TestUtils;
 
 describe('Basic', ()=> {
-  const _defaultInstance = ReactTestUtils.renderIntoDocument(
+  const _defaultInstance = createComponent(
       <Select placeholder="single" data={['foo','bar','baz']}/>
     ),
-    multiInstance = ReactTestUtils.renderIntoDocument(
+    multiInstance = createComponent(
       <Select mult={true} data={['foo','bar','baz']}/>
     )
 

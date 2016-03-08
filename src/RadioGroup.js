@@ -1,6 +1,6 @@
 "use strict";
 
-import { Component, PropTypes, Children } from 'react';
+import React, { Component, PropTypes, Children } from 'react';
 import classnames from 'classnames';
 import { deepEqual, toTextValue } from './utils/objects';
 import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';

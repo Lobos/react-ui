@@ -4,7 +4,7 @@
 // 由于tree.state.data是一个array，当data值改变时，不经过setState，
 // 所有的Item的data也因此改变，可能破坏了react的一个原则
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toArray, substitute } from '../utils/strings';
 import { forEach, deepEqual } from '../utils/objects';
