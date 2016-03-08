@@ -1,5 +1,5 @@
-require('./Common');
 require('./Button');
-require('./Icon');
-require('./Message');
-require('./Select');
+//require('./Common');
+//require('./Icon');
+//require('./Message');
+//require('./Select');

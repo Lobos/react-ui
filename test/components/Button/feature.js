@@ -1,14 +1,16 @@
-const Button = require('../../../src/Button.js');
-const ReactTestUtils = React.addons.TestUtils;
+import React from 'react/lib/ReactWithAddons'
+import { shallow } from 'enzyme'
+
+import Button from '../../../src/Button.js'
 
 describe('Feature', ()=> {
   it('Should change to disabled after click when once="true"', ()=> {
-    const instance = ReactTestUtils.renderIntoDocument(
+    const wrapper1 = shallow(
       <Button once={true}>Button</Button>
     );
 
-    ReactTestUtils.Simulate.click(ReactDOM.findDOMNode(instance));
+    wrapper1.find('button').simulate('click');
 
-    assert.ok(ReactDOM.findDOMNode(instance).disabled);
-  })
+    assert.ok(wrapper1.prop('disabled'));
+  });
 });

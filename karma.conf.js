@@ -20,8 +20,6 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       'node_modules/babel-polyfill/dist/polyfill.min.js',
-      'node_modules/react/dist/react-with-addons.js',
-      'node_modules/react-dom/dist/react-dom.js',
       'test/index.js'
     ],
 
@@ -42,7 +40,6 @@ module.exports = function (config) {
           ],
           loader: 'isparta-instrumenter'
         }],
-        externals: {'react': 'React', 'react-dom': 'ReactDOM'},
         loaders: [{
           test: /\.jsx?$/, loaders: ['babel'],
           include: [
