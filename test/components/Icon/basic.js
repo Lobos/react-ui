@@ -1,28 +1,30 @@
-const Icon = require('../../../src/Icon.js');
-const ReactTestUtils = React.addons.TestUtils;
+import React from 'react/lib/ReactWithAddons'
+import { shallow } from 'enzyme'
+
+import Icon from '../../../src/Icon.js'
 
 describe('Basic', ()=> {
   it('Should generate a i tag', ()=> {
-    const instance = ReactTestUtils.renderIntoDocument(<Icon/>);
-    assert.equal(ReactDOM.findDOMNode(instance).nodeName, 'I');
+    const wrapper1 = shallow(<Icon/>);
+    assert.ok(wrapper1.is('i'));
   });
 
   it('Should generate a i tag with default icon prefix', ()=> {
-    const instance = ReactTestUtils.renderIntoDocument(<Icon icon='foo'/>);
-    assert.ok(ReactDOM.findDOMNode(instance).className.match(/\bicon-foo\b/));
+    const wrapper1 = shallow(<Icon icon='foo'/>);
+    assert.ok(wrapper1.hasClass('icon-foo'));
   });
 
   it('Should generate correct size-css with default icon prefix by number', ()=> {
-    const instance1 = ReactTestUtils.renderIntoDocument(<Icon size='3'/>);
-    const instance2 = ReactTestUtils.renderIntoDocument(<Icon size={4}/>);
-    assert.ok(ReactDOM.findDOMNode(instance1).className.match(/\bicon-3x\b/));
-    assert.ok(ReactDOM.findDOMNode(instance2).className.match(/\bicon-4x\b/));
+    const wrapper1 = shallow(<Icon size='3'/>);
+    const wrapper2 = shallow(<Icon size={4}/>);
+    assert.ok(wrapper1.hasClass('icon-3x'));
+    assert.ok(wrapper2.hasClass('icon-4x'));
   });
 
   it('Should generate correct size-css with default icon prefix by multiple', ()=> {
-    const instance1 = ReactTestUtils.renderIntoDocument(<Icon size='lg'/>);
-    const instance2 = ReactTestUtils.renderIntoDocument(<Icon size='2x'/>);
-    assert.ok(ReactDOM.findDOMNode(instance1).className.match(/\bicon-lg\b/));
-    assert.ok(ReactDOM.findDOMNode(instance2).className.match(/\bicon-2x\b/));
+    const wrapper1 = shallow(<Icon size='lg'/>);
+    const wrapper2 = shallow(<Icon size='2x'/>);
+    assert.ok(wrapper1.hasClass('icon-lg'));
+    assert.ok(wrapper2.hasClass('icon-2x'));
   });
 });

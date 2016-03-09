@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, createElement, PropTypes } from 'react';
+import React, { Component, createElement, PropTypes } from 'react';
 import classnames from 'classnames';
 import { isEmpty, shallowEqual } from '../utils/objects';
 import * as Validation from '../utils/validation';

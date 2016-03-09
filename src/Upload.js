@@ -1,7 +1,7 @@
 'use strict';
 
 import classnames from 'classnames';
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import * as Events from './utils/events';
 import { nextUid, format } from './utils/strings';
 import { getGrid } from './utils/grids';

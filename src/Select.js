@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toArray, substitute } from './utils/strings';
 import { getOuterHeight, overView, withoutTransition } from './utils/dom';

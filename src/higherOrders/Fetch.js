@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import refetch from 'refetch';
 import { deepEqual } from '../utils/objects';
 import clone from '../utils/clone';

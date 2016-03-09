@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Button from './Button';
 
 class FormSubmit extends Component {

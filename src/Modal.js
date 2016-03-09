@@ -1,7 +1,7 @@
 'use strict';
 
 import classnames from 'classnames';
-import { Component, PropTypes, DOM } from 'react';
+import React, { Component, PropTypes, DOM } from 'react';
 import ReactDOM from 'react-dom';
 import PubSub from 'pubsub-js';
 import Button from './Button';

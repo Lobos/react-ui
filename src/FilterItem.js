@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Datepicker from './Datepicker';
 import Input from './Input';
 import Select from './Select';

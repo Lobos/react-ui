@@ -20,8 +20,6 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: [
       'node_modules/babel-polyfill/dist/polyfill.min.js',
-      'node_modules/react/dist/react-with-addons.js',
-      'node_modules/react-dom/dist/react-dom.js',
       'test/index.js'
     ],
 
@@ -34,6 +32,10 @@ module.exports = function (config) {
     webpack: {
       devtool: 'inline-source-map',
       entry: './test/index.js',
+      externals: {
+        'react/lib/ExecutionEnvironment': true,
+        'react/lib/ReactContext': true
+      },
       module: {
         preLoaders: [{
           test: /\.jsx?$/,
@@ -42,12 +44,12 @@ module.exports = function (config) {
           ],
           loader: 'isparta-instrumenter'
         }],
-        externals: {'react': 'React', 'react-dom': 'ReactDOM'},
         loaders: [{
           test: /\.jsx?$/, loaders: ['babel'],
           include: [
             path.resolve(__dirname, 'src'),
-            path.resolve(__dirname, 'test')
+            path.resolve(__dirname, 'test'),
+            path.resolve(__dirname, 'node_modules/refetch')
           ]
         },
           {test: /\.(css|less)$/, loader: 'style-loader!css-loader?localIdentName=[hash:base64:8]!less-loader'},

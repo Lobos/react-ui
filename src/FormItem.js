@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, cloneElement, PropTypes } from 'react';
+import React, { Component, cloneElement, PropTypes } from 'react';
 import { enhance } from './higherOrders/FormItem';
 
 class FormItem extends Component {

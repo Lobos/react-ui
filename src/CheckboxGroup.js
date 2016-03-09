@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, PropTypes, Children } from 'react';
+import React, { Component, PropTypes, Children } from 'react';
 import classnames from 'classnames';
 import { Checkbox } from './Checkbox';
 import { toArray } from './utils/strings';

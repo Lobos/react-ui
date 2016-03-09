@@ -12,11 +12,14 @@ module.exports = {
     filename: 'static/testBundle.js',
     publicPath: '/'
   },
-  externals: {'react': 'React', 'react-dom': 'ReactDOM'},
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
+  externals: {
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true
+  },
   module: {
     loaders: [{
       test: /\.jsx?$/, loaders: ['babel'],

@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, PropTypes, cloneElement, Children } from 'react';
+import React, { Component, PropTypes, cloneElement, Children } from 'react';
 import classnames from 'classnames';
 import { COMPONENTS, getValueType } from './higherOrders/FormItem';
 import merge from './utils/merge';
