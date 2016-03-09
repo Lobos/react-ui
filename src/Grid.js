@@ -1,6 +1,6 @@
 'use strict';
 
-import { PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 import { getGrid } from './utils/grids';
 

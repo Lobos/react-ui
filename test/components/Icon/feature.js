@@ -1,9 +1,11 @@
-const Icon = require('../../../src/Icon.js');
-const ReactTestUtils = React.addons.TestUtils;
+import React from 'react/lib/ReactWithAddons'
+import { shallow } from 'enzyme'
+
+import Icon from '../../../src/Icon.js'
 
 describe('Feature', ()=> {
   it('Should apply icon-spin class', ()=> {
-    const instance = ReactTestUtils.renderIntoDocument(<Icon spin={true}/>);
-    assert.ok(ReactDOM.findDOMNode(instance).className.match(/\bicon-spin\b/));
+    const wrapper1 = shallow(<Icon spin={true}/>);
+    assert.ok(wrapper1.hasClass('icon-spin'));
   })
 });

@@ -1,6 +1,6 @@
 "use strict";
 
-import { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { register } from './higherOrders/FormItem';
 

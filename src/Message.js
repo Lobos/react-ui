@@ -1,6 +1,6 @@
 "use strict";
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import Overlay from './Overlay';

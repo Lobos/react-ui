@@ -1,35 +1,37 @@
-const Button = require('../../../src/Button.js');
-const ReactTestUtils = React.addons.TestUtils;
+import React from 'react/lib/ReactWithAddons'
+import { shallow } from 'enzyme'
+
+import Button from '../../../src/Button.js'
 
 describe('Behavior', ()=> {
   it('Should call onClick callback', (done) => {
     const cb = () => {
         done();
       },
-      instance = ReactTestUtils.renderIntoDocument(
+      wrapper1 = shallow(
         <Button onClick={cb}>Button</Button>
       );
 
-    ReactTestUtils.Simulate.click(ReactDOM.findDOMNode(instance));
+    wrapper1.find('button').simulate('click');
   });
 
   it('Should call enable(elem) to enable disabled Button', ()=> {
-    const instance = ReactTestUtils.renderIntoDocument(
+    const wrapper1 = shallow(
       <Button disabled>Button</Button>
     );
 
-    instance.enable();
+    wrapper1.instance().enable();
 
-    assert.notOk(ReactDOM.findDOMNode(instance).disabled)
+    assert.ok(wrapper1.props('disabled'))
   });
 
   it('Should call disable(elem) to disable enabled Button', ()=> {
-    const instance = ReactTestUtils.renderIntoDocument(
+    const wrapper1 = shallow(
       <Button>Button</Button>
     );
 
-    instance.disable();
+    wrapper1.instance().disable();
 
-    assert.ok(ReactDOM.findDOMNode(instance).disabled)
+    assert.ok(wrapper1.props('disabled'))
   });
 });
