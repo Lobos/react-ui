@@ -17,7 +17,6 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   externals: {
-    'cheerio': 'window',
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': true
   },

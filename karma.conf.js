@@ -32,6 +32,10 @@ module.exports = function (config) {
     webpack: {
       devtool: 'inline-source-map',
       entry: './test/index.js',
+      externals: {
+        'react/lib/ExecutionEnvironment': true,
+        'react/lib/ReactContext': true
+      },
       module: {
         preLoaders: [{
           test: /\.jsx?$/,
@@ -44,7 +48,8 @@ module.exports = function (config) {
           test: /\.jsx?$/, loaders: ['babel'],
           include: [
             path.resolve(__dirname, 'src'),
-            path.resolve(__dirname, 'test')
+            path.resolve(__dirname, 'test'),
+            path.resolve(__dirname, 'node_modules/refetch')
           ]
         },
           {test: /\.(css|less)$/, loader: 'style-loader!css-loader?localIdentName=[hash:base64:8]!less-loader'},
