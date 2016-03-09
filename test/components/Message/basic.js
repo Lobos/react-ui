@@ -1,13 +1,10 @@
-const Message = require('../../../src/Message.js');
-const Overlay = require('../../../src/Overlay.js');
+import React from 'react/lib/ReactWithAddons'
+import { shallow, mount } from 'enzyme'
 
-const ReactTestUtils = React.addons.TestUtils;
+import Message from '../../../src/Message.js'
+import Overlay from '../../../src/Overlay.js'
 
 describe('Basic', ()=> {
-  const _containerRegex = /\brct-message-container\b/,
-    _overlayRegex = /\brct-overlay\b/,
-    _messageRegex = /\brct-message-(info|error|success|primary|warning)\b/;
-
   const _foo = {
       type: 'info',
       content: 'foo'
@@ -21,53 +18,46 @@ describe('Basic', ()=> {
       content: 'foo'
     };
 
-  const _defaultInstance = ReactTestUtils.renderIntoDocument(<Message messages={[]}/>),
-    _singleInstance = ReactTestUtils.renderIntoDocument(<Message messages={[_foo]}/>),
-  _multiInstance = ReactTestUtils.renderIntoDocument(<Message messages={[_foo,_bar,_baz]}/>);
+  const _defaultWrapper = shallow(<Message messages={[]}/>),
+    _singleWrapper = mount(<Message messages={[_foo]}/>),
+    _multiWrapper = mount(<Message messages={[_foo,_bar,_baz]}/>);
 
   it('Should generate a div container tag', ()=> {
-    assert.equal(ReactDOM.findDOMNode(_defaultInstance).nodeName, 'DIV');
-    assert.ok(ReactDOM.findDOMNode(_defaultInstance).className.match(_containerRegex))
+    assert.ok(_defaultWrapper.is('div'));
+    assert.ok(_defaultWrapper.hasClass('rct-message-container'))
   });
 
-  it('Should have Overlay as child component', ()=> {
-    const _overlayInstance = ReactTestUtils.findRenderedComponentWithType(_defaultInstance, Overlay);
-    const overlayCss = ReactDOM.findDOMNode(_overlayInstance).className;
-    assert.ok(ReactTestUtils.isCompositeComponentWithType(_overlayInstance, Overlay));
-    assert.ok(overlayCss.match(_overlayRegex))
+  it('Should have Overlay as only child component', ()=> {
+    const _overlayWrapper = _defaultWrapper.find(Overlay);
+
+    assert.equal(_overlayWrapper.length, 1);
   });
 
   it('Should have 0 items if message array is empty', ()=> {
-    const itemArray = ReactTestUtils.scryRenderedDOMComponentsWithTag(_defaultInstance, 'div').filter((item)=> {
-      return ReactDOM.findDOMNode(item).className.match(_messageRegex)
-    });
+    const itemWrapper = _defaultWrapper.find('.rct-message');
 
-    assert.equal(itemArray.length, 0);
+    assert.equal(itemWrapper.length, 0);
   });
 
   it('Should have n items if message array\'s length is n', ()=> {
-    const itemArray1 = ReactTestUtils.scryRenderedDOMComponentsWithTag(_singleInstance, 'div').filter((item)=> {
-      return ReactDOM.findDOMNode(item).className.match(_messageRegex)
-    });
-    const itemArray2 = ReactTestUtils.scryRenderedDOMComponentsWithTag(_multiInstance, 'div').filter((item)=> {
-      return ReactDOM.findDOMNode(item).className.match(_messageRegex)
-    });
+    const itemWrapper1 = _singleWrapper.find('.rct-message'),
+      itemWrapper2 = _multiWrapper.find('.rct-message');
 
-    assert.equal(itemArray1.length, 1);
-    assert.equal(itemArray2.length, 3);
+    assert.equal(itemWrapper1.length, 1);
+    assert.equal(itemWrapper2.length, 3);
   });
 
-  it('Item Should have type=info by default', ()=> {
-    const itemArray1 = ReactTestUtils.scryRenderedDOMComponentsWithTag(_singleInstance, 'div').filter((item)=> {
-      return ReactDOM.findDOMNode(item).className.match(/\brct-message-info\b/);
-    });
-    assert.equal(itemArray1.length, 1);
+  it('Should apply rct-message-info by default', ()=> {
+    const itemWrapper1 = _singleWrapper.find('.rct-message-info');
+
+    assert.equal(itemWrapper1.length, 1);
   });
 
-  it('Item Should have type=error by error type', ()=> {
-    const itemArray1 = ReactTestUtils.scryRenderedDOMComponentsWithTag(_multiInstance, 'div').filter((item)=> {
-      return ReactDOM.findDOMNode(item).className.match(/\brct-message-error\b/);
-    });
-    assert.equal(itemArray1.length, 1);
+  it('Should apply rct-message-[type] by type', ()=> {
+    const itemWrapper1 = _multiWrapper.find('.rct-message-info');
+    const itemWrapper2 = _multiWrapper.find('.rct-message-error');
+
+    assert.equal(itemWrapper1.length, 2);
+    assert.equal(itemWrapper2.length, 1);
   });
 });

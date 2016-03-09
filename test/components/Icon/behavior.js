@@ -1,5 +1,7 @@
-const Icon = require('../../../src/Icon.js');
-const ReactTestUtils = React.addons.TestUtils;
+import React from 'react/lib/ReactWithAddons'
+import { shallow } from 'enzyme'
+
+import Icon from '../../../src/Icon.js'
 
 describe('Behavior', ()=> {
   it('Should append icon-spin class with spin()'

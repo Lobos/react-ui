@@ -5,10 +5,10 @@ import Select from '../../../src/Select.js'
 
 
 describe('Basic', ()=> {
-  const _defaultInstance = createComponent(
+  const _defaultWrapper = createComponent(
       <Select placeholder="single" data={['foo','bar','baz']}/>
     ),
-    multiInstance = createComponent(
+    multiWrapper = createComponent(
       <Select mult={true} data={['foo','bar','baz']}/>
     )
 
