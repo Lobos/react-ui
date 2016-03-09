@@ -123,7 +123,7 @@ class FormControl extends Component {
 
   setChildrenHint (hints, children) {
     Children.toArray(children).forEach((child) => {
-      if (child.type && child.type.name === 'FormItem') {
+      if (child.type && child.type.displayName === 'FormItem') {
         let hint = this.getHint(child.props);
         if (hint) {
           hints.push(hint);
@@ -186,7 +186,7 @@ class FormControl extends Component {
       }
 
       let props = { key: i };
-      if (child.type.name === 'FormItem') {
+      if (child.type.displayName === 'FormItem') {
         this.propsExtend(props);
       } else if (child.props && typeof child.props.children === 'object') {
         props.children = this.renderChildren(child.props.children);
@@ -291,6 +291,7 @@ FormControl.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
+  required: PropTypes.bool,
   style: PropTypes.object,
   tip: PropTypes.oneOfType([
     PropTypes.element,

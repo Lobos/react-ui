@@ -64,7 +64,24 @@ module.exports = class extends React.Component {
   "shanghai": "上海"
 }} />
           </Example>
-
+          
+          <h2 className="subhead">定义模版</h2>
+          <Example>
+<CheckboxGroup
+  value='beijing'
+  textTpl='{cn}({en})'
+  valueTpl='{en}' 
+  data={[
+    { "en": "nanjing",   "cn": "南京" },
+    { "en": "beijing",   "cn": "北京" },
+    { "en": "guangzhou", "cn": "广州" },
+    { "en": "shenzhen",  "cn": "深圳" },
+    { "en": "chengdu",   "cn": "成都" },
+    { "en": "chongqing", "cn": "重庆" },
+    { "en": "shanghai",  "cn": "上海" }
+  ]}
+/>
+          </Example>
 
           <h2 className="subhead">简单数组</h2>
           <div>显示文本和选中值一样时，可以使用简单数组</div>
@@ -84,7 +101,7 @@ module.exports = class extends React.Component {
 />
           </Example>
 
-          <h2 className="subhead">远程数据</h2>
+          <h2 className="subhead">服务端数据</h2>
           <div>支持<a href="#/fetch">fetch</a>从服务端获取数据</div>
           <Example>
 <CheckboxGroup 

@@ -15,7 +15,7 @@ module.exports = {
     filename: 'js/app.js',
     publicPath: '/'
   },
-  externals: {'react': 'React', 'react-dom': 'ReactDOM'},
+  externals: {'react': 'React', 'react-dom': 'ReactDOM', 'react-router': 'ReactRouter'},
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()

@@ -293,7 +293,10 @@ Select.propTypes = {
     PropTypes.object
   ]),
   filterAble: PropTypes.bool,
-  grid: PropTypes.object,
+  grid: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object
+  ]),
   groupBy: PropTypes.string,
   mult: PropTypes.bool,
   onChange: PropTypes.func,

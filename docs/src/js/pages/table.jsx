@@ -50,7 +50,8 @@ module.exports = class extends Component {
   striped={bool}           // 是否交替显示背景，默认值 false
   width={number}           // 表格宽度，默认值 100%
   height={number}          // 表格高度（body部分），默认值 auto
-  data={array}             // 数据，object 或者 dataSource
+  data={array}             // 数据
+  fetch={object}
   pagination={Pagination}  // 分页控件
   onSort={func(name, asc)} // TableHeader的sort事件，name为TableHeader的name，asc值为1|0
   headers={array}
@@ -66,7 +67,7 @@ headers = [{
 }]
 `}
           </Code>
-          <p><a href="#/dataSource">dataSource 参见这里</a></p>
+          <div><a href="#/fetch">fetch 参见这里</a></div>
 
           <h2 className="subhead">pagination</h2>
           <div>

@@ -17,6 +17,9 @@ var CheckboxGroup = require('rctui/CheckboxGroup')
 var FormControl = require('rctui/FormControl')
 ```
 
+# style
+0.6 版之后不再自动加载css文件，需要手动调用一次Themes.setTheme()来加载css。
+
 # build
 使用 [webpack](http://webpack.github.io/) 打包，可以修改 'src/index.js' 自定义需要的组件。
 ```
@@ -46,7 +49,7 @@ build: npm run build
 - [Grid](http://lobos.github.io/react-ui/#/grid)
 
 # Change log
-v0.6.0
+v0.6.1
  - dataSource 方式改为higher order component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
  - clickaway 改为 Mixins，增加registerClickAway
  - datetime 加入today, min, max, 移除 dateOnly, timeOnly, 使用 type 代替
@@ -54,6 +57,7 @@ v0.6.0
  - 加入FormItem，拆分FormControl，重构整个Form结构
  - CheckboxGroup, RadioGroup 支持data和children混合输入
  - Tree替换图片图标，改用传入icon
+ - 不自动加载css文件，使用Themes.setTheme() 手动加载
 
 v0.5.2
  - babel 5 => 6，移除es7的语法

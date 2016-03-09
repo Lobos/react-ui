@@ -12,6 +12,7 @@
   "radiogroup": "shenzhen",
   "datetime": "2015-03-21 00:10:20",
   "rating": 6,
+  "formitem": "form item",
   "select": "China,Cuba",
   "textarea": "long text",
   "tree": "user_edit"

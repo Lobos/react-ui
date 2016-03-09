@@ -22,7 +22,6 @@ module.exports = class extends Component {
           <h1>Datepicker/Datetime</h1>
           <h2>日期 / 时间 选择器</h2>
         </div>
-        <div>0.6 改名为Datepicker，原来的Datetime可以继续使用</div>
 
         <div className="content">
           <Code>
@@ -39,6 +38,7 @@ module.exports = class extends Component {
 />`}
           </Code>
           <p style={{color:'red'}}>0.6 删除了 dateOnly and timeOnly，使用type="date|time"代替</p>
+          <p>0.6 改名为Datepicker，Datetime暂时可以继续使用</p>
 
           <h2 className="subhead">Example</h2>
           <Example>

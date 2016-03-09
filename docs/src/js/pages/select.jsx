@@ -25,7 +25,8 @@ module.exports = class extends Component {
           <Code>
 {`<Select
   className={string}    // class
-  data={array}          // 数据
+  data={array|object}   // 数据
+  fetch={object}
   grid={{width, offset, responsive}} // 宽度，详见Grid
   sep={string|null}     // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   filterAble={bool}     // 是否显示筛选，默认为 false
@@ -43,7 +44,7 @@ module.exports = class extends Component {
 data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所有模板无效。
 `}
           </Code>
-          <p><a href="#/dataSource">dataSource 参加这里</a></p>
+          <div><a href="#/fetch">fetch 参见这里</a></div>
 
           <h2 className="subhead">简单数组</h2>
           <Example>

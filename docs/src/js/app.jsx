@@ -26,5 +26,5 @@ require('../json/tree.json');
 require('../less/style.less');
 
 import {Themes} from '../../../src/';
-Themes.loadStyles();
+Themes.setTheme('mui');
 

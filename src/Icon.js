@@ -18,16 +18,20 @@ class Icon extends Component {
 
   render () {
     let classes = [`${prefix}`];
+    let { style, font, size, icon } = this.props;
 
     if (this.state.spin) {
       classes.push(`${prefix}-spin`);
     }
 
-    if (this.props.icon) {
-      classes.push(`${prefix}-${this.props.icon}`);
+    if (icon) {
+      classes.push(`${prefix}-${icon}`);
     }
 
-    let size = this.props.size;
+    if (font) {
+      style.fontFamily = font;
+    }
+
     if (size) {
       if (typeof size === 'number' || size.length === 1) {
         size = size + 'x';
@@ -36,7 +40,7 @@ class Icon extends Component {
     }
 
     return (
-      <i style={this.props.style} className={classnames(...classes)}>
+      <i style={style} className={classnames(...classes)}>
         {this.props.children}
       </i>
     );
@@ -45,6 +49,7 @@ class Icon extends Component {
 
 Icon.propTypes = {
   children: PropTypes.any,
+  font: PropTypes.string,
   icon: PropTypes.string,
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   spin: PropTypes.bool,

@@ -14,12 +14,13 @@ module.exports = class extends Component {
           <h2>文件上传</h2>
         </div>
 
+        <div>使用了 formdata 进行数据传输，IE10以下暂不支持，慎用。</div>
+
         <div className="content">
           <Code>
 {`<Upload
   accept={string}         // input accept
   action={string}         // 服务端地址，必填
-  autoUpload={bool}       // 选中文件后自动上传，默认值为 false
   className={string}      //
   content={element}       // 显示内容
   disabled={bool}         // 禁用，默认为 false
@@ -35,7 +36,7 @@ module.exports = class extends Component {
 
           <h2 className="subhead">Example</h2>
           <Example>
-<Upload autoUpload={true}
+<Upload
   grid={1/2}
   name="test"
   action="http://216.189.159.94:8080/upload"

@@ -17,6 +17,7 @@ export const Button = require('./Button');
 export const FormControl = require('./FormControl');
 export const FormSubmit = require('./FormSubmit');
 export const Form = require('./Form');
+export const FormItem = require('./FormItem');
 
 export const Grid = require('./Grid');
 export const Pagination = require('./Pagination');

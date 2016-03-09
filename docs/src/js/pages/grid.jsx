@@ -61,13 +61,13 @@ module.exports = class extends Component {
         </div>
 
         <div className="content">
-          <p>动态生成css，省去几十KB的css文件，可以实现任意等分的栅格，支持responsive。</p>
+          <p>可以实现任意等分的栅格，支持responsive。</p>
 
           <Code>
 {`<Grid
   width={n/m},        // 必填，小于1的小数，值为列数/总列数，例如：1/2, 2/5
   offset={n/m},       // 可选，小于1的小数，值为列数/总列数，例如：1/2, 2/5，默认为0
-  responsive={string} // 可选值为'sm|md|lg|xl'，对应的值为'35.5em|48em|64em|80em'，默认值为'md'
+  responsive={string} // 可选值为'sm|md|lg|xl'，对应的值为'568px|768px|992px|1200px'，默认值为'md'
   style={object}
   className={string}
 />`}

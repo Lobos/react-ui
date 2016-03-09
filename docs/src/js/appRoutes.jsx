@@ -17,7 +17,7 @@ require('./menuList').forEach(function (menu, index) {
 });
 
 const AppRoutes = (
-  <Router history={history}>
+  <Router onUpdate={() => window.scrollTo(0, 0)} history={history}>
     <Route path="/" indexRoute={{component: Home}} component={Master}>
       <Route path="/home" component={Home} />
       {menulist}

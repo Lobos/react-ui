@@ -56,7 +56,7 @@ class Checkbox extends Component {
     return (
       <label style={this.props.style} className={ classnames(this.props.className, 'rct-checkbox') }>
         <input ref={(c) => this._input = c}
-          type='checkbox'
+          type="checkbox"
           disabled={this.props.readOnly}
           onChange={this.handleChange}
           checked={this.state.checked}

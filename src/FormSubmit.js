@@ -16,7 +16,7 @@ class FormSubmit extends Component {
     return (
       <div style={this.props.style} className="rct-control-group">
         <Button type="submit"
-          status='primary'
+          status="primary"
           onClick={this.props.onClick}
           disabled={this.props.disabled}>
           {content}

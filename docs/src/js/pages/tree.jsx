@@ -53,6 +53,7 @@ module.exports = class extends Component {
   className={string}  // class
   selectAble={bool}   // 是否可编辑，默认为 false
   data={array}        // 数据
+  fetch={object}
   sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   greedy={bool}       // 为true时，getValue返回的值包含半选中项
   onClick={function(data)}  // 点击某元素触发事件，参数为当前节点
@@ -61,9 +62,11 @@ module.exports = class extends Component {
   textTpl="string"    // 显示文字模板，默认为 "{text}"
   valueTpl="string"   // 返回数据模板，默认为 "{id}"
   value={string|array}
+  icons={array}       // 图标 0-目录折起 1-目录展开 2-子节点
 />`}
           </Code>
-          <div><a href="#/dataSource">dataSource 参见这里</a></div>
+          <div><a href="#/fetch">fetch 参见这里</a></div>
+          <div>0.6 删除默认icon，需要icon可以通过icons传入</div>
 
           <h2 className="subhead">Example</h2>
           <Example>
@@ -88,10 +91,10 @@ module.exports = class extends Component {
   sep={this.state.sep}
 />
 <div>
-  <Checkbox onChange={(value)=>this.setState({ selectAble: value })} checked={this.state.selectAble} text="selectAble" />
-  <Checkbox onChange={(value)=>this.setState({ readOnly: value })} checked={this.state.readOnly} text="readOnly" />
-  <Checkbox onChange={(value)=>this.setState({ greedy: value })} checked={this.state.gre} text="greedy" />
-  <Checkbox onChange={(value)=>this.setState({ showAccountsIcon: value })} checked={this.state.showAccountsIcon} text="show accounts icon" />
+  <div><Checkbox onChange={(value)=>this.setState({ selectAble: value })} checked={this.state.selectAble} text="selectAble" /></div>
+  <div><Checkbox onChange={(value)=>this.setState({ readOnly: value })} checked={this.state.readOnly} text="readOnly" /></div>
+  <div><Checkbox onChange={(value)=>this.setState({ greedy: value })} checked={this.state.gre} text="greedy" /></div>
+  <div><Checkbox onChange={(value)=>this.setState({ showAccountsIcon: value })} checked={this.state.showAccountsIcon} text="show accounts icon" /></div>
   {
     ([',', '|', '#', null]).map((sep, i) => {
       return (
@@ -106,7 +109,8 @@ module.exports = class extends Component {
 <div>value: {this.state.showValue}</div>
           </Example>
           <Code>
-{`Tree.setDefaultIcons([
+{`// 设置默认icons
+Tree.setDefaultIcons([
   <Icon style={{color: '#f2da81'}} icon="folder-star" />,
   <Icon style={{color: '#f2da81'}} icon="folder" />,
   <Icon icon="file" />

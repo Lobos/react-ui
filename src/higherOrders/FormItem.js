@@ -35,7 +35,7 @@ export const enhance = (ComposedComponent) => {
         }
       }
 
-      if (name) {
+      if (name && itemBind) {
         itemBind({
           name,
           valiBind,
@@ -51,6 +51,9 @@ export const enhance = (ComposedComponent) => {
 
     componentDidMount () {
       let component = this.component;
+      if (!component) {
+        return;
+      }
       Object.keys(component).forEach((key) => {
         if (!this.hasOwnProperty(key)) {
           let func = component[key];
@@ -98,7 +101,7 @@ export const enhance = (ComposedComponent) => {
 
     handleChange (value) {
       let { name, formData, itemChange, onChange } = this.props;
-      let result = this.validate(value, formData);
+      let result = value instanceof Error ? value : this.validate(value, formData);
       if (name && itemChange) {
         itemChange(name, value, result);
       }
@@ -124,6 +127,8 @@ export const enhance = (ComposedComponent) => {
       return <ComposedComponent ref={(c) => this.component = c} {...props} value={value} className={className} onChange={this.handleChange} />
     }
   }
+
+  FormItem.displayName = 'FormItem';
 
   FormItem.propTypes = {
     className: PropTypes.string,

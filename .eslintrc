@@ -11,6 +11,7 @@
   },
   "parser": "babel-eslint",
   "rules": {
+    "jsx-quotes": 1,
     "quotes": [2, "single"],
     "strict": [2, "never"],
     "no-undef": [2],
@@ -24,7 +25,6 @@
     "react/jsx-no-duplicate-props": 1,
     "react/jsx-no-undef": 1,
     "react/jsx-pascal-case": 1,
-    "react/jsx-quotes": 1,
     "react/jsx-sort-prop-types": 1,
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 1,

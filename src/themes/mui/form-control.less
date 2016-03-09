@@ -10,7 +10,7 @@
   padding: 7px 8px;
   display: inline-block;
   border-radius: 1px;
-  line-height: normal;
+  line-height: 14px;
   box-sizing: border-box;
   background-color: #fff;
   vertical-align: middle;
@@ -26,17 +26,14 @@
     border-color: #ccc;
   }
 
+  &.has-error {
+    border-color: @red;
+  }
+
 }
 
 input.rct-form-control{
   font-size: 13px;
-  padding: 7.5px 8px;
-}
-
-.rct-has-error {
-  .rct-form-control {
-    border-color: @red;
-  }
 }
 
 .rct-control-group {

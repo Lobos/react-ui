@@ -43,10 +43,19 @@ class RadioGroup extends Component {
     data = toTextValue(data, this.props.textTpl, this.props.valueTpl);
     Children.map(this.props.children, (child) => {
       if (typeof child === 'object') {
-        data.push({
-          $value: child.props.value,
-          $text: child.props.children || child.props.text
-        });
+        let position = child.props.position;
+        if (position === undefined) {
+          position = data.length;
+        }
+        data = [
+          ...data.slice(0, position),
+          {
+            $value: child.props.value,
+            $text: child.props.children || child.props.text
+          },
+          ...data.slice(position)
+        ];
+
       }
     });
     return data;

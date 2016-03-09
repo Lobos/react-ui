@@ -129,14 +129,15 @@ class Form extends Component {
     let { fetchStatus, disabled } = this.props;
 
     return Children.map(this.props.children, (child) => {
-      if (!child) { return null };
+      if (!child) { return null; }
+      if (typeof child === 'string') { return child; }
       let { hintType, readOnly } = child.props;
       let props = {
         hintType: hintType || this.props.hintType,
         readOnly: readOnly || disabled,
         layout: this.props.layout
       };
-      if (child.type === FormControl) {
+      if (child.type === FormControl || child.type.displayName === 'FormItem') {
         props.itemBind = this.itemBind;
         props.itemUnbind = this.itemUnbind;
         props.itemChange = this.itemChange;
@@ -179,6 +180,7 @@ Form.propTypes = {
   beforeSubmit: PropTypes.func,
   children: PropTypes.any,
   className: PropTypes.string,
+  controls: PropTypes.array,
   data: PropTypes.object,
   disabled: PropTypes.bool,
   fetchStatus: PropTypes.string,

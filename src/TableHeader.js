@@ -44,7 +44,7 @@ TableHeader.propTypes = {
   content: PropTypes.any,
   header: PropTypes.any,
   hidden: PropTypes.bool,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   onSort: PropTypes.func,
   sort: PropTypes.object,
   sortAble: PropTypes.bool,

@@ -3,7 +3,7 @@
 import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const {Form, FormControl, Button, FormSubmit, Icon, Input, Datepicker, RadioGroup} = global.uiRequire();
+const {Form, FormControl, Button, FormSubmit, Icon, Input, Datepicker, RadioGroup, FormItem, Refetch} = global.uiRequire();
 
 module.exports = class extends React.Component {
   constructor (props) {
@@ -25,7 +25,7 @@ module.exports = class extends React.Component {
           <Code>
 {`<Form
   data={object}         // 数据，object
-  fetch={object}        // 远程数据获取表单数据
+  fetch={object}        // 获取服务端表单数据
   hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
                            layout 为 stacked, aligned 时，默认为 "block"
                            layout 为 inline 时，默认为 "pop"
@@ -208,9 +208,25 @@ module.exports = class extends React.Component {
     selectAble={true}
     label="tree"
     type="tree"
-    fetch={{url:"json/tree.json", cache:3600}}
+    fetch={ Refetch.get('json/tree.json') }
     textTpl='{text}({id})'
     valueTpl="{id}" />
+
+  <FormControl label="FormItem">
+    <FormItem name="formitem" required max={10}>
+      <input className="rct-form-control" type="text" />
+    </FormItem>
+  </FormControl>
+
+  <FormControl name="upload"
+    label="upload file"
+    type="upload"
+    grid={1/2}
+    action="http://216.189.159.94:8080/upload"
+    accept="image/*"
+    fileSize={300}
+    limit={3}
+    content={<Button><Icon icon="upload" /> 选择文件</Button>} />
 
   <FormControl grid={{width:18/24}}
     name="textarea"

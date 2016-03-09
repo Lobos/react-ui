@@ -26,11 +26,11 @@ module.exports = class extends React.Component {
       <div>
         <div className="header">
           <h1>FormControl</h1>
-          <h2>表单元素</h2>
+          <h2>表单区块</h2>
         </div>
 
         <div className="content pure-form">
-          <p>一系列表单控件的马甲，统一封装用来实现表单数据验证，输入提示，动态创建表单等功能。</p>
+          <p>表单中一个横行的区块，包含label提示，输入提示等等。如果一个区块只有一个FormItem，可以直接传入FormItem的props。</p>
           <Code>
 {`<FormControl
   className="string",     // 需要额外添加的 className
@@ -62,8 +62,7 @@ validator = {
   func: (value, form), // 指定一个方法校验。value为当前选中值，form为整个form表单数据
   reg: {string},       // 指定一个正则表达式，和func 二选一
   bind: [string]       // 当form内其他控件数据变化时，触发校验，参数为控件name
-}
-  `}
+}`}
           </Code>
 
           <h2 className="subhead">已注册控件</h2>
@@ -186,21 +185,22 @@ validator = {
           </div>
 
           <h2 className="subhead">Children</h2>
-          <p>0.6 可以任意使用已注册的表单组件，未注册组件需要自己实现数据校验和数据获取</p>
+          <p>0.6 可以任意使用已注册的表单组件</p>
           <Example>
 <FormControl name="email" label="email" type="email">
   <Datepicker type="date"
     min="2016-1-22"
     required
-    onChange={(startTime) => this.setState({ startTime })}
     placeholder="startTime" />
   至
   <Datepicker type="date"
     max="2017-1-22"
-    onChange={(endTime) => this.setState({ endTime })}
     placeholder="endTime" />
 </FormControl>
           </Example>
+
+          <h2 className="subhead">注册自定义组件</h2>
+          <div>见<a href="#/formitem">FormItem</a></div>
 
         </div>
       </div>

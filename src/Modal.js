@@ -33,32 +33,9 @@ class ModalContainer extends Component {
   }
 
   componentDidMount () {
-    PubSub.subscribe(ADD_MODAL, (topic, props) => {
-      let isReplace = false;
-      modals = modals.map((m) => {
-        if (m.id === props.id) {
-          isReplace = true;
-          m = props;
-        }
-        return m;
-      });
-      if (!isReplace) {
-        modals.push(props);
-      }
+    PubSub.subscribe(ADD_MODAL, this.addModal.bind(this));
 
-      this.setState({ modals, increase: true });
-    });
-
-    PubSub.subscribe(REMOVE_MODAL, (data) => {
-      let props = modals.pop();
-      if (!props) {
-        return;
-      }
-      if (props.onClose) {
-        props.onClose(data);
-      }
-      this.setState({ modals, increase: false });
-    });
+    PubSub.subscribe(REMOVE_MODAL, this.removeModal.bind(this));
 
     PubSub.subscribe(CLICKAWAY, () => {
       let props = modals[modals.length - 1];
@@ -66,6 +43,33 @@ class ModalContainer extends Component {
         PubSub.publish(REMOVE_MODAL);
       }
     });
+  }
+
+  addModal (topic, props) {
+    let isReplace = false;
+    modals = modals.map((m) => {
+      if (m.id === props.id) {
+        isReplace = true;
+        m = props;
+      }
+      return m;
+    });
+    if (!isReplace) {
+      modals.push(props);
+    }
+
+    this.setState({ modals, increase: true });
+  }
+
+  removeModal (topic, data) {
+    let props = modals.pop();
+    if (!props) {
+      return;
+    }
+    if (props.onClose) {
+      props.onClose(data);
+    }
+    this.setState({ modals, increase: false });
   }
 
   close () {
@@ -114,7 +118,10 @@ class ModalContainer extends Component {
 
       let className = classnames(
         'rct-modal',
-        { fadein: this.state.increase && modalLength - 1 === i }
+        {
+          fadein: this.state.increase && modalLength - 1 === i,
+          noPadding: options.noPadding
+        }
       );
 
       return (
@@ -162,6 +169,9 @@ function close (data) {
 function open (options) {
   if (!modalContainer) {
     createContainer();
+  }
+  if (!options.id) {
+    options.id = nextUid();
   }
   PubSub.publishSync(ADD_MODAL, options);
 };
@@ -230,11 +240,8 @@ class Modal extends Component {
   renderModal (props) {
     open({
       id: this.id,
-      buttons: props.buttons,
       content: props.children,
-      onClose: props.onClose,
-      header: props.header,
-      width: props.width
+      ...props
     });
   }
 
@@ -247,6 +254,7 @@ Modal.propTypes = {
   buttons: PropTypes.object,
   children: PropTypes.any,
   isOpen: PropTypes.bool,
+  noPadding: PropTypes.bool,
   onClose: PropTypes.func,
   title: PropTypes.oneOfType([
     PropTypes.string,

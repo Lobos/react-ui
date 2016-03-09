@@ -25,8 +25,11 @@ module.exports = () => {
 icon="string"     // 图标名称，不带前缀部分
 spin={bool}       // 是否旋转。默认值为 false
 size={int|string} // 图标尺寸，可选值为 [lg|2x|3x|4x|5x]，或者为数字 1-5
+font={string}     // 指定font-family
 style={object}    // 样式，fontSize、color等等
-/>`}
+>
+  {string}        // code （可选）
+</Icon>  `}
         </Code>
 
         <h2 className="subhead">Normal</h2>

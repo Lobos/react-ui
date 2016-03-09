@@ -5,7 +5,6 @@ import { Component, PropTypes } from 'react';
 import * as Events from './utils/events';
 import { nextUid, format } from './utils/strings';
 import { getGrid } from './utils/grids';
-import Message from './Message';
 import upload from './utils/upload';
 import { register } from './higherOrders/FormItem';
 
@@ -39,34 +38,52 @@ class Upload extends Component {
   getValue () {
     let values = [],
         files = this.state.files;
+    const { sep } = this.props;
     Object.keys(files).forEach((id) => {
-      if (this.props.autoUpload) {
+      //if (autoUpload) {
         values.push(files[id].value);
-      } else {
-        values.push(files[id].file.files[0]);
-      }
+      //} else {
+      //  values.push(files[id].file.files[0]);
+      //}
     });
+    if (sep) {
+      values = values.join(sep);
+    }
     return values;
   }
 
   // nope
   setValue() {}
 
+  handleChange (value) {
+    const { onChange } = this.props;
+    if (value === undefined) {
+      if (this.isCompleted()) {
+        value = this.getValue();
+      } else {
+        value = new Error('');
+      }
+    }
+    if (onChange) {
+      onChange(value);
+    }
+  }
+
   addFile () {
-    if (this.props.disabled || this.props.readOnly) {
+    const { accept, autoUpload, disabled, readOnly, fileSize } = this.props;
+    if (disabled || readOnly) {
       return;
     }
 
     let files = this.state.files,
-        file = document.createElement('input'),
-        autoUpload = this.props.autoUpload;
+        file = document.createElement('input');
     file.type = 'file';
-    file.accept = this.props.accept;
+    file.accept = accept;
     file.click();
     Events.on(file, 'change', () => {
       let blob = file.files[0];
-      if (blob.size / 1024 > this.props.fileSize) {
-        Message.show(format(getLang('validation.tips.fileSize'), this.props.fileSize), 'error');
+      if (blob.size / 1024 > fileSize) {
+        this.handleChange(new Error(format(getLang('validation.tips.fileSize'), fileSize)));
         return;
       }
 
@@ -96,6 +113,7 @@ class Upload extends Component {
     }
     delete files[id];
     this.setState({ files });
+    this.handleChange();
   }
 
   uploadFile (file, id) {
@@ -108,17 +126,20 @@ class Upload extends Component {
       onProgress: (e) => {
         let progress = this.files[id];
         progress.style.width = (e.loaded / e.total) * 100 + '%';
+        this.handleChange(new Error(''));
       },
       onLoad: (e) => {
         let files = this.state.files;
         files[id].status = 2;
         files[id].value = e.currentTarget.responseText;
         this.setState({ files });
+        this.handleChange();
       },
       onError: () => {
         let files = this.state.files;
         files[id].status = 3;
         this.setState({ files });
+        this.handleChange();
       }
     });
   }
@@ -154,14 +175,15 @@ class Upload extends Component {
   }
 
   render () {
-    let className = classnames(
-      getGrid(this.props.grid),
+    let { className, grid, limit, style, content } = this.props;
+    className = classnames(
+      getGrid(grid),
       `rct-upload-container`,
-      this.props.className
+      className
     );
     return (
-      <div className={className} style={this.props.style}>
-        { Object.keys(this.state.files).length < this.props.limit && <div onClick={this.addFile}>{this.props.content}</div> }
+      <div className={className} style={style}>
+        { Object.keys(this.state.files).length < limit && <div onClick={this.addFile}>{content}</div> }
         { this.renderFiles() }
       </div>
     );
@@ -177,16 +199,21 @@ Upload.propTypes = {
   cors: PropTypes.bool,
   disabled: PropTypes.bool,
   fileSize: PropTypes.number,
-  grid: PropTypes.object,
+  grid: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object
+  ]),
   limit: PropTypes.number,
   name: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
   readOnly: PropTypes.bool,
+  sep: PropTypes.string,
   style: PropTypes.object,
   withCredentials: PropTypes.bool
 };
 
 Upload.defaultProps = {
-  autoUpload: false,
+  autoUpload: true,
   cors: true,
   fileSize: 4096,
   limit: 1,
