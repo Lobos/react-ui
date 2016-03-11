@@ -6,6 +6,7 @@ export const Datetime = require('./Datepicker');
 export const Datepicker = Datetime;
 export const Icon = require('./Icon');
 export const Input = require('./Input');
+export const Textarea = require('./Textarea');
 export const Radio = require('./Radio');
 export const RadioGroup = require('./RadioGroup');
 export const Rating = require('./Rating');

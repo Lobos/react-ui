@@ -95,4 +95,4 @@ Input.propTypes = {
   value: PropTypes.any
 };
 
-module.exports = register(Input, ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'textarea', 'integer', 'number']);
+module.exports = register(Input, ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number']);
