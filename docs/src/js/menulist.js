@@ -15,6 +15,7 @@ module.exports = [
   { path: '/checkboxGroup', text: 'CheckboxGroup', component: require('./pages/checkboxGroup.jsx') },
   { path: '/datepicker', text: 'Datepicker', component: require('./pages/datepicker.jsx') },
   { path: '/input', text: 'Input', component: require('./pages/input.jsx') },
+  { path: '/textArea', text: 'Textarea', component: require('./pages/textArea.jsx') },
   { path: '/radioGroup', text: 'RadioGroup', component: require('./pages/radioGroup.jsx') },
   { path: '/rating', text: 'Rating', component: require('./pages/rating.jsx') },
   { path: '/select', text: 'Select', component: require('./pages/select.jsx') },
