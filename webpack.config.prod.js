@@ -4,13 +4,12 @@ var autoprefixer = require('autoprefixer');
 var precss = require('precss');
 
 module.exports = {
-  devtool: 'source-map',
   entry: {
     ReactUI: './src/index',
     Form: './standalone/form/index.js'
   },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'build'),
     filename: '[name].js'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},

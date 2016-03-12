@@ -143,12 +143,6 @@
         { type: 'date', name: 'endTime' }
       ]
     },
-    { type: 'select', label: 'select', name: 'select', grid: 1/3,
-      data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } },
-    { type: 'checkbox-group', label: 'checkbox-group', name: 'checkbox-group', min: 2,
-      data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } },
-    { type: 'radio-group', label: 'radio-group', name: 'radio-group',
-      data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } },
     { type: 'password', label: 'password', name: 'password', required: true, grid: 1, min: 6, max: 18 },
     { type: 'password', label: 'repeat password', name: 'repeatpassword', grid: 1, tip: '重复密码', ignore: true,
       validator: {
@@ -162,7 +156,14 @@
         },
         bind: ['password']
       }
-    }
+    },
+    { type: 'select', label: 'select', name: 'select', grid: 1/3,
+      data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } },
+    { type: 'checkbox-group', label: 'checkbox-group', name: 'checkbox-group', min: 2,
+      data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } },
+    { type: 'radio-group', label: 'radio-group', name: 'radio-group',
+      data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } },
+    { type: 'textarea', label: 'textarea', autoHeight: true }
   ];
 
   var formData = {

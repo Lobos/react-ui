@@ -4,13 +4,13 @@ var autoprefixer = require('autoprefixer');
 var precss = require('precss');
 
 module.exports = {
-  devtool: 'source-map',
-  entry: [
-    './docs/src/js/app.jsx'
-  ],
+  entry: {
+    app: './docs/src/js/app.jsx',
+    Form: './standalone/form/index.js'
+  },
   output: {
     path: path.join(__dirname, 'docs/dist'),
-    filename: 'js/app.js'
+    filename: 'js/[name].js'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},
   plugins: [

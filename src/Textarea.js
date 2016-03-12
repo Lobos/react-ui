@@ -3,15 +3,15 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { getGrid } from './utils/grids';
-import { requireCss } from './themes';
-
+import { register } from './higherOrders/FormItem';
+import { computedStyle, getLineHeight } from './utils/dom';
 
 class Textarea extends Component {
   constructor (props) {
     super(props);
     this.state = {
       value : props.value,
-      rows:  props.rows
+      rows: props.rows
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -21,22 +21,20 @@ class Textarea extends Component {
     let el = this.element;
 
     if(this.props.autoHeight){
-      this.lineHeight = this.getLineHight();
-      this.paddingH = parseInt(this.computedStyle(el, 'paddingTop')) + parseInt(this.computedStyle(el, 'paddingBottom'));
+      this.lineHeight = getLineHeight(el);
+      this.paddingHeight = parseInt(computedStyle(el, 'paddingTop')) + parseInt(computedStyle(el, 'paddingBottom'));
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this.props.value) {
-      this.setValue(nextProps.value);
+      this.handleChange(null, nextProps.value);
     }
   }
 
   handleChange (event, value){
-    value = value || event.target.value;
-
-    if(this.props.maxLength){
-      value = value.substr(0, this.props.maxLength);
+    if (!value && event) {
+      value = event.target.value;
     }
 
     this.setState({value});
@@ -53,7 +51,7 @@ class Textarea extends Component {
     let rows;
 
     el.style.height = '1px';
-    scrH = el.scrollHeight - this.paddingH;
+    scrH = el.scrollHeight - this.paddingHeight;
     rows = Math.floor( scrH / this.lineHeight);
 
     if( rows >= this.props.rows ){
@@ -62,43 +60,7 @@ class Textarea extends Component {
       });
     }
     el.style.height = 'auto';
-
   }
-
-
-  getValue (){
-    return this.state.value;
-  }
-
-  setValue (value){
-    this.handleChange(null, value);
-  }
-
-  computedStyle (el, attr) {
-    var lineHeight;
-    if (el.currentStyle) {
-      lineHeight = el.currentStyle[attr]
-    } else if (window.getComputedStyle) {
-      lineHeight = window.getComputedStyle(el , null)[attr];
-    }
-    return lineHeight;
-  }
-
-  getLineHight () {
-    let el  = this.element.cloneNode(true);
-    let lineHeight;
-    el.style.padding = 0;
-    el.rows = 1;
-    el.innerHTML = '&nbsp;'
-    el.style.minHeight= 'inherit'
-    this.element.parentNode.appendChild(el);
-    lineHeight = el.clientHeight;
-    this.element.parentNode.removeChild(el);
-
-    return lineHeight;
-  }
-
-
 
   render () {
     let { value, className, onChange, rows, style, autoHeight, ...props } = this.props;
@@ -118,13 +80,13 @@ class Textarea extends Component {
 
     return (
       <textarea {...props}
-        className={classNameStr}
-        onChange = {this.handleChange}
-        ref={(c) => this.element = c}
-        rows={ this.state.rows }
-        style={ style }
-        value={this.state.value}
-        />
+      className={classNameStr}
+      onChange = {this.handleChange}
+      ref={(c) => this.element = c}
+      rows={ this.state.rows }
+      style={ style }
+      value={this.state.value}
+      />
     );
   }
 
@@ -144,7 +106,6 @@ Textarea.propTypes = {
     PropTypes.number,
     PropTypes.object
   ]),
-  maxLength: PropTypes.number,
   onChange: PropTypes.func,
   /**
    * placeholder
@@ -164,7 +125,5 @@ Textarea.defaultProps = {
   rows: 10
 };
 
-Textarea.displayName = 'Textarea';
-
-module.exports = Textarea;
+module.exports = register(Textarea, ['textarea']);
 

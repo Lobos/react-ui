@@ -14,6 +14,7 @@ import Rating from '../../src/Rating';
 import Tree from '../../src/Tree';
 import Upload from '../../src/Upload';
 import Modal from '../../src/Modal';
+import Textarea from '../../src/Textarea';
 import { register } from '../../src/higherOrders/FormItem';
 
 import { setTheme } from '../../src/themes/index';

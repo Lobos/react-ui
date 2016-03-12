@@ -29,40 +29,6 @@ export function offset (el) {
   };
 }
 
-/*
-export function addClass (el, className) {
-  if (el.classList) {
-    el.classList.add(className);
-  } else {
-    el.className += ' ' + className;
-  }
-}
-
-export function removeClass (el, className) {
-  if (el.classList) {
-    el.classList.remove(className);
-  } else {
-    el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-  }
-}
-
-export function hasClass (el, className) {
-  if (el.classList) {
-    return el.classList.contains(className);
-  } else {
-    return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
-  }
-}
-
-export function toggleClass (el, className) {
-  if (hasClass(el, className)) {
-    removeClass(el, className);
-  } else {
-    addClass(el, className);
-  }
-}
-*/
-
 export function forceRedraw (el) {
   let originalDisplay = el.style.display;
 
@@ -109,4 +75,28 @@ export function overView (el, pad = 0) {
   let height = window.innerHeight || document.documentElement.clientHeight;
   let bottom = el.getBoundingClientRect().bottom + pad;
   return bottom > height;
+}
+
+export function computedStyle (el, attr) {
+  var lineHeight;
+  if (el.currentStyle) {
+    lineHeight = el.currentStyle[attr]
+  } else if (window.getComputedStyle) {
+    lineHeight = window.getComputedStyle(el , null)[attr];
+  }
+  return lineHeight;
+}
+
+export function getLineHeight (origin) {
+  let el = origin.cloneNode(true);
+  let lineHeight;
+  el.style.padding = 0;
+  el.rows = 1;
+  el.innerHTML = '&nbsp;'
+  el.style.minHeight= 'inherit'
+  origin.parentNode.appendChild(el);
+  lineHeight = el.clientHeight;
+  origin.parentNode.removeChild(el);
+
+  return lineHeight;
 }

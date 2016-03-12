@@ -233,7 +233,9 @@ module.exports = class extends React.Component {
   <FormControl grid={{width:18/24}}
     name="textarea"
     label="textarea"
+    autoHeight
     rows={5}
+    max={100}
     type="textarea" />
   
   <FormSubmit>
