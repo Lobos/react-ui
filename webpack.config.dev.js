@@ -1,18 +1,26 @@
 var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
-var precss       = require('precss');
+var precss = require('precss');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
-  entry: [
-    'webpack-hot-middleware/client',
-    './docs/src/js/app.jsx',
-    './docs/src/less/style.less'
-  ],
+  entry: {
+    app: [
+      'webpack-hot-middleware/client',
+      './docs/src/js/app.jsx',
+      './docs/src/less/style.less'
+    ],
+    Form: [
+      'webpack-hot-middleware/client',
+      './standalone/form/index.js'
+    ]
+  },
   output: {
     path: path.join(__dirname, 'docs'),
-    filename: 'js/app.js',
+    filename: 'js/[name].js',
+    libraryTarget: 'umd',
+    library: '[name]',
     publicPath: '/'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM', 'react-router': 'ReactRouter'},
@@ -23,6 +31,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, loaders: ['babel'], include: [
+        path.resolve(__dirname, 'standalone'),
         path.resolve(__dirname, 'src'),
         path.resolve(__dirname, 'docs'),
         path.resolve(__dirname, 'node_modules/refetch')

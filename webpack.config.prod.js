@@ -5,12 +5,13 @@ var precss = require('precss');
 
 module.exports = {
   devtool: 'source-map',
-  entry: [
-    './src/index'
-  ],
+  entry: {
+    ReactUI: './src/index',
+    Form: './standalone/form/index.js'
+  },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'ReactUI.js'
+    filename: '[name].js'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},
   plugins: [

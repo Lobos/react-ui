@@ -140,13 +140,18 @@ export const enhance = (ComposedComponent) => {
     name: PropTypes.string,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
+    sep: PropTypes.string,
     type: PropTypes.string,
     validator: PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.object
     ]),
     value: PropTypes.any
-  }
+  };
+
+  FormItem.defaultProps = {
+    sep: ','
+  };
 
   return FormItem;
 }

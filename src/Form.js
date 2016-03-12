@@ -124,6 +124,26 @@ class Form extends Component {
     return true;
   }
 
+  renderControls () {
+    const { data } = this.state;
+    const { hintType, controls, disabled, layout } = this.props;
+
+    return clone(controls).map((control, i) => {
+      if (typeof control !== 'object') {
+        return control;
+      } else {
+        control.hintType = control.hintType || hintType;
+        control.readOnly = control.readOnly || disabled;
+        control.layout = layout;
+        control.itemBind = this.itemBind;
+        control.itemUnbind = this.itemUnbind;
+        control.itemChange = this.itemChange;
+        control.formData = data;
+        return <FormControl key={i} { ...control } />;
+      }
+    });
+  }
+
   renderChildren () {
     let { data } = this.state;
     let { fetchStatus, disabled } = this.props;
@@ -153,8 +173,12 @@ class Form extends Component {
     });
   }
 
+  renderButton (text) {
+    return <FormSubmit disabled={this.props.disabled}>{text}</FormSubmit>;
+  }
+
   render () {
-    let { fetchStatus, className, onSubmit, layout, ...props } = this.props;
+    let { button, controls, fetchStatus, className, onSubmit, layout, ...props } = this.props;
 
     className = classnames(
       className,
@@ -168,7 +192,9 @@ class Form extends Component {
 
     return (
       <form onSubmit={this.handleSubmit} className={className} {...props}>
+        {controls && this.renderControls()}
         {this.renderChildren()}
+        {button && this.renderButton(button)}
         {fetchStatus !== FETCH_SUCCESS && <div className="rct-form-mask" />}
       </form>
     );
@@ -178,6 +204,7 @@ class Form extends Component {
 Form.propTypes = {
   autoComplete: PropTypes.bool,
   beforeSubmit: PropTypes.func,
+  button: PropTypes.string,
   children: PropTypes.any,
   className: PropTypes.string,
   controls: PropTypes.array,

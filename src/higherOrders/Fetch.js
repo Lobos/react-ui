@@ -99,8 +99,9 @@ export const fetchEnhance = (ComposedComponent) => {
       if (typeof fetch === 'string') {
         fetch = { url: fetch };
       }
-      let { method='get', url, data, ...options } = fetch;
+      let { method='get', url, data, then, ...options } = fetch;
       let request = refetch[method](url, data, options);
+
       request.then(peerData.bind(request))
         .then((data) => {
           this.setData(data);

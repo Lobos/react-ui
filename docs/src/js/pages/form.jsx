@@ -24,6 +24,7 @@ module.exports = class extends React.Component {
         <div className="content">
           <Code>
 {`<Form
+  button={string}       // submit按钮文字，和FormSubmit二选一
   data={object}         // 数据，object
   fetch={object}        // 获取服务端表单数据
   hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
@@ -175,6 +176,7 @@ module.exports = class extends React.Component {
 
   <FormControl name="checkboxgroup"
     required
+    min={2}
     fetch={{url: "json/text-value.json", cache: 3600}}
     label="checkbox group"
     type="checkbox-group" />
@@ -243,6 +245,24 @@ module.exports = class extends React.Component {
 { this.state.formData && <Code>提交表单数据:<br />{JSON.stringify(this.state.formData, null, 4)}</Code> }
           </Example>
 
+          <h2 className="subhead">json方式使用</h2>
+          <div>controls属性等于FormControls的props，items属性等于FormItem的props</div>
+          <Example>
+<Form button="确定" fetch={'json/form.json'} controls={[
+  { name: 'text', type: 'text', min: 3, max: 12, label: 'text', grid: 1/3 },
+  { name: 'datetime', required: true, type: 'datetime', label: 'datetime', tip: '自定义tip文字' },
+  { label: 'two items', items: [
+    { name: 'startTime', type: 'date' },
+    '-',
+    { name: 'endTime', type: 'date' }
+  ] },
+  {
+    name: 'select', type: 'select', label: 'select', grid: 1/2, fetch: {url:"json/countries.json", cache:3600},
+    mult: true, filterAble: true, valueTpl: "{en}",
+    optionTpl: '<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
+  }
+]} />
+          </Example>
         </div>
       </div>
     );

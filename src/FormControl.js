@@ -145,7 +145,10 @@ class FormControl extends Component {
         items = [props];
       }
       items.forEach((control) => {
-        hints.push(this.getHint(control));
+        let hint = this.getHint(control);
+        if (hint) {
+          hints.push(hint);
+        }
       });
     }
 

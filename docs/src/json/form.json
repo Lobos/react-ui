@@ -15,5 +15,7 @@
   "formitem": "form item",
   "select": "China,Cuba",
   "textarea": "long text",
-  "tree": "user_edit"
+  "tree": "user_edit",
+  "startTime": "2016-01-12",
+  "endTime": "2017-11-22"
 }

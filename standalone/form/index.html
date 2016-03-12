@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>React ui docs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link href="//cdn.bootcss.com/normalize/3.0.3/normalize.min.css" rel="stylesheet"> 
+    <link href="//cdn.bootcss.com/prettify/r298/prettify.min.css" rel="stylesheet">
+    <style>
+      body {
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .rct-control-group {
+        position: relative;
+      }
+
+      .rct-control-group .tip {
+        position: absolute;
+        width: 450px;
+        left: 100%;
+        padding-left: 10px;
+        top: -6px;
+        display: none;
+      }
+
+      .rct-control-group:hover .tip {
+        display: block;
+      }
+
+      .rct-control-group pre {
+        position: relative;
+        padding: 10px;
+        background: #f2f2f2;
+        border: 1px solid #cccccc;
+        overflow: inherit;
+        border-radius: 4px;
+        outline: 0;
+        margin: 0;
+      }
+
+      .rct-control-group .tip a {
+        font-size: 12px;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 2px;
+      }
+
+      pre:after, pre:before {
+        right: 100%;
+        top: 20px;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+
+      pre:after {
+        border-color: rgba(242, 242, 242, 0);
+        border-right-color: #f2f2f2;
+        border-width: 6px;
+        margin-top: -6px;
+      }
+      pre:before {
+        border-color: rgba(204, 204, 204, 0);
+        border-right-color: #cccccc;
+        border-width: 7px;
+        margin-top: -7px;
+      }
+
+      .container {
+        margin: 20px 40px;
+        max-width: 900px;
+      }
+
+      .container h2 {
+        margin-top: 40px;
+      }
+
+      .links {
+        line-height: 20px;
+      }
+
+      .links a {
+        margin-right: 10px;
+      }
+    </style>
+</head>
+<body>
+<div class="container">
+  <h2>React UI Form</h2>
+  单独封装的一个react-ui的表单，提供快速的表单开发。</br >
+  实现了react-ui的表单全部功能，包含自动提示信息，自动表单校验。<br />
+  使用比较简单，不需要写jsx代码，不需要babel转码，不需要webpack打包。<br />
+  直接在页面加载React和Form的js文件，然后调用Form的render方法就好。
+  <pre class="prettyprint">
+  &lt;script src="//cdn.bootcss.com/react/0.14.7/react.js"&gt;&lt;/script&gt;
+  &lt;script src="//cdn.bootcss.com/react/0.14.7/react-dom.js"&gt;&lt;/script&gt;
+  &lt;script src="js/Form.js"&gt;&lt;/script&gt;
+  &lt;script&gt;
+  Form.render({
+    button: '提交'    // button文字
+    data: object,     // form初始数据
+    controls: array,  // 组件配置
+    onSubmit: function (data) {
+      // 处理数据提交，只有validate通过才会触发submit事件
+    }
+  });
+  &lt;/script&gt;
+  </pre>
+</div>
+
+<div class="container">
+  <h2>Example</h2>
+  鼠标移动到控件上会显示此control的配置，可以尝试修改后运行，try it。
+</div>
+<div id="form" style="width: 500px; margin: 50px 0 30px 40px;"></div>
+
+<div class="links container">
+  <a href="javascript:;" onclick="showCode()">显示代码</a>
+  <a href="./#/formControl">controls 参数见这里</a>
+  <a href="./#/formItem">items 参数见这里</a>
+</div>
+
+<pre id="code" class="container prettyprint" style="display: none;">
+  var controls = [
+    { type: 'text', label: 'text', name: 'text', required: true, min: 3, max: 12, grid: 1 },
+    { type: 'email', label: 'email', name: 'email', grid: 1 },
+    { type: 'text', label: 'readonly', name: 'readonly', readOnly: true },
+    { type: 'datetime', label: 'datetime', name: 'datetime', required: true, tip: '自定义tip文字' },
+    { type: 'tree', label: 'tree', name: 'tree', fetch: { url: 'json/tree.json' }, selectAble: true },
+    { label: 'two items', 
+      items: [
+        { type: 'date', name: 'startTime', min: '2016-03-20' }, 
+        '-',
+        { type: 'date', name: 'endTime' }
+      ]
+    },
+    { type: 'select', label: 'select', name: 'select', grid: 1/3,
+      data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } },
+    { type: 'checkbox-group', label: 'checkbox-group', name: 'checkbox-group', min: 2,
+      data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } },
+    { type: 'radio-group', label: 'radio-group', name: 'radio-group',
+      data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } },
+    { type: 'password', label: 'password', name: 'password', required: true, grid: 1, min: 6, max: 18 },
+    { type: 'password', label: 'repeat password', name: 'repeatpassword', grid: 1, tip: '重复密码', ignore: true,
+      validator: {
+        func: function (value, data) {
+          var password = data.password;
+          if (!value ? !password : value === password) {
+            return true;
+          } else {
+            return new Error('两次输入密码不一致');
+          }
+        },
+        bind: ['password']
+      }
+    }
+  ];
+
+  var formData = {
+    datetime: '2016-01-02',
+    select: 'beijing',
+    readonly: 'can\'t edit'
+  };
+
+  Form.render('form', {
+    button: '确定',
+    autoComplete: false,
+    data: formData,
+    controls: controls,
+    onSubmit: function (data) {
+      formData = data;
+      Form.alert(JSON.stringify(data, null, 2));
+    }
+  });
+</pre>
+
+<script src="//cdn.bootcss.com/react/0.14.7/react.js"></script>
+<script src="//cdn.bootcss.com/react/0.14.7/react-dom.js"></script>
+<script src="http://cdn.bootcss.com/prettify/r298/prettify.min.js"></script>
+<script src="js/Form.js"></script>
+<script>
+  var code = document.getElementById('code');
+  eval(code.innerText);
+
+  function showCode() {
+    var dp = code.style.display;
+    code.style.display = dp === 'block' ? 'none' : 'block';
+  }
+
+  function handleCodeChange(index, pre) {
+    return function () {
+      console.log(pre.innerText);
+      try {
+        var obj = eval('(' + pre.innerText + ')');
+        controls[index] = obj;
+        Form.render('form', {
+          button: '确定',
+          data: formData,
+          controls: controls,
+          onSubmit: function (data) {
+            formData = data;
+            Form.alert(JSON.stringify(data, null, 2));
+          }
+        });
+      } catch (e) {
+        alert('json 格式不正确');
+      }
+    }
+  }
+
+  var cols = document.querySelectorAll('#form .rct-control-group');
+  for (var i=0, j=controls.length; i<cols.length; i++) {
+    var el = cols[i];
+    if (i < j) {
+      var tip = document.createElement('div');
+      var pre = document.createElement('pre');
+      var btn = document.createElement('a');
+ 
+      pre.className = 'prettyprint';
+      pre.setAttribute('contenteditable', true);
+      var json = JSON.stringify(controls[i], function (key, value) {
+        if (typeof value === 'function') {
+          return 'fn#fn' + value.toString() + 'fn#fn';
+        }
+        return value;
+      }, 2);
+      pre.innerText = json.replace(/"fn#fn/g, '').replace(/fn#fn"/g, '').replace(/\\n/g, '\n');
+
+      btn.innerText = 'try it'; 
+      btn.className = 'rct-button';
+      btn.onclick = handleCodeChange(i, pre);
+
+      tip.className = 'tip';
+      tip.appendChild(pre);
+      tip.appendChild(btn);
+
+      el.appendChild(tip);
+    }
+  }
+
+  prettyPrint();
+</script>
+</body>
+</html>

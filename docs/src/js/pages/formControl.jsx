@@ -157,7 +157,7 @@ validator = {
           </div>
 
           <div>
-            <p><em><b>rating</b></em> => <a href="#/rating">RadioGroup</a></p>
+            <p><em><b>rating</b></em> => <a href="#/rating">Rating</a></p>
             <Example>
 <FormControl
   type="rating"
