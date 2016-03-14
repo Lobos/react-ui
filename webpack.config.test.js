@@ -25,8 +25,7 @@ module.exports = {
       test: /\.jsx?$/, loaders: ['babel'],
       include: [
         path.resolve(__dirname, 'src'),
-        path.resolve(__dirname, 'test/utils'),
-        path.resolve(__dirname, 'test/components'),
+        path.resolve(__dirname, 'test'),
         path.resolve(__dirname, 'node_modules/refetch')
       ]
     },

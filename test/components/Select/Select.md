@@ -1,24 +1,30 @@
 # Basic
 ## Common
-1. 根据data生成正确的select
-2. 根据placeholder生成正确的占位符
-3. 根据groupBy正确的分组
-4. 根据grid定制宽度
-5. 根据optionTpl显示选项
-6. 根据resultTpl显示选中项
-7. 根据valueTpl返回值
-8. 根据value显示初始值
+* 根据data生成正确的select
+* 根据placeholder生成正确的占位符
+* 根据grid定制宽度
+* 根据value显示初始值
 
-## Multiple Only
-1. 根据sep，返回值的分隔符
+## Single
+* 根据optionTpl显示选项
+* 根据resultTpl显示选中项
+* 根据valueTpl返回值
+
+## Multiple
+* 根据groupBy正确的分组
+* 根据sep，返回值的分隔符
 
 # Feature
-1. readOnly,是否为只读状态，默认为false。
-2. filterAble,否显示筛选，默认为false。
-3. mult,是否为多选，默认为false
+* readOnly,是否为只读状态，默认为false。
+* filterAble,否显示筛选，默认为false。
+* mult,是否为多选，默认为false
 
 # Behavior
-1. onChange(),值改变时的回调函数
+* onChange(),值改变时的回调函数
+* showOptions()/hideOptions(),Select菜单显示与隐藏函数
+* getValue()/setValue(),Select取值与赋值函数
+* formatData(),格式化数据函数
+* handleChange(),onChange回调函数的handler
 
 See more details on [ReactUI Select]
 
