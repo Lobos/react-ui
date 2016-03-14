@@ -52,9 +52,6 @@ class Upload extends Component {
     return values;
   }
 
-  // nope
-  setValue() {}
-
   handleChange (value) {
     const { onChange } = this.props;
     if (value === undefined) {
@@ -117,6 +114,7 @@ class Upload extends Component {
   }
 
   uploadFile (file, id) {
+    let { onUpload } = this.props;
     return upload({
       url: this.props.action,
       name: this.props.name,
@@ -130,8 +128,19 @@ class Upload extends Component {
       },
       onLoad: (e) => {
         let files = this.state.files;
-        files[id].status = 2;
-        files[id].value = e.currentTarget.responseText;
+        let value = e.currentTarget.responseText;
+        if (onUpload) {
+          value = onUpload(value);
+        }
+
+        if (value instanceof Error) {
+          files[id].status = 3;
+          files[id].name = value.message;
+        } else {
+          files[id].status = 2;
+          files[id].value = value;
+        }
+
         this.setState({ files });
         this.handleChange();
       },
@@ -155,16 +164,13 @@ class Upload extends Component {
     let files = this.state.files;
     return Object.keys(files).map((id, i) => {
       let file = this.state.files[id];
-      let className = classnames(
-        `rct-file`,
-        {
-          'uploaded': file.status === 2,
-          'has-error': file.status === 3
-        }
-      );
+      let className = classnames({
+        'uploaded': file.status === 2,
+        'has-error': file.status === 3
+      });
       return (
-        <div key={i}>
-          <div className={className}>
+        <div key={i} className={className}>
+          <div className="rct-file">
             <span>{file.name}</span>
             <a className="remove" onClick={this.removeFile.bind(this, id)}>&times; {getLang('buttons.cancel')}</a>
           </div>
@@ -206,6 +212,7 @@ Upload.propTypes = {
   limit: PropTypes.number,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
+  onUpload: PropTypes.func,
   readOnly: PropTypes.bool,
   sep: PropTypes.string,
   style: PropTypes.object,

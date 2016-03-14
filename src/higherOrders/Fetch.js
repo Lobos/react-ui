@@ -100,16 +100,17 @@ export const fetchEnhance = (ComposedComponent) => {
         fetch = { url: fetch };
       }
       let { method='get', url, data, then, ...options } = fetch;
-      let request = refetch[method](url, data, options);
+      let request = refetch[method](url, data, options).then(peerData.bind(request));
 
-      request.then(peerData.bind(request))
-        .then((data) => {
-          this.setData(data);
-        })
-        .catch((err) => {
-          console.warn(err);
-          this.setData(new Error());
-        });
+      // handle response
+      if (then) { request = request.then(then); }
+      request.then((data) => {
+        this.setData(data);
+      })
+      .catch((err) => {
+        console.warn(err);
+        this.setData(new Error());
+      });
     }
 
     setData (data) {

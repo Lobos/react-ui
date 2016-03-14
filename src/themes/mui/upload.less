@@ -22,19 +22,30 @@
       }
     }
 
-    &.has-error {
+  }
+
+  .has-error {
+    .rct-file {
       background-color: @red;
     }
 
-    &.uploaded {
-      background-color: @green;
-    }
-
-    &.has-error, &.uploaded {
-      color: #fff;
-      .remove, .remove:hover, .remove:active {
-        color: #fff;
-      }
+    .rct-upload-progress {
+      border-color: @red;
     }
   }
+
+  .uploaded {
+    .rct-file {
+      background-color: @green;
+    }
+  }
+
+  .has-error, .uploaded {
+    color: #fff;
+    .remove, .remove:hover, .remove:active {
+      color: #fff;
+    }
+  }
+
 }
+

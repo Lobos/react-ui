@@ -2,6 +2,8 @@
 
 import { Component } from 'react';
 import Code from '../Code';
+import Example from '../Example';
+const { Select, RadioGroup, Refetch } = global.uiRequire();
 
 module.exports = class extends Component {
   constructor (props) {
@@ -29,6 +31,7 @@ module.exports = class extends Component {
           <div>第一种用法，传入和Refetch对应的config</div>
           <Code>
 {`fetch = {
+  url: string
   method: get,post,delete,put,jsonp 默认为 get
   dataType: method 为jsonp时无效。可选值 post (default), json, text, arraybuffer, blob, document, formdata
   responseType: method 为jsonp时无效。可选值 json (default), text, xml, arraybuffer, blob, document
@@ -38,14 +41,42 @@ module.exports = class extends Component {
   withCredentials: method 为jsonp时无效。是否支持跨域 default false
   async: method 为jsonp时无效。是否同步 default true
   delay: 延时处理，单位毫秒，默认为0。
+  then: function 处理服务端返回数据
 }`}
           </Code>
+          <Example>
+<Select grid={1/4}
+  fetch={{
+    method: 'get',
+    url: './json/select.json',
+    then: (res) => {
+      if (res.success) {
+        return res.list;
+      } else {
+        return new Error(res.message); 
+      }
+    }
+  }} />
+          </Example>
 
           <h2 className="subhead">Promise</h2>
-          <div>第二种用法，传入一个Promise对象</div>
+          <div>第二种用法，传入一个Promise对象。</div>
           <Code>
 {`fetch = Refetch.get('/example/url', ...)`}
           </Code>
+          <Example>
+<RadioGroup
+  fetch={
+    Refetch.get('./json/select.json').then((res) => {
+      if (res.success) {
+        return res.list;
+      } else {
+        return new Error(res.message); 
+      }
+    })
+  }
+/>
+          </Example>
 
           <h2 className="subhead">简单的示意图</h2>
           <div>

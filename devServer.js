@@ -18,6 +18,7 @@ app.use(require('webpack-hot-middleware')(compiler));
 
 app.use('/dist', express.static('docs/dist'));
 app.use('/images', express.static('docs/src/images'));
+app.use('/json', express.static('docs/src/json'));
 app.use('/lib', express.static('docs/lib'));
 
 app.get('/', function(req, res) {

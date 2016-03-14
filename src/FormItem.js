@@ -1,9 +1,9 @@
 'use strict';
 
-import React, { Component, cloneElement, PropTypes } from 'react';
+import React, { cloneElement, PropTypes } from 'react';
 import { enhance } from './higherOrders/FormItem';
 
-class FormItem extends Component {
+class FormItem extends React.Component {
   constructor (props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -24,8 +24,10 @@ class FormItem extends Component {
   }
 }
 
-FormItem.propType = {
-  children: PropTypes.element
+FormItem.propTypes = {
+  children: PropTypes.element,
+  onChange: PropTypes.func,
+  value: PropTypes.any,
 };
 
 module.exports = enhance(FormItem);
