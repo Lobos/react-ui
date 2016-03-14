@@ -1,6 +1,6 @@
 import React from 'react/lib/ReactWithAddons'
 import { shallow } from 'enzyme'
-
+import {compClass} from '../../mock/button.js'
 import Button from '../../../src/Button.js'
 
 describe('Basic', ()=> {
@@ -41,22 +41,22 @@ describe('Basic', ()=> {
 
     it('Should apply rct-button-[status] class with status attr', () => {
       const wrapper1 = shallow(
-          <Button status='danger'>Button1</Button>
+          <Button status='error'>Button1</Button>
         ),
         wrapper2 = shallow(
           <Button status='primary'>Button2</Button>
         );
 
-      assert.ok(wrapper1.hasClass('rct-button-danger'));
-      assert.ok(wrapper2.hasClass('rct-button-primary'));
+      assert.ok(wrapper1.hasClass(compClass.error));
+      assert.ok(wrapper2.hasClass(compClass.primary));
     });
 
     it('Should ensure additional classes passed in, adding but not overriding', () => {
       const wrapper1 = shallow(
-        <Button className="foo" status="danger">Button</Button>
+        <Button className="foo" status="error">Button</Button>
       );
       assert.ok(wrapper1.hasClass('foo'));
-      assert.ok(wrapper1.hasClass('rct-button-danger'));
+      assert.ok(wrapper1.hasClass(compClass.error));
     });
   })
 });
