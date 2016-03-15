@@ -109,7 +109,7 @@ describe('Basic', ()=> {
       assert.equal(_groupWrapper1.length, 2);
     });
 
-    it('Should render by sep', ()=> {
+    it('Should return value by sep', ()=> {
       const sep = ':',
         wrapper1 = mount(<Select mult={true} data={dataList1} sep={sep}/>),
         _selectWrapper1 = wrapper1.find(compClass.select),
