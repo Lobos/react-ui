@@ -21,8 +21,8 @@ describe('Basic', ()=> {
       const _optionsWrapper1 = _defaultSingleWrapper.find(compClass.select).find(compClass.options),
         _optionsWrapper2 = _defaultMultiObjectWrapper.find(compClass.select).find(compClass.options);
 
-      assert.equal(_optionsWrapper1.find(compSelector.itemShowLi).length, dataList1.length);
-      assert.equal(_optionsWrapper2.find(compSelector.itemShowLi).length, dataList2.length);
+      assert.equal(_optionsWrapper1.find(compSelector.showItem).length, dataList1.length);
+      assert.equal(_optionsWrapper2.find(compSelector.showItem).length, dataList2.length);
     });
 
     it('Should apply correct text by placeholder', ()=> {
@@ -44,8 +44,8 @@ describe('Basic', ()=> {
       assert.equal(wrapper2.instance().getValue()[1], 'bar');
 
       assert.equal(_selectWrapper1.find('span').at(0).text(), 'foo');
-      assert.equal(_selectWrapper2.find(compSelector.selectResultDiv).at(0).text(), 'foo');
-      assert.equal(_selectWrapper2.find(compSelector.selectResultDiv).at(1).text(), 'bar');
+      assert.equal(_selectWrapper2.find(compSelector.multSelectResultContainer).at(0).text(), 'foo');
+      assert.equal(_selectWrapper2.find(compSelector.multSelectResultContainer).at(1).text(), 'bar');
     });
 
     it('Should apply correct Class by grid prop', ()=> {
@@ -72,32 +72,34 @@ describe('Basic', ()=> {
                                      optionTpl='{type}-{content}'
                                      resultTpl='{content}'
                                      valueTpl='{content}'/>),
-        _selectWrapper1 = wrapper1.find(compClass.select),
-        _optionsWrapper1 = _selectWrapper1.find(compClass.options);
-
+        _optionsWrapper1 = wrapper1.find(compSelector.showItem);
 
       it('Should render by default Tpl', ()=> {
         const _defaultOptionsWrapper = _defaultObjectWrapper.find(compClass.select).find(compClass.options)
 
-        assert.equal(_defaultOptionsWrapper.find(compSelector.itemShowLi).at(0).text(), 'foo');
-        assert.equal(_defaultOptionsWrapper.find(compSelector.itemShowLi).at(1).text(), 'bar');
-        assert.equal(_defaultOptionsWrapper.find(compSelector.itemShowLi).at(2).text(), 'baz');
+        _defaultOptionsWrapper.find(compSelector.showItem).forEach((e, i)=> {
+          assert.equal(e.text(), compData.dataList1[i]);
+        });
       });
 
       it('Should render by optionTpl', ()=> {
-        assert.equal(_optionsWrapper1.find(compSelector.itemShowLi).at(0).text(), 'info-foo');
-        assert.equal(_optionsWrapper1.find(compSelector.itemShowLi).at(1).text(), 'info-bar');
-        assert.equal(_optionsWrapper1.find(compSelector.itemShowLi).at(2).text(), 'error-baz');
+        _optionsWrapper1.forEach((e, i)=> {
+          assert.equal(e.text(), `${compData.dataList2[i].type}-${compData.dataList2[i].content}`)
+        });
       });
 
       it('Should render by resultTpl and valueTpl', ()=> {
-        _optionsWrapper1.find(compSelector.itemShowLi).at(0).simulate('click');
-        assert.equal(_selectWrapper1.find('span').at(0).text(), 'foo');
-        assert.equal(wrapper1.instance().getValue(), 'foo');
+        _optionsWrapper1.forEach((e, i)=> {
+          e.simulate('click');
+          assert.equal(wrapper1.instance().getValue(), compData.dataList2[i].content);
+        });
+      });
 
-        _optionsWrapper1.find(compSelector.itemShowLi).at(1).simulate('click');
-        assert.equal(_selectWrapper1.find('span').at(0).text(), 'bar');
-        assert.equal(wrapper1.instance().getValue(), 'bar');
+      it('Should render by valueTpl', ()=> {
+        _optionsWrapper1.forEach((e, i)=> {
+          e.simulate('click');
+          assert.equal(wrapper1.find('span').at(0).text(), compData.dataList2[i].content);
+        });
       });
     });
   });
@@ -115,10 +117,11 @@ describe('Basic', ()=> {
         _selectWrapper1 = wrapper1.find(compClass.select),
         _optionsWrapper1 = _selectWrapper1.find(compClass.options);
 
-      _optionsWrapper1.find('ul').find(compSelector.itemShowLi).at(0).simulate('click');
-      _optionsWrapper1.find('ul').find(compSelector.itemShowLi).at(1).simulate('click');
+      _optionsWrapper1.find('ul').find(compSelector.showItem).at(0).simulate('click');
+      _optionsWrapper1.find('ul').find(compSelector.showItem).at(1).simulate('click');
 
       assert.equal(wrapper1.instance().getValue(), ['foo', 'bar'].join(sep));
     })
   });
-});
+})
+;

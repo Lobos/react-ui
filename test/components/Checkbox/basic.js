@@ -47,11 +47,11 @@ describe('Basic', ()=> {
 
       it('Should have the same value', ()=> {
         compData.dataList1.forEach((e, i)=> {
-          assert.equal(checkboxItemsWrapper1.get(i).getValue(), e);
+          assert.equal(checkboxItemsWrapper1.at(i).text(), e);
         });
 
         compData.dataList2.forEach((e, i)=> {
-          assert.equal(checkboxItemsWrapper2.get(i).getValue(), e.id);
+          assert.equal(checkboxItemsWrapper2.at(i).text(), e.text);
         });
       })
     });

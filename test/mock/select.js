@@ -28,10 +28,9 @@ const compClass = {
 };
 
 const compSelector = {
-  filterDiv:'div.filter',
-  itemShowLi: 'li.show',
-  selectResultDiv: 'div.rct-select-result',
-  selectOptionsDiv: 'div.rct-select-options'
+  filterContainer:'div.filter',
+  showItem: 'li.show',
+  multSelectResultContainer: 'div.rct-select-result',
 };
 
 export {compClass, compData, compSelector}

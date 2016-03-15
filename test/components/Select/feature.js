@@ -22,7 +22,7 @@ describe('Feature', ()=> {
 
     //ui
     wrapper1.instance().showOptions();
-    assert.equal(_optionsWrapper1.find(compSelector.filterDiv).find('input').length, 1);
+    assert.equal(_optionsWrapper1.find(compSelector.filterContainer).find('input').length, 1);
   });
 
   it(' Should be multi select when mult=true', ()=> {
