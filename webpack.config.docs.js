@@ -10,6 +10,8 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'docs/dist'),
+    libraryTarget: 'umd',
+    library: '[name]',
     filename: 'js/[name].js'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},

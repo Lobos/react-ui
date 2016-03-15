@@ -12,9 +12,8 @@ module.exports = class extends Component {
         <div className="header">
           <h1>Upload</h1>
           <h2>文件上传</h2>
+          <div>使用了 formdata 进行数据传输，IE10以下暂不支持，慎用。</div>
         </div>
-
-        <div>使用了 formdata 进行数据传输，IE10以下暂不支持，慎用。</div>
 
         <div className="content">
           <Code>
@@ -27,6 +26,7 @@ module.exports = class extends Component {
   fileSize={number}       // 单个文件最大尺寸，单位 KB
   limit={number}          // 最大上传文件个数，默认为 1
   name={string}           // field name，必填
+  onUpload={func}           // 处理服务端返回的数据
   readOnly={bool}         // 只读，默认为 false
   style={object}
   grid={[width, responsive]} // 宽度，详见Grid
@@ -42,6 +42,16 @@ module.exports = class extends Component {
   action="http://216.189.159.94:8080/upload"
   accept="image/*"
   limit={3}
+  onUpload={(res) => {
+    var json = JSON.parse(res); // res 是返回的responseText，需要手动转为json
+    if (json.success) {
+      // 如果服务端返回成功，返回value
+      return json.id;
+    } else {
+      // 如果服务端返回失败，返回一个Error
+      return new Error(json.message);
+    }
+  }}
   content={<Button><Icon icon="upload" /> 选择文件</Button>} />
           </Example>
         </div>

@@ -135,14 +135,14 @@ class FormControl extends Component {
   }
 
   setItems (props) {
-    let { label, layout, items, children, ...props } = props;
+    let { label, layout, items, children, ...otherProps} = props;
     let hints = [];
 
     if (children) {
       this.setChildrenHint(hints, children);
     } else {
       if (!items) {
-        items = [props];
+        items = [otherProps];
       }
       items.forEach((control) => {
         let hint = this.getHint(control);

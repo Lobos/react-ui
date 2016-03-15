@@ -3,7 +3,7 @@
 import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const { Grid, Utils, Select } = global.uiRequire();
+const { Grid, Utils, Select, Input } = global.uiRequire();
 
 const borderGridStyle = {border: 'solid 1px #ccc', lineHeight: '30px', textAlign:'center'};
 
@@ -72,6 +72,17 @@ module.exports = class extends Component {
   className={string}
 />`}
           </Code>
+
+          <div>
+            ReactUI 的所有表单组件内部都实现了Grid的封装，可以使用grid这个props进行调用。
+          </div>
+          <Example>
+<Input type="text" grid={{ width: 1/2, offset: 1/4, responsive: 'md' }} />
+<br />
+如果只定义宽度，可以再简化为
+<br />
+<Input type="text" grid={1/2} />
+          </Example>
 
           <h2 className="subhead">任意等分</h2>
           <Select data={options} value={this.state.grid} onChange={this.gridChange.bind(this)} /> 等分

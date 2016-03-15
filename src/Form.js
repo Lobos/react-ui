@@ -4,6 +4,7 @@ import React, { Children, Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { forEach, deepEqual } from './utils/objects';
 import clone from './utils/clone';
+import { getGrid } from './utils/grids';
 import FormControl from './FormControl';
 import FormSubmit from './FormSubmit';
 import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
@@ -178,10 +179,11 @@ class Form extends Component {
   }
 
   render () {
-    let { button, controls, fetchStatus, className, onSubmit, layout, ...props } = this.props;
+    let { button, controls, fetchStatus, className, onSubmit, grid, layout, ...props } = this.props;
 
     className = classnames(
       className,
+      getGrid(grid),
       'rct-form',
       {
         'rct-form-aligned': layout === 'aligned',
@@ -211,6 +213,10 @@ Form.propTypes = {
   data: PropTypes.object,
   disabled: PropTypes.bool,
   fetchStatus: PropTypes.string,
+  grid: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object
+  ]),
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
   onSubmit: PropTypes.func,
