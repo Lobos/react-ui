@@ -21,10 +21,6 @@
 
 # Behavior
 * onChange(),值改变时的回调函数
-* showOptions()/hideOptions(),Select菜单显示与隐藏函数
-* getValue()/setValue(),Select取值与赋值函数
-* formatData(),格式化数据函数
-* handleChange(),onChange回调函数的handler
 
 See more details on [ReactUI Select]
 

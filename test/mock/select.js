@@ -30,7 +30,8 @@ const compClass = {
 const compSelector = {
   filterDiv:'div.filter',
   itemShowLi: 'li.show',
-  selectResultDiv: 'div.rct-select-result'
+  selectResultDiv: 'div.rct-select-result',
+  selectOptionsDiv: 'div.rct-select-options'
 };
 
 export {compClass, compData, compSelector}

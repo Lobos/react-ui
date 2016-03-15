@@ -8,7 +8,8 @@ describe('Behavior', ()=> {
 
     _defaultSingleWrapper = shallow(
       <Select data={dataList1}/>
-    );
+    ),
+    _defaultInstance = _defaultSingleWrapper.instance();
 
   it('Should call onChange callback', (done)=> {
     const cb = () => {
@@ -18,9 +19,4 @@ describe('Behavior', ()=> {
 
     wrapper1.simulate('change');
   });
-
-  it('Should call showOptions()/hideOptions() to show/hide options');
-  it('Should call getValue/setValue to get/set selected value');
-  it('Should call formatData() to format Data');
-  it('Should call handleChange() to handel Change event')
 });
