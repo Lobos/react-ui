@@ -164,7 +164,7 @@ export function convert (obj, def) {
   }
 
   if (/^[-+]?[0-9]+$/.test(obj)) {
-    obj = parseInt(obj) * 1000;
+    obj = parseInt(obj);
   } else {
     obj = obj.replace(/-/g, '/');
   }

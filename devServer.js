@@ -29,6 +29,10 @@ app.get('/form.html', function(req, res) {
   res.sendFile(path.join(__dirname, 'standalone/form/index.html'));
 });
 
+app.get('/formBuilder.html', function(req, res) {
+  res.sendFile(path.join(__dirname, 'standalone/formBuilder/formBuilder.html'));
+});
+
 app.listen(3000, 'localhost', function(err) {
   if (err) {
     console.log(err);

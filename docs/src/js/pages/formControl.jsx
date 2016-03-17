@@ -187,7 +187,7 @@ validator = {
           <h2 className="subhead">Children</h2>
           <p>0.6 可以任意使用已注册的表单组件</p>
           <Example>
-<FormControl name="email" label="email" type="email">
+<FormControl label="two items">
   <Datepicker type="date"
     min="2016-1-22"
     required

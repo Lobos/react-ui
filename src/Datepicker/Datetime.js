@@ -78,7 +78,7 @@ class Datetime extends ClickAway(Component) {
 
     if (this.props.unixtime) {
       // cut milliseconds
-      return Math.ceil(value.getTime() / 1000);
+      return Math.ceil(value.getTime());
     } else {
       return this.formatValue(value);
     }

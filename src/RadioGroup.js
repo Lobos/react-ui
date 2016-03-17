@@ -24,8 +24,8 @@ class RadioGroup extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: transformValue(this.props.value),
-      data: this.formatData(this.props.data)
+      value: transformValue(props.value),
+      data: this.formatData(props.data)
     };
     this.handleChange = this.handleChange.bind(this);
   }

@@ -62,33 +62,33 @@ class FormControl extends Component {
   }
 
   itemBind (props) {
-    this.items[props.name] = props;
+    this.items[props.id] = props;
 
     if (this.props.itemBind) {
       this.props.itemBind(props);
     }
   }
 
-  itemUnbind (name) {
-    delete this.items[name];
+  itemUnbind (id) {
+    delete this.items[id];
 
     if (this.props.itemUnbind) {
       this.props.itemUnbind(...arguments);
     }
   }
 
-  itemChange (name, value, result) {
-    this.items[name].$value = value;
+  itemChange (id, value, result) {
+    this.items[id].$value = value;
 
-    this.handleValidate(name, result);
+    this.handleValidate(id, result);
 
     if (this.props.itemChange) {
       this.props.itemChange(...arguments);
     }
   }
 
-  handleValidate (name, result) {
-    this.items[name].$validation = result;
+  handleValidate (id, result) {
+    this.items[id].$validation = result;
 
     let validations = [];
     forEach(this.items, (item) => {
@@ -182,8 +182,10 @@ class FormControl extends Component {
     props.readOnly = props.readOnly || this.props.readOnly;
   }
 
-  renderChildren (children) {
+  renderChildren (children, index) {
     let newChildren = Children.toArray(children).map((child, i) => {
+      i = index + '.' + i;
+
       if (typeof child === 'string') {
         return <span key={i}>{child}</span>;
       }
@@ -192,7 +194,7 @@ class FormControl extends Component {
       if (child.type.displayName === 'FormItem') {
         this.propsExtend(props);
       } else if (child.props && typeof child.props.children === 'object') {
-        props.children = this.renderChildren(child.props.children);
+        props.children = this.renderChildren(child.props.children, i);
       }
       
       child = cloneElement(child, props);
@@ -203,23 +205,24 @@ class FormControl extends Component {
 
   renderItems (grid) {
     const { children } = this.props;
-    let items;
+
+    let items = (this.state.items || []).map((props, i) => {
+      i += length;
+      if (typeof props === 'string') {
+        return <span key={i} dangerouslySetInnerHTML={{__html: props}} />;
+      }
+      let component = COMPONENTS[props.type];
+      if (component) {
+        this.propsExtend(props);
+        props.key = i;
+        props.$controlId = this.id;
+        props = merge({}, props, grid);
+        return component.render(props);
+      }
+    });
+
     if (children) {
-      items = this.renderChildren(children);
-    } else {
-      items = this.state.items.map((props, i) => {
-        if (typeof props === 'string') {
-          return <span key={i} dangerouslySetInnerHTML={{__html: props}} />;
-        }
-        let component = COMPONENTS[props.type];
-        if (component) {
-          this.propsExtend(props);
-          props.key = i;
-          props.$controlId = this.id;
-          props = merge({}, props, grid);
-          return component.render(props);
-        }
-      });
+      items = items.concat(this.renderChildren(children, items.length));
     }
 
     items.push(this.renderTip());

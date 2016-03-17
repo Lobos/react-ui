@@ -8,7 +8,7 @@ class Icon extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      spin: this.props.spin
+      spin: props.spin
     };
   }
 

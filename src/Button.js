@@ -10,7 +10,7 @@ class Button extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      disabled: this.props.disabled,
+      disabled: props.disabled,
       show: null
     };
     this.handleClick = this.handleClick.bind(this);

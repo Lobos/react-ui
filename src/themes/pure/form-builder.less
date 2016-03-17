@@ -1,0 +1,57 @@
+@import "mixins";
+
+.rct-control-group {
+  position: relative;
+
+  &:hover .fb-control-tool {
+    display: block;
+  }
+
+  .fb-control-tool {
+    display: none;
+    position: absolute;
+    width: 200px;
+    left: 100%;
+    top: -7px;
+    padding-left: 7px;
+
+    a {
+      margin-right: 10px;
+      text-decoration: none;
+    }
+
+    .fb-tool-inner {
+      position: relative;
+      padding: 10px;
+      background: #f2f2f2;
+      border: 1px solid #cccccc;
+      overflow: inherit;
+      border-radius: 4px;
+    }
+
+    .fb-tool-inner:after, .fb-tool-inner:before {
+      right: 100%;
+      top: 20px;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .fb-tool-inner:after {
+      border-color: rgba(242, 242, 242, 0);
+      border-right-color: #f2f2f2;
+      border-width: 6px;
+      margin-top: -6px;
+    }
+
+    .fb-tool-inner:before {
+      border-color: rgba(204, 204, 204, 0);
+      border-right-color: #cccccc;
+      border-width: 7px;
+      margin-top: -7px;
+    }
+  }
+}

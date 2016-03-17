@@ -14,6 +14,10 @@ module.exports = {
     Form: [
       'webpack-hot-middleware/client',
       './standalone/form/index.js'
+    ],
+    formBuilder: [
+      'webpack-hot-middleware/client',
+      './standalone/formBuilder/index.js'
     ]
   },
   output: {

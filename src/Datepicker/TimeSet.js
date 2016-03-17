@@ -6,8 +6,8 @@ class TimeSet extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: this.props.value || 0,
-      type: this.props.type
+      value: props.value || 0,
+      type: props.type
     };
     this.changeStage = this.changeStage.bind(this);
     this.add = this.add.bind(this);
