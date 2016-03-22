@@ -27,6 +27,8 @@ export const Table = require('./Table');
 export const Filter = require('./Filter');
 export const Modal = require('./Modal');
 export const Message = require('./Message');
+export const Tip = require('./Tip');
+
 
 export const Lang = require('./lang');
 
