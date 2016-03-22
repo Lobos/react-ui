@@ -2,7 +2,6 @@
 
 import { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import getBoundingClientRect from 'bounding-client-rect';
 import ClickAway from './mixins/ClickAway';
 import classnames from 'classnames';
 
