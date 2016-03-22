@@ -59,6 +59,8 @@ class ModalContainer extends Component {
     }
 
     this.setState({ modals, increase: true });
+    document.body.style.height = '100%';
+    document.body.style.overflow = 'hidden';
   }
 
   removeModal (topic, id) {
@@ -81,6 +83,11 @@ class ModalContainer extends Component {
       props.onClose();
     }
     this.setState({ modals, increase: false });
+
+    if (modals.length === 0) {
+      document.body.style.height = '';
+      document.body.style.overflow = '';
+    }
   }
 
   close () {
@@ -95,15 +102,8 @@ class ModalContainer extends Component {
     let modalLength = this.state.modals.length;
     return this.state.modals.map((options, i) => {
       let style = {
-        width: options.width || 500,
-        zIndex: ZINDEX + i
+        width: options.width || 500
       };
-      if (typeof style.width === 'number' || style.width.indexOf('px') > 0) {
-        style.width = parseInt(style.width);
-        //style.marginLeft = 0 - style.width / 2;
-      //} else if (style.width.indexOf('%') > 0) {
-        //style.marginLeft = (0 - parseInt(style.width) / 2) + '%';
-      }
 
       let header, buttons = [];
       if (options.header) {
@@ -136,18 +136,20 @@ class ModalContainer extends Component {
       );
 
       return (
-        <div key={i} style={style} className={className}>
-          <a className="rct-modal-close" onClick={this.close}>&times;</a>
-          {header}
-          <div className="rct-modal-content">
-            {options.content}
-          </div>
-          {
-            buttons.length > 0 &&
-            <div className="rct-modal-footer">
-              {buttons}
+        <div className="rct-modal-inner" style={{ zIndex: ZINDEX + i }} key={i}>
+          <div key={i} style={style} className={className}>
+            <a className="rct-modal-close" onClick={this.close.bind(this, true)}><span></span></a>
+            {header}
+            <div className="rct-modal-content">
+              {options.content}
             </div>
-          }
+            {
+              buttons.length > 0 &&
+              <div className="rct-modal-footer">
+                {buttons}
+              </div>
+            }
+          </div>
         </div>
       );
     });
@@ -188,7 +190,7 @@ function open (options) {
   return options.id;
 };
 
-function alert (content, header) {
+function alert (content, header=<span>&nbsp;</span>) {
   let buttons = {};
   buttons[getLang('buttons.ok')] = true;
 
@@ -200,7 +202,7 @@ function alert (content, header) {
   });
 };
 
-function confirm (content, callback, header) {
+function confirm (content, callback, header=<span>&nbsp;</span>) {
   let buttons = {};
 
   buttons[getLang('buttons.ok')] = () => {

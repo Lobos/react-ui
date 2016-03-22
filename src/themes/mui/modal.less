@@ -8,75 +8,109 @@
   top: 0;
   bottom: 0;
   z-index: 1100;
-  overflow: auto;
 
   &.active {
     display: block;
   }
 
-  .rct-modal {
+  .rct-modal-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1050;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .rct-modal-inner {
     position: absolute;
-    top: 100px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    overflow: auto;
+  }
+
+  .rct-modal {
+    position: relative;
+    margin: 100px auto;
     border: solid 1px #eee;
     background-color: #fff;
-    border-radius: 4px;
     max-width: 92%;
-    margin-bottom: 100px;
 
     .rct-modal-close {
       position: absolute;
-      top: 6px;
-      right: 8px;
-      color: #666;
-      font-weight: bold;
-      line-height: 20px;
-      font-size: 20px;
+      cursor: pointer;
+      top: 0;
+      right: 0;
+      padding: 15px;
+      border-left: solid 1px #eee;
+
+      span {
+        position: relative;
+        display: block;
+        transition:all .4s;
+        width: 20px;
+        height: 20px;
+        transform: rotate(45deg);
+
+        &:after, &:before {
+          content: ' ';
+          position: absolute;
+          background-color: #666;
+          border-radius: 1px;
+        }
+
+        &:after {
+          width: 20px;
+          height: 2px;
+          left: 0px;
+          top: 9px;
+        }
+
+        &:before {
+          width: 2px;
+          height: 20px;
+          top: 0;
+          left: 9px;
+        }
+      }
+
+      &:hover span {
+        transform: rotate(225deg);
+      }
     }
 
     .rct-modal-header {
-      padding: 15px 20px;
-      font-size: 16px;
+      padding: 10px 20px;
+      font-size: 18px;
+      line-height: 30px;
+      font-weight: 700;
       border-bottom: solid 1px #eee;
+      background-color: #f9f9f9;
     }
 
     .rct-modal-content {
       padding: 20px;
-      min-height: 80px;
+      overflow: auto;
     }
 
     .rct-modal-footer {
       padding: 10px 20px;
       text-align: right;
-      border-top: solid 1px #eee;
 
       button {
         margin-left: 10px;
       }
     }
 
-    &.fadein {
-      @keyframes ~"modal" {
-        0% {
-          .opacity(0);
-        }
-        100% {
-          .opacity(1);
-        }
-      }  
-
-      @-webkit-keyframes ~"modal" {
-        0% {
-          .opacity(0);
-        }
-        100% {
-          .opacity(1);
-        }
-      } 
-
-      .animation(modal 0.218s ease-in);
+    &.nopadding {
+      .rct-modal-content {
+        padding: 0;
+      }
     }
   }
 }
+
 

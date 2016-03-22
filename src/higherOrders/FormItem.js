@@ -198,13 +198,12 @@ export const register = (ComposedComponent, types, options) => {
     if (!valueType) {
       valueType = ['integer', 'number'].indexOf(type) > -1 ? 'number' : 'string';
     }
-    console.log(type, valueType)
 
     if (!render) {
       render = (props) => createElement(newComponent, props);
     }
 
-    COMPONENTS[type] = { render, valueType };
+    COMPONENTS[type] = { render, valueType, component: ComposedComponent };
   });
 
   return newComponent;

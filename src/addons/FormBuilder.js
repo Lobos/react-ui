@@ -95,7 +95,7 @@ class FormBuilder extends React.Component {
       return (
         <FormControl className="fb-control" key={i} {...props}>
           <div className="fb-control-tool">
-            <div className="fb-tool-inner">
+            <div className="fb-control-tool-inner">
               <a href="javascript:;" onClick={this.editControl.bind(this, i)}>编辑</a>
               <a href="javascript:;" onClick={this.removeControl.bind(this, i)}>删除</a>
               <a href="javascript:;" onClick={this.editItem.bind(this, i)}>增加Item</a>
