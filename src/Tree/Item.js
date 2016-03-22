@@ -9,8 +9,8 @@ class Item extends Component {
     super(props);
 
     this.state = {
-      open: this.props.open,
-      status: this.props.data.$status || 0
+      open: props.open,
+      status: props.data.$status || 0
     };
 
     this.onClick = this.onClick.bind(this);

@@ -4,6 +4,7 @@ import React, { Component, createElement, PropTypes } from 'react';
 import classnames from 'classnames';
 import { isEmpty, shallowEqual } from '../utils/objects';
 import * as Validation from '../utils/validation';
+import { toStyleObject, nextUid } from '../utils/strings';
 
 export const COMPONENTS = {};
 
@@ -12,40 +13,21 @@ export const enhance = (ComposedComponent) => {
     constructor (props) {
       super(props);
 
-      const { name, validator, ignore, itemBind, itemChange, formData } = props;
-
-      let value = props.value;
-      if (formData && formData[name] !== undefined) {
-        value = formData[name];
-      }
-
       this.state = {
         hasError: false,
-        value
+        value: getValue(props)
       };
 
       this.valueType = getValueType(props.type);
       this.handleChange = this.handleChange.bind(this);
+    }
 
-      let valiBind;
-      if (validator && validator.bind) {
-        valiBind = validator.bind;
-        if (typeof valiBind === 'string') {
-          valiBind = [valiBind];
-        }
-      }
+    componentWillMount () {
+      const { itemBind } = this.props;
 
-      if (name && itemBind) {
-        itemBind({
-          name,
-          valiBind,
-          ignore,
-          validate: this.validate.bind(this)
-        });
-
-        if (value !== undefined) {
-          itemChange(name, value);
-        }
+      if (itemBind) {
+        const value = getValue(this.props);
+        this.bindToForm(this.props, value);
       }
     }
 
@@ -65,11 +47,22 @@ export const enhance = (ComposedComponent) => {
     }
 
     componentWillReceiveProps (nextProps) {
-      let { name, formData } = nextProps;
+      let { name, formData, itemUnbind } = nextProps;
+
+      if (nextProps.type !== this.props.type) {
+        this.valueType = getValueType(nextProps.type);
+      }
+
       if (formData) {
         let value = formData[name];
+
+        if (this.props.name !== name && itemUnbind) {
+          itemUnbind(this.id, this.props.name);
+          this.bindToForm(nextProps, value);
+        }
+
         if (value !== this.state.value) {
-          this.handleChange(value);
+          this.handleChange(value, nextProps);
         }
       }
     }
@@ -80,17 +73,38 @@ export const enhance = (ComposedComponent) => {
 
     componentWillUnmount () {
       const { itemUnbind, name } = this.props;
-      if (itemUnbind && name) {
-        itemUnbind(name);
+      if (itemUnbind) {
+        itemUnbind(this.id, name);
       }
     }
 
-    validate (value = this.state.value) {
-      let { name, onValidate, ...props } = this.props;
-      let result = Validation.validate(value, this.valueType, props);
+    bindToForm (props, value) {
+      const { name, validator, ignore, itemBind, itemChange } = props;
+      this.id = nextUid();
+      let valiBind;
+      if (validator && validator.bind) {
+        valiBind = validator.bind;
+        if (typeof valiBind === 'string') {
+          valiBind = [valiBind];
+        }
+      }
+
+      itemBind({
+        id: this.id,
+        name,
+        valiBind,
+        ignore,
+        value,
+        validate: this.validate.bind(this)
+      });
+    }
+
+    validate (value = this.state.value, props = this.props) {
+      let { onValidate, ...other } = props;
+      let result = Validation.validate(value, this.valueType, other);
       this.setState({ hasError: result !== true });
       if (onValidate) {
-        onValidate(name, result);
+        onValidate(this.id, result);
       }
       return result;
     }
@@ -99,32 +113,32 @@ export const enhance = (ComposedComponent) => {
       return this.state.value;
     }
 
-    handleChange (value) {
-      let { name, formData, itemChange, onChange } = this.props;
-      let result = value instanceof Error ? value : this.validate(value, formData);
-      if (name && itemChange) {
-        itemChange(name, value, result);
-      }
-      if (onChange) {
-        onChange(...arguments);
-      }
-      this.setState({ value });
+    handleChange (value, props=this.props) {
+      let { formData, itemChange, onChange } = props;
+      let result = value instanceof Error ? value : this.validate(value, props);
+      this.setState({ value }, () => {
+        if (itemChange) {
+          itemChange(this.id, value, result);
+        }
+        if (onChange) {
+          onChange(...arguments);
+        }
+      });
     }
 
     render () {
-      let { className, onChange, value, ...props } = this.props;
+      let { className, onChange, value, style, ...props } = this.props;
 
       className = classnames(className, {
         'has-error': this.state.hasError
       });
       value = this.state.value;
 
-      // handle checkbox
-      //if (props.type === 'checkbox') {
-      //  props.checked = value === true || value === 1;
-      //}
+      if (typeof style === 'string') {
+        style = toStyleObject(style);
+      }
 
-      return <ComposedComponent ref={(c) => this.component = c} {...props} value={value} className={className} onChange={this.handleChange} />
+      return <ComposedComponent ref={(c) => this.component = c} {...props} style={style} value={value} className={className} onChange={this.handleChange} />
     }
   }
 
@@ -136,11 +150,16 @@ export const enhance = (ComposedComponent) => {
     ignore: PropTypes.bool,
     itemBind: PropTypes.func,
     itemChange: PropTypes.func,
+    itemRename: PropTypes.func,
     itemUnbind: PropTypes.func,
     name: PropTypes.string,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     sep: PropTypes.string,
+    style: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
+    ]),
     type: PropTypes.string,
     validator: PropTypes.oneOfType([
       PropTypes.func,
@@ -196,4 +215,13 @@ export const getValueType = (type) => {
     valueType = COMPONENTS[type].valueType;
   }
   return valueType;
+}
+
+function getValue(props) {
+  let { value, name, formData } = props;
+  if (formData && formData[name] !== undefined) {
+    value = formData[name];
+  }
+
+  return value;
 }

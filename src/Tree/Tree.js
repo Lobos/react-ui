@@ -24,7 +24,7 @@ class Tree extends Component {
 
     this.state = {
       data: [],
-      value: this.formatValue(this.props.value)
+      value: this.formatValue(props.value)
     };
 
     this.onClick = this.onClick.bind(this);

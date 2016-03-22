@@ -17,7 +17,7 @@ class Form extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      data: this.props.data
+      data: props.data
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,10 +25,16 @@ class Form extends Component {
 
     // don't need state
     this.items = {};
+    this.names = {};
     this.validationPools = {};
 
     this.itemBind = (item) => {
-      this.items[item.name] =item;
+      this.items[item.id] =item;
+      this.names[item.name] = item.id;
+
+      let data = this.state.data;
+      data[item.name] = item.value;
+      this.setState({ data });
 
       // bind triger item
       if (item.valiBind) {
@@ -38,12 +44,23 @@ class Form extends Component {
       }
     };
 
-    this.itemUnbind = (name) => {
-      delete this.items[name];
+    this.itemUnbind = (id, name) => {
+      delete this.items[id];
+
+      // if id is matched name, remove data
+      if (this.names[name] === id) {
+        let data = this.state.data;
+        delete data[name];
+        this.setState({ data });
+
+        // remove valiBind
+        delete this.validationPools[name];
+      }
     };
 
-    this.itemChange = (name, value, err) => {
+    this.itemChange = (id, value, err) => {
       let data = this.state.data;
+      const name = this.items[id].name;
 
       // don't use merge or immutablejs
       //data = merge({}, data, {[name]: value});
@@ -57,11 +74,13 @@ class Form extends Component {
       let valiBind = this.validationPools[name];
       if (valiBind) {
         valiBind.forEach((validate) => {
-          validate();
+          if (validate) {
+            validate();
+          }
         });
       }
 
-      this.items[name].$validation = err;
+      this.items[id].$validation = err;
     };
   }
 
@@ -82,7 +101,7 @@ class Form extends Component {
       let suc = item.$validation;
       if (suc === undefined) {
         suc = item.validate();
-        this.items[item.name].$validation = suc;
+        this.items[item.id].$validation = suc;
       }
       success = success && (suc === true);
     });

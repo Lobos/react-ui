@@ -61,13 +61,24 @@ class ModalContainer extends Component {
     this.setState({ modals, increase: true });
   }
 
-  removeModal (topic, data) {
-    let props = modals.pop();
+  removeModal (topic, id) {
+    let props;
+    if (!id) {
+      props = modals.pop();
+    } else {
+      modals.forEach((m, i) => {
+        if (m.id === id) {
+          props = modals.splice(i, 1);
+        }
+      });
+    }
+
     if (!props) {
       return;
     }
+
     if (props.onClose) {
-      props.onClose(data);
+      props.onClose();
     }
     this.setState({ modals, increase: false });
   }
@@ -162,8 +173,8 @@ class ModalContainer extends Component {
 
 // static method ===============================================================
 
-function close (data) {
-  PubSub.publish(REMOVE_MODAL, data);
+function close (id) {
+  PubSub.publish(REMOVE_MODAL, id);
 };
 
 function open (options) {
@@ -174,13 +185,14 @@ function open (options) {
     options.id = nextUid();
   }
   PubSub.publishSync(ADD_MODAL, options);
+  return options.id;
 };
 
 function alert (content, header) {
   let buttons = {};
   buttons[getLang('buttons.ok')] = true;
 
-  open({
+  return open({
     clickaway: false,
     content,
     header,
@@ -197,7 +209,7 @@ function confirm (content, callback, header) {
   };
   buttons[getLang('buttons.cancel')] = true;
 
-  open({
+  return open({
     clickaway: false,
     content,
     header,

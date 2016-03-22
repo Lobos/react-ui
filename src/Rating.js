@@ -16,7 +16,7 @@ class Rating extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: this.props.value,
+      value: props.value,
       hover: 0,
       wink: false
     };

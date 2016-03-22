@@ -9,10 +9,10 @@ class Clock extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      current: this.props.current,
-      stage: this.props.stage || 'clock',
-      active: this.props.active,
-      am: this.props.current.getHours() < 12
+      current: props.current,
+      stage: props.stage || 'clock',
+      active: props.active,
+      am: props.current.getHours() < 12
     };
     this.close = this.close.bind(this);
   }

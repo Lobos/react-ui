@@ -14,7 +14,7 @@ class Input extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: this.props.value
+      value: props.value
     };
     this.handleChange = this.handleChange.bind(this);
   }

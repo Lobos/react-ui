@@ -119,6 +119,7 @@ class Upload extends Component {
       url: this.props.action,
       name: this.props.name,
       cors: this.props.cors,
+      params: this.props.params,
       withCredentials: this.props.withCredentials,
       file: file.files[0],
       onProgress: (e) => {
@@ -213,6 +214,7 @@ Upload.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   onUpload: PropTypes.func,
+  params: PropTypes.object,
   readOnly: PropTypes.bool,
   sep: PropTypes.string,
   style: PropTypes.object,

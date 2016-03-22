@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>React UI Form Builder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link href="//cdn.bootcss.com/normalize/3.0.3/normalize.min.css" rel="stylesheet"> 
+    <link href="//cdn.bootcss.com/prettify/r298/prettify.min.css" rel="stylesheet">
+    <style>
+      body {
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      .rct-control-group {
+        position: relative;
+      }
+
+      .rct-control-group .tip {
+        position: absolute;
+        width: 450px;
+        left: 100%;
+        padding-left: 10px;
+        top: -6px;
+        display: none;
+      }
+
+      .rct-control-group:hover .tip {
+        display: block;
+      }
+    </style>
+</head>
+<body>
+<div class="container">
+</div>
+
+<div id="form" style="margin: 50px 0 30px;"></div>
+
+<script src="//cdn.bootcss.com/react/0.14.7/react.js"></script>
+<script src="//cdn.bootcss.com/react/0.14.7/react-dom.js"></script>
+<script src="http://cdn.bootcss.com/prettify/r298/prettify.min.js"></script>
+<script src="js/formBuilder.js"></script>
+</body>
+</html>
+

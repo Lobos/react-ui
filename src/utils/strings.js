@@ -43,3 +43,26 @@ export function toArray(value, sep) {
 
   return value;
 }
+
+export function toStyleObject (str) {
+  if (!str) { return undefined; }
+
+  let style = {};
+  let kv;
+  str.split(';').forEach((s) => {
+    s = s.trim();
+    if (!s) { return; }
+
+    kv = s.split(':');
+    if (kv.length < 2) {
+      console.warn('style is error');
+      return;
+    }
+    let key = kv[0].replace(/-./g, (r) => {
+      return r.replace('-','').toUpperCase();
+    }).trim();
+    style[key] = kv[1].trim();
+  });
+
+  return style;
+}

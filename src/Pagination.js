@@ -11,7 +11,7 @@ class Pagination extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      index: this.props.index
+      index: props.index
     };
     this.setInput = this.setInput.bind(this);
   }
