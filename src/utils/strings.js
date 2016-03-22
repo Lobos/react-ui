@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 let uid = Date.now();
 export function nextUid() {

@@ -100,9 +100,9 @@ class ModalContainer extends Component {
       };
       if (typeof style.width === 'number' || style.width.indexOf('px') > 0) {
         style.width = parseInt(style.width);
-        style.marginLeft = 0 - style.width / 2;
-      } else if (style.width.indexOf('%') > 0) {
-        style.marginLeft = (0 - parseInt(style.width) / 2) + '%';
+        //style.marginLeft = 0 - style.width / 2;
+      //} else if (style.width.indexOf('%') > 0) {
+        //style.marginLeft = (0 - parseInt(style.width) / 2) + '%';
       }
 
       let header, buttons = [];

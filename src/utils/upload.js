@@ -16,7 +16,7 @@ function createCORSRequest(method, url) {
   return xhr;
 }
 
-function ajaxUpload({url, name, cors, file, onProgress, onLoad, onError, withCredentials, params}) {
+function ajaxUpload({url, name, cors, file, onProgress, onLoad, onError, withCredentials}) {
   let data = new FormData();
   data.append(name, file);
 

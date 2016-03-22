@@ -1,11 +1,11 @@
 'use strict';
 
-import { Component } from 'react';
+import React from 'react';
 import Datetime from './Datetime';
 import { shallowEqual } from '../utils/objects';
 import { register } from '../higherOrders/FormItem';
 
-class Datepicker extends Component {
+class Datepicker extends React.Component {
   constructor (props) {
     super(props);
   }
@@ -21,6 +21,4 @@ class Datepicker extends Component {
   }
 }
 
-Datepicker = register(Datepicker, ['datetime', 'time', 'date'], {valueType: 'datetime'});
-
-module.exports = Datepicker;
+module.exports = register(Datepicker, ['datetime', 'time', 'date'], {valueType: 'datetime'});

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import merge from '../utils/merge';
 let langData = {};

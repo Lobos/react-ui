@@ -47,6 +47,9 @@ class Table extends Component {
     let ths = this.refs.header.querySelectorAll('th');
 
     let tds = tr.querySelectorAll('td');
+    if (tds.length <= 1) {
+      return;
+    }
     for (let i = 0, count = tds.length; i < count; i++) {
       if (ths[i]) {
         ths[i].style.width = tds[i].offsetWidth + 'px';
@@ -142,7 +145,12 @@ class Table extends Component {
   }
 
   renderBody (data) {
-    let selectAble = this.props.selectAble;
+    const { selectAble, headers } = this.props;
+
+    if (!Array.isArray(data)) {
+      return <tbody><tr><td colspan={headers.length}>{data}</td></tr></tbody>;
+    }
+
     let trs = data.map((d, i) => {
       let tds = [];
       if (selectAble) {
@@ -152,7 +160,7 @@ class Table extends Component {
           </td>
         );
       }
-      this.props.headers.map((h, j) => {
+      headers.map((h, j) => {
         if (h.hidden) {
           return;
         }
@@ -286,7 +294,10 @@ Table.propTypes = {
   bordered: PropTypes.bool,
   children: PropTypes.array,
   className: PropTypes.string,
-  data: PropTypes.array,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.element
+  ]),
   filters: PropTypes.array,
   headers: PropTypes.array,
   height: PropTypes.oneOfType([

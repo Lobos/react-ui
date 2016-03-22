@@ -1,9 +1,10 @@
-"use strict";
+'use strict';
 
 export const Checkbox = require('./Checkbox');
 export const CheckboxGroup = require('./CheckboxGroup');
 export const Datetime = require('./Datepicker');
 export const Datepicker = Datetime;
+export const DatepickerPair = require('./Datepicker/Pair');
 export const Icon = require('./Icon');
 export const Input = require('./Input');
 export const Textarea = require('./Textarea');

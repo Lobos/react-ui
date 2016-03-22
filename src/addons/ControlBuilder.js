@@ -4,8 +4,8 @@ import React, { PropTypes } from 'react';
 import Form from '../Form';
 import FormControl from '../FormControl';
 import FormSubmit from '../FormSubmit';
-import Input from '../Input';
-import Textarea from '../Textarea';
+import '../Input';
+import '../Textarea';
 
 class ControlBuilder extends React.Component {
   constructor (props) {

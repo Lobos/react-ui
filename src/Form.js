@@ -243,6 +243,7 @@ Form.propTypes = {
 };
 
 Form.defaultProps = {
+  autoComplete: false,
   data: {},
   layout: 'aligned',
   disabled: false

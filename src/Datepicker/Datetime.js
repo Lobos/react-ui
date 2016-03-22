@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
@@ -394,7 +394,7 @@ class Datetime extends ClickAway(Component) {
     text = text ?
       <span className="date-text">{text}</span> :
       <span className="placeholder">{this.props.placeholder}&nbsp;</span>;
-    
+
     return (
       <div ref="datetime" onClick={this.open} className={className}>
         {text}

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // 为了提高效率，直接操作了tree.state.data，
 // 由于tree.state.data是一个array，当data值改变时，不经过setState，

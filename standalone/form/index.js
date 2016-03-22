@@ -18,7 +18,7 @@ import Textarea from '../../src/Textarea';
 import { register } from '../../src/higherOrders/FormItem';
 
 import { setTheme } from '../../src/themes/index';
-setTheme();
+setTheme('mui');
 
 module.exports = {
   render: (el, options) => {

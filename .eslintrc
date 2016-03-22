@@ -13,7 +13,6 @@
   "rules": {
     "jsx-quotes": 1,
     "quotes": [2, "single"],
-    "strict": [2, "never"],
     "no-undef": [2],
     "no-unused-vars": [2, {vars: local}],
     "babel/generator-star-spacing": 1,

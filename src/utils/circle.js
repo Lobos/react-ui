@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function getAngle(r, angle, x0, y0) {
   let x1 = x0 + r * Math.cos(angle * Math.PI / 180);

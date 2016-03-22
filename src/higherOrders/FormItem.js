@@ -79,7 +79,7 @@ export const enhance = (ComposedComponent) => {
     }
 
     bindToForm (props, value) {
-      const { name, validator, ignore, itemBind, itemChange } = props;
+      const { name, validator, ignore, itemBind } = props;
       this.id = nextUid();
       let valiBind;
       if (validator && validator.bind) {
@@ -114,9 +114,10 @@ export const enhance = (ComposedComponent) => {
     }
 
     handleChange (value, props=this.props) {
-      let { formData, itemChange, onChange } = props;
+      let { itemChange, onChange } = props;
       let result = value instanceof Error ? value : this.validate(value, props);
       this.setState({ value }, () => {
+        itemChange = itemChange || this.props.itemChange;
         if (itemChange) {
           itemChange(this.id, value, result);
         }

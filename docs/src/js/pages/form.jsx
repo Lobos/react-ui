@@ -3,7 +3,7 @@
 import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const {Form, FormControl, Button, FormSubmit, Icon, Input, Datepicker, RadioGroup, FormItem, Refetch} = global.uiRequire();
+const {Form, FormControl, Button, FormSubmit, Icon, Input, Datepicker, DatepickerPair, RadioGroup, FormItem, Refetch} = global.uiRequire();
 
 module.exports = class extends React.Component {
   constructor (props) {
@@ -150,21 +150,8 @@ module.exports = class extends React.Component {
     type="datetime"
     label="datetime" />
 
-  <FormControl label="two item">
-    <Datepicker type="date"
-      min="2016-1-22"
-      required
-      onChange={(startTime) => this.setState({ startTime })}
-      max={this.state.endTime}
-      placeholder="startTime"
-      name="startTime" />
-    至
-    <Datepicker type="date"
-      max="2017-1-22"
-      onChange={(endTime) => this.setState({ endTime })}
-      min={this.state.startTime}
-      placeholder="endTime"
-      name="endTime" />
+  <FormControl label="datetime pair">
+    <DatepickerPair type="date" min="2016-03-03" max="2016-08-21" names={["startTime", "endTime"]} />
   </FormControl>
 
   <FormControl label="mult input" tip="每个输入框可以输入数字和字符，长度为5">

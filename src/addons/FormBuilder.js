@@ -93,7 +93,7 @@ class FormBuilder extends React.Component {
   renderControls () {
     return this.state.controls.map((props, i) => {
       return (
-        <FormControl key={i} {...props}>
+        <FormControl className="fb-control" key={i} {...props}>
           <div className="fb-control-tool">
             <div className="fb-tool-inner">
               <a href="javascript:;" onClick={this.editControl.bind(this, i)}>编辑</a>
@@ -112,8 +112,10 @@ class FormBuilder extends React.Component {
       <div style={this.props.style}>
         <Form onSubmit={(data) => {console.log(JSON.stringify(data, null, 2))}}>
           {this.renderControls()}
-          <div onClick={this.editControl.bind(this)} className="add">Add new Control</div>
           <FormSubmit>确定</FormSubmit>
+          <FormControl>
+            <div onClick={this.editControl.bind(this)} className="add-control">+ Add new Control</div>
+          </FormControl>
         </Form>
       </div>
     );

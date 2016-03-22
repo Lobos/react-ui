@@ -138,12 +138,16 @@ class FormControl extends Component {
     let { label, layout, items, children, ...otherProps} = props;
     let hints = [];
 
+    this.required = false;
     if (children) {
       this.setChildrenHint(hints, children);
     } else {
       if (!items) {
         items = [otherProps];
       }
+    }
+
+    if (items) {
       items.forEach((control) => {
         let hint = this.getHint(control);
         if (hint) {
@@ -191,10 +195,21 @@ class FormControl extends Component {
       }
 
       let props = { key: i };
+      /*
       if (child.type.displayName === 'FormItem') {
         this.propsExtend(props);
       } else if (child.props && typeof child.props.children === 'object') {
         props.children = this.renderChildren(child.props.children, i);
+      }
+      */
+      if (child.type.displayName === 'FormItem') {
+        this.propsExtend(props);
+      } else if (child.props) {
+        if (typeof child.props.children === 'object') {
+          props.children = this.renderChildren(child.props.children, i);
+        } else {
+          this.propsExtend(props);
+        }
       }
       
       child = cloneElement(child, props);

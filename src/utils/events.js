@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 export function on (el, type, callback) {
   if(el.addEventListener) {
