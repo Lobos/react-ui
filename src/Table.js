@@ -148,7 +148,7 @@ class Table extends Component {
     const { selectAble, headers } = this.props;
 
     if (!Array.isArray(data)) {
-      return <tbody><tr><td colspan={headers.length}>{data}</td></tr></tbody>;
+      return <tbody><tr><td colSpan={headers.length}>{data}</td></tr></tbody>;
     }
 
     let trs = data.map((d, i) => {

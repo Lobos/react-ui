@@ -175,7 +175,7 @@ class Upload extends Component {
             <span>{file.name}</span>
             <a className="remove" onClick={this.removeFile.bind(this, id)}>&times; {getLang('buttons.cancel')}</a>
           </div>
-          <div ref={(c) => this.files[id] = c} className={`rct-upload-progress`}></div>
+          <div ref={(c) => this.files[id] = c} className={'rct-upload-progress'}></div>
         </div>
       );
     });
@@ -185,7 +185,7 @@ class Upload extends Component {
     let { className, grid, limit, style, content } = this.props;
     className = classnames(
       getGrid(grid),
-      `rct-upload-container`,
+      'rct-upload-container',
       className
     );
     return (

@@ -1,11 +1,8 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import getBoundingClientRect from 'bounding-client-rect';
+import React, { Component, PropTypes } from 'react';
 import ClickAway from './mixins/ClickAway';
 import classnames from 'classnames';
-
 
 import { requireCss } from './themes';
 requireCss('tip');
@@ -53,11 +50,11 @@ class Tip extends ClickAway(Component) {
     props.trigger == 'hover' && (event['onMouseLeave'] = this.hideTip);
 
     return (
-      <div ref={(el)=>this.root = el} className='component-tip' {...event}>
+      <div ref={(el)=>this.root = el} className="component-tip" {...event}>
         { props.children[0]}
-        <div ref='content' className={clsName}>
-          <div className='tip-border'>
-            <span className='arrow'></span>
+        <div ref="content" className={clsName}>
+          <div className="tip-border">
+            <span className="arrow"></span>
             {props.children[1]}
           </div>
         </div>
@@ -74,10 +71,10 @@ Tip.defaultProps = {
 
 Tip.propTypes = {
   className: PropTypes.string,
-  style: PropTypes.object,
   position: PropTypes.oneOf(['top', 'bottom']),
-  trigger: PropTypes.oneOf(['click', 'hover']),
-  show: PropTypes.bool
+  show: PropTypes.bool,
+  style: PropTypes.object,
+  trigger: PropTypes.oneOf(['click', 'hover'])
 };
 
 module.exports = Tip;

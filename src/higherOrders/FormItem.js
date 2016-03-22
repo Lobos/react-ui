@@ -49,7 +49,7 @@ export const enhance = (ComposedComponent) => {
     componentWillReceiveProps (nextProps) {
       let { name, formData, itemUnbind } = nextProps;
 
-      if (nextProps.type !== this.props.type) {
+      if (nextProps.type && nextProps.type !== this.props.type) {
         this.valueType = getValueType(nextProps.type);
       }
 
@@ -180,7 +180,7 @@ export const register = (ComposedComponent, types, options) => {
   let newComponent = enhance(ComposedComponent);
 
   if (isEmpty(types)) {
-    console.warn(`types must be string or array`);
+    console.warn('types must be string or array');
     return;
   }
 
@@ -188,17 +188,17 @@ export const register = (ComposedComponent, types, options) => {
     types = [types];
   }
 
-  let { valueType, render } = options || {};
-
   types.forEach((type) => {
     if (COMPONENTS.hasOwnProperty(type)) {
       console.warn(`type ${type} was already existed.`);
       return;
     }
 
+    let { valueType, render } = options || {};
     if (!valueType) {
       valueType = ['integer', 'number'].indexOf(type) > -1 ? 'number' : 'string';
     }
+    console.log(type, valueType)
 
     if (!render) {
       render = (props) => createElement(newComponent, props);
