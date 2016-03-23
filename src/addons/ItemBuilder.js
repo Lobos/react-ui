@@ -6,7 +6,7 @@ import FormControl from '../FormControl';
 import { COMPONENTS } from '../higherOrders/FormItem';
 import FormSubmit from '../FormSubmit';
 import Checkbox from '../Checkbox';
-import '../Input';
+import Input from '../Input';
 import '../Select';
 import '../Datepicker';
 import '../RadioGroup';
@@ -24,20 +24,44 @@ class ItemBuilder extends React.Component {
   }
 
   handleType (type) {
-    const component = COMPONENTS[type];
-    console.log(type, component);
+    this.setState({ type });
   }
 
   handleSubmit (data) {
     this.props.onSubmit(data);
   }
 
+  renderControl (prop) {
+    switch (prop) {
+      case 'text':
+        return <FormControl name="text" type="text" grid={1/2} />
+    }
+  }
+
   renderTypeControls (type) {
+
+  }
+
+  getLenTip (type) {
+    if (['checkbox', 'datetime', 'date', 'time'].indexOf(type) >= 0) {
+      return null;
+    }
+
+    const component = COMPONENTS[type];
+    switch (component.valueType) {
+      case 'number':
+        return ['最小值', '最大值'];
+      case 'array':
+        return ['最少选择项', '最多选择项'];
+      default:
+        return ['最少字符数', '最多字符数'];
+    }
   }
 
   render () {
     let { item } = this.props;
     item.type = this.state.type;
+    let lenTip = this.getLenTip(item.type);
 
     return (
       <Form data={item} onSubmit={this.handleSubmit}>
@@ -49,6 +73,14 @@ class ItemBuilder extends React.Component {
           <Checkbox name="required" text="必填" />
           <Checkbox name="readOnly" text="只读" />
         </FormControl>
+        { 
+          lenTip &&
+          <FormControl>
+            <span>{lenTip[0]}</span><Input grid={1/8} type="integer" name="min" />
+            {' '}
+            <span>{lenTip[1]}</span><Input grid={1/8} type="integer" name="max" />
+          </FormControl>
+        }
 
         <FormControl type="textarea" grid={5/6} rows={2} autoHeight name="style" label="style" />
 

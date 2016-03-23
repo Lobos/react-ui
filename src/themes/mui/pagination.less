@@ -11,7 +11,9 @@
     li {
       display: inline-block;
       margin-left: 10px;
+
       a {
+        position: relative;
         cursor: pointer;
         color: #000;
         display: inline-block;
@@ -25,6 +27,7 @@
         padding: 7px;
         line-height: 14px;
         min-width: 30px;
+        font-size: 12px;
 
         &:hover{
           border-color: #666;
@@ -32,21 +35,20 @@
       }
     }
 
-    li:first-child a {
-      border-top-left-radius: 1px;
-      border-bottom-left-radius: 1px;
+    .previous, .next {
+      a span {
+        height: 12px;
+        display: inline-block;
+        position: relative;
+      }
     }
 
-    li:last-child a {
-      border-right-width: 1px;
-      border-top-right-radius: 1px;
-      border-bottom-right-radius: 1px;
+    .previous a span {
+      .arrow-left(6px, #333, #f5f5f5, true);
     }
 
-    .active a {
-      background-color: #666;
-      cursor: default;
-      color: #fff;
+    .next a span {
+      .arrow-right(6px, #333, #f5f5f5, true);
     }
   }
 

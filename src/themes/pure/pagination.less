@@ -10,7 +10,8 @@
 
     li {
       display: inline-block;
-      a {
+      a, & > span {
+        position: relative;
         cursor: pointer;
         display: inline-block;
         background-color: #fff;
@@ -22,6 +23,10 @@
         padding: 7px;
         line-height: 14px;
         min-width: 30px;
+      }
+
+      span {
+        cursor: default;
       }
     }
 
@@ -36,8 +41,25 @@
       border-bottom-right-radius: 4px;
     }
 
+    .previous, .next {
+      a span {
+        height: 12px;
+        display: inline-block;
+        position: relative;
+      }
+    }
+
+    .previous a span {
+      .arrow-left(6px, #333, #fff, true);
+    }
+
+    .next a span {
+      .arrow-right(6px, #333, #fff, true);
+    }
+
     .active a {
       background-color: @primary;
+      border-color: @primary;
       color: #fff;
     }
   }

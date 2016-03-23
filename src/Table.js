@@ -34,7 +34,14 @@ class Table extends Component {
   }
 
   componentDidUpdate () {
-    this.setHeaderWidth();
+    if (this.checkHeadFixed()) {
+      this.setHeaderWidth();
+    }
+  }
+
+  checkHeadFixed () {
+    const { height } = this.props;
+    return !!height && height !== 'auto';
   }
   
   setHeaderWidth () {
@@ -243,16 +250,19 @@ class Table extends Component {
         onBodyScroll = null,
         { total, data } = this.getData();
 
-    if (this.props.height) {
-      bodyStyle.height = this.props.height;
+    const { height, width, bordered, striped } = this.props;
+    let fixedHead = this.checkHeadFixed();
+
+    if (height) {
+      bodyStyle.height = height;
       bodyStyle.overflow = 'auto';
     }
-    if (this.props.width) {
-      headerStyle.width = this.props.width;
+    if (width) {
+      headerStyle.width = width;
       if (typeof headerStyle.width === 'number') {
         headerStyle.width += 20;
       }
-      tableStyle.width = this.props.width;
+      tableStyle.width = width;
       bodyStyle.overflow = 'auto';
       onBodyScroll = this.onBodyScroll;
     }
@@ -261,24 +271,27 @@ class Table extends Component {
       this.props.className,
       'rct-table',
       {
-        'rct-bordered': this.props.bordered,
-        'rct-scrolled': this.props.height,
-        'rct-striped': this.props.striped
+        'rct-bordered': bordered,
+        'rct-scrolled': height,
+        'rct-striped': striped
       }
     );
 
     return (
       <div style={this.props.style} className={className}>
-        <div className="header-container">
-          <div ref="headerContainer" style={headerStyle}>
-            <table ref="header">
-              <thead>{this.renderHeader()}</thead>
-            </table>
+        { fixedHead &&
+          <div className="header-container">
+            <div ref="headerContainer" style={headerStyle}>
+              <table ref="header">
+                <thead>{this.renderHeader()}</thead>
+              </table>
+            </div>
           </div>
-        </div>
+        }
 
         <div onScroll={onBodyScroll} style={bodyStyle} className="body-container">
           <table style={tableStyle} className="rct-table-body" ref="body">
+            { !fixedHead && <thead>{this.renderHeader()}</thead> }
             {this.renderBody(data)}
           </table>
         </div>

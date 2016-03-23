@@ -228,11 +228,11 @@ class Datetime extends ClickAway(Component) {
     );
   }
 
-  next () {
+  next (stage) {
     let d = this.state.current;
-    switch (this.state.stage) {
+    switch (stage) {
       case 'year':
-        d = this.changeDate({ year: d.getFullYear() + 25, day: 1 });
+        d = this.changeDate({ year: d.getFullYear() + 18, day: 1 });
         break;
       case 'month':
         d = this.changeDate({ year: d.getFullYear() + 1, day: 1 });
@@ -244,11 +244,11 @@ class Datetime extends ClickAway(Component) {
     this.stateChange({ current: d });
   }
 
-  pre () {
+  pre (stage) {
     let d = this.state.current;
-    switch (this.state.stage) {
+    switch (stage) {
       case 'year':
-        d = this.changeDate({ year: d.getFullYear() - 25, day: 1 });
+        d = this.changeDate({ year: d.getFullYear() - 18, day: 1 });
         break;
       case 'month':
         d = this.changeDate({ year: d.getFullYear() - 1, day: 1 });
@@ -262,14 +262,39 @@ class Datetime extends ClickAway(Component) {
 
   renderYears () {
     let year = this.state.current.getFullYear(),
-        years = [];
-    for (let i = year - 12, j = year + 12; i <= j; i++) {
+        years = [],
+        i = year - 8,
+        j = year + 9;
+
+    for (; i <= j; i++) {
       years.push(i);
     }
 
-    return years.map(function (y, i) {
-      return <button type="button" onClick={ () => { this.yearChange(y); } } key={i} className="year">{y}</button>;
+    let buttons = [];
+    buttons.push(
+      <button type="button" className="year" key={i-1}
+        onClick={ () => { this.pre('year'); } }>
+        <i className="year-left" />
+        <i className="year-left" />
+      </button>
+    );
+
+    years.forEach((y, i) => {
+      buttons.push(
+        <button type="button" className="year" key={i}
+          onClick={ () => { this.yearChange(y); } }>{y}</button>
+      );
     }, this);
+
+    buttons.push(
+      <button type="button" className="year" key={i+1}
+        onClick={ () => { this.next('year'); } }>
+        <i className="year-right" />
+        <i className="year-right" />
+      </button>
+    );
+
+    return buttons;
   }
 
   renderMonths () {
@@ -339,11 +364,16 @@ class Datetime extends ClickAway(Component) {
       return null;
     }
 
-    let current = this.state.current;
+    let { current, stage } = this.state;
+    let display = stage === 'day' ? 'block' : 'none';
 
     return (
       <div style={this.props.style} className="date-picker-header">
-        <a onClick={this.pre} className="pre">
+        <a style={{float: 'left', display}} onClick={this.pre.bind(this, 'month')}>
+          <i className="icon arrow-left" />
+          <i className="icon arrow-left" />
+        </a>
+        <a style={{float: 'left', display}} onClick={this.pre.bind(this, 'day')}>
           <i className="icon arrow-left" />
         </a>
         <a onClick={() => { this.stageChange('year'); }} className="year">
@@ -352,7 +382,11 @@ class Datetime extends ClickAway(Component) {
         <a onClick={() => { this.stageChange('month'); }} className="month">
           {datetime.getFullMonth(current)}
         </a>
-        <a onClick={this.next} className="next">
+        <a style={{float: 'right', display}} onClick={this.next.bind(this, 'month')}>
+          <i className="icon arrow-right" />
+          <i className="icon arrow-right" />
+        </a>
+        <a style={{float: 'right', display}} onClick={this.next.bind(this, 'day')}>
           <i className="icon arrow-right" />
         </a>
       </div>
@@ -367,9 +401,9 @@ class Datetime extends ClickAway(Component) {
         });
         return <div className="inner">{weeks}{this.renderDays()}</div>;
       case 'month':
-        return <div className="inner">{this.renderMonths()}</div>;
+        return <div className="inner month-inner">{this.renderMonths()}</div>;
       case 'year':
-        return <div className="inner">{this.renderYears()}</div>;
+        return <div className="inner year-inner">{this.renderYears()}</div>;
       case 'clock':
         return <div className="inner empty"></div>;
     }

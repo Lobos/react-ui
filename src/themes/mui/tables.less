@@ -2,6 +2,7 @@
 
 .rct-table {
   overflow: hidden;
+  color: #333;
 
   table {
     border-collapse: collapse;
@@ -9,7 +10,7 @@
     empty-cells: show;
 
     tr {
-      border-top: solid 1px #ddd;
+      border-top: solid 1px #eee;
 
       &:first-child {
         border-top: 0;
@@ -18,13 +19,15 @@
 
     th, td {
       .box-sizing(border-box);
-      padding: 0.5em 1em;
+      padding: 13px 10px;
     }
 
     th {
       text-align: left;
       border-width: 0;
       position: relative;
+      font-size: 14px;
+      font-weight: 700;
 
       .arrow-up, .arrow-down {
         position: absolute;
@@ -35,28 +38,32 @@
       }
 
       .arrow-up {
-        top: 10px;
+        top: 16px;
         border-width: 0 4px 7px 4px;
-        border-color: transparent transparent #ddd transparent;
+        border-color: transparent transparent #eee transparent;
         &.active {
           border-color: transparent transparent #555 transparent;
         }
       }
 
       .arrow-down {
-        top: 19px;
+        top: 25px;
         border-width: 7px 4px 0 4px;
-        border-color: #ddd transparent transparent transparent;
+        border-color: #eee transparent transparent transparent;
         &.active {
           border-color: #555 transparent transparent transparent;
         }
       }
     }
+
+    td {
+      font-size: 12px;
+    }
   }
 
   &.rct-bordered {
     th, td {
-      border-left: solid 1px #ddd;
+      border-left: solid 1px #eee;
       &:first-child {
         border-left: 0;
       }
@@ -64,12 +71,12 @@
 
     &.rct-scrolled {
       th:last-child {
-        border-right: solid 1px #ddd;
+        //border-right: solid 1px #eee;
       }
     }
 
     .header-container, .body-container {
-      border: solid 1px #ddd;
+      border: solid 1px #eee;
     }
   }
 
@@ -84,11 +91,13 @@
   }
 
   .header-container {
-    border-bottom: solid 2px #ddd;
+    border-bottom: solid 2px #eee;
   }
 
   .body-container {
-    //margin-bottom: 10px;
+    thead tr {
+      border-bottom: solid 1px #eee;
+    }
   }
 }
 

@@ -47,6 +47,7 @@ export function toTextValue (arr, textTpl='{text}', valueTpl='{id}') {
   }
   arr = arr.map(function (s) {
     if (typeof s !== 'object') {
+      s = s.toString();
       return { $text: s, $value: s };
     } else {
       s.$text = substitute(textTpl, s);

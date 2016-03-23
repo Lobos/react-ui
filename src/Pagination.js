@@ -93,8 +93,14 @@ class Pagination extends Component {
     if (left > 1) {
       pages.push(1);
     }
+    if (left > 2) {
+      pages.push('...');
+    }
     for (let i = left; i < right + 1; i++) {
       pages.push(i);
+    }
+    if (right < max - 1) {
+      pages.push('...');
     }
     // add last
     if (right < max) {
@@ -112,8 +118,8 @@ class Pagination extends Component {
 
     // Previous
     items.push(
-      <li key="previous" onClick={index <= 1 ? null : this.handleChange.bind(this, index - 1)} className={classnames({ disabled: index <= 1 })}>
-        <a>&laquo;</a>
+      <li key="previous" onClick={index <= 1 ? null : this.handleChange.bind(this, index - 1)} className={classnames('previous', { disabled: index <= 1 })}>
+        <a><span>&nbsp;</span></a>
       </li>
     );
 
@@ -125,19 +131,23 @@ class Pagination extends Component {
       );
       items.push(<span key="s"> / {max}</span>);
     } else {
-      forEach(pages, function (i) {
-        items.push(
-          <li onClick={this.handleChange.bind(this, i)} className={classnames({ active: i === index })} key={i}>
-            <a>{i}</a>
-          </li>
-        );
+      forEach(pages, function (i, n) {
+        if (i === '...') {
+          items.push(<li key={n} className="sep"><span>...</span></li>);
+        } else {
+          items.push(
+            <li onClick={this.handleChange.bind(this, i)} className={classnames({ active: i === index })} key={n}>
+              <a>{i}</a>
+            </li>
+          );
+        }
       }, this);
     }
 
     // Next
     items.push(
-      <li key="next" onClick={index >= max ? null : this.handleChange.bind(this, index + 1)} className={classnames({ disabled: index >= max })}>
-        <a>&raquo;</a>
+      <li key="next" onClick={index >= max ? null : this.handleChange.bind(this, index + 1)} className={classnames('next', { disabled: index >= max })}>
+        <a><span>&nbsp;</span></a>
       </li>
     );
 

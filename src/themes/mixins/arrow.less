@@ -1,0 +1,107 @@
+.arrow(@size; @width: 1px;) {
+  &:before, &:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+  }
+
+  &:after {
+    border-width: @size - 1px;
+  }
+
+  &:before {
+    border-width: @size;
+  }
+}
+
+.arrow-up(@size; @color; @background-color; @inner: false; @width: 1px) {
+  .arrow(@size, @width);
+
+  &:after, &:before {
+    left: 50%;
+    bottom: 100%;
+    & when (@inner = true) {
+      bottom: 0;
+    }
+  }
+
+  &:after {
+    border-bottom-color: @background-color;
+    margin-left: 1px - @size;
+  }
+
+  &:before {
+    border-bottom-color: @color;
+    margin-left: 0 - @size;
+  }
+}
+
+.arrow-down(@size; @color; @background-color; @inner: false; @width: 1px) {
+  .arrow(@size, @width);
+
+  &:after, &:before {
+    left: 50%;
+    top: 100%;
+    & when (@inner = true) {
+      top: 0;
+    }
+  }
+
+  &:after {
+    border-top-color: @background-color;
+    margin-left: 1px - @size;
+  }
+
+  &:before {
+    border-top-color: @color;
+    margin-left: 0 - @size;
+  }
+
+}
+
+.arrow-left(@size; @color; @background-color; @inner: false; @width: 1px) {
+  .arrow(@size, @width);
+
+  &:after, &:before {
+    top: 50%;
+    right: 100%;
+    & when (@inner = true) {
+      right: 0;
+    }
+  }
+
+  &:after {
+    border-right-color: @background-color;
+    margin-top: 1px - @size;
+  }
+
+  &:before {
+    border-right-color: @color;
+    margin-top: 0 - @size;
+  }
+
+}
+
+.arrow-right(@size; @color; @background-color; @inner: false; @width: 1px) {
+  .arrow(@size, @width);
+
+  &:after, &:before {
+    top: 50%;
+    left: 100%;
+    & when (@inner = true) {
+      left: 0;
+    }
+  }
+
+  &:after {
+    border-left-color: @background-color;
+    margin-top: 1px - @size;
+  }
+
+  &:before {
+    border-left-color: @color;
+    margin-top: 0 - @size;
+  }
+}
