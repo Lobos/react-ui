@@ -19,7 +19,7 @@ class Select extends ClickAway(Component) {
   constructor (props) {
     super(props);
 
-    let values = toArray(props.value, props.sep);
+    let values = toArray(props.value, props.mult ? props.sep : undefined);
     let data = this.formatData(props.data, values);
     this.state = {
       active: false,
@@ -104,7 +104,7 @@ class Select extends ClickAway(Component) {
   }
 
   setValue (value) {
-    value = toArray(value, this.props.sep);
+    value = toArray(value, this.props.mult ? this.props.sep : null);
     if (this.state) {
       let data = this.state.data.map((d) => {
         if (typeof d !== 'string') {

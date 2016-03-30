@@ -34,9 +34,7 @@ class Table extends Component {
   }
 
   componentDidUpdate () {
-    if (this.checkHeadFixed()) {
-      this.setHeaderWidth();
-    }
+    this.setHeaderWidth();
   }
 
   checkHeadFixed () {
@@ -45,6 +43,9 @@ class Table extends Component {
   }
   
   setHeaderWidth () {
+    if (!this.checkHeadFixed()) {
+      return;
+    }
     let body = this.refs.body;
     let tr = body.querySelector('tr');
     if (!tr) {

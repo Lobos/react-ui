@@ -164,11 +164,11 @@ class Form extends Component {
     });
   }
 
-  renderChildren () {
+  renderChildren (children) {
     let { data } = this.state;
     let { fetchStatus, disabled } = this.props;
 
-    return Children.map(this.props.children, (child) => {
+    return Children.map(children, (child) => {
       if (!child) { return null; }
       if (typeof child === 'string') { return child; }
       let { hintType, readOnly } = child.props;
@@ -187,6 +187,8 @@ class Form extends Component {
         if (fetchStatus !== FETCH_SUCCESS) {
           props.children = getLang('fetch.status')[fetchStatus];
         }
+      } else if (child.props.children) {
+        props.children = this.renderChildren(child.props.children);
       }
 
       return cloneElement(child, props);
@@ -198,7 +200,7 @@ class Form extends Component {
   }
 
   render () {
-    let { button, controls, fetchStatus, className, onSubmit, grid, layout, ...props } = this.props;
+    let { button, controls, fetchStatus, children, className, onSubmit, grid, layout, ...props } = this.props;
 
     className = classnames(
       className,
@@ -214,7 +216,7 @@ class Form extends Component {
     return (
       <form onSubmit={this.handleSubmit} className={className} {...props}>
         {controls && this.renderControls()}
-        {this.renderChildren()}
+        {this.renderChildren(children)}
         {button && this.renderButton(button)}
         {fetchStatus !== FETCH_SUCCESS && <div className="rct-form-mask" />}
       </form>

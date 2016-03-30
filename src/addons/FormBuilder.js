@@ -7,6 +7,7 @@ import FormControl from '../FormControl';
 import FormSubmit from '../FormSubmit';
 import ControlBuilder from './ControlBuilder';
 import ItemBuilder from './ItemBuilder';
+import clone from '../utils/clone';
 
 import { requireCss } from '../themes';
 requireCss('form-builder');
@@ -53,7 +54,7 @@ class FormBuilder extends React.Component {
   editItem (c, i) {
     const items = this.state.controls[c].items;
     const isEdit = typeof i === 'number';
-    const item = isEdit ? items[i] : {};
+    const item = isEdit ? clone(items[i]) : {};
 
     let mid = Modal.open({
       header: '编辑Item',
@@ -91,7 +92,8 @@ class FormBuilder extends React.Component {
   }
 
   renderControls () {
-    return this.state.controls.map((props, i) => {
+    return this.state.controls.map((control, i) => {
+      let props = clone(control);
       return (
         <FormControl className="fb-control" key={i} {...props}>
           <div className="fb-control-tool">

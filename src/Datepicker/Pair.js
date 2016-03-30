@@ -27,6 +27,8 @@ class Pair extends React.Component {
   }
 };
 
+Pair.isFormItem = true;
+
 Pair.propTypes = {
   con: PropTypes.any,
   max: PropTypes.oneOfType([

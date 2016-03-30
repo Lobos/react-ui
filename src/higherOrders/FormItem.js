@@ -47,14 +47,14 @@ export const enhance = (ComposedComponent) => {
     }
 
     componentWillReceiveProps (nextProps) {
-      let { name, formData, itemUnbind } = nextProps;
+      let { name, value, formData, itemUnbind } = nextProps;
 
       if (nextProps.type && nextProps.type !== this.props.type) {
         this.valueType = getValueType(nextProps.type);
       }
 
       if (formData) {
-        let value = formData[name];
+        value = formData[name];
 
         if (this.props.name !== name && itemUnbind) {
           itemUnbind(this.id, this.props.name);
@@ -62,6 +62,10 @@ export const enhance = (ComposedComponent) => {
         }
 
         if (value !== this.state.value) {
+          this.handleChange(value, nextProps);
+        }
+      } else {
+        if (value !== this.props.value && value !== this.state.value) {
           this.handleChange(value, nextProps);
         }
       }
@@ -113,11 +117,18 @@ export const enhance = (ComposedComponent) => {
       return this.state.value;
     }
 
-    handleChange (value, props=this.props) {
+    handleChange (value, props) {
+      if (!props || typeof props !== 'object' || props.nativeEvent) {
+        props = this.props;
+      }
+      if (typeof value === 'object' && value.nativeEvent) {
+        value = value.target.value;
+      }
       let { itemChange, onChange } = props;
       let result = value instanceof Error ? value : this.validate(value, props);
       this.setState({ value }, () => {
         itemChange = itemChange || this.props.itemChange;
+        onChange = onChange || this.props.onChange;
         if (itemChange) {
           itemChange(this.id, value, result);
         }
@@ -128,7 +139,7 @@ export const enhance = (ComposedComponent) => {
     }
 
     render () {
-      let { className, onChange, value, style, ...props } = this.props;
+      let { className, onChange, trigger, value, style, ...props } = this.props;
 
       className = classnames(className, {
         'has-error': this.state.hasError
@@ -139,11 +150,28 @@ export const enhance = (ComposedComponent) => {
         style = toStyleObject(style);
       }
 
-      return <ComposedComponent ref={(c) => this.component = c} {...props} style={style} value={value} className={className} onChange={this.handleChange} />
+      let handle = 'onChange';
+      switch (trigger) {
+        case 'blur':
+          handle = 'onBlur';
+          break;
+        case 'keyDown':
+          handle = 'onKeyDown';
+          break;
+        case 'keyUp':
+          handle = 'onKeyUp';
+          break;
+      }
+
+      handle = { [handle]: this.handleChange };
+
+      return <ComposedComponent ref={(c) => this.component = c} {...props} {...handle} style={style} value={value} className={className} />
     }
   }
 
   FormItem.displayName = 'FormItem';
+
+  FormItem.isFormItem = true;
 
   FormItem.propTypes = {
     className: PropTypes.string,
@@ -161,6 +189,7 @@ export const enhance = (ComposedComponent) => {
       PropTypes.string,
       PropTypes.object
     ]),
+    trigger: PropTypes.string,
     type: PropTypes.string,
     validator: PropTypes.oneOfType([
       PropTypes.func,
@@ -176,13 +205,13 @@ export const enhance = (ComposedComponent) => {
   return FormItem;
 }
 
-export const register = (ComposedComponent, types, options) => {
+export const register = (ComposedComponent, types=[], options={}) => {
   let newComponent = enhance(ComposedComponent);
 
-  if (isEmpty(types)) {
-    console.warn('types must be string or array');
-    return;
-  }
+  //if (isEmpty(types)) {
+  //  console.warn('types must be string or array');
+  //  return;
+  //}
 
   if (!Array.isArray(types)) {
     types = [types];
@@ -194,7 +223,7 @@ export const register = (ComposedComponent, types, options) => {
       return;
     }
 
-    let { valueType, render } = options || {};
+    let { valueType, render } = options;
     if (!valueType) {
       valueType = ['integer', 'number'].indexOf(type) > -1 ? 'number' : 'string';
     }

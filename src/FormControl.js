@@ -195,21 +195,10 @@ class FormControl extends Component {
       }
 
       let props = { key: i };
-      /*
-      if (child.type.displayName === 'FormItem') {
+      if (child.type.isFormItem) {
         this.propsExtend(props);
-      } else if (child.props && typeof child.props.children === 'object') {
+      } else if (child.props && child.props.children === 'object') {
         props.children = this.renderChildren(child.props.children, i);
-      }
-      */
-      if (child.type.displayName === 'FormItem') {
-        this.propsExtend(props);
-      } else if (child.props) {
-        if (typeof child.props.children === 'object') {
-          props.children = this.renderChildren(child.props.children, i);
-        } else {
-          this.propsExtend(props);
-        }
       }
       
       child = cloneElement(child, props);

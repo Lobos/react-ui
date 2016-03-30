@@ -94,8 +94,11 @@ class ModalContainer extends Component {
     PubSub.publish(REMOVE_MODAL);
   }
 
-  clickaway () {
-    PubSub.publish(CLICKAWAY);
+  clickaway (event) {
+    if (event.target.className === 'rct-modal-inner') {
+      event.stopPropagation();
+      PubSub.publish(CLICKAWAY);
+    }
   }
 
   renderModals () {
@@ -135,8 +138,10 @@ class ModalContainer extends Component {
         }
       );
 
+      const clickaway = options.clickaway ? this.clickaway : undefined;
+
       return (
-        <div className="rct-modal-inner" style={{ zIndex: ZINDEX + i }} key={i}>
+        <div className="rct-modal-inner" onClick={clickaway} style={{ zIndex: ZINDEX + i }} key={i}>
           <div key={i} style={style} className={className}>
             <a className="rct-modal-close" onClick={this.close.bind(this, true)}><span></span></a>
             {header}
@@ -164,7 +169,7 @@ class ModalContainer extends Component {
 
     return (
       <div className={className}>
-        <Overlay onClick={this.clickaway}
+        <Overlay
           className={classnames({active: mlen > 0})}
           style={{zIndex: ZINDEX + mlen - 1}} />
         { this.renderModals() }

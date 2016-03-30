@@ -38,13 +38,15 @@ class Textarea extends Component {
     }
 
     this.setState({value});
-    this.props.onChange && this.props.onChange(value);
+    this.props.onChange && this.props.onChange(value, event);
     this.props.autoHeight && this.autoHeight();
   }
 
-  /**
-   * 自动计算高度
-   */
+  handleTrigger (trigger, event) {
+    let value = this.element.value;
+    this.props[trigger](value, event);
+  }
+
   autoHeight () {
     let el = this.element;
     let scrH;
@@ -63,57 +65,47 @@ class Textarea extends Component {
   }
 
   render () {
-    let { value, className, onChange, rows, style, autoHeight, ...props } = this.props;
-
-    let classNameStr = classnames(
-      this.props.className,
-      getGrid(this.props.grid),
-      'rct-form-control',
-      className
-    );
+    let { className, grid, style, autoHeight } = this.props;
+    const { value, rows } = this.state;
 
     style.minHeight = 'auto';
     if (autoHeight) {
       style.resize = 'none';
     }
 
+    const props = {
+      className: classnames(
+        className,
+        getGrid(grid),
+        'rct-form-control'
+      ),
+      onChange: this.handleChange,
+      style,
+      rows,
+      value
+    };
+
+    ['onBlur', 'onKeyDown', 'onKeyUp'].forEach((key) => {
+      if (this.props[key]) {
+        props[key] = this.handleTrigger.bind(this, key);
+      }
+    });
 
     return (
-      <textarea {...props}
-      className={classNameStr}
-      onChange = {this.handleChange}
-      ref={(c) => this.element = c}
-      rows={ this.state.rows }
-      style={ style }
-      value={this.state.value}
-      />
+      <textarea ref={ (c) => this.element = c } { ...this.props } { ...props } />
     );
   }
-
 }
 
-
 Textarea.propTypes = {
-  /**
-   * 是否自动伸缩高
-   */
   autoHeight: PropTypes.bool,
-  /**
-   * classname
-   */
   className: PropTypes.string,
   grid: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.object
   ]),
   onChange: PropTypes.func,
-  /**
-   * placeholder
-   */
   placeholder: PropTypes.string,
-  /**
-   * 默认几行，html textarea 默认的 rows 属性
-   */
   rows: PropTypes.number,
   style: PropTypes.object,
   value: PropTypes.any

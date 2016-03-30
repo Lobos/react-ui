@@ -7,9 +7,13 @@ import { COMPONENTS } from '../higherOrders/FormItem';
 import FormSubmit from '../FormSubmit';
 import Checkbox from '../Checkbox';
 import Input from '../Input';
+import Textarea from '../Textarea';
 import '../Select';
+import '../Tree';
 import '../Datepicker';
-import '../RadioGroup';
+import RadioGroup from '../RadioGroup';
+import '../CheckboxGroup';
+import FetchGroup from './FetchGroup';
 
 const TYPES = Object.keys(COMPONENTS).sort();
 
@@ -17,8 +21,10 @@ class ItemBuilder extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      type: props.item.type || 'text'
+      type: props.item.type || 'text',
+      datatype: props.item.fetch ? 'fetch' : 'data'
     };
+
     this.handleType = this.handleType.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -27,19 +33,59 @@ class ItemBuilder extends React.Component {
     this.setState({ type });
   }
 
-  handleSubmit (data) {
-    this.props.onSubmit(data);
-  }
-
-  renderControl (prop) {
-    switch (prop) {
-      case 'text':
-        return <FormControl name="text" type="text" grid={1/2} />
+  handleSubmit (item) {
+    if (item.grid) {
+      item.grid = parseFloat(item.grid);
     }
+    if (item.data) {
+      item.data = JSON.parse(item.data);
+    }
+    this.props.onSubmit(item);
   }
 
-  renderTypeControls (type) {
+  renderGrid () {
+    return (
+      <FormControl label="宽度" type="radio-group" name="grid" data={[
+        { id: 0.25, text: '短' },
+        { id: 0.5, text: '中' },
+        { id: 1, text: '长' }
+      ]} />
+    );
+  }
 
+  renderDataSource () {
+    let { datatype } = this.state;
+    let tip = datatype === 'data' ?
+              <span>静态数据为json格式，可以使用array，keyvalue格式object，或者复杂array</span> :
+              undefined 
+    return (
+      <div>
+        <FormControl label="数据源" tip={tip}>
+          <RadioGroup value={datatype} onChange={(datatype) => this.setState({ datatype })} data={[
+            { id: 'data', text: '静态数据' },
+            { id: 'fetch', text: '服务端获取(fetch)' },
+          ]} />
+
+          {
+            datatype === 'data' &&
+            <Textarea trigger="blur" rows={5} validator={{ func: (value) => {
+              try {
+                JSON.parse(value);
+                return true;
+              } catch (e) {
+                return new Error('数据格式错误');
+              }
+            }}} name="data" />
+          }
+        </FormControl>
+
+        { datatype === 'fetch' &&
+        <FormControl label="fetch参数">
+          <FetchGroup name="fetch" />
+        </FormControl>
+        }
+      </div>
+    );
   }
 
   getLenTip (type) {
@@ -61,11 +107,22 @@ class ItemBuilder extends React.Component {
   render () {
     let { item } = this.props;
     item.type = this.state.type;
+    if (item.data) {
+      item.data = JSON.stringify(item.data);
+    }
     let lenTip = this.getLenTip(item.type);
 
     return (
-      <Form data={item} onSubmit={this.handleSubmit}>
-        <FormControl onChange={this.handleType} grid={1/3} required name="type" label="类型" type="select" data={TYPES} />
+      <Form data={item} style={{ marginRight: 40 }} onSubmit={this.handleSubmit}>
+        <FormControl
+          onChange={this.handleType}
+          grid={1/2}
+          required
+          name="type"
+          label="类型"
+          type="select"
+          data={TYPES} />
+
         <FormControl grid={1/3} name="label" label="label文字" />
         <FormControl grid={1/3} required name="name" label="name" />
         <FormControl grid={1/2} name="placeholder" label="placeholder" />
@@ -73,6 +130,7 @@ class ItemBuilder extends React.Component {
           <Checkbox name="required" text="必填" />
           <Checkbox name="readOnly" text="只读" />
         </FormControl>
+
         { 
           lenTip &&
           <FormControl>
@@ -82,7 +140,16 @@ class ItemBuilder extends React.Component {
           </FormControl>
         }
 
-        <FormControl type="textarea" grid={5/6} rows={2} autoHeight name="style" label="style" />
+        { this.renderGrid() }
+        { this.renderDataSource() }
+
+        <FormControl type="textarea"
+          trigger="blur"
+          rows={2}
+          autoHeight
+          name="style"
+          label="style"
+          tip="使用css格式，例：width:100px; margin-left: 10px;" />
 
         <FormSubmit>确定</FormSubmit>
       </Form>

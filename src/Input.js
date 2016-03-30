@@ -26,14 +26,6 @@ class Input extends Component {
     }
   }
 
-  setValue (value) {
-    this.handleChange(null, value);
-  }
-
-  getValue () {
-    return this._input.value;
-  }
-
   handleChange (event, value) {
     if (this.props.readOnly) {
       return;
@@ -52,28 +44,36 @@ class Input extends Component {
     this.setState({ value });
     setTimeout(() => {
       if (this.props.onChange) {
-        this.props.onChange(value);
+        this.props.onChange(value, event);
       }
     }, 0);
   }
 
+  handleTrigger (trigger, event) {
+    let value = this._input.value;
+    this.props[trigger](value, event);
+  }
+
   render () {
+    const { className, grid, type } = this.props;
     const props = {
       className: classnames(
-        this.props.className,
+        className,
         'rct-form-control',
-        getGrid(this.props.grid)
+        getGrid(grid)
       ),
       onChange: this.handleChange,
-      type: this.props.type === 'password' ? 'password' : 'text',
+      type: type === 'password' ? 'password' : 'text',
       value: this.state.value
     };
 
-    if (this.props.type === 'textarea') {
-      return (<textarea ref={(c) => this._input = c} {...this.props} {...props} rows={this.props.rows} />);
-    } else {
-      return (<input ref={(c) => this._input = c} {...this.props} {...props} />);
-    }
+    ['onBlur', 'onKeyDown', 'onKeyUp'].forEach((key) => {
+      if (this.props[key]) {
+        props[key] = this.handleTrigger.bind(this, key);
+      }
+    });
+
+    return (<input ref={(c) => this._input = c} {...this.props} {...props} />);
   }
 }
 
