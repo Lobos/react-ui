@@ -61,14 +61,14 @@ class Pagination extends Component {
   }
 
   getPages () {
-    let total = this.props.total,
-        size = this.props.size,
-        index = this.state.index,
-        span = this.props.pages,
-        max = Math.ceil(total / size),
-        pages = [],
+    let { total, size, index, pages } = this.props;
+    let max = Math.ceil(total / size),
         left,
-        right;
+        right,
+        span = pages || 10;
+
+    // bad thing...
+    pages = [];
 
     if (index > max) {
       index = max;
@@ -89,20 +89,20 @@ class Pagination extends Component {
       right -= left > 1 ? 1 : 0;
     }
 
-    // add first
+    // push first
     if (left > 1) {
       pages.push(1);
     }
     if (left > 2) {
-      pages.push('...');
+      pages.push('<..');
     }
     for (let i = left; i < right + 1; i++) {
       pages.push(i);
     }
     if (right < max - 1) {
-      pages.push('...');
+      pages.push('..>');
     }
-    // add last
+    // push last
     if (right < max) {
       pages.push(max);
     }
@@ -131,12 +131,12 @@ class Pagination extends Component {
       );
       items.push(<span key="s"> / {max}</span>);
     } else {
-      forEach(pages, function (i, n) {
-        if (i === '...') {
-          items.push(<li key={n} className="sep"><span>...</span></li>);
+      forEach(pages, function (i) {
+        if (i === '<..' || i === '..>') {
+          items.push(<li key={i} className="sep"><span>...</span></li>);
         } else {
           items.push(
-            <li onClick={this.handleChange.bind(this, i)} className={classnames({ active: i === index })} key={n}>
+            <li onClick={this.handleChange.bind(this, i)} className={classnames({ active: i === index })} key={i}>
               <a>{i}</a>
             </li>
           );

@@ -237,12 +237,15 @@ module.exports = class extends React.Component {
           </Example>
 
           <h2 className="subhead">json方式使用</h2>
-          <div>controls属性等于FormControls的props，items属性等于FormItem的props</div>
+          <div>
+            controls属性等于FormControls的props，items属性等于FormItem的props<br />
+            默认使用name作为key，如果没有name，为提高性能，建议指定一个唯一的key(不能和name重复)
+          </div>
           <Example>
 <Form button="确定" fetch={'json/form.json'} controls={[
   { name: 'text', type: 'text', min: 3, max: 12, label: 'text', grid: 1/3 },
   { name: 'datetime', required: true, type: 'datetime', label: 'datetime', tip: '自定义tip文字' },
-  { label: 'two items', items: [
+  { label: 'two items', key: 'twoitem', items: [
     { name: 'startTime', type: 'date' },
     '-',
     { name: 'endTime', type: 'date' }

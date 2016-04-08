@@ -6,7 +6,7 @@ import { COMPONENTS, getValueType } from './higherOrders/FormItem';
 import merge from './utils/merge';
 import { getGrid } from './utils/grids';
 import { format } from './utils/strings';
-import { forEach, shallowEqual } from './utils/objects';
+import { forEach, shallowEqual, hashcode } from './utils/objects';
 
 import { getLang, setLang } from './lang';
 setLang('validation');
@@ -188,13 +188,13 @@ class FormControl extends Component {
 
   renderChildren (children, index) {
     let newChildren = Children.toArray(children).map((child, i) => {
-      i = index + '.' + i;
+      //i = index + '.' + i;
 
       if (typeof child === 'string') {
         return <span key={i}>{child}</span>;
       }
 
-      let props = { key: i };
+      let props = {};
       if (child.type.isFormItem) {
         this.propsExtend(props);
       } else if (child.props && child.props.children === 'object') {

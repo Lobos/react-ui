@@ -7,7 +7,7 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toArray, substitute } from '../utils/strings';
-import { forEach, deepEqual } from '../utils/objects';
+import { forEach, deepEqual, hashcode } from '../utils/objects';
 import { fetchEnhance, FETCH_SUCCESS } from '../higherOrders/Fetch';
 import { register } from '../higherOrders/FormItem';
 import { getLang } from '../lang';
@@ -92,6 +92,7 @@ class Tree extends Component {
       arr.forEach((d) => {
         d.$text = substitute(tt, d);
         d.$value = substitute(vt, d);
+        d.$key = d.id || d.key || hashcode(`${d.$value}-${d.$text}`);
         if (d.children) {
           setTpl(d.children);
         }
@@ -200,7 +201,7 @@ class Tree extends Component {
           onStatusChange={this.handleChange}
           value={value}
           selectAble={selectAble}
-          key={i}
+          key={item.$key}
           data={item}
         />
       );

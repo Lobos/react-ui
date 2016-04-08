@@ -139,7 +139,7 @@ export const enhance = (ComposedComponent) => {
     }
 
     render () {
-      let { className, onChange, trigger, value, style, ...props } = this.props;
+      let { className, onChange, value, style, ...props } = this.props;
 
       className = classnames(className, {
         'has-error': this.state.hasError
@@ -150,22 +150,7 @@ export const enhance = (ComposedComponent) => {
         style = toStyleObject(style);
       }
 
-      let handle = 'onChange';
-      switch (trigger) {
-        case 'blur':
-          handle = 'onBlur';
-          break;
-        case 'keyDown':
-          handle = 'onKeyDown';
-          break;
-        case 'keyUp':
-          handle = 'onKeyUp';
-          break;
-      }
-
-      handle = { [handle]: this.handleChange };
-
-      return <ComposedComponent ref={(c) => this.component = c} {...props} {...handle} style={style} value={value} className={className} />
+      return <ComposedComponent ref={(c) => this.component = c} {...props} onChange={this.handleChange} style={style} value={value} className={className} />
     }
   }
 
@@ -189,7 +174,6 @@ export const enhance = (ComposedComponent) => {
       PropTypes.string,
       PropTypes.object
     ]),
-    trigger: PropTypes.string,
     type: PropTypes.string,
     validator: PropTypes.oneOfType([
       PropTypes.func,

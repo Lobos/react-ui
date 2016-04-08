@@ -54,10 +54,10 @@ module.exports = class extends Component {
   onChange={this.onChange.bind(this)}
   jumper={this.state.jumper} />
 
-<p>index: <Input value={this.state.index} onChange={v => this.setState({index: parseInt(v)})} /></p>
-<p>size: <Input value={this.state.size} onChange={v => this.setState({size: parseInt(v)})} /></p>
-<p>total: <Input value={this.state.total} onChange={v => this.setState({total: parseInt(v)})} /></p>
-<p>pages: <Input value={this.state.pages} onChange={v => this.setState({pages: parseInt(v)})} /></p>
+<p>index: <Input value={this.state.index} onChange={v => this.setState({index: parseInt(v) || 1})} /></p>
+<p>size: <Input value={this.state.size} onChange={v => this.setState({size: parseInt(v) || 0})} /></p>
+<p>total: <Input value={this.state.total} onChange={v => this.setState({total: parseInt(v) || 0})} /></p>
+<p>pages: <Input value={this.state.pages} onChange={v => this.setState({pages: parseInt(v) || 0})} /></p>
 <p><Checkbox text="mini" onChange={mini => this.setState({mini})} value={this.state.mini} /></p>
 <p><Checkbox text="jumper" onChange={jumper => this.setState({jumper})} value={this.state.jumper} /></p>
           </Example>

@@ -4,7 +4,7 @@ import React, { Component, PropTypes, Children } from 'react';
 import classnames from 'classnames';
 import { Checkbox } from './Checkbox';
 import { toArray } from './utils/strings';
-import { deepEqual, toTextValue } from './utils/objects';
+import { deepEqual, toTextValue, hashcode } from './utils/objects';
 import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
 import { getLang } from './lang';
@@ -60,7 +60,8 @@ class CheckboxGroup extends Component {
           {
             $checked: value.indexOf(child.props.checkValue) >= 0,
             $value: child.props.checkValue,
-            $text: child.props.children || child.props.text
+            $text: child.props.children || child.props.text,
+            $key: hashcode(`${child.props.checkValue}-${child.props.text}`)
           },
           ...data.slice(position)
         ];
@@ -103,7 +104,7 @@ class CheckboxGroup extends Component {
   renderItems () {
     return this.state.data.map((item, i) => {
       return (
-        <Checkbox key={i}
+        <Checkbox key={item.$key}
           index={i}
           readOnly={this.props.readOnly}
           checked={item.$checked}

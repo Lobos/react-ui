@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toArray, substitute } from './utils/strings';
 import { getOuterHeight, overView, withoutTransition } from './utils/dom';
-import { deepEqual } from './utils/objects';
+import { deepEqual, hashcode } from './utils/objects';
 import ClickAway from './mixins/ClickAway';
 import { getGrid } from './utils/grids';
 import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
@@ -132,7 +132,8 @@ class Select extends ClickAway(Component) {
           $result: d,
           $value: d,
           $filter: d.toLowerCase(),
-          $checked: value.indexOf(d) >= 0
+          $checked: value.indexOf(d) >= 0,
+          $key: hashcode(d)
         };
       }
 
@@ -146,6 +147,7 @@ class Select extends ClickAway(Component) {
       d.$result = substitute(this.props.resultTpl || this.props.optionTpl, d);
       d.$value = val;
       d.$checked = value.indexOf(val) >= 0;
+      d.$key = d.id ? d.id : hashcode(val);
       return d;
     });
 
@@ -240,19 +242,19 @@ class Select extends ClickAway(Component) {
 
     let options = data.map((d, i) => {
       if (typeof d === 'string') {
-        return <span key={i} className="show group">{d}</span>;
+        return <span key={`g-${d}`} className="show group">{d}</span>;
       }
 
       if (d.$checked) {
         if (mult) {
           result.push(
-            <div key={i} className="rct-select-result"
+            <div key={d.$key} className="rct-select-result"
               onClick={this.handleRemove.bind(this, i)}
               dangerouslySetInnerHTML={{__html: d.$result}}
             />
           );
         } else {
-          result.push(<span key={i} dangerouslySetInnerHTML={{__html: d.$result}} />);
+          result.push(<span key={d.$key} dangerouslySetInnerHTML={{__html: d.$result}} />);
         }
       }
 
@@ -261,7 +263,7 @@ class Select extends ClickAway(Component) {
         show: filterText ? d.$filter.indexOf(filterText) >= 0 : true
       });
       return (
-        <li key={i}
+        <li key={d.$key}
           onClick={this.handleChange.bind(this, i)}
           className={ optionClassName }
           dangerouslySetInnerHTML={{__html: d.$option}}

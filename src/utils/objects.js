@@ -48,14 +48,42 @@ export function toTextValue (arr, textTpl='{text}', valueTpl='{id}') {
   arr = arr.map(function (s) {
     if (typeof s !== 'object') {
       s = s.toString();
-      return { $text: s, $value: s };
+      return { $text: s, $value: s, $key: hashcode(s) };
     } else {
       s.$text = substitute(textTpl, s);
       s.$value = substitute(valueTpl, s);
+      s.$key = s.id ? s.id : hashcode(`${s.$text}-${s.$value}`);
       return s;
     }
   });
   return arr;
+}
+
+export function hashcode(obj) {
+  let hash = 0, i, chr, len, str;
+
+  let type = typeof obj;
+  switch (type) {
+      case 'object':
+          //let newObj = {};
+          //forEach(obj, (v, k) => v && (typeof v === 'object' || 'function') ? v.toString() : v);
+          str = JSON.stringify(obj);
+          break;
+      case 'string':
+          str = obj;
+          break;
+      default:
+          str = obj.toString();
+          break;
+  }
+
+  if (str.length === 0) return hash;
+  for (i = 0, len = str.length; i < len; i++) {
+    chr   = str.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash.toString(36);
 }
 
 export function sortByKey (obj) {

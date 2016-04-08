@@ -1,12 +1,17 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
+import { shallowEqual } from '../utils/objects';
 import Datepicker from './index';
 
 class Pair extends React.Component {
   constructor (props) {
     super(props);
     this.state = {};
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    return !shallowEqual(nextProps, this.props) || !shallowEqual(this.state, nextState);
   }
 
   render () {

@@ -13,35 +13,49 @@ requireCss('form-control');
 class Input extends Component {
   constructor (props) {
     super(props);
+    this.state = {
+      value: props.value
+    };
     this.handleChange = this.handleChange.bind(this);
+    this.handleTrigger = this.handleTrigger.bind(this);
+  }
+
+  componentWillReceiveProps (nextProps) {
+    let value = nextProps.value;
+    if (value !== this.props.value && value !== this.state.value) {
+      this.setState({ value });
+    }
   }
 
   handleChange (event) {
-    if (this.props.readOnly) {
+    const { readOnly, type, trigger } = this.props;
+
+    if (readOnly) {
       return;
     }
 
     let value = event.target.value;
-    const { type } = this.props;
 
     if (value && (type === 'integer' || type === 'number')) {
       if (!Regs[type].test(value)) {
-        return;
+        value = this.state.value || '';
       }
     }
 
-    if (this.props.onChange) {
-      this.props.onChange(value, event);
+    this.setState({ value });
+
+    if (trigger === 'change') {
+      this.handleTrigger(event);
     }
   }
 
-  handleTrigger (trigger, event) {
+  handleTrigger (event) {
     let value = event.target.value;
-    this.props[trigger](value, event);
+    this.props.onChange(value, event);
   }
 
   render () {
-    const { className, grid, type } = this.props;
+    const { className, grid, type, trigger, ...other } = this.props;
     const props = {
       className: classnames(
         className,
@@ -49,16 +63,16 @@ class Input extends Component {
         getGrid(grid)
       ),
       onChange: this.handleChange,
-      type: type === 'password' ? 'password' : 'text'
+      type: type === 'password' ? 'password' : 'text',
+      value: this.state.value
     };
 
-    ['onBlur', 'onKeyDown', 'onKeyUp'].forEach((key) => {
-      if (this.props[key]) {
-        props[key] = this.handleTrigger.bind(this, key);
-      }
-    });
+    if (trigger !== 'change') {
+      let handle = 'on' + trigger.charAt(0).toUpperCase() + trigger.slice(1);
+      props[handle] = this.handleTrigger;
+    }
 
-    return (<input {...this.props} {...props} />);
+    return (<input {...other} {...props} />);
   }
 }
 
@@ -77,11 +91,13 @@ Input.propTypes = {
   readOnly: PropTypes.bool,
   rows: PropTypes.number,
   style: PropTypes.object,
+  trigger: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.any
 };
 
 Input.defaultProps = {
+  trigger: 'blur',
   value: ''
 };
 

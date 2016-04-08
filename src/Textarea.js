@@ -10,11 +10,12 @@ class Textarea extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      //value : props.value,
+      value : props.value,
       rows: props.rows
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleTrigger = this.handleTrigger.bind(this);
   }
 
   componentDidMount (){
@@ -26,28 +27,27 @@ class Textarea extends Component {
     }
   }
 
-  /*
   componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.handleChange(null, nextProps.value);
+    let value = nextProps.value;
+    if (value !== this.props.value && value !== this.state.value) {
+      this.setState({ value });
     }
   }
-  */
 
   handleChange (event){
-    //if (!value && event) {
-    //  value = event.target.value;
-    //}
-
-    //this.setState({value});
-    let value = event.target.value;
-    this.props.onChange && this.props.onChange(value, event);
     this.props.autoHeight && this.autoHeight();
+
+    let value = event.target.value;
+    this.setState({ value });
+
+    if (this.props.trigger === 'change') {
+      this.handleTrigger(event);
+    }
   }
 
-  handleTrigger (trigger, event) {
+  handleTrigger (event) {
     let value = event.target.value;
-    this.props[trigger](value, event);
+    this.props.onChange(value, event);
   }
 
   autoHeight () {
@@ -68,8 +68,8 @@ class Textarea extends Component {
   }
 
   render () {
-    let { className, grid, style, autoHeight } = this.props;
-    const { rows } = this.state;
+    let { className, grid, style, autoHeight, trigger, ...other } = this.props;
+    const { rows, value } = this.state;
 
     style.minHeight = 'auto';
     if (autoHeight) {
@@ -84,17 +84,17 @@ class Textarea extends Component {
       ),
       onChange: this.handleChange,
       style,
-      rows
+      rows,
+      value
     };
 
-    ['onBlur', 'onKeyDown', 'onKeyUp'].forEach((key) => {
-      if (this.props[key]) {
-        props[key] = this.handleTrigger.bind(this, key);
-      }
-    });
+    if (trigger !== 'change') {
+      let handle = 'on' + trigger.charAt(0).toUpperCase() + trigger.slice(1);
+      props[handle] = this.handleTrigger;
+    }
 
     return (
-      <textarea ref={ (c) => this.element = c } { ...this.props } { ...props } />
+      <textarea ref={ (c) => this.element = c } { ...other } { ...props } />
     );
   }
 }
@@ -110,6 +110,7 @@ Textarea.propTypes = {
   placeholder: PropTypes.string,
   rows: PropTypes.number,
   style: PropTypes.object,
+  trigger: PropTypes.string,
   value: PropTypes.any
 };
 
@@ -117,6 +118,7 @@ Textarea.defaultProps = {
   style: {},
   grid: 1,
   rows: 10,
+  trigger: 'blur',
   value: ''
 };
 

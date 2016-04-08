@@ -149,7 +149,7 @@ class Item extends Component {
       let items = data.children.map(function (item, i) {
         return (
           <Item ref={i}
-            key={i}
+            key={item.$key}
             icons={icons}
             open={open}
             readOnly={readOnly}

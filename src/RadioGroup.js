@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes, Children } from 'react';
 import classnames from 'classnames';
-import { deepEqual, toTextValue } from './utils/objects';
+import { deepEqual, toTextValue, hashcode } from './utils/objects';
 import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
 import { getLang } from './lang';
@@ -51,7 +51,8 @@ class RadioGroup extends Component {
           ...data.slice(0, position),
           {
             $value: child.props.value,
-            $text: child.props.children || child.props.text
+            $text: child.props.children || child.props.text,
+            $key: hashcode(`${child.props.value}-${child.props.text}`)
           },
           ...data.slice(position)
         ];
@@ -96,9 +97,9 @@ class RadioGroup extends Component {
       'rct-radio-group',
       { 'rct-inline': inline }
     );
-    let items = this.state.data.map(function (item, i) {
+    let items = this.state.data.map(function (item) {
       return (
-        <Radio key={i}
+        <Radio key={item.$key}
           onClick={this.handleChange}
           readOnly={readOnly}
           checked={this.state.value === item.$value}

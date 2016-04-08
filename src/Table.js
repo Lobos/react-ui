@@ -3,7 +3,7 @@
 import React, { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { substitute } from './utils/strings';
-import { deepEqual } from './utils/objects';
+import { deepEqual, hashcode } from './utils/objects';
 import TableHeader from './TableHeader';
 import { fetchEnhance } from './higherOrders/Fetch';
 
@@ -159,15 +159,20 @@ class Table extends Component {
       return <tbody><tr><td colSpan={headers.length}>{data}</td></tr></tbody>;
     }
 
+    const headerKeys = headers.map((h) => {
+      return h.name || hashcode(h);
+    });
+
     let trs = data.map((d, i) => {
       let tds = [];
       if (selectAble) {
         tds.push(
-          <td style={{width: 13}} key="checkbox">
+          <td className="td-checkbox" key="checkbox">
             <input checked={d.$checked} onChange={this.onCheck.bind(this, i)} type="checkbox" />
           </td>
         );
       }
+      let rowKey = d.id ? d.id : hashcode(d);
       headers.map((h, j) => {
         if (h.hidden) {
           return;
@@ -184,9 +189,9 @@ class Table extends Component {
         if (h.width) {
           tdStyle.width = h.width;
         }
-        tds.push(<td style={tdStyle} key={j}>{content}</td>);
+        tds.push(<td style={tdStyle} key={headerKeys[j]}>{content}</td>);
       });
-      return <tr key={i}>{tds}</tr>;
+      return <tr key={rowKey}>{tds}</tr>;
     });
 
     return <tbody>{trs}</tbody>;
@@ -207,7 +212,7 @@ class Table extends Component {
       }
 
       let props = {
-        key: i,
+        key: header.name || i,
         onSort: (name, asc) => {
           this.setState({sort: { name, asc }});
           if (this.props.onSort) {

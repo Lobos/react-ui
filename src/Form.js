@@ -2,7 +2,7 @@
 
 import React, { Children, Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
-import { forEach, deepEqual } from './utils/objects';
+import { forEach, deepEqual, hashcode } from './utils/objects';
 import clone from './utils/clone';
 import { getGrid } from './utils/grids';
 import FormControl from './FormControl';
@@ -152,6 +152,7 @@ class Form extends Component {
       if (typeof control !== 'object') {
         return control;
       } else {
+        control.key = control.key || control.name || hashcode(control);
         control.hintType = control.hintType || hintType;
         control.readOnly = control.readOnly || disabled;
         control.layout = layout;
@@ -159,7 +160,7 @@ class Form extends Component {
         control.itemUnbind = this.itemUnbind;
         control.itemChange = this.itemChange;
         control.formData = data;
-        return <FormControl key={i} { ...control } />;
+        return <FormControl { ...control } />;
       }
     });
   }
@@ -175,7 +176,7 @@ class Form extends Component {
       let props = {
         hintType: hintType || this.props.hintType,
         readOnly: readOnly || disabled,
-        layout: this.props.layout
+        layout: this.props.layout,
       };
       if (child.type === FormControl || child.type.displayName === 'FormItem') {
         props.itemBind = this.itemBind;
