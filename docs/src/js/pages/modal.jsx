@@ -59,9 +59,10 @@ module.exports = class extends Component {
   width={700}                // 宽度，默认值为 500
   header={string|element}    // 标题，值为 string 或者 ReactElement，可为空
   isOpen={bool}              // 是否打开
-  onClose={function}         // 关闭Modal时触发，一般用来关闭Modal
+  onClose={function}         // 关闭Modal时触发
   buttons: {
-    {text}: function         // text 为按钮文字，function 返回 true 或者值为 true，关闭 Modal
+    {text}: func|string      // text 为按钮文字，func 返回 true 或者值为 true，关闭 Modal
+                             // func 可以设置为string，当func === 'submit' 时，会触发children下的form的submit事件
   }
 >
   {children}                 // 内容，任意对象
@@ -74,13 +75,15 @@ module.exports = class extends Component {
   isOpen={this.state.modalIsOpen}
   onClose={() => this.setState({ modalIsOpen: false })}
   buttons={{
-    '确定': () => {
-      this.form.submit();
-    },
+    '确定': 'submit',
     '取消': true
   }}>
   <div>
-    <Form ref={(c) => this.form = c} onSubmit={(data) => { alert(JSON.stringify(data)); this.setState({ modalIsOpen: false }) }} layout="aligned">
+    <Form ref={(c) => this.form = c} onSubmit={
+      (data) => {
+        alert(JSON.stringify(data));
+        this.setState({ modalIsOpen: false })
+      }} layout="aligned">
       <FormControl name="name" grid={7/8} required={true} label="姓名" type="text" />
       <FormControl name="birthday" required={true} label="生日" type="date" />
       <FormControl name="description" grid={7/8} label="简介" type="textarea" rows={6} />
@@ -100,7 +103,8 @@ module.exports = class extends Component {
   width: {int|string},       // 宽度，默认值为 500
   onClose: function,         // 当Modal关闭时触发
   buttons: {
-    {text}: function         // text 为按钮文字，function 返回 true 或者值为 true，关闭 Modal
+    {text}: func|string      // text 为按钮文字，func 返回 true 或者值为 true，关闭 Modal
+                             // func 可以设置为string，当func === 'submit' 时，会触发children下的form的submit事件
   }
 }`}
           </Code>

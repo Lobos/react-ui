@@ -116,11 +116,22 @@ class FormBuilder extends React.Component {
           {this.renderControls()}
           <FormSubmit>确定</FormSubmit>
           <FormControl>
-            <div onClick={this.editControl.bind(this)} className="add-control">+ Add new Control</div>
+            <div onClick={this.editControl.bind(this)} className="fb-btn-control">+ Add new Control</div>
+            <div onClick={this.editControl.bind(this)} className="fb-btn-control">导入Json</div>
+            <div onClick={this.exportControls.bind(this)} className="fb-btn-control">导出Json</div>
           </FormControl>
         </Form>
       </div>
     );
+  }
+
+  exportControls () {
+    Modal.open({
+      content: <div>{JSON.stringify(this.state.controls, null, 4)}</div>,
+      buttons: {
+        '确定': true
+      }
+    });
   }
 }
 

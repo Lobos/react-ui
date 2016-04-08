@@ -30,6 +30,7 @@ class ModalContainer extends Component {
     };
     this.close = this.close.bind(this);
     this.clickaway = this.clickaway.bind(this);
+    this.elements = {};
   }
 
   componentDidMount () {
@@ -120,13 +121,20 @@ class ModalContainer extends Component {
               handle = () => {
                 if (func === true) {
                   this.close();
+                } else if (func === 'submit') {
+                  let form = this.elements[options.id].querySelector('form');
+                  if (form) {
+                    let event = document.createEvent('HTMLEvents');
+                    event.initEvent('submit');
+                    form.dispatchEvent(event);
+                  }
                 } else {
                   if (func()) {
                     this.close();
                   }
                 }
               };
-          return <Button status={status} key={j} onClick={handle}>{btn}</Button>;
+          return <Button status={status} key={btn} onClick={handle}>{btn}</Button>;
         });
       }
 
@@ -141,8 +149,8 @@ class ModalContainer extends Component {
       const clickaway = options.clickaway ? this.clickaway : undefined;
 
       return (
-        <div className="rct-modal-inner" onClick={clickaway} style={{ zIndex: ZINDEX + i }} key={i}>
-          <div key={i} style={style} className={className}>
+        <div ref={(el) => this.elements[options.id] = el} className="rct-modal-inner" onClick={clickaway} style={{ zIndex: ZINDEX + i }} key={options.id}>
+          <div style={style} className={className}>
             <a className="rct-modal-close" onClick={this.close.bind(this, true)}><span></span></a>
             {header}
             <div className="rct-modal-content">

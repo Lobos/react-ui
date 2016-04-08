@@ -160,9 +160,15 @@ CheckboxGroup.propTypes = {
   readOnly: PropTypes.bool,
   sep: PropTypes.string,
   style: PropTypes.object,
-  textTpl: PropTypes.string,
+  textTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   value: PropTypes.any,
-  valueTpl: PropTypes.string
+  valueTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ])
 };
  
 CheckboxGroup.defaultProps = {

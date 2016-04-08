@@ -44,6 +44,10 @@ class ItemBuilder extends React.Component {
   }
 
   renderGrid () {
+    if (['alpha','alphanum','email','integer','number','password','select','text','textarea','url'].indexOf(this.state.type) < 0) {
+      return;
+    }
+
     return (
       <FormControl label="宽度" type="radio-group" name="grid" data={[
         { id: 0.25, text: '短' },
@@ -54,6 +58,10 @@ class ItemBuilder extends React.Component {
   }
 
   renderDataSource () {
+    if (['checkbox-group','radio-group','select','tree'].indexOf(this.state.type) < 0) {
+      return;
+    }
+
     let { datatype } = this.state;
     let tip = datatype === 'data' ?
               <span>静态数据为json格式，可以使用array，keyvalue格式object，或者复杂array</span> :
@@ -61,28 +69,30 @@ class ItemBuilder extends React.Component {
     return (
       <div>
         <FormControl label="数据源" tip={tip}>
-          <RadioGroup value={datatype} onChange={(datatype) => this.setState({ datatype })} data={[
-            { id: 'data', text: '静态数据' },
-            { id: 'fetch', text: '服务端获取(fetch)' },
-          ]} />
+          <RadioGroup value={datatype} onChange={(datatype) => this.setState({ datatype })}
+            data={[
+              { id: 'data', text: '静态数据' },
+              { id: 'fetch', text: '服务端获取(fetch)' },
+            ]} />
 
           {
             datatype === 'data' &&
-            <Textarea trigger="blur" rows={5} validator={{ func: (value) => {
-              try {
-                JSON.parse(value);
-                return true;
-              } catch (e) {
-                return new Error('数据格式错误');
-              }
-            }}} name="data" />
+            <Textarea trigger="blur" style={{ marginTop: 10 }} rows={5} name="data"
+              validator={{ func: (value) => {
+                try {
+                  JSON.parse(value);
+                  return true;
+                } catch (e) {
+                  return new Error('数据格式错误');
+                }
+              }}} />
           }
         </FormControl>
 
         { datatype === 'fetch' &&
-        <FormControl label="fetch参数">
-          <FetchGroup name="fetch" />
-        </FormControl>
+          <FormControl label="fetch参数">
+            <FetchGroup ref="fg" name="fetch" />
+          </FormControl>
         }
       </div>
     );
@@ -123,8 +133,8 @@ class ItemBuilder extends React.Component {
           type="select"
           data={TYPES} />
 
-        <FormControl grid={1/3} name="label" label="label文字" />
-        <FormControl grid={1/3} required name="name" label="name" />
+        <FormControl grid={1/2} name="label" label="label文字" />
+        <FormControl grid={1/2} required name="name" label="name" />
         <FormControl grid={1/2} name="placeholder" label="placeholder" />
         <FormControl>
           <Checkbox name="required" text="必填" />

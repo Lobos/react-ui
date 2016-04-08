@@ -10,7 +10,7 @@ class Textarea extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value : props.value,
+      //value : props.value,
       rows: props.rows
     };
 
@@ -26,24 +26,27 @@ class Textarea extends Component {
     }
   }
 
+  /*
   componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this.props.value) {
       this.handleChange(null, nextProps.value);
     }
   }
+  */
 
-  handleChange (event, value){
-    if (!value && event) {
-      value = event.target.value;
-    }
+  handleChange (event){
+    //if (!value && event) {
+    //  value = event.target.value;
+    //}
 
-    this.setState({value});
+    //this.setState({value});
+    let value = event.target.value;
     this.props.onChange && this.props.onChange(value, event);
     this.props.autoHeight && this.autoHeight();
   }
 
   handleTrigger (trigger, event) {
-    let value = this.element.value;
+    let value = event.target.value;
     this.props[trigger](value, event);
   }
 
@@ -66,7 +69,7 @@ class Textarea extends Component {
 
   render () {
     let { className, grid, style, autoHeight } = this.props;
-    const { value, rows } = this.state;
+    const { rows } = this.state;
 
     style.minHeight = 'auto';
     if (autoHeight) {
@@ -81,8 +84,7 @@ class Textarea extends Component {
       ),
       onChange: this.handleChange,
       style,
-      rows,
-      value
+      rows
     };
 
     ['onBlur', 'onKeyDown', 'onKeyUp'].forEach((key) => {
@@ -114,7 +116,8 @@ Textarea.propTypes = {
 Textarea.defaultProps = {
   style: {},
   grid: 1,
-  rows: 10
+  rows: 10,
+  value: ''
 };
 
 module.exports = register(Textarea, ['textarea']);

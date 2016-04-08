@@ -79,9 +79,7 @@ class RadioGroup extends Component {
     this.setState({ value });
     let change = this.props.onChange;
     if (change) {
-      setTimeout(function () {
-        change(value);
-      }, 0);
+      change(value);
     }
   }
 
@@ -131,9 +129,15 @@ RadioGroup.propTypes = {
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
   style: PropTypes.object,
-  textTpl: PropTypes.string,
+  textTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   value: PropTypes.any,
-  valueTpl: PropTypes.string
+  valueTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ])
 };
 
 RadioGroup.defaultProps = {

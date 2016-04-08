@@ -13,44 +13,30 @@ requireCss('form-control');
 class Input extends Component {
   constructor (props) {
     super(props);
-    this.state = {
-      value: props.value
-    };
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillReceiveProps (nextProps) {
-    let value = nextProps.value;
-    if (value !== this.props.value && value !== this.state.value) {
-      this.setState({ value });
-    }
-  }
-
-  handleChange (event, value) {
+  handleChange (event) {
     if (this.props.readOnly) {
       return;
     }
 
-    if (value === undefined) {
-      value = this._input.value;
-    }
+    let value = event.target.value;
+    const { type } = this.props;
 
-    if (value && (this.props.type === 'integer' || this.props.type === 'number')) {
-      if (!Regs[this.props.type].test(value)) {
-        value = this.state.value || '';
+    if (value && (type === 'integer' || type === 'number')) {
+      if (!Regs[type].test(value)) {
+        return;
       }
     }
 
-    this.setState({ value });
-    setTimeout(() => {
-      if (this.props.onChange) {
-        this.props.onChange(value, event);
-      }
-    }, 0);
+    if (this.props.onChange) {
+      this.props.onChange(value, event);
+    }
   }
 
   handleTrigger (trigger, event) {
-    let value = this._input.value;
+    let value = event.target.value;
     this.props[trigger](value, event);
   }
 
@@ -63,8 +49,7 @@ class Input extends Component {
         getGrid(grid)
       ),
       onChange: this.handleChange,
-      type: type === 'password' ? 'password' : 'text',
-      value: this.state.value
+      type: type === 'password' ? 'password' : 'text'
     };
 
     ['onBlur', 'onKeyDown', 'onKeyUp'].forEach((key) => {
@@ -73,12 +58,13 @@ class Input extends Component {
       }
     });
 
-    return (<input ref={(c) => this._input = c} {...this.props} {...props} />);
+    return (<input {...this.props} {...props} />);
   }
 }
 
 Input.propTypes = {
   className: PropTypes.string,
+  defaultValue: PropTypes.string,
   grid: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.object
@@ -93,6 +79,10 @@ Input.propTypes = {
   style: PropTypes.object,
   type: PropTypes.string,
   value: PropTypes.any
+};
+
+Input.defaultProps = {
+  value: ''
 };
 
 module.exports = register(Input, ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number']);

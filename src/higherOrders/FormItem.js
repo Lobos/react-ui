@@ -208,6 +208,7 @@ export const enhance = (ComposedComponent) => {
 export const register = (ComposedComponent, types=[], options={}) => {
   let newComponent = enhance(ComposedComponent);
 
+  // allow empty type
   //if (isEmpty(types)) {
   //  console.warn('types must be string or array');
   //  return;

@@ -189,9 +189,7 @@ class Select extends ClickAway(Component) {
     let value = this.getValue(this.props.sep, data);
     this.setState({ value, data });
     if (this.props.onChange) {
-      //setTimeout(() => {
-        this.props.onChange(value);
-      //}, 0);
+      this.props.onChange(value);
     }
   }
 
@@ -300,15 +298,24 @@ Select.propTypes = {
   groupBy: PropTypes.string,
   mult: PropTypes.bool,
   onChange: PropTypes.func,
-  optionTpl: PropTypes.string,
+  optionTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   responsive: PropTypes.string,
-  resultTpl: PropTypes.string,
+  resultTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   sep: PropTypes.string,
   style: PropTypes.object,
   value: PropTypes.any,
-  valueTpl: PropTypes.string,
+  valueTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   width: PropTypes.number
 };
 
