@@ -2,7 +2,7 @@
 
 import React, { Component, createElement, PropTypes } from 'react';
 import classnames from 'classnames';
-import { isEmpty, shallowEqual } from '../utils/objects';
+import { shallowEqual } from '../utils/objects';
 import * as Validation from '../utils/validation';
 import { toStyleObject, nextUid } from '../utils/strings';
 
@@ -115,6 +115,10 @@ export const enhance = (ComposedComponent) => {
 
     getValue () {
       return this.state.value;
+    }
+
+    setValue (value) {
+      this.handleChange(value);
     }
 
     handleChange (value, props) {

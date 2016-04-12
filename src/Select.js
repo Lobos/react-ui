@@ -147,7 +147,7 @@ class Select extends ClickAway(Component) {
       d.$result = substitute(this.props.resultTpl || this.props.optionTpl, d);
       d.$value = val;
       d.$checked = value.indexOf(val) >= 0;
-      d.$key = d.id ? d.id : hashcode(val);
+      d.$key = d.id ? d.id : hashcode(val + d.$option);
       return d;
     });
 
