@@ -9,8 +9,10 @@ describe('Behavior', () => {
     const cb = () => {
         done()
       },
-      wrapper1 = shallow(<CheckBox text='foo' onChange={cb} />)
+      wrapper1 = shallow(<CheckBox text='foo' onChange={cb} />),
+      wrapper2 = shallow(<CheckBoxGroup data={compData.dataList2} onChange={cb} />)
 
     wrapper1.simulate('change')
+    wrapper2.simulate('change')
   })
 })

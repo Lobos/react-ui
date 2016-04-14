@@ -10,7 +10,8 @@ const compData = {
 
 const compClass = {
   checkboxContainer: 'rct-checkbox',
-  checkboxGroupContainer: 'rct-checkbox-group'
+  checkboxGroupContainer: 'rct-checkbox-group',
+  checkboxGroupInlineStyle: 'rct-inline'
 }
 
 const compSelector = {
