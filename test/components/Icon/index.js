@@ -1,5 +1,5 @@
-describe('Icon', ()=> {
-  require('./basic');
-  require('./feature');
-  //require('./behavior');
-});
+describe('Icon', () => {
+  require('./basic')
+  require('./feature')
+// require('./behavior')
+})

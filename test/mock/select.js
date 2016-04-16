@@ -17,20 +17,20 @@ const compData = {
     text: 'baz',
     value: 'baz'
   }]
-};
+}
 
 const compClass = {
   select: '.rct-select',
   options: '.rct-select-options',
   placeholder: '.placeholder',
-  show:'.show',
-  filter:'.filter'
-};
+  show: '.show',
+  filter: '.filter'
+}
 
 const compSelector = {
-  filterContainer:'div.filter',
+  filterContainer: 'div.filter',
   showItem: 'li.show',
   multSelectResultContainer: 'div.rct-select-result',
-};
+}
 
-export {compClass, compData, compSelector}
+export { compClass, compData, compSelector }

@@ -6,16 +6,17 @@ const compData = {
     {id: '3', text: 'baz'}
   ]
 
-};
+}
 
 const compClass = {
   checkboxContainer: 'rct-checkbox',
-  checkboxGroupContainer:'rct-checkbox-group'
-};
+  checkboxGroupContainer: 'rct-checkbox-group',
+  checkboxGroupInlineStyle: 'rct-inline'
+}
 
 const compSelector = {
   checkboxItem: 'label.rct-checkbox',
-  checkboxGroupContainer:'div.rct-checkbox-group'
-};
+  checkboxGroupContainer: 'div.rct-checkbox-group'
+}
 
-export {compClass, compData, compSelector}
+export { compClass, compData, compSelector }

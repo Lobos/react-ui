@@ -1,6 +1,5 @@
-describe('Button', ()=> {
-  require('./basic');
-  require('./feature');
-  require('./behavior');
-});
-
+describe('Button', () => {
+  require('./basic')
+  require('./feature')
+  require('./behavior')
+})
