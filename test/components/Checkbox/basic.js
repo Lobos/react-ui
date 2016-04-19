@@ -11,17 +11,17 @@ describe('Basic', () => {
 
   describe('CheckBox', () => {
     it('Should generate a label container tag', () => {
-      assert.equal(_defaultCheckbox.find(compSelector.checkboxItem).length, 1)
+      expect(_defaultCheckbox.find(compSelector.checkboxItem).length).to.equal(1)
     })
 
     it('Should apply text content by text', () => {
-      assert.equal(_defaultCheckbox.text(), 'foo')
+      expect(_defaultCheckbox).to.have.text('foo')
     })
 
     it('Should apply boolean value by default', (done) => {
-      _defaultCheckbox.find('input').simulate('change', {target: { checked: true }})
+      _defaultCheckbox.find('input').simulate('change', { target: { checked: true } })
       setTimeout(() => {
-        assert.equal(typeof _defaultCheckbox.instance().getValue(), 'boolean')
+        expect(_defaultCheckbox.find('input')).to.have.value('true')
         done()
       }, 0)
     })
@@ -30,12 +30,12 @@ describe('Basic', () => {
       const wrapper1 = shallow(<Checkbox text='foo' value='foo' />),
         wrapper2 = shallow(<Checkbox text='foo' value={1} />)
 
-      assert.equal(wrapper1.instance().getValue(), 'foo')
-      assert.equal(wrapper2.instance().getValue(), 1)
+      expect(wrapper1.instance().getValue()).to.equal('foo')
+      expect(wrapper2.instance().getValue()).to.equal(1)
     })
 
     it('Should apply checked status by checked', () => {
-      assert.ok(_defaultCheckbox.prop('checked'))
+      expect(_defaultCheckbox.find('input')).to.be.checked()
     })
   })
 
@@ -45,17 +45,17 @@ describe('Basic', () => {
         checkboxItemsWrapper2 = _defaultCheckboxGroup2.find(compSelector.checkboxItem)
 
       it('Should have the same size', () => {
-        assert.equal(checkboxItemsWrapper1.length, compData.dataList1.length)
-        assert.equal(checkboxItemsWrapper2.length, compData.dataList2.length)
+        expect(checkboxItemsWrapper1.length).to.equal(compData.dataList1.length)
+        expect(checkboxItemsWrapper2.length).to.equal(compData.dataList2.length)
       })
 
       it('Should have the same text', () => {
         compData.dataList1.forEach((e, i) => {
-          assert.equal(checkboxItemsWrapper1.at(i).text(), e)
+          expect(checkboxItemsWrapper1.at(i)).to.have.text(e)
         })
 
         compData.dataList2.forEach((e, i) => {
-          assert.equal(checkboxItemsWrapper2.at(i).text(), e.text)
+          expect(checkboxItemsWrapper2.at(i)).to.have.text(e.text)
         })
       })
     })
@@ -74,18 +74,20 @@ describe('Basic', () => {
           checkboxItemsWrapper1 = wrapper1.find(compSelector.checkboxItem)
 
         compData.dataList2.forEach((e, i) => {
-          assert.equal(checkboxItemsWrapper1.at(i).text(), e.id)
+          expect(checkboxItemsWrapper1.at(i)).to.have.text(e.id)
         })
       })
 
       it('Should render by valueTpl', (done) => {
         const wrapper1 = mount(<CheckboxGroup valueTpl='{text}' data={compData.dataList2} />)
         wrapper1.find('input').forEach(e => {
-          e.simulate('change', {target: { checked: true }})
+          e.simulate('change', { target: { checked: true } })
         })
 
         setTimeout(() => {
-          assert.equal(wrapper1.instance().getValue(), 'foo,bar,baz')
+          wrapper1.find('input').forEach(e => {
+            expect(e).to.be.checked()
+          })
           done()
         }, 0)
       })
@@ -94,11 +96,11 @@ describe('Basic', () => {
     it('Should apply value by sep', function (done) {
       const wrapper1 = mount(<CheckboxGroup sep='|' data={compData.dataList2} />)
       wrapper1.find('input').forEach(e => {
-        e.simulate('change', {target: { checked: true }})
+        e.simulate('change', { target: { checked: true } })
       })
 
       setTimeout(() => {
-        assert.equal(wrapper1.instance().getValue(), '1|2|3')
+        expect(wrapper1.instance().getValue()).to.be.equal('1|2|3')
         done()
       }, 0)
     })
