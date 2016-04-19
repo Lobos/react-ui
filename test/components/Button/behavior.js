@@ -25,8 +25,9 @@ describe('Behavior', () => {
     )
 
     wrapper1.instance().enable()
+    wrapper1.update()
 
-    assert.ok(wrapper1.props('disabled'))
+    expect(wrapper1.find('button')).to.not.be.disabled()
   })
 
   it('Should call disable(elem) to disable enabled Button', () => {
@@ -37,7 +38,8 @@ describe('Behavior', () => {
     )
 
     wrapper1.instance().disable()
+    wrapper1.update()
 
-    assert.ok(wrapper1.props('disabled'))
+    expect(wrapper1.find('button')).to.be.disabled()
   })
 })
