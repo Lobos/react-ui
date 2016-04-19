@@ -64,8 +64,8 @@ describe('Basic', () => {
       const wrapper1 = mount(<CheckboxGroup inline data={compData.dataList1} />).find('div'),
         wrapper2 = mount(<CheckboxGroup inline={false} data={compData.dataList1} />).find('div')
 
-      assert.ok(wrapper1.hasClass(compClass.checkboxGroupInlineStyle))
-      assert.notOk(wrapper2.hasClass(compClass.checkboxGroupInlineStyle))
+      expect(wrapper1).to.have.className(compClass.checkboxGroupInlineStyle)
+      expect(wrapper2).to.not.have.className(compClass.checkboxGroupInlineStyle)
     })
 
     describe('Should render by Tpl', () => {
@@ -107,7 +107,7 @@ describe('Basic', () => {
       const wrapper1 = mount(<CheckboxGroup data={compData.dataList2} value='1,2,3' />)
 
       wrapper1.find('input').forEach(e => {
-        assert.ok(e.get(0).checked)
+        expect(e).to.be.checked()
       })
     })
   })
