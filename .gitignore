@@ -12,3 +12,4 @@ publish
 *.log
 .idea
 /components
+typings
