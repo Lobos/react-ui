@@ -13,3 +13,4 @@ publish
 .idea
 /components
 typings
+jsconfig.json
