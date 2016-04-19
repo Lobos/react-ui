@@ -62,7 +62,7 @@ describe('Basic', () => {
 
     it('Should render by inline', () => {
       const wrapper1 = mount(<CheckboxGroup inline data={compData.dataList1} />).find('div'),
-        wrapper2 = mount(<CheckboxGroup data={compData.dataList1} />).find('div')
+        wrapper2 = mount(<CheckboxGroup inline={false} data={compData.dataList1} />).find('div')
 
       assert.ok(wrapper1.hasClass(compClass.checkboxGroupInlineStyle))
       assert.notOk(wrapper2.hasClass(compClass.checkboxGroupInlineStyle))
