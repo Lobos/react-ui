@@ -25,16 +25,13 @@ describe('Basic', () => {
       const _optionsWrapper1 = _defaultSingleWrapper.find(compClass.select).find(compClass.options),
         _optionsWrapper2 = _defaultMultiObjectWrapper.find(compClass.select).find(compClass.options)
 
-      assert.equal(_optionsWrapper1.find(compSelector.showItem).length, dataList1.length)
-      assert.equal(_optionsWrapper2.find(compSelector.showItem).length, dataList2.length)
+      expect(_optionsWrapper1).to.have.exactly(dataList1.length).descendants(compSelector.showItem)
+      expect(_optionsWrapper2).to.have.exactly(dataList2.length).descendants(compSelector.showItem)
     })
 
     it('Should apply correct text by placeholder', () => {
-      const _placeholderText1 = _defaultSingleWrapper.find(compClass.placeholder).text(),
-        _placeholderText2 = _defaultMultiObjectWrapper.find(compClass.placeholder).text()
-
-      assert.equal(_placeholderText1.trim(), 'single')
-      assert.equal(_placeholderText2.trim(), 'multiple')
+      expect(_defaultSingleWrapper).to.include.text('single')
+      expect(_defaultMultiObjectWrapper).to.include.text('multiple')
     })
 
     it('Should render by value', () => {
@@ -43,13 +40,9 @@ describe('Basic', () => {
         _selectWrapper1 = wrapper1.find(compClass.select),
         _selectWrapper2 = wrapper2.find(compClass.select)
 
-      assert.equal(wrapper1.instance().getValue(), 'foo')
-      assert.equal(wrapper2.instance().getValue()[0], 'foo')
-      assert.equal(wrapper2.instance().getValue()[1], 'bar')
-
-      assert.equal(_selectWrapper1.find('span').at(0).text(), 'foo')
-      assert.equal(_selectWrapper2.find(compSelector.multSelectResultContainer).at(0).text(), 'foo')
-      assert.equal(_selectWrapper2.find(compSelector.multSelectResultContainer).at(1).text(), 'bar')
+      expect(_selectWrapper1.find('span').at(0)).to.have.text('foo')
+      expect(_selectWrapper2.find(compSelector.multSelectResultContainer).at(0)).to.have.text('foo')
+      expect(_selectWrapper2.find(compSelector.multSelectResultContainer).at(1)).to.have.text('bar')
     })
 
     it('Should apply correct Class by grid prop', () => {
@@ -60,13 +53,13 @@ describe('Basic', () => {
         _selectWrapper2 = wrapper2.find(compClass.select),
         _selectWrapper3 = wrapper3.find(compClass.select)
 
-      assert.ok(_selectWrapper1.hasClass('rct-grid-md-50-000'))
+      expect(_selectWrapper1).to.have.className('rct-grid-md-50-000')
 
-      assert.ok(_selectWrapper2.hasClass('rct-grid-md-25-000'))
-      assert.ok(_selectWrapper2.hasClass('rct-offset-md-25-000'))
+      expect(_selectWrapper2).to.have.className('rct-grid-md-25-000')
+      expect(_selectWrapper2).to.have.className('rct-offset-md-25-000')
 
-      assert.ok(_selectWrapper3.hasClass('rct-grid-xl-50-000'))
-      assert.ok(_selectWrapper3.hasClass('rct-offset-xl-50-000'))
+      expect(_selectWrapper3).to.have.className('rct-grid-xl-50-000')
+      expect(_selectWrapper3).to.have.className('rct-offset-xl-50-000')
     })
   })
 
@@ -83,27 +76,27 @@ describe('Basic', () => {
         const _defaultOptionsWrapper = _defaultObjectWrapper.find(compClass.select).find(compClass.options)
 
         _defaultOptionsWrapper.find(compSelector.showItem).forEach((e, i) => {
-          assert.equal(e.text(), compData.dataList1[i])
+          expect(e).to.have.text(compData.dataList1[i])
         })
       })
 
       it('Should render by optionTpl', () => {
         _optionsWrapper1.forEach((e, i) => {
-          assert.equal(e.text(), `${compData.dataList2[i].type}-${compData.dataList2[i].content}`)
+          expect(e).to.have.text(`${compData.dataList2[i].type}-${compData.dataList2[i].content}`)
         })
       })
 
       it('Should render by resultTpl and valueTpl', () => {
         _optionsWrapper1.forEach((e, i) => {
           e.simulate('click')
-          assert.equal(wrapper1.instance().getValue(), compData.dataList2[i].content)
+          expect(wrapper1.instance().getValue()).to.equal(compData.dataList2[i].content)
         })
       })
 
       it('Should render by valueTpl', () => {
         _optionsWrapper1.forEach((e, i) => {
           e.simulate('click')
-          assert.equal(wrapper1.find('span').at(0).text(), compData.dataList2[i].content)
+          expect(wrapper1.find('span').at(0)).to.have.text(compData.dataList2[i].content)
         })
       })
     })
@@ -111,9 +104,9 @@ describe('Basic', () => {
 
   describe('Mutiple', () => {
     it('Should apply correct group number by groupBy key', () => {
-      const _groupWrapper1 = _defaultMultiObjectWrapper.find(compClass.options).find('ul').find('span')
+      const _groupWrapper1 = _defaultMultiObjectWrapper.find(compClass.options).find('ul')
 
-      assert.equal(_groupWrapper1.length, 2)
+      expect(_groupWrapper1).to.have.exactly(2).descendants('span')
     })
 
     it('Should return value by sep', () => {
@@ -125,8 +118,7 @@ describe('Basic', () => {
       _optionsWrapper1.find('ul').find(compSelector.showItem).at(0).simulate('click')
       _optionsWrapper1.find('ul').find(compSelector.showItem).at(1).simulate('click')
 
-      assert.equal(wrapper1.instance().getValue(), ['foo', 'bar'].join(sep))
+      expect(wrapper1.instance().getValue()).to.equal(['foo', 'bar'].join(sep))
     })
   })
 })
-
