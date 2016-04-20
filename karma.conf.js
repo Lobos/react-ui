@@ -1,6 +1,6 @@
 // Karma configuration
 // Generated on Mon Jan 18 2016 12:43:59 GMT+0800 (CST)
-const path = require('path');
+const path = require('path')
 
 module.exports = function (config) {
   config.set({
@@ -88,7 +88,6 @@ module.exports = function (config) {
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
@@ -100,7 +99,7 @@ module.exports = function (config) {
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
 
-    //plugins list
+    // plugins list
     plugins: [
       'karma-mocha',
       'karma-mocha-reporter',
@@ -110,5 +109,5 @@ module.exports = function (config) {
       'karma-sourcemap-loader',
       'karma-coverage'
     ]
-  });
-};
+  })
+}

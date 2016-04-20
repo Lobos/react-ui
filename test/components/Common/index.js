@@ -1,3 +1,3 @@
-describe('Common', ()=> {
-  require('./basic');
-});
+describe('Common', () => {
+  require('./basic')
+})

@@ -3,9 +3,9 @@ import { shallow } from 'enzyme'
 
 import Icon from '../../../src/Icon.js'
 
-describe('Feature', ()=> {
-  it('Should apply icon-spin class', ()=> {
-    const wrapper1 = shallow(<Icon spin={true}/>);
-    assert.ok(wrapper1.hasClass('icon-spin'));
+describe('Feature', () => {
+  it('Should apply icon-spin class', () => {
+    const wrapper1 = shallow(<Icon spin={true} />)
+    expect(wrapper1).to.have.className('icon-spin')
   })
-});
+})

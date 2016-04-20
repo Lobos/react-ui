@@ -12,3 +12,5 @@ publish
 *.log
 .idea
 /components
+typings
+jsconfig.json

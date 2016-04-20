@@ -1,4 +1,4 @@
-describe('Message', ()=> {
-  require('./basic');
-  require('./behavior');
-});
+describe('Message', () => {
+  require('./basic')
+  require('./behavior')
+})

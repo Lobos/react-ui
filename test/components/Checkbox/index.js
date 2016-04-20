@@ -1,5 +1,5 @@
-describe('CheckBox', ()=> {
-  require('./basic');
-  require('./feature');
-  require('./behavior');
-});
+describe('CheckBox', () => {
+  require('./basic')
+  require('./feature')
+  require('./behavior')
+})
