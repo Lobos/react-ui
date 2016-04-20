@@ -9,7 +9,7 @@ describe('Feature', () => {
   it('Should be read only when readOnly=true', () => {
     const wrapper1 = shallow(<Select data={dataList1} readOnly={true} />)
 
-    assert.ok(wrapper1.prop('readOnly'))
+    expect(wrapper1).to.have.prop('readOnly', true)
   })
 
   it(' Should be filtered when filterAble=true', () => {
@@ -18,16 +18,16 @@ describe('Feature', () => {
       _optionsWrapper1 = _selectWrapper1.find(compClass.options)
 
     // prop
-    assert.ok(wrapper1.prop('filterAble'))
+    expect(wrapper1).to.have.prop('filterAble', true)
 
     // ui
     wrapper1.instance().showOptions()
-    assert.equal(_optionsWrapper1.find(compSelector.filterContainer).find('input').length, 1)
+    expect(_optionsWrapper1).to.have.exactly(1).descendants('input')
   })
 
   it(' Should be multi select when mult=true', () => {
     const wrapper1 = shallow(<Select mult={true} data={dataList1} />)
 
-    assert.ok(wrapper1.prop('mult'))
+    expect(wrapper1).to.have.prop('mult', true)
   })
 })

@@ -13,6 +13,6 @@ describe('Feature', () => {
 
     wrapper1.find('button').simulate('click')
 
-    assert.ok(wrapper1.prop('disabled'))
+    expect(wrapper1.find('button')).to.be.disabled()
   })
 })

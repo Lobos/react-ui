@@ -9,12 +9,12 @@ describe('Feature', () => {
     const wrapper1 = mount(<CheckBox readOnly data={compData.dataList1} />),
       wrapper2 = mount(<CheckBoxGroup readOnly data={compData.dataList2} />)
 
-    assert.ok(wrapper1.prop('readOnly'))
-    assert.ok(wrapper1.find('input').get(0).disabled)
-    
-    assert.ok(wrapper2.prop('readOnly'))
+    expect(wrapper1).to.have.prop('readOnly', true)
+    expect(wrapper1.find('input')).to.be.disabled()
+
+    expect(wrapper2).to.have.prop('readOnly', true)
     wrapper2.find('input').forEach(e => {
-      assert.ok(e.get(0).disabled)
+      expect(e.find('input')).to.be.disabled()
     })
   })
 })
