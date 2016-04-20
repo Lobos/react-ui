@@ -29,7 +29,6 @@ export const Modal = require('./Modal');
 export const Message = require('./Message');
 export const Tip = require('./Tip');
 
-
 export const Lang = require('./lang');
 
 export const Utils = {

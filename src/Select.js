@@ -33,7 +33,7 @@ class Select extends ClickAway(Component) {
   }
  
   componentWillReceiveProps (nextProps) {
-    if (nextProps.value !== this.props.value) {
+    if (!deepEqual(nextProps.value, this.props.value)) {
       this.setValue(nextProps.value);
     }
     if (!deepEqual(nextProps.data, this.props.data)) {

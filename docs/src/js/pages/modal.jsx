@@ -79,7 +79,7 @@ module.exports = class extends Component {
     '取消': true
   }}>
   <div>
-    <Form ref={(c) => this.form = c} onSubmit={
+    <Form onSubmit={
       (data) => {
         alert(JSON.stringify(data));
         this.setState({ modalIsOpen: false })
@@ -93,7 +93,7 @@ module.exports = class extends Component {
 <Button status="primary" onClick={ () => this.setState({ modalIsOpen: true }) }>open form</Button>
           </Example>
 
-          <div><em>Modal</em> Modal提供了一个静态方法，供任意位置调用。</div>
+          <div><em>Modal</em> Modal提供了一个静态方法，供任意位置调用。open会返回一个id，供close调用</div>
           <h2 className="subhead">Modal.open(options)</h2>
           <Code>
 {`options = {
@@ -106,8 +106,35 @@ module.exports = class extends Component {
     {text}: func|string      // text 为按钮文字，func 返回 true 或者值为 true，关闭 Modal
                              // func 可以设置为string，当func === 'submit' 时，会触发children下的form的submit事件
   }
-}`}
+}
+var id = Modal.open(options);
+Modal.close(id);
+`}
           </Code>
+
+          <h2 className="subhead">Modal.open</h2>
+          <Example>
+<Button status="primary" onClick={() => Modal.open({
+  header: 'New Form',
+  width: 700,
+  buttons: {
+    '提交': 'submit',
+    '取消': true
+  },
+  content: (
+    <Form onSubmit={
+      (data) => {
+        alert(JSON.stringify(data));
+        {/*关闭最上层Modal*/}
+        Modal.close();
+      }} layout="aligned">
+      <FormControl name="name" grid={7/8} required={true} label="姓名" type="text" />
+      <FormControl name="birthday" required={true} label="生日" type="date" />
+      <FormControl name="description" grid={7/8} label="简介" type="textarea" rows={6} />
+    </Form>
+  )
+})}>open form</Button>
+          </Example>
 
           <h2 className="subhead">Modal.alert(content)</h2>
           <div>快捷方式， <em>content</em> 为 <em>string</em> 或者 <em>ReactElement</em></div>
@@ -129,8 +156,8 @@ module.exports = class extends Component {
 >confirm example</Button>
           </Example>
 
-          <h2 className="subhead">Modal.close(data)</h2>
-          <div>关闭最上层弹出的Modal</div>
+          <h2 className="subhead">Modal.close(id)</h2>
+          <div>关闭指定的Modal，id为open方法返回，不填时关闭最上层Modal</div>
 
           <h2 className="subhead">多层弹出</h2>
           <Example>

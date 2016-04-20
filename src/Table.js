@@ -79,7 +79,7 @@ class Table extends Component {
     this.setState({ data });
   }
 
-  onCheck (i, e) {
+  onSelect (i, e) {
     let checked = typeof e === 'boolean' ? e : e.target.checked,
         data = this.state.data,
         index = this.state.index,
@@ -99,7 +99,7 @@ class Table extends Component {
     this.setState({data});
   }
 
-  getChecked (name) {
+  getSelected (name) {
     let values = [];
     this.state.data.forEach((d) => {
       if (d.$checked) {
@@ -168,7 +168,7 @@ class Table extends Component {
       if (selectAble) {
         tds.push(
           <td className="td-checkbox" key="checkbox">
-            <input checked={d.$checked} onChange={this.onCheck.bind(this, i)} type="checkbox" />
+            <input checked={d.$checked} onChange={this.onSelect.bind(this, i)} type="checkbox" />
           </td>
         );
       }
@@ -202,7 +202,7 @@ class Table extends Component {
     if (this.props.selectAble) {
       headers.push(
         <TableHeader key="checkbox" name="$checkbox" header={
-          <input onClick={this.onCheck.bind(this, 'all')} type="checkbox" />
+          <input onClick={this.onSelect.bind(this, 'all')} type="checkbox" />
         } />
       );
     }

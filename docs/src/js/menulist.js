@@ -27,7 +27,6 @@ module.exports = [
   { path: '/pagination', text: 'Pagination', component: require('./pages/pagination.jsx') },
   { path: '/modal', text: 'Modal', component: require('./pages/modal.jsx') },
   { path: '/message', text: 'Message', component: require('./pages/message.jsx') },
-  { path: '/tip', text: 'Tip', component: require('./pages/tip.jsx') },
 
   'Highorder',
   { path: '/fetch', text: 'Fetch', component: require('./pages/fetch.jsx') },

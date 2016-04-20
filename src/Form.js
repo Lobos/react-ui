@@ -226,7 +226,6 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  autoComplete: PropTypes.bool,
   beforeSubmit: PropTypes.func,
   button: PropTypes.string,
   children: PropTypes.any,
@@ -246,7 +245,6 @@ Form.propTypes = {
 };
 
 Form.defaultProps = {
-  autoComplete: false,
   data: {},
   layout: 'aligned',
   disabled: false
