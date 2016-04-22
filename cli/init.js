@@ -14,6 +14,44 @@ const defaultPackage = {
 
 let cwd = process.cwd();
 
+let argv = process.argv.slice(2);
+let options = [];
+
+argv.forEach((a) => {
+  if (a === 'all') {
+    options = options.concat(['update', 'demo', 'webpack', 'server']);
+  } else if (['update', 'demo', 'webpack', 'server'].indexOf(a) >= 0) {
+    options.push(a);
+  }
+});
+
+// remove duplicate
+options = options.filter((opt, pos) => {
+  return options.indexOf(opt) === pos;
+});
+
+if (options.length === 0) {
+  console.log(`Usage: node node_modules/rctui/cli/init.js [options]
+  options:
+    all     install dependencies, add demo, dev server, webpack config
+    update  install/update dependencies
+    demo    add demo dir
+    webpack add webpack config, will overwrite webpack.config.js!!!
+    server  add dev server
+  `);
+  return;
+}
+
+function mkdir (p) {
+  if (!fs.existsSync(p)){
+    fs.mkdirSync(p);
+  }
+}
+
+function copy (origin, newFile) {
+  fs.createReadStream(origin).pipe(fs.createWriteStream(newFile));
+}
+
 function updatePackage (resolve, reject) {
   fs.readFile('./package.json', function(err, data) {
     let dps = [];
@@ -47,14 +85,15 @@ function updatePackage (resolve, reject) {
       dps.push({ m, v:dependencies.babel[m] });
     });
 
-    Object.keys(dependencies.hot).forEach((m) => {
-      data.dependencies[m] = dependencies.hot[m];
-      dps.push({ m, v:dependencies.hot[m] });
-    });
+    if (options.indexOf('server') >= 0) {
+      Object.keys(dependencies.server).forEach((m) => {
+        data.dependencies[m] = dependencies.server[m];
+        dps.push({ m, v:dependencies.server[m] });
+      });
+    }
 
     fs.writeFile('./package.json', JSON.stringify(data, null, 2), (err) => {
       if (err) { reject(err); }
-      console.log('package update success.');
     });
 
     let total = dps.length;
@@ -64,7 +103,6 @@ function updatePackage (resolve, reject) {
       console.log(`${msg} [${count}/${total}]`);
       if (count === total) {
         // all done
-        console.log('all done');
         resolve(true);
       }
     }
@@ -82,36 +120,51 @@ function updatePackage (resolve, reject) {
   });
 }
 
-function webpackConfig (resolve, reject) {
+function copyWebpackConfig (resolve, reject) {
   try {
     copy(`${__dirname}/webpack.config.js`, './webpack.config.js');
+    console.log('add webpack.config.js success.');
     resolve(true);
   } catch (e) {
     reject(e);
   }
 }
 
-function mkdir (p) {
-  if (!fs.existsSync(p)){
-    fs.mkdirSync(p);
+function copyDemo (resolve, reject) {
+  try {
+    mkdir('./demo');
+    copy(`${__dirname}/demo/index.js`, './demo/index.js');
+    copy(`${__dirname}/demo/index.html`, './demo/index.html');
+    console.log('add demo dir success.');
+    resolve(true);
+  } catch (e) {
+    reject(e);
   }
 }
 
-function copy (origin, newFile) {
-  fs.createReadStream(origin).pipe(fs.createWriteStream(newFile));
+function copyDevServer (resolve, reject) {
+  try {
+    copy(`${__dirname}/devServer.js`, './devServer.js');
+    console.log('add devServer.js success.');
+    resolve(true);
+  } catch (e) {
+    reject(e);
+  }
 }
 
-function demo (resolve, reject) {
-  mkdir('./demo');
-  copy(`${__dirname}/demo/index.js`, './demo/index.js');
-  copy(`${__dirname}/demo/index.html`, './demo/index.html');
-  copy(`${__dirname}/devServer.js`, './devServer.js');
+const funcs = {
+  'update': updatePackage,
+  'demo': copyDemo,
+  'webpack': copyWebpackConfig,
+  'server': copyDevServer
 }
 
-new Promise(updatePackage)
-.then(() => {
-  return new Promise(webpackConfig);
-})
-.then(() => {
-  demo();
+let func = funcs[options[0]];
+let promise = new Promise(func);
+for (let i=1; i<options.length; i++) {
+  promise = promise.then(() => new Promise(funcs[options[i]]));
+}
+promise.catch((e) => {
+  throw e;
 });
+

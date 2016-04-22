@@ -30,9 +30,10 @@ module.exports = {
     "url-loader": "~0.5.7",
     "webpack": "~1.12.14",
   },
-  hot: {
+  server: {
     "babel-preset-react-hmre": "~1.1.1",
     "express": "~4.13.4",
+    "lodash": "~4.11.1",
     "webpack-dev-middleware": "~1.5.1",
     "webpack-hot-middleware": "~2.10.0"
   }

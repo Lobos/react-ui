@@ -218,7 +218,7 @@ class FormControl extends Component {
       let component = COMPONENTS[props.type];
       if (component) {
         this.propsExtend(props);
-        props.key = i;
+        props.key = `${props.label}|${props.name}`;
         props.$controlId = this.id;
         props = merge({}, props, grid);
         return component.render(props);

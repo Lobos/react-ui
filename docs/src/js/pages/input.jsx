@@ -28,6 +28,9 @@ module.exports = () => {
         </Code>
         <div>0.6 textarea 不再包含在Input中</div>
 
+        <h2 className="subhead">onChange(value, event)</h2>
+        <div>onChagne的回调参数，第一个参数是value，第二参数是event</div>
+
         <h2 className="subhead">Example</h2>
         <Example>
 <Input grid={1/4} placeholder="基础文本" /><br />

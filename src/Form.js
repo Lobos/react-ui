@@ -23,14 +23,11 @@ class Form extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submit = this.submit.bind(this);
 
-    // don't need state
     this.items = {};
-    this.names = {};
     this.validationPools = {};
 
     this.itemBind = (item) => {
       this.items[item.id] =item;
-      this.names[item.name] = item.id;
 
       let data = this.state.data;
       data[item.name] = item.value;
@@ -45,17 +42,12 @@ class Form extends Component {
     };
 
     this.itemUnbind = (id, name) => {
+      let data = this.state.data;
       delete this.items[id];
-
-      // if id is matched name, remove data
-      if (this.names[name] === id) {
-        let data = this.state.data;
-        delete data[name];
-        this.setState({ data });
-
-        // remove valiBind
-        delete this.validationPools[name];
-      }
+      delete data[name];
+      // remove valiBind
+      delete this.validationPools[name];
+      this.setState({ data });
     };
 
     this.itemChange = (id, value, err) => {

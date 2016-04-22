@@ -25,6 +25,3 @@ require('../json/text-value.json');
 require('../json/tree.json');
 require('../less/style.less');
 
-import {Themes} from '../../../src/';
-Themes.setTheme();
-

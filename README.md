@@ -17,13 +17,19 @@ var CheckboxGroup = require('rctui/CheckboxGroup')
 var FormControl = require('rctui/FormControl')
 ```
 
-# style
-0.6 版之后不再自动加载css文件，需要手动调用一次Themes.setTheme()来加载css。
+# cli
+webpack的环境配置确实太过麻烦，很多问题都出在配置的地方。本来打算写个start kit，但是觉得以后维护还是可能有同步更新的问题，所以在源码里加了一个cli的目录，实现安装／升级依赖包，提供一个简单的demo，webpack设置和支持hot load的devServer配置。**需要node 4，npm 3以上版本支持。npm 3 以下会有各种peerDependencies错误。**
+**注意，会覆盖默认的webpack.config.js文件，请做好备份**
 
-# build
-使用 [webpack](http://webpack.github.io/) 打包，可以修改 'src/index.js' 自定义需要的组件。
 ```
-build: npm run build
+npm install rctui
+node node_modules/rctui/cli/init.js [options]
+options:
+    - all        安装／升级依赖包，增加demo文件，devServer服务，webpack配置
+    - update     只安装／升级依赖包
+    - demo       一个简单的demo
+    - server     在项目根目录下添加一个devServer.js文件，可以通过 node devServer.js 启动
+    - webpack    在项目根目录下添加一个webpack.config.js文件，注意备份原来项目里的webpack配置文件
 ```
 
 # Components
@@ -50,16 +56,17 @@ build: npm run build
 
 # Change log
 v0.6.1
- - dataSource 方式改为higher order component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
+ - dataSource 变为了 [fetch](http://lobos.github.io/react-ui/#/fetch)。方式改为higher order component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
  - clickaway 改为 Mixins，增加registerClickAway
  - datetime 加入today, min, max, 移除 dateOnly, timeOnly, 使用 type 代替
  - 文档重构，增加rctui-example-loader把Example转为Code，避免文档和示例不同步造成误导
- - 加入FormItem，拆分FormControl，重构整个Form结构
+ - 加入FormItem，拆分FormControl。所有的表单组件都通过value传入值，通过onChange事件传出值。
+ - 重构整个Form结构，不再使用getValue，setValue，通过onSubmit处理数据
  - CheckboxGroup, RadioGroup 支持data和children混合输入
  - Tree替换图片图标，改用传入icon
- - 不自动加载css文件，使用Themes.setTheme() 手动加载
-
-v0.5.2
+ - 由于Modal之前的版本中有很多人反应获取form有问题，所以，button 加入submit的快捷方式，直接触发children中的form submit事件。另外，除了全局方法调用，可以在组件中render。
+ 
+ v0.5.2
  - babel 5 => 6，移除es7的语法
  - 移除在线build(木有精力维护了……)
  - getGrid 改为utils下的方法，不再使用higher order function
@@ -102,7 +109,7 @@ v0.3.0
  - Component全部改为es6形式
  - grids的css改用js动态生成
  - 剥离需要服务端数据的Component内置ajax调用，改用dataSource实现
- - 移除全部Mixins，使用Higher Order
+ - 移除全部Mixins，使用Higher Order Component
 
 v0.2.3
 
@@ -114,5 +121,3 @@ v0.2.2
  - 使用webpack打包，减少体积，去除了 `Reflux` 和 `superagent` 依赖。
  - 放弃bootstrap，使用yahoo/pure。
  - 在webpack中使用了`babel-loader`，所以用了部分es6语法，参考 [babel](https://babeljs.io/docs/learn-es2015/) 的文档，没有使用需要 polyfill 支持的部分（因为需要额外引入45KB左右的 polyfill 包）。不要忘记在页面中加入 [es5-shim](https://github.com/es-shims/es5-shim) 引用。
-
-
