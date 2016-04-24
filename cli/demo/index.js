@@ -12,7 +12,7 @@ class Demo extends Component {
   render () {
     return (
       <div>
-        <div>a demo</div>
+        <h2>React UI Form demo</h2>
         <Form onSubmit={(data) => Modal.alert(JSON.stringify(data), 'alert')}>
           <FormControl type="text" name="text" grid={1/4} label="text" />
           <FormControl type="date" name="date" label="date" />
