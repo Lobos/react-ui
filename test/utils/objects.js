@@ -59,4 +59,14 @@ describe('utils objects', function () {
     JSON.stringify(Objects.sortByKey(obj)).should.eql(JSON.stringify({a:1, b:3, c:2}));
     Objects.sortByKey(null).should.eql({});
   });
+
+  it('shallowEqual', () => {
+    let a = { a: 1, b: 2 };
+    let b = { b: 2, a: 1 };
+    let c = a;
+    (a === b).should.be.false;
+    Objects.shallowEqual(a, b).should.be.true;
+    Objects.shallowEqual(a, c).should.be.true;
+    Objects.shallowEqual(a, null).should.be.false;
+  });
 });

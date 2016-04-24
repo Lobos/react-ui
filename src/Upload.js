@@ -1,12 +1,12 @@
 'use strict';
 
 import classnames from 'classnames';
-import { Component, PropTypes } from 'react';
-import Events from './utils/events';
+import React, { Component, PropTypes } from 'react';
+import * as Events from './utils/events';
 import { nextUid, format } from './utils/strings';
 import { getGrid } from './utils/grids';
-import Message from './Message';
 import upload from './utils/upload';
+import { register } from './higherOrders/FormItem';
 
 import { requireCss } from './themes';
 requireCss('upload');
@@ -20,6 +20,8 @@ class Upload extends Component {
     this.state = {
       files: {}
     };
+    this.addFile = this.addFile.bind(this);
+    this.files = {};
   }
 
   isCompleted () {
@@ -36,34 +38,49 @@ class Upload extends Component {
   getValue () {
     let values = [],
         files = this.state.files;
+    const { sep } = this.props;
     Object.keys(files).forEach((id) => {
-      if (this.props.autoUpload) {
+      //if (autoUpload) {
         values.push(files[id].value);
-      } else {
-        values.push(files[id].file.files[0]);
-      }
+      //} else {
+      //  values.push(files[id].file.files[0]);
+      //}
     });
+    if (sep) {
+      values = values.join(sep);
+    }
     return values;
   }
 
-  // nope
-  setValue() {}
+  handleChange (value) {
+    const { onChange } = this.props;
+    if (value === undefined) {
+      if (this.isCompleted()) {
+        value = this.getValue();
+      } else {
+        value = new Error('');
+      }
+    }
+    if (onChange) {
+      onChange(value);
+    }
+  }
 
   addFile () {
-    if (this.props.disabled || this.props.readOnly) {
+    const { accept, autoUpload, disabled, readOnly, fileSize } = this.props;
+    if (disabled || readOnly) {
       return;
     }
 
     let files = this.state.files,
-        file = document.createElement('input'),
-        autoUpload = this.props.autoUpload;
+        file = document.createElement('input');
     file.type = 'file';
-    file.accept = this.props.accept;
+    file.accept = accept;
     file.click();
     Events.on(file, 'change', () => {
       let blob = file.files[0];
-      if (blob.size / 1024 > this.props.fileSize) {
-        Message.show(format(getLang('validation.tips.fileSize'), this.props.fileSize), 'error');
+      if (blob.size / 1024 > fileSize) {
+        this.handleChange(new Error(format(getLang('validation.tips.fileSize'), fileSize)));
         return;
       }
 
@@ -93,29 +110,46 @@ class Upload extends Component {
     }
     delete files[id];
     this.setState({ files });
+    this.handleChange();
   }
 
   uploadFile (file, id) {
+    let { onUpload } = this.props;
     return upload({
       url: this.props.action,
       name: this.props.name,
       cors: this.props.cors,
+      params: this.props.params,
       withCredentials: this.props.withCredentials,
       file: file.files[0],
       onProgress: (e) => {
-        let progress = this.refs[id];
+        let progress = this.files[id];
         progress.style.width = (e.loaded / e.total) * 100 + '%';
+        this.handleChange(new Error(''));
       },
       onLoad: (e) => {
         let files = this.state.files;
-        files[id].status = 2;
-        files[id].value = e.currentTarget.responseText;
+        let value = e.currentTarget.responseText;
+        if (onUpload) {
+          value = onUpload(value);
+        }
+
+        if (value instanceof Error) {
+          files[id].status = 3;
+          files[id].name = value.message;
+        } else {
+          files[id].status = 2;
+          files[id].value = value;
+        }
+
         this.setState({ files });
+        this.handleChange();
       },
       onError: () => {
         let files = this.state.files;
         files[id].status = 3;
         this.setState({ files });
+        this.handleChange();
       }
     });
   }
@@ -131,34 +165,32 @@ class Upload extends Component {
     let files = this.state.files;
     return Object.keys(files).map((id, i) => {
       let file = this.state.files[id];
-      let className = classnames(
-        `rct-file`,
-        {
-          'uploaded': file.status === 2,
-          'has-error': file.status === 3
-        }
-      );
+      let className = classnames({
+        'uploaded': file.status === 2,
+        'has-error': file.status === 3
+      });
       return (
-        <div key={i}>
-          <div className={className}>
+        <div key={i} className={className}>
+          <div className="rct-file">
             <span>{file.name}</span>
             <a className="remove" onClick={this.removeFile.bind(this, id)}>&times; {getLang('buttons.cancel')}</a>
           </div>
-          <div ref={id} className={`rct-upload-progress`}></div>
+          <div ref={(c) => this.files[id] = c} className={'rct-upload-progress'}></div>
         </div>
       );
     });
   }
 
   render () {
-    let className = classnames(
-      getGrid(this.props.grid),
-      `rct-upload-container`,
-      this.props.className
+    let { className, grid, limit, style, content } = this.props;
+    className = classnames(
+      getGrid(grid),
+      'rct-upload-container',
+      className
     );
     return (
-      <div className={className} style={this.props.style}>
-        { Object.keys(this.state.files).length < this.props.limit && <div onClick={this.addFile.bind(this)}>{this.props.content}</div> }
+      <div className={className} style={style}>
+        { Object.keys(this.state.files).length < limit && <div onClick={this.addFile}>{content}</div> }
         { this.renderFiles() }
       </div>
     );
@@ -174,33 +206,27 @@ Upload.propTypes = {
   cors: PropTypes.bool,
   disabled: PropTypes.bool,
   fileSize: PropTypes.number,
+  grid: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object
+  ]),
   limit: PropTypes.number,
   name: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  onUpload: PropTypes.func,
+  params: PropTypes.object,
   readOnly: PropTypes.bool,
+  sep: PropTypes.string,
   style: PropTypes.object,
   withCredentials: PropTypes.bool
 };
 
 Upload.defaultProps = {
-  autoUpload: false,
+  autoUpload: true,
   cors: true,
   fileSize: 4096,
   limit: 1,
   withCredentials: false
 };
 
-import FormControl from './FormControl';
-FormControl.register(
-
-  'upload',
-
-  function (props) {
-    return <Upload {...props} />;
-  },
-
-  Upload,
-
-  'array'
-);
-
-module.exports = Upload;
+module.exports = register(Upload, 'upload', {valueType: 'array'});

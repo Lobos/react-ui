@@ -1,0 +1,76 @@
+input[type=checkbox], .tree-icon.checked, .tree-icon.unchecked, .tree-icon.half-checked {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 3px;
+  position: relative;
+  vertical-align: middle;
+  line-height: 1;
+  outline: 0;
+  box-sizing: border-box;
+
+  &:hover, &:checked, &.checked, &.half-checked, &[disabled] {
+    border-color: #aaa;
+  }
+
+  &[disabled]:after {
+    background: #f2f2f2;
+    cursor: not-allowed;
+  }
+
+  &:checked:after, &.checked:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 9px;
+    height: 9px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+	  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgc3R5bGU9IndpZHRoOjMwOHB4O2hlaWdodDozMDhweDsiIHZlcnNpb249IjEuMSIgaWQ9IuWbvuW9oiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMDI0cHgiIGhlaWdodD0iMTAyNHB4IiB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMDI0IDEwMjQiIHhtbDpzcGFjZT0icHJlc2VydmUiPiAgPHBhdGggY2xhc3M9InN2Z3BhdGgiIGRhdGEtaW5kZXg9InBhdGhfMCIgZmlsbD0iIzUxNTE1MSIgZD0iTTk1NC44NTcxNDMgMzIzLjQyODU3MXEwIDIyLjg1NzE0My0xNiAzOC44NTcxNDNsLTQ5MS40Mjg1NzEgNDkxLjQyODU3MXEtMTYgMTYtMzguODU3MTQzIDE2dC0zOC44NTcxNDMtMTZsLTI4NC41NzE0MjktMjg0LjU3MTQyOXEtMTYtMTYtMTYtMzguODU3MTQzdDE2LTM4Ljg1NzE0M2w3Ny43MTQyODYtNzcuNzE0Mjg2cTE2LTE2IDM4Ljg1NzE0My0xNnQzOC44NTcxNDMgMTZsMTY4IDE2OC41NzE0MjkgMzc0Ljg1NzE0My0zNzUuNDI4NTcxcTE2LTE2IDM4Ljg1NzE0My0xNnQzOC44NTcxNDMgMTZsNzcuNzE0Mjg2IDc3LjcxNDI4NnExNiAxNiAxNiAzOC44NTcxNDN6IiAvPjwvc3ZnPg==);
+  }
+
+  &.half-checked:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    display: block;
+    width: 7px;
+    height: 7px;
+    background: #666;
+    border-radius: 2px;
+  }
+}
+
+.rct-checkbox, .rct-radio {
+  display: inline-block;
+  vertical-align: middle;
+  * {
+    vertical-align: middle;
+  }
+
+  input {
+    margin-right: 5px;
+  }
+}
+
+.rct-checkbox-group, .rct-radio-group {
+  &.rct-inline {
+    .rct-checkbox, .rct-radio {
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+
+  &.rct-block {
+    .rct-checkbox, .rct-radio {
+      display: block;
+    }
+  }
+}
+

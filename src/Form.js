@@ -1,10 +1,14 @@
 'use strict';
 
-import React, { Children, Component, PropTypes } from 'react';
+import React, { Children, Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
-import { forEach } from './utils/objects';
+import { forEach, deepEqual, hashcode } from './utils/objects';
+import clone from './utils/clone';
+import { getGrid } from './utils/grids';
 import FormControl from './FormControl';
 import FormSubmit from './FormSubmit';
+import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
+import { getLang } from './lang';
 
 import { requireCss } from './themes';
 requireCss('form');
@@ -13,120 +17,99 @@ class Form extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      data: {}
+      data: props.data
     };
-  }
-  
-  componentWillMount () {
-    this.fetchData(this.props.data);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.submit = this.submit.bind(this);
+
+    this.items = {};
+    this.validationPools = {};
+
+    this.itemBind = (item) => {
+      this.items[item.id] =item;
+
+      let data = this.state.data;
+      data[item.name] = item.value;
+      this.setState({ data });
+
+      // bind triger item
+      if (item.valiBind) {
+        item.valiBind.forEach((vb) => {
+          this.validationPools[vb] = (this.validationPools[vb] || []).concat(item.validate);
+        });
+      }
+    };
+
+    this.itemUnbind = (id, name) => {
+      let data = this.state.data;
+      delete this.items[id];
+      delete data[name];
+      // remove valiBind
+      delete this.validationPools[name];
+      this.setState({ data });
+    };
+
+    this.itemChange = (id, value, err) => {
+      let data = this.state.data;
+      const name = this.items[id].name;
+
+      // don't use merge or immutablejs
+      //data = merge({}, data, {[name]: value});
+
+      if (data[name] !== value) {
+        data[name] = value;
+        // setState only triger render, data was changed
+        this.setState({ data });
+      }
+
+      let valiBind = this.validationPools[name];
+      if (valiBind) {
+        valiBind.forEach((validate) => {
+          if (validate) {
+            validate();
+          }
+        });
+      }
+
+      this.items[id].$validation = err;
+    };
   }
 
   componentWillReceiveProps (nextProps) {
-    if (this.props.data !== this.props.data) {
-      this.fetchData(nextProps.data);
+    if (!deepEqual(this.props.data, nextProps.data)) {
+      this.setState({ data: nextProps.data });
+
+      // if data changed, clear validation
+      forEach(this.items, (item) => {
+        delete item.$validation;
+      });
     }
-  }
-
-  fetchData (data) {
-    if (typeof data === 'function') {
-      data.then((res) => {
-        this.fetchData(res);
-      })();
-      return;
-    }
-    this.setState({ data });
-    this.setData(data);
-  }
-
-  getValue () {
-    let data = this.state.data;
-    forEach(this.refs, (ref, k) => {
-      if (!ref.props.ignore) {
-        data[k] = ref.getValue();
-      }
-    });
-    return data;
-  }
-
-  setValue (key, value) {
-    let data = this.state.data;
-    data[key] = value;
-    this.setState({ data });
-  }
-
-  setData (data) {
-    forEach(this.refs, (ref, k) => {
-      ref.setValue(data[k]);
-    });
-  }
-
-  equalValidate (targetRef, equalRef) {
-    let self = this;
-    return function () {
-      let target = self.refs[targetRef];
-      if (!target) {
-        console.warn(`equal target '${targetRef}' not existed`);
-        return false;
-      }
-      let equal = self.refs[equalRef];
-      return target.getValue() === equal.getValue();
-    };
-  }
-
-  renderChildren () {
-    return Children.map(this.props.children, (child) => {
-      let props = {
-        hintType: child.props.hintType || this.props.hintType,
-        readOnly: child.props.readOnly || this.props.locked,
-        layout: this.props.layout
-      };
-      if (child.type === FormControl) {
-        if (!child.props.name) {
-          console.warn('FormControl must have a name!');
-          return null;
-        }
-        props.ref = child.props.name;
-        if (this.state.data[child.props.name] !== undefined) {
-          props.value = this.state.data[child.props.name];
-        }
-        if (child.props.equal) {
-          props.onValidate = this.equalValidate(child.props.equal, child.props.name);
-        }
-      } else if (child.type === FormSubmit) {
-        props.locked = this.props.locked;
-      }
-
-      child = React.cloneElement(child, props);
-      return child;
-    });
-  }
-
-  getReference (name) {
-    return this.refs[name];
   }
 
   validate () {
     let success = true;
-    forEach(this.refs, function (child) {
-      if (child.props.ignore) {
-        return;
+    forEach(this.items, (item) => {
+      let suc = item.$validation;
+      if (suc === undefined) {
+        suc = item.validate();
+        this.items[item.id].$validation = suc;
       }
-      let suc = child.validate();
-      success = success && suc;
+      success = success && (suc === true);
     });
     return success;
   }
 
   handleSubmit (event) {
-    if (this.props.locked) {
+    if (this.props.disabled) {
       return;
     }
 
     event.preventDefault();
-    this.onSubmit();
+    this.submit();
   }
 
-  onSubmit () {
+  submit () {
     let success = this.validate();
     if (success && this.props.beforeSubmit) {
       success = this.props.beforeSubmit();
@@ -137,24 +120,98 @@ class Form extends Component {
     }
 
     if (this.props.onSubmit) {
-      this.props.onSubmit(this.getValue());
+      // send clone data
+      let data = clone(this.state.data);
+
+      // remove ignore value
+      forEach(this.items, (item) => {
+        if (item.ignore) {
+          delete data[item.name];
+        }
+      });
+
+      this.props.onSubmit(data);
     }
+
+    return true;
+  }
+
+  renderControls () {
+    const { data } = this.state;
+    const { hintType, controls, disabled, layout } = this.props;
+
+    return clone(controls).map((control, i) => {
+      if (typeof control !== 'object') {
+        return control;
+      } else {
+        control.key = control.key || control.name || hashcode(control);
+        control.hintType = control.hintType || hintType;
+        control.readOnly = control.readOnly || disabled;
+        control.layout = layout;
+        control.itemBind = this.itemBind;
+        control.itemUnbind = this.itemUnbind;
+        control.itemChange = this.itemChange;
+        control.formData = data;
+        return <FormControl { ...control } />;
+      }
+    });
+  }
+
+  renderChildren (children) {
+    let { data } = this.state;
+    let { fetchStatus, disabled } = this.props;
+
+    return Children.map(children, (child) => {
+      if (!child) { return null; }
+      if (typeof child === 'string') { return child; }
+      let { hintType, readOnly } = child.props;
+      let props = {
+        hintType: hintType || this.props.hintType,
+        readOnly: readOnly || disabled,
+        layout: this.props.layout,
+      };
+      if (child.type === FormControl || child.type.displayName === 'FormItem') {
+        props.itemBind = this.itemBind;
+        props.itemUnbind = this.itemUnbind;
+        props.itemChange = this.itemChange;
+        props.formData = data;
+      } else if (child.type === FormSubmit) {
+        props.disabled = disabled;
+        if (fetchStatus !== FETCH_SUCCESS) {
+          props.children = getLang('fetch.status')[fetchStatus];
+        }
+      } else if (child.props.children) {
+        props.children = this.renderChildren(child.props.children);
+      }
+
+      return cloneElement(child, props);
+    });
+  }
+
+  renderButton (text) {
+    return <FormSubmit disabled={this.props.disabled}>{text}</FormSubmit>;
   }
 
   render () {
-    let className = classnames(
-      this.props.className,
+    let { button, controls, fetchStatus, children, className, onSubmit, grid, layout, ...props } = this.props;
+
+    className = classnames(
+      className,
+      getGrid(grid),
       'rct-form',
       {
-        'rct-form-aligned': this.props.layout === 'aligned',
-        'rct-form-inline': this.props.layout === 'inline',
-        'rct-form-stacked': this.props.layout === 'stacked'
+        'rct-form-aligned': layout === 'aligned',
+        'rct-form-inline': layout === 'inline',
+        'rct-form-stacked': layout === 'stacked'
       }
     );
 
     return (
-      <form onSubmit={this.handleSubmit.bind(this)} style={this.props.style} className={className}>
-        {this.renderChildren()}
+      <form onSubmit={this.handleSubmit} className={className} {...props}>
+        {controls && this.renderControls()}
+        {this.renderChildren(children)}
+        {button && this.renderButton(button)}
+        {fetchStatus !== FETCH_SUCCESS && <div className="rct-form-mask" />}
       </form>
     );
   }
@@ -162,23 +219,27 @@ class Form extends Component {
 
 Form.propTypes = {
   beforeSubmit: PropTypes.func,
+  button: PropTypes.string,
   children: PropTypes.any,
   className: PropTypes.string,
-  data: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.func
-  ]).isRequired,
+  controls: PropTypes.array,
+  data: PropTypes.object,
+  disabled: PropTypes.bool,
+  fetchStatus: PropTypes.string,
+  grid: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object
+  ]),
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
-  locked: PropTypes.bool,
   onSubmit: PropTypes.func,
   style: PropTypes.object
 };
 
 Form.defaultProps = {
   data: {},
-  layout: 'inline',
-  locked: false
+  layout: 'aligned',
+  disabled: false
 };
 
-module.exports = Form;
+module.exports = fetchEnhance(Form);

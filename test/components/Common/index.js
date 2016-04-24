@@ -1,0 +1,3 @@
+describe('Common', () => {
+  require('./basic')
+})

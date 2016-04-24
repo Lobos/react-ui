@@ -1,0 +1,89 @@
+.component-tip{
+  position: relative;
+  display: inline;
+
+  .tip-block{
+    position: absolute;
+    z-index: 100;
+    left: 50%;
+    transform: translateX(-50%) scale(0,0);
+    transition: all 0.3s;
+  }
+
+  .tip-border{
+    position: relative;
+    border-radius: 4px;
+    box-shadow: 0 0 8px 1px #bbb;
+    border: 1px solid #cfcfcf;
+    padding: 8px;
+    background: #fff;
+  }
+
+  .pos-bottom{
+    transform: translateX(-50%) scale(1,1);
+  }
+
+
+  .pos-top{
+    transform: translateX(-50%) scale(1,1);
+  }
+
+  .top-origin{
+    bottom: 100%;
+    padding-bottom: 12px;
+    transform-origin: center bottom;
+
+    .arrow{
+      bottom: 0;
+      transform: rotate(180deg);
+    }
+  }
+
+  .bottom-origin {
+    transform-origin: center top;
+    top: 100%;
+    padding-top: 12px;
+    .arrow {
+      top: 0;
+    }
+  }
+
+  .arrow{
+    bottom: 100%;
+    left: 50%;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+
+  }
+
+  .arrow::before, .arrow::after{
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+
+  }
+
+  .arrow::after{
+    border-bottom-color: #fff;
+    border-width: 8px;
+  }
+
+  .arrow::before{
+    border-bottom-color: #cfcfcf;
+    border-width: 9px;
+  }
+
+
+
+
+
+}

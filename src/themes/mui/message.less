@@ -1,0 +1,92 @@
+@import "mixins";
+
+.rct-message-container {
+  position: fixed;
+  display: none;
+  z-index: 1050;
+  width: 500px;
+  /*
+  top: 0;
+  left: 50%;
+  margin-left: -250px;
+  */
+  right: -100%;
+  bottom: 0;
+
+  &.has-message {
+    right: 15px;
+    display: block;
+  }
+
+  .rct-overlay {
+    left: 0;
+    .opacity(0.01);
+  }
+
+  .rct-message {
+    position: relative;
+    z-index: 1051;
+    padding: 20px 40px 20px 20px;
+    color: #fff;
+    background: @primary;
+    border-radius: 2px;
+    .box-shadow(0 5px 15px rgba(0,0,0,.2));
+    margin-bottom: 15px;
+    .fadein();
+    .transition(0.45s);
+
+    h3 {
+      margin-top: 0;
+    }
+
+    &.dismissed {
+      .opacity(0);
+    }
+
+    .close {
+      position: absolute;
+      background-color: transparent;
+      border: none;
+      line-height: 1;
+      right: 0;
+      top: 0;
+      padding: 10px;
+      font-size: 20px;
+      outline: none;
+    }
+  }
+
+  .rct-message-success {
+    background: @green;
+  }
+
+  .rct-message-error {
+    background: @red;
+  }
+
+  .rct-message-warning {
+    background: @orange;
+  }
+
+  .rct-message-info {
+    background: @teal;
+  }
+}
+
+@media (max-width: 767px) {
+  .rct-message-container {
+    bottom: 0;
+    width: 100%;
+
+    &.has-message {
+      top: 0;
+      margin: 0;
+      left: 0;
+    }
+
+    .rct-message {
+      border-radius: 0;
+      margin-bottom: 0;
+    }
+  }
+}

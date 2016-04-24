@@ -1,0 +1,87 @@
+// come from purecss/buttons
+
+@import "mixins";
+
+.rct-button {
+  /* Structure */
+  white-space: nowrap;
+  vertical-align: middle;
+  text-align: center;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  font-family: inherit;
+  font-size: 100%;
+  padding: 7px 16px;
+  line-height: 14px;
+  color: #8a8a8a; /* rgba not supported (IE 8) */
+  border: 1px solid #ccc;  /*IE 6/7/8*/
+  background-color: #f9f9f9;
+  text-decoration: none;
+  border-radius: 2px;
+  outline: none;
+
+  /* Firefox: Get rid of the inner focus border */
+  &:focus, &::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+
+  &:hover {
+    text-decoration: none;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.1);
+    color: #333;
+    transition: 0.2s ease-in-out;
+    outline: 0;
+
+  }
+
+  &[disabled] {
+    border: none;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    filter: alpha(opacity=40);
+    -khtml-opacity: 0.40;
+    -moz-opacity: 0.40;
+    opacity: 0.40;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+.rct-button-primary, .rct-button-success, .rct-button-error, .rct-button-info, .rct-button-warning {
+  color: #fff;
+}
+
+.rct-button-primary {
+  border-color: #dd2727;
+  background-color: @primary;
+
+  &:hover{
+    color: #fff;
+    background-color: #ee3f36;
+    border-color: #ee3f36;
+  }
+}
+
+.rct-button-success {
+  background: @green;
+}
+
+.rct-button-error {
+  background: @red;
+}
+
+.rct-button-warning {
+  background: @orange;
+}
+
+.rct-button-info {
+  background: @teal;
+}

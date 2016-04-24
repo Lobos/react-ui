@@ -1,40 +1,70 @@
-"use strict";
+'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes, Children } from 'react';
 import classnames from 'classnames';
-import { toTextValue } from './utils/objects';
+import { deepEqual, toTextValue, hashcode } from './utils/objects';
+import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
+import { register } from './higherOrders/FormItem';
+import { getLang } from './lang';
 import Radio from './Radio';
+
+function transformValue(value) {
+  if (value === null || value === undefined) {
+    return value;
+  }
+
+  if (typeof value !== 'string') {
+    value = value.toString();
+  }
+
+  return value;
+}
 
 class RadioGroup extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: this.props.value,
-      data: this.formatData(this.props.data)
+      value: transformValue(props.value),
+      data: this.formatData(props.data)
     };
+    this.handleChange = this.handleChange.bind(this);
   }
   
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
     }
-    if (nextProps.data !== this.props.data) {
+    if (!deepEqual(nextProps.data, this.props.data)) {
       this.setState({ data: this.formatData(nextProps.data) });
     }
   }
 
   formatData (data) {
-    if (typeof data === 'function') {
-      data.then((res) => {
-        this.setState({ data: this.formatData(res) });
-      })();
-      return [];
-    } else {
-      return toTextValue(data, this.props.textTpl, this.props.valueTpl);
-    }
+    data = toTextValue(data, this.props.textTpl, this.props.valueTpl);
+    Children.map(this.props.children, (child) => {
+      if (typeof child === 'object') {
+        let position = child.props.position;
+        if (position === undefined) {
+          position = data.length;
+        }
+        data = [
+          ...data.slice(0, position),
+          {
+            $value: child.props.value,
+            $text: child.props.children || child.props.text,
+            $key: hashcode(`${child.props.value}-${child.props.text}`)
+          },
+          ...data.slice(position)
+        ];
+
+      }
+    });
+    return data;
+
   }
 
   setValue (value) {
+    value = transformValue(value);
     this.setState({ value });
   }
 
@@ -50,23 +80,28 @@ class RadioGroup extends Component {
     this.setState({ value });
     let change = this.props.onChange;
     if (change) {
-      setTimeout(function () {
-        change(value);
-      }, 0);
+      change(value);
     }
   }
 
   render () {
-    let className = classnames(
-      this.props.className,
+    let { className, fetchStatus, inline, readOnly } = this.props;
+
+    // if get remote data pending or failure, render message
+    if (fetchStatus !== FETCH_SUCCESS) {
+      return <span className={`fetch-${fetchStatus}`}>{getLang('fetch.status')[fetchStatus]}</span>;
+    }
+
+    className = classnames(
+      className,
       'rct-radio-group',
-      { 'rct-inline': this.props.inline }
+      { 'rct-inline': inline }
     );
-    let items = this.state.data.map(function (item, i) {
+    let items = this.state.data.map(function (item) {
       return (
-        <Radio key={i}
-          onClick={this.handleChange.bind(this)}
-          readOnly={this.props.readOnly}
+        <Radio key={item.$key}
+          onClick={this.handleChange}
+          readOnly={readOnly}
           checked={this.state.value === item.$value}
           text={item.$text}
           value={item.$value}
@@ -81,36 +116,37 @@ class RadioGroup extends Component {
 }
 
 RadioGroup.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.array
+  ]),
   className: PropTypes.string,
   data: PropTypes.oneOfType([
     PropTypes.array,
-    PropTypes.func
-  ]).isRequired,
+    PropTypes.object
+  ]),
+  fetchStatus: PropTypes.string,
   inline: PropTypes.bool,
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
   style: PropTypes.object,
-  textTpl: PropTypes.string,
+  textTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   value: PropTypes.any,
-  valueTpl: PropTypes.string
+  valueTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ])
 };
 
 RadioGroup.defaultProps = {
   textTpl: '{text}',
-  valueTpl: '{id}'
+  valueTpl: '{id}',
+  inline: true
 };
 
-import FormControl from './FormControl';
-FormControl.register(
+RadioGroup = fetchEnhance(RadioGroup);
 
-  'radio-group',
-
-  function (props) {
-    return <RadioGroup {...props} />;
-  },
-
-  RadioGroup
-
-);
-
-module.exports = RadioGroup;
+module.exports = register(RadioGroup, 'radio-group');

@@ -52,6 +52,10 @@
         }
       }
     }
+
+    .td-checkbox {
+      width: 13px;
+    }
   }
 
   &.rct-bordered {
@@ -64,7 +68,7 @@
 
     &.rct-scrolled {
       th:last-child {
-        border-right: solid 1px #ddd;
+        //border-right: solid 1px #ddd;
       }
     }
 
@@ -88,7 +92,9 @@
   }
 
   .body-container {
-    margin-bottom: 10px;
+    thead tr {
+      border-bottom: solid 1px #ddd;
+    }
   }
 }
 

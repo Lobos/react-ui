@@ -1,11 +1,16 @@
-"use strict";
+'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import { requireCss } from './themes';
 requireCss('checkbox');
 
 class Radio extends Component {
+  constructor (props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   handleClick () {
     if (this.props.onClick) {
       this.props.onClick(this.props.value, this.props.index);
@@ -19,7 +24,7 @@ class Radio extends Component {
           type="radio"
           disabled={this.props.readOnly}
           onChange={() => {}}
-          onClick={this.handleClick.bind(this)}
+          onClick={this.handleClick}
           checked={this.props.checked}
           value={this.props.value}
         />

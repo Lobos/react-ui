@@ -10,5 +10,7 @@ publish
 *.bat
 *.sh
 *.log
+.idea
 /components
-/coverage
+typings
+jsconfig.json

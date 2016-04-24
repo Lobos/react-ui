@@ -1,38 +1,16 @@
 @import "../../../src/themes/mixins/mixins";
 
 .nav {
-  position: fixed;
   width: 220px;
-  left: 0;
-  height: 100%;
-  top: 0;
-  z-index: 999;
-  background-color: #f2f2f2;
-
-  .pure-menu-heading {
-    font-size: 18px;
-    padding: 0 0 0 1em;
-    line-height: 50px;
-    border-bottom: solid 1px #ddd;
-  }
-
-  .link-github {
-    position: absolute;
-    top: 12px;
-    color: #888;
-    right: 1em;
-  }
+  min-height: 100%;
+  float: left;
+  margin-left: -220px;
 
   .nav-inner {
-    overflow: auto;
-    position: absolute;
-    top: 50px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 10px 0 20px;
+    padding: 20px 0;
 
     a { 
+      position: relative;
       color: #777;
 
       &:hover, &:focus {
@@ -40,8 +18,8 @@
       }
 
       &.active {
-        color: #fff;
-        background-color: #1f8dd6;
+        color: #1f8dd6;
+        background-color: #fff;
       }
     }
 
@@ -74,7 +52,7 @@
     }
 
     .pure-menu-link {
-      padding: 5px 20px;
+      padding: 5px 20px 5px 30px;
     }
 
     .pure-menu-list {
@@ -87,6 +65,12 @@
       .pure-menu-item {
         height: auto;
       }
+    }
+
+    .menu-group-label {
+      padding: 5px 20px;
+      font-size: 12px;
+      color: #aaa;
     }
   }
 

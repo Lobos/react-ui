@@ -1,6 +1,7 @@
 @import "mixins";
 
 .rct-form {
+  position: relative;
   input[readonly], textarea[readonly] {
     background-color: #eee; /* menu hover bg color */
     color: #777; /* menu text color */
@@ -12,6 +13,16 @@
     background-color: #eaeded;
     color: #cad2d3;
   }
+
+  .rct-form-mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+  }
 }
 
 .rct-form-aligned {
@@ -19,16 +30,25 @@
     position: relative;
     padding-left: 11em;
     margin-bottom: 1em;
+    min-height: 2em;
     .box-sizing(border-box);
 
-    label {
+    & > label {
       text-align: left;
       display: block;
       width: auto;
+
+      &.required:before {
+        content: '*';
+        display: inline-block;
+        font-family: SimSun;
+        margin-right: 4px;
+        color: @red;
+      }
     }
 
     .rct-checkbox-group, .rct-radio-group {
-      padding-top: 0.4em;
+      padding-top: 0.15em;
 
       &.rct-inline label {
         display: inline-block;
@@ -36,7 +56,17 @@
     }
 
     .rct-rating {
-      margin-top: 0.4em;
+      margin-top: 0.1em;
+    }
+
+    .fetch-pending, .fetch-failure {
+      display: block;
+      padding: 6px 9px;
+      line-height: normal;
+    }
+
+    .fetch-failure {
+      color: @red;
     }
 
     & > .label {
@@ -44,7 +74,8 @@
       text-align: right;
       width: 10em;
       left: 0;
-      top: 0.5em;
+      top: 0;
+      line-height: 2em;
     }
   }
 }

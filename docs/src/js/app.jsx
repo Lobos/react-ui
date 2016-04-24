@@ -9,7 +9,7 @@ global.uiRequire = function (src) {
 };
 
 import ReactDOM from 'react-dom';
-const AppRoutes = require('./app-routes.jsx');
+const AppRoutes = require('./appRoutes.jsx');
 
 ReactDOM.render(
   AppRoutes,
@@ -24,3 +24,4 @@ require('../json/table.json');
 require('../json/text-value.json');
 require('../json/tree.json');
 require('../less/style.less');
+

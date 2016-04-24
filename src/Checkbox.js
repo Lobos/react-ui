@@ -1,7 +1,9 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
+import { register } from './higherOrders/FormItem';
+
 import { requireCss } from './themes';
 requireCss('checkbox');
 
@@ -9,43 +11,54 @@ class Checkbox extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      checked: !!this.props.checked
+      checked: !!props.checked || props.value === props.checkValue
     };
+    this.handleChange = this.handleChange.bind(this);
   }
   
   componentWillReceiveProps (nextProps) {
-    if (nextProps.checked !== this.props.checked) {
-      this.setState({ checked: nextProps.checked });
+    if (nextProps.checked !== this.props.checked && nextProps.checked !== this.state.checked) {
+      this.handleChange(null, nextProps.checked);
+    }
+    if (nextProps.value !== this.props.value || nextProps.checkValue !== this.props.checkValue) {
+      this.setValue(nextProps.value, nextProps.checkValue);
     }
   }
 
-  handleChange (event) {
+  handleChange (event, checked) {
     if (this.props.readOnly) {
       return;
     }
 
-    this.setState({ checked: event.target.checked });
-    if (this.props.onChange) {
-      this.props.onChange(event.target.checked, this.props.value, this.props.index);
+    if (event) {
+      checked = event.target.checked;
     }
-  }
-
-  getValue () {
-    return this.refs.input.checked ? (this.props.value || true) : false;
-  }
-
-  setValue (value) {
-    var checked = value === true || value === 1 || value === this.state.value;
     this.setState({ checked });
+    setTimeout(() => {
+      if (this.props.onChange) {
+        let value = checked ? this.props.checkValue : undefined;
+        this.props.onChange(value, checked, this.props.index);
+      }
+    }, 0);
+  }
+
+  /*
+  getValue () {
+    return this._input.checked ? (this.props.value || true) : false;
+  }
+  */
+
+  setValue (value, checkValue=this.props.checkValue) {
+    this.setState({ checked: value === checkValue });
   }
 
   render () {
     return (
       <label style={this.props.style} className={ classnames(this.props.className, 'rct-checkbox') }>
-        <input ref='input'
-          type='checkbox'
+        <input ref={(c) => this._input = c}
+          type="checkbox"
           disabled={this.props.readOnly}
-          onChange={this.handleChange.bind(this)}
+          onChange={this.handleChange}
           checked={this.state.checked}
           value={this.props.value}
         />
@@ -57,27 +70,24 @@ class Checkbox extends Component {
 }
 
 Checkbox.propTypes = {
+  checkValue: PropTypes.any,
   checked: PropTypes.bool,
   children: PropTypes.any,
   className: PropTypes.string,
   index: PropTypes.number,
   onChange: PropTypes.func,
+  position: PropTypes.number,
   readOnly: PropTypes.bool,
   style: PropTypes.object,
   text: PropTypes.any,
   value: PropTypes.any
 };
 
-import FormControl from './FormControl';
-FormControl.register(
+Checkbox.defaultProps = {
+  checkValue: true
+}
 
-  'checkbox',
+module.exports = register(Checkbox, 'checkbox');
 
-  function (props) {
-    return <Checkbox {...props} />;
-  },
-
-  Checkbox
-);
-
-module.exports = Checkbox;
+// export for CheckboxGroup
+module.exports.Checkbox = Checkbox;

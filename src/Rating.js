@@ -1,7 +1,8 @@
-"use strict";
+'use strict';
 
-import { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
+import { register } from './higherOrders/FormItem';
 
 import { requireCss } from './themes';
 requireCss('rating');
@@ -15,10 +16,11 @@ class Rating extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: this.props.value,
+      value: props.value,
       hover: 0,
       wink: false
     };
+    this.handleLeave = this.handleLeave.bind(this);
   }
   
   componentWillReceiveProps (nextProps) {
@@ -28,9 +30,7 @@ class Rating extends Component {
   }
 
   handleHover (value) {
-    return function () {
-      this.setState({ hover: value });
-    }.bind(this);
+    this.setState({ hover: value });
   }
 
   handleLeave () {
@@ -94,7 +94,7 @@ class Rating extends Component {
       items.push(
         <span key={i}
           style={{cursor: 'pointer'}}
-          onMouseOver={this.handleHover(i + 1)}
+          onMouseOver={this.handleHover.bind(this, i + 1)}
           onClick={this.handleChange.bind(this, i + 1)}
           className={classnames('rct-rating-handle', { active, wink: active && wink })}>
           {cloneElement(icon)}
@@ -102,7 +102,7 @@ class Rating extends Component {
       );
     }
 
-    return <div onMouseOut={this.handleLeave.bind(this)} className="rct-rating-front">{items}</div>;
+    return <div onMouseOut={this.handleLeave} className="rct-rating-front">{items}</div>;
   }
 
   getMute () {
@@ -137,10 +137,6 @@ class Rating extends Component {
   }
 }
 
-Rating.register = function (key, icons) {
-  themes[key] = icons;
-};
-
 Rating.propTypes = {
   className: PropTypes.string,
   icons: PropTypes.array,
@@ -154,20 +150,14 @@ Rating.propTypes = {
 };
 
 Rating.defaultProps = {
+  value: 0,
   maxValue: 5
 };
 
-import FormControl from './FormControl';
-FormControl.register(
+Rating = register(Rating, 'rating');
 
-  'rating',
-
-  function (props) {
-    return <Rating {...props} />;
-  },
-
-  Rating
-
-);
+Rating.register = function (key, icons) {
+  themes[key] = icons;
+};
 
 module.exports = Rating;

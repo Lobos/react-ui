@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import Overlay from './Overlay';
@@ -14,9 +14,15 @@ const ADD_MESSAGE = 'EB3A79637B40';
 const REMOVE_MESSAGE = '73D4EF15DF50';
 const CLEAR_MESSAGE = '73D4EF15DF52';
 let messages = [];
-let messageContainer = null;
+let containerDOM = null;
+let containerElement = null;
 
 class Item extends Component {
+  constructor (props) {
+    super(props);
+    this.dismiss = this.dismiss.bind(this);
+  }
+
   dismiss () {
     if (this.props.dismissed) {
       return;
@@ -34,7 +40,7 @@ class Item extends Component {
 
     return (
       <div className={className}>
-        <button type="button" onClick={this.dismiss.bind(this)} className="close">&times;</button>
+        <button type="button" onClick={this.dismiss} className="close">&times;</button>
         {this.props.content}
       </div>
     );
@@ -51,6 +57,11 @@ Item.propTypes = {
 };
 
 class Message extends Component {
+  constructor (props) {
+    super(props);
+    this.clear.bind(this);
+  }
+
   dismiss (index) {
     PubSub.publish(REMOVE_MESSAGE, index);
   }
@@ -74,7 +85,7 @@ class Message extends Component {
 
     return (
       <div className={className}>
-        <Overlay onClick={this.clear.bind(this)} />
+        <Overlay onClick={this.clear} />
         {items}
       </div>
     );
@@ -87,22 +98,19 @@ Message.propTypes = {
 };
 
 Message.show = function (content, type) {
-  if (!messageContainer) {
-    createContainer();
+  if (!containerDOM) {
+    containerDOM = document.createElement('div');
+    document.body.appendChild(containerDOM);
   }
-  PubSub.publish(ADD_MESSAGE, {
+  PubSub.publishSync(ADD_MESSAGE, {
     content,
     type: type || 'info'
   });
+  return containerElement;
 };
 
 function renderContainer() {
-  ReactDOM.render(<Message messages={messages} />, messageContainer);
-}
-
-function createContainer () {
-  messageContainer = document.createElement('div');
-  document.body.appendChild(messageContainer);
+  containerElement = ReactDOM.render(<Message messages={messages} />, containerDOM);
 }
 
 PubSub.subscribe(ADD_MESSAGE, (topic, data) => {

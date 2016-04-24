@@ -1,6 +1,6 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { forEach } from './utils/objects';
 
@@ -11,8 +11,9 @@ class Pagination extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      index: this.props.index
+      index: props.index
     };
+    this.setInput = this.setInput.bind(this);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -60,14 +61,14 @@ class Pagination extends Component {
   }
 
   getPages () {
-    let total = this.props.total,
-        size = this.props.size,
-        index = this.state.index,
-        span = this.props.pages,
-        max = Math.ceil(total / size),
-        pages = [],
+    let { total, size, index, pages } = this.props;
+    let max = Math.ceil(total / size),
         left,
-        right;
+        right,
+        span = pages || 10;
+
+    // bad thing...
+    pages = [];
 
     if (index > max) {
       index = max;
@@ -88,14 +89,20 @@ class Pagination extends Component {
       right -= left > 1 ? 1 : 0;
     }
 
-    // add first
+    // push first
     if (left > 1) {
       pages.push(1);
+    }
+    if (left > 2) {
+      pages.push('<..');
     }
     for (let i = left; i < right + 1; i++) {
       pages.push(i);
     }
-    // add last
+    if (right < max - 1) {
+      pages.push('..>');
+    }
+    // push last
     if (right < max) {
       pages.push(max);
     }
@@ -111,32 +118,36 @@ class Pagination extends Component {
 
     // Previous
     items.push(
-      <li key="previous" onClick={index <= 1 ? null : this.handleChange.bind(this, index - 1)} className={classnames({ disabled: index <= 1 })}>
-        <a>&laquo;</a>
+      <li key="previous" onClick={index <= 1 ? null : this.handleChange.bind(this, index - 1)} className={classnames('previous', { disabled: index <= 1 })}>
+        <a><span>&nbsp;</span></a>
       </li>
     );
 
     if (mini) {
       items.push(
-        <form key="i" onSubmit={this.setInput.bind(this)}>
+        <form key="i" onSubmit={this.setInput}>
           <input ref="input" defaultValue={this.state.index} type="text" className="rct-form-control" />
         </form>
       );
       items.push(<span key="s"> / {max}</span>);
     } else {
       forEach(pages, function (i) {
-        items.push(
-          <li onClick={this.handleChange.bind(this, i)} className={classnames({ active: i === index })} key={i}>
-            <a>{i}</a>
-          </li>
-        );
+        if (i === '<..' || i === '..>') {
+          items.push(<li key={i} className="sep"><span>...</span></li>);
+        } else {
+          items.push(
+            <li onClick={this.handleChange.bind(this, i)} className={classnames({ active: i === index })} key={i}>
+              <a>{i}</a>
+            </li>
+          );
+        }
       }, this);
     }
 
     // Next
     items.push(
-      <li key="next" onClick={index >= max ? null : this.handleChange.bind(this, index + 1)} className={classnames({ disabled: index >= max })}>
-        <a>&raquo;</a>
+      <li key="next" onClick={index >= max ? null : this.handleChange.bind(this, index + 1)} className={classnames('next', { disabled: index >= max })}>
+        <a><span>&nbsp;</span></a>
       </li>
     );
 
@@ -152,10 +163,10 @@ class Pagination extends Component {
         </ul>
         {
           this.props.jumper && !mini &&
-          <form onSubmit={this.setInput.bind(this)}>
+          <form onSubmit={this.setInput}>
             <div className="rct-input-group">
               <input ref="input" defaultValue={this.state.index} type="text" className="rct-form-control" />
-              <span onClick={this.setInput.bind(this)} className="addon">go</span>
+              <span onClick={this.setInput} className="addon">go</span>
             </div>
           </form>
         }

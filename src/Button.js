@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { getGrid } from './utils/grids';
 import { requireCss } from './themes';
@@ -10,9 +10,10 @@ class Button extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      disabled: this.props.disabled,
+      disabled: props.disabled,
       show: null
     };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,7 +53,7 @@ class Button extends Component {
     );
 
     return (
-      <button onClick={this.handleClick.bind(this)}
+      <button onClick={this.handleClick}
         style={this.props.style}
         disabled={this.state.disabled}
         className={className}
@@ -67,6 +68,7 @@ Button.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   disabled: PropTypes.bool,
+  grid: PropTypes.object,
   onClick: PropTypes.func,
   once: PropTypes.bool,
   status: PropTypes.string,

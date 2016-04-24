@@ -1,9 +1,11 @@
 'use strict';
 
-import { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { substitute } from './utils/strings';
+import { deepEqual, hashcode } from './utils/objects';
 import TableHeader from './TableHeader';
+import { fetchEnhance } from './higherOrders/Fetch';
 
 import { requireCss } from './themes';
 requireCss('tables');
@@ -12,16 +14,13 @@ class Table extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      index: this.props.pagination ? this.props.pagination.props.index : 1,
-      data: [],
+      index: props.pagination ? props.pagination.props.index : 1,
+      data: props.data,
       sort: {},
       total: null
     };
-    this.unmounted = false;
-  }
 
-  componentWillMount () {
-    this.fetchData(this.props.data);
+    this.onBodyScroll = this.onBodyScroll.bind(this);
   }
 
   componentDidMount () {
@@ -29,8 +28,8 @@ class Table extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.data !== this.props.data) {
-      this.fetchData(nextProps.data);
+    if (!deepEqual(nextProps.data, this.props.data)) {
+      this.setState({ data: nextProps.data });
     }
   }
 
@@ -38,11 +37,15 @@ class Table extends Component {
     this.setHeaderWidth();
   }
 
-  componentWillUnmount () {
-    this.unmounted = true;
+  checkHeadFixed () {
+    const { height } = this.props;
+    return !!height && height !== 'auto';
   }
   
   setHeaderWidth () {
+    if (!this.checkHeadFixed()) {
+      return;
+    }
     let body = this.refs.body;
     let tr = body.querySelector('tr');
     if (!tr) {
@@ -52,21 +55,12 @@ class Table extends Component {
     let ths = this.refs.header.querySelectorAll('th');
 
     let tds = tr.querySelectorAll('td');
+    if (tds.length <= 1) {
+      return;
+    }
     for (let i = 0, count = tds.length; i < count; i++) {
       if (ths[i]) {
         ths[i].style.width = tds[i].offsetWidth + 'px';
-      }
-    }
-  }
-
-  fetchData (data) {
-    if (typeof data === 'function') {
-      data.then((res) => {
-        this.fetchData(res);
-      })();
-    } else {
-      if (!this.unmounted) {
-        this.setState({ data });
       }
     }
   }
@@ -85,7 +79,7 @@ class Table extends Component {
     this.setState({ data });
   }
 
-  onCheck (i, e) {
+  onSelect (i, e) {
     let checked = typeof e === 'boolean' ? e : e.target.checked,
         data = this.state.data,
         index = this.state.index,
@@ -105,7 +99,7 @@ class Table extends Component {
     this.setState({data});
   }
 
-  getChecked (name) {
+  getSelected (name) {
     let values = [];
     this.state.data.forEach((d) => {
       if (d.$checked) {
@@ -159,17 +153,27 @@ class Table extends Component {
   }
 
   renderBody (data) {
-    let selectAble = this.props.selectAble;
+    const { selectAble, headers } = this.props;
+
+    if (!Array.isArray(data)) {
+      return <tbody><tr><td colSpan={headers.length}>{data}</td></tr></tbody>;
+    }
+
+    const headerKeys = headers.map((h) => {
+      return h.name || hashcode(h);
+    });
+
     let trs = data.map((d, i) => {
       let tds = [];
       if (selectAble) {
         tds.push(
-          <td style={{width: 13}} key="checkbox">
-            <input checked={d.$checked} onChange={this.onCheck.bind(this, i)} type="checkbox" />
+          <td className="td-checkbox" key="checkbox">
+            <input checked={d.$checked} onChange={this.onSelect.bind(this, i)} type="checkbox" />
           </td>
         );
       }
-      this.props.headers.map((h, j) => {
+      let rowKey = d.id ? d.id : hashcode(d);
+      headers.map((h, j) => {
         if (h.hidden) {
           return;
         }
@@ -185,9 +189,9 @@ class Table extends Component {
         if (h.width) {
           tdStyle.width = h.width;
         }
-        tds.push(<td style={tdStyle} key={j}>{content}</td>);
+        tds.push(<td style={tdStyle} key={headerKeys[j]}>{content}</td>);
       });
-      return <tr key={i}>{tds}</tr>;
+      return <tr key={rowKey}>{tds}</tr>;
     });
 
     return <tbody>{trs}</tbody>;
@@ -198,7 +202,7 @@ class Table extends Component {
     if (this.props.selectAble) {
       headers.push(
         <TableHeader key="checkbox" name="$checkbox" header={
-          <input onClick={this.onCheck.bind(this, 'all')} type="checkbox" />
+          <input onClick={this.onSelect.bind(this, 'all')} type="checkbox" />
         } />
       );
     }
@@ -208,7 +212,7 @@ class Table extends Component {
       }
 
       let props = {
-        key: i,
+        key: header.name || i,
         onSort: (name, asc) => {
           this.setState({sort: { name, asc }});
           if (this.props.onSort) {
@@ -252,42 +256,48 @@ class Table extends Component {
         onBodyScroll = null,
         { total, data } = this.getData();
 
-    if (this.props.height) {
-      bodyStyle.height = this.props.height;
+    const { height, width, bordered, striped } = this.props;
+    let fixedHead = this.checkHeadFixed();
+
+    if (height) {
+      bodyStyle.height = height;
       bodyStyle.overflow = 'auto';
     }
-    if (this.props.width) {
-      headerStyle.width = this.props.width;
+    if (width) {
+      headerStyle.width = width;
       if (typeof headerStyle.width === 'number') {
         headerStyle.width += 20;
       }
-      tableStyle.width = this.props.width;
+      tableStyle.width = width;
       bodyStyle.overflow = 'auto';
-      onBodyScroll = this.onBodyScroll.bind(this);
+      onBodyScroll = this.onBodyScroll;
     }
 
     let className = classnames(
       this.props.className,
       'rct-table',
       {
-        'rct-bordered': this.props.bordered,
-        'rct-scrolled': this.props.height,
-        'rct-striped': this.props.striped
+        'rct-bordered': bordered,
+        'rct-scrolled': height,
+        'rct-striped': striped
       }
     );
 
     return (
       <div style={this.props.style} className={className}>
-        <div className="header-container">
-          <div ref="headerContainer" style={headerStyle}>
-            <table ref="header">
-              <thead>{this.renderHeader()}</thead>
-            </table>
+        { fixedHead &&
+          <div className="header-container">
+            <div ref="headerContainer" style={headerStyle}>
+              <table ref="header">
+                <thead>{this.renderHeader()}</thead>
+              </table>
+            </div>
           </div>
-        </div>
+        }
 
         <div onScroll={onBodyScroll} style={bodyStyle} className="body-container">
           <table style={tableStyle} className="rct-table-body" ref="body">
+            { !fixedHead && <thead>{this.renderHeader()}</thead> }
             {this.renderBody(data)}
           </table>
         </div>
@@ -305,8 +315,8 @@ Table.propTypes = {
   className: PropTypes.string,
   data: PropTypes.oneOfType([
     PropTypes.array,
-    PropTypes.func
-  ]).isRequired,
+    PropTypes.element
+  ]),
   filters: PropTypes.array,
   headers: PropTypes.array,
   height: PropTypes.oneOfType([
@@ -324,4 +334,8 @@ Table.propTypes = {
   ])
 };
 
-module.exports = Table;
+Table.defaultProps = {
+  data: []
+}
+
+module.exports = fetchEnhance(Table);

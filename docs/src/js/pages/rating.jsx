@@ -1,7 +1,8 @@
 "use strict";
 
-import React from 'react';
-import prettify from '../prettify';
+import { Component } from 'react';
+import Code from '../Code';
+import Example from '../Example';
 const {Rating, Icon, RadioGroup, Checkbox} = global.uiRequire();
 
 Rating.register('star', [
@@ -9,7 +10,7 @@ Rating.register('star', [
   <Icon size={2} style={{color: 'gold'}} icon="star" />
 ]);
 
-class Page extends React.Component {
+module.exports = class extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -29,7 +30,7 @@ class Page extends React.Component {
         </div>
 
         <div className="content">
-          <pre className="prettyprint">
+          <Code>
 {`<Rating
   className={string}  // class
   icons={array}       // 数组，长度为2，值为element，两个元素宽度高度必须相同，0为未选中，1为选中
@@ -45,62 +46,17 @@ Rating.register( // 注册一个主题，供重复调用
   array          // 等同与 icons
 )
 `}
-          </pre>
+          </Code>
 
           <h2 className="subhead">Example</h2>
-          <div>
-            <Rating maxValue={this.state.maxValue}
-              theme={this.state.theme}
-              icons={this.state.icons}
-              readOnly={this.state.readOnly}
-              value={this.state.value}
-              onChange={value=>this.setState({ value })}
-            />
-          </div>
-
-          <div style={{marginBottom: 10}}>
-            <span>maxValue: </span>
-            <RadioGroup className="pure-u-1 pure-u-sm-7-8" inline={true} onChange={maxValue=>this.setState({ maxValue })} value={this.state.maxValue} data={[5, 10, 12, 20]} />
-          </div>
-
-          <div>
-            <Checkbox onChange={
-              checked=>this.setState({
-                icons: checked ?
-                  [<Icon icon="favorite-outline" style={{color: 'red'}} />, <Icon icon="favorite" style={{color: 'red'}} />] :
-                  null
-              })}
-              text={'设置icons为heart'} />
-          </div>
-
-          <div>
-            <Checkbox value="readOnly" onChange={readOnly=>this.setState({ readOnly })} text={'readOnly'} />
-          </div>
-
-          <div style={{marginBottom: 10}}>
-            <span>value: </span>
-            <input onChange={event=>this.setState({ value: event.target.value })} type="text" value={this.state.value} />
-          </div>
-
-          <br />
-
-          <pre className="prettyprint">
+          <Code>
 {`// 注册主题
 Rating.register('star', [
   <Icon size={2} style={{color: 'gold'}} icon="star-outline" />,
   <Icon size={2} style={{color: 'gold'}} icon="star" />
-])
-
-// state
-getInitialState: function () {
-  return {
-    readOnly: false,
-    maxValue: 5,
-    value: 3,
-    theme: 'star'
-  }
-}
-
+])`}
+          </Code>
+          <Example>
 <Rating maxValue={this.state.maxValue}
   theme={this.state.theme}
   icons={this.state.icons}
@@ -109,30 +65,32 @@ getInitialState: function () {
   onChange={value=>this.setState({ value })}
 />
 
-maxValue: <RadioGroup className="pure-u-1 pure-u-sm-7-8" inline={true}
-  onChange={maxValue=>this.setState({ maxValue })}
-  value={this.state.maxValue} data={[5, 10, 12, 20]} />
+<div style={{marginBottom: 10}}>
+  <span>maxValue: </span>
+  <RadioGroup className="pure-u-1 pure-u-sm-7-8" inline={true} onChange={maxValue=>this.setState({ maxValue })} value={this.state.maxValue} data={[5, 10, 12, 20]} />
+</div>
 
-<Checkbox onChange={
-  checked=>this.setState({
-    icons: checked ?
-      [<Icon icon="favorite-outline" style={{color: 'red'}} />,
-       <Icon icon="favorite" style={{color: 'red'}} />] :
-      null
-  })}
-  text={'设置icons为heart'} />
+<div>
+  <Checkbox onChange={
+    checked=>this.setState({
+      icons: checked ?
+        [<Icon icon="favorite-outline" style={{color: 'red'}} />, <Icon icon="favorite" style={{color: 'red'}} />] :
+        null
+    })}
+    text={'设置icons为heart'} />
+</div>
 
-<Checkbox value="readOnly" onChange={readOnly=>this.setState({ readOnly })}
-  text={'readOnly'} />
+<div>
+  <Checkbox value="readOnly" onChange={readOnly=>this.setState({ readOnly })} text={'readOnly'} />
+</div>
 
-value: <input onChange={event=>this.setState({ value: event.target.value })}
-  type="text" value={this.state.value} />
-`}
-          </pre>
+<div style={{marginBottom: 10}}>
+  <span>value: </span>
+  <input onChange={event=>this.setState({ value: event.target.value })} type="text" value={this.state.value} />
+</div>
+          </Example>
         </div>
       </div>
     );
   }
 }
-
-module.exports = prettify(Page);

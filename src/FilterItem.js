@@ -1,13 +1,22 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
-import Datetime from './Datetime';
+import React, { Component, PropTypes } from 'react';
+import Datepicker from './Datepicker';
 import Input from './Input';
 import Select from './Select';
 
 const DEFAULT_OPS = ['=', 'like', '>', '>=', '<', '<=', 'in', 'not in'];
 
 class FilterItem extends Component {
+  constructor (props) {
+    super(props);
+    
+    this.onOpChange = this.onOpChange.bind(this);
+    this.onValueChange = this.onValueChange.bind(this);
+    this.onLabelChange = this.onLabelChange.bind(this);
+    this.remove = this.remove.bind(this);
+  }
+
   onLabelChange (optionsIndex) {
     optionsIndex = parseInt(optionsIndex);
     let options = this.props.options[optionsIndex];
@@ -91,7 +100,7 @@ class FilterItem extends Component {
 
   renderOp () {
     if (this.props.ops) {
-      return <Select style={{width: 120}} value={this.props.op} onChange={this.onOpChange.bind(this)} data={this.props.ops} />;
+      return <Select style={{width: 120}} value={this.props.op} onChange={this.onOpChange} data={this.props.ops} />;
     } else {
       return null;
     }
@@ -103,7 +112,7 @@ class FilterItem extends Component {
     }
     let options = this.props.options[this.props.optionsIndex],
         props = options.props || {},
-        onChange = this.onValueChange.bind(this),
+        onChange = this.onValueChange,
         style = { width: 240 },
         control;
     switch (options.type) {
@@ -111,7 +120,9 @@ class FilterItem extends Component {
         control = <Select value={this.props.value} onChange={onChange} style={style} {...props} />;
       break;
       case 'datetime':
-        control = <Datetime value={this.props.value} onChange={onChange} {...props} />;
+      case 'date':
+      case 'time':
+        control = <Datepicker value={this.props.value} onChange={onChange} {...props} />;
       break;
       default:
         control = <Input value={this.props.value} type={options.type} style={style} onChange={onChange} {...props} />;
@@ -129,7 +140,7 @@ class FilterItem extends Component {
       <div className="rct-filter-item">
         <Select style={{width: 140}}
           value={optionsIndex}
-          onChange={this.onLabelChange.bind(this)}
+          onChange={this.onLabelChange}
           optionTpl="{label}"
           valueTpl="{optionsIndex}"
           data={this.props.options} />
@@ -138,7 +149,7 @@ class FilterItem extends Component {
 
         { this.renderControl() }
 
-        <button onClick={this.remove.bind(this)} className="remove">&times;</button>
+        <button onClick={this.remove} className="remove">&times;</button>
       </div>
     );
   }

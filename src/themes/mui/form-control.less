@@ -1,0 +1,119 @@
+@import "mixins";
+
+.rct-form-control {
+  border: 1px solid #ccc;
+  outline: 0;
+  background-color: #fff;
+  vertical-align: middle;
+
+  position: relative;
+  padding: 7px 8px;
+  display: inline-block;
+  border-radius: 1px;
+  line-height: 14px;
+  box-sizing: border-box;
+  background-color: #fff;
+  vertical-align: middle;
+  outline: 0;
+
+  .placeholder {
+    color: #aaa;
+  }
+
+  &.readonly {
+    background-color: #eee;
+    color: #777;
+    border-color: #ccc;
+  }
+
+  &.has-error {
+    border-color: @red;
+  }
+
+}
+
+input.rct-form-control{
+  font-size: 13px;
+}
+
+.rct-control-group {
+  position: relative;
+  margin-bottom: 1em;
+
+  &.rct-hint-pop, &.rct-hint-none {
+    .hint, .error {
+      display: none;
+    }
+  }
+
+  &.rct-hint-pop {
+    .hint, .error {
+      padding: 0.4em 0.6em;
+      background-color: #fff;
+      border: solid 1px #ccc;
+      position: absolute;
+      bottom: 100%;
+      border-radius: 5px;
+      left: 50%;
+      width: 220px;
+      margin: 0 0 11px -110px;
+      .box-shadow(0 2px 10px rgba(0, 0, 0, 0.2));
+      .box-sizing(border-box);
+
+      &:after, &:before {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+
+      &:after {
+        border-color: rgba(255, 255, 255, 0);
+        border-top-color: #ffffff;
+        border-width: 9px;
+        margin-left: -9px;
+      }
+
+      &:before {
+        border-color: rgba(204, 204, 204, 0);
+        border-top-color: #ccc;
+        border-width: 10px;
+        margin-left: -10px;
+      }
+    }
+
+    .error {
+      border-color: @red;
+      &:before {
+        border-top-color: @red;
+      }
+    }
+
+    &.focused {
+      .hint {
+        display: block;
+      }
+    }
+
+    &.rct-has-error {
+      .error {
+        display: block;
+      }
+    }
+  }
+
+  &.rct-hint-block {
+    .hint, .error {
+      margin-top: 5px;
+      display: block;
+    }
+  }
+
+  .error {
+    color: @red;
+  }
+}

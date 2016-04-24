@@ -1,0 +1,44 @@
+@import "../mixins/mixins.less";
+@import "variables";
+
+
+.default-status() {
+	-webkit-appearance: none;
+	  appearance: none;
+	  width: 13px;
+	  height: 13px;
+	  background: white;
+	  border: 1px solid #dcdcdc;
+	  border-radius: 2px;
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	  box-sizing: border-box;
+	  position: relative;
+	  vertical-align: middle;
+	  // box-sizing: content-box \9;
+	  // width: 16px \9;
+	  // height: 16px \9;
+	  // border-width: 0 \9;
+	  &:active{
+	  	border-color: #c6c6c6;
+        background-color: #ebebeb;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffffffff', GradientType=0);
+	  }
+	  &:hover{
+	     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+	     box-shadow: none \9;
+	  }
+	  &:checked{
+	  	  background: #fff;
+	  }
+	  &:focus{
+		  outline: none;
+	  }
+	  &[disabled]{
+	  	background-color: #ccc;
+	  	cursor: not-allowed;
+	  	&:hover{
+	  		box-shadow: none;
+	  	}
+	  }
+}

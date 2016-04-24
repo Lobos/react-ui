@@ -1,14 +1,18 @@
 var path = require('path');
 var webpack = require('webpack');
+var autoprefixer = require('autoprefixer');
+var precss = require('precss');
 
 module.exports = {
-  devtool: 'source-map',
-  entry: [
-    './docs/src/js/app.jsx'
-  ],
+  entry: {
+    app: './docs/src/js/app.jsx',
+    Form: './standalone/form/index.js'
+  },
   output: {
     path: path.join(__dirname, 'docs/dist'),
-    filename: 'js/app.js'
+    libraryTarget: 'umd',
+    library: '[name]',
+    filename: 'js/[name].js'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},
   plugins: [
@@ -27,10 +31,16 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, loaders: ['babel'] },
-      { test: /\.(css|less)$/, loader: 'style-loader!css-loader?localIdentName=[hash:base64:8]!less-loader' },
+      { test: /\.(css|less)$/, loader: 'style-loader!css-loader!postcss-loader!less-loader' },
       { test: /\.(ttf|eot|woff|woff2|otf|svg)/, loader: 'file-loader?name=./font/[name].[ext]' },
       { test: /\.json$/, loader: 'file-loader?name=./json/[name].json' },
       { test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=10000&name=./images/[name].[ext]' }
+    ],
+    preLoaders: [
+      { test: /\.jsx?$/, loader: 'rctui-example-loader', include: [path.resolve(__dirname, 'docs')] }
     ]
+  },
+  postcss: function(){
+    return [autoprefixer, precss];
   }
 };

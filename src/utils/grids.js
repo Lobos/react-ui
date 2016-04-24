@@ -3,10 +3,10 @@
 const GRIDS = {};
 const OFFSETS = {};
 const RESPONSIVE = {
-  'sm': '35.5',
-  'md': '48',
-  'lg': '64',
-  'xl': '80'
+  'sm': '568',
+  'md': '768',
+  'lg': '992',
+  'xl': '1200'
 };
 let gridPre = 'rct-grid';
 let offsetPre = 'rct-offset';
@@ -31,6 +31,9 @@ export function getGrid(options) {
   if (!options) {
     return '';
   }
+  if (typeof options === 'number') {
+    options = { width: options };
+  }
 
   let { width, offset, responsive } = options;
   let gridClass = generate(width, 'grid', responsive);
@@ -44,6 +47,7 @@ function generate(width, type, responsive) {
     return '';
   }
 
+  if (width > 1) { width = 1; }
   width = (width * 100).toFixed(4);
   width = width.substr(0, width.length - 1);
 
@@ -65,7 +69,7 @@ function generate(width, type, responsive) {
 function generateGrid(width, key, responsive) {
   GRIDS[key] = true;
   let minWidth = RESPONSIVE[responsive];
-  let text = `@media screen and (min-width: ${minWidth}em) { .${gridPre}-${key}{width: ${width}%} }`;
+  let text = `@media screen and (min-width: ${minWidth}px) { .${gridPre}-${key}{width: ${width}%} }`;
 
   createStyle(text);
 }
@@ -73,7 +77,7 @@ function generateGrid(width, key, responsive) {
 function generateOffset(width, key, responsive) {
   OFFSETS[key] = true;
   let minWidth = RESPONSIVE[responsive];
-  let text = `@media screen and (min-width: ${minWidth}em) { .${offsetPre}-${key}{margin-left: ${width}%} }`;
+  let text = `@media screen and (min-width: ${minWidth}px) { .${offsetPre}-${key}{margin-left: ${width}%} }`;
 
   createStyle(text);
 }

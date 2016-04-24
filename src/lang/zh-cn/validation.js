@@ -6,12 +6,12 @@ module.exports = {
       integer: '整数',
       required: '必填',
       max: {
-        array: '最多选择 {0}个选项',
+        array: '最多选择 {0} 个选项',
         number: '最大值 {0}',
         string: '最大长度 {0} 个字符'
       },
       min: {
-        array: '最少选择 {0}个选项',
+        array: '最少选择 {0} 个选项',
         number: '最小值 {0}',
         string: '最小长度 {0} 个字符'
       },
@@ -27,12 +27,14 @@ module.exports = {
       max: {
         array: '最多选择 {0} 个选项',
         number: '不能大于 {0}',
-        string: '最大长度不能超过 {0} 个字符'
+        string: '最大长度不能超过 {0} 个字符',
+        datetime: '时间不能晚于 {0}'
       },
       min: {
         array: '最少选择 {0} 个选项',
         number: '不能小于 {0}',
-        string: '最小长度不能少于 {0} 个字符'
+        string: '最小长度不能少于 {0} 个字符',
+        datetime: '时间不能早于 {0}'
       },
       number: '必须为数字',
       password: '含有非法字符',

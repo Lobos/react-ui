@@ -27,7 +27,22 @@
                         "text": "删除"
                     }
                 ]
+            },
+            {
+                "id": "auth_list",
+                "text": "权限管理",
+                "children": [
+                    {
+                        "id": "auth_edit",
+                        "text": "编辑"
+                    },
+                    {
+                        "id": "auth_delete",
+                        "text": "删除"
+                    }
+                ]
             }
+
         ]
     },
 

@@ -106,8 +106,13 @@ export function monthDiff (d1, d2) {
 export function format (date, fmt) {
   if (!date) { return ''; }
   if (!(date instanceof Date)) {
-    date = new Date(date);
+    date = convert(date);
   }
+
+  if (isNaN(date.getTime())) {
+    return 'Invalid Date';
+  }
+
   let o = {
     'M+': date.getMonth() + 1,
     'd+': date.getDate(),
@@ -159,9 +164,13 @@ export function convert (obj, def) {
   }
 
   if (/^[-+]?[0-9]+$/.test(obj)) {
-    obj = parseInt(obj) * 1000;
+    obj = parseInt(obj);
   } else {
     obj = obj.replace(/-/g, '/');
+  }
+
+  if (/^\d?\d:\d?\d/.test(obj)) {
+    obj = getDate(new Date()) + ' ' + obj;
   }
 
   obj = new Date(obj);

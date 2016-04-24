@@ -1,9 +1,10 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import Regs from './utils/regs';
 import { getGrid } from './utils/grids';
+import { register } from './higherOrders/FormItem';
 
 import { requireCss } from './themes';
 requireCss('input');
@@ -13,67 +14,75 @@ class Input extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: this.props.value
+      value: props.value
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleTrigger = this.handleTrigger.bind(this);
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setValue(nextProps.value);
+    let value = nextProps.value;
+    if (value !== this.props.value && value !== this.state.value) {
+      this.setState({ value });
     }
   }
 
-  getValue () {
-    return this.refs.input.value;
-  }
-
-  setValue (value) {
-    this.setState({ value });
-  }
-
   handleChange (event) {
-    if (this.props.readOnly) {
+    const { readOnly, type, trigger } = this.props;
+
+    if (readOnly) {
       return;
     }
 
     let value = event.target.value;
 
-    if (value && (this.props.type === 'integer' || this.props.type === 'number')) {
-      if (!Regs[this.props.type].test(value)) {
+    if (value && (type === 'integer' || type === 'number')) {
+      if (!Regs[type].test(value)) {
         value = this.state.value || '';
       }
     }
 
     this.setState({ value });
-    setTimeout(() => {
-      if (this.props.onChange) {
-        this.props.onChange(value);
-      }
-    }, 0);
+
+    if (trigger === 'change') {
+      this.handleTrigger(event);
+    }
+  }
+
+  handleTrigger (event) {
+    let value = event.target.value;
+    this.props.onChange(value, event);
   }
 
   render () {
+    const { className, grid, type, trigger, ...other } = this.props;
     const props = {
       className: classnames(
-        this.props.className,
+        className,
         'rct-form-control',
-        getGrid(this.props.grid)
+        getGrid(grid)
       ),
-      onChange: this.handleChange.bind(this),
-      type: this.props.type === 'password' ? 'password' : 'text',
+      onChange: this.handleChange,
+      type: type === 'password' ? 'password' : 'text',
       value: this.state.value
     };
 
-    if (this.props.type === 'textarea') {
-      return (<textarea ref="input" {...this.props} {...props} rows={this.props.rows} />);
-    } else {
-      return (<input ref="input" {...this.props} {...props} />);
+    if (trigger !== 'change') {
+      let handle = 'on' + trigger.charAt(0).toUpperCase() + trigger.slice(1);
+      props[handle] = this.handleTrigger;
     }
+
+    return (<input {...other} {...props} />);
   }
 }
 
 Input.propTypes = {
   className: PropTypes.string,
+  defaultValue: PropTypes.string,
+  grid: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object
+  ]),
   id: PropTypes.string,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
@@ -82,36 +91,14 @@ Input.propTypes = {
   readOnly: PropTypes.bool,
   rows: PropTypes.number,
   style: PropTypes.object,
+  trigger: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.any
 };
 
-import FormControl from './FormControl';
+Input.defaultProps = {
+  trigger: 'blur',
+  value: ''
+};
 
-FormControl.register(
-
-  ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'textarea'],
-
-  function (props) {
-    return <Input {...props} />;
-  },
-
-  Input
-
-);
-
-FormControl.register(
-
-  ['integer', 'number'],
-
-  function (props) {
-    return <Input {...props} />;
-  },
-
-  Input,
-
-  'number'
-
-);
-
-module.exports = Input;
+module.exports = register(Input, ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number']);

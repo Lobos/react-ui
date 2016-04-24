@@ -56,7 +56,7 @@ describe('utils datetime', function () {
   it('convert', function () {
     let _ = Datetime.convert;
     let d1 = new Date(2015,5,20,20,20,34);
-    let t = d1.getTime() / 1000;
+    let t = d1.getTime();
     eql(_(t), d1).should.be.true;
     t = t.toString();
     eql(_(t), d1).should.be.true;

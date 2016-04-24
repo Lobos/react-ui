@@ -1,0 +1,146 @@
+.rct-tree {
+  .icon {
+    width:20px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  ul {
+    display: none;
+    //padding-left: 19px;
+  }
+
+  ul.open {
+    display: block;
+  }
+
+  a {
+    color: #333;
+  }
+
+  span {
+    vertical-align: middle;
+  }
+
+  .marks {
+    width: 19px;
+    height: 22px;
+    display: inline-block;
+    position: relative;
+
+    &:before {
+      content: '';
+      width: 0;
+      height: 0;
+      display: inline-block;
+      position: absolute;
+      left: 9px;
+      border-left: dotted 1px #666; 
+    }
+  }
+
+  .handle, .check-handle {
+    display: inline-block;
+    vertical-align: middle;
+    width: 13px;
+    margin: 0 3px;
+
+    .tree-icon {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .tree-icon {
+    display: inline-block;
+
+    &.minus, &.plus {
+      border: solid 1px #888;
+      height: 7px;
+      width: 7px;
+      border-radius: 1px;
+      position: relative;
+
+      &:after {
+        content: '';
+        display: block;
+        height: 1px;
+        width: 100%;
+        background: #888;
+        position: absolute;
+        top: 3px;
+      }
+    }
+
+    &.plus:before {
+      content: '';
+      display: block;
+      height: 7px;
+      width: 1px;
+      left: 3px;
+      background: #888;
+      position: absolute;
+    }
+  }
+
+  &.readonly {
+    .checked, .half-checked, .unchecked {
+      border-color: #aaa;
+      cursor: not-allowed;
+      background-color: #f2f2f2;
+    }
+  }
+
+  .marks-v:before {
+    height: 21px;
+  }
+
+  .marks-l:before {
+    height: 9px;
+  }
+
+  .marks-h:after {
+    content: '';
+    width: 9px;
+    height: 0px;
+    display: inline-block;
+    position: absolute;
+    left: 9px;
+    top: 10px;
+    border-top: dotted 1px #666; 
+  }
+
+  label {
+    font-weight: normal;
+    margin: 0;
+    display: block;
+    line-height: 22px;
+    height: 22px;
+
+    .text {
+      margin-left: 5px;
+    }
+
+    &.active {
+      span {
+        font-weight: bold;
+      }
+      a {
+        margin-left: 5px;
+        //float: right;
+      }
+    }
+  }
+
+  &.readonly {
+    .check-handle .icon {
+      color: #aaa;
+    }
+  }
+}
+
+.rct-tree, .rct-tree ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+

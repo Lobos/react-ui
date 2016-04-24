@@ -2,7 +2,7 @@
 
 .rct-form-control {
   position: relative;
-  padding: 7px 9px;
+  padding: 6px 9px;
   display: inline-block;
   border: 1px solid #ccc;
   box-shadow: inset 0 1px 3px #e3e3e3;
@@ -22,17 +22,17 @@
     color: #777;
     border-color: #ccc;
   }
-}
 
-.rct-has-error {
-  .rct-form-control {
+  &.has-error {
     border-color: @red;
   }
+
 }
 
 .rct-control-group {
   position: relative;
   margin-bottom: 1em;
+  min-height: 2em;
 
   &.rct-hint-pop, &.rct-hint-none {
     .hint, .error {
@@ -87,7 +87,7 @@
       }
     }
 
-    &.focused {
+    &:hover {
       .hint {
         display: block;
       }
@@ -102,11 +102,12 @@
 
   &.rct-hint-block {
     .hint, .error {
+      margin-top: 5px;
       display: block;
     }
   }
 
-  &.rct-has-error {
+  .error {
     color: @red;
   }
 }

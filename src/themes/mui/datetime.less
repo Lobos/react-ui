@@ -1,0 +1,492 @@
+@import "mixins";
+
+.rct-datetime {
+  width: 180px;
+  cursor: pointer;
+
+  a {
+    cursor: pointer;
+  }
+
+  * {
+    .box-sizing(border-box);
+  }
+
+  &.short {
+    width: 120px;
+  }
+
+  .date-text {
+    height: 15px;
+    display: inline-block;
+  }
+
+  .icon {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    position: relative;
+    
+    &.calendar {
+      position: absolute;
+      right: 0.1em;
+      top: 4px;
+      background: url(./images/calendar.png) no-repeat;
+      background-size: 24px 22px;
+      background-position: 0 0;
+      width: 24px;
+      height: 22px;
+    }
+
+    &.arrow-left {
+      .arrow-left(6px, #333, #fff, true);
+    }
+    
+    &.arrow-right {
+      .arrow-right(6px, #333, #fff, true);
+    }
+
+    &.angle-up {
+      .arrow-up(5px, #333, #f5f5f5, true);
+    }
+
+    &.angle-down {
+      .arrow-down(5px, #333, #f5f5f5, true);
+    }
+  }
+
+  .close {
+    &:after, &:before {
+      content: ' ';
+      position: absolute;
+      background: #fff;
+      border: 0;
+      width: 20px;
+      height: 2px;
+      left: 0px;
+      top: 8px;
+    }
+
+    &:after {
+      transform: rotate(45deg);
+    }
+
+    &:before {
+      transform: rotate(135deg);
+    }
+  }
+
+  &.active .date-picker {
+    min-height: 230px;
+    .opacity(1);
+  }
+
+  .date-picker {
+    display: none;
+    .opacity(0);
+    z-index: 1050;
+    border: solid 1px #e3e3e3;;
+    background-color: #ffffff;
+    border-radius: 0;
+    overflow: hidden;
+    width: 240px;
+    position: absolute;
+    top: 100%;
+    left: -1px;
+    margin: 2px 0 20px;
+    .box-shadow(0px 6px 12px rgba(0,0,0,0.175));
+    .transition(opacity 0.45s);
+
+    .date-picker-header {
+      margin: 10px 0 8px;
+      position: relative;
+      text-align: center;
+
+      a {
+        display: inline-block;
+        line-height: 14px;
+
+        .icon {
+          width: 20px;
+        }
+
+        .icon + .icon {
+          margin-left: -15px;
+        }
+
+        .arrow-right + .arrow-right {
+          z-index: -1;
+        }
+
+        &:hover {
+          .arrow-right:before {
+            border-left-color: @primary;
+          }
+          .arrow-left:before {
+            border-right-color: @primary;
+          }
+        }
+      }
+
+      .year, .month {
+        padding: 0;
+        width: 55px;
+        display: inline-block;
+        font-size: 14px;
+        color: #666;
+        border-color: transparent;
+        background: none;
+        text-decoration: none;
+
+        &:hover {
+          color: @primary;
+        }
+      }
+    }
+
+    .inner {
+      text-align: center;
+      margin-bottom: 6px;
+
+      &.month-inner {
+        padding-top: 12px;
+      }
+
+      &.year-inner {
+        padding-top: 6px;
+      }
+
+      &.empty {
+        height: 200px;
+      }
+
+      button, .week {
+        width: 30px;
+        line-height: 14px;
+        padding: 7px 0;
+        margin: 1px;
+        color: #666;;
+        font-size: 12px;
+        text-align: center;
+        display: inline-block;
+      }
+
+      .day, .year, .month {
+        background-color: #f5f5f5;
+        border: solid 1px #f5f5f5;
+        outline: none;
+
+        &:hover {
+          border-color: @primary;
+          color: @primary;
+        }
+
+        &:active {
+          background-color: @primary;
+          color: #fff;
+          border-color: transparent;
+        }
+
+        &:disabled {
+          color: #ccc;
+          cursor: not-allowed;
+        }
+      }
+
+      .year {
+        width: 54px;
+        height: 32px;
+        line-height: 32px;
+        padding: 0;
+        vertical-align: middle;
+
+        .year-left, .year-right {
+          position: relative;
+          display: block;
+          float: left;
+          width: 14px;
+          height: 14px;
+        }
+
+        .year-left {
+          .arrow-left(6px, #333, #f5f5f5, true);
+          margin-left: 12px;
+          & + i {
+            margin-left: -8px;
+          }
+        }
+
+        .year-right {
+          .arrow-right(6px, #333, #f5f5f5, true);
+          margin-left: 22px;
+          & + i {
+            margin-left: -8px;
+          }
+        }
+      }
+
+      .month {
+        width: 70px;
+        padding: 10px 0;
+      }
+
+      .today {
+        border-color: @primary;
+        color: @primary;
+      }
+
+      .active, .active:hover {
+        background-color: @primary;
+        color: #fff;
+        border-color: @primary;
+      }
+
+      .week {
+        color: #000;
+      }
+
+      .gray {
+        color: #ccc;
+      }
+    }
+  }
+
+  &.popup .date-picker {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 1px;
+    .box-shadow(0 0 10px rgba(0, 0, 0, 0.175));
+  }
+
+  .time-container {
+    text-align: center;
+    padding: 0 0 6px 0;
+    //background-color: rgba(0,0,0,0.3);
+    .time-set {
+      position: relative;
+      width: 60px;
+      display: inline-block;
+      height: 28px;
+      line-height: 28px;
+      font-family: Arial;
+      margin: 0 5px;
+      font-size: 12px;
+      background-color: #fff;
+      border: solid 1px #e3e3e3;
+      padding-right: 24px;
+
+      .add, .sub {
+        position: absolute;
+        width: 24px;
+        height: 15px;
+        text-align: center;
+        display: block;
+        border-left: solid 1px #e3e3e3;
+        background-color: #f5f5f5;
+        right: 0;
+
+        .icon {
+          position: absolute;
+          top: 4px;
+          left: 4px;
+          height: 7px;
+        }
+      }
+
+      .add {
+        top: 0;
+        border-bottom: solid 1px #ccc;
+      }
+
+      .sub {
+        bottom: 0;
+      }
+    }
+
+    .clock-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      visibility: hidden;
+      .opacity(0);
+      .transition(opacity 0.3s);
+
+      &.active {
+        visibility: visible;
+        .opacity(1);
+      }
+
+      .clock-overlay {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      .clock-close {
+        position: absolute;
+        left: 200px;
+        top: 50%;
+        margin-top: -115px;
+        height: 31px;
+        width: 31px;
+        font-size: 20px;
+        text-align: center;
+        border-radius: 50%;
+        border: solid 2px #fff;
+        background-color: #333;
+        .box-shadow(3px 3px 6px rgba(0,0,0,0.275));
+        .opacity(1);
+
+        .icon {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          left: 4px;
+          top: 4px;
+        }
+      }
+
+      .clock {
+        position: absolute;
+        //visibility: hidden;
+        left: 50%;
+        top: 50%;
+        margin-left: -87px;
+        margin-top: -110px;
+        //bottom: 45px;
+        width: 174px;
+        height: 174px;
+        padding: 5px;
+        border-radius: 50%;
+        border: solid 2px #fff;
+        background-color: #333;
+        .box-shadow(3px 3px 6px rgba(0,0,0,0.275));
+
+        .time-am, .time-pm {
+          position: absolute;
+          text-align: center;
+          width: 40px;
+          height: 28px;
+          line-height: 25px;
+          bottom: -10px;
+          cursor: pointer;
+          font-weight: bold;
+          border-radius: 13px;
+          border: solid 2px #fff;
+          background-color: #333;
+          color: #fff;
+          .box-shadow(3px 3px 6px rgba(0,0,0,0.275));
+
+          &.active {
+            background-color: @primary;
+            color: #fff;
+          }
+        }
+
+        .time-am {
+          left: -20px;
+        }
+
+        .time-pm {
+          right: -20px;
+        }
+
+        .tip {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 60px;
+          margin: -10px -30px;
+          color: #999;
+          font-size: 12px;
+          line-height: 20px;
+        }
+
+        .pointer {
+          .hour, .minute, .second {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            background-color: #fff;
+            .transform-origin(10px 50%);
+            .transition(0.3s);
+          }
+
+          .active {
+            background-color: @primary;
+          }
+
+          .hour {
+            width: 45px;
+            height: 4px;
+            margin: -2px 0 0 -10px;
+          }
+
+          .minute {
+            width: 55px;
+            height: 3px;
+            margin: -1px 0 0 -10px;
+          }
+
+          .second {
+            width: 65px;
+            height: 2px;
+            margin: -1px 0 0 -10px;
+          }
+        }
+
+        .clock-inner {
+          width: 130px;
+          height: 130px;
+          padding: 15px;
+          position: relative;
+
+          .clock-set {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            //background-color: #ccc;
+            color: #ccc;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 15px;
+            cursor: pointer;
+
+            &:hover, &:focus, &.active {
+              background-color: @primary;
+              color: #fff;
+            }
+          }
+        }
+      }
+
+    }
+  }
+
+  .date-picker-up {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 2px;
+  }
+}
+
+@media (max-width: 767px) {
+  .rct-datetime {
+    .date-picker {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin: -140px 0 0 -140px;
+      z-index: 1060;
+    }
+
+    &.active .overlay {
+      left: 0;
+      .opacity(1);
+    }
+  }
+}

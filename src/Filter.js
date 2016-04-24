@@ -1,10 +1,10 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import Button from './Button';
 import FilterItem from './FilterItem';
-import clickAway from './higherorder/clickaway';
+import ClickAway from './mixins/ClickAway';
 
 import { requireCss } from './themes';
 requireCss('filter');
@@ -12,21 +12,28 @@ requireCss('filter');
 import {getLang, setLang} from './lang';
 setLang('buttons');
 
-class Filter extends Component {
+class Filter extends ClickAway(Component) {
   constructor (props) {
     super(props);
     this.state = {
       active: false,
       filters: []
     };
+
+    this.addFilter = this.addFilter.bind(this);
+    this.clearFilter = this.clearFilter.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onFilter = this.onFilter.bind(this);
+    this.open = this.open.bind(this);
+    this.removeFilter = this.removeFilter.bind(this);
   }
 
   componentWillMount () {
     this.initData(this.props.options);
   }
 
-  componentClickAway () {
-    this.close();
+  componentDidMount () {
+    this.registerClickAway(this.close);
   }
 
   initData (options) {
@@ -44,6 +51,9 @@ class Filter extends Component {
   }
 
   open () {
+    if (this.state.active) {
+      return;
+    }
     this.bindClickAway();
     let options = this.refs.options;
     options.style.display = 'block';
@@ -127,7 +137,13 @@ class Filter extends Component {
   renderFilters () {
     let filters = this.state.filters.map((f, i) => {
       return (
-        <FilterItem onChange={this.onChange.bind(this)} removeFilter={this.removeFilter.bind(this)} ref={`fi${i}`} index={i} key={i} {...f} options={this.state.options} />
+        <FilterItem ref={`fi${i}`}
+          onChange={this.onChange}
+          removeFilter={this.removeFilter}
+          index={i}
+          key={i}
+          {...f}
+          options={this.state.options} />
       );
     });
     return filters;
@@ -142,7 +158,7 @@ class Filter extends Component {
     );
     return (
       <div style={this.props.style} className={className}>
-        <div onClick={this.open.bind(this)} className="rct-filter-result">
+        <div onClick={this.open} className="rct-filter-result">
           {this.state.resultText}
           <i className="search" />
         </div>
@@ -153,9 +169,9 @@ class Filter extends Component {
             {this.renderFilters()}
 
             <div>
-              <Button status="success" onClick={this.addFilter.bind(this)}>+</Button>
-              <Button style={{marginLeft: 10}} onClick={this.clearFilter.bind(this)}>{getLang('buttons.clear')}</Button>
-              <Button style={{marginLeft: 10}} status="primary" onClick={this.onFilter.bind(this)}>{getLang('buttons.ok')}</Button>
+              <Button status="success" onClick={this.addFilter}>+</Button>
+              <Button style={{marginLeft: 10}} onClick={this.clearFilter}>{getLang('buttons.clear')}</Button>
+              <Button style={{marginLeft: 10}} status="primary" onClick={this.onFilter}>{getLang('buttons.ok')}</Button>
             </div>
 
           </div>
@@ -179,4 +195,4 @@ Filter.defaultProps = {
   options: []
 };
 
-module.exports = clickAway(Filter);
+module.exports = Filter;

@@ -7,14 +7,15 @@
   "number": 1234.56,
   "url": "http://www.google.com",
   "readonly": "can't edit",
-  "checkboxgroup": "中国,德国",
-  "checkbox": true,
-  "radiogroup": "法国",
+  "checkboxgroup": "guangzhou,chengdu",
+  "checkbox": 1,
+  "radiogroup": "shenzhen",
   "datetime": "2015-03-21 00:10:20",
   "rating": 6,
+  "formitem": "form item",
   "select": "China,Cuba",
   "textarea": "long text",
   "tree": "user_edit",
-  "progress": 200,
-  "colorpicker": "#33ff23"
+  "startTime": "2016-03-12",
+  "endTime": "2016-07-22"
 }

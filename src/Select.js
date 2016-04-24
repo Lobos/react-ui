@@ -1,78 +1,79 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { toArray, substitute } from './utils/strings';
 import { getOuterHeight, overView, withoutTransition } from './utils/dom';
-import clone from './utils/clone';
-import isEqual from './utils/isEqual';
-import clickAway from './higherorder/clickaway';
+import { deepEqual, hashcode } from './utils/objects';
+import ClickAway from './mixins/ClickAway';
 import { getGrid } from './utils/grids';
+import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
+import { register } from './higherOrders/FormItem';
+import { getLang } from './lang';
 
 import { requireCss } from './themes';
 requireCss('select');
 requireCss('form-control');
 
-class Select extends Component {
+class Select extends ClickAway(Component) {
   constructor (props) {
     super(props);
-    this.unmounted = false;
 
-    let values = toArray(this.props.value, this.props.sep);
-    let data = this.formatData(this.props.data, values);
+    let values = toArray(props.value, props.mult ? props.sep : undefined);
+    let data = this.formatData(props.data, values);
     this.state = {
       active: false,
       data,
       filter: '',
       value: values
     };
-  }
-  
-  componentWillMount () {
-    //let values = toArray(this.props.value, this.props.sep);
-    //let data = this.formatData(this.props.data, values);
-    //this.setState({ data });
-  }
 
+    this.showOptions = this.showOptions.bind(this);
+    this.hideOptions = this.hideOptions.bind(this);
+  }
+ 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.value !== this.props.value) {
+    if (!deepEqual(nextProps.value, this.props.value)) {
       this.setValue(nextProps.value);
     }
-    if (!isEqual(nextProps.data, this.props.data)) {
+    if (!deepEqual(nextProps.data, this.props.data)) {
       this.setState({ data: this.formatData(nextProps.data) });
     }
   }
 
   componentWillUnmount () {
-    this.unmounted = true;
+    super.componentWillUnmount();
   }
 
-  componentClickAway () {
-    this.close();
+  componentDidMount () {
+    let target = this.props.mult ? undefined : this.refs.options;
+    this.registerClickAway(this.hideOptions, target);
   }
 
-  open () {
-    if (!this.state.active && !this.props.readOnly) {
-      let options = this.refs.options;
-      options.style.display = 'block';
-      let offset = getOuterHeight(options) + 5;
-
-      let el = this.refs.container;
-      let dropup = overView(el, offset);
-
-      withoutTransition(el, () => {
-        this.setState({ dropup });
-      });
-
-      this.bindClickAway();
-
-      setTimeout(() => {
-        this.setState({ filter: '', active: true });
-      }, 0);
+  showOptions () {
+    if (this.state.active || this.props.readOnly) {
+      return;
     }
+
+    let options = this.refs.options;
+    options.style.display = 'block';
+    let offset = getOuterHeight(options) + 5;
+
+    let el = this.refs.container;
+    let dropup = overView(el, offset);
+
+    withoutTransition(el, () => {
+      this.setState({ dropup });
+    });
+
+    this.bindClickAway();
+
+    setTimeout(() => {
+      this.setState({ filter: '', active: true });
+    }, 0);
   }
 
-  close () {
+  hideOptions () {
     this.setState({ active: false });
     this.unbindClickAway();
     // use setTimeout instead of transitionEnd
@@ -83,27 +84,32 @@ class Select extends Component {
     }, 500);
   }
 
-  getValue (sep = this.props.sep, data = this.state.data) {
-    let value = [];
+  getValue (sep=this.props.sep, data=this.state.data) {
+    let value = [],
+        raw = [];
     data.forEach((d) => {
       if (d.$checked) {
         value.push(d.$value);
+        raw.push(d);
       }
     });
 
-    if (sep) {
+    if (typeof sep === 'string') {
       value = value.join(sep);
+    } else if (typeof sep === 'function') {
+      value = sep(raw);
     }
 
     return value;
   }
 
   setValue (value) {
-    value = toArray(value, this.props.sep);
+    value = toArray(value, this.props.mult ? this.props.sep : null);
     if (this.state) {
-      //let data = clone(this.state.data).map(d => {
       let data = this.state.data.map((d) => {
-        d.$checked = value.indexOf(d.$value) >= 0;
+        if (typeof d !== 'string') {
+          d.$checked = value.indexOf(d.$value) >= 0;
+        }
         return d;
       });
       this.setState({ value, data });
@@ -113,24 +119,21 @@ class Select extends Component {
   }
 
   formatData (data, value = this.state.value) {
-    if (typeof data === 'function') {
-      data.then((res) => {
-        if (!this.unmounted) {
-          this.setState({ data: this.formatData(res) });
-        }
-      })();
-      return [];
+    if (!Array.isArray(data)) {
+      data = Object.keys(data).map((key) => {
+        return { text: data[key], id: key };
+      });
     }
 
-    // don't use data, clone
-    data = clone(data).map((d) => {
+    data = data.map((d) => {
       if (typeof d !== 'object') {
         return {
           $option: d,
           $result: d,
           $value: d,
           $filter: d.toLowerCase(),
-          $checked: value.indexOf(d) >= 0
+          $checked: value.indexOf(d) >= 0,
+          $key: hashcode(d)
         };
       }
 
@@ -144,6 +147,7 @@ class Select extends Component {
       d.$result = substitute(this.props.resultTpl || this.props.optionTpl, d);
       d.$value = val;
       d.$checked = value.indexOf(val) >= 0;
+      d.$key = d.id ? d.id : hashcode(val + d.$option);
       return d;
     });
 
@@ -175,22 +179,19 @@ class Select extends Component {
     let data = this.state.data;
     if (this.props.mult) {
       data[i].$checked = !data[i].$checked;
-      this.setState({ data });
     } else {
-      data.map((d) => {
+      data.map((d, index) => {
         if (typeof d !== 'string') {
-          d.$checked = false;
+          d.$checked = index === i ? true : false;
         }
       });
-      data[i].$checked = true;
-      this.setState({ data });
-      this.close();
+      this.hideOptions();
     }
+
+    let value = this.getValue(this.props.sep, data);
+    this.setState({ value, data });
     if (this.props.onChange) {
-      let value = this.getValue(this.props.sep, data);
-      setTimeout(() => {
-        this.props.onChange(value);
-      }, 0);
+      this.props.onChange(value);
     }
   }
 
@@ -201,13 +202,26 @@ class Select extends Component {
     }, 0);
   }
 
-  render () {
-    let active = this.state.active;
-    let result = [];
-    let { grid, readOnly, mult, placeholder, style } = this.props;
+  renderFilter () {
+    if (this.props.filterAble) {
+      return (
+        <div className="filter">
+          <i className="search" />
+          <input value={this.state.filter}
+            onChange={ (e) => this.setState({ filter: e.target.value }) }
+            type="text" />
+        </div>
+      );
+    }
+  }
 
-    let className = classnames(
-      this.props.className,
+  render () {
+    let { className, fetchStatus, grid, readOnly, mult, placeholder, style } = this.props;
+    let { filter, active, msg, data } = this.state;
+    let result = [];
+ 
+    className = classnames(
+      className,
       getGrid(grid),
       'rct-form-control',
       'rct-select',
@@ -218,46 +232,38 @@ class Select extends Component {
         single: !mult
       }
     );
-
-    let filter;
-    if (this.props.filterAble) {
-      filter = (
-        <div className="filter">
-          <i className="search" />
-          <input value={this.state.filter}
-            onChange={ (e) => this.setState({ filter: e.target.value }) }
-            type="text" />
-        </div>
-      );
+   
+    // if get remote data pending or failure, render message
+    if (fetchStatus !== FETCH_SUCCESS) {
+      return <div className={className}>{getLang('fetch.status')[fetchStatus]}</div>;
     }
 
-    let filterText = this.state.filter ?
-                     this.state.filter.toLowerCase() :
-                     null;
+    let filterText = filter ? filter.toLowerCase() : null;
 
-    let options = this.state.data.map((d, i) => {
+    let options = data.map((d, i) => {
       if (typeof d === 'string') {
-        return <span key={i} className="show group">{d}</span>;
+        return <span key={`g-${d}`} className="show group">{d}</span>;
       }
 
       if (d.$checked) {
-        if (this.props.mult) {
+        if (mult) {
           result.push(
-            <div key={i} className="rct-select-result"
+            <div key={d.$key} className="rct-select-result"
               onClick={this.handleRemove.bind(this, i)}
               dangerouslySetInnerHTML={{__html: d.$result}}
             />
           );
         } else {
-          result.push(<span key={i} dangerouslySetInnerHTML={{__html: d.$result}} />);
+          result.push(<span key={d.$key} dangerouslySetInnerHTML={{__html: d.$result}} />);
         }
       }
+
       let optionClassName = classnames({
         active: d.$checked,
         show: filterText ? d.$filter.indexOf(filterText) >= 0 : true
       });
       return (
-        <li key={i}
+        <li key={d.$key}
           onClick={this.handleChange.bind(this, i)}
           className={ optionClassName }
           dangerouslySetInnerHTML={{__html: d.$option}}
@@ -266,12 +272,12 @@ class Select extends Component {
     });
 
     return (
-      <div ref="container" onClick={this.open.bind(this)} style={style} className={className}>
-        { result.length > 0 ? result : <span className="placeholder">{this.state.msg || placeholder}&nbsp;</span> }
+      <div ref="container" onClick={this.showOptions} style={style} className={className}>
+        { result.length > 0 ? result : <span className="placeholder">{msg || placeholder}&nbsp;</span> }
         <div className="rct-select-options-wrap">
           <hr />
           <div ref="options" className="rct-select-options">
-            {filter}
+            {this.renderFilter()}
             <ul>{options}</ul>
           </div>
         </div>
@@ -284,46 +290,46 @@ Select.propTypes = {
   className: PropTypes.string,
   data: PropTypes.oneOfType([
     PropTypes.array,
-    PropTypes.func
-  ]).isRequired,
+    PropTypes.object
+  ]),
   filterAble: PropTypes.bool,
-  grid: PropTypes.object,
+  grid: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object
+  ]),
   groupBy: PropTypes.string,
   mult: PropTypes.bool,
   onChange: PropTypes.func,
-  optionTpl: PropTypes.string,
+  optionTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   responsive: PropTypes.string,
-  resultTpl: PropTypes.string,
+  resultTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   sep: PropTypes.string,
   style: PropTypes.object,
   value: PropTypes.any,
-  valueTpl: PropTypes.string,
+  valueTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   width: PropTypes.number
 };
 
 Select.defaultProps = {
   dropup: false,
   sep: ',',
+  data: [],
   optionTpl: '{text}',
   valueTpl: '{id}'
 };
 
-Select = clickAway(Select);
+Select = fetchEnhance(Select);
 
-import FormControl from './FormControl';
-FormControl.register(
+module.exports = register(Select, 'select', {valueType: 'array'});
 
-  'select',
-
-  function (props) {
-    return <Select {...props} />;
-  },
-
-  Select,
-
-  'array'
-);
-
-module.exports = Select;

@@ -1,7 +1,7 @@
 'use strict';
 
 import clone from '../../src/utils/clone';
-import isEqual from '../../src/utils/isEqual';
+import { deepEqual } from '../../src/utils/objects';
 
 class Person {
   constructor(name) {
@@ -31,10 +31,13 @@ describe('utils clone', () => {
     };
     let b = clone(a);
     (a === b).should.be.false;
-    isEqual(a, b).should.be.true; 
+    deepEqual(a, b).should.be.true;
 
     a = new Person('a');
-    isEqual(a, clone(a)).should.be.false;
+    deepEqual(a, clone(a)).should.be.false;
+
+    (clone(null) === null).should.be.true;
+    (clone(undefined) === undefined).should.be.true;
 
     let div = document.createElement('div');
     div.innerHTML = 'i am div';
