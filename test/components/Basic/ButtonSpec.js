@@ -16,9 +16,13 @@ describe('Button Spec', () => {
     it('Should have type=button by default', () => {
       expect(defaultWrapper).to.have.prop('type', 'button')
     })
+
+    it('Should not apply rct-button class on default', () => {
+      expect(defaultWrapper).to.have.className('rct-button')
+    })
   })
 
-  describe('Customized', () => {
+  describe('Custom', () => {
     it('Should show the type if passed button or submit', () => {
       const wrapper1 = shallow(
           <Button type='button'>
@@ -41,10 +45,6 @@ describe('Button Spec', () => {
         </Button>
       )
       expect(wrapper1).to.be.disabled('disabled')
-    })
-
-    it('Should not apply rct-button class on default', () => {
-      expect(defaultWrapper).to.have.className('rct-button')
     })
 
     it('Should apply rct-button-[status] class with status attr', () => {
@@ -73,59 +73,57 @@ describe('Button Spec', () => {
       expect(wrapper1).to.have.className(compClass.error)
     })
   })
-  
+
   describe('Behavior', () => {
-  it('Should call onClick callback', (done) => {
-    const cb = () => {
-        done()
-      },
-      wrapper1 = shallow(
-        <Button onClick={cb}>
+    it('Should call onClick callback', (done) => {
+      const cb = () => {
+          done()
+        },
+        wrapper1 = shallow(
+          <Button onClick={cb}>
+            Button
+          </Button>
+      )
+
+      wrapper1.find('button').simulate('click')
+    })
+
+    it('Should call enable(elem) to enable disabled Button', () => {
+      const wrapper1 = shallow(
+        <Button disabled>
           Button
         </Button>
-    )
+      )
 
-    wrapper1.find('button').simulate('click')
+      wrapper1.instance().enable()
+      wrapper1.update()
+
+      expect(wrapper1.find('button')).to.not.be.disabled()
+    })
+
+    it('Should call disable(elem) to disable enabled Button', () => {
+      const wrapper1 = shallow(
+        <Button>
+          Button
+        </Button>
+      )
+
+      wrapper1.instance().disable()
+      wrapper1.update()
+
+      expect(wrapper1.find('button')).to.be.disabled()
+    })
+
+    it('Should change to disabled after click when once="true"', () => {
+      const wrapper1 = shallow(
+        <Button once={true}>
+          Button
+        </Button>
+      )
+
+      wrapper1.find('button').simulate('click')
+
+      expect(wrapper1.find('button')).to.be.disabled()
+    })
   })
-
-  it('Should call enable(elem) to enable disabled Button', () => {
-    const wrapper1 = shallow(
-      <Button disabled>
-        Button
-      </Button>
-    )
-
-    wrapper1.instance().enable()
-    wrapper1.update()
-
-    expect(wrapper1.find('button')).to.not.be.disabled()
-  })
-
-  it('Should call disable(elem) to disable enabled Button', () => {
-    const wrapper1 = shallow(
-      <Button>
-        Button
-      </Button>
-    )
-
-    wrapper1.instance().disable()
-    wrapper1.update()
-
-    expect(wrapper1.find('button')).to.be.disabled()
-  })
-})
-
-describe('Feature', () => {
-  it('Should change to disabled after click when once="true"', () => {
-    const wrapper1 = shallow(
-      <Button once={true}>
-        Button
-      </Button>
-    )
-
-    wrapper1.find('button').simulate('click')
-
-    expect(wrapper1.find('button')).to.be.disabled()
-  })
-})
 })
