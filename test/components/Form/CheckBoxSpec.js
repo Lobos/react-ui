@@ -4,12 +4,12 @@ import { compClass, compData, compSelector } from '../../mock/checkbox.js'
 import Checkbox from '../../../src/Checkbox.js'
 import CheckboxGroup from '../../../src/CheckboxGroup.js'
 
-describe('Basic', () => {
+describe('Checkbox & Checkbox Group Spec', () => {
   const _defaultCheckbox = mount(<Checkbox text='foo' checked/>),
     _defaultCheckboxGroup1 = mount(<CheckboxGroup data={compData.dataList1} />),
     _defaultCheckboxGroup2 = mount(<CheckboxGroup data={compData.dataList2} />)
 
-  describe('CheckBox', () => {
+  describe('Checkbox', () => {
     it('Should generate a label container tag', () => {
       expect(_defaultCheckbox.find(compSelector.checkboxItem).length).to.equal(1)
     })
@@ -39,7 +39,7 @@ describe('Basic', () => {
     })
   })
 
-  describe('CheckBox Group', () => {
+  describe('Checkbox Group', () => {
     describe('Should render by Array data', () => {
       const checkboxItemsWrapper1 = _defaultCheckboxGroup1.find(compSelector.checkboxItem),
         checkboxItemsWrapper2 = _defaultCheckboxGroup2.find(compSelector.checkboxItem)
@@ -110,6 +110,34 @@ describe('Basic', () => {
 
       wrapper1.find('input').forEach(e => {
         expect(e).to.be.checked()
+      })
+    })
+  })
+
+  describe('Behavior', () => {
+    it('Should call onChange callback', (done) => {
+      const cb = () => {
+          done()
+        },
+        wrapper1 = shallow(<Checkbox text='foo' onChange={cb} />),
+        wrapper2 = shallow(<CheckboxGroup data={compData.dataList2} onChange={cb} />)
+
+      wrapper1.simulate('change')
+      wrapper2.simulate('change')
+    })
+  })
+
+  describe('Feature', () => {
+    it('Should be read only when readOnly=true', () => {
+      const wrapper1 = mount(<Checkbox readOnly data={compData.dataList1} />),
+        wrapper2 = mount(<CheckboxGroup readOnly data={compData.dataList2} />)
+
+      expect(wrapper1).to.have.prop('readOnly', true)
+      expect(wrapper1.find('input')).to.be.disabled()
+
+      expect(wrapper2).to.have.prop('readOnly', true)
+      wrapper2.find('input').forEach(e => {
+        expect(e.find('input')).to.be.disabled()
       })
     })
   })

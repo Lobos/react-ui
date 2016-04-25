@@ -37,4 +37,10 @@ describe('Basic', () => {
     expect(_multiWrapper).to.have.exactly(2).descendants(compSelector.info)
     expect(_multiWrapper).to.have.exactly(1).descendants(compSelector.error)
   })
+
+  describe('Behavior', () => {
+    it('Should call Message.clear() to dismiss all items')
+
+    it('Should call Message.dismiss() to dismiss one item')
+  })
 })

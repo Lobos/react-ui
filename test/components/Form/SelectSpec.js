@@ -1,9 +1,9 @@
 import React from 'react/lib/ReactWithAddons'
-import { mount } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import { compClass, compData, compSelector } from '../../mock/select.js'
 import Select from '../../../src/Select.js'
 
-describe('Basic', () => {
+describe('Select Spec', () => {
   const {dataList1, dataList2} = compData,
 
     _defaultSingleWrapper = mount(
@@ -119,6 +119,53 @@ describe('Basic', () => {
       _optionsWrapper1.find('ul').find(compSelector.showItem).at(1).simulate('click')
 
       expect(wrapper1.instance().getValue()).to.equal(['foo', 'bar'].join(sep))
+    })
+  })
+
+  describe('Behavior', () => {
+    const {dataList1} = compData,
+
+      _defaultSingleWrapper = shallow(
+        <Select data={dataList1} />
+      ),
+      _defaultInstance = _defaultSingleWrapper.instance()
+
+    it('Should call onChange callback', (done) => {
+      const cb = () => {
+          done()
+        },
+        wrapper1 = shallow(<Select data={dataList1} onChange={cb} readOnly={true} />)
+
+      wrapper1.simulate('change')
+    })
+  })
+
+  describe('Feature', () => {
+    const {dataList1} = compData
+
+    it('Should be read only when readOnly=true', () => {
+      const wrapper1 = shallow(<Select data={dataList1} readOnly={true} />)
+
+      expect(wrapper1).to.have.prop('readOnly', true)
+    })
+
+    it(' Should be filtered when filterAble=true', () => {
+      const wrapper1 = mount(<Select data={dataList1} filterAble={true} />),
+        _selectWrapper1 = wrapper1.find(compClass.select),
+        _optionsWrapper1 = _selectWrapper1.find(compClass.options)
+
+      // prop
+      expect(wrapper1).to.have.prop('filterAble', true)
+
+      // ui
+      wrapper1.instance().showOptions()
+      expect(_optionsWrapper1).to.have.exactly(1).descendants('input')
+    })
+
+    it(' Should be multi select when mult=true', () => {
+      const wrapper1 = shallow(<Select mult={true} data={dataList1} />)
+
+      expect(wrapper1).to.have.prop('mult', true)
     })
   })
 })
