@@ -32,9 +32,11 @@ describe('utils objects', function () {
 
   it('toTextValue', function () {
     var _ = Objects.toTextValue;
+    var hashcode = Objects.hashcode;
     var arr = [1, 2, 3, 4];
     var arrObj = arr.map(function (i) {
-      return { $text: i, $value: i };
+      i = i.toString();
+      return { $text: i, $value: i, $key: hashcode(i) };
     });
 
     _(arr).should.deep.equal(arrObj);
@@ -45,13 +47,33 @@ describe('utils objects', function () {
       { cn: '上海', key: 'shanghai' }
     ];
     var targetObj = [
-      { cn: '南京', key: 'nanjing', $text: '南京', $value: 'nanjing' },
-      { cn: '北京', key: 'beijing', $text: '北京', $value: 'beijing' },
-      { cn: '上海', key: 'shanghai', $text: '上海', $value: 'shanghai' }
+      { cn: '南京', key: 'nanjing', $text: '南京', $value: 'nanjing', $key: hashcode('南京-nanjing') },
+      { cn: '北京', key: 'beijing', $text: '北京', $value: 'beijing', $key: hashcode('北京-beijing') },
+      { cn: '上海', key: 'shanghai', $text: '上海', $value: 'shanghai', $key: hashcode('上海-shanghai') }
+    ];
+    _(rawObj, '{cn}', '{key}').should.deep.equal(targetObj);
+
+    rawObj = [
+      { cn: '南京', id: '1', key: 'nanjing' },
+      { cn: '北京', id: '2', key: 'beijing' },
+      { cn: '上海', id: '3', key: 'shanghai' }
+    ];
+    targetObj = [
+      { cn: '南京', key: 'nanjing', id: '1', $text: '南京', $value: 'nanjing', $key: '1' },
+      { cn: '北京', key: 'beijing', id: '2', $text: '北京', $value: 'beijing', $key: '2' },
+      { cn: '上海', key: 'shanghai', id: '3', $text: '上海', $value: 'shanghai', $key: '3' }
     ];
     _(rawObj, '{cn}', '{key}').should.deep.equal(targetObj);
 
     _(null).should.eql([]);
+  });
+
+  it('hashcode', () => {
+    var hashcode = Objects.hashcode;
+    hashcode(12345).should.eql('ruxir');
+    hashcode('12345').should.eql('ruxir');
+    hashcode({a: 1}).should.eql('-numd4y');
+    hashcode([1, 2, 3, 4, 5]).should.eql('-75lz7b');
   });
 
   it('sortByKey', () => {

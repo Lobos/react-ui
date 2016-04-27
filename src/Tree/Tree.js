@@ -40,7 +40,7 @@ class Tree extends Component {
       this.setValue(nextProps.value);
     }
     if (!deepEqual(nextProps.data, this.props.data)) {
-      this.formatData(nextProps.data);
+      this.formatData(nextProps.data, this.formatValue(nextProps.value));
     }
     if (nextProps.sep !== this.props.sep ||
         nextProps.greedy !== this.props.greedy) {
@@ -50,7 +50,7 @@ class Tree extends Component {
 
   componentWillUpdate (nextProps, nextState) {
     // initValue 和 initData 分开处理
-    if (nextState.value !== this.state.value) {
+    if (!deepEqual(nextState.value, this.state.value)) {
       this.init(nextState.data, nextState.value);
     }
   }
@@ -108,6 +108,9 @@ class Tree extends Component {
 
   // 初始化数据，不在item里面判断，在元数据里加入deep和status，减少判断次数
   init (data, values) {
+    if (data.length === 0) {
+      return;
+    }
     let getStatus = function (d, last, deep) {
       let val = d.$value,
           status,

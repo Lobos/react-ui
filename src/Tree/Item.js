@@ -2,7 +2,7 @@
 
 import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import { forEach, isEmpty } from '../utils/objects';
+import { forEach, isEmpty, deepEqual } from '../utils/objects';
 
 class Item extends Component {
   constructor (props) {
@@ -20,8 +20,8 @@ class Item extends Component {
   }
   
   componentWillReceiveProps (nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setState({status: this.props.data.$status});
+    if (!deepEqual(nextProps.value, this.props.value)) {
+      this.setState({status: nextProps.data.$status});
     }
   }
 

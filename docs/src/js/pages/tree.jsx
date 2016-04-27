@@ -11,6 +11,79 @@ Tree.setDefaultIcons([
   <Icon icon="file" />
 ]);
 
+let testData = [
+  {
+    "id": "account",
+    "text": "账户管理",
+    "icon": "user",
+    "children": [
+      {
+        "id": "user_list",
+        "text": "用户管理",
+        "children": [
+          {
+            "id": "user_edit",
+            "text": "编辑"
+          }
+        ]
+      },
+      {
+        "id": "role_list",
+        "text": "角色管理",
+        "children": [
+          {
+            "id": "role_edit",
+            "text": "编辑"
+          },
+          {
+            "id": "role_delete",
+            "text": "删除"
+          }
+        ]
+      },
+      {
+        "id": "auth_list",
+        "text": "权限管理",
+        "children": [
+          {
+            "id": "auth_edit",
+            "text": "编辑"
+          },
+          {
+            "id": "auth_delete",
+            "text": "删除"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sys",
+    "text": "系统设置",
+    "icon": "cogs",
+    "children": [
+      {
+        "id": "system_log",
+        "text": "系统日志"
+      },
+      {
+        "id": "config_list",
+        "text": "参数设置",
+        "children": [
+          {
+            "id": "config_edit",
+            "text": "编辑"
+          },
+          {
+            "id": "config_delete",
+            "text": "删除"
+          }
+        ]
+      }
+    ]
+  }
+];
+
 module.exports = class extends Component {
   constructor (props) {
     super(props);
@@ -70,7 +143,7 @@ module.exports = class extends Component {
 
           <h2 className="subhead">Example</h2>
           <Example>
-<Tree fetch={{url:"json/tree.json", cache:3600}}
+<Tree data={testData}
   readOnly={this.state.readOnly}
   selectAble={this.state.selectAble}
   greedy={this.state.greedy}

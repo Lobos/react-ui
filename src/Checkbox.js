@@ -84,7 +84,8 @@ Checkbox.propTypes = {
 };
 
 Checkbox.defaultProps = {
-  checkValue: true
+  checkValue: true,
+  value: ''
 }
 
 module.exports = register(Checkbox, 'checkbox');
