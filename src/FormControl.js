@@ -6,7 +6,7 @@ import { COMPONENTS, getValueType } from './higherOrders/FormItem';
 import merge from './utils/merge';
 import { getGrid } from './utils/grids';
 import { format } from './utils/strings';
-import { forEach, shallowEqual, hashcode } from './utils/objects';
+import { forEach, shallowEqual } from './utils/objects';
 
 import { getLang, setLang } from './lang';
 setLang('validation');
@@ -186,10 +186,8 @@ class FormControl extends Component {
     props.readOnly = props.readOnly || this.props.readOnly;
   }
 
-  renderChildren (children, index) {
+  renderChildren (children) {
     let newChildren = Children.toArray(children).map((child, i) => {
-      //i = index + '.' + i;
-
       if (typeof child === 'string') {
         return <span key={i}>{child}</span>;
       }
@@ -198,7 +196,7 @@ class FormControl extends Component {
       if (child.type.isFormItem) {
         this.propsExtend(props);
       } else if (child.props && child.props.children === 'object') {
-        props.children = this.renderChildren(child.props.children, i);
+        props.children = this.renderChildren(child.props.children);
       }
       
       child = cloneElement(child, props);

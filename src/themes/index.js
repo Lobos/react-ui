@@ -3,5 +3,6 @@
 export let THEME = 'pure';
 
 export function requireCss(pack) {
-  require(`./pure/${pack}.less`);
+  console.warn(`${pack} wait a minute...`);
+  //require(`./pure/${pack}.less`);
 };

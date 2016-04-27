@@ -1,0 +1,80 @@
+@import "themes/pure.less";
+
+.buttonVariant(@color; @background; @border) {
+  color: @color;
+  background-color: @background;
+  border-color: @border;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+:local(.button) {
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+
+  font-family: inherit;
+  font-size: 100%;
+  text-decoration: none;
+
+  line-height: @base-line-height;
+  padding: @btn-padding;
+  color: @btn-color;
+  border: 1px solid @btn-border;
+  background-color: @btn-bg;
+  border-radius: @btn-radius;
+
+  /* Firefox: Get rid of the inner focus border */
+  &::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+
+  &:hover, &:focus {
+    /*
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#1a000000',GradientType=0);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(40%, rgba(0,0,0, 0.05)), to(rgba(0,0,0, 0.10)));
+    background-image: -webkit-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.10));
+    background-image: -moz-linear-gradient(top, rgba(0,0,0, 0.05) 0%, rgba(0,0,0, 0.10));
+    background-image: -o-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.10));
+    background-image: linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.10));
+    */
+    outline: 0;
+  }
+
+  &:active {
+    box-shadow: 0 0 0 1px rgba(0,0,0, 0.15) inset, 0 0 6px rgba(0,0,0, 0.20) inset;
+  }
+
+  &[disabled] {
+    border: none;
+    background-image: none;
+    opacity: 0.40;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+:local(.primary) {
+  .buttonVariant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+}
+
+:local(.success) {
+  .buttonVariant(@btn-success-color; @btn-success-bg; @btn-success-border);
+}
+
+:local(.error), :local(.danger) {
+  .buttonVariant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
+}
+
+:local(.warning) {
+  .buttonVariant(@btn-warning-color; @btn-warning-bg; @btn-warning-border);
+}
+
+:local(.info) {
+  .buttonVariant(@btn-info-color; @btn-info-bg; @btn-info-border);
+}
+

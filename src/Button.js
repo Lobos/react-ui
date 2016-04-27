@@ -3,8 +3,8 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { getGrid } from './utils/grids';
-import { requireCss } from './themes';
-requireCss('buttons');
+
+import styles from './styles/buttons.less';
 
 class Button extends Component {
   constructor (props) {
@@ -42,13 +42,13 @@ class Button extends Component {
   render() {
     let status = this.props.status;
     if (status) {
-      status = `rct-button-${status}`;
+      status = styles[status];
     }
 
     const className = classnames(
       this.props.className,
       getGrid(this.props.grid),
-      'rct-button',
+      styles.button,
       status
     );
 

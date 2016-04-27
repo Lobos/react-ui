@@ -140,7 +140,7 @@ class Form extends Component {
     const { data } = this.state;
     const { hintType, controls, disabled, layout } = this.props;
 
-    return clone(controls).map((control, i) => {
+    return clone(controls).map((control) => {
       if (typeof control !== 'object') {
         return control;
       } else {

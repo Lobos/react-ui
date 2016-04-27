@@ -5,12 +5,32 @@ import Form from '../Form';
 import Modal from '../Modal';
 import FormControl from '../FormControl';
 import FormSubmit from '../FormSubmit';
+import Textarea from '../Textarea';
 import ControlBuilder from './ControlBuilder';
 import ItemBuilder from './ItemBuilder';
 import clone from '../utils/clone';
 
 import { requireCss } from '../themes';
 requireCss('form-builder');
+
+const DEMO_DATA = [
+  { label: 'text', items: [{ type: 'text', name: 'text', required: true, min: 3, max: 12, grid: 1 }]},
+  { label: 'email', items: [{type: 'email', name: 'email', grid: 1 }]},
+  { label: 'readonly', items: [{type: 'text', name: 'readonly', readOnly: true }]},
+  { label: 'datetime', items: [{type: 'datetime', name: 'datetime', required: true, tip: '自定义tip文字' }]},
+  { label: 'tree', items: [{type: 'tree', name: 'tree', fetch: { url: 'json/tree.json' }, selectAble: true }]},
+  { label: 'two items', 
+    items: [
+      { type: 'date', name: 'startTime', min: '2016-03-20' }, 
+      '-',
+      { type: 'date', name: 'endTime' }
+    ]
+  },
+  { label: 'select', items: [{type: 'select', name: 'select', grid: 1/3, data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } }]},
+  { label: 'checkbox-group', items: [{type: 'checkbox-group', name: 'checkbox-group', min: 2, data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } }]},
+  { label: 'radio-group', items: [{type: 'radio-group', name: 'radio-group', data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } }]},
+  { label: 'textarea', items: [{ type: 'textarea', name: 'textarea', autoHeight: true }]}
+];
 
 class FormBuilder extends React.Component {
   constructor (props) {
@@ -19,6 +39,9 @@ class FormBuilder extends React.Component {
     this.state = {
       controls: props.controls
     };
+
+    this.exportControls = this.exportControls.bind(this);
+    this.importDemo = this.importDemo.bind(this);
   }
 
   editControl (index) {
@@ -109,6 +132,21 @@ class FormBuilder extends React.Component {
     });
   }
 
+  importDemo () {
+    this.setState({ controls: clone(DEMO_DATA) });
+  }
+
+  exportControls () {
+    Modal.open({
+      content: <Textarea rows={20} value={JSON.stringify(this.state.controls, null, 4)} />,
+      width: 900,
+      header: 'JSON Schema',
+      buttons: {
+        '确定': true
+      }
+    });
+  }
+
   render () {
     return (
       <div style={this.props.style}>
@@ -117,21 +155,12 @@ class FormBuilder extends React.Component {
           <FormSubmit>确定</FormSubmit>
           <FormControl>
             <div onClick={this.editControl.bind(this)} className="fb-btn-control">+ Add new Control</div>
-            <div onClick={this.editControl.bind(this)} className="fb-btn-control">导入Json</div>
-            <div onClick={this.exportControls.bind(this)} className="fb-btn-control">导出Json</div>
+            <div onClick={this.importDemo} className="fb-btn-control">导入Demo</div>
+            <div onClick={this.exportControls} className="fb-btn-control">导出Json</div>
           </FormControl>
         </Form>
       </div>
     );
-  }
-
-  exportControls () {
-    Modal.open({
-      content: <div>{JSON.stringify(this.state.controls, null, 4)}</div>,
-      buttons: {
-        '确定': true
-      }
-    });
   }
 }
 

@@ -1,7 +1,6 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
-import clone from '../utils/clone';
 import Form from '../Form';
 import FormControl from '../FormControl';
 import FormSubmit from '../FormSubmit';
