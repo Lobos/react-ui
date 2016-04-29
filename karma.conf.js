@@ -1,6 +1,7 @@
 // Karma configuration
 // Generated on Mon Jan 18 2016 12:43:59 GMT+0800 (CST)
 const path = require('path')
+const testConf = require('./webpack.config.test.js')
 
 module.exports = function (config) {
   config.set({
@@ -30,12 +31,9 @@ module.exports = function (config) {
     },
 
     webpack: {
-      devtool: 'inline-source-map',
+      devtool: testConf.devtool,
       entry: './test/index.js',
-      externals: {
-        'react/lib/ExecutionEnvironment': true,
-        'react/lib/ReactContext': true
-      },
+      externals: testConf.externals,
       module: {
         preLoaders: [{
           test: /\.jsx?$/,
@@ -43,20 +41,9 @@ module.exports = function (config) {
             path.resolve(__dirname, 'src')
           ],
           loader: 'isparta-instrumenter'
-        }],
-        loaders: [{
-          test: /\.jsx?$/, loaders: ['babel'],
-          include: [
-            path.resolve(__dirname, 'src'),
-            path.resolve(__dirname, 'test'),
-            path.resolve(__dirname, 'node_modules/refetch')
-          ]
-        },
-          {test: /\.(css|less)$/, loader: 'style-loader!css-loader?localIdentName=[hash:base64:8]!less-loader'},
-          {test: /\.(ttf|eot|woff|woff2|otf|svg)/, loader: 'file-loader?name=./font/[name].[ext]'},
-          {test: /\.json$/, loader: 'file-loader?name=./json/[name].json'},
-          {test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=10000&name=./images/[name].[ext]'}
-        ]
+        }].concat(testConf.module.preLoaders),
+
+        loaders: testConf.module.loaders
       }
     },
 
