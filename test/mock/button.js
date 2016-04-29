@@ -8,6 +8,15 @@ const compClass = {
   warning: 'rct-button-warning'
 }
 
+const compRegex = {
+  default: /.*button-\w{5}.*/,
+  info: /.*info-\w{5}.*/,
+  primary: /.*primary-\w{5}.*/,
+  success: /.*success-\w{5}.*/,
+  error: /.*error-\w{5}.*/,
+  warning: /.*warning-\w{5}.*/
+}
+
 const compSelector = {}
 
-export { compClass, compData, compSelector }
+export { compClass, compData, compRegex, compSelector }
