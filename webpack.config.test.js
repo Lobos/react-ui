@@ -29,6 +29,6 @@ module.exports = {
     }
     ].concat(devConf.module.loaders.slice(1)),
 
-    preLoaders: [devConf.module.preLoaders]
+    preLoaders: devConf.module.preLoaders.constructor === Array ? devConf.module.preLoaders : [devConf.module.preLoaders]
   }
 }
