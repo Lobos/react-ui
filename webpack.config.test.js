@@ -1,5 +1,5 @@
-var path = require('path');
-var webpack = require('webpack');
+var path = require('path')
+var webpack = require('webpack')
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -18,7 +18,8 @@ module.exports = {
   ],
   externals: {
     'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': true
+    'react/lib/ReactContext': true,
+    'react/addons': true
   },
   module: {
     loaders: [{
@@ -35,4 +36,4 @@ module.exports = {
       {test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=10000&name=./images/[name].[ext]'}
     ]
   }
-};
+}
