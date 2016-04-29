@@ -7,17 +7,17 @@ describe('Select Spec', () => {
   const {dataList1, dataList2} = compData,
 
     _defaultSingleWrapper = mount(
-      <Select placeholder="single" data={dataList1} />
+      <Select placeholder='single' data={dataList1} />
     ),
     _defaultObjectWrapper = mount(
-      <Select data={dataList2} groupBy="type" />
+      <Select data={dataList2} groupBy='type' />
     ),
     _defaultMultiObjectWrapper = mount(
       <Select
         mult={true}
-        placeholder="multiple"
+        placeholder='multiple'
         data={dataList2}
-        groupBy="type" />
+        groupBy='type' />
   )
 
   describe('Common', () => {
@@ -36,7 +36,7 @@ describe('Select Spec', () => {
 
     it('Should render by value', () => {
       const wrapper1 = mount(<Select data={dataList1} value='foo' />),
-        wrapper2 = mount(<Select mult={true} data={dataList1} value={['foo', 'bar']} />),
+        wrapper2 = mount(<Select mult data={dataList1} value={['foo', 'bar']} />),
         _selectWrapper1 = wrapper1.find(compClass.select),
         _selectWrapper2 = wrapper2.find(compClass.select)
 
@@ -48,7 +48,7 @@ describe('Select Spec', () => {
     it('Should apply correct Class by grid prop', () => {
       const wrapper1 = mount(<Select data={dataList2} grid={{width: 1 / 2}} />),
         wrapper2 = mount(<Select data={dataList2} grid={{width: 1 / 4, offset: 1 / 4}} />),
-        wrapper3 = mount(<Select mult={true} data={dataList2} grid={{width: 1 / 2, offset: 1 / 2, responsive: 'xl'}} />),
+        wrapper3 = mount(<Select mult data={dataList2} grid={{width: 1 / 2, offset: 1 / 2, responsive: 'xl'}} />),
         _selectWrapper1 = wrapper1.find(compClass.select),
         _selectWrapper2 = wrapper2.find(compClass.select),
         _selectWrapper3 = wrapper3.find(compClass.select)

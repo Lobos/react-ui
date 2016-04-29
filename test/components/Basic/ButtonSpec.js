@@ -9,15 +9,15 @@ describe('Button Spec', () => {
                                  </Button>)
 
   describe('Default', () => {
-    it('Should generate a button tag', () => {
+    it('should generate a button tag', () => {
       expect(defaultWrapper).to.have.tagName('button')
     })
 
-    it('Should have type=button by default', () => {
+    it('should have type=button by default', () => {
       expect(defaultWrapper).to.have.prop('type', 'button')
     })
 
-    it('Should not apply button-[hash:base64:5] class on default', () => {
+    it('should not apply button-[hash:base64:5] class on default', () => {
       const className = defaultWrapper.prop('className')
 
       expect(compRegex.default.test(className)).to.be.ok
@@ -25,7 +25,7 @@ describe('Button Spec', () => {
   })
 
   describe('Custom', () => {
-    it('Should show the type if passed button or submit', () => {
+    it('should show the type if passed button or submit', () => {
       const wrapper1 = shallow(
           <Button type='button'>
             Button1
@@ -40,7 +40,7 @@ describe('Button Spec', () => {
       expect(wrapper2).to.have.prop('type', 'submit')
     })
 
-    it('Should be disabled', () => {
+    it('should be disabled', () => {
       const wrapper1 = shallow(
         <Button disabled>
           Button
@@ -49,7 +49,7 @@ describe('Button Spec', () => {
       expect(wrapper1).to.be.disabled('disabled')
     })
 
-    it('Should apply [status]-[hash:base64:5] class with status attr', () => {
+    it('should apply [status]-[hash:base64:5] class with status attr', () => {
       const wrapper1 = shallow(
           <Button status='error'>
             Button1
@@ -68,7 +68,7 @@ describe('Button Spec', () => {
       expect(compRegex.primary.test(className2)).to.be.ok
     })
 
-    it('Should ensure additional classes passed in, adding but not overriding', () => {
+    it('should ensure additional classes passed in, adding but not overriding', () => {
       const wrapper1 = shallow(
         <Button className='foo'>
           Button
@@ -80,7 +80,7 @@ describe('Button Spec', () => {
   })
 
   describe('Behavior', () => {
-    it('Should call onClick callback', (done) => {
+    it('should call onClick callback', (done) => {
       const cb = () => {
           done()
         },
@@ -93,7 +93,7 @@ describe('Button Spec', () => {
       wrapper1.find('button').simulate('click')
     })
 
-    it('Should call enable(elem) to enable disabled Button', () => {
+    it('should call enable(elem) to enable disabled Button', () => {
       const wrapper1 = shallow(
         <Button disabled>
           Button
@@ -106,7 +106,7 @@ describe('Button Spec', () => {
       expect(wrapper1.find('button')).to.not.be.disabled()
     })
 
-    it('Should call disable(elem) to disable enabled Button', () => {
+    it('should call disable(elem) to disable enabled Button', () => {
       const wrapper1 = shallow(
         <Button>
           Button
@@ -119,7 +119,7 @@ describe('Button Spec', () => {
       expect(wrapper1.find('button')).to.be.disabled()
     })
 
-    it('Should change to disabled after click when once="true"', () => {
+    it('should change to disabled after click when once="true"', () => {
       const wrapper1 = shallow(
         <Button once={true}>
           Button
