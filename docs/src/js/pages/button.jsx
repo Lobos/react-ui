@@ -27,23 +27,23 @@ module.exports = class extends React.Component {
 
           <h2 className="subhead">普通按钮</h2>
           <Example>
-<Button status="primary">Primary Button</Button>
+<Button style={{marginRight:5}} status="primary">Primary Button</Button>
 <Button>Button</Button>
           </Example>
 
           <h2 className="subhead">带图标按钮</h2>
           <Example>
-<Button><Icon icon="home" /> Home</Button>
+<Button style={{marginRight:5}}><Icon icon="home" /> Home</Button>
 <Button><Icon icon="cog" /> Settings</Button>
           </Example>
 
           <h2 className="subhead">Status</h2>
           <Example>
-<Button status="primary">Primary</Button>
-<Button status="success">Success</Button>
-<Button status="warning">Warning</Button>
-<Button status="error">Error</Button>
-<Button status="info">Info</Button>
+<Button style={{marginRight:5}} status="primary">Primary</Button>
+<Button style={{marginRight:5}} status="success">Success</Button>
+<Button style={{marginRight:5}} status="warning">Warning</Button>
+<Button style={{marginRight:5}} status="error">Error</Button>
+<Button style={{marginRight:5}} status="info">Info</Button>
 <Button>Normal Button</Button>
           </Example>
 
@@ -59,6 +59,11 @@ module.exports = class extends React.Component {
 
           <h2 className="subhead">disabled</h2>
           <Example>
+<Button disabled style={{marginRight:5}} status="primary">Primary</Button>
+<Button disabled style={{marginRight:5}} status="success">Success</Button>
+<Button disabled style={{marginRight:5}} status="warning">Warning</Button>
+<Button disabled style={{marginRight:5}} status="error">Error</Button>
+<Button disabled style={{marginRight:5}} status="info">Info</Button>
 <Button disabled>Disabled Button</Button>
           </Example>
         </div>

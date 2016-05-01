@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { getGrid } from './utils/grids';
 
-import styles from './styles/buttons.less';
+import styles from './styles/_buttons.scss';
 
 class Button extends Component {
   constructor (props) {
