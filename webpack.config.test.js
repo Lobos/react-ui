@@ -1,5 +1,5 @@
-var path = require('path');
-var webpack = require('webpack');
+var path = require('path')
+var devConf = require('./webpack.config.dev.js')
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -12,13 +12,11 @@ module.exports = {
     filename: 'static/testBundle.js',
     publicPath: '/'
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
+  plugins: devConf.plugins,
   externals: {
     'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': true
+    'react/lib/ReactContext': true,
+    'react/addons': true
   },
   module: {
     loaders: [{
@@ -28,11 +26,9 @@ module.exports = {
         path.resolve(__dirname, 'test'),
         path.resolve(__dirname, 'node_modules/refetch')
       ]
-    },
-      {test: /\.(css|less)$/, loader: 'style-loader!css-loader?localIdentName=[hash:base64:8]!less-loader'},
-      {test: /\.(ttf|eot|woff|woff2|otf|svg)/, loader: 'file-loader?name=./font/[name].[ext]'},
-      {test: /\.json$/, loader: 'file-loader?name=./json/[name].json'},
-      {test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=10000&name=./images/[name].[ext]'}
-    ]
+    }
+    ].concat(devConf.module.loaders.slice(1)),
+
+    preLoaders: devConf.module.preLoaders.constructor === Array ? devConf.module.preLoaders : [devConf.module.preLoaders]
   }
-};
+}
