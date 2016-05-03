@@ -24,7 +24,7 @@ module.exports = class extends React.Component {
   {string|element}     // 文字或元素
 </Button>`}
           </Code>
-          <p>0.7 remove once props, use disabled.</p>
+          <p>0.7 删除了once, enable(), disable(), 这种用法是不对的，用props.disabled吧.</p>
 
           <h2 className="subhead">普通按钮</h2>
           <Example>

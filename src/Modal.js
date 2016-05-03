@@ -71,7 +71,7 @@ class ModalContainer extends Component {
     } else {
       modals.forEach((m, i) => {
         if (m.id === id) {
-          props = modals.splice(i, 1);
+          props = modals.splice(i, 1)[0];
         }
       });
     }

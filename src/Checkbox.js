@@ -4,8 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { register } from './higherOrders/FormItem';
 
-import { requireCss } from './themes';
-requireCss('checkbox');
+import styles from './styles/_checkbox.scss';
 
 class Checkbox extends Component {
   constructor (props) {
@@ -21,7 +20,7 @@ class Checkbox extends Component {
       this.handleChange(null, nextProps.checked);
     }
     if (nextProps.value !== this.props.value || nextProps.checkValue !== this.props.checkValue) {
-      this.setValue(nextProps.value, nextProps.checkValue);
+      this.setState({ checked: nextProps.value === nextProps.checkValue });
     }
   }
 
@@ -42,28 +41,21 @@ class Checkbox extends Component {
     }, 0);
   }
 
-  /*
-  getValue () {
-    return this._input.checked ? (this.props.value || true) : false;
-  }
-  */
-
-  setValue (value, checkValue=this.props.checkValue) {
-    this.setState({ checked: value === checkValue });
-  }
-
   render () {
+    const { style, className, readOnly, value, text, children } = this.props;
+
     return (
-      <label style={this.props.style} className={ classnames(this.props.className, 'rct-checkbox') }>
+      <label style={style} className={ classnames(className, styles.checkbox) }>
         <input ref={(c) => this._input = c}
           type="checkbox"
-          disabled={this.props.readOnly}
+          disabled={readOnly}
           onChange={this.handleChange}
           checked={this.state.checked}
-          value={this.props.value}
+          value={value}
         />
-        {this.props.text}
-        {this.props.children}
+        <span className={styles.indicator}></span>
+        {text}
+        {children}
       </label>
     );
   }

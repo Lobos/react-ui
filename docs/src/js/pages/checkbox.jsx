@@ -36,6 +36,7 @@ module.exports = class extends React.Component {
           <h2 className="subhead">Readonly</h2>
           <Example>
 <Checkbox checked={true} readOnly={true} text="readonly checkbox" />
+<Checkbox readOnly={true} text="readonly checkbox" />
           </Example>
         </div>
       </div>

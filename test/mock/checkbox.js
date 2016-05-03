@@ -15,7 +15,7 @@ const compClass = {
 }
 
 const compSelector = {
-  checkboxItem: 'label.rct-checkbox',
+  checkboxItem: 'label',
   checkboxGroupContainer: 'div.rct-checkbox-group'
 }
 

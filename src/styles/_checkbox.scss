@@ -1,0 +1,61 @@
+@import "mixins";
+@import "themes/bootstrap";
+
+:local(.checkbox) {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+
+  input[type=checkbox] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+  }
+
+  :local(.indicator) {
+    display: inline-block;
+    width: $custom-control-indicator-size;
+    height: $custom-control-indicator-size;
+    border: 1px solid $custom-control-indicator-border;
+    position: relative;
+    vertical-align: middle;
+    user-select: none;
+    margin-right: 0.25rem;
+    background: {
+      color: $custom-control-indicator-bg;
+      repeat: no-repeat;
+      position: center center;
+      size: $custom-control-indicator-bg-size;
+    }
+    @include box-shadow($custom-control-indicator-box-shadow);
+    @include border-radius($custom-checkbox-radius);
+    box-sizing: border-box;
+    transition: 0.1s;
+
+    &:hover, &:checked, &.checked, &.half-checked, &[disabled] {
+      border-color: #aaa;
+    }
+
+    &[disabled]:after {
+      background: #f2f2f2;
+      cursor: not-allowed;
+    }
+  }
+
+  input:checked ~ :local(.indicator) {
+    border-color: $custom-control-checked-indicator-border;
+    background: {
+      size: 100%;
+      repeat: no-repeat;
+      image: $custom-checkbox-checked-icon;
+      color: $custom-control-checked-indicator-bg;
+    }
+  }
+
+  input:disabled ~ :local(.indicator) {
+    cursor: $cursor-disabled;
+    border-color: $custom-control-indicator-border;
+    background-color: $custom-control-disabled-indicator-bg;
+  }
+}

@@ -816,3 +816,12 @@ $pre-color:                   $gray-dark !default;
 $pre-border-color:            #ccc !default;
 $pre-scrollable-max-height:   340px !default;
 
+
+
+// react ui overwrite ==========================================================
+
+$custom-control-indicator-border:            #ddd;
+$custom-control-indicator-bg:                #fff;
+$custom-control-checked-indicator-border:    $custom-control-checked-indicator-bg;
+$custom-control-disabled-indicator-bg:       #ddd;
+$custom-checkbox-checked-icon:               url('data:image/svg+xml,<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g transform="scale(0.0625, 0.0625)"><path d="M161.024 360l400.448 374.272-161.024 153.216L0 513.216 161.024 360zM234.816 734.208l628.16-597.696L1024 289.664l-628.16 597.696L234.816 734.208z" fill="#ffffff"></path></g></svg>');
