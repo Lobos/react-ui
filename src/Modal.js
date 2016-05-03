@@ -91,8 +91,8 @@ class ModalContainer extends Component {
     }
   }
 
-  close () {
-    PubSub.publish(REMOVE_MODAL);
+  close (id) {
+    PubSub.publish(REMOVE_MODAL, id);
   }
 
   clickaway (event) {
@@ -120,7 +120,7 @@ class ModalContainer extends Component {
               status = j === 0 ? 'primary' : '',
               handle = () => {
                 if (func === true) {
-                  this.close();
+                  this.close(options.id);
                 } else if (func === 'submit') {
                   let form = this.elements[options.id].querySelector('form');
                   if (form) {
@@ -130,7 +130,7 @@ class ModalContainer extends Component {
                   }
                 } else {
                   if (func()) {
-                    this.close();
+                    this.close(options.id);
                   }
                 }
               };
@@ -260,7 +260,7 @@ class Modal extends Component {
     if (newProps.isOpen) {
       this.renderModal(newProps);
     } else {
-      close();
+      close(this.id);
     }
   }
 

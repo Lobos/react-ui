@@ -9,12 +9,15 @@ const compClass = {
 }
 
 const compRegex = {
-  default: /.*button-\w{5}.*/,
-  info: /.*info-\w{5}.*/,
-  primary: /.*primary-\w{5}.*/,
-  success: /.*success-\w{5}.*/,
-  error: /.*error-\w{5}.*/,
-  warning: /.*warning-\w{5}.*/
+  default: /.*button-[\w-]{5}.*/,
+  info: /.*info-[\w-]{5}.*/,
+  primary: /.*primary-[\w-]{5}.*/,
+  success: /.*success-[\w-]{5}.*/,
+  error: /.*error-[\w-]{5}.*/,
+  danger: /.*danger-[\w-]{5}.*/,
+  warning: /.*warning-[\w-]{5}.*/,
+  link: /.*link-[\w-]{5}.*/,
+  secondary: /.*secondary-[\w-]{5}.*/,
 }
 
 const compSelector = {}

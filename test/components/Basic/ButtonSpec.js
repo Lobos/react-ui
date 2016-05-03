@@ -50,22 +50,19 @@ describe('Button Spec', () => {
     })
 
     it('should apply [status]-[hash:base64:5] class with status attr', () => {
-      const wrapper1 = shallow(
-          <Button status='error'>
-            Button1
-          </Button>
-        ),
-        wrapper2 = shallow(
-          <Button status='primary'>
-            Button2
-          </Button>
-      )
+      ['primary', 'secondary', 'warning', 'success', 'danger', 'error', 'info', 'link', undefined].forEach((status) => {
+        let wrapper = shallow(
+          <Button status={status}>Button</Button>
+        )
+        const className = wrapper.prop('className')
 
-      const className1 = wrapper1.prop('className')
-      const className2 = wrapper2.prop('className')
+        // defalut status
+        if (status === undefined) {
+          status = 'secondary'
+        }
 
-      expect(compRegex.error.test(className1)).to.be.ok
-      expect(compRegex.primary.test(className2)).to.be.ok
+        expect(compRegex[status].test(className)).to.be.ok
+      })
     })
 
     it('should ensure additional classes passed in, adding but not overriding', () => {
@@ -93,6 +90,7 @@ describe('Button Spec', () => {
       wrapper1.find('button').simulate('click')
     })
 
+    /* remove enable disable once 方法，在我现在的观点看来，这样的操作是不应该的，所有的disable的操作都应该通过props传入。
     it('should call enable(elem) to enable disabled Button', () => {
       const wrapper1 = shallow(
         <Button disabled>
@@ -130,5 +128,6 @@ describe('Button Spec', () => {
 
       expect(wrapper1.find('button')).to.be.disabled()
     })
+   */
   })
 })

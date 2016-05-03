@@ -1,67 +1,27 @@
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 import { getGrid } from './utils/grids';
 
 import styles from './styles/_buttons.scss';
 
-class Button extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      disabled: props.disabled,
-      show: null
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
+const Button = (props) => {
+  let { children, status, size, grid, className, ...others } = props;
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.disabled !== this.props.disabled) {
-      this.setState({ disabled: nextProps.disabled });
-    }
-  }
+  className = classnames(
+    className,
+    getGrid(grid),
+    styles.button,
+    styles[size],
+    styles[status]
+  );
 
-  disable(elem) {
-    this.setState({ disabled: true, show: elem });
-  }
-
-  enable(elem) {
-    this.setState({ disabled: false, show: elem });
-  }
-
-  handleClick() {
-    if (this.props.onClick) {
-      this.props.onClick();
-    }
-    if (this.props.once) {
-      this.disable();
-    }
-  }
-
-  render() {
-    let status = this.props.status;
-    if (status) {
-      status = styles[status];
-    }
-
-    const className = classnames(
-      this.props.className,
-      getGrid(this.props.grid),
-      styles.button,
-      status
-    );
-
-    return (
-      <button onClick={this.handleClick}
-        style={this.props.style}
-        disabled={this.state.disabled}
-        className={className}
-        type={this.props.type || 'button'}>
-        { this.state.show || this.props.children }
-      </button>
-    );
-  }
+  return (
+    <button {...others} className={className}>
+      { children }
+    </button>
+  );
 }
 
 Button.propTypes = {
@@ -71,10 +31,16 @@ Button.propTypes = {
   grid: PropTypes.object,
   onClick: PropTypes.func,
   once: PropTypes.bool,
-  status: PropTypes.string,
+  size: PropTypes.oneOf(['large', 'small', 'middle']),
+  status: PropTypes.oneOf(['primary', 'secondary', 'success', 'warning', 'danger', 'error', 'info', 'link']),
   style: PropTypes.object,
   type: PropTypes.oneOf(['submit', 'button'])
 };
 
-module.exports = Button;
+Button.defaultProps = {
+  size: 'middle',
+  status: 'secondary',
+  type: 'button'
+};
 
+module.exports = Button;
