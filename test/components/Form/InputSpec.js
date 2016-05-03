@@ -4,7 +4,7 @@ import { shallow, mount } from 'enzyme'
 import Input from '../../../src/Input'
 
 describe('Input Spec', () => {
-  const defaultWrapper = shallow(<Input placeholder='foo' />)
+  const defaultWrapper = mount(<Input placeholder='foo' />)
 
   describe('Default', () => {
     it('should generate a input tag', () => {
@@ -13,6 +13,10 @@ describe('Input Spec', () => {
 
     it('should generate correct placeholder', () => {
       expect(defaultWrapper).to.have.attr('placeholder', 'foo')
+    })
+
+    it('should apply rct-form-control class', () => {
+      expect(defaultWrapper).to.have.className('rct-form-control')
     })
   })
 
@@ -27,6 +31,14 @@ describe('Input Spec', () => {
       const wrapper = shallow(<Input readOnly />)
 
       expect(wrapper).to.have.attr('readonly', 'readonly')
+    })
+
+    it('should validate input data by type prop', () => {
+      const wrapper = shallow(<Input type='integer' trigger='change' />)
+
+      wrapper.simulate('change', {target: {value: 'foo'}, nativeEvent: true})
+
+      expect(wrapper).to.have.className('has-error')
     })
   })
 
