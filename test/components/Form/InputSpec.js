@@ -18,7 +18,7 @@ describe('Input Spec', () => {
 
   describe('Custom', () => {
     it('should apply grid class by grid prop', () => {
-      const wrapper = mount(<Input grid={1 / 4} placeholder='foo' />)
+      const wrapper = mount(<Input grid={1 / 4} />)
 
       expect(wrapper).to.have.className('rct-grid-md-25-000')
     })
@@ -28,8 +28,6 @@ describe('Input Spec', () => {
 
       expect(wrapper).to.have.attr('readonly', 'readonly')
     })
-
-    it('should apply input validation by type prop')
   })
 
   describe('Behavior', () => {
