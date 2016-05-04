@@ -85,32 +85,29 @@ class RadioGroup extends Component {
   }
 
   render () {
-    let { className, fetchStatus, inline, readOnly } = this.props;
+    let { className, fetchStatus, inline, block, style, readOnly } = this.props;
+    const { value } = this.state;
 
-    // if get remote data pending or failure, render message
-    if (fetchStatus !== FETCH_SUCCESS) {
-      return <span className={`fetch-${fetchStatus}`}>{getLang('fetch.status')[fetchStatus]}</span>;
+    // old inline prop
+    if (block === undefined && inline !== undefined) {
+      block = !inline;
     }
 
-    className = classnames(
-      className,
-      'rct-radio-group',
-      { 'rct-inline': inline }
-    );
-    let items = this.state.data.map(function (item) {
+    const items = this.state.data.map(function (item) {
       return (
         <Radio key={item.$key}
+          block={block}
           onClick={this.handleChange}
           readOnly={readOnly}
-          checked={this.state.value === item.$value}
+          checked={value === item.$value}
           text={item.$text}
-          value={item.$value}
+          defaultValue={item.$value}
         />
       );
     }, this);
 
     return (
-      <div style={this.props.style} className={className}>{items}</div>
+      <div style={style} className={className}>{items}</div>
     );
   }
 }

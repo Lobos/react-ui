@@ -9,14 +9,15 @@ const compData = {
 }
 
 const compClass = {
-  checkboxContainer: 'rct-checkbox',
-  checkboxGroupContainer: 'rct-checkbox-group',
-  checkboxGroupInlineStyle: 'rct-inline'
+  checkboxContainer: 'checkbox',
+  checkboxGroupContainer: 'checkbox-group',
+  checkboxInlineStyle: 'inline',
+  checkboxBlockStyle: 'block'
 }
 
 const compSelector = {
   checkboxItem: 'label',
-  checkboxGroupContainer: 'div.rct-checkbox-group'
+  checkboxGroupContainer: 'div.checkbox-group'
 }
 
 export { compClass, compData, compSelector }

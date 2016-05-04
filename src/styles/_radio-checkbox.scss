@@ -1,14 +1,14 @@
 @import "mixins";
 @import "themes/bootstrap";
 
-:local(.checkbox) {
+:local(.checkbox), :local(.radio) {
   position: relative;
   display: inline-block;
   vertical-align: middle;
   padding-right: 1rem;
   line-height: $input-line-height;
 
-  input[type=checkbox] {
+  input[type=checkbox], input[type=radio] {
     position: absolute;
     left: 0;
     top: 0;
@@ -34,7 +34,6 @@
       size: $custom-control-indicator-bg-size;
     }
     @include box-shadow($custom-control-indicator-box-shadow);
-    @include border-radius($custom-checkbox-radius);
     box-sizing: border-box;
     transition: 0.1s ease-in-out;
   }
@@ -49,7 +48,6 @@
     background: {
       size: 100%;
       repeat: no-repeat;
-      image: $custom-checkbox-checked-icon;
       color: $custom-control-checked-indicator-bg;
     }
   }
@@ -61,10 +59,34 @@
   }
 }
 
-:local(.checked) {
+:local(.checkbox) {
+  :local(.indicator) {
+    @include border-radius($custom-checkbox-radius);
+  }
+
+  input:checked ~ :local(.indicator) {
+    background-image: $custom-checkbox-checked-icon;
+  }
+}
+
+:local(.radio) {
+  :local(.indicator) {
+    @include border-radius($custom-radio-radius);
+  }
+
+  input:checked ~ :local(.indicator) {
+    background-image: $custom-radio-checked-icon;
+  }
+}
+
+:local(.disabled) {
   color: $custom-control-disabled-description-color;
 }
 
 :local(.block) {
   display: block;
+}
+
+:local(.inline) {
+  display: inline-block;
 }

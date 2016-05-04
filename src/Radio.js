@@ -1,40 +1,55 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 
-import { requireCss } from './themes';
-requireCss('checkbox');
+import styles from './styles/_radio-checkbox.scss';
 
 class Radio extends Component {
   constructor (props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    // empty function
+    this.handleChange = () => {};
   }
 
   handleClick () {
-    if (this.props.onClick) {
-      this.props.onClick(this.props.value, this.props.index);
+    const { onClick, index, defaultValue } = this.props;
+    if (onClick) {
+      onClick(defaultValue, index);
     }
   }
 
   render () {
+    const { style, className, checked, block, readOnly, defaultValue, text, children } = this.props;
+    
+    let labelClass = classnames(
+      className,
+      styles.radio,
+      block ? styles.block : styles.inline,
+      readOnly ? styles.disabled : undefined,
+      checked ? styles.checked : undefined
+    );
+
     return (
-      <label style={this.props.style} className="rct-radio">
+      <label style={style} className={labelClass}>
         <input ref="input"
           type="radio"
-          disabled={this.props.readOnly}
-          onChange={() => {}}
+          disabled={readOnly}
+          onChange={this.handleChange}
           onClick={this.handleClick}
-          checked={this.props.checked}
-          value={this.props.value}
+          checked={checked}
+          value={defaultValue}
         />
-        <span>{this.props.text}</span>
+        <span className={styles.indicator} />
+        <span>{text}</span>
       </label>
     );
   }
 }
 
 Radio.propTypes = {
+  block: PropTypes.bool,
   checked: PropTypes.bool,
   index: PropTypes.number,
   onClick: PropTypes.func,

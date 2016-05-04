@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { register } from './higherOrders/FormItem';
 
-import styles from './styles/_checkbox.scss';
+import styles from './styles/_radio-checkbox.scss';
 
 class Checkbox extends Component {
   constructor (props) {
@@ -60,6 +60,7 @@ class Checkbox extends Component {
     let labelClass = classnames(
       className,
       styles.checkbox,
+      readOnly ? styles.disabled : undefined,
       block ? styles.block : styles.inline,
       checked ? styles.checked : undefined
     );

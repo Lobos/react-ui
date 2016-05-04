@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme'
 import { compClass, compData, compSelector } from '../../mock/checkbox.js'
 import Checkbox from '../../../src/Checkbox.js'
 import CheckboxGroup from '../../../src/CheckboxGroup.js'
+import { hashClassNameTest } from '../../testUtils.js'
 
 describe('Checkbox & Checkbox Group Spec', () => {
   const _defaultCheckbox = mount(<Checkbox text='foo' checked/>),
@@ -61,11 +62,27 @@ describe('Checkbox & Checkbox Group Spec', () => {
     })
 
     it('should render by inline', () => {
-      const wrapper1 = mount(<CheckboxGroup inline data={compData.dataList1} />).find('div'),
-        wrapper2 = mount(<CheckboxGroup inline={false} data={compData.dataList1} />).find('div')
+      const wrapper1 = mount(<CheckboxGroup inline data={compData.dataList1} />),
+        wrapper2 = mount(<CheckboxGroup inline={false} data={compData.dataList1} />),
+        wrapper3 = mount(<CheckboxGroup block data={compData.dataList1} />),
+        wrapper4 = mount(<CheckboxGroup block={false} data={compData.dataList1} />)
 
-      expect(wrapper1).to.have.className(compClass.checkboxGroupInlineStyle)
-      expect(wrapper2).to.not.have.className(compClass.checkboxGroupInlineStyle)
+      wrapper1.find('label').forEach((e) => {
+        hashClassNameTest(e, compClass.checkboxInlineStyle, true)
+        hashClassNameTest(e, compClass.checkboxBlockStyle, false)
+      })
+      wrapper2.find('label').forEach((e) => {
+        hashClassNameTest(e, compClass.checkboxInlineStyle, false)
+        hashClassNameTest(e, compClass.checkboxBlockStyle, true)
+      })
+      wrapper3.find('label').forEach((e) => {
+        hashClassNameTest(e, compClass.checkboxInlineStyle, false)
+        hashClassNameTest(e, compClass.checkboxBlockStyle, true)
+      })
+      wrapper4.find('label').forEach((e) => {
+        hashClassNameTest(e, compClass.checkboxInlineStyle, true)
+        hashClassNameTest(e, compClass.checkboxBlockStyle, false)
+      })
     })
 
     describe('should render by Tpl', () => {

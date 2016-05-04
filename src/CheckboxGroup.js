@@ -79,7 +79,7 @@ class CheckboxGroup extends Component {
       }
     });
 
-    if (typeof sep === 'string') {
+    if (sep && typeof sep === 'string') {
       value = value.join(sep);
     } else if (typeof sep === 'function') {
       value = sep(raw);

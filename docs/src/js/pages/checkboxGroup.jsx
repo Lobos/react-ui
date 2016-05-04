@@ -151,12 +151,13 @@ module.exports = class extends React.Component {
           <h2 className="subhead">data && children</h2>
           <div>0.6 支持数据和Checkbox元素混合传入，position为插入位置，正整数</div>
           <Example>
-<CheckboxGroup sep=""
+<CheckboxGroup sep={null}
   onChange={(value)=>console.log(value)}
   value={["北京", "香港"]}
   data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
   >
   <Checkbox position={3} defaultValue="香港"><Icon icon="cloud-outline" />香港</Checkbox>
+  <Checkbox defaultValue="澳门">澳门</Checkbox>
 </CheckboxGroup>
           </Example>
         </div>

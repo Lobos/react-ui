@@ -1,7 +1,8 @@
 import React from 'react/lib/ReactWithAddons'
 import { shallow } from 'enzyme'
-import { compRegex, compClass } from '../../mock/button'
+import { compStatus } from '../../mock/button'
 import Button from '../../../src/Button'
+import { hashClassNameTest } from '../../testUtils'
 
 describe('Button Spec', () => {
   const defaultWrapper = shallow(<Button>
@@ -18,9 +19,7 @@ describe('Button Spec', () => {
     })
 
     it('should not apply button-[hash:base64:5] class on default', () => {
-      const className = defaultWrapper.prop('className')
-
-      expect(compRegex.default.test(className)).to.be.ok
+      hashClassNameTest(defaultWrapper, 'button', true)
     })
   })
 
@@ -40,6 +39,15 @@ describe('Button Spec', () => {
       expect(wrapper2).to.have.prop('type', 'submit')
     })
 
+    it('undefined status button should be secondary', () => {
+      const wrapper = shallow(
+        <Button>
+          Button
+        </Button>
+      )
+      hashClassNameTest(wrapper, 'secondary', true)
+    })
+
     it('should be disabled', () => {
       const wrapper1 = shallow(
         <Button disabled>
@@ -50,18 +58,11 @@ describe('Button Spec', () => {
     })
 
     it('should apply [status]-[hash:base64:5] class with status attr', () => {
-      ['primary', 'secondary', 'warning', 'success', 'danger', 'error', 'info', 'link', undefined].forEach((status) => {
-        let wrapper = shallow(
+      compStatus.forEach((status) => {
+        const wrapper = shallow(
           <Button status={status}>Button</Button>
         )
-        const className = wrapper.prop('className')
-
-        // defalut status
-        if (status === undefined) {
-          status = 'secondary'
-        }
-
-        expect(compRegex[status].test(className)).to.be.ok
+        hashClassNameTest(wrapper, status, true)
       })
     })
 
