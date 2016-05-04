@@ -7,7 +7,6 @@ import { toArray } from './utils/strings';
 import { deepEqual, toTextValue, hashcode } from './utils/objects';
 import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
-import { getLang } from './lang';
 
 class CheckboxGroup extends Component {
   constructor (props) {
@@ -58,10 +57,10 @@ class CheckboxGroup extends Component {
         data = [
           ...data.slice(0, position),
           {
-            $checked: value.indexOf(child.props.checkValue) >= 0,
-            $value: child.props.checkValue,
+            $checked: value.indexOf(child.props.defaultValue) >= 0,
+            $value: child.props.defaultValue,
             $text: child.props.children || child.props.text,
-            $key: hashcode(`${child.props.checkValue}-${child.props.text}`)
+            $key: hashcode(`${child.props.defaultValue}-${child.props.text}`)
           },
           ...data.slice(position)
         ];
@@ -80,7 +79,7 @@ class CheckboxGroup extends Component {
       }
     });
 
-    if (sep && typeof sep === 'string') {
+    if (typeof sep === 'string') {
       value = value.join(sep);
     } else if (typeof sep === 'function') {
       value = sep(raw);
@@ -102,43 +101,33 @@ class CheckboxGroup extends Component {
   }
 
   renderItems () {
+    let { readOnly, block, inline } = this.props;
+
+    // old inline prop
+    if (block === undefined && inline !== undefined) {
+      block = !inline;
+    }
+
     return this.state.data.map((item, i) => {
       return (
         <Checkbox key={item.$key}
           index={i}
-          readOnly={this.props.readOnly}
+          readOnly={readOnly}
+          block={block}
           checked={item.$checked}
           onChange={this.handleChange}
           text={item.$text}
-          checkValue={item.$value}
+          defaultValue={item.$value}
         />
       );
     });
   }
 
   render () {
-    let { className, fetchStatus, inline } = this.props;
-
-    // if get remote data pending or failure, render message
-    if (fetchStatus !== FETCH_SUCCESS) {
-      return (
-        <span className={`fetch-${fetchStatus}`}>
-          {getLang('fetch.status')[fetchStatus]}
-        </span>
-      );
-    }
-
-    className = classnames(
-      className,
-      'rct-checkbox-group',
-      {
-        'rct-inline': inline,
-        'rct-block': !inline
-      }
-    );
+    const { className, style } = this.props;
 
     return (
-      <div style={this.props.style} className={className}>
+      <div style={style} className={className}>
         {this.renderItems()}
       </div>
     );
@@ -146,6 +135,7 @@ class CheckboxGroup extends Component {
 }
 
 CheckboxGroup.propTypes = {
+  block: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.array
@@ -155,7 +145,6 @@ CheckboxGroup.propTypes = {
     PropTypes.array,
     PropTypes.object
   ]),
-  fetchStatus: PropTypes.string,
   inline: PropTypes.bool,
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
@@ -175,7 +164,6 @@ CheckboxGroup.propTypes = {
 CheckboxGroup.defaultProps = {
   data: [],
   sep: ',',
-  inline: true,
   textTpl: '{text}',
   valueTpl: '{id}'
 };

@@ -1,6 +1,7 @@
 'use strict';
 
 import { substitute } from './strings';
+import objectAssign from 'object-assign';
 
 export const deepEqual = require('./deepEqual');
 
@@ -45,18 +46,17 @@ export function toTextValue (arr, textTpl='{text}', valueTpl='{id}') {
       };
     });
   }
-  arr = arr.map(function (s) {
+  return arr.map(function (s) {
     if (typeof s !== 'object') {
       s = s.toString();
       return { $text: s, $value: s, $key: hashcode(s) };
     } else {
-      s.$text = substitute(textTpl, s);
-      s.$value = substitute(valueTpl, s);
-      s.$key = s.id ? s.id : hashcode(`${s.$text}-${s.$value}`);
-      return s;
+      let $text = typeof textTpl === 'function' ? textTpl(s) : substitute(textTpl, s),
+          $value = typeof valueTpl === 'function' ? valueTpl(s) : substitute(valueTpl, s),
+          $key = s.id ? s.id : hashcode(`${$text}-${$value}`);
+      return objectAssign({}, s, { $text, $value, $key });
     }
   });
-  return arr;
 }
 
 export function hashcode(obj) {

@@ -4,6 +4,7 @@ import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
 import exampleData from '../data/text-value';
+import { TplDataDesc } from '../CommDocs';
 const {CheckboxGroup, Checkbox, Icon} = global.uiRequire();
 
 module.exports = class extends React.Component {
@@ -19,24 +20,22 @@ module.exports = class extends React.Component {
 
           <Code>
 {`<CheckboxGroup
+  block={bool}            // 为 true 时，各选项单行排列。默认为 false 
   className={string}
-  data={array|object} // 数据，默认值为[]
+  data={array|object}     // 数据，默认值为[]
   fetch={object}
-  inline={bool}       // 为 true 时，各选项横向排列。默认为 true 
-  onChange={function} // 当选项改变时回调方法，参数为 value
-  readOnly={bool}     // 为 true 时，只读。默认为 false
-  sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
-  textTpl="string"    // 显示文字模板，默认为 "{text}"
+  inline={bool}           // 旧接口，和block相反，建议使用block，设置了block时，inline无效
+  onChange={function}     // 当选项改变时回调方法，参数为 value
+  readOnly={bool}         // 为 true 时，只读。默认为 false
+  sep={string|null}       // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
+  textTpl={string|func}   // 显示文字模板，字符串或方法，默认为 "{text}"
   value={string|array}
-  valueTpl="string"   // 返回数据模板，默认为 "{id}"
+  valueTpl={string|func}  // 返回数据模板，字符串或方法，默认为 "{id}"
 />`}
           </Code>
           <div><a href="#/fetch">fetch 参见这里</a></div>
 
-          <h2 className="subhead">数据结构</h2>
-          <div>标准结构为 <em>text</em>, <em>id</em> key组成的数组</div>
-          <div>可以使用自定义数组，指定 <em>textTpl</em>, <em>valueTpl</em></div>
-          <div>可以使用一维数组，这种情况下，显示文字与值相同</div>
+          <TplDataDesc />
 
           <h2 className="subhead">默认结构数据</h2>
           <Example>
@@ -65,12 +64,30 @@ module.exports = class extends React.Component {
 }} />
           </Example>
           
-          <h2 className="subhead">定义模版</h2>
+          <h2 className="subhead">定义模版(string)</h2>
           <Example>
 <CheckboxGroup
   value='beijing'
   textTpl='{cn}({en})'
   valueTpl='{en}' 
+  data={[
+    { "en": "nanjing",   "cn": "南京" },
+    { "en": "beijing",   "cn": "北京" },
+    { "en": "guangzhou", "cn": "广州" },
+    { "en": "shenzhen",  "cn": "深圳" },
+    { "en": "chengdu",   "cn": "成都" },
+    { "en": "chongqing", "cn": "重庆" },
+    { "en": "shanghai",  "cn": "上海" }
+  ]}
+/>
+          </Example>
+          
+          <h2 className="subhead">定义模版(function)</h2>
+          <Example>
+<CheckboxGroup
+  value='beijing'
+  textTpl={(d) => d.cn + '-' + d.en}
+  valueTpl={(d) => d.en} 
   data={[
     { "en": "nanjing",   "cn": "南京" },
     { "en": "beijing",   "cn": "北京" },
@@ -93,14 +110,6 @@ module.exports = class extends React.Component {
 />
           </Example>
 
-          <h2 className="subhead">只读</h2>
-          <Example>
-<CheckboxGroup readOnly={true} inline={true}
-  value={["北京", "广州"]}
-  data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
-/>
-          </Example>
-
           <h2 className="subhead">服务端数据</h2>
           <div>支持<a href="#/fetch">fetch</a>从服务端获取数据</div>
           <Example>
@@ -113,9 +122,8 @@ module.exports = class extends React.Component {
 
           <h2 className="subhead">单行数据</h2>
           <Example>
-<CheckboxGroup 
+<CheckboxGroup block
   onChange={(value)=>console.log(value)}
-  inline={false}
   value="shanghai,chengdu"
   fetch={{url: "json/text-value.json", cache: 3600}}
 />
@@ -132,6 +140,14 @@ module.exports = class extends React.Component {
 />
           </Example>
 
+          <h2 className="subhead">只读</h2>
+          <Example>
+<CheckboxGroup readOnly={true}
+  value={["北京", "广州"]}
+  data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
+/>
+          </Example>
+
           <h2 className="subhead">data && children</h2>
           <div>0.6 支持数据和Checkbox元素混合传入，position为插入位置，正整数</div>
           <Example>
@@ -140,7 +156,7 @@ module.exports = class extends React.Component {
   value={["北京", "香港"]}
   data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
   >
-  <Checkbox position={3} checkValue="香港"><Icon icon="cloud-outline" />香港</Checkbox>
+  <Checkbox position={3} defaultValue="香港"><Icon icon="cloud-outline" />香港</Checkbox>
 </CheckboxGroup>
           </Example>
         </div>

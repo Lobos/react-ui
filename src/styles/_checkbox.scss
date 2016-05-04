@@ -5,6 +5,8 @@
   position: relative;
   display: inline-block;
   vertical-align: middle;
+  padding-right: 1rem;
+  line-height: $input-line-height;
 
   input[type=checkbox] {
     position: absolute;
@@ -13,13 +15,16 @@
     display: none;
   }
 
-  :local(.indicator) {
+  & > span {
     display: inline-block;
+    vertical-align: middle;
+  }
+
+  :local(.indicator) {
     width: $custom-control-indicator-size;
     height: $custom-control-indicator-size;
     border: 1px solid $custom-control-indicator-border;
     position: relative;
-    vertical-align: middle;
     user-select: none;
     margin-right: 0.25rem;
     background: {
@@ -31,16 +36,12 @@
     @include box-shadow($custom-control-indicator-box-shadow);
     @include border-radius($custom-checkbox-radius);
     box-sizing: border-box;
-    transition: 0.1s;
+    transition: 0.1s ease-in-out;
+  }
 
-    &:hover, &:checked, &.checked, &.half-checked, &[disabled] {
-      border-color: #aaa;
-    }
-
-    &[disabled]:after {
-      background: #f2f2f2;
-      cursor: not-allowed;
-    }
+  &:hover :local(.indicator) {
+    background-color: $custom-control-hover-indicator-bg;
+    border-color: $custom-control-hover-indicator-border;
   }
 
   input:checked ~ :local(.indicator) {
@@ -58,4 +59,12 @@
     border-color: $custom-control-indicator-border;
     background-color: $custom-control-disabled-indicator-bg;
   }
+}
+
+:local(.checked) {
+  color: $custom-control-disabled-description-color;
+}
+
+:local(.block) {
+  display: block;
 }

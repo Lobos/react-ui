@@ -13,8 +13,8 @@
   cursor: pointer;
   user-select: none;
   border: $input-btn-border-width solid transparent;
+  transition: all .2s ease-in-out;
   @include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-border-radius);
-  @include transition(all .2s ease-in-out);
 
   &,
   &:active {
@@ -33,13 +33,13 @@
   &:active {
     background-image: none;
     outline: 0;
-    @include box-shadow($btn-active-box-shadow);
+    box-shadow: $btn-active-box-shadow;
   }
 
   &:disabled {
     cursor: $cursor-disabled;
     opacity: .65;
-    @include box-shadow(none);
+    box-shadow: none;
   }
 }
 

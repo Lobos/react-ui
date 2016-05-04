@@ -9,52 +9,71 @@ import styles from './styles/_checkbox.scss';
 class Checkbox extends Component {
   constructor (props) {
     super(props);
-    this.state = {
-      checked: !!props.checked || props.value === props.checkValue
-    };
     this.handleChange = this.handleChange.bind(this);
   }
   
   componentWillReceiveProps (nextProps) {
-    if (nextProps.checked !== this.props.checked && nextProps.checked !== this.state.checked) {
-      this.handleChange(null, nextProps.checked);
-    }
-    if (nextProps.value !== this.props.value || nextProps.checkValue !== this.props.checkValue) {
-      this.setState({ checked: nextProps.value === nextProps.checkValue });
+    if (nextProps.value !== this.props.value) {
+      this.handleChange(null, nextProps.value === nextProps.defaultValue);
     }
   }
 
   handleChange (event, checked) {
-    if (this.props.readOnly) {
+    const { readOnly, onChange, index } = this.props;
+
+    if (readOnly) {
       return;
     }
 
-    if (event) {
-      checked = event.target.checked;
+    const defaultValue = this.getDefaultValue();
+
+    if (onChange) {
+      checked = event ? event.target.checked : checked;
+      const value = checked ? defaultValue : undefined;
+      onChange(value, checked, index);
     }
-    this.setState({ checked });
-    setTimeout(() => {
-      if (this.props.onChange) {
-        let value = checked ? this.props.checkValue : undefined;
-        this.props.onChange(value, checked, this.props.index);
-      }
-    }, 0);
+  }
+
+  getDefaultValue () {
+    let { defaultValue, checkValue } = this.props;
+
+    if (checkValue !== undefined) {
+      defaultValue = checkValue;
+      console.warn('checkValue is deprecated, use defaultValue instead.');
+    }
+
+    return defaultValue;
+  }
+
+  getCheckStatus () {
+    const { value, checked } = this.props;
+    if (checked !== undefined) {
+      return checked;
+    }
+    return value === this.getDefaultValue();
   }
 
   render () {
-    const { style, className, readOnly, value, text, children } = this.props;
+    const { style, className, block, readOnly, defaultValue, text, children } = this.props;
+    const checked = this.getCheckStatus();
+
+    let labelClass = classnames(
+      className,
+      styles.checkbox,
+      block ? styles.block : styles.inline,
+      checked ? styles.checked : undefined
+    );
 
     return (
-      <label style={style} className={ classnames(className, styles.checkbox) }>
-        <input ref={(c) => this._input = c}
-          type="checkbox"
+      <label style={style} className={ labelClass }>
+        <input type="checkbox"
           disabled={readOnly}
           onChange={this.handleChange}
-          checked={this.state.checked}
-          value={value}
+          checked={checked}
+          value={defaultValue}
         />
         <span className={styles.indicator}></span>
-        {text}
+        <span>{text}</span>
         {children}
       </label>
     );
@@ -62,10 +81,12 @@ class Checkbox extends Component {
 }
 
 Checkbox.propTypes = {
+  block: PropTypes.bool,
   checkValue: PropTypes.any,
   checked: PropTypes.bool,
   children: PropTypes.any,
   className: PropTypes.string,
+  defaultValue: PropTypes.any.isRequired,
   index: PropTypes.number,
   onChange: PropTypes.func,
   position: PropTypes.number,
@@ -76,8 +97,7 @@ Checkbox.propTypes = {
 };
 
 Checkbox.defaultProps = {
-  checkValue: true,
-  value: ''
+  defaultValue: true
 }
 
 module.exports = register(Checkbox, 'checkbox');

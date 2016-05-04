@@ -5,7 +5,7 @@ import refetch from 'refetch';
 import { deepEqual } from '../utils/objects';
 import clone from '../utils/clone';
 
-import { setLang } from '../lang';
+import { setLang, getLang } from '../lang';
 setLang('fetch');
 
 export const FETCH_PENDING = 'pending';
@@ -43,6 +43,7 @@ export const fetchEnhance = (ComposedComponent) => {
       }
     }
 
+    /*
     componentDidMount () {
       let component = this.component;
       Object.keys(component).forEach((key) => {
@@ -54,6 +55,7 @@ export const fetchEnhance = (ComposedComponent) => {
         }
       });
     }
+    */
 
     componentWillReceiveProps (nextProps) {
       if (!deepEqual(this.props.data, nextProps.data)) {
@@ -127,9 +129,18 @@ export const fetchEnhance = (ComposedComponent) => {
 
     render () {
       const { data, ...others } = this.props;
-      return (
-        <ComposedComponent ref={(c) => this.component = c} data={this.state.data} fetchStatus={this.state.fetchStatus} {...others} />
-      );
+      const { fetchStatus } = this.state;
+      if (fetchStatus === FETCH_SUCCESS) {
+        return (
+          <ComposedComponent ref={(c) => this.component = c} data={this.state.data} fetchStatus={this.state.fetchStatus} {...others} />
+        );
+      } else {
+        return (
+          <span className={`fetch-${fetchStatus}`}>
+            {getLang('fetch.status')[fetchStatus]}
+          </span>
+        );
+      }
     }
   }
 
