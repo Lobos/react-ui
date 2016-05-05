@@ -53,7 +53,7 @@ export function toTextValue (arr, textTpl='{text}', valueTpl='{id}') {
     } else {
       let $text = typeof textTpl === 'function' ? textTpl(s) : substitute(textTpl, s),
           $value = typeof valueTpl === 'function' ? valueTpl(s) : substitute(valueTpl, s),
-          $key = s.id ? s.id : hashcode(`${$text}-${$value}`);
+          $key = s.id ? s.id : hashcode(s);
       return objectAssign({}, s, { $text, $value, $key });
     }
   });

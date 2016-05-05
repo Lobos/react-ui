@@ -78,7 +78,7 @@ module.exports = class extends Component {
           <Example>
 <RadioGroup block
   value='beijing'
-  textTpl={(d) => d.cn + '-' + d.en}
+  textTpl={(d) => <span><b>{d.cn}</b> - {d.en}</span>}
   valueTpl={(d) => d.en}
   data={[
     { "en": "nanjing",   "cn": "南京" },

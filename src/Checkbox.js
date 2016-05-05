@@ -60,9 +60,9 @@ class Checkbox extends Component {
     let labelClass = classnames(
       className,
       styles.checkbox,
-      readOnly ? styles.disabled : undefined,
+      readOnly && styles.disabled,
       block ? styles.block : styles.inline,
-      checked ? styles.checked : undefined
+      checked && styles.checked
     );
 
     return (

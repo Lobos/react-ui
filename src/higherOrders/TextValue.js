@@ -43,10 +43,11 @@ export const textValueEnhance = curry((single, Component) => {
     }
 
     formatData (data, values) {
-      data = toTextValue(data, this.props.textTpl, this.props.valueTpl).map((d) => {
-        d.$checked = values.indexOf(d.$value) >= 0;
-        return d;
-      });
+      data = toTextValue(data, this.props.textTpl, this.props.valueTpl)
+        .map((d) => {
+          d.$checked = values.indexOf(d.$value) >= 0;
+          return d;
+        });
 
       Children.map(this.props.children, (child) => {
         if (typeof child === 'object') {

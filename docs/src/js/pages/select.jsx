@@ -48,11 +48,11 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 
           <h2 className="subhead">简单数组</h2>
           <Example>
-<Select grid={{width:1/4}}
+<Select grid={{width:1/3}}
   placeholder="简单数组"
   data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
 &nbsp; 
-<Select grid={{width:1/4}}
+<Select grid={{width:1/3}}
   mult={true}
   data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
           </Example>
@@ -66,7 +66,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 
           <h2 className="subhead">单选</h2>
           <Example>
-<Select grid={{width:1/4}}
+<Select grid={{width:1/2}}
   placeholder="单选"
   filterAble={true}
   optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
@@ -83,8 +83,8 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   mult={true}
   placeholder="多选"
   filterAble={true}
-  optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
-  resultTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}'
+  optionTpl="<img src='//lobos.github.io/react-ui/images/flags/{code}.png' /> {country}-{en}"
+  resultTpl="<img src='//lobos.github.io/react-ui/images/flags/{code}.png' /> {country}"
   valueTpl="{en}"
   fetch={{url:"json/countries.json", cache:3600}} />
           </Example>
@@ -99,6 +99,14 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   valueTpl="{country}-{en}"
   fetch={{url: "json/countries.json", cache: true}} />
           </Example>
+
+          <h2 className="subhead">readOnly</h2>
+          <Example>
+<Select grid={{width:1/3}} readOnly
+  value="俄罗斯"
+  data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
+          </Example>
+
         </div>
       </div>
     );

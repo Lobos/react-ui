@@ -1,0 +1,115 @@
+@import "mixins";
+@import "themes/bootstrap";
+
+:local(.select) {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+
+  :local(.control) {
+    padding: $input-padding-y ($input-padding-x + $custom-select-indicator-padding) $input-padding-y $input-padding-x;
+    vertical-align: middle;
+    background: $custom-select-bg $custom-select-indicator no-repeat right $custom-select-padding-x center;
+    background-size: $custom-select-bg-size;
+  }
+}
+
+:local(.open) {
+  :local(.options) {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+:local(.dropup) {
+  :local(.options) {
+    top: auto;
+    bottom: 100%;
+    transform-origin: 0 100%;
+  }
+}
+
+:local(.result) {
+  display: inline-block;
+  padding-right: 0.25rem;
+
+  a {
+    color: $input-color-placeholder;
+  }
+
+  a:hover {
+    color: $brand-danger;
+  }
+}
+
+:local(.filter) {
+  padding: $select-option-padding-x $select-option-padding-x 0;
+  input {
+    width: 100%;
+    //background-color: $input-bg-disabled;
+    padding: $input-padding-y-sm $input-padding-x-sm;
+    box-shadow: none;
+    background: $select-filter-icon no-repeat right 0.25rem center;
+    background-size: $input-height-sm * 0.6;
+  }
+}
+
+:local(.options) {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: $zindex-dropdown;
+  display: none;
+  min-width: 100%;
+  font-size: $font-size-base;
+  color: $body-color;
+  text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  background-color: $dropdown-bg;
+  background-clip: padding-box;
+  border: $dropdown-border-width solid $dropdown-border-color;
+  @include border-radius($border-radius);
+  @include box-shadow($dropdown-box-shadow);
+  transform-origin: 0 0;
+  transform: scaleY(0);
+  max-height: $select-options-max-height;
+  overflow: auto;
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+
+  ul {
+    list-style: none;
+    padding: $dropdown-padding-y 0;
+    margin: $dropdown-margin-top 0 0; // override default ul
+
+    & > li {
+      display: block;
+      width: 100%;
+      padding: 3px $select-option-padding-x;
+      clear: both;
+      font-weight: normal;
+      color: $dropdown-link-color;
+      white-space: nowrap; // prevent links from randomly breaking onto new lines
+
+      @include hover-focus {
+        color: $dropdown-link-hover-color;
+        text-decoration: none;
+        background-color: $dropdown-link-hover-bg;
+      }
+
+      // Active state
+      &:local(.active) {
+        @include plain-hover-focus {
+          color: $dropdown-link-active-color;
+          text-decoration: none;
+          background-color: $dropdown-link-active-bg;
+          outline: 0;
+        }
+      }
+
+      &:local(.hidden) {
+        display: none;
+      }
+    }
+  }
+}
+

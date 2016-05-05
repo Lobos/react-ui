@@ -12,9 +12,8 @@ import { register } from './higherOrders/FormItem';
 import { getLang } from './lang';
 import { connect } from './utils/connect';
 
-import { requireCss } from './themes';
-requireCss('select');
-requireCss('form-control');
+import styles from './styles/_select.scss';
+import inputStyles from './styles/_input.scss';
 
 class Select extends ClickAway(Component) {
   constructor (props) {
@@ -31,6 +30,7 @@ class Select extends ClickAway(Component) {
 
     this.showOptions = this.showOptions.bind(this);
     this.hideOptions = this.hideOptions.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
   }
  
   componentWillReceiveProps (nextProps) {
@@ -82,7 +82,7 @@ class Select extends ClickAway(Component) {
       if (this.state.active === false) {
         this.refs.options.style.display = 'none';
       }
-    }, 500);
+    }, 240);
   }
 
   getValue (sep=this.props.sep, data=this.state.data) {
@@ -145,7 +145,7 @@ class Select extends ClickAway(Component) {
 
       let val = substitute(this.props.valueTpl, d);
       d.$option = substitute(this.props.optionTpl, d);
-      d.$result = substitute(this.props.resultTpl || this.props.optionTpl, d);
+      d.$result = this.props.resultTpl ? substitute(this.props.resultTpl, d) : d.$option;
       d.$value = val;
       d.$checked = value.indexOf(val) >= 0;
       d.$key = d.id ? d.id : hashcode(val + d.$option);
@@ -182,7 +182,7 @@ class Select extends ClickAway(Component) {
       data[i].$checked = !data[i].$checked;
     } else {
       data.map((d, index) => {
-        if (typeof d !== 'string') {
+        if (typeof d === 'object') {
           d.$checked = index === i;
         }
       });
@@ -203,13 +203,17 @@ class Select extends ClickAway(Component) {
     }, 0);
   }
 
+  handleFilter (e) {
+    this.setState({ filter: e.target.value });
+  }
+
   renderFilter () {
     if (this.props.filterAble) {
       return (
-        <div className="filter">
-          <i className="search" />
-          <input value={this.state.filter}
-            onChange={ (e) => this.setState({ filter: e.target.value }) }
+        <div className={styles.filter}>
+          <input className={classnames(inputStyles.input)}
+            value={this.state.filter}
+            onChange={ this.handleFilter }
             type="text" />
         </div>
       );
@@ -217,27 +221,19 @@ class Select extends ClickAway(Component) {
   }
 
   render () {
-    let { className, fetchStatus, grid, readOnly, mult, placeholder, style } = this.props;
-    let { filter, active, msg, data } = this.state;
+    let { className, grid, readOnly, mult, placeholder, style } = this.props;
+    let { filter, active, msg, data, dropup } = this.state;
     let result = [];
  
     className = classnames(
+      styles.select,
       className,
       getGrid(grid),
-      'rct-form-control',
-      'rct-select',
-      {
-        active,
-        readonly: readOnly,
-        dropup: this.state.dropup,
-        single: !mult
-      }
+      active && styles.open,
+      readOnly && styles.readonly,
+      dropup && styles.dropup,
+      !mult && styles.single
     );
-   
-    // if get remote data pending or failure, render message
-    if (fetchStatus !== FETCH_SUCCESS) {
-      return <div className={className}>{getLang('fetch.status')[fetchStatus]}</div>;
-    }
 
     let filterText = filter ? filter.toLowerCase() : null;
 
@@ -249,20 +245,20 @@ class Select extends ClickAway(Component) {
       if (d.$checked) {
         if (mult) {
           result.push(
-            <div key={d.$key} className="rct-select-result"
-              onClick={this.handleRemove.bind(this, i)}
-              dangerouslySetInnerHTML={{__html: d.$result}}
-            />
+            <div key={d.$key} className={styles.result}>
+              <span dangerouslySetInnerHTML={{__html: d.$result}} />
+              <a href="javascript:;" onClick={this.handleRemove.bind(this, i)}>&times;</a>
+            </div>
           );
         } else {
           result.push(<span key={d.$key} dangerouslySetInnerHTML={{__html: d.$result}} />);
         }
       }
 
-      let optionClassName = classnames({
-        active: d.$checked,
-        show: filterText ? d.$filter.indexOf(filterText) >= 0 : true
-      });
+      let optionClassName = classnames(
+        d.$checked && styles.active,
+        (filterText ? d.$filter.indexOf(filterText) < 0 : false) && styles.hidden
+      );
       return (
         <li key={d.$key}
           onClick={this.handleChange.bind(this, i)}
@@ -274,13 +270,16 @@ class Select extends ClickAway(Component) {
 
     return (
       <div ref="container" onClick={this.showOptions} style={style} className={className}>
-        { result.length > 0 ? result : <span className="placeholder">{msg || placeholder}&nbsp;</span> }
-        <div className="rct-select-options-wrap">
-          <hr />
-          <div ref="options" className="rct-select-options">
-            {this.renderFilter()}
-            <ul>{options}</ul>
-          </div>
+        <div className={classnames(styles.control, inputStyles.input)}>
+        {
+          result.length > 0 ?
+            result :
+            <span className={inputStyles.placeholder}>{msg || placeholder}&nbsp;</span>
+        }
+        </div>
+        <div ref="options" className={styles.options}>
+          {this.renderFilter()}
+          <ul>{options}</ul>
         </div>
       </div>
     );
