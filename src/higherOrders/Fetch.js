@@ -43,20 +43,6 @@ export const fetchEnhance = (ComposedComponent) => {
       }
     }
 
-    /*
-    componentDidMount () {
-      let component = this.component;
-      Object.keys(component).forEach((key) => {
-        if (!this.hasOwnProperty(key)) {
-          let func = component[key];
-          if (typeof func === 'function') {
-            this[key] = func;
-          }
-        }
-      });
-    }
-    */
-
     componentWillReceiveProps (nextProps) {
       if (!deepEqual(this.props.data, nextProps.data)) {
         this.handleData(nextProps.data);

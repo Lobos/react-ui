@@ -7,6 +7,8 @@ import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
 import { getLang } from './lang';
 import Radio from './Radio';
+import { connect } from './utils/connect';
+import { textValueEnhance } from './higherOrders/TextValue';
 
 function transformValue(value) {
   if (value === null || value === undefined) {
@@ -144,6 +146,8 @@ RadioGroup.defaultProps = {
   inline: true
 };
 
-RadioGroup = fetchEnhance(RadioGroup);
-
-module.exports = register(RadioGroup, 'radio-group');
+module.exports = connect(
+  register('radio-group', {}),
+  fetchEnhance,
+  textValueEnhance(true)
+)(RadioGroup);

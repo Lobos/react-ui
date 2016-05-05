@@ -2,6 +2,7 @@
 
 import React, { Component, createElement, PropTypes } from 'react';
 import classnames from 'classnames';
+import curry from 'curry';
 import { shallowEqual } from '../utils/objects';
 import * as Validation from '../utils/validation';
 import { toStyleObject, nextUid } from '../utils/strings';
@@ -193,7 +194,7 @@ export const enhance = (ComposedComponent) => {
   return FormItem;
 }
 
-export const register = (ComposedComponent, types=[], options={}) => {
+export const register = curry((types, options, ComposedComponent) => {
   let newComponent = enhance(ComposedComponent);
 
   // allow empty type
@@ -225,7 +226,7 @@ export const register = (ComposedComponent, types=[], options={}) => {
   });
 
   return newComponent;
-}
+});
 
 export const getValueType = (type) => {
   let valueType = 'string';

@@ -154,10 +154,8 @@ Rating.defaultProps = {
   maxValue: 5
 };
 
-Rating = register(Rating, 'rating');
+module.exports = register('rating', {}, Rating);
 
-Rating.register = function (key, icons) {
+module.exports.register = function (key, icons) {
   themes[key] = icons;
 };
-
-module.exports = Rating;

@@ -10,6 +10,7 @@ import { toArray, substitute } from '../utils/strings';
 import { forEach, deepEqual, hashcode } from '../utils/objects';
 import { fetchEnhance, FETCH_SUCCESS } from '../higherOrders/Fetch';
 import { register } from '../higherOrders/FormItem';
+import { connect } from '../utils/connect';
 import { getLang } from '../lang';
 import { requireCss } from '../themes';
 requireCss('tree');
@@ -247,12 +248,11 @@ Tree.defaultProps = {
   valueTpl: '{id}'
 };
 
-Tree = fetchEnhance(Tree);
+module.exports = connect(
+  register('tree', { valueType: 'array' }),
+  fetchEnhance
+)(Tree);
 
-Tree = register(Tree, 'tree', { valueType: 'array' });
-
-Tree.setDefaultIcons = function (icons) {
+module.exports.setDefaultIcons = function (icons) {
   defaultIcons = icons;
 };
-
-module.exports = Tree;

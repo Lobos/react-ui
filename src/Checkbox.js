@@ -101,7 +101,6 @@ Checkbox.defaultProps = {
   defaultValue: true
 }
 
-module.exports = register(Checkbox, 'checkbox');
+module.exports = register('checkbox', {}, Checkbox);
 
-// export for CheckboxGroup
 module.exports.Checkbox = Checkbox;

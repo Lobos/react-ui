@@ -122,5 +122,5 @@ Textarea.defaultProps = {
   value: ''
 };
 
-module.exports = register(Textarea, ['textarea']);
+module.exports = register(['textarea'], {}, Textarea);
 

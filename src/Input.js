@@ -101,4 +101,4 @@ Input.defaultProps = {
   value: ''
 };
 
-module.exports = register(Input, ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number']);
+module.exports = register(['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number'], {}, Input);

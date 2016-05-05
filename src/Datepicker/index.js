@@ -21,4 +21,4 @@ class Datepicker extends React.Component {
   }
 }
 
-module.exports = register(Datepicker, ['datetime', 'time', 'date'], {valueType: 'datetime'});
+module.exports = register(['datetime', 'time', 'date'], {valueType: 'datetime'}, Datepicker);

@@ -229,4 +229,4 @@ Upload.defaultProps = {
   withCredentials: false
 };
 
-module.exports = register(Upload, 'upload', {valueType: 'array'});
+module.exports = register('upload', {valueType: 'array'}, Upload);

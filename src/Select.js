@@ -10,6 +10,7 @@ import { getGrid } from './utils/grids';
 import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
 import { getLang } from './lang';
+import { connect } from './utils/connect';
 
 import { requireCss } from './themes';
 requireCss('select');
@@ -329,7 +330,8 @@ Select.defaultProps = {
   valueTpl: '{id}'
 };
 
-Select = fetchEnhance(Select);
-
-module.exports = register(Select, 'select', {valueType: 'array'});
+module.exports = connect(
+  register('select', {valueType: 'array'}),
+  fetchEnhance
+)(Select);
 

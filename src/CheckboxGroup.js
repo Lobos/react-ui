@@ -7,6 +7,8 @@ import { toArray } from './utils/strings';
 import { deepEqual, toTextValue, hashcode } from './utils/objects';
 import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
+import { textValueEnhance } from './higherOrders/TextValue';
+import { connect } from './utils/connect';
 
 class CheckboxGroup extends Component {
   constructor (props) {
@@ -168,6 +170,8 @@ CheckboxGroup.defaultProps = {
   valueTpl: '{id}'
 };
 
-CheckboxGroup = fetchEnhance(CheckboxGroup);
-
-module.exports = register(CheckboxGroup, 'checkbox-group', {valueType: 'array'});
+module.exports = connect(
+  register('checkbox-group', {valueType: 'array'}),
+  fetchEnhance,
+  textValueEnhance(false)
+)(CheckboxGroup)

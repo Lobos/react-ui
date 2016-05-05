@@ -151,7 +151,7 @@ class ModalContainer extends Component {
       return (
         <div ref={(el) => this.elements[options.id] = el} className="rct-modal-inner" onClick={clickaway} style={{ zIndex: ZINDEX + i }} key={options.id}>
           <div style={style} className={className}>
-            <a className="rct-modal-close" onClick={this.close.bind(this, true)}><span></span></a>
+            <a className="rct-modal-close" onClick={this.close.bind(this, options.id)}><span></span></a>
             {header}
             <div className="rct-modal-content">
               {options.content}
