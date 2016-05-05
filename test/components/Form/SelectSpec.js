@@ -1,7 +1,7 @@
 import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
-import { compClass, compData, compSelector } from '../../mock/select.js'
-import Select from '../../../src/Select.js'
+import { compClass, compData, compSelector } from '../../mock/select'
+import Select from '../../../src/Select'
 
 describe('Select Spec', () => {
   const {dataList1, dataList2} = compData,
@@ -158,7 +158,7 @@ describe('Select Spec', () => {
       expect(wrapper1).to.have.prop('filterAble', true)
 
       // ui
-      wrapper1.instance().showOptions()
+      _selectWrapper1.simulate('click')
       expect(_optionsWrapper1).to.have.exactly(1).descendants('input')
     })
 
