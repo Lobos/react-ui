@@ -16,7 +16,7 @@ class Radio extends Component {
   handleClick () {
     const { onClick, index, defaultValue } = this.props;
     if (onClick) {
-      onClick(defaultValue, index);
+      onClick(defaultValue, true, index);
     }
   }
 
@@ -43,6 +43,7 @@ class Radio extends Component {
         />
         <span className={styles.indicator} />
         <span>{text}</span>
+        { children }
       </label>
     );
   }
@@ -51,6 +52,9 @@ class Radio extends Component {
 Radio.propTypes = {
   block: PropTypes.bool,
   checked: PropTypes.bool,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  defaultValue: PropTypes.any,
   index: PropTypes.number,
   onClick: PropTypes.func,
   readOnly: PropTypes.bool,

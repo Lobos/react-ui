@@ -135,7 +135,7 @@ module.exports = class extends Component {
   value="北京"
   data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
   >
-  <Radio position={3} value="香港"><Icon icon="cloud-outline" />香港</Radio>
+  <Radio position={3} defaultValue="香港"><Icon icon="cloud-outline" />香港</Radio>
 </RadioGroup>
           </Example>
 

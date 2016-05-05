@@ -183,7 +183,7 @@ class Select extends ClickAway(Component) {
     } else {
       data.map((d, index) => {
         if (typeof d !== 'string') {
-          d.$checked = index === i ? true : false;
+          d.$checked = index === i;
         }
       });
       this.hideOptions();
