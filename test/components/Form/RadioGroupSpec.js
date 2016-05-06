@@ -45,15 +45,15 @@ describe('RadioGroup Spec', function () {
         wrapper3 = mount(<RadioGroup data={compData.dataList3} value='1' />)
 
       it('simeple array', () => {
-        expect(wrapper1.find('input')).to.be.checked()
+        expect(wrapper1.find('input').at(0)).to.be.checked()
       })
 
       it('object array', () => {
-        expect(wrapper2.find('input')).to.be.checked()
+        expect(wrapper2.find('input').at(0)).to.be.checked()
       })
 
       it('key-value object', () => {
-        expect(wrapper3.find('input')).to.be.checked()
+        expect(wrapper3.find('input').at(0)).to.be.checked()
       })
     })
   })
