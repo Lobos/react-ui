@@ -3,7 +3,6 @@
 import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
-import exampleData from '../data/text-value';
 import { TplDataDesc } from '../CommDocs';
 const {CheckboxGroup, Checkbox, Icon} = global.uiRequire();
 

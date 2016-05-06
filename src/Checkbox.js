@@ -3,6 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { register } from './higherOrders/FormItem';
+import { shallowEqual } from './utils/objects';
 
 import styles from './styles/_radio-checkbox.scss';
 
@@ -16,6 +17,10 @@ class Checkbox extends Component {
     if (nextProps.value !== this.props.value) {
       this.handleChange(null, nextProps.value === nextProps.defaultValue);
     }
+  }
+
+  shouldComponentUpdate (nextProps) {
+    return !shallowEqual(this.props, nextProps);
   }
 
   handleChange (event, checked) {

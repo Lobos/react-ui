@@ -1,48 +1,19 @@
 'use strict';
 
-// data pretreatment
-
 import React, { PropTypes, Children } from 'react';
 import curry from 'curry';
 import { toArray } from '../utils/strings';
-import { deepEqual, toTextValue, hashcode } from '../utils/objects';
+import { toTextValue, hashcode } from '../utils/objects';
 
 export const textValueEnhance = curry((single, Component) => {
   class TextValue extends React.Component {
     constructor (props) {
       super(props);
-
-      let values = toArray(props.value, props.sep);
-      this.state = {
-        values,
-        data: this.formatData(props.data, values)
-      };
       this.handleChange = this.handleChange.bind(this);
     }
 
-    componentWillReceiveProps (nextProps) {
-      if (!deepEqual(nextProps.value, this.props.value)) {
-        this.setValue(nextProps.value);
-      }
-      if (!deepEqual(nextProps.data, this.props.data)) {
-        this.setState({ data: this.formatData(nextProps.data, this.state.values) });
-      }
-    }
-
-    setValue (value) {
-      let values = toArray(value, this.props.sep);
-      if (this.state) {
-        let data = this.state.data.map((d) => {
-          d.$checked = values.indexOf(d.$value) >= 0;
-          return d;
-        });
-        this.setState({ values, data });
-      } else {
-        this.setState({ values });
-      }
-    }
-
-    formatData (data, values) {
+    formatData (data) {
+      let values = toArray(this.props.value, this.props.sep);
       data = toTextValue(data, this.props.textTpl, this.props.valueTpl)
         .map((d) => {
           d.$checked = values.indexOf(d.$value) >= 0;
@@ -61,27 +32,25 @@ export const textValueEnhance = curry((single, Component) => {
               $checked: values.indexOf(child.props.defaultValue) >= 0,
               $value: child.props.defaultValue,
               $text: child.props.children || child.props.text,
-              $key: hashcode(`${child.props.defaultValue}-${child.props.text}`)
+              $key: child.props.id || hashcode(child.props.defaultValue)
             },
             ...data.slice(position)
           ];
         }
       });
+
+      // for get checked values
+      this.data = data;
       return data;
     }
 
     handleChange (value, checked, index) {
       const { sep, onChange } = this.props;
-      let data = this.state.data,
+      let data = this.data,
           values = [],
           raw = [];
 
-      if (single) {
-        data.forEach((d, i) => {
-          d.$checked = index === i;
-        });
-        values = [value];
-      } else {
+      if (!single) {
         data[index].$checked = checked;
         data.forEach((d) => {
           if (d.$checked) {
@@ -98,7 +67,6 @@ export const textValueEnhance = curry((single, Component) => {
           value = values;
         }
       }
-      this.setState({ values, data });
 
       if (onChange) {
         onChange(value);
@@ -108,7 +76,7 @@ export const textValueEnhance = curry((single, Component) => {
     render () {
       return (
         <Component {...this.props}
-          data={this.state.data}
+          data={this.formatData(this.props.data)}
           onChange={this.handleChange}
         />
       );

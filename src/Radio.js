@@ -2,6 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
+import { shallowEqual } from './utils/objects';
 
 import styles from './styles/_radio-checkbox.scss';
 
@@ -11,6 +12,10 @@ class Radio extends Component {
     this.handleClick = this.handleClick.bind(this);
     // empty function
     this.handleChange = () => {};
+  }
+
+  shouldComponentUpdate (nextProps) {
+    return !shallowEqual(this.props, nextProps);
   }
 
   handleClick () {

@@ -39,9 +39,9 @@ class Icon extends Component {
     }
 
     return (
-      <span style={style} className={classnames(...classes)}>
+      <i style={style} className={classnames(...classes)}>
         {this.props.children}
-      </span>
+      </i>
     );
   }
 }

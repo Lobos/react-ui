@@ -21,6 +21,7 @@ export const enhance = (ComposedComponent) => {
 
       this.valueType = getValueType(props.type);
       this.handleChange = this.handleChange.bind(this);
+      this.bindComponent = this.bindComponent.bind(this);
     }
 
     componentWillMount () {
@@ -104,6 +105,10 @@ export const enhance = (ComposedComponent) => {
       });
     }
 
+    bindComponent (component) {
+      this.component = component;
+    }
+
     validate (value = this.state.value, props = this.props) {
       let { onValidate, ...other } = props;
       let result = Validation.validate(value, this.valueType, other);
@@ -155,7 +160,16 @@ export const enhance = (ComposedComponent) => {
         style = toStyleObject(style);
       }
 
-      return <ComposedComponent ref={(c) => this.component = c} {...props} onChange={this.handleChange} style={style} value={value} className={className} />
+      return (
+        <ComposedComponent
+          ref={this.bindComponent}
+          {...props}
+          onChange={this.handleChange}
+          style={style}
+          value={value}
+          className={className}
+        />
+      );
     }
   }
 
