@@ -286,6 +286,8 @@ class Select extends ClickAway(Component) {
   }
 }
 
+Select.displayName = 'Select';
+
 Select.propTypes = {
   className: PropTypes.string,
   data: PropTypes.oneOfType([

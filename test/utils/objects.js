@@ -47,9 +47,9 @@ describe('utils objects', function () {
       { cn: '上海', key: 'shanghai' }
     ];
     var targetObj = [
-      { cn: '南京', key: 'nanjing', $text: '南京', $value: 'nanjing', $key: hashcode('南京-nanjing') },
-      { cn: '北京', key: 'beijing', $text: '北京', $value: 'beijing', $key: hashcode('北京-beijing') },
-      { cn: '上海', key: 'shanghai', $text: '上海', $value: 'shanghai', $key: hashcode('上海-shanghai') }
+      { cn: '南京', key: 'nanjing', $text: '南京', $value: 'nanjing', $key: hashcode({ cn: '南京', key: 'nanjing' }) },
+      { cn: '北京', key: 'beijing', $text: '北京', $value: 'beijing', $key: hashcode({ cn: '北京', key: 'beijing' }) },
+      { cn: '上海', key: 'shanghai', $text: '上海', $value: 'shanghai', $key: hashcode({ cn: '上海', key: 'shanghai' }) }
     ];
     _(rawObj, '{cn}', '{key}').should.deep.equal(targetObj);
 

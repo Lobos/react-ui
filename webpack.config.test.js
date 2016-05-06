@@ -19,15 +19,36 @@ module.exports = {
     'react/addons': true
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/, loaders: ['babel'],
-      include: [
-        path.resolve(__dirname, 'src'),
-        path.resolve(__dirname, 'test'),
-        path.resolve(__dirname, 'node_modules/refetch')
-      ]
-    }
-    ].concat(devConf.module.loaders.slice(1)),
+    loaders: [
+      {
+        test: /\.jsx?$/, loaders: ['babel'],
+        include: [
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'test'),
+          path.resolve(__dirname, 'node_modules/refetch')
+        ]
+      },
+    
+      {
+        test: /\.(css|less)$/,
+        loaders: ['style-loader', 'css-loader?localIdentName=[local]', 'postcss-loader', 'less-loader']
+      },
+
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader?localIdentName=[local]', 'postcss-loader', 'sass-loader']
+      },
+
+      {
+        test: /\.json$/,
+        loader: 'file-loader?name=./json/[name].json'
+      },
+
+      {
+        test: /\.(png|jpg|jpeg|gif)$/,
+        loader: 'url-loader?limit=10000&name=./images/[name].[ext]'
+      }
+    ],
 
     preLoaders: devConf.module.preLoaders.constructor === Array ? devConf.module.preLoaders : [devConf.module.preLoaders]
   }
