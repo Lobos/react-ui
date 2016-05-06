@@ -42,21 +42,18 @@ describe('RadioGroup Spec', function () {
     describe('should apply checked status by value prop', () => {
       const wrapper1 = mount(<RadioGroup data={compData.dataList1} value='foo' />),
         wrapper2 = mount(<RadioGroup data={compData.dataList2} value='1' />),
-        wrapper3 = mount(<RadioGroup data={compData.dataList3} value='1' />),
-        itemWrapper1 = wrapper1.find('input').at(0),
-        itemWrapper2 = wrapper2.find('input').at(0),
-        itemWrapper3 = wrapper2.find('input').at(0)
+        wrapper3 = mount(<RadioGroup data={compData.dataList3} value='1' />)
 
       it('simeple array', () => {
-        expect(itemWrapper1).to.be.checked()
+        expect(wrapper1.find('input')).to.be.checked()
       })
 
       it('object array', () => {
-        expect(itemWrapper2).to.be.checked()
+        expect(wrapper2.find('input')).to.be.checked()
       })
 
       it('key-value object', () => {
-        expect(itemWrapper3).to.be.checked()
+        expect(wrapper3.find('input')).to.be.checked()
       })
     })
   })

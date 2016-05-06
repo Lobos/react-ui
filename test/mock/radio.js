@@ -10,7 +10,6 @@ const compData = {
     2: 'bar',
     3: 'baz'
   }
-
 }
 
 const compClass = {

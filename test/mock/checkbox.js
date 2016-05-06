@@ -4,8 +4,12 @@ const compData = {
     {id: '1', text: 'foo'},
     {id: '2', text: 'bar'},
     {id: '3', text: 'baz'}
-  ]
-
+  ],
+  dataList3: {
+    1: 'foo',
+    2: 'bar',
+    3: 'baz'
+  }
 }
 
 const compClass = {

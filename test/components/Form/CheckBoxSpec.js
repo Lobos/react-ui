@@ -6,11 +6,10 @@ import CheckboxGroup from '../../../src/CheckboxGroup'
 import { hashClassNameTest } from '../../testUtils'
 
 describe('Checkbox & Checkbox Group Spec', () => {
-  const _defaultCheckbox = mount(<Checkbox text='foo' checked/>),
-    _defaultCheckboxGroup1 = mount(<CheckboxGroup data={compData.dataList1} />),
-    _defaultCheckboxGroup2 = mount(<CheckboxGroup data={compData.dataList2} />)
 
   describe('Checkbox', () => {
+    const _defaultCheckbox = mount(<Checkbox text='foo' checked/>)
+
     it('should generate a label container tag', () => {
       expect(_defaultCheckbox.find(compSelector.checkboxItem).length).to.equal(1)
     })
@@ -41,19 +40,61 @@ describe('Checkbox & Checkbox Group Spec', () => {
   })
 
   describe('Checkbox Group', () => {
-    it('should render by data prop', () => {
+    const _defaultCheckboxGroup1 = mount(<CheckboxGroup data={compData.dataList1} />),
+      _defaultCheckboxGroup2 = mount(<CheckboxGroup data={compData.dataList2} />),
+      _defaultCheckboxGroup3 = mount(<CheckboxGroup data={compData.dataList3} />)
+
+    describe('should render by data prop', () => {
       const checkboxItemsWrapper1 = _defaultCheckboxGroup1.find(compSelector.checkboxItem),
-        checkboxItemsWrapper2 = _defaultCheckboxGroup2.find(compSelector.checkboxItem)
+        checkboxItemsWrapper2 = _defaultCheckboxGroup2.find(compSelector.checkboxItem),
+        checkboxItemsWrapper3 = _defaultCheckboxGroup3.find(compSelector.checkboxItem)
 
-      expect(checkboxItemsWrapper1.length).to.equal(compData.dataList1.length)
-      expect(checkboxItemsWrapper2.length).to.equal(compData.dataList2.length)
-
-      compData.dataList1.forEach((e, i) => {
-        expect(checkboxItemsWrapper1.at(i)).to.have.text(e)
+      it('simple array', () => {
+        expect(checkboxItemsWrapper1.length).to.equal(compData.dataList1.length)
+        compData.dataList1.forEach((e, i) => {
+          expect(checkboxItemsWrapper1.at(i)).to.have.text(e)
+        })
       })
 
-      compData.dataList2.forEach((e, i) => {
-        expect(checkboxItemsWrapper2.at(i)).to.have.text(e.text)
+      it('object array', () => {
+        expect(checkboxItemsWrapper2.length).to.equal(compData.dataList2.length)
+        compData.dataList2.forEach((e, i) => {
+          expect(checkboxItemsWrapper2.at(i)).to.have.text(e.text)
+        })
+      })
+
+      it('key-value object', () => {
+        const keys = Object.keys(compData.dataList3)
+
+        expect(checkboxItemsWrapper3.length).to.equal(keys.length)
+
+        keys.forEach((e, i) => {
+          expect(checkboxItemsWrapper3.at(i)).to.have.text(compData.dataList3[e])
+        })
+      })
+    })
+
+    describe('should apply checked status by value prop', () => {
+      const wrapper1 = mount(<CheckboxGroup data={compData.dataList1} value='foo,bar,baz' />),
+        wrapper2 = mount(<CheckboxGroup data={compData.dataList2} value='1,2,3' />),
+        wrapper3 = mount(<CheckboxGroup data={compData.dataList3} value='1,2,3' />)
+
+      it('simple array', () => {
+        wrapper1.find('input').forEach(e => {
+          expect(e).to.be.checked()
+        })
+      })
+
+      it('object array', () => {
+        wrapper1.find('input').forEach(e => {
+          expect(e).to.be.checked()
+        })
+      })
+
+      it('key-value object', () => {
+        wrapper1.find('input').forEach(e => {
+          expect(e).to.be.checked()
+        })
       })
     })
 
@@ -116,14 +157,6 @@ describe('Checkbox & Checkbox Group Spec', () => {
         expect(wrapper1.instance().getValue()).to.be.equal('1|2|3')
         done()
       }, 0)
-    })
-
-    it('should apply checked status by value prop', () => {
-      const wrapper1 = mount(<CheckboxGroup data={compData.dataList2} value='1,2,3' />)
-
-      wrapper1.find('input').forEach(e => {
-        expect(e).to.be.checked()
-      })
     })
   })
 
