@@ -10,7 +10,7 @@ import { toArray, substitute } from '../utils/strings';
 import { forEach, deepEqual, hashcode } from '../utils/objects';
 import { fetchEnhance, FETCH_SUCCESS } from '../higherOrders/Fetch';
 import { register } from '../higherOrders/FormItem';
-import { connect } from '../utils/connect';
+import { compose } from '../utils/compose';
 import { getLang } from '../lang';
 import { requireCss } from '../themes';
 requireCss('tree');
@@ -248,7 +248,7 @@ Tree.defaultProps = {
   valueTpl: '{id}'
 };
 
-module.exports = connect(
+module.exports = compose(
   register('tree', { valueType: 'array' }),
   fetchEnhance
 )(Tree);

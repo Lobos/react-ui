@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import { fetchEnhance } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
 import Radio from './Radio';
-import { connect } from './utils/connect';
+import { compose } from './utils/compose';
 import { textValueEnhance } from './higherOrders/TextValue';
 
 const RadioGroup = (props) => {
@@ -44,7 +44,7 @@ RadioGroup.propTypes = {
   style: PropTypes.object
 };
 
-module.exports = connect(
+module.exports = compose(
   register('radio-group', {}),
   fetchEnhance,
   textValueEnhance(true)

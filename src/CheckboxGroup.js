@@ -5,7 +5,7 @@ import { Checkbox } from './Checkbox';
 import { fetchEnhance } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
 import { textValueEnhance } from './higherOrders/TextValue';
-import { connect } from './utils/connect';
+import { compose } from './utils/compose';
 
 const CheckboxGroup = (props) => {
   const { className, style, data, readOnly, block, inline, onChange } = props;
@@ -51,7 +51,7 @@ CheckboxGroup.defaultProps = {
   data: []
 };
 
-module.exports = connect(
+module.exports = compose(
   register('checkbox-group', {valueType: 'array'}),
   fetchEnhance,
   textValueEnhance(false)

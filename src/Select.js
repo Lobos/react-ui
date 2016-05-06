@@ -10,7 +10,7 @@ import ClickAway from './mixins/ClickAway';
 import { getGrid } from './utils/grids';
 import { fetchEnhance } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
-import { connect } from './utils/connect';
+import { compose } from './utils/compose';
 import Transition from './Transition';
 
 import styles from './styles/_select.scss';
@@ -325,7 +325,7 @@ Select.defaultProps = {
   valueTpl: '{id}'
 };
 
-module.exports = connect(
+module.exports = compose(
   register('select', {valueType: 'array'}),
   fetchEnhance
 )(Select);

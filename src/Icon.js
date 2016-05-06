@@ -26,9 +26,8 @@ class Icon extends Component {
 
     if (icon) {
       classes.push(`${prefix}-${icon}`);
-    }
-
-    if (font) {
+    } else {
+      style = style || {};
       style.fontFamily = font;
     }
 
@@ -40,9 +39,9 @@ class Icon extends Component {
     }
 
     return (
-      <i style={style} className={classnames(...classes)}>
+      <span style={style} className={classnames(...classes)}>
         {this.props.children}
-      </i>
+      </span>
     );
   }
 }
@@ -55,6 +54,10 @@ Icon.propTypes = {
   spin: PropTypes.bool,
   style: PropTypes.object
 };
+
+Icon.defaultProps = {
+  font: 'iconfont'
+}
 
 Icon.setPrefix = function (pre) {
   prefix = pre;
