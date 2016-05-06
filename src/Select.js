@@ -1,16 +1,17 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import { toArray, substitute } from './utils/strings';
 import { getOuterHeight, overView, withoutTransition } from './utils/dom';
 import { deepEqual, hashcode } from './utils/objects';
 import ClickAway from './mixins/ClickAway';
 import { getGrid } from './utils/grids';
-import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
+import { fetchEnhance } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
-import { getLang } from './lang';
 import { connect } from './utils/connect';
+import Transition from './Transition';
 
 import styles from './styles/_select.scss';
 import inputStyles from './styles/_input.scss';
@@ -47,7 +48,8 @@ class Select extends ClickAway(Component) {
   }
 
   componentDidMount () {
-    let target = this.props.mult ? undefined : this.refs.options;
+    this.options = findDOMNode(this.refs.options);
+    let target = this.props.mult ? undefined : this.options;
     this.registerClickAway(this.hideOptions, target);
   }
 
@@ -56,36 +58,26 @@ class Select extends ClickAway(Component) {
       return;
     }
 
-    let options = this.refs.options;
-    options.style.display = 'block';
-    let offset = getOuterHeight(options) + 5;
-
-    let el = this.refs.container;
-    let dropup = overView(el, offset);
-
-    withoutTransition(el, () => {
-      this.setState({ dropup });
-    });
-
     this.bindClickAway();
 
-    setTimeout(() => {
-      this.setState({ filter: '', active: true });
-    }, 0);
+    this.setState({ filter: '', active: true }, () => {
+      let offset = getOuterHeight(this.options) + 5;
+
+      let el = this.refs.container;
+      let dropup = overView(el, offset);
+
+      withoutTransition(el, () => {
+        this.setState({ dropup });
+      });
+    });
   }
 
   hideOptions () {
     this.setState({ active: false });
     this.unbindClickAway();
-    // use setTimeout instead of transitionEnd
-    setTimeout(() => {
-      if (this.state.active === false) {
-        this.refs.options.style.display = 'none';
-      }
-    }, 240);
   }
 
-  getValue (sep=this.props.sep, data=this.state.data) {
+  getValue (sep, data) {
     let value = [],
         raw = [];
     data.forEach((d) => {
@@ -239,7 +231,7 @@ class Select extends ClickAway(Component) {
 
     let options = data.map((d, i) => {
       if (typeof d === 'string') {
-        return <span key={`g-${d}`} className="show group">{d}</span>;
+        return <span key={`g-${d}`} className={styles.group}>{d}</span>;
       }
 
       if (d.$checked) {
@@ -277,10 +269,12 @@ class Select extends ClickAway(Component) {
             <span className={inputStyles.placeholder}>{msg || placeholder}&nbsp;</span>
         }
         </div>
-        <div ref="options" className={styles.options}>
-          {this.renderFilter()}
-          <ul>{options}</ul>
-        </div>
+        <Transition ref="options" act={active ? 'enter' : 'leave'} duration={166} tf="ease-out">
+          <div style={{ display: 'none' }} className={styles.options}>
+            {this.renderFilter()}
+            <ul>{options}</ul>
+          </div>
+        </Transition>
       </div>
     );
   }
