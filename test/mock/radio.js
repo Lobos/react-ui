@@ -13,15 +13,15 @@ const compData = {
 }
 
 const compClass = {
-  checkboxContainer: 'checkbox',
-  checkboxGroupContainer: 'checkbox-group',
-  checkboxInlineStyle: 'inline',
-  checkboxBlockStyle: 'block'
+  //   checkboxContainer: 'checkbox',
+  //   checkboxGroupContainer: 'checkbox-group',
+  //   checkboxInlineStyle: 'inline',
+  //   checkboxBlockStyle: 'block'
 }
 
 const compSelector = {
-  checkboxItem: 'label',
-  checkboxGroupContainer: 'div.checkbox-group'
+  radioItem: 'label',
+  radioGroupContainer: 'div.rct-radio-group'
 }
 
 export { compClass, compData, compSelector }

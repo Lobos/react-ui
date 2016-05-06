@@ -1,16 +1,15 @@
 import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
-import { compClass, compData, compSelector } from '../../mock/checkbox.js'
-import Checkbox from '../../../src/Checkbox.js'
-import CheckboxGroup from '../../../src/CheckboxGroup.js'
-import { hashClassNameTest } from '../../testUtils.js'
+import { compClass, compData, compSelector } from '../../mock/checkbox'
+import Checkbox from '../../../src/Checkbox'
+import CheckboxGroup from '../../../src/CheckboxGroup'
+import { hashClassNameTest } from '../../testUtils'
 
 describe('Checkbox & Checkbox Group Spec', () => {
-  const _defaultCheckbox = mount(<Checkbox text='foo' checked/>),
-    _defaultCheckboxGroup1 = mount(<CheckboxGroup data={compData.dataList1} />),
-    _defaultCheckboxGroup2 = mount(<CheckboxGroup data={compData.dataList2} />)
 
   describe('Checkbox', () => {
+    const _defaultCheckbox = mount(<Checkbox text='foo' checked/>)
+
     it('should generate a label container tag', () => {
       expect(_defaultCheckbox.find(compSelector.checkboxItem).length).to.equal(1)
     })
@@ -41,27 +40,65 @@ describe('Checkbox & Checkbox Group Spec', () => {
   })
 
   describe('Checkbox Group', () => {
-    describe('should render by Array data', () => {
+    const _defaultCheckboxGroup1 = mount(<CheckboxGroup data={compData.dataList1} />),
+      _defaultCheckboxGroup2 = mount(<CheckboxGroup data={compData.dataList2} />),
+      _defaultCheckboxGroup3 = mount(<CheckboxGroup data={compData.dataList3} />)
+
+    describe('should render by data prop', () => {
       const checkboxItemsWrapper1 = _defaultCheckboxGroup1.find(compSelector.checkboxItem),
-        checkboxItemsWrapper2 = _defaultCheckboxGroup2.find(compSelector.checkboxItem)
+        checkboxItemsWrapper2 = _defaultCheckboxGroup2.find(compSelector.checkboxItem),
+        checkboxItemsWrapper3 = _defaultCheckboxGroup3.find(compSelector.checkboxItem)
 
-      it('should have the same size', () => {
+      it('simple array', () => {
         expect(checkboxItemsWrapper1.length).to.equal(compData.dataList1.length)
-        expect(checkboxItemsWrapper2.length).to.equal(compData.dataList2.length)
-      })
-
-      it('should have the same text', () => {
         compData.dataList1.forEach((e, i) => {
           expect(checkboxItemsWrapper1.at(i)).to.have.text(e)
         })
+      })
 
+      it('object array', () => {
+        expect(checkboxItemsWrapper2.length).to.equal(compData.dataList2.length)
         compData.dataList2.forEach((e, i) => {
           expect(checkboxItemsWrapper2.at(i)).to.have.text(e.text)
         })
       })
+
+      it('key-value object', () => {
+        const keys = Object.keys(compData.dataList3)
+
+        expect(checkboxItemsWrapper3.length).to.equal(keys.length)
+
+        keys.forEach((e, i) => {
+          expect(checkboxItemsWrapper3.at(i)).to.have.text(compData.dataList3[e])
+        })
+      })
     })
 
-    it('should render by inline', () => {
+    describe('should apply checked status by value prop', () => {
+      const wrapper1 = mount(<CheckboxGroup data={compData.dataList1} value='foo,bar,baz' />),
+        wrapper2 = mount(<CheckboxGroup data={compData.dataList2} value='1,2,3' />),
+        wrapper3 = mount(<CheckboxGroup data={compData.dataList3} value='1,2,3' />)
+
+      it('simple array', () => {
+        wrapper1.find('input').forEach(e => {
+          expect(e).to.be.checked()
+        })
+      })
+
+      it('object array', () => {
+        wrapper1.find('input').forEach(e => {
+          expect(e).to.be.checked()
+        })
+      })
+
+      it('key-value object', () => {
+        wrapper1.find('input').forEach(e => {
+          expect(e).to.be.checked()
+        })
+      })
+    })
+
+    it('should render by inline/block prop', () => {
       const wrapper1 = mount(<CheckboxGroup inline data={compData.dataList1} />),
         wrapper2 = mount(<CheckboxGroup inline={false} data={compData.dataList1} />),
         wrapper3 = mount(<CheckboxGroup block data={compData.dataList1} />),
@@ -85,24 +122,24 @@ describe('Checkbox & Checkbox Group Spec', () => {
       })
     })
 
-    describe('should render by Tpl', () => {
-      it('should render by textTpl', () => {
-        const wrapper1 = mount(<CheckboxGroup textTpl='{id}' data={compData.dataList2} />),
-          checkboxItemsWrapper1 = wrapper1.find(compSelector.checkboxItem)
+    describe('should render by *tpl prop', () => {
+      const wrapper = mount(<CheckboxGroup textTpl='{id}' valueTpl='{text}' data={compData.dataList2} />)
+
+      it('textTpl', () => {
+        const checkboxItemsWrapper1 = wrapper.find(compSelector.checkboxItem)
 
         compData.dataList2.forEach((e, i) => {
           expect(checkboxItemsWrapper1.at(i)).to.have.text(e.id)
         })
       })
 
-      it('should render by valueTpl', (done) => {
-        const wrapper1 = mount(<CheckboxGroup valueTpl='{text}' data={compData.dataList2} />)
-        wrapper1.find('input').forEach(e => {
+      it('valueTpl', (done) => {
+        wrapper.find('input').forEach(e => {
           e.simulate('change', { target: { checked: true } })
         })
 
         setTimeout(() => {
-          wrapper1.find('input').forEach(e => {
+          wrapper.find('input').forEach(e => {
             expect(e).to.be.checked()
           })
           done()
@@ -120,14 +157,6 @@ describe('Checkbox & Checkbox Group Spec', () => {
         expect(wrapper1.instance().getValue()).to.be.equal('1|2|3')
         done()
       }, 0)
-    })
-
-    it('should apply checked status by value', () => {
-      const wrapper1 = mount(<CheckboxGroup data={compData.dataList2} value='1,2,3' />)
-
-      wrapper1.find('input').forEach(e => {
-        expect(e).to.be.checked()
-      })
     })
   })
 
@@ -152,7 +181,7 @@ describe('Checkbox & Checkbox Group Spec', () => {
   })
 
   describe('Feature', () => {
-    it('should be read only when readOnly=true', () => {
+    it('should be read only by readOnly prop', () => {
       const wrapper1 = mount(<Checkbox readOnly data={compData.dataList1} />),
         wrapper2 = mount(<CheckboxGroup readOnly data={compData.dataList2} />)
 
