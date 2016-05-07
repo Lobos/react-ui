@@ -78,13 +78,13 @@ export function overView (el, pad = 0) {
 }
 
 export function computedStyle (el, attr) {
-  var lineHeight;
+  var result;
   if (el.currentStyle) {
-    lineHeight = el.currentStyle[attr]
+    result = el.currentStyle[attr]
   } else if (window.getComputedStyle) {
-    lineHeight = window.getComputedStyle(el , null)[attr];
+    result = window.getComputedStyle(el , null)[attr];
   }
-  return lineHeight;
+  return result;
 }
 
 export function getLineHeight (origin) {

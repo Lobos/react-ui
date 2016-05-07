@@ -5,12 +5,22 @@ import Code from '../Code';
 import Example from '../Example';
 const {Select, Button} = global.uiRequire();
 
+const bigData = [];
+let i=10000;
+while (i--) { bigData.push(i); }
+
 module.exports = class extends Component {
   constructor (props) {
     super(props);
     this.state = {
       country: ''
     };
+
+    this.handleCountry = this.handleCountry.bind(this);
+  }
+
+  handleCountry (courtry) {
+    this.setState({ courtry });
   }
 
   render () {
@@ -71,10 +81,23 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   filterAble={true}
   optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
-  onChange={ country => this.setState({ country }) }
+  onChange={ this.handleCountry }
   value={this.state.country}
   fetch={"json/countries.json"} />
 <Button style={{ marginLeft: 10 }} onClick={ () => this.setState({ country: '' }) }>清空</Button>
+          </Example>
+
+          <h2 className="subhead">超大数据</h2>
+          <p>模拟了10000条数据</p>
+          <Example>
+<Select grid={{width:1/3}}
+  placeholder="单选"
+  data={bigData} />
+&nbsp; 
+<Select grid={{width:1/3}}
+  placeholder="多选"
+  mult={true}
+  data={bigData} />
           </Example>
 
           <h2 className="subhead">多选</h2>

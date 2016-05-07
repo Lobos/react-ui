@@ -3,7 +3,7 @@
 import React, { Component, createElement, PropTypes } from 'react';
 import classnames from 'classnames';
 import curry from 'curry';
-import { shallowEqual } from '../utils/objects';
+import { shallowEqual, deepEqual } from '../utils/objects';
 import * as Validation from '../utils/validation';
 import { toStyleObject, nextUid } from '../utils/strings';
 
@@ -74,7 +74,7 @@ export const enhance = (ComposedComponent) => {
     }
 
     shouldComponentUpdate (nextProps, nextState) {
-      return !shallowEqual(nextProps, this.props) || !shallowEqual(this.state, nextState);
+      return !deepEqual(nextProps, this.props) || !deepEqual(this.state, nextState);
     }
 
     componentWillUnmount () {

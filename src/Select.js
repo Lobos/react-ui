@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import { toArray, substitute } from './utils/strings';
-import { getOuterHeight, overView, withoutTransition } from './utils/dom';
+import { getOuterHeight, getLineHeight, overView, withoutTransition } from './utils/dom';
 import { deepEqual, hashcode } from './utils/objects';
 import ClickAway from './mixins/ClickAway';
 import { getGrid } from './utils/grids';
@@ -12,6 +12,7 @@ import { fetchEnhance } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
 import { compose } from './utils/compose';
 import Transition from './Transition';
+import * as Events from './utils/events';
 
 import styles from './styles/_select.scss';
 import inputStyles from './styles/_input.scss';
@@ -20,27 +21,20 @@ class Select extends ClickAway(Component) {
   constructor (props) {
     super(props);
 
-    let values = toArray(props.value, props.mult ? props.sep : undefined);
-    let data = this.formatData(props.data, values);
     this.state = {
       active: false,
-      data,
+      scrollTop: 0,
       filter: '',
-      value: values
     };
+
+    // cache, store selected status
+    this.data = [];
+    this._optionHeight = 0;
 
     this.showOptions = this.showOptions.bind(this);
     this.hideOptions = this.hideOptions.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
-  }
- 
-  componentWillReceiveProps (nextProps) {
-    if (!deepEqual(nextProps.value, this.props.value)) {
-      this.setValue(nextProps.value);
-    }
-    if (!deepEqual(nextProps.data, this.props.data)) {
-      this.setState({ data: this.formatData(nextProps.data) });
-    }
+    this.handleOptionsScroll = this.handleOptionsScroll.bind(this);
   }
 
   componentWillUnmount () {
@@ -49,8 +43,31 @@ class Select extends ClickAway(Component) {
 
   componentDidMount () {
     this.options = findDOMNode(this.refs.options);
-    let target = this.props.mult ? undefined : this.options;
+    const target = this.props.mult ? undefined : this.options;
     this.registerClickAway(this.hideOptions, target);
+    setTimeout(() => {
+      this._optionHeight = this.options.querySelector('ul li').clientHeight;
+      const wrap = this.refs.optionsWrap;
+      wrap.querySelector('ul').style.height =
+        (this._optionHeight * this.data.length) + 'px';
+      this.toggleScroll('on');
+    }, 0)
+  }
+
+  toggleScroll (sw) {
+    Events[sw](this.refs.optionsWrap, 'scroll', this.handleOptionsScroll);
+  }
+
+  handleOptionsScroll (e) {
+    let lastScroll = this.state.scrollTop;
+    let scrollTop = e.target.scrollTop;
+    if (Math.abs(scrollTop - lastScroll) < (this._optionHeight * this.props.maxShowLength / 3)) {
+      return;
+    }
+    this.toggleScroll('off');
+    this.setState({ scrollTop }, () => {
+      this.toggleScroll('on');
+    });
   }
 
   showOptions () {
@@ -78,17 +95,18 @@ class Select extends ClickAway(Component) {
   }
 
   getValue (sep, data) {
-    let value = [],
+    let values = [],
         raw = [];
     data.forEach((d) => {
-      if (d.$checked) {
-        value.push(d.$value);
+      if (d.$selected) {
+        values.push(d.$value);
         raw.push(d);
       }
     });
 
-    if (typeof sep === 'string') {
-      value = value.join(sep);
+    let value = values;
+    if (sep && typeof sep === 'string') {
+      value = values.join(sep);
     } else if (typeof sep === 'function') {
       value = sep(raw);
     }
@@ -96,57 +114,47 @@ class Select extends ClickAway(Component) {
     return value;
   }
 
-  setValue (value) {
-    value = toArray(value, this.props.mult ? this.props.sep : null);
-    if (this.state) {
-      let data = this.state.data.map((d) => {
-        if (typeof d !== 'string') {
-          d.$checked = value.indexOf(d.$value) >= 0;
-        }
-        return d;
-      });
-      this.setState({ value, data });
-    } else {
-      this.setState({ value });
-    }
-  }
+  formatData (data) {
+    let values = toArray(this.props.value, this.props.mult ? this.props.sep : undefined);
 
-  formatData (data, value = this.state.value) {
     if (!Array.isArray(data)) {
       data = Object.keys(data).map((key) => {
         return { text: data[key], id: key };
       });
     }
 
+    const { filterAble, valueTpl, optionTpl, resultTpl, groupBy } = this.props;
+    let noResultTpl = !resultTpl;
+
     data = data.map((d) => {
       if (typeof d !== 'object') {
+        d = typeof d === 'string' ? d : d.toString();
         return {
           $option: d,
           $result: d,
           $value: d,
           $filter: d.toLowerCase(),
-          $checked: value.indexOf(d) >= 0,
+          $selected: values.indexOf(d) >= 0,
           $key: hashcode(d)
         };
       }
 
       // speed filter
-      if (this.props.filterAble) {
+      if (filterAble) {
         d.$filter = (Object.keys(d).map((k) => d[k])).join(',').toLowerCase();
       }
 
-      let val = substitute(this.props.valueTpl, d);
-      d.$option = substitute(this.props.optionTpl, d);
-      d.$result = this.props.resultTpl ? substitute(this.props.resultTpl, d) : d.$option;
+      let val = substitute(valueTpl, d);
+      d.$option = substitute(optionTpl, d);
+      d.$result = noResultTpl ? d.$option : substitute(this.props.resultTpl, d);
       d.$value = val;
-      d.$checked = value.indexOf(val) >= 0;
+      d.$selected = values.indexOf(val) >= 0;
       d.$key = d.id ? d.id : hashcode(val + d.$option);
       return d;
     });
 
-    if (this.props.groupBy) {
-      let groups = {},
-          groupBy = this.props.groupBy;
+    if (groupBy) {
+      let groups = {};
       data.forEach((d) => {
         let key = d[groupBy];
         if (!groups[key]) {
@@ -156,11 +164,12 @@ class Select extends ClickAway(Component) {
       });
       data = [];
       Object.keys(groups).forEach((k) => {
-        data.push(k);
+        data.push({ $group: k });
         data = data.concat(groups[k]);
       });
     }
 
+    this.data = data;
     return data;
   }
 
@@ -169,13 +178,13 @@ class Select extends ClickAway(Component) {
       return;
     }
 
-    let data = this.state.data;
+    let data = this.data;
     if (this.props.mult) {
-      data[i].$checked = !data[i].$checked;
+      data[i].$selected = !data[i].$selected;
     } else {
       data.map((d, index) => {
         if (typeof d === 'object') {
-          d.$checked = index === i;
+          d.$selected = index === i;
         }
       });
       this.hideOptions();
@@ -213,9 +222,11 @@ class Select extends ClickAway(Component) {
   }
 
   render () {
-    let { className, grid, readOnly, mult, placeholder, style } = this.props;
-    let { filter, active, msg, data, dropup } = this.state;
+    let { className, grid, readOnly, maxShowLength, data, mult, placeholder, style } = this.props;
+    let { filter, active, msg, dropup, scrollTop } = this.state;
     let result = [];
+
+    data = this.formatData(data);
  
     className = classnames(
       styles.select,
@@ -228,18 +239,23 @@ class Select extends ClickAway(Component) {
     );
 
     let filterText = filter ? filter.toLowerCase() : null;
+    let showedOptions = 0;
+    let showCount = data.length;
+    let scrolledOptCount = this._optionHeight > 0 ?
+      Math.floor(scrollTop / this._optionHeight - maxShowLength / 3) : 0;
+    if (scrolledOptCount < 0) {
+      scrolledOptCount = 0;
+    }
 
     let options = data.map((d, i) => {
-      if (typeof d === 'string') {
-        return <span key={`g-${d}`} className={styles.group}>{d}</span>;
-      }
+      d.$index = i;
 
-      if (d.$checked) {
+      if (d.$selected) {
         if (mult) {
           result.push(
             <div key={d.$key} className={styles.result}>
               <span dangerouslySetInnerHTML={{__html: d.$result}} />
-              <a href="javascript:;" onClick={this.handleRemove.bind(this, i)}>&times;</a>
+              <a href="javascript:;" onClick={this.handleRemove.bind(this, d.$index)}>&times;</a>
             </div>
           );
         } else {
@@ -247,17 +263,57 @@ class Select extends ClickAway(Component) {
         }
       }
 
-      let optionClassName = classnames(
-        d.$checked && styles.active,
-        (filterText ? d.$filter.indexOf(filterText) < 0 : false) && styles.hidden
+      return d;
+    });
+    
+    if (filterText) {
+      options = options.filter((d) => {
+        return !d.$filter || d.$filter.indexOf(filterText) > 0;
+      });
+      showCount = options.length;
+    }
+  
+    if (options.length > maxShowLength) {
+      options = options.filter((d, i) => {
+        if (showedOptions >= maxShowLength || i < scrolledOptCount) {
+          return false;
+        }
+
+        showedOptions++;
+        return true;
+      });
+    }
+
+    options = options.map((d, i) => {
+      let optionClass = classnames(
+        styles.option,
+        d.$selected && styles.active
       );
-      return (
-        <li key={d.$key}
-          onClick={this.handleChange.bind(this, i)}
-          className={ optionClassName }
-          dangerouslySetInnerHTML={{__html: d.$option}}
-        />
-      );
+
+      let groupClass = styles.group;
+
+      let optionStyle = {};
+      if (showCount > maxShowLength && this._optionHeight > 0) {
+        optionClass += ' ' + styles.absolute;
+        groupClass += ' ' + styles.absolute;
+        optionStyle.top = this._optionHeight * (i + scrolledOptCount);
+      }
+
+      if (d.$group) {
+        return (
+          <span key={`g-${d.$group}`} style={optionStyle} className={groupClass}>
+            {d.$group}
+          </span>
+        );
+      } else {
+        return (
+          <li key={d.$key} style={optionStyle}
+            onClick={this.handleChange.bind(this, d.$index)}
+            className={ optionClass }
+            dangerouslySetInnerHTML={{__html: d.$option}}
+          />
+        );
+      }
     });
 
     return (
@@ -272,7 +328,9 @@ class Select extends ClickAway(Component) {
         <Transition ref="options" act={active ? 'enter' : 'leave'} duration={166} tf="ease-out">
           <div style={{ display: 'none' }} className={styles.options}>
             {this.renderFilter()}
-            <ul>{options}</ul>
+            <div ref="optionsWrap" className={styles.optionsWrap}>
+              <ul style={{height: this._optionHeight * showCount}}>{options}</ul>
+            </div>
           </div>
         </Transition>
       </div>
@@ -294,6 +352,7 @@ Select.propTypes = {
     PropTypes.object
   ]),
   groupBy: PropTypes.string,
+  maxShowLength: PropTypes.number,
   mult: PropTypes.bool,
   onChange: PropTypes.func,
   optionTpl: PropTypes.oneOfType([
@@ -319,8 +378,8 @@ Select.propTypes = {
 
 Select.defaultProps = {
   dropup: false,
+  maxShowLength: 30,
   sep: ',',
-  data: [],
   optionTpl: '{text}',
   valueTpl: '{id}'
 };
