@@ -3,7 +3,7 @@
 import React, { Component, createElement, PropTypes } from 'react';
 import classnames from 'classnames';
 import curry from 'curry';
-import { shallowEqual, deepEqual } from '../utils/objects';
+import { deepEqual } from '../utils/objects';
 import * as Validation from '../utils/validation';
 import { toStyleObject, nextUid } from '../utils/strings';
 
