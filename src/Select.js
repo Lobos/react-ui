@@ -38,6 +38,7 @@ class Select extends ClickAway(Component) {
   }
 
   componentWillUnmount () {
+    this.toggleScroll('off');
     super.componentWillUnmount();
   }
 
@@ -61,7 +62,7 @@ class Select extends ClickAway(Component) {
   handleOptionsScroll (e) {
     let lastScroll = this.state.scrollTop;
     let scrollTop = e.target.scrollTop;
-    if (Math.abs(scrollTop - lastScroll) < (this._optionHeight * this.props.maxShowLength / 3)) {
+    if (Math.abs(scrollTop - lastScroll) < (this._optionHeight * this.props.maxShowCount / 3)) {
       return;
     }
     this.toggleScroll('off');
@@ -115,7 +116,7 @@ class Select extends ClickAway(Component) {
   }
 
   formatData (data) {
-    let values = toArray(this.props.value, this.props.mult ? this.props.sep : undefined);
+    let values = toArray(this.props.value, this.props.mult && this.props.sep);
 
     if (!Array.isArray(data)) {
       data = Object.keys(data).map((key) => {
@@ -198,6 +199,9 @@ class Select extends ClickAway(Component) {
   }
 
   handleRemove (i) {
+    if (!this.state.active) {
+      return;
+    }
     // wait checkClickAway completed
     setTimeout(() => {
       this.handleChange(i);
@@ -222,7 +226,7 @@ class Select extends ClickAway(Component) {
   }
 
   render () {
-    let { className, grid, readOnly, maxShowLength, data, mult, placeholder, style } = this.props;
+    let { className, grid, readOnly, maxShowCount, data, mult, placeholder, style } = this.props;
     let { filter, active, msg, dropup, scrollTop } = this.state;
     let result = [];
 
@@ -239,10 +243,9 @@ class Select extends ClickAway(Component) {
     );
 
     let filterText = filter ? filter.toLowerCase() : null;
-    let showedOptions = 0;
     let showCount = data.length;
     let scrolledOptCount = this._optionHeight > 0 ?
-      Math.floor(scrollTop / this._optionHeight - maxShowLength / 3) : 0;
+      Math.floor(scrollTop / this._optionHeight - maxShowCount / 3) : 0;
     if (scrolledOptCount < 0) {
       scrolledOptCount = 0;
     }
@@ -253,19 +256,23 @@ class Select extends ClickAway(Component) {
       if (d.$selected) {
         if (mult) {
           result.push(
-            <div key={d.$key} className={styles.result}>
+            <div key={d.$key} className={styles.result}
+              onClick={this.handleRemove.bind(this, d.$index)}>
               <span dangerouslySetInnerHTML={{__html: d.$result}} />
-              <a href="javascript:;" onClick={this.handleRemove.bind(this, d.$index)}>&times;</a>
+              <a href="javascript:;">&times;</a>
             </div>
           );
         } else {
-          result.push(<span key={d.$key} dangerouslySetInnerHTML={{__html: d.$result}} />);
+          result.push(
+            <span key={d.$key} dangerouslySetInnerHTML={{__html: d.$result}} />
+          );
         }
       }
 
       return d;
     });
     
+    // filter by search text
     if (filterText) {
       options = options.filter((d) => {
         return !d.$filter || d.$filter.indexOf(filterText) > 0;
@@ -273,13 +280,15 @@ class Select extends ClickAway(Component) {
       showCount = options.length;
     }
   
-    if (options.length > maxShowLength) {
+    // limit show options
+    if (options.length > maxShowCount) {
+      let showedCount = 0;
       options = options.filter((d, i) => {
-        if (showedOptions >= maxShowLength || i < scrolledOptCount) {
+        if (showedCount >= maxShowCount || i < scrolledOptCount) {
           return false;
         }
 
-        showedOptions++;
+        showedCount++;
         return true;
       });
     }
@@ -293,7 +302,7 @@ class Select extends ClickAway(Component) {
       let groupClass = styles.group;
 
       let optionStyle = {};
-      if (showCount > maxShowLength && this._optionHeight > 0) {
+      if (showCount > maxShowCount && this._optionHeight > 0) {
         optionClass += ' ' + styles.absolute;
         groupClass += ' ' + styles.absolute;
         optionStyle.top = this._optionHeight * (i + scrolledOptCount);
@@ -352,7 +361,7 @@ Select.propTypes = {
     PropTypes.object
   ]),
   groupBy: PropTypes.string,
-  maxShowLength: PropTypes.number,
+  maxShowCount: PropTypes.number,
   mult: PropTypes.bool,
   onChange: PropTypes.func,
   optionTpl: PropTypes.oneOfType([
@@ -378,7 +387,7 @@ Select.propTypes = {
 
 Select.defaultProps = {
   dropup: false,
-  maxShowLength: 30,
+  maxShowCount: 30,
   sep: ',',
   optionTpl: '{text}',
   valueTpl: '{id}'

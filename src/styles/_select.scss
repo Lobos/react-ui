@@ -28,12 +28,17 @@
   padding-right: 0.25rem;
 
   a {
+    display: none;
     color: $input-color-placeholder;
   }
 
   a:hover {
     color: $brand-danger;
   }
+}
+
+:local(.open) :local(.result) a {
+  display: inline;
 }
 
 :local(.filter) {

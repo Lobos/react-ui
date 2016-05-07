@@ -43,6 +43,7 @@ module.exports = class extends Component {
   readOnly={bool}       // 是否只读。默认为 false
   groupBy={string}      // 分组的 key。不填为不分组
   placeholder={string}  // 占位提示文字
+  maxShowCount={number} // 同时最多显示选项数。默认值为30
   mult={bool}           // 是否多选，默认为 false
   onChange={function}   // 值改变时触发事，参数为 value
   optionTpl={string}    // 选项模板，默认为 {text}
@@ -55,6 +56,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 `}
           </Code>
           <div><a href="#/fetch">fetch 参见这里</a></div>
+          <div>0.7 加入了lazy render的机制，一个Select最多同时render maxShowCount个选项，提升大数据下的性能。</div>
 
           <h2 className="subhead">简单数组</h2>
           <Example>
@@ -88,7 +90,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           </Example>
 
           <h2 className="subhead">超大数据</h2>
-          <p>模拟了10000条数据</p>
+          <p>这个示例设置了10000个选项。</p>
           <Example>
 <Select grid={{width:1/3}}
   placeholder="单选"
