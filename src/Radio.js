@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { shallowEqual } from './utils/objects';
 
-import styles from './styles/_radio-checkbox.scss';
+import Styles from './styles/_radio-checkbox.scss';
 
 class Radio extends Component {
   constructor (props) {
@@ -30,10 +30,10 @@ class Radio extends Component {
     
     let labelClass = classnames(
       className,
-      styles.radio,
-      block ? styles.block : styles.inline,
-      readOnly ? styles.disabled : undefined,
-      checked ? styles.checked : undefined
+      Styles.radio,
+      block ? Styles.block : Styles.inline,
+      readOnly ? Styles.disabled : undefined,
+      checked ? Styles.checked : undefined
     );
 
     return (
@@ -46,7 +46,7 @@ class Radio extends Component {
           checked={checked}
           value={defaultValue}
         />
-        <span className={styles.indicator} />
+        <span className={Styles.indicator} />
         <span>{text}</span>
         { children }
       </label>

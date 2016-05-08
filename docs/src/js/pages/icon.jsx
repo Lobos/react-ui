@@ -18,7 +18,7 @@ module.exports = () => {
           支持 <a href="http://fontawesome.io/">font-awesome</a> 和 <a href="http://zavoloklom.github.io/material-design-iconic-font/">material-design-iconic-font</a><br />
           默认的前缀为 <em>icon</em>，如果使用less，生成这两个字体的css时，指定 <em>prefix</em> 为 <em>icon</em><br />
           如果使用这两个字体原生的前缀 <em>fa</em> 或者 <em>zmdi</em>，调用 <em>Icon.setPrefix(prefix)</em> 这个全局方法设置<br />
-          <b>或者，去<a href="http://iconfont.cn/">iconfont.cn</a>生成自己的icon字库吧。</b>
+          <b>或者，去<a href="http://iconfont.cn/">iconfont.cn</a>生成自己的icon字库。个人比较推荐这种方式，可以按需选择图标，文件大小比较容易控制。可选的图标也非常丰富。</b>
         </p>
 
         <h2 className="subhead">使用iconfont</h2>

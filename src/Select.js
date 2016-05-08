@@ -14,7 +14,7 @@ import { compose } from './utils/compose';
 import Transition from './Transition';
 import * as Events from './utils/events';
 
-import styles from './styles/_select.scss';
+import Styles from './styles/_select.scss';
 import inputStyles from './styles/_input.scss';
 
 class Select extends ClickAway(Component) {
@@ -217,7 +217,7 @@ class Select extends ClickAway(Component) {
   renderFilter () {
     if (this.props.filterAble) {
       return (
-        <div className={styles.filter}>
+        <div className={Styles.filter}>
           <input className={classnames(inputStyles.input)}
             value={this.state.filter}
             onChange={ this.handleFilter }
@@ -235,13 +235,13 @@ class Select extends ClickAway(Component) {
     data = this.formatData(data);
  
     className = classnames(
-      styles.select,
+      Styles.select,
       className,
       getGrid(grid),
-      active && styles.open,
-      readOnly && styles.readonly,
-      dropup && styles.dropup,
-      !mult && styles.single
+      active && Styles.open,
+      readOnly && Styles.readonly,
+      dropup && Styles.dropup,
+      !mult && Styles.single
     );
 
     let filterText = filter ? filter.toLowerCase() : null;
@@ -258,7 +258,7 @@ class Select extends ClickAway(Component) {
       if (d.$selected) {
         if (mult) {
           result.push(
-            <div key={d.$key} className={styles.result}
+            <div key={d.$key} className={Styles.result}
               onClick={this.handleRemove.bind(this, d.$index)}>
               <span dangerouslySetInnerHTML={{__html: d.$result}} />
               <a href="javascript:;">&times;</a>
@@ -297,16 +297,16 @@ class Select extends ClickAway(Component) {
 
     options = options.map((d, i) => {
       let optionClass = classnames(
-        styles.option,
-        d.$selected && styles.active
+        Styles.option,
+        d.$selected && Styles.active
       );
 
-      let groupClass = styles.group;
+      let groupClass = Styles.group;
 
       let optionStyle = {};
       if (showCount > maxShowCount && this._optionHeight > 0) {
-        optionClass += ' ' + styles.absolute;
-        groupClass += ' ' + styles.absolute;
+        optionClass += ' ' + Styles.absolute;
+        groupClass += ' ' + Styles.absolute;
         optionStyle.top = this._optionHeight * (i + scrolledOptCount);
       }
 
@@ -329,7 +329,7 @@ class Select extends ClickAway(Component) {
 
     return (
       <div ref="container" onClick={this.showOptions} style={style} className={className}>
-        <div className={classnames(styles.control, inputStyles.input)}>
+        <div className={classnames(Styles.control, inputStyles.input)}>
         {
           result.length > 0 ?
             result :
@@ -337,9 +337,9 @@ class Select extends ClickAway(Component) {
         }
         </div>
         <Transition ref="options" act={active ? 'enter' : 'leave'} duration={166} tf="ease-out">
-          <div style={{ display: 'none' }} className={styles.options}>
+          <div style={{ display: 'none' }} className={Styles.options}>
             {this.renderFilter()}
-            <div ref="optionsWrap" className={styles.optionsWrap}>
+            <div ref="optionsWrap" className={Styles.optionsWrap}>
               <ul style={{height: this._optionHeight * showCount}}>{options}</ul>
             </div>
           </div>

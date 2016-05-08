@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 import { getGrid } from './utils/grids';
 
-import styles from './styles/_buttons.scss';
+import Styles from './styles/_buttons.scss';
 
 const Button = (props) => {
   let { children, status, size, grid, className, ...others } = props;
@@ -12,9 +12,9 @@ const Button = (props) => {
   className = classnames(
     className,
     getGrid(grid),
-    styles.button,
-    styles[size],
-    styles[status]
+    Styles.button,
+    Styles[size],
+    Styles[status]
   );
 
   return (

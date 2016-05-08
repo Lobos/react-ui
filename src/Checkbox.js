@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { register } from './higherOrders/FormItem';
 import { shallowEqual } from './utils/objects';
 
-import styles from './styles/_radio-checkbox.scss';
+import Styles from './styles/_radio-checkbox.scss';
 
 class Checkbox extends Component {
   constructor (props) {
@@ -64,10 +64,10 @@ class Checkbox extends Component {
 
     let labelClass = classnames(
       className,
-      styles.checkbox,
-      readOnly && styles.disabled,
-      block ? styles.block : styles.inline,
-      checked && styles.checked
+      Styles.checkbox,
+      readOnly && Styles.disabled,
+      block ? Styles.block : Styles.inline,
+      checked && Styles.checked
     );
 
     return (
@@ -78,7 +78,7 @@ class Checkbox extends Component {
           checked={checked}
           value={defaultValue}
         />
-        <span className={styles.indicator}></span>
+        <span className={Styles.indicator}></span>
         <span>{text}</span>
         {children}
       </label>
