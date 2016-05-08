@@ -55,6 +55,13 @@ options:
 - [Grid](http://lobos.github.io/react-ui/#/grid)
 
 # Change log
+v0.7.0
+ - 使用bootstrap作为基础样式库，增加rctui-theme-loader切换theme
+ - 使用curry和compose处理higherorder component
+ - 增加Transition处理动画
+ - Checkbox, CheckboxGroup, Radio, RadioGroup 改为Dumb组件，优化性能
+ - Select移除数据处理，交由FormItem处理，增加lazy render
+
 v0.6.1
  - dataSource 变为了 [fetch](http://lobos.github.io/react-ui/#/fetch)。方式改为higher order component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
  - clickaway 改为 Mixins，增加registerClickAway

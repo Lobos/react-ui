@@ -5,6 +5,16 @@ import Code from '../Code';
 import Example from '../Example';
 const { Select, RadioGroup, Refetch } = global.uiRequire();
 
+const request = Refetch.create({
+  promise: (f) => f.then((res) => {
+    if (res.success) {
+      return res.list;
+    } else {
+      return new Error(res.message); 
+    }
+  })
+});
+
 module.exports = class extends Component {
   constructor (props) {
     super(props);
@@ -41,7 +51,8 @@ module.exports = class extends Component {
   withCredentials: method 为jsonp时无效。是否支持跨域 default false
   async: method 为jsonp时无效。是否同步 default true
   delay: 延时处理，单位毫秒，默认为0。
-  then: function 处理服务端返回数据
+  then: function 处理服务端返回数据,
+  request: fetch对象，Promise A+ 规范。为空时使用内置的 refetch
 }`}
           </Code>
           <Example>
@@ -56,6 +67,44 @@ module.exports = class extends Component {
         return new Error(res.message); 
       }
     }
+  }} />
+          </Example>
+
+          <h2 className="subhead">获取失败</h2>
+          <Example>
+<Select grid={1/4}
+  fetch={{
+    method: 'get',
+    url: './json/no-result.json',
+    then: (res) => {
+      if (res.success) {
+        return res.list;
+      } else {
+        return new Error('数据获取失败，这里只是一个演示.'); 
+      }
+    }
+  }} />
+          </Example>
+
+          <h2 className="subhead">使用request</h2>
+          <Code>
+{`// 定制一个refetch处理返回数据
+const request = Refetch.create({
+  promise: (f) => f.then((res) => {
+    if (res.success) {
+      return res.list;
+    } else {
+      return new Error(res.message); 
+    }
+  })
+});`}
+          </Code>
+          <Example>
+<Select grid={1/4}
+  fetch={{
+    request: request,
+    method: 'get',
+    url: './json/select.json'
   }} />
           </Example>
 

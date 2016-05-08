@@ -26,7 +26,7 @@
   },
   "peerDependencies": {
     "classnames": "^2.2.3",
-    "refetch": "^0.2.0",
+    "refetch": "~0.2.1",
     "pubsub-js": "~1.5.3"
   },
   "devDependencies": {
@@ -98,6 +98,7 @@
     "webpack-hot-middleware": "~2.10.0"
   },
   "dependencies": {
-    "curry": "^1.2.0"
+    "curry": "^1.2.0",
+    "refetch": "^0.2.1"
   }
 }

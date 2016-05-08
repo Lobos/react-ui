@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import refetch from 'refetch';
+import Refetch from 'refetch';
 import { deepEqual } from '../utils/objects';
 import clone from '../utils/clone';
 
@@ -12,15 +12,6 @@ export const FETCH_PENDING = 'pending';
 export const FETCH_SUCCESS = 'success';
 export const FETCH_FAILURE = 'failure';
 
-// handle response data
-function peerData (res) {
-  return res;
-}
-
-export function setPeer(fn) {
-  peerData = fn;
-}
-
 export const fetchEnhance = (ComposedComponent) => {
   class Fetch extends Component {
     constructor (props) {
@@ -28,7 +19,8 @@ export const fetchEnhance = (ComposedComponent) => {
 
       this.state = {
         data: undefined,
-        fetchStatus: FETCH_SUCCESS
+        fetchStatus: FETCH_SUCCESS,
+        error: ''
       }
     }
 
@@ -87,8 +79,11 @@ export const fetchEnhance = (ComposedComponent) => {
       if (typeof fetch === 'string') {
         fetch = { url: fetch };
       }
-      let { method='get', url, data, then, ...options } = fetch;
-      let request = refetch[method](url, data, options).then(peerData.bind(request));
+      let { method='get', url, data, then, request, ...options } = fetch;
+      if (!request) {
+        request = Refetch;
+      }
+      request = request[method](url, data, options);
 
       // handle response
       if (then) { request = request.then(then); }
@@ -107,15 +102,15 @@ export const fetchEnhance = (ComposedComponent) => {
       }
 
       if (data instanceof Error) {
-        this.setState({ fetchStatus: FETCH_FAILURE });
+        this.setState({ fetchStatus: FETCH_FAILURE, error: data.message });
       } else {
-        this.setState({ data: clone(data), fetchStatus: FETCH_SUCCESS });
+        this.setState({ data: clone(data), fetchStatus: FETCH_SUCCESS, error: null });
       }
     }
 
     render () {
       const { data, ...others } = this.props;
-      const { fetchStatus } = this.state;
+      const { fetchStatus, error } = this.state;
       if (fetchStatus === FETCH_SUCCESS) {
         return (
           <ComposedComponent ref={(c) => this.component = c} data={this.state.data} fetchStatus={this.state.fetchStatus} {...others} />
@@ -123,7 +118,7 @@ export const fetchEnhance = (ComposedComponent) => {
       } else {
         return (
           <span className={`fetch-${fetchStatus}`}>
-            {getLang('fetch.status')[fetchStatus]}
+            {error || getLang('fetch.status')[fetchStatus]}
           </span>
         );
       }
