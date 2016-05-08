@@ -2,9 +2,12 @@
 
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
+import objectAssign from 'object-assign';
 import { getGrid } from './utils/grids';
 import { register } from './higherOrders/FormItem';
 import { computedStyle, getLineHeight } from './utils/dom';
+
+import Styles from './styles/_input.scss';
 
 class Textarea extends Component {
   constructor (props) {
@@ -16,14 +19,18 @@ class Textarea extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleTrigger = this.handleTrigger.bind(this);
+    this.bindElement = this.bindElement.bind(this);
   }
 
   componentDidMount (){
     let el = this.element;
 
     if(this.props.autoHeight){
-      this.lineHeight = getLineHeight(el);
-      this.paddingHeight = parseInt(computedStyle(el, 'paddingTop')) + parseInt(computedStyle(el, 'paddingBottom'));
+      setTimeout(() => {
+        this.lineHeight = getLineHeight(el);
+        this.paddingHeight = parseInt(computedStyle(el, 'paddingTop')) +
+          parseInt(computedStyle(el, 'paddingBottom'));
+      }, 0);
     }
   }
 
@@ -32,6 +39,10 @@ class Textarea extends Component {
     if (value !== this.props.value && value !== this.state.value) {
       this.setState({ value });
     }
+  }
+
+  bindElement (ref) {
+    this.element = ref;
   }
 
   handleChange (event){
@@ -68,10 +79,10 @@ class Textarea extends Component {
   }
 
   render () {
-    let { className, grid, style, autoHeight, trigger, ...other } = this.props;
+    let { className, grid, autoHeight, trigger, ...other } = this.props;
     const { rows, value } = this.state;
 
-    style.minHeight = 'auto';
+    let style = { minHeight: 'auto' };
     if (autoHeight) {
       style.resize = 'none';
     }
@@ -80,10 +91,10 @@ class Textarea extends Component {
       className: classnames(
         className,
         getGrid(grid),
-        'rct-form-control'
+        Styles.input
       ),
       onChange: this.handleChange,
-      style,
+      style: objectAssign({}, this.props.style, style),
       rows,
       value
     };
@@ -94,7 +105,7 @@ class Textarea extends Component {
     }
 
     return (
-      <textarea ref={ (c) => this.element = c } { ...other } { ...props } />
+      <textarea ref={this.bindElement} { ...other } { ...props } />
     );
   }
 }

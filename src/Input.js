@@ -6,9 +6,7 @@ import Regs from './utils/regs';
 import { getGrid } from './utils/grids';
 import { register } from './higherOrders/FormItem';
 
-import { requireCss } from './themes';
-requireCss('input');
-requireCss('form-control');
+import Styles from './styles/_input.scss';
 
 class Input extends Component {
   constructor (props) {
@@ -59,7 +57,7 @@ class Input extends Component {
     const props = {
       className: classnames(
         className,
-        'rct-form-control',
+        Styles.input,
         getGrid(grid)
       ),
       onChange: this.handleChange,

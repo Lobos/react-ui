@@ -15,8 +15,8 @@ describe('Input Spec', () => {
       expect(defaultWrapper).to.have.attr('placeholder', 'foo')
     })
 
-    it('should apply rct-form-control class', () => {
-      expect(defaultWrapper).to.have.className('rct-form-control')
+    it('should apply input class', () => {
+      expect(defaultWrapper).to.have.className('input')
     })
   })
 

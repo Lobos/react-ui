@@ -46,6 +46,8 @@ class Select extends ClickAway(Component) {
     this.options = findDOMNode(this.refs.options);
     const target = this.props.mult ? undefined : this.options;
     this.registerClickAway(this.hideOptions, target);
+
+    // get one option height, set option wrapper height
     setTimeout(() => {
       this._optionHeight = this.options.querySelector('ul li').clientHeight;
       const wrap = this.refs.optionsWrap;
