@@ -1,35 +1,21 @@
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import classnames from 'classnames';
-let prefix = 'icon';
+import objectAssign from 'object-assign';
 
-class Icon extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      spin: props.spin
-    };
-  }
+import Styles from './styles/_icon.scss';
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({ spin: nextProps.spin });
-  }
+let PREFIX = 'icon';
 
-  render () {
-    let classes = [`${prefix}`];
-    let { style, font, size, icon } = this.props;
+function Icon (props) {
+  let { style, prefix, font, spin, size, icon } = props;
+  prefix = prefix || PREFIX;
 
-    if (this.state.spin) {
-      classes.push(`${prefix}-spin`);
-    }
+  let classes = [`${prefix}`];
 
-    if (icon) {
-      classes.push(`${prefix}-${icon}`);
-    } else {
-      style = style || {};
-      style.fontFamily = font;
-    }
+  if (icon) {
+    classes.push(`${prefix}-${icon}`);
 
     if (size) {
       if (typeof size === 'number' || size.length === 1) {
@@ -38,18 +24,34 @@ class Icon extends Component {
       classes.push(`${prefix}-${size}`);
     }
 
-    return (
-      <i style={style} className={classnames(...classes)}>
-        {this.props.children}
-      </i>
-    );
+    classes.push(spin && `${prefix}-spin`);
+  } else {
+    classes = [Styles.icon];
+    classes.push(spin && Styles.spin);
+
+    if (size > 0) {
+      size += 'rem';
+      size = {
+        fontSize: size,
+        width: size,
+        height: size
+      }
+    }
+    style = objectAssign({}, { fontFamily: font }, size || {}, style);
   }
+
+  return (
+    <i style={style} className={classnames(...classes)}>
+      {props.children}
+    </i>
+  );
 }
 
 Icon.propTypes = {
   children: PropTypes.any,
   font: PropTypes.string,
   icon: PropTypes.string,
+  prefix: PropTypes.string,
   size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   spin: PropTypes.bool,
   style: PropTypes.object
@@ -60,7 +62,7 @@ Icon.defaultProps = {
 }
 
 Icon.setPrefix = function (pre) {
-  prefix = pre;
+  PREFIX = pre;
 };
 
 module.exports = Icon;

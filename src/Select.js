@@ -277,7 +277,7 @@ class Select extends ClickAway(Component) {
     // filter by search text
     if (filterText) {
       options = options.filter((d) => {
-        return !d.$filter || d.$filter.indexOf(filterText) > 0;
+        return !d.$filter || d.$filter.indexOf(filterText) > -1;
       });
       showCount = options.length;
     }

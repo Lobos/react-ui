@@ -1,0 +1,33 @@
+@import "mixins";
+@import "themes/bootstrap";
+
+:local(.rating) {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+
+  :local(.front) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    overflow: hidden;
+
+    :local(.inner) {
+      width: 1000rem;
+    }
+
+    :local(.handle) {
+      display: inline-block;
+      opacity: 0.01;
+    }
+
+    :local(.active) {
+      opacity: 1;
+    }
+
+    :local(.half) {
+      opacity: 0.3;
+    }
+  }
+}

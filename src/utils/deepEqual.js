@@ -5,7 +5,7 @@ module.exports = function compare (x, y) {
 
   // remember that NaN === NaN returns false
   // and isNaN(undefined) returns true
-  if (isNaN(x) && isNaN(y) && typeof x === 'number' && typeof y === 'number') {
+  if (typeof x === 'number' && typeof y === 'number' && isNaN(x) && isNaN(y)) {
     return true;
   }
 

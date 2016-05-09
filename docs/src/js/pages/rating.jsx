@@ -3,21 +3,26 @@
 import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const {Rating, Icon, RadioGroup, Checkbox} = global.uiRequire();
+const {Rating, Icon, RadioGroup, Input, Checkbox} = global.uiRequire();
 
-Rating.register('star', [
-  <Icon size={2} style={{color: 'gold'}} icon="star-border" />,
-  <Icon size={2} style={{color: 'gold'}} icon="star" />
-]);
+const STARS = [
+  <Icon size={2} style={{color: 'gold'}}>&#xe607;</Icon>,
+  <Icon size={2} style={{color: 'gold'}}>&#xe606;</Icon>
+];
+
+const HEARTS = [
+  <Icon size={2} icon="favorite-outline" style={{color: 'red'}} />,
+  <Icon size={2} icon="favorite" style={{color: 'red'}} />
+]
 
 module.exports = class extends Component {
   constructor (props) {
     super(props);
     this.state = {
       readOnly: false,
-      maxValue: 5,
+      maxValue: 10,
       value: 3,
-      theme: 'star'
+      icons: STARS
     };
   }
 
@@ -39,22 +44,22 @@ module.exports = class extends Component {
   readOnly={bool}     // 为 true 时，只读。默认为 false
   theme={string}      // 主题，Rating.register 的主题名称
   value={number}      // 值，整数。只读状态下，支持小数
-/>
-
-Rating.register( // 注册一个主题，供重复调用
-  string,        // 主题名称
-  array          // 等同与 icons
-)
-`}
+/>`}
           </Code>
 
           <h2 className="subhead">Example</h2>
           <Code>
-{`// 注册主题
-Rating.register('star', [
-  <Icon size={2} style={{color: 'gold'}} icon="star-outline" />,
-  <Icon size={2} style={{color: 'gold'}} icon="star" />
-])`}
+{`// 演示代码star和heart用了两个不同的icon库，所以大小稍有不同
+const STARS = [
+  <Icon size={2} style={{color: 'gold'}}>&#xe607;</Icon>,
+  <Icon size={2} style={{color: 'gold'}}>&#xe606;</Icon>
+];
+
+const HEARTS = [
+  <Icon size={2} icon="favorite-outline" style={{color: 'red'}} />,
+  <Icon size={2} icon="favorite" style={{color: 'red'}} />
+]
+`}
           </Code>
           <Example>
 <Rating maxValue={this.state.maxValue}
@@ -65,17 +70,19 @@ Rating.register('star', [
   onChange={value=>this.setState({ value })}
 />
 
+{/* =================== state control ====================== */}
 <div style={{marginBottom: 10}}>
   <span>maxValue: </span>
-  <RadioGroup className="pure-u-1 pure-u-sm-7-8" inline={true} onChange={maxValue=>this.setState({ maxValue })} value={this.state.maxValue} data={[5, 10, 12, 20]} />
+  <RadioGroup inline={true}
+    onChange={maxValue=>this.setState({ maxValue })}
+    value={this.state.maxValue}
+    data={[5, 10, 12, 20]} />
 </div>
 
 <div>
   <Checkbox onChange={
     checked=>this.setState({
-      icons: checked ?
-        [<Icon icon="favorite-outline" style={{color: 'red'}} />, <Icon icon="favorite" style={{color: 'red'}} />] :
-        null
+      icons: checked ? HEARTS : STARS
     })}
     text={'设置icons为heart'} />
 </div>
@@ -86,7 +93,7 @@ Rating.register('star', [
 
 <div style={{marginBottom: 10}}>
   <span>value: </span>
-  <input onChange={event=>this.setState({ value: event.target.value })} type="text" value={this.state.value} />
+  <Input onChange={value=>this.setState({ value })} type="number" value={this.state.value} />
 </div>
           </Example>
         </div>

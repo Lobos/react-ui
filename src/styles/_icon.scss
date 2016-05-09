@@ -1,0 +1,20 @@
+@import "mixins";
+
+:local(.icon) {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  font-size: inherit;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: middle;
+  overflow: hidden;
+  text-align: center;
+}
+
+:local(.spin) {
+  @include spin(2s);
+}

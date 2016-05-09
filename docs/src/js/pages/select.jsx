@@ -93,10 +93,12 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           <p>这个示例设置了10000个选项。</p>
           <Example>
 <Select grid={{width:1/3}}
+  filterAble={true}
   placeholder="单选"
   data={bigData} />
 &nbsp; 
 <Select grid={{width:1/3}}
+  filterAble={true}
   placeholder="多选"
   mult={true}
   data={bigData} />

@@ -1,0 +1,28 @@
+@mixin spin($duration) {
+  animation: spin-circle $duration infinite linear;
+}
+
+@mixin spin-reverse($duration) {
+  animation: spin-circle-reverse $duration infinite linear;
+}
+
+// Spin
+@keyframes spin-circle {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+// Spin Reverse
+@keyframes spin-circle-reverse {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-359deg);
+  }
+}
+

@@ -4,8 +4,7 @@ import React, { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { register } from './higherOrders/FormItem';
 
-import { requireCss } from './themes';
-requireCss('rating');
+import Styles from './styles/_rating.scss';
 
 let themes = {
   // "star": [Icon, Icon],
@@ -16,19 +15,11 @@ class Rating extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: props.value,
-      hover: 0,
-      wink: false
+      hover: 0
     };
     this.handleLeave = this.handleLeave.bind(this);
   }
-  
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setValue(nextProps.value);
-    }
-  }
-
+ 
   handleHover (value) {
     this.setState({ hover: value });
   }
@@ -37,12 +28,8 @@ class Rating extends Component {
     this.setState({ hover: 0 });
   }
 
-  setValue (value) {
-    this.setState({ value });
-  }
-
-  getValue () {
-    return this.state.value;
+  getMaxValue () {
+    return parseInt(this.props.maxValue);
   }
 
   getIcon (pos = 0) {
@@ -61,62 +48,63 @@ class Rating extends Component {
 
   getBackground () {
     let items = [],
-        icon = this.getIcon(0);
-    for (let i = 0; i < this.props.maxValue; i++) {
+        icon = this.getIcon(0),
+        maxValue = this.getMaxValue();
+    for (let i = 0; i < maxValue; i++) {
       items.push(cloneElement(icon, { key: i }));
     }
 
-    return <div className="rct-rating-bg">{items}</div>;
+    return <div>{items}</div>;
   }
 
-  handleChange (val) {
-    this.setValue(val);
-    this.setState({ wink: true });
-    setTimeout(() => {
-      this.setState({ wink: false });
-    }, 1000);
-    setTimeout(() => {
-      if (this.props.onChange) {
-        this.props.onChange(val);
-      }
-    });
-  }
-
-  getHandle () {
+  renderHandle () {
+    let { value, onChange } = this.props;
     let items = [],
         icon = this.getIcon(1),
         hover = this.state.hover,
-        wink = this.state.wink,
-        value = hover > 0 ? hover : this.state.value;
+        maxValue = this.getMaxValue();
 
-    for (let i = 0, active; i < this.props.maxValue; i++) {
-      active = value > i;
+    value = parseInt(value);
+  
+    let [min, max] = [hover, value].sort((a,b) => a-b);
+
+    for (let i = 0, state; i < maxValue; i++) {
+      if (hover === 0) {
+        state = value > i ? Styles.active : undefined;
+      } else {
+        state = i < min ? Styles.active :
+                i >= max ? undefined : Styles.half;
+      }
+
       items.push(
         <span key={i}
           style={{cursor: 'pointer'}}
           onMouseOver={this.handleHover.bind(this, i + 1)}
-          onClick={this.handleChange.bind(this, i + 1)}
-          className={classnames('rct-rating-handle', { active, wink: active && wink })}>
+          onClick={onChange.bind(this, i + 1)}
+          className={classnames(
+            Styles.handle,
+            state
+          )}>
           {cloneElement(icon)}
         </span>
       );
     }
 
-    return <div onMouseOut={this.handleLeave} className="rct-rating-front">{items}</div>;
+    return <div onMouseOut={this.handleLeave} className={Styles.front}>{items}</div>;
   }
 
-  getMute () {
+  renderMute () {
     let items = [],
         icon = this.getIcon(1),
-        width = (this.state.value / this.props.maxValue * 100) + '%';
+        width = (this.props.value / this.props.maxValue * 100) + '%';
 
     for (let i = 0; i < this.props.maxValue; i++) {
       items.push(cloneElement(icon, { key: i }));
     }
 
     return (
-      <div style={{ width }} className="rct-rating-front">
-        <div className="rct-rating-inner">
+      <div style={{ width }} className={Styles.front}>
+        <div className={Styles.inner}>
           {items}
         </div>
       </div>
@@ -126,12 +114,12 @@ class Rating extends Component {
   render () {
     let className = classnames(
       this.props.className,
-      'rct-rating'
+      Styles.rating
     );
     return (
       <div style={this.props.style} className={className}>
         { this.getBackground() }
-        { this.props.readOnly ? this.getMute() : this.getHandle() }
+        { this.props.readOnly ? this.renderMute() : this.renderHandle() }
       </div>
     );
   }
@@ -140,13 +128,19 @@ class Rating extends Component {
 Rating.propTypes = {
   className: PropTypes.string,
   icons: PropTypes.array,
-  maxValue: PropTypes.number,
+  maxValue: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
   size: PropTypes.number,
   style: PropTypes.object,
   theme: PropTypes.string,
-  value: PropTypes.number
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ])
 };
 
 Rating.defaultProps = {
