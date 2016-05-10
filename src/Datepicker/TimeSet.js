@@ -1,27 +1,18 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
+import Styles from '../styles/_datepicker.scss';
 
 class TimeSet extends Component {
   constructor (props) {
     super(props);
-    this.state = {
-      value: props.value || 0,
-      type: props.type
-    };
     this.changeStage = this.changeStage.bind(this);
     this.add = this.add.bind(this);
     this.sub = this.sub.bind(this);
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setState({ value: nextProps.value });
-    }
-  }
-
   add () {
-    let value = this.state.value,
+    let value = this.props.value,
         max = this.props.type === 'hour' ? 24 : 60;
     value += 1;
     if (value >= max) {
@@ -31,7 +22,7 @@ class TimeSet extends Component {
   }
 
   sub () {
-    let value = this.state.value,
+    let value = this.props.value,
         max = this.props.type === 'hour' ? 23 : 59;
     value -= 1;
     if (value < 0) {
@@ -43,15 +34,7 @@ class TimeSet extends Component {
   changeTime (value) {
     let d = {};
     d[this.props.type] = value;
-    let success = this.props.onTimeChange(d);
-    if (!success) {
-      return;
-    }
-    this.setState({ value });
-  }
-
-  setValue (value) {
-    this.setState({ value });
+    this.props.onTimeChange(d);
   }
 
   changeStage () {
@@ -60,11 +43,11 @@ class TimeSet extends Component {
 
   render () {
     return (
-      <div onClick={this.changeStage} className="time-set">
-        <div className="text">
-          <span>{this.state.value}</span>
-          <a onClick={this.add} className="add"><i className="icon angle-up" /></a>
-          <a onClick={this.sub} className="sub"><i className="icon angle-down" /></a>
+      <div onClick={this.changeStage} className={Styles.timeSet}>
+        <div>
+          <span>{this.props.value}</span>
+          <a onClick={this.add} className={Styles.add}><i className={Styles.up} /></a>
+          <a onClick={this.sub} className={Styles.sub}><i className={Styles.down} /></a>
         </div>
       </div>
     );
@@ -77,5 +60,9 @@ TimeSet.propTypes = {
   type: PropTypes.string,
   value: PropTypes.number
 };
+
+TimeSet.defaultProps = {
+  value: 0
+}
 
 export default TimeSet;

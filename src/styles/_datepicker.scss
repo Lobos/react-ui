@@ -1,0 +1,360 @@
+@import "mixins";
+@import "themes/bootstrap";
+
+:local(.datepicker) {
+  position: relative;
+  width: $datepicker-full-width;
+  font-size: $datepicker-font-size;
+
+  :local(.control) {
+    cursor: pointer;
+    padding: $input-padding-y ($input-padding-x + $datepicker-indicator-padding) $input-padding-y $input-padding-x;
+    background: $datepicker-bg $datepicker-indicator no-repeat right $datepicker-indicator-padding-x center;
+    background-size: $datepicker-bg-size;
+  }
+}
+
+:local(.popup) {
+  :local(.picker) {
+    top: auto;
+    bottom: 100%;
+  }
+}
+
+:local(.picker) {
+  background-color: $datepicker-picker-bg;
+  border: $dropdown-border-width solid $dropdown-border-color;
+  border-radius: $datepicker-picker-border-radius;
+  width: $datepicker-day-size * 7 + $datepicker-picker-padding * 2 + 1rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: $zindex-dropdown;
+
+  &.enter {
+    opacity: 1;
+  }
+
+  &.leave {
+    opacity: 0;
+  }
+}
+
+:local(.inner), :local(.dayInner), :local(.monthInner), :local(.yearInner) {
+  text-align: center;
+  padding-bottom: $datepicker-picker-padding;
+}
+
+:local(.yearInner), :local(.monthInner) {
+  padding: $datepicker-picker-padding 0;
+}
+
+:local(.inner) {
+  height: $clock-size + 2rem;
+}
+
+:local(.header) {
+  position: relative;
+  text-align: center;
+  margin: $datepicker-header-margin 0;
+  font-size: $datepicker-header-font-size;
+  padding: 0 $datepicker-picker-padding;
+
+  a {
+    display: inline-block;
+    width: 4rem;
+    text-align: center;
+    vertical-align: middle;
+    line-height: $datepicker-header-font-size;
+    color: $datepicker-header-color;
+
+    &:hover {
+      color: $datepicker-header-hover-color;
+    }
+  }
+
+  i {
+    display: inline-block;
+    vertical-align: middle;
+    width: $datepicker-header-indicator-width;
+    height: $datepicker-header-indicator-height;
+    cursor: pointer;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      path {
+        fill: $datepicker-header-color;
+      }
+    }
+
+    &:hover svg path {
+      fill: $datepicker-header-hover-color;
+    }
+  }
+
+  &:after {
+    content: ' ';
+    clear: both;
+  }
+}
+
+:local(.week), :local(.day) {
+  display: inline-block;
+  width: $datepicker-day-size;
+  height: $datepicker-day-size;
+  line-height: $datepicker-day-size;
+  margin: 1px;
+}
+
+:local(.year), :local(.month), :local(.day) {
+  cursor: pointer;
+  display: inline-block;
+  line-height: $datepicker-day-size;
+  color: $datepicker-day-color;
+  background: $datepicker-day-bg;
+  border-radius: $datepicker-day-border-radius;
+  border: $datepicker-day-border-width solid transparent;
+  margin: 1px;
+
+  &:hover {
+    color: $datepicker-day-hover-color;
+    border-color: $datepicker-day-hover-border-color;
+    background-color: $datepicker-day-hover-bg;
+  }
+}
+
+:local(.year) {
+  width: $datepicker-day-size * 1.85;
+  height: $datepicker-day-size;
+}
+
+:local(.month) {
+  width: $datepicker-day-size * 2.4;
+  height: $datepicker-day-size * 1.2;
+  line-height: $datepicker-day-size * 1.2;
+}
+
+:local(.day) {
+  width: $datepicker-day-size;
+  height: $datepicker-day-size;
+
+  &:local(.today) {
+    color: $datepicker-day-today-color;
+    border-color: $datepicker-day-today-border-color;
+    background-color: $datepicker-day-today-bg;
+  }
+
+  &:local(.active) {
+    color: $datepicker-day-active-color;
+    border-color: $datepicker-day-active-border-color;
+    background-color: $datepicker-day-active-bg;
+  }
+
+  &:local(.disabled) {
+    cursor: $cursor-disabled;
+    color: $datepicker-day-disable-color;
+  }
+}
+
+:local(.gray) {
+  color: $datepicker-day-disable-color;
+  background-color: transparent;
+}
+
+:local(.timepicker) {
+  :local(.control) {
+    background-image: $datepicker-time-indicator;
+  }
+
+  :local(.picker) {
+    min-height: $clock-size + $timeset-height + $datepicker-time-padding * 2;
+  }
+}
+
+:local(.short) {
+  width: $datepicker-short-width;
+}
+
+:local(.timeContainer) {
+  text-align: center;
+  padding-bottom: $datepicker-time-padding;
+
+  :local(.timeSet) {
+    position: relative;
+    width: $timeset-width;
+    display: inline-block;
+    height: $timeset-height;
+    line-height: $timeset-height;
+    //font-family: Arial;
+    margin: $timeset-margin;
+    background-color: $timeset-bg;
+    border: solid $timeset-border-width $timeset-border-color;
+    padding-right: $timeset-padding;
+    border-radius: $timeset-border-radius;
+
+    :local(.add), :local(.sub) {
+      position: absolute;
+      width: $timeset-padding;
+      height: $timeset-height / 2;
+      text-align: center;
+      display: block;
+      border-left: solid $timeset-border-width $timeset-border-color;
+      background-color: $datepicker-day-bg;
+      right: 0;
+    }
+
+    :local(.add) {
+      top: 0;
+      background: $datepicker-day-bg $timeset-indicator-up no-repeat center center;
+      background-size: 100% 100%;
+    }
+
+    :local(.sub) {
+      bottom: 0;
+      background: $datepicker-day-bg $timeset-indicator-down no-repeat center center;
+      background-size: 100% 100%;
+    }
+  }
+}
+
+:local(.clockWrapper) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  visibility: hidden;
+  opacity: 0;
+
+  &:local(.active) {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  :local(.overlay) {
+    width: 100%;
+    height: 100%;
+    background-color: $clock-overlay-bg;
+  }
+
+  :local(.clock) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 0 - $timeset-height / 2 - $datepicker-time-padding;
+    width: $clock-size;
+    height: $clock-size;
+    padding: $clock-padding;
+    border-radius: 50%;
+    border: $clock-border-width solid $clock-border-color;
+    background-color: $clock-bg-color;
+
+    :local(.am), :local(.pm) {
+      position: absolute;
+      text-align: center;
+      width: $clock-indicator-width;
+      height: $clock-indicator-height;
+      line-height: $clock-indicator-height - $clock-border-width * 2;
+      bottom: $clock-indicator-bottom;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: $clock-indicator-border-radius;
+      border: $clock-border-width solid $clock-border-color;
+      background-color: $clock-bg-color;
+      color: $clock-set-color;
+
+      &:hover, &:local(.active) {
+        background-color: $clock-set-hover-bg;
+        color: $clock-set-hover-color;
+      }
+    }
+
+    :local(.am) {
+      left: 0 - $clock-indicator-width / 2;
+    }
+
+    :local(.pm) {
+      right: 0 - $clock-indicator-width / 2;
+    }
+  }
+
+  :local(.close) {
+    position: absolute;
+    cursor: pointer;
+    right: $clock-close-margin;
+    top: $clock-close-margin;
+    height: $clock-close-size;
+    width: $clock-close-size;
+    text-align: center;
+    border-radius: 50%;
+    border: $clock-border-width solid $clock-border-color;
+    background-color: $clock-bg-color;
+
+    svg {
+      width: 80%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+
+  :local(.clockInner) {
+    width: $clock-inner-size;
+    height: $clock-inner-size;
+    padding: $clock-inner-padding;
+    position: relative;
+
+    :local(.clockSet) {
+      position: absolute;
+      width: $clock-set-size;
+      height: $clock-set-size;
+      line-height: $clock-set-size;
+      text-align: center;
+      color: $clock-set-color;
+      font-weight: bold;
+      font-size: $clock-set-font-size;
+      border-radius: 50%;
+      cursor: pointer;
+
+      &:hover, &:focus {
+        background-color: $clock-set-hover-bg;
+        color: $clock-set-hover-color;
+      }
+
+    }
+  }
+
+  :local(.pointer) {
+    :local(.hour), :local(.minute), :local(.second) {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      background-color: $clock-pointer-color;
+      transform-origin: $clock-pointer-origin 50%;
+      transition: 0.3s;
+    }
+
+    :local(.active) {
+      background-color: $clock-pointer-active-color;
+    }
+
+    :local(.hour) {
+      width: 3.2rem;
+      height: 4px;
+      margin: -2px 0 0 0-$clock-pointer-origin;
+    }
+
+    :local(.minute) {
+      width: 3.8rem;
+      height: 3px;
+      margin: -1px 0 0 0-$clock-pointer-origin;
+    }
+
+    :local(.second) {
+      width: 4.5rem;
+      height: 2px;
+      margin: -1px 0 0 0-$clock-pointer-origin;
+    }
+  }
+}

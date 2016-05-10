@@ -53,13 +53,15 @@ class Input extends Component {
   }
 
   render () {
-    const { className, grid, type, trigger, ...other } = this.props;
+    const { className, grid, type, readOnly, trigger, ...other } = this.props;
     const props = {
       className: classnames(
         className,
         Styles.input,
+        readOnly && Styles.disabled,
         getGrid(grid)
       ),
+      readOnly,
       onChange: this.handleChange,
       type: type === 'password' ? 'password' : 'text',
       value: this.state.value

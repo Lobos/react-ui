@@ -30,3 +30,11 @@
     opacity: 1;
   }
 }
+
+:local(.disabled),
+:local(.readonly),
+:local(.input):disabled,
+:local(.disabled) :local(.input) {
+  cursor: $cursor-disabled;
+  background-color: $input-bg-disabled;
+}

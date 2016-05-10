@@ -15,7 +15,7 @@ import Transition from './Transition';
 import * as Events from './utils/events';
 
 import Styles from './styles/_select.scss';
-import inputStyles from './styles/_input.scss';
+import InputStyles from './styles/_input.scss';
 
 class Select extends ClickAway(Component) {
   constructor (props) {
@@ -218,7 +218,7 @@ class Select extends ClickAway(Component) {
     if (this.props.filterAble) {
       return (
         <div className={Styles.filter}>
-          <input className={classnames(inputStyles.input)}
+          <input className={classnames(InputStyles.input)}
             value={this.state.filter}
             onChange={ this.handleFilter }
             type="text" />
@@ -239,7 +239,6 @@ class Select extends ClickAway(Component) {
       className,
       getGrid(grid),
       active && Styles.open,
-      readOnly && Styles.readonly,
       dropup && Styles.dropup,
       !mult && Styles.single
     );
@@ -329,11 +328,11 @@ class Select extends ClickAway(Component) {
 
     return (
       <div ref="container" onClick={this.showOptions} style={style} className={className}>
-        <div className={classnames(Styles.control, inputStyles.input)}>
+        <div className={classnames(Styles.control, InputStyles.input, readOnly && InputStyles.disabled)}>
         {
           result.length > 0 ?
             result :
-            <span className={inputStyles.placeholder}>{msg || placeholder}&nbsp;</span>
+            <span className={InputStyles.placeholder}>{msg || placeholder}&nbsp;</span>
         }
         </div>
         <Transition ref="options" act={active ? 'enter' : 'leave'} duration={166} tf="ease-out">

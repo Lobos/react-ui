@@ -1,15 +1,18 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import { overView, getOuterHeight } from '../utils/dom';
 import * as datetime from '../utils/datetime';
 import ClickAway from '../mixins/ClickAway';
 import TimeSet from './TimeSet';
 import Clock from './Clock';
+import { ANGLE_LEFT, ANGLE_RIGHT, ANGLE_LEFT_DOUBLE, ANGLE_RIGHT_DOUBLE } from '../svgs';
+import Transition from '../Transition';
 
-import { requireCss } from '../themes';
-requireCss('datetime');
+import Styles from '../styles/_datepicker.scss';
+import InputStyles from '../styles/_input.scss';
 
 import { getLang, setLang } from '../lang';
 setLang('datetime');
@@ -25,9 +28,10 @@ class Datetime extends ClickAway(Component) {
     let value = props.value;
 
     this.state = {
-      active: false,
+      open: false,
       popup: false,
       stage: props.type === TIME ? 'clock' : 'day',
+      timeStage: null,
       current: datetime.convert(value, new Date()),
       value: datetime.convert(value, null)
     };
@@ -48,7 +52,7 @@ class Datetime extends ClickAway(Component) {
   }
 
   componentDidMount () {
-    this.registerClickAway(this.close, this.refs.datepicker);
+    this.registerClickAway(this.close, findDOMNode(this.refs.datepicker));
   }
   
   componentWillReceiveProps (nextProps) {
@@ -84,11 +88,6 @@ class Datetime extends ClickAway(Component) {
     }
   }
 
-  setValue (value) {
-    value = datetime.convert(value, null);
-    this.setState({ value });
-  }
-
   formatValue (value) {
     if (this.props.format) {
       return datetime.format(value, this.props.format);
@@ -104,45 +103,34 @@ class Datetime extends ClickAway(Component) {
   }
 
   open () {
-    if (this.props.readOnly || this.state.active) {
+    if (this.props.readOnly || this.state.open) {
       return;
     }
+
+    this.bindClickAway();
 
     let today = new Date();
     // remove time
     today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
-    let picker = this.refs.datepicker;
-    picker.style.display = 'block';
-    let height = getOuterHeight(picker);
+    let isTime = this.props.type === TIME;
 
-    setTimeout(() => {
+    this.setState({
+      open: true,
+      current: this.state.value || today,
+      //stage: isTime ? 'clock' : 'day',
+      timeStage: isTime ? 'hour' : ''
+    }, () => {
+      let height = getOuterHeight(findDOMNode(this.refs.datepicker));
       this.setState({
-        active: true,
-        popup: overView(this.refs.datetime, height),
-        current: this.state.value || today,
-        stage: this.props.type === TIME ? 'clock' : 'day'
+        popup: overView(this.refs.datetime, height)
       });
-
-      this.bindClickAway();
-
-      if (this.props.type === TIME) {
-        this.refs.clock.changeTimeStage('hour');
-      }
-    }, 0);
+    });
   }
 
   close () {
-    this.setState({ active: false });
+    this.setState({ open: false });
     this.unbindClickAway();
-    if (this.refs.clock) {
-      this.refs.clock.close();
-    }
-    setTimeout(() => {
-      if (this.state.active === false) {
-        this.refs.datepicker.style.display = 'none';
-      }
-    }, 500);
   }
 
   changeDate (obj) {
@@ -215,15 +203,30 @@ class Datetime extends ClickAway(Component) {
     return false;
   }
 
-  getTime () {
-    let current = this.state.current;
+  renderTime () {
+    const { current, timeStage } = this.state;
 
     return (
-      <div className="time-container">
-        <Clock current={current} timeOnly={this.props.type === TIME} onTimeChange={this.timeChange} ref="clock" />
-        <TimeSet onTimeChange={this.timeChange} onStageChange={this.timeStageChange} type="hour" value={current.getHours()} />
-        <TimeSet onTimeChange={this.timeChange} onStageChange={this.timeStageChange} type="minute" value={current.getMinutes()} />
-        <TimeSet onTimeChange={this.timeChange} onStageChange={this.timeStageChange} type="second" value={current.getSeconds()} />
+      <div className={Styles.timeContainer}>
+        <Clock current={current} active={!!timeStage}
+          stage={timeStage}
+          onClose={this.props.type === TIME ? undefined : this.timeStageChange}
+          onTimeChange={this.timeChange} />
+
+        <TimeSet type="hour"
+          onTimeChange={this.timeChange}
+          onStageChange={this.timeStageChange}
+          value={current.getHours()} />
+
+        <TimeSet type="minute"
+          onTimeChange={this.timeChange}
+          onStageChange={this.timeStageChange}
+          value={current.getMinutes()} />
+
+        <TimeSet type="second"
+          onTimeChange={this.timeChange}
+          onStageChange={this.timeStageChange}
+          value={current.getSeconds()} />
       </div>
     );
   }
@@ -271,27 +274,27 @@ class Datetime extends ClickAway(Component) {
     }
 
     let buttons = [];
+    const className = Styles.year;
+
     buttons.push(
-      <button type="button" className="year" key={i-1}
-        onClick={ () => { this.pre('year'); } }>
-        <i className="year-left" />
-        <i className="year-left" />
-      </button>
+      <a className={className} key={i-1}
+        onClick={this.pre.bind(this, 'year')}>
+        {getLang('datetime.prev')}
+      </a>
     );
 
     years.forEach((y, i) => {
       buttons.push(
-        <button type="button" className="year" key={i}
-          onClick={ () => { this.yearChange(y); } }>{y}</button>
+        <a className={className} key={i}
+          onClick={this.yearChange.bind(this, y)}>{y}</a>
       );
     }, this);
 
     buttons.push(
-      <button type="button" className="year" key={i+1}
-        onClick={ () => { this.next('year'); } }>
-        <i className="year-right" />
-        <i className="year-right" />
-      </button>
+      <a className={className} key={i+1}
+        onClick={this.next.bind(this, 'year')}>
+        {getLang('datetime.next')}
+      </a>
     );
 
     return buttons;
@@ -299,7 +302,11 @@ class Datetime extends ClickAway(Component) {
 
   renderMonths () {
     return getLang('datetime.fullMonth').map(function (m, i) {
-      return <button type="button" onClick={ () => { this.monthChange(i); } } key={i} className="month">{m}</button>;
+      return (
+        <a type="button"
+          onClick={this.monthChange.bind(this, i)}
+          key={i} className={Styles.month}>{m}</a>
+      );
     }, this);
   }
 
@@ -328,14 +335,6 @@ class Datetime extends ClickAway(Component) {
     let isToday = year === today.getFullYear() && month === today.getMonth();
 
     return days.map(function (d, i) {
-      let className = classnames(
-        'day',
-        {
-          gray: d.getMonth() !== month,
-          active: isCurrent && value.getDate() === d.getDate() && value.getMonth() === d.getMonth(),
-          today: isToday && today.getDate() === d.getDate() && today.getMonth() === d.getMonth()
-        }
-      );
       let disabled = false,
           speedTime = d.getTime();
       if (min > 0) {
@@ -344,19 +343,30 @@ class Datetime extends ClickAway(Component) {
       if (!disabled && max > 0) {
         disabled = speedTime > max;
       }
+
+      let className = classnames(
+        Styles.day,
+        d.getMonth() !== month && Styles.gray,
+        disabled && Styles.disabled,
+        (isToday && today.getDate() === d.getDate() && today.getMonth() === d.getMonth()) && Styles.today,
+        (isCurrent && value.getDate() === d.getDate() && value.getMonth() === d.getMonth()) && Styles.active
+      );
       
       return (
-        <button type="button" disabled={disabled}
-          onClick={() => { this.dayChange(d); }} key={i}
+        <a href="javascript:;" key={i}
+          onClick={disabled ? undefined : this.dayChange.bind(this, d)}
           className={className}>
           {d.getDate()}
-        </button>
+        </a>
       );
     }, this);
   }
 
   timeStageChange (type) {
-    this.refs.clock.changeTimeStage(type);
+    if (typeof type !== 'string') {
+      type = '';
+    }
+    this.setState({ timeStage: type });
   }
 
   renderHeader () {
@@ -365,30 +375,28 @@ class Datetime extends ClickAway(Component) {
     }
 
     let { current, stage } = this.state;
-    let display = stage === 'day' ? 'block' : 'none';
+    let display = stage === 'day' ? 'inline-block' : 'none';
 
     return (
-      <div style={this.props.style} className="date-picker-header">
-        <a style={{float: 'left', display}} onClick={this.pre.bind(this, 'month')}>
-          <i className="icon arrow-left" />
-          <i className="icon arrow-left" />
-        </a>
-        <a style={{float: 'left', display}} onClick={this.pre.bind(this, 'day')}>
-          <i className="icon arrow-left" />
-        </a>
-        <a onClick={() => { this.stageChange('year'); }} className="year">
+      <div style={this.props.style} className={Styles.header}>
+        <i style={{float: 'left', display}} onClick={this.pre.bind(this, 'month')}>
+          {ANGLE_LEFT_DOUBLE}
+        </i>
+        <i style={{float: 'left', display}} onClick={this.pre.bind(this, 'day')}>
+          {ANGLE_LEFT}
+        </i>
+        <a onClick={() => { this.stageChange('year'); }}>
           {datetime.getFullYear(current)}
         </a>
-        <a onClick={() => { this.stageChange('month'); }} className="month">
+        <a onClick={() => { this.stageChange('month'); }}>
           {datetime.getFullMonth(current)}
         </a>
-        <a style={{float: 'right', display}} onClick={this.next.bind(this, 'month')}>
-          <i className="icon arrow-right" />
-          <i className="icon arrow-right" />
-        </a>
-        <a style={{float: 'right', display}} onClick={this.next.bind(this, 'day')}>
-          <i className="icon arrow-right" />
-        </a>
+        <i style={{float: 'right', display}} onClick={this.next.bind(this, 'month')}>
+          {ANGLE_RIGHT_DOUBLE}
+        </i>
+        <i style={{float: 'right', display}} onClick={this.next.bind(this, 'day')}>
+          {ANGLE_RIGHT}
+        </i>
       </div>
     );
   }
@@ -397,48 +405,50 @@ class Datetime extends ClickAway(Component) {
     switch (this.state.stage) {
       case 'day':
         let weeks = getLang('datetime.weekday').map(function (w, i) {
-          return <div key={i} className="week">{w}</div>;
+          return <div key={i} className={Styles.week}>{w}</div>;
         });
-        return <div className="inner">{weeks}{this.renderDays()}</div>;
+        return <div className={Styles.dayInner}>{weeks}{this.renderDays()}</div>;
       case 'month':
-        return <div className="inner month-inner">{this.renderMonths()}</div>;
+        return <div className={Styles.monthInner}>{this.renderMonths()}</div>;
       case 'year':
-        return <div className="inner year-inner">{this.renderYears()}</div>;
+        return <div className={Styles.yearInner}>{this.renderYears()}</div>;
       case 'clock':
-        return <div className="inner empty"></div>;
+        return <div className={Styles.inner}></div>;
     }
     return null;
   }
 
   render () {
+    const { type, readOnly, placeholder } = this.props;
+    let { stage, value, open, popup } = this.state;
+
     let className = classnames(
       this.props.className,
-      'rct-datetime',
-      'rct-form-control',
-      {
-        'active': this.state.active && !this.props.readOnly,
-        'popup': this.state.popup,
-        'readonly': this.props.readOnly,
-        'short': this.props.type !== DATETIME
-      }
+      Styles.datepicker,
+      type !== DATETIME && Styles.short,
+      readOnly ? InputStyles.disabled : (open && Styles.open),
+      type === TIME && Styles.timepicker,
+      popup && Styles.popup
     );
 
-    let { stage, value } = this.state;
     let text = value ? this.formatValue(value) : '';
-    text = text ?
-      <span className="date-text">{text}</span> :
-      <span className="placeholder">{this.props.placeholder}&nbsp;</span>;
 
     return (
       <div ref="datetime" onClick={this.open} className={className}>
-        {text}
-        <i className="icon calendar" />
-        <div ref="datepicker" className="date-picker">
-          {this.renderHeader()}
-          {this.renderInner()}
-          {(stage === 'day' || stage === 'clock') && this.props.type !== DATE && this.getTime()}
+        <div className={classnames(Styles.control, InputStyles.input)}>
+          {
+            text ?
+            <span>{text}</span> :
+            <span className={InputStyles.placeholder}>{placeholder}&nbsp;</span>
+          }
         </div>
-        <div className="overlay" onClick={this.close} />
+        <Transition ref="datepicker" duration={333} tf="ease-out" act={open ? 'enter' : 'leave'}>
+          <div style={{display: 'none'}} className={Styles.picker}>
+            {this.renderHeader()}
+            {this.renderInner()}
+            {(stage === 'day' || stage === 'clock') && type !== DATE && this.renderTime()}
+          </div>
+        </Transition>
       </div>
     );
   }

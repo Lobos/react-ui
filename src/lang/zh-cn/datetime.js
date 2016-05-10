@@ -11,6 +11,8 @@ module.exports = {
       date: 'yyyy-MM-dd',
       datetime: 'yyyy-MM-dd hh:mm:ss',
       time: 'hh:mm:ss'
-    }
+    },
+    prev: '上一页',
+    next: '下一页'
   }
 };

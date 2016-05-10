@@ -7,11 +7,14 @@
   max-width: 100%;
 
   :local(.control) {
-    cursor: default;
-    padding: $input-padding-y ($input-padding-x + $custom-select-indicator-padding) $input-padding-y $input-padding-x;
+    padding: $input-padding-y ($custom-select-padding-x + $custom-select-indicator-padding) $input-padding-y $custom-select-padding-x;
     vertical-align: middle;
-    background: $custom-select-bg $custom-select-indicator no-repeat right $custom-select-padding-x center;
-    background-size: $custom-select-bg-size;
+    background: {
+      image: $custom-select-indicator;
+      repeat: no-repeat;
+      position: right $custom-select-padding-x center;
+      size: $custom-select-bg-size;
+    }
   }
 }
 
