@@ -2,6 +2,7 @@
 @import "themes/bootstrap";
 
 :local(.datepicker) {
+  display: inline-block;
   position: relative;
   width: $datepicker-full-width;
   font-size: $datepicker-font-size;

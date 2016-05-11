@@ -2,6 +2,7 @@ import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
 // import { compClass, compData, compSelector } from '../../mock/input.js'
 import Input from '../../../src/Input'
+import { gridClassName } from '../../testUtils'
 
 describe('Input Spec', () => {
   const defaultWrapper = mount(<Input placeholder='foo' />)
@@ -24,7 +25,7 @@ describe('Input Spec', () => {
     it('should apply grid class by grid prop', () => {
       const wrapper = mount(<Input grid={1 / 4} />)
 
-      expect(wrapper).to.have.className('rct-grid-md-25-000')
+      expect(wrapper).to.have.className(gridClassName('rctui-grid-md-25-000'))
     })
 
     it('should be read only bu readOnly prop', () => {

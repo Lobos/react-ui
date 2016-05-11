@@ -1,6 +1,7 @@
 import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
+import { Cn, En } from '../Language';
 const {Button, Icon} = global.uiRequire();
 
 module.exports = class extends React.Component {
@@ -9,33 +10,34 @@ module.exports = class extends React.Component {
       <div>
         <div className="header">
           <h1>Button</h1>
-          <h2>按钮</h2>
+          <Cn><h2>按钮</h2></Cn>
         </div>
 
         <div className="content button-docs">
           <Code>
 {`<Button
-  className={string}   // class
-  type="submit|button" // 按钮类型，可选值为 submit|button ，不填默认值为 button
-  disabled={bool}      // 与 button 的 disabled 属性相同
-  size="string"        // 'large|middle|small', default value 'middle'
-  status="string"      // 'primary|secondary|success|warning|danger(error)|info', default value 'secondary'
-  onClick={function}>  // 点击事件
-  {string|element}     // 文字或元素
+  className={string}
+  type="string"        // string, 'submit' or 'button', default value is 'button'
+  disabled={bool}
+  size="string"        // 'large|middle|small', default value is 'middle'
+  status="string"      // 'primary|secondary|success|warning|danger(error)|info',
+                          default value is 'secondary'
+  onClick={function}>
+  {string|element}     // string or ReactElement
 </Button>`}
           </Code>
-          <p>0.7 删除了once, enable(), disable(), 这种用法是不对的，用props.disabled吧.</p>
+          <Cn>0.7 删除了once, enable(), disable(), 用props.disabled吧.</Cn>
 
-          <h2 className="subhead">普通按钮</h2>
+          <h2 className="subhead">Normal</h2>
           <Example>
 <Button status="primary">Primary Button</Button>
 <Button>Default Button</Button>
           </Example>
 
-          <h2 className="subhead">带图标按钮</h2>
+          <h2 className="subhead">Button with Icon</h2>
           <Example>
 <Button><Icon icon="home" /> Home</Button>
-<Button><Icon icon="cog" /> Settings</Button>
+<Button><Icon>&#xe601;</Icon> Home</Button>
           </Example>
 
           <h2 className="subhead">Status</h2>

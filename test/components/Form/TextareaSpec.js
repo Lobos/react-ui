@@ -2,6 +2,7 @@ import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
 // import { compClass, compData, compSelector } from '../../mock/input.js'
 import Textarea from '../../../src/Textarea'
+import { gridClassName } from '../../testUtils'
 
 describe('Textarea Spec', () => {
   const defaultWrapper = shallow(<Textarea value='foo' placeholder='bar' />)
@@ -20,7 +21,7 @@ describe('Textarea Spec', () => {
     it('should apply grid class by grid prop', () => {
       const wrapper = mount(<Textarea grid={1 / 4} />)
 
-      expect(wrapper).to.have.className('rct-grid-md-25-000')
+      expect(wrapper).to.have.className(gridClassName('rctui-grid-md-25-000'))
     })
 
     it('should apply addition style by style prop', () => {

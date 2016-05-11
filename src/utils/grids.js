@@ -1,31 +1,17 @@
 'use strict';
 
-const GRIDS = {};
-const OFFSETS = {};
+import md5 from 'blueimp-md5';
+
+const CACHES = {};
 const RESPONSIVE = {
   'sm': '568',
   'md': '768',
   'lg': '992',
   'xl': '1200'
 };
-let gridPre = 'rct-grid';
-let offsetPre = 'rct-offset';
-let defaultResponsive = 'md';
-
-export function setOptions(options) {
-  if (!options) {
-    return;
-  }
-  if (options.gridPre) {
-    gridPre = options.gridPre;
-  }
-  if (options.offsetPre) {
-    offsetPre = options.offsetPre;
-  }
-  if (options.responsive) {
-    defaultResponsive = options.responsive;
-  }
-}
+const GridClassName = 's_' + md5('rctui-grid').substr(24);
+const GridFullClassName = 's_' + md5('rctui-grid-full').substr(24);
+const defaultResponsive = 'md';
 
 export function getGrid(options) {
   if (!options) {
@@ -39,7 +25,7 @@ export function getGrid(options) {
   let gridClass = generate(width, 'grid', responsive);
   let offsetClass = generate(offset, 'offset', responsive);
 
-  return `${gridPre} ${gridPre}-1 ${gridClass} ${offsetClass}`;
+  return `${GridClassName} ${GridFullClassName} ${gridClass} ${offsetClass}`;
 }
 
 function generate(width, type, responsive) {
@@ -52,40 +38,39 @@ function generate(width, type, responsive) {
   width = width.substr(0, width.length - 1);
 
   responsive = responsive || defaultResponsive;
-  let key = responsive + '-' + width.replace('.', '-');
-  if (type === 'grid') {
-    if (!GRIDS[key]) {
-      generateGrid(width, key, responsive);
-    }
-    return `${gridPre}-${key}`;
-  } else {
-    if (!OFFSETS[key]) {
-      generateOffset(width, key, responsive);
-    }
-    return `${offsetPre}-${key}`;
+  let className = 'rctui-' + type + '-' + responsive + '-' + width.replace('.', '-');
+  className = 's_' + md5(className).substr(24);
+  if (!CACHES[className]) {
+    type === 'grid' ?
+      generateGrid(width, className, responsive) :
+      generateOffset(width, className, responsive);
+    CACHES[className] = true;
   }
+  return className;
 }
 
-function generateGrid(width, key, responsive) {
-  GRIDS[key] = true;
+function generateGrid(width, className, responsive) {
   let minWidth = RESPONSIVE[responsive];
-  let text = `@media screen and (min-width: ${minWidth}px) { .${gridPre}-${key}{width: ${width}%} }`;
-
-  createStyle(text);
+  let text = `@media screen and (min-width: ${minWidth}px) { .${className}{width: ${width}%} }`;
+  createStyle(text, className);
 }
 
-function generateOffset(width, key, responsive) {
-  OFFSETS[key] = true;
+function generateOffset(width, className, responsive) {
   let minWidth = RESPONSIVE[responsive];
-  let text = `@media screen and (min-width: ${minWidth}px) { .${offsetPre}-${key}{margin-left: ${width}%} }`;
-
-  createStyle(text);
+  let text = `@media screen and (min-width: ${minWidth}px) { .${className}{margin-left: ${width}%} }`;
+  createStyle(text, className);
 }
 
-function createStyle(text) {
-  let style = document.createElement('style');
+function createStyle(text, id) {
+  let style = document.head.querySelector('#' + id);
+  if (style) {
+    return;
+  }
+
+  style = document.createElement('style');
   style.type = 'text/css';
-  style.innerHTML = text
+  style.id = id;
+  style.innerHTML = text;
   document.head.appendChild(style);
 }
 
@@ -93,7 +78,7 @@ function createStyle(text) {
   let text = [];
 
   text.push(`
-.${gridPre} {
+.${GridClassName} {
   display: inline-block;
   zoom: 1;
   letter-spacing: normal;
@@ -103,7 +88,7 @@ function createStyle(text) {
   box-sizing: border-box;
 }`);
 
-  text.push(`.${gridPre}-1{width:100%}`);
-  createStyle(text.join(''));
+  text.push(`.${GridFullClassName}{width:100%}`);
+  createStyle(text.join(''), GridClassName);
 })();
 

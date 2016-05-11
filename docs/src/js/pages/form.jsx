@@ -5,6 +5,11 @@ import Code from '../Code';
 import Example from '../Example';
 const {Form, FormControl, Button, FormSubmit, Icon, Input, Datepicker, DatepickerPair, RadioGroup, FormItem, Refetch} = global.uiRequire();
 
+const HEARTS = [
+  <Icon size={2} icon="favorite-outline" style={{color: 'red'}} />,
+  <Icon size={2} icon="favorite" style={{color: 'red'}} />
+];
+
 module.exports = class extends React.Component {
   constructor (props) {
     super(props);
@@ -55,9 +60,11 @@ module.exports = class extends React.Component {
           <br />
           <Example>
 <Form layout={this.state.layout}>
-  <FormControl name="text" label="text" type="text" grid={{width:6/24}} responsive="sm" min={2} max={6} />
+  <FormControl label="name">
+    <Input name="name" type="text" min={2} max={6} />
+  </FormControl>
   <FormControl name="email" label="email" type="email" />
-  <FormControl name="select" label="select" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} type="select" />
+  <FormControl name="nationality" label="nationality" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} type="select" />
   <FormSubmit>
     <span>提交</span>
   </FormSubmit>
@@ -157,7 +164,8 @@ module.exports = class extends React.Component {
   </FormControl>
 
   <FormControl label="mult input" tip="每个输入框可以输入数字和字符，长度为5">
-    <Input name="mult1" type="alphanum" min={5} max={5} grid={1/6} />-
+    <Input name="mult1" type="alphanum" min={5} max={5} grid={1/6} />
+    -
     <Input name="mult2" type="alphanum" min={5} max={5} grid={1/6} />-
     <Input name="mult3" type="alphanum" min={5} max={5} grid={1/6} />-
     <Input name="mult4" type="alphanum" min={5} max={5} grid={1/6} />
@@ -180,6 +188,7 @@ module.exports = class extends React.Component {
   <FormControl name="rating"
     label="rating"
     required
+    icons={HEARTS}
     maxValue={10}
     tip="亲，给个好评吧"
     errorText="必须给一个评分哦"
@@ -227,10 +236,7 @@ module.exports = class extends React.Component {
     max={100}
     type="textarea" />
   
-  <FormSubmit>
-    <span>提交</span>
-    <span>处理中</span>
-  </FormSubmit>
+  <FormSubmit>Submit</FormSubmit>
 </Form>
 
 { this.state.formData && <Code>提交表单数据:<br />{JSON.stringify(this.state.formData, null, 4)}</Code> }

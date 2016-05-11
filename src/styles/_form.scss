@@ -1,0 +1,41 @@
+@import "mixins";
+@import "themes/bootstrap";
+
+:local(.aligned) {
+  :local(.label) {
+    display: inline-block;
+    position: absolute;
+    text-align: right;
+    left: 0;
+    top: 0;
+    line-height: 2rem;
+ 
+    & ~ div {
+      margin-left: 1rem;
+    }
+  }
+}
+
+:local(.inline) {
+  :local(.formGroup) {
+    display: inline-block;
+    margin-right: 1rem;
+    vertical-align: middle;
+  }
+
+  :local(.label) {
+    & ~ div {
+      margin-left: 0.5rem;
+      display: inline-block;
+    }
+  }
+}
+
+:local(.formGroup) {
+  position: relative;
+  margin-bottom: $form-group-margin-bottom;
+}
+
+:local(.error) {
+  color: $brand-danger;
+}
