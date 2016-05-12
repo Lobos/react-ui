@@ -1,34 +1,22 @@
 import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
-// import { compClass, compData, compSelector } from '../../mock/select'
+import { themes, compClass } from '../../mock/rating'
 import Rating from '../../../src/Rating'
-import Icon from '../../../src/Icon'
-import { hashClassNameTest } from '../../testUtils'
 
 describe('Rating Spec', () => {
-  const stars = [
-    <Icon size={2} style={{color: 'gold'}}>
-      &#xe607
-    </Icon>,
-    <Icon size={2} style={{color: 'gold'}}>
-      &#xe606
-    </Icon>
-  ]
+  const {stars, hearts} = themes
 
-  const hearts = [
-    <Icon size={2} icon='favorite-outline' style={{color: 'red'}} />,
-    <Icon size={2} icon='favorite' style={{color: 'red'}} />
-  ]
-
-  const THEMES = {stars, hearts}
-
-  const defaultWrapper = mount(<Rating icons={stars} value={3} />)
+  const defaultWrapper = mount(<Rating icons={stars} className='foo' value={3} />)
   const defatulIconsWrapper = defaultWrapper.find('span')
 
   describe('Default', () => {
     it('should generate container div tag with rating class', () => {
       expect(defaultWrapper).to.have.tagName('div')
       expect(defaultWrapper).to.have.className('rating')
+    })
+
+    it('should apply addition class by className prop', () => {
+      expect(defaultWrapper).to.have.className('foo')
     })
 
     it('should have 5 icons as default', () => {
@@ -41,6 +29,52 @@ describe('Rating Spec', () => {
       })
 
       expect(activeIconsWrapper.length).to.be.equal(3)
+    })
+
+    it('should active [value] icons by click native event', () => {
+      defatulIconsWrapper.at(3).simulate('click')
+
+      const activeIconsWrapper = defatulIconsWrapper.filterWhere(e => {
+        return e.prop('className').indexOf('active') > 0
+      })
+
+      expect(activeIconsWrapper.length).to.be.equal(4)
+    })
+  })
+
+  describe('Custom', () => {
+    it('should be read only be readOnly prop', () => {
+      const wrapper = mount(<Rating icons={stars} readOnly/>)
+
+      expect(wrapper.find('span').length).to.be.equal(0)
+    })
+
+    it('should be [maxValue] icons by maxValue prop', () => {
+      const wrapper = mount(<Rating icons={stars} maxValue={10} />)
+
+      expect(wrapper.find('span').length).to.be.equal(10)
+    })
+  })
+
+  describe('Behavior', () => {
+    it('should call onChange callback', (done) => {
+      const cb = () => {
+          done()
+        },
+        wrapper1 = shallow(<Rating icons={stars} className='foo' onChange={cb} />)
+
+      wrapper1.simulate('change')
+    })
+
+    it('should set corresponding theme by Rating.register(key, icons)', () => {
+      Rating.register('foo', hearts)
+
+      const wrapper = mount(<Rating theme='foo' />)
+      const iconWrapper = wrapper.find('span').at(0).find('i')
+
+      compClass.heartIcon.split(' ').forEach(e => {
+        expect(iconWrapper).to.have.className(e)
+      })
     })
   })
 })
