@@ -1,6 +1,10 @@
 @import "mixins";
 @import "themes/bootstrap";
 
+:local(.group) {
+  padding: $form-group-no-input-padding 0;
+}
+
 :local(.checkbox), :local(.radio) {
   position: relative;
   display: inline-block;

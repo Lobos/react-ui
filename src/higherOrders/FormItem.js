@@ -7,6 +7,8 @@ import { deepEqual } from '../utils/objects';
 import * as Validation from '../utils/validation';
 import { toStyleObject, nextUid } from '../utils/strings';
 
+import FormStyles from '../styles/_form.scss';
+
 export const COMPONENTS = {};
 
 export const enhance = (ComposedComponent) => {
@@ -151,9 +153,10 @@ export const enhance = (ComposedComponent) => {
     render () {
       let { className, onChange, value, style, ...props } = this.props;
 
-      className = classnames(className, {
-        'has-error': this.state.hasError
-      });
+      className = classnames(
+        className,
+        this.state.hasError && FormStyles.dangerInput
+      );
       value = this.state.value;
 
       if (typeof style === 'string') {

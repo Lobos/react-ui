@@ -64,3 +64,6 @@ Icon.defaultProps = {
 export const setPrefix = function (pre) {
   PREFIX = pre;
 };
+
+// old Api
+Icon.setPrefix = setPrefix;

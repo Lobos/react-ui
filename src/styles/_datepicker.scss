@@ -155,6 +155,10 @@
   &:local(.disabled) {
     cursor: $cursor-disabled;
     color: $datepicker-day-disable-color;
+
+    &:hover {
+      border-color: transparent;
+    }
   }
 }
 

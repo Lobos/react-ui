@@ -1,9 +1,15 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
+import classnames from 'classnames';
+import objectAssign from 'object-assign';
 import Button from './Button';
 
+import FormStyles from './styles/_form.scss';
+
 export default function FormSubmit (props) {
+  console.log('FormSubmit is deprecated, use Form.buttons instead.')
+
   let children = props.children;
   let content;
   if (Array.isArray(children)) {
@@ -12,8 +18,21 @@ export default function FormSubmit (props) {
     content = children;
   }
 
+  let { labelWidth, style, layout } = props;
+
+  if (labelWidth) {
+    if (typeof labelWidth === 'number' && labelWidth < 1) {
+      labelWidth += '%';
+    }
+  }
+ 
+  if (layout === 'aligned') {
+    labelWidth = labelWidth || '10rem';
+    style = objectAssign({}, style, { paddingLeft: labelWidth });
+  }
+
   return (
-    <div style={props.style} className="rct-control-group">
+    <div style={style} className={classnames(FormStyles.group, FormStyles.control)}>
       <Button type="submit"
         status="primary"
         onClick={props.onClick}
@@ -27,6 +46,11 @@ export default function FormSubmit (props) {
 FormSubmit.propTypes = {
   children: PropTypes.any,
   disabled: PropTypes.bool,
+  labelWidth: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
+  layout: PropTypes.string,
   onClick: PropTypes.func,
   style: PropTypes.object
 };

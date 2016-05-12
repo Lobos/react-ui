@@ -111,7 +111,8 @@ class FormControl extends Component {
       this.required = true;
     }
 
-    if (props.tip) {
+    // allow empty string
+    if (props.tip || props.tip === '') {
       return '';
     }
 
@@ -122,12 +123,12 @@ class FormControl extends Component {
     if (props.min) { setHint(hints, `min.${valueType}`, props.min); }
     if (props.max) { setHint(hints, `max.${valueType}`, props.max); }
 
-    return (props.label || '') + hints.join(', ');
+    return hints.join(', ');
   }
 
   setChildrenHint (hints, children) {
     Children.toArray(children).forEach((child) => {
-      if (child.type && child.type.displayName === 'FormItem') {
+      if (child.type && child.type.isFormItem) {
         let hint = this.getHint(child.props);
         if (hint) {
           hints.push(hint);
@@ -147,7 +148,7 @@ class FormControl extends Component {
       this.setChildrenHint(hints, children);
     } else {
       if (!items) {
-        items = [otherProps];
+        items = [objectAssign({}, otherProps, {label})];
       }
     }
 
@@ -171,11 +172,11 @@ class FormControl extends Component {
     if (validations) {
       // if has tip，use tip
       if (errorText) { validations = errorText; }
-      return <span key="tip" className={FormStyles.error}>{validations}</span>;
+      return <span key="tip" className={FormStyles.dangerText}>{validations}</span>;
     }
 
     if (hints) {
-      return <span key="tip" className={FormStyles.hint}>{hints}</span>;
+      return <span key="tip" className={FormStyles.hintText}>{hints}</span>;
     } else {
       return;
     }
@@ -228,7 +229,7 @@ class FormControl extends Component {
     });
 
     if (children) {
-      items = items.concat(this.renderChildren(children, items.length));
+      items = items.concat(this.renderChildren(children));
     }
 
     items.push(this.renderTip());
@@ -236,55 +237,21 @@ class FormControl extends Component {
     return items;
   }
 
-  renderInline (className) {
-    className = classnames(className, getGrid(this.props.grid));
-    return (
-      <div style={this.props.style} className={className}>
-        {
-          this.renderItems({
-            grid: { width: 1 },
-            placeholder: this.props.placeholder || this.props.label
-          })
-        }
-      </div>
-    );
-  }
-
-  renderStacked (className) {
-    let labelClass = classnames(
-      FormStyles.label,
-      (this.props.required || this.required) && FormStyles.required
-    );
-
-    let grid = this.props.grid ?
-                  this.props.grid :
-                  this.props.layout === 'stacked' ?
-                      { grid: {width: 1} } : undefined;
-
-    return (
-      <div style={this.props.style} className={className}>
-        <label className={labelClass}>{this.props.label}</label>
-        <div>
-          { this.renderItems({ grid }) }
-        </div>
-      </div>
-    );
-  }
-
   render () {
     let { hintType, layout, label, grid, labelWidth, className, required, style } = this.props;
+    let isInline = layout === 'inline';
+
     if (!hintType) {
-      hintType = layout === 'inline' ? 'pop' : 'block';
+      hintType = isInline ? 'pop' : 'block';
     }
 
     className = classnames(
       className,
-      FormStyles.formGroup,
-      `rct-hint-${hintType}`,
+      FormStyles.group,
       this.state.validations.length > 0 && FormStyles.hasError
     );
 
-    if (layout === 'inline') {
+    if (isInline) {
       className += ' ' + getGrid(grid);
       grid = undefined;
     }
@@ -298,30 +265,27 @@ class FormControl extends Component {
       if (typeof labelWidth === 'number' && labelWidth < 1) {
         labelWidth += '%';
       }
-    } else if (layout === 'aligned') {
-      labelWidth = '10rem';
+    }
+   
+    if (layout === 'aligned') {
+      labelWidth = labelWidth || '10rem';
       style = objectAssign({}, style, { paddingLeft: labelWidth });
     }
 
     return (
       <div style={style} className={className}>
-        <label style={{ width: labelWidth }} className={labelClass}>
-          {label}
-        </label>
-        <div>
+        { 
+          (label || !isInline) &&
+          <label style={{ width: labelWidth }} className={labelClass}>
+            {label}
+          </label>
+        }
+        <div className={FormStyles.control}>
           { this.renderItems({ grid }) }
         </div>
       </div>
 
     );
-
-    /*
-    if (layout === 'inline') {
-      return this.renderInline(className);
-    } else {
-      return this.renderStacked(className);
-    }
-    */
   }
 }
 

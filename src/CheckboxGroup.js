@@ -1,11 +1,14 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
+import classnames from 'classnames';
 import { Checkbox } from './Checkbox';
 import { fetchEnhance } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
 import { textValueEnhance } from './higherOrders/TextValue';
 import { compose } from './utils/compose';
+
+import Styles from './styles/_radio-checkbox.scss';
 
 const CheckboxGroup = (props) => {
   const { className, style, data, readOnly, block, inline, onChange } = props;
@@ -17,7 +20,7 @@ const CheckboxGroup = (props) => {
   }
 
   return (
-    <div style={style} className={className}>
+    <div style={style} className={classnames(className, Styles.group)}>
     {
       data.map((item, i) => {
         return (

@@ -30,7 +30,11 @@ module.exports = class extends React.Component {
         <div className="content">
           <Code>
 {`<Form
-  button={string}       // submit按钮文字，和FormSubmit二选一
+  buttons={
+    submit: 'string',   // submit 按钮文字
+    reset: 'string',    // reset 按钮文字
+    cancel: 'string'    // cancel 按钮文字
+  }                     
   data={object}         // 数据，object
   fetch={object}        // 获取服务端表单数据
   hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
@@ -38,7 +42,10 @@ module.exports = class extends React.Component {
                            layout 为 inline 时，默认为 "pop"
                            会被 FormControl 的 hintType 覆盖
   layout={string}       // 布局，可选值为 "aligned", "stacked", "inline"，默认为 "aligned"
-  onSubmit={function}>  // 数据验证成功后回调事件
+  onSubmit={function}   // 数据验证成功后回调函数
+  onCancel={function}   // 点击cancel按钮回调函数
+  onReset={function}    // 点击reset按钮回调函数
+  >
   {children}
 </Form>`}
           </Code>
@@ -49,33 +56,29 @@ module.exports = class extends React.Component {
           </p>
 
           <h2 className="subhead">layout</h2>
-          <div>
-            <span>layout: </span>
-            <RadioGroup
-              grid={{width:16/24}}
-              inline={true}
-              data={['inline', 'aligned', 'stacked']}
-              value={this.state.layout}
-              onChange={layout => this.setState({ layout })} />
-          </div>
-          <br />
+          
           <Example>
-<Form layout={this.state.layout}>
+<RadioGroup style={{ marginBottom: '2rem', borderBottom: 'solid 1px #ddd' }}
+  data={['inline', 'aligned', 'stacked']}
+  value={this.state.layout}
+  onChange={layout => this.setState({ layout })} />
+
+<Form buttons={'Submit'} layout={this.state.layout}>
   <FormControl label="name">
-    <Input name="name" type="text" min={2} max={6} />
+    <Input name="name" style={{width: '10rem'}} type="text" min={2} max={6} />
   </FormControl>
   <FormControl name="email" label="email" type="email" />
-  <FormControl name="nationality" label="nationality" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} type="select" />
-  <FormSubmit>
-    <span>提交</span>
-  </FormSubmit>
+  <FormControl name="nationality" label="nationality"
+    data={["China", "America", "Russia", "Japan", "Franch", "England", "Spain"]} type="select" />
 </Form>
           </Example>
 
-          <h2 className="subhead">获取 / 提交数据</h2>
+          <h2 className="subhead">fetch / post data</h2>
 
           <Example>
-<Form onSubmit={formData => this.setState({ formData })} fetch={'json/form.json'}>
+<Form onSubmit={formData => this.setState({ formData })}
+  fetch={'json/form.json'}
+  buttons={{ submit: 'Submit', reset: 'Reset' }}>
   <FormControl name="text"
     label="text"
     type="text"
@@ -166,9 +169,11 @@ module.exports = class extends React.Component {
 
   <FormControl label="mult input" tip="每个输入框可以输入数字和字符，长度为5">
     <Input name="mult1" type="alphanum" min={5} max={5} grid={1/6} />
-    -
-    <Input name="mult2" type="alphanum" min={5} max={5} grid={1/6} />-
-    <Input name="mult3" type="alphanum" min={5} max={5} grid={1/6} />-
+    <span>-</span>
+    <Input name="mult2" type="alphanum" min={5} max={5} grid={1/6} />
+    <span>-</span>
+    <Input name="mult3" type="alphanum" min={5} max={5} grid={1/6} />
+    <span>-</span>
     <Input name="mult4" type="alphanum" min={5} max={5} grid={1/6} />
   </FormControl>
 
@@ -213,9 +218,9 @@ module.exports = class extends React.Component {
     textTpl='{text}({id})'
     valueTpl="{id}" />
 
-  <FormControl label="FormItem">
+  <FormControl label="raw input">
     <FormItem name="formitem" required max={10}>
-      <input className="rct-form-control" type="text" />
+      <input style={{ padding: '0.5rem 0.75rem' }} type="text" />
     </FormItem>
   </FormControl>
 
@@ -236,8 +241,6 @@ module.exports = class extends React.Component {
     rows={5}
     max={100}
     type="textarea" />
-  
-  <FormSubmit>Submit</FormSubmit>
 </Form>
 
 { this.state.formData && <Code>提交表单数据:<br />{JSON.stringify(this.state.formData, null, 4)}</Code> }

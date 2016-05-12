@@ -148,7 +148,7 @@ Rating.defaultProps = {
   maxValue: 5
 };
 
-export function register (key, icons) {
+export function registerTheme (key, icons) {
   themes[key] = icons;
 };
 

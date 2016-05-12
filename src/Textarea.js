@@ -79,7 +79,7 @@ class Textarea extends Component {
   }
 
   render () {
-    let { className, grid, autoHeight, trigger, ...other } = this.props;
+    let { className, grid, autoHeight, readOnly, trigger, ...other } = this.props;
     const { rows, value } = this.state;
 
     let style = { minHeight: 'auto' };
@@ -91,10 +91,12 @@ class Textarea extends Component {
       className: classnames(
         className,
         getGrid(grid),
+        readOnly && Styles.disabled,
         Styles.input
       ),
       onChange: this.handleChange,
       style: objectAssign({}, this.props.style, style),
+      readOnly,
       rows,
       value
     };

@@ -8,34 +8,81 @@
     text-align: right;
     left: 0;
     top: 0;
-    line-height: 2rem;
+    line-height: $form-group-label-line-height;
+  }
  
-    & ~ div {
-      margin-left: 1rem;
+  :local(.control) {
+    margin-left: $form-aligned-control-margin;
+
+    :local(.dangerText), :local(.hintText) {
+      display: block;
     }
   }
 }
 
 :local(.inline) {
-  :local(.formGroup) {
+  :local(.group) {
     display: inline-block;
-    margin-right: 1rem;
+    margin-right: $form-inline-group-margin;
     vertical-align: middle;
   }
 
-  :local(.label) {
-    & ~ div {
-      margin-left: 0.5rem;
-      display: inline-block;
+  :local(.label) ~ :local(.control) {
+    margin-left: $form-inline-control-margin;
+  }
+
+  :local(.control) {
+    display: inline-block;
+    
+    :local(.hintText) {
+      display: none;
+    }
+
+    :local(.dangerText) {
+      display: block;
     }
   }
 }
 
-:local(.formGroup) {
-  position: relative;
-  margin-bottom: $form-group-margin-bottom;
+:local(.stacked) {
+  :local(.control) {
+    :local(.dangerText), :local(.hintText) {
+      display: block;
+    }
+  }
 }
 
-:local(.error) {
-  color: $brand-danger;
+:local(.group) {
+  position: relative;
+  margin-bottom: $form-group-margin-bottom;
+
+  :local(.required)::before {
+    content: '*';
+    display: inline-block;
+    font-family: SimSun;
+    margin-right: $form-group-no-input-padding;
+    color: $brand-danger;
+  }
+
+  :local(.control) {
+    & > span {
+      display: inline-block;
+      padding-top: $form-group-no-input-padding;
+    }
+
+    :local(.dangerInput) {
+      color: $brand-danger;
+      border-color: $brand-danger;
+    }
+
+    :local(.dangerText) {
+      color: $brand-danger;
+    }
+
+    :local(.button) {
+      margin-right: $form-inline-control-margin;
+    }
+  }
 }
+
+

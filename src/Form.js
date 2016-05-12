@@ -7,6 +7,8 @@ import clone from './utils/clone';
 import { getGrid } from './utils/grids';
 import FormControl from './FormControl';
 import FormSubmit from './FormSubmit';
+import Button from './Button';
+
 import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { getLang } from './lang';
 
@@ -16,9 +18,10 @@ class Form extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      data: props.data
+      data: clone(props.data)
     };
 
+    this.handleReset = this.handleReset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.submit = this.submit.bind(this);
 
@@ -77,7 +80,7 @@ class Form extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (!deepEqual(this.props.data, nextProps.data)) {
-      this.setState({ data: nextProps.data });
+      this.setState({ data: clone(nextProps.data) });
 
       // if data changed, clear validation
       forEach(this.items, (item) => {
@@ -106,6 +109,19 @@ class Form extends Component {
 
     event.preventDefault();
     this.submit();
+  }
+
+  handleReset () {
+    const { onReset, data } = this.props;
+
+    this.setState({ data: clone(data) });
+
+    // clear validation
+    forEach(this.items, (item) => {
+      delete item.$validation;
+    });
+
+    onReset && onReset();
   }
 
   submit () {
@@ -158,7 +174,7 @@ class Form extends Component {
 
   renderChildren (children) {
     let { data } = this.state;
-    let { fetchStatus, disabled } = this.props;
+    let { disabled } = this.props;
 
     return Children.map(children, (child) => {
       if (!child) { return null; }
@@ -170,16 +186,13 @@ class Form extends Component {
         readOnly: readOnly || disabled,
         layout: this.props.layout,
       };
-      if (child.type === FormControl || child.type.displayName === 'FormItem') {
+      if (child.type === FormControl || child.type.isFormItem) {
         props.itemBind = this.itemBind;
         props.itemUnbind = this.itemUnbind;
         props.itemChange = this.itemChange;
         props.formData = data;
       } else if (child.type === FormSubmit) {
         props.disabled = disabled;
-        if (fetchStatus !== FETCH_SUCCESS) {
-          props.children = getLang('fetch.status')[fetchStatus];
-        }
       } else if (child.props.children) {
         props.children = this.renderChildren(child.props.children);
       }
@@ -188,12 +201,24 @@ class Form extends Component {
     });
   }
 
-  renderButton (text) {
-    return <FormSubmit disabled={this.props.disabled}>{text}</FormSubmit>;
+  renderButtons (buttons) {
+    if (typeof buttons === 'string') {
+      buttons = { 'submit': buttons };
+    }
+
+    const { submit, reset, cancel } = buttons;
+
+    return (
+      <FormControl layout={this.props.layout}>
+        { submit && <Button className={FormStyles.button} type="submit" status="primary">{submit}</Button> }
+        { reset && <Button onClick={this.handleReset} className={FormStyles.button}>{reset}</Button> }
+        { cancel && <Button onClick={this.props.onCancel} className={FormStyles.button}>{cancel}</Button> }
+      </FormControl>
+    );
   }
 
   render () {
-    let { button, controls, fetchStatus, children, className, onSubmit, grid, layout, ...props } = this.props;
+    let { button, buttons, controls, children, className, onSubmit, grid, layout, ...props } = this.props;
 
     className = classnames(
       className,
@@ -202,12 +227,14 @@ class Form extends Component {
       FormStyles[layout]
     );
 
+    // old api
+    let btns = buttons || button;
+
     return (
       <form onSubmit={this.handleSubmit} className={className} {...props}>
         {controls && this.renderControls()}
         {this.renderChildren(children)}
-        {button && this.renderButton(button)}
-        {fetchStatus !== FETCH_SUCCESS && <div className="rct-form-mask" />}
+        {btns && this.renderButtons(btns)}
       </form>
     );
   }
@@ -216,12 +243,15 @@ class Form extends Component {
 Form.propTypes = {
   beforeSubmit: PropTypes.func,
   button: PropTypes.string,
+  buttons: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
   children: PropTypes.any,
   className: PropTypes.string,
   controls: PropTypes.array,
   data: PropTypes.object,
   disabled: PropTypes.bool,
-  fetchStatus: PropTypes.string,
   grid: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.object

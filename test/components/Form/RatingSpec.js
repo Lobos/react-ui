@@ -1,7 +1,7 @@
 import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
 import { themes, compClass } from '../../mock/rating'
-import Rating from '../../../src/Rating'
+import Rating, { registerTheme } from '../../../src/Rating'
 
 describe('Rating Spec', () => {
   const {stars, hearts} = themes
@@ -67,7 +67,7 @@ describe('Rating Spec', () => {
     })
 
     it('should set corresponding theme by Rating.register(key, icons)', () => {
-      Rating.register('foo', hearts)
+      registerTheme('foo', hearts)
 
       const wrapper = mount(<Rating theme='foo' />)
       const iconWrapper = wrapper.find('span').at(0).find('i')
