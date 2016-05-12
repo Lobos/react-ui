@@ -394,7 +394,7 @@ Select.defaultProps = {
   valueTpl: '{id}'
 };
 
-module.exports = compose(
+export default compose(
   register('select', {valueType: 'array'}),
   fetchEnhance
 )(Select);

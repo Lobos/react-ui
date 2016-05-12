@@ -367,5 +367,5 @@ FormControl.defaultProps = {
   type: 'text'
 };
 
-module.exports = FormControl;
+export default FormControl;
 

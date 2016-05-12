@@ -31,4 +31,4 @@ FormItem.propTypes = {
   value: PropTypes.any,
 }
 
-module.exports = enhance(FormItem)
+export default enhance(FormItem)

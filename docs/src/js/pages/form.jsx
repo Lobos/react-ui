@@ -3,7 +3,8 @@
 import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const {Form, FormControl, Button, FormSubmit, Icon, Input, Datepicker, DatepickerPair, RadioGroup, FormItem, Refetch} = global.uiRequire();
+import Refetch from 'refetch';
+const {Form, FormControl, Button, FormSubmit, Icon, Input, Datepicker, DatepickerPair, RadioGroup, FormItem} = global.uiRequire();
 
 const HEARTS = [
   <Icon size={2} icon="favorite-outline" style={{color: 'red'}} />,

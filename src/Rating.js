@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
-import { register } from './higherOrders/FormItem';
+import * as FormItem from './higherOrders/FormItem';
 
 import Styles from './styles/_rating.scss';
 
@@ -148,8 +148,9 @@ Rating.defaultProps = {
   maxValue: 5
 };
 
-module.exports = register('rating', {}, Rating);
-
-module.exports.register = function (key, icons) {
+export function register (key, icons) {
   themes[key] = icons;
 };
+
+export default FormItem.register('rating', {}, Rating);
+

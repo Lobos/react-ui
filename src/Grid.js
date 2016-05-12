@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 import { getGrid } from './utils/grids';
 
-const Grid = (props) => {
+export default function Grid(props) {
   let { className, width, offset, responsive, style, children } = props;
   className = classnames(
     className,
@@ -25,5 +25,3 @@ Grid.propTypes = {
   style: PropTypes.object,
   width: PropTypes.number
 };
-
-module.exports = Grid;

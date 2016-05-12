@@ -480,5 +480,5 @@ Datetime.defaultProps = {
   type: DATETIME
 }
 
-module.exports = Datetime;
+export default Datetime;
 

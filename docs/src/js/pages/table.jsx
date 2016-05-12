@@ -3,7 +3,8 @@
 import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const {Table, Filter, Modal, Pagination, Checkbox, RadioGroup, Refetch} = global.uiRequire();
+import Refetch from 'refetch';
+const {Table, Filter, Modal, Pagination, Checkbox, RadioGroup} = global.uiRequire();
 
 module.exports = class extends Component {
   constructor (props) {

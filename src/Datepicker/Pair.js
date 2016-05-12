@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react';
 import { shallowEqual } from '../utils/objects';
 import Datepicker from './index';
 
-class Pair extends React.Component {
+export default class Pair extends React.Component {
   constructor (props) {
     super(props);
     this.state = {};
@@ -53,5 +53,3 @@ Pair.defaultProps = {
   con: '-',
   names: []
 }
-
-module.exports = Pair;

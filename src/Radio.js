@@ -6,7 +6,7 @@ import { shallowEqual } from './utils/objects';
 
 import Styles from './styles/_radio-checkbox.scss';
 
-class Radio extends Component {
+export default class Radio extends Component {
   constructor (props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -67,5 +67,3 @@ Radio.propTypes = {
   text: PropTypes.any,
   value: PropTypes.any
 };
-
-module.exports = Radio;

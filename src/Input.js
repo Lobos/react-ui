@@ -104,7 +104,7 @@ Input.defaultProps = {
   value: ''
 };
 
-module.exports = register(
+export default register(
   ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number', 'numeric'],
   {},
   Input

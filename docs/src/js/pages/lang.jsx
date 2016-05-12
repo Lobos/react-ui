@@ -2,7 +2,7 @@
 
 import { Component } from 'react';
 import Code from '../Code';
-const {Lang: {getLang}} = global.uiRequire();
+import { getLang } from '../../../../src/lang';
 
 module.exports = class extends React.Component {
   constructor (props) {

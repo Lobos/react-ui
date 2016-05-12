@@ -3,7 +3,8 @@
 import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const { Select, RadioGroup, Refetch } = global.uiRequire();
+import Refetch from 'refetch';
+const { Select, RadioGroup } = global.uiRequire();
 
 const request = Refetch.create({
   promise: (f) => f.then((res) => {

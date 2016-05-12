@@ -7,7 +7,7 @@ import { shallowEqual } from './utils/objects';
 
 import Styles from './styles/_radio-checkbox.scss';
 
-class Checkbox extends Component {
+export class Checkbox extends Component {
   constructor (props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -106,6 +106,4 @@ Checkbox.defaultProps = {
   defaultValue: true
 }
 
-module.exports = register('checkbox', {}, Checkbox);
-
-module.exports.Checkbox = Checkbox;
+export default register('checkbox', {}, Checkbox);

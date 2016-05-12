@@ -44,7 +44,7 @@ RadioGroup.propTypes = {
   style: PropTypes.object
 };
 
-module.exports = compose(
+export default compose(
   register('radio-group', {}),
   fetchEnhance,
   textValueEnhance(true)

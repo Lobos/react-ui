@@ -8,7 +8,7 @@ import Styles from './styles/_icon.scss';
 
 let PREFIX = 'icon';
 
-function Icon (props) {
+export default function Icon (props) {
   let { style, prefix, font, spin, size, icon } = props;
   prefix = prefix || PREFIX;
 
@@ -61,8 +61,6 @@ Icon.defaultProps = {
   font: 'iconfont'
 }
 
-Icon.setPrefix = function (pre) {
+export const setPrefix = function (pre) {
   PREFIX = pre;
 };
-
-module.exports = Icon;

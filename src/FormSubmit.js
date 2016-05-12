@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react';
 import Button from './Button';
 
-const FormSubmit = (props) => {
+export default function FormSubmit (props) {
   let children = props.children;
   let content;
   if (Array.isArray(children)) {
@@ -30,5 +30,3 @@ FormSubmit.propTypes = {
   onClick: PropTypes.func,
   style: PropTypes.object
 };
-
-module.exports = FormSubmit;

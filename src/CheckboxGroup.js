@@ -51,7 +51,7 @@ CheckboxGroup.defaultProps = {
   data: []
 };
 
-module.exports = compose(
+export default compose(
   register('checkbox-group', {valueType: 'array'}),
   fetchEnhance,
   textValueEnhance(false)

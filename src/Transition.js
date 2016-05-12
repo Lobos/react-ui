@@ -4,7 +4,7 @@ import React, { PropTypes, cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 import { addClass, removeClass } from './utils/dom';
 
-class Transition extends React.Component {
+export default class Transition extends React.Component {
   constructor (props) {
     super(props);
     this.bindElement = this.bindElement.bind(this);
@@ -74,5 +74,3 @@ Transition.defaultProps = {
   duration: 400,
   tf: ''
 }
-
-module.exports = Transition;

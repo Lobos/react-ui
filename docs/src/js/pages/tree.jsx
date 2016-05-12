@@ -3,7 +3,8 @@
 import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
-const {Tree, Checkbox, Refetch, Icon} = global.uiRequire();
+import Refetch from 'refetch';
+const {Tree, Checkbox, Icon} = global.uiRequire();
 
 Tree.setDefaultIcons([
   <Icon style={{color: '#f2da81'}} icon="folder-star" />,

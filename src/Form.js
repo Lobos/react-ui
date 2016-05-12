@@ -242,4 +242,4 @@ Form.defaultProps = {
   disabled: false
 };
 
-module.exports = fetchEnhance(Form);
+export default fetchEnhance(Form);
