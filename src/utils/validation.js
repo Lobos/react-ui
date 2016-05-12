@@ -10,7 +10,7 @@ function handleError(label, value, key, tip) {
   // handle error
   let text = getLang('validation.tips.' + key, null);
   if (text) {
-    text = (label || '') + format(text, value);
+    text = format(text, label || '', value);
   } else {
     text = tip;
   }

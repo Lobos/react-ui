@@ -53,11 +53,12 @@ class Input extends Component {
   }
 
   render () {
-    const { className, grid, type, readOnly, trigger, ...other } = this.props;
+    const { className, grid, type, size, readOnly, trigger, ...other } = this.props;
     const props = {
       className: classnames(
         className,
         Styles.input,
+        Styles[size],
         readOnly && Styles.disabled,
         getGrid(grid)
       ),
@@ -90,6 +91,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   rows: PropTypes.number,
+  size: PropTypes.oneOf(['small', 'large', 'middle']),
   style: PropTypes.object,
   trigger: PropTypes.string,
   type: PropTypes.string,
@@ -97,12 +99,13 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+  size: 'middle',
   trigger: 'blur',
   value: ''
 };
 
 module.exports = register(
-  ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number'],
+  ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number', 'numeric'],
   {},
   Input
 );

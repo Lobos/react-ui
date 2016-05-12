@@ -2,6 +2,7 @@ import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
 import { compClass, compData, compSelector } from '../../mock/select'
 import Select from '../../../src/Select'
+import { gridClassName } from '../../testUtils'
 
 describe('Select Spec', () => {
   const {dataList1, dataList2} = compData,
@@ -53,13 +54,13 @@ describe('Select Spec', () => {
         _selectWrapper2 = wrapper2.find(compClass.select),
         _selectWrapper3 = wrapper3.find(compClass.select)
 
-      expect(_selectWrapper1).to.have.className('rct-grid-md-50-000')
+      expect(_selectWrapper1).to.have.className(gridClassName('rctui-grid-md-50-000'))
 
-      expect(_selectWrapper2).to.have.className('rct-grid-md-25-000')
-      expect(_selectWrapper2).to.have.className('rct-offset-md-25-000')
+      expect(_selectWrapper2).to.have.className(gridClassName('rctui-grid-md-25-000'))
+      expect(_selectWrapper2).to.have.className(gridClassName('rctui-offset-md-25-000'))
 
-      expect(_selectWrapper3).to.have.className('rct-grid-xl-50-000')
-      expect(_selectWrapper3).to.have.className('rct-offset-xl-50-000')
+      expect(_selectWrapper3).to.have.className(gridClassName('rctui-grid-xl-50-000'))
+      expect(_selectWrapper3).to.have.className(gridClassName('rctui-offset-xl-50-000'))
     })
   })
 

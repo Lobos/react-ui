@@ -10,8 +10,7 @@ import FormSubmit from './FormSubmit';
 import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { getLang } from './lang';
 
-import { requireCss } from './themes';
-requireCss('form');
+import FormStyles from './styles/_form.scss';
 
 class Form extends Component {
   constructor (props) {
@@ -164,9 +163,10 @@ class Form extends Component {
     return Children.map(children, (child) => {
       if (!child) { return null; }
       if (typeof child === 'string') { return child; }
-      let { hintType, readOnly } = child.props;
+      let { hintType, labelWidth, readOnly } = child.props;
       let props = {
         hintType: hintType || this.props.hintType,
+        labelWidth: labelWidth || this.props.labelWidth,
         readOnly: readOnly || disabled,
         layout: this.props.layout,
       };
@@ -198,12 +198,8 @@ class Form extends Component {
     className = classnames(
       className,
       getGrid(grid),
-      'rct-form',
-      {
-        'rct-form-aligned': layout === 'aligned',
-        'rct-form-inline': layout === 'inline',
-        'rct-form-stacked': layout === 'stacked'
-      }
+      FormStyles.form,
+      FormStyles[layout]
     );
 
     return (
@@ -231,6 +227,10 @@ Form.propTypes = {
     PropTypes.object
   ]),
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
+  labelWidth: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
   onSubmit: PropTypes.func,
   style: PropTypes.object

@@ -2,6 +2,7 @@ import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
 
 import Grid from '../../../src/Grid.js'
+import { gridClassName } from '../../testUtils';
 
 describe('Grid Spec', () => {
   describe('Default', () => {
@@ -11,12 +12,12 @@ describe('Grid Spec', () => {
       expect(defaultWrapper).to.have.tagName('div')
     })
 
-    it('should has "rct-grid" class by default', () => {
-      expect(defaultWrapper).to.have.className('rct-grid')
+    it('should has "rctui-grid" class by default', () => {
+      expect(defaultWrapper).to.have.className(gridClassName('rctui-grid'))
     })
 
-    it('should has "rct-grid-md" class by default', () => {
-      expect(defaultWrapper.prop('className')).to.contain('rct-grid-md')
+    it('should has "rctui-grid-md" class by default', () => {
+      expect(defaultWrapper.prop('className')).to.contain(gridClassName('rctui-grid-md-50-000'))
     })
   })
 
@@ -28,12 +29,12 @@ describe('Grid Spec', () => {
                                     className='foo'
                                     style={{foo: 'bar'}} />)
 
-    it('should has "rct-offset-[responsive]-[**]-[***] class by offset prop"', () => {
-      expect(customWrapper).to.have.className('rct-offset-lg-50-000')
+    it('should has "rctui-offset-[responsive]-[**]-[***] class by offset prop"', () => {
+      expect(customWrapper).to.have.className(gridClassName('rctui-offset-lg-50-000'))
     })
 
-    it('should has "rct-grid-[responsive]" class by responsive prop', () => {
-      expect(customWrapper.prop('className')).to.contain('rct-grid-lg')
+    it('should has "rctui-grid-[responsive]" class by responsive prop', () => {
+      expect(customWrapper.prop('className')).to.contain(gridClassName('rctui-grid-lg-50-000'))
     })
 
     it('should merge addtitional classes passed in', () => {

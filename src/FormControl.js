@@ -2,6 +2,7 @@
 
 import React, { Component, PropTypes, cloneElement, Children } from 'react';
 import classnames from 'classnames';
+import objectAssign from 'object-assign';
 import { COMPONENTS, getValueType } from './higherOrders/FormItem';
 import merge from './utils/merge';
 import { getGrid } from './utils/grids';
@@ -10,6 +11,9 @@ import { forEach, shallowEqual } from './utils/objects';
 
 import { getLang, setLang } from './lang';
 setLang('validation');
+
+import FormStyles from './styles/_form.scss';
+import InputStyles from './styles/_input.scss';
 
 function setHint(hints, key, value) {
   let text = getLang('validation.hints.' + key, null);
@@ -114,7 +118,7 @@ class FormControl extends Component {
     let valueType = getValueType(props.type);
     let hints = [];
 
-    setHint(hints, this.props.type);
+    setHint(hints, props.type);
     if (props.min) { setHint(hints, `min.${valueType}`, props.min); }
     if (props.max) { setHint(hints, `max.${valueType}`, props.max); }
 
@@ -167,11 +171,11 @@ class FormControl extends Component {
     if (validations) {
       // if has tip，use tip
       if (errorText) { validations = errorText; }
-      return <span key="tip" className="error">{validations}</span>;
+      return <span key="tip" className={FormStyles.error}>{validations}</span>;
     }
 
     if (hints) {
-      return <span key="tip" className="hint">{hints}</span>;
+      return <span key="tip" className={FormStyles.hint}>{hints}</span>;
     } else {
       return;
     }
@@ -236,43 +240,88 @@ class FormControl extends Component {
     className = classnames(className, getGrid(this.props.grid));
     return (
       <div style={this.props.style} className={className}>
-        {this.renderItems({grid: { width: 1 }, placeholder: this.props.placeholder || this.props.label})}
+        {
+          this.renderItems({
+            grid: { width: 1 },
+            placeholder: this.props.placeholder || this.props.label
+          })
+        }
       </div>
     );
   }
 
   renderStacked (className) {
-    let labelClass = classnames('label', { required: this.props.required || this.required });
+    let labelClass = classnames(
+      FormStyles.label,
+      (this.props.required || this.required) && FormStyles.required
+    );
+
+    let grid = this.props.grid ?
+                  this.props.grid :
+                  this.props.layout === 'stacked' ?
+                      { grid: {width: 1} } : undefined;
+
     return (
       <div style={this.props.style} className={className}>
         <label className={labelClass}>{this.props.label}</label>
         <div>
-          {this.renderItems()}
+          { this.renderItems({ grid }) }
         </div>
       </div>
     );
   }
 
   render () {
-    let { hintType, layout, className } = this.props;
+    let { hintType, layout, label, grid, labelWidth, className, required, style } = this.props;
     if (!hintType) {
       hintType = layout === 'inline' ? 'pop' : 'block';
     }
 
     className = classnames(
       className,
-      'rct-control-group',
+      FormStyles.formGroup,
       `rct-hint-${hintType}`,
-      {
-        'rct-has-error': this.state.validations.length > 0
-      }
+      this.state.validations.length > 0 && FormStyles.hasError
     );
 
+    if (layout === 'inline') {
+      className += ' ' + getGrid(grid);
+      grid = undefined;
+    }
+
+    let labelClass = classnames(
+      FormStyles.label,
+      (required || this.required) && FormStyles.required
+    );
+
+    if (labelWidth) {
+      if (typeof labelWidth === 'number' && labelWidth < 1) {
+        labelWidth += '%';
+      }
+    } else if (layout === 'aligned') {
+      labelWidth = '10rem';
+      style = objectAssign({}, style, { paddingLeft: labelWidth });
+    }
+
+    return (
+      <div style={style} className={className}>
+        <label style={{ width: labelWidth }} className={labelClass}>
+          {label}
+        </label>
+        <div>
+          { this.renderItems({ grid }) }
+        </div>
+      </div>
+
+    );
+
+    /*
     if (layout === 'inline') {
       return this.renderInline(className);
     } else {
       return this.renderStacked(className);
     }
+    */
   }
 }
 
@@ -293,6 +342,10 @@ FormControl.propTypes = {
   label: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element
+  ]),
+  labelWidth: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
   ]),
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
   name: PropTypes.string,

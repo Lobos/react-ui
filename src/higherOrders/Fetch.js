@@ -29,8 +29,7 @@ export const fetchEnhance = (ComposedComponent) => {
       let { data, fetch } = this.props;
       if (data) {
         this.handleData(data);
-      }
-      if (fetch) {
+      } else if (fetch) {
         this.fetchData(fetch);
       }
     }
