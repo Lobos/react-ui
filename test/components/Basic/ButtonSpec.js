@@ -90,45 +90,5 @@ describe('Button Spec', () => {
 
       wrapper1.find('button').simulate('click')
     })
-
-    /* remove enable disable once 方法，在我现在的观点看来，这样的操作是不应该的，所有的disable的操作都应该通过props传入。
-    it('should call enable(elem) to enable disabled Button', () => {
-      const wrapper1 = shallow(
-        <Button disabled>
-          Button
-        </Button>
-      )
-
-      wrapper1.instance().enable()
-      wrapper1.update()
-
-      expect(wrapper1.find('button')).to.not.be.disabled()
-    })
-
-    it('should call disable(elem) to disable enabled Button', () => {
-      const wrapper1 = shallow(
-        <Button>
-          Button
-        </Button>
-      )
-
-      wrapper1.instance().disable()
-      wrapper1.update()
-
-      expect(wrapper1.find('button')).to.be.disabled()
-    })
-
-    it('should change to disabled after click when once="true"', () => {
-      const wrapper1 = shallow(
-        <Button once={true}>
-          Button
-        </Button>
-      )
-
-      wrapper1.find('button').simulate('click')
-
-      expect(wrapper1.find('button')).to.be.disabled()
-    })
-   */
   })
 })
