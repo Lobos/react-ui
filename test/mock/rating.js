@@ -16,7 +16,7 @@ const hearts = [
 ]
 
 export const compClass = {
-  heartIcon: 'icon icon-favorite icon-2x'
+  heartIcon: 'fa fa-favorite fa-2x'
 }
 
 export const themes = {stars, hearts}
