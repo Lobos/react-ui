@@ -4,4 +4,5 @@ describe('Form', function () {
   require('./InputSpec.js')
   require('./TextareaSpec.js')
   require('./RadioGroupSpec.js')
+  require('./RatingSpec.js')
 })
