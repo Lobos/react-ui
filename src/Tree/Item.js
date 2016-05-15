@@ -103,9 +103,12 @@ class Item extends Component {
   }
 
   getChecked (list, greedy) {
-    let checked = greedy ? 1 : 2;
+    let checked = (greedy === true || greedy === 'true') ? 1 : 2;
     if (this.state.status >= checked) {
       list.push(this.props.data);
+      if (greedy === 'never') {
+        return;
+      }
     }
     forEach(this.refs, function (ref) {
       ref.getChecked(list, greedy);
@@ -136,12 +139,16 @@ class Item extends Component {
     let count = $deep.length;
 
     return $deep.map((deep, i) => {
-      className = classnames(
-        TreeStyles.marks,
-        (deep > 1 || (noChild && count - 1 === i)) && TreeStyles.mh,
-        deep === 1 && TreeStyles.mv,
-        deep === 2 && TreeStyles.ml
-      );
+      let mark;
+      if (deep === 2) {
+        mark = TreeStyles.ml;
+      } else if (noChild && count - 1 === i) {
+        mark = TreeStyles.mh;
+      } else if (deep === 1) {
+        mark = TreeStyles.mv;
+      }
+
+      className = classnames(TreeStyles.marks, mark);
       return <span key={i} className={className}>&nbsp;</span>;
     });
   }

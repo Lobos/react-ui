@@ -26,8 +26,7 @@ class Tree extends Component {
     super(props);
 
     this.state = {
-      data: [],
-      value: this.formatValue(props.value)
+      data: []
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -35,43 +34,31 @@ class Tree extends Component {
   }
   
   componentWillMount () {
-    this.formatData(this.props.data);
+    this.formatData(this.props);
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!deepEqual(nextProps.value, this.props.value)) {
-      this.setValue(nextProps.value);
-    }
     if (!deepEqual(nextProps.data, this.props.data)) {
-      this.formatData(nextProps.data, this.formatValue(nextProps.value));
+      this.formatData(nextProps);
     }
+
     if (nextProps.sep !== this.props.sep ||
         nextProps.greedy !== this.props.greedy) {
-      this.handleChange();
+      setTimeout(() => {
+        this.handleChange();
+      }, 0)
     }
-  }
-
-  componentWillUpdate (nextProps, nextState) {
-    // initValue 和 initData 分开处理
-    if (!deepEqual(nextState.value, this.state.value)) {
-      this.init(nextState.data, nextState.value);
-    }
-  }
-
-  formatValue (value) {
-    return toArray(value, this.props.sep);
   }
 
   getValue (sep) {
-    let list = [],
-        values = [],
-        greedy = this.props.greedy;
-    forEach(this.refs, function (ref) {
-      ref.getChecked(list, greedy);
+    let list = [];
+
+    forEach(this.refs, (ref) => {
+      ref.getChecked(list, this.props.greedy);
     });
 
-    list.forEach(function (d) {
-      values.push(d.$value);
+    let values = list.map((d) => {
+      return d.$value;
     });
 
     if (sep === undefined) {
@@ -83,37 +70,28 @@ class Tree extends Component {
     return values;
   }
 
-  setValue (value) {
-    value = this.formatValue(value);
-    this.setState({ value });
+  setTpl (data, tt, vt) {
+    data.forEach((d) => {
+      d.$text = substitute(tt, d);
+      d.$value = substitute(vt, d);
+      d.$key = d.id || d.key || hashcode(`${d.$value}-${d.$text}`);
+      if (d.children) {
+        this.setTpl(d.children, tt, vt);
+      }
+    });
   }
 
-  formatData (data) {
-    let tt = this.props.textTpl;
-    let vt = this.props.valueTpl;
-    let setTpl = function (arr) {
-      arr.forEach((d) => {
-        d.$text = substitute(tt, d);
-        d.$value = substitute(vt, d);
-        d.$key = d.id || d.key || hashcode(`${d.$value}-${d.$text}`);
-        if (d.children) {
-          setTpl(d.children);
-        }
-      });
-    };
-    setTpl(data);
-    this.init(data, this.state.value);
-  }
+  formatData (props) {
+    let { data } = props;
 
-  initValue (value) {
-    this.init(this.state.data, value);
-  }
-
-  // 初始化数据，不在item里面判断，在元数据里加入deep和status，减少判断次数
-  init (data, values) {
     if (data.length === 0) {
       return;
     }
+
+    this.setTpl(props.data, props.textTpl, props.valueTpl);
+
+    let values = toArray(props.value, props.sep);
+
     let getStatus = function (d, last, deep) {
       let val = d.$value,
           status,
@@ -153,14 +131,6 @@ class Tree extends Component {
     this.setState({ data });
   }
 
-  isInitialed () {
-    let data = this.state.data;
-    if (data.length === 0) {
-      return true;
-    }
-    return !!data[0].$deep;
-  }
-
   toggleAll (open) {
     forEach(this.refs, function (ref) {
       ref.toggleAll(open);
@@ -169,10 +139,7 @@ class Tree extends Component {
 
   handleChange () {
     if (this.props.onChange) {
-      setTimeout(() => {
-        let value = this.getValue();
-        this.props.onChange(value);
-      });
+      this.props.onChange(this.getValue());
     }
   }
 
@@ -220,7 +187,7 @@ class Tree extends Component {
 Tree.propTypes = {
   className: PropTypes.string,
   data: PropTypes.array,
-  greedy: PropTypes.bool,
+  greedy: PropTypes.oneOf([true, false, 'true', 'false', 'never']),
   icons: PropTypes.array,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
@@ -229,14 +196,21 @@ Tree.propTypes = {
   selectAble: PropTypes.bool,
   sep: PropTypes.string,
   src: PropTypes.string,
-  textTpl: PropTypes.string,
+  textTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   value: PropTypes.any,
-  valueTpl: PropTypes.string
+  valueTpl: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ])
 };
 
 Tree.defaultProps = {
   sep: ',',
   data: [],
+  greedy: false,
   textTpl: '{text}',
   valueTpl: '{id}'
 };

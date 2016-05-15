@@ -166,6 +166,17 @@ header {
   }
 }
 
+.tree-example {
+  a {
+    margin-left: 10px;
+    visibility: hidden;
+  }
+
+  &:hover a {
+    visibility: visible;
+  }
+}
+
 @media (min-width: 768px) {
   .header, .content {
     padding-left: 4em;

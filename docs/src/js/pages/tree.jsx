@@ -4,7 +4,7 @@ import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
 import Refetch from 'refetch';
-const {Tree, Checkbox, Icon} = global.uiRequire();
+const {Tree, Checkbox, RadioGroup, Icon} = global.uiRequire();
 
 Tree.setDefaultIcons([
   <Icon style={{color: '#f2da81'}} icon="folder-star" />,
@@ -52,11 +52,14 @@ module.exports = class extends Component {
           <Code>
 {`<Tree
   className={string}  // class
-  selectAble={bool}   // 是否可编辑，默认为 false
-  data={array}        // 数据
+  selectAble={bool}   // show checkbox, default is false
+  data={array}        // array
   fetch={object}
   sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
-  greedy={bool}       // 为true时，getValue返回的值包含半选中项
+  greedy={bool|string} // true|false|never, default is false
+                      true or 'true', onChange value will contains indeterminate value
+                      false or 'false', onChange value only contains checked value
+                      'never', if a node all children are checked, return only parent value
   onClick={function(data)}  // 点击某元素触发事件，参数为当前节点
   onChange={function} // 当选项改变时回调方法，参数为 value
   readOnly={bool}     // 为 true 时，只读。默认为 false
@@ -86,32 +89,60 @@ module.exports = class extends Component {
   }
   onClick={(data) => console.log(data)}
   onChange={this.handleChange.bind(this)}
-  textTpl="{text}({id})"
+  textTpl={(data) => {
+    return (
+      <label className="tree-example">
+        {data.text} - {data.id}
+        <a href="javascript:;" onClick={() => alert('You clicked ' + data.text)}>
+          <Icon icon="edit" />edit
+        </a>
+      </label>
+    );
+  }}
   valueTpl="{id}"
   value={this.state.value}
   open={true}
   sep={this.state.sep}
 />
+
+<div style={{ padding: 10, margin: '10px 0', border: 'solid 1px #ccc' }}>
+  current value: {this.state.showValue}
+</div>
+
 <div>
   <div><Checkbox onChange={(value)=>this.setState({ selectAble: value })} checked={this.state.selectAble} text="selectAble" /></div>
   <div><Checkbox onChange={(value)=>this.setState({ readOnly: value })} checked={this.state.readOnly} text="readOnly" /></div>
-  <div><Checkbox onChange={(value)=>this.setState({ greedy: value })} checked={this.state.gre} text="greedy" /></div>
-  <div><Checkbox onChange={(value)=>this.setState({ showAccountsIcon: value })} checked={this.state.showAccountsIcon} text="show accounts icon" /></div>
-  {
-    ([',', '|', '#', null]).map((sep, i) => {
-      return (
-        <a key={i} style={{margin: "0 10px"}}
-          onClick={() => { this.setState({ sep }) }}>
-          {JSON.stringify(sep)}
-        </a>
-      );
-    })
-  }
+  <div><Checkbox onChange={(value)=>this.setState({ showAccountsIcon: value })} checked={this.state.showAccountsIcon} text="switch to accounts icon" /></div>
+  <div>greedy: <RadioGroup style={{ display: 'inline-block' }} onChange={(value) => this.setState({ greedy: value })} value={this.state.greedy} data={['true', 'false', 'never']} /></div>
+  <div>sep: 
+    {
+      ([',', '|', '#', null]).map((sep, i) => {
+        return (
+          <a key={i} style={{margin: "0 10px", color: this.state.sep === sep ? 'red' : ''}}
+            onClick={() => { this.setState({ sep }) }}>
+            {JSON.stringify(sep)}
+          </a>
+        );
+      })
+    }
+  </div>
 </div>
-<div>value: {this.state.showValue}</div>
           </Example>
           <Code>
-{`// 设置默认icons
+{`// class tree-example
+.tree-example {
+  a {
+    margin-left: 10px;
+    visibility: hidden;
+  }
+
+  &:hover a {
+    visibility: visible;
+  }
+}`}
+          </Code>
+          <Code>
+{`// set global icons
 Tree.setDefaultIcons([
   <Icon style={{color: '#f2da81'}} icon="folder-star" />,
   <Icon style={{color: '#f2da81'}} icon="folder" />,
@@ -119,7 +150,7 @@ Tree.setDefaultIcons([
 ]);`}
           </Code>
           
-          <h2 className="subhead">数据格式</h2>
+          <h2 className="subhead">Example Data</h2>
           <pre className="prettyprint">{this.state.treeData}</pre>
         </div>
       </div>
