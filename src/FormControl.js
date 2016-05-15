@@ -13,7 +13,6 @@ import { getLang, setLang } from './lang';
 setLang('validation');
 
 import FormStyles from './styles/_form.scss';
-import InputStyles from './styles/_input.scss';
 
 function setHint(hints, key, value) {
   let text = getLang('validation.hints.' + key, null);

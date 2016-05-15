@@ -121,6 +121,7 @@ Textarea.propTypes = {
   ]),
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  readOnly: PropTypes.bool,
   rows: PropTypes.number,
   style: PropTypes.object,
   trigger: PropTypes.string,

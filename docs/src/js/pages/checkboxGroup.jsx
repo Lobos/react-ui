@@ -6,6 +6,9 @@ import Example from '../Example';
 import { TplDataDesc } from '../CommDocs';
 const {CheckboxGroup, Checkbox, Icon} = global.uiRequire();
 
+import { createKeyValue } from '../data/mock';
+const data1000 = createKeyValue(1000);
+
 module.exports = class extends React.Component {
   render () {
     return (
@@ -158,6 +161,11 @@ module.exports = class extends React.Component {
   <Checkbox position={3} defaultValue="香港"><Icon icon="cloud-outline" />香港</Checkbox>
   <Checkbox defaultValue="澳门">澳门</Checkbox>
 </CheckboxGroup>
+          </Example>
+
+          <h2 className="subhead">1000 radios</h2>
+          <Example>
+<CheckboxGroup data={data1000} />
           </Example>
         </div>
       </div>

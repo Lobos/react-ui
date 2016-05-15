@@ -5,7 +5,6 @@ import Code from '../Code';
 import Example from '../Example';
 import { TplDataDesc } from '../CommDocs';
 const {RadioGroup, Radio, Icon} = global.uiRequire();
-const textValue = require('../data/text-value');
 
 import { createKeyValue } from '../data/mock';
 const data1000 = createKeyValue(1000);

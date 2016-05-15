@@ -118,7 +118,7 @@ export const fetchEnhance = (ComposedComponent) => {
           <ComposedComponent ref={(c) => this.component = c} data={this.state.data} fetchStatus={this.state.fetchStatus} {...others} />
         );
       } else {
-        let className = classnames(fetchStatus === FETCH_FAILURE && FomrStyles.errorText);
+        let className = classnames(fetchStatus === FETCH_FAILURE && FormStyles.errorText);
         return (
           <span className={className}>
             {error || getLang('fetch.status')[fetchStatus]}

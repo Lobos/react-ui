@@ -9,11 +9,10 @@ import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import { toArray, substitute } from '../utils/strings';
 import { forEach, deepEqual, hashcode } from '../utils/objects';
-import { fetchEnhance, FETCH_SUCCESS } from '../higherOrders/Fetch';
+import { fetchEnhance } from '../higherOrders/Fetch';
 import { register } from '../higherOrders/FormItem';
 import { removeClass } from '../utils/dom';
 import { compose } from '../utils/compose';
-import { getLang } from '../lang';
 
 import TreeStyles from '../styles/_tree.scss';
 

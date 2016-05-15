@@ -9,8 +9,7 @@ import FormControl from './FormControl';
 import FormSubmit from './FormSubmit';
 import Button from './Button';
 
-import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
-import { getLang } from './lang';
+import { fetchEnhance } from './higherOrders/Fetch';
 
 import FormStyles from './styles/_form.scss';
 
@@ -262,6 +261,8 @@ Form.propTypes = {
     PropTypes.string
   ]),
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
+  onCancel: PropTypes.func,
+  onReset: PropTypes.func,
   onSubmit: PropTypes.func,
   style: PropTypes.object
 };

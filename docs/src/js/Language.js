@@ -1,7 +1,5 @@
 'use strict';
 
-import { cloneElement, PropTypes } from 'react';
-import objectAssign from 'object-assign';
 import { create, getLanguage } from 'react-language';
 
 export const En = create(true);
