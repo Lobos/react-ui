@@ -31,8 +31,10 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, loaders: ['babel'] },
-      { test: /\.(css|less)$/, loader: 'style-loader!css-loader!postcss-loader!less-loader' },
-      { test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=10000&name=./images/[name].[ext]' }
+      { test: /\.scss$/, loaders: ['style-loader', 'css-loader?localIdentName=[hash:base64:8]', 'postcss-loader', 'sass-loader'] }
+    ],
+    preLoaders: [
+      { test: /\.scss$/, loader: 'rctui-theme-loader?theme=' }
     ]
   },
   postcss: function(){

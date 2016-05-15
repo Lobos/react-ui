@@ -105,7 +105,7 @@ Input.defaultProps = {
 };
 
 export default register(
-  ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number', 'numeric'],
+  ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number'],
   {},
   Input
 );

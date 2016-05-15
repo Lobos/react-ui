@@ -1,0 +1,115 @@
+@import "mixins";
+@import "themes/bootstrap";
+
+:local(.tree) {
+  &, ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    display: none;
+  }
+
+  :local(.open) {
+    display: block;
+  }
+}
+
+:local(.label) {
+  display: block;
+  height: $tree-line-height;
+  line-height: $tree-line-height;
+
+  &:local(.active) {
+    span {
+      font-weight: bold;
+    }
+  }
+}
+
+:local(.marks) {
+  width: $tree-icon-width;
+  height: $tree-line-height + 0.05rem;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+
+  &:before {
+    content: ' ';
+    width: 0;
+    height: 0;
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    border-left: dotted 1px $tree-line-color; 
+  }
+}
+
+:local(.mv):before {
+  height: 100%;
+}
+
+:local(.ml):before {
+  height: 50%;
+}
+
+:local(.mh):after {
+  content: ' ';
+  width: $tree-icon-width / 2;
+  height: 0px;
+  display: inline-block;
+  position: absolute;
+  margin-top: -1px;
+  left: 50%;
+  top: 50%;
+  border-top: dotted 1px $tree-line-color; 
+}
+
+:local(.handle) {
+  display: inline-block;
+  vertical-align: middle;
+  width: $tree-icon-width;
+  text-align: center;
+}
+
+:local(.icon) {
+  width:$tree-icon-width;
+  text-align: center;
+  vertical-align: middle;
+  display: block;
+  margin: 0 auto;
+}
+
+:local(.minus), :local(.plus) {
+  border: solid $tree-indicator-border-width $tree-line-color;
+  height: $tree-indicator-size;
+  width: $tree-indicator-size;
+  border-radius: $tree-indicator-border-width;
+  position: relative;
+
+  &:after {
+    content: '';
+    display: block;
+    height: $tree-indicator-border-width;
+    width: 100%;
+    background: $tree-line-color;
+    position: absolute;
+    top: ($tree-indicator-size - $tree-indicator-border-width * 3) / 2;
+  }
+}
+
+:local(.plus):before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: $tree-indicator-border-width;
+  left: ($tree-indicator-size - $tree-indicator-border-width * 3) / 2;
+  background: $tree-line-color;
+  position: absolute;
+}
+
+:local(.active) :local(.span) {
+  font-weight: bold;
+}

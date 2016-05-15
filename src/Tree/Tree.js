@@ -5,15 +5,17 @@
 // 所有的Item的data也因此改变，可能破坏了react的一个原则
 
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import { toArray, substitute } from '../utils/strings';
 import { forEach, deepEqual, hashcode } from '../utils/objects';
 import { fetchEnhance, FETCH_SUCCESS } from '../higherOrders/Fetch';
 import { register } from '../higherOrders/FormItem';
+import { removeClass } from '../utils/dom';
 import { compose } from '../utils/compose';
 import { getLang } from '../lang';
-import { requireCss } from '../themes';
-requireCss('tree');
+
+import TreeStyles from '../styles/_tree.scss';
 
 import Item from './Item';
 
@@ -28,7 +30,7 @@ class Tree extends Component {
       value: this.formatValue(props.value)
     };
 
-    this.onClick = this.onClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
   
@@ -174,34 +176,26 @@ class Tree extends Component {
     }
   }
 
-  onClick (item) {
+  handleClick (item) {
+    let active = TreeStyles.active;
+    removeClass([].slice.call(findDOMNode(this).querySelectorAll('.' + active)), active);
     if (this.props.onClick) {
       this.props.onClick(item);
     }
   }
 
   render () {
-    let { fetchStatus, selectAble, readOnly, open, icons } = this.props;
-    icons = icons || defaultIcons;
+    const { selectAble, className, readOnly, open, icons } = this.props;
 
-    // if get remote data pending or failure, render message
-    if (fetchStatus !== FETCH_SUCCESS) {
-      return (
-        <span className={`fetch-${fetchStatus}`}>
-          {getLang('fetch.status')[fetchStatus]}
-        </span>
-      );
-    }
+    const { value, data } = this.state;
 
-    let value = this.state.value;
-
-    let items = this.state.data.map(function (item, i) {
+    let items = data.map(function (item, i) {
       return (
         <Item ref={i}
-          icons={icons}
+          icons={icons || defaultIcons}
           open={open}
           readOnly={readOnly}
-          onClick={this.onClick}
+          onClick={this.handleClick}
           onStatusChange={this.handleChange}
           value={value}
           selectAble={selectAble}
@@ -211,14 +205,14 @@ class Tree extends Component {
       );
     }, this);
 
-    let className = classnames(
-      this.props.className,
-      'rct-tree',
-      { readonly: this.props.readOnly }
+    let rootClassName = classnames(
+      className,
+      TreeStyles.tree,
+      readOnly && TreeStyles.readonly
     );
 
     return (
-      <ul className={className}>{items}</ul>
+      <ul className={rootClassName}>{items}</ul>
     );
   }
 }
@@ -226,7 +220,6 @@ class Tree extends Component {
 Tree.propTypes = {
   className: PropTypes.string,
   data: PropTypes.array,
-  fetchStatus: PropTypes.string,
   greedy: PropTypes.bool,
   icons: PropTypes.array,
   onChange: PropTypes.func,

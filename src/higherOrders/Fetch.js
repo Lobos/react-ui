@@ -2,11 +2,14 @@
 
 import React, { Component, PropTypes } from 'react';
 import Refetch from 'refetch';
+import classnames from 'classnames';
 import { deepEqual } from '../utils/objects';
 import clone from '../utils/clone';
 
 import { setLang, getLang } from '../lang';
 setLang('fetch');
+
+import FormStyles from '../styles/_form.scss';
 
 export const FETCH_PENDING = 'pending';
 export const FETCH_SUCCESS = 'success';
@@ -115,8 +118,9 @@ export const fetchEnhance = (ComposedComponent) => {
           <ComposedComponent ref={(c) => this.component = c} data={this.state.data} fetchStatus={this.state.fetchStatus} {...others} />
         );
       } else {
+        let className = classnames(fetchStatus === FETCH_FAILURE && FomrStyles.errorText);
         return (
-          <span className={`fetch-${fetchStatus}`}>
+          <span className={className}>
             {error || getLang('fetch.status')[fetchStatus]}
           </span>
         );

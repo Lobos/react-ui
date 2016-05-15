@@ -1,8 +1,13 @@
 'use strict';
 
 import { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import { forEach, isEmpty, deepEqual } from '../utils/objects';
+import { addClass } from '../utils/dom';
+import { Checkbox } from '../Checkbox';
+
+import TreeStyles from '../styles/_tree.scss';
 
 class Item extends Component {
   constructor (props) {
@@ -13,10 +18,10 @@ class Item extends Component {
       status: props.data.$status || 0
     };
 
-    this.onClick = this.onClick.bind(this);
     this.updateStatus = this.updateStatus.bind(this);
     this.toggle = this.toggle.bind(this);
-    this.check = this.check.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
   }
   
   componentWillReceiveProps (nextProps) {
@@ -37,7 +42,7 @@ class Item extends Component {
     });
   }
 
-  check () {
+  handleCheck () {
     if (this.props.readOnly) {
       return;
     }
@@ -64,11 +69,16 @@ class Item extends Component {
     return this.state.status;
   }
 
-  onClick (data) {
+  handleClick (data) {
     // check if event
-    data = data.hasOwnProperty('_dispatchListeners') ? this.props.data : data;
-    if (this.props.onClick) {
-      this.props.onClick(data);
+    let isEvent = data.hasOwnProperty('_dispatchListeners');
+    if (isEvent) {
+      data = this.props.data;
+    }
+
+    this.props.onClick(data);
+    if (isEvent) {
+      addClass(findDOMNode(this).querySelector('div'), TreeStyles.active);
     }
   }
 
@@ -103,22 +113,19 @@ class Item extends Component {
   }
 
   renderCheckbox () {
-    let { selectAble } = this.props;
+    let { selectAble, readOnly } = this.props;
     if (!selectAble) {
       return;
     }
 
     let { status } = this.state;
-    let check = ['unchecked', 'half-checked', 'checked'][status];
-    let className = classnames(
-      'check-handle',
-      ['', 'half-checked', 'checked'][status]
-    );
 
     return (
-      <a className={className} onClick={this.check}>
-        <i className={'tree-icon ' + check} />
-      </a>
+      <Checkbox onChange={this.handleCheck}
+        checked={status === 2}
+        indeterminate={status === 1}
+        isIndicator
+        readOnly={readOnly} />
     );
   }
 
@@ -129,21 +136,23 @@ class Item extends Component {
     let count = $deep.length;
 
     return $deep.map((deep, i) => {
-      className = classnames('marks', {
-        'marks-h': deep > 1 || (noChild && count - 1 === i),
-        'marks-v': deep === 1,
-        'marks-l': deep === 2
-      });
+      className = classnames(
+        TreeStyles.marks,
+        (deep > 1 || (noChild && count - 1 === i)) && TreeStyles.mh,
+        deep === 1 && TreeStyles.mv,
+        deep === 2 && TreeStyles.ml
+      );
       return <span key={i} className={className}>&nbsp;</span>;
     });
   }
 
   render () {
-    let { data, selectAble, readOnly, open, value, icons } = this.props;
+    let { data, selectAble, readOnly, value, icons } = this.props;
 
     let children,
         handle,
-        icon;
+        icon,
+        open = this.state.open;
 
     if (data.children) {
       let items = data.children.map(function (item, i) {
@@ -151,22 +160,22 @@ class Item extends Component {
           <Item ref={i}
             key={item.$key}
             icons={icons}
-            open={open}
+            open={this.props.open}
             readOnly={readOnly}
             value={value}
             selectAble={selectAble}
             data={item}
-            onClick={this.onClick}
+            onClick={this.handleClick}
             onStatusChange={this.updateStatus}
           />
         );
       }, this);
 
-      children = <ul className={classnames({open: this.state.open})}>{items}</ul>;
-      icon = this.state.open ? icons[1] : icons[0];
+      children = <ul className={classnames(open && TreeStyles.open)}>{items}</ul>;
+      icon = open ? icons[1] : icons[0];
       handle = (
-        <a onClick={this.toggle} className="handle">
-          <i className={'tree-icon ' + (this.state.open ? 'minus' : 'plus')} />
+        <a onClick={this.toggle} className={TreeStyles.handle}>
+          <i className={classnames(TreeStyles.icon, open ? TreeStyles.minus : TreeStyles.plus)} />
         </a>
       );
     } else {
@@ -175,13 +184,13 @@ class Item extends Component {
 
     return (
       <li>
-        <label>
+        <div className={TreeStyles.label}>
           {this.renderMarks()}
           {handle}
-          {icon}
+          {icon && <span className={TreeStyles.handle}>{icon}</span>}
           {this.renderCheckbox()}
-          <span onClick={this.onClick} className="text">{data.$text}</span>
-        </label>
+          <span onClick={this.handleClick} className={TreeStyles.text}>{data.$text}</span>
+        </div>
         {children}
       </li>
     );

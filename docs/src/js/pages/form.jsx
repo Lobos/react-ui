@@ -67,9 +67,9 @@ module.exports = class extends React.Component {
   <FormControl label="name">
     <Input name="name" style={{width: '10rem'}} type="text" min={2} max={6} />
   </FormControl>
-  <FormControl name="email" label="email" type="email" />
-  <FormControl name="nationality" label="nationality"
-    data={["China", "America", "Russia", "Japan", "Franch", "England", "Spain"]} type="select" />
+  <FormControl name="email" placeholder="email" type="email" />
+  <FormControl name="nationality" label="nationality" type="select"
+    data={["China", "America", "Russia", "Japan", "Franch", "England", "Spain"]} />
 </Form>
           </Example>
 
@@ -128,7 +128,7 @@ module.exports = class extends React.Component {
     ignore={true}
     label="repeat password"
     type="password"
-    tip="必须与password相同"
+    tip="same as the password."
     validator={
       {
         func: (value, formData) => {
@@ -136,7 +136,7 @@ module.exports = class extends React.Component {
           if (!value ? !password : value === password) {
             return true;
           } else {
-            return new Error('两次输入密码不一致');
+            return new Error('This value should be the same as the password.');
           }
         },
         bind: ['password']
@@ -164,10 +164,11 @@ module.exports = class extends React.Component {
     label="datetime" />
 
   <FormControl label="datetime pair">
-    <DatepickerPair type="date" min="2016-03-03" max="2016-08-21" names={["startTime", "endTime"]} />
+    <DatepickerPair type="date" min="2016-03-03" max="2016-08-21"
+      names={["startTime", "endTime"]} />
   </FormControl>
 
-  <FormControl label="mult input" tip="每个输入框可以输入数字和字符，长度为5">
+  <FormControl label="mult input" tip="each field require 5 alphanumeric characters">
     <Input name="mult1" type="alphanum" min={5} max={5} grid={1/6} />
     <span>-</span>
     <Input name="mult2" type="alphanum" min={5} max={5} grid={1/6} />

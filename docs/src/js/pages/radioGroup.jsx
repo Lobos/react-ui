@@ -7,6 +7,9 @@ import { TplDataDesc } from '../CommDocs';
 const {RadioGroup, Radio, Icon} = global.uiRequire();
 const textValue = require('../data/text-value');
 
+import { createKeyValue } from '../data/mock';
+const data1000 = createKeyValue(1000);
+
 module.exports = class extends Component {
   constructor (props) {
     super(props);
@@ -137,6 +140,11 @@ module.exports = class extends Component {
   >
   <Radio position={3} defaultValue="香港"><Icon icon="cloud-outline" />香港</Radio>
 </RadioGroup>
+          </Example>
+
+          <h2 className="subhead">1000 radios</h2>
+          <Example>
+<RadioGroup data={data1000} />
           </Example>
 
         </div>

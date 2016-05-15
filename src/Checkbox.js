@@ -59,7 +59,7 @@ export class Checkbox extends Component {
   }
 
   render () {
-    const { style, className, block, readOnly, defaultValue, text, children } = this.props;
+    const { style, className, block, readOnly, defaultValue, isIndicator, indeterminate, text, children } = this.props;
     const checked = this.getCheckStatus();
 
     let labelClass = classnames(
@@ -67,19 +67,22 @@ export class Checkbox extends Component {
       Styles.checkbox,
       readOnly && Styles.disabled,
       block ? Styles.block : Styles.inline,
-      checked && Styles.checked
+      checked && Styles.checked,
+      indeterminate && Styles.indeterminate,
+      isIndicator && Styles.noPadding
     );
 
     return (
       <label style={style} className={ labelClass }>
         <input type="checkbox"
           disabled={readOnly}
+          indeterminate={indeterminate}
           onChange={this.handleChange}
           checked={checked}
           value={defaultValue}
         />
         <span className={Styles.indicator}></span>
-        <span>{text}</span>
+        {(text && !isIndicator) && <span>{text}</span>}
         {children}
       </label>
     );
@@ -94,6 +97,8 @@ Checkbox.propTypes = {
   className: PropTypes.string,
   defaultValue: PropTypes.any.isRequired,
   index: PropTypes.number,
+  indeterminate: PropTypes.bool,
+  isIndicator: PropTypes.bool,
   onChange: PropTypes.func,
   position: PropTypes.number,
   readOnly: PropTypes.bool,

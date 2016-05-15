@@ -373,7 +373,7 @@ $custom-control-active-indicator-box-shadow: none !default;
 $custom-checkbox-radius: $border-radius !default;
 $custom-checkbox-checked-icon: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E") !default;
 $custom-checkbox-indeterminate-bg: #0074d9 !default;
-$custom-checkbox-indeterminate-icon: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 4'%3E%3Cpath stroke='%23fff' d='M0 2h4'/%3E%3C/svg%3E") !default;
+$custom-checkbox-indeterminate-icon: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath stroke='%23fff' d='M0 2h4'/%3E%3C/svg%3E") !default;
 $custom-checkbox-indeterminate-box-shadow: none !default;
 
 $custom-radio-radius: 50% !default;
@@ -827,8 +827,9 @@ $custom-control-checked-indicator-border:    $custom-control-checked-indicator-b
 $custom-control-disabled-indicator-bg:       #ddd;
 $custom-control-hover-indicator-border:      #aaa;
 $custom-control-hover-indicator-bg:          #fff;
-$custom-checkbox-checked-icon:               url('data:image/svg+xml,%3Csvg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.0625, 0.0625)"%3E%3Cpath d="M161.024 360l400.448 374.272-161.024 153.216L0 513.216 161.024 360zM234.816 734.208l628.16-597.696L1024 289.664l-628.16 597.696L234.816 734.208z" fill="%23ffffff"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
-$custom-radio-checked-icon:                  url('data:image/svg+xml,%3Csvg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.0625, 0.0625)"%3E%3Cpath d="M512 511.903809m-255.045767 0a249.237 249.237 0 1 0 510.091534 0 249.237 249.237 0 1 0-510.091534 0Z" fill="%23ffffff"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+$custom-checkbox-checked-icon:               url('data:image/svg+xml,%3Csvg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.015625, 0.015625)"%3E%3Cpath d="M952.448527 347.935692 806.785274 202.272439 430.747604 578.309086 243.760259 391.322765 98.095983 536.987041 430.727138 869.618196 439.078323 861.268034 439.097766 861.286453Z" fill="%23ffffff"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+$custom-checkbox-indeterminate-icon:         url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16 '%3E%3Cpath fill='%23fff' d='M2 6 14 6 14 10 2 10 2 6Z'/%3E%3C/svg%3E");
+$custom-radio-checked-icon: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='2' fill='%23fff'/%3E%3C/svg%3E");
 
 // select ======================================================================
 
@@ -933,3 +934,9 @@ $form-aligned-control-margin:                1rem;
 $form-inline-group-margin:                   1rem;
 $form-inline-control-margin:                 0.5rem;
 
+$tree-line-height:                           1.5714rem;
+$tree-line-color:                            #666;
+$tree-icon-width:                            1.4rem;
+
+$tree-indicator-size:                        9px;
+$tree-indicator-border-width:                1px;

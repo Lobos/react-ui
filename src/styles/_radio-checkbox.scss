@@ -11,6 +11,11 @@
   vertical-align: middle;
   padding-right: 1rem;
 
+  &:local(.noPadding) {
+    padding: 0;
+    vertical-align: inherit;
+  }
+
   input[type=checkbox], input[type=radio] {
     position: absolute;
     left: 0;
@@ -46,7 +51,10 @@
     border-color: $custom-control-hover-indicator-border;
   }
 
-  input:checked ~ :local(.indicator) {
+  input:checked ~ :local(.indicator),
+  &:local(.checked) :local(.indicator),
+  .input:indeterminate ~ :local(.indicator),
+  &:local(.indeterminate) :local(.indicator) {
     border-color: $custom-control-checked-indicator-border;
     background: {
       size: 100%;
@@ -55,7 +63,8 @@
     }
   }
 
-  input:disabled ~ :local(.indicator) {
+  input:disabled ~ :local(.indicator),
+  &:local(.disabled) :local(.indicator) {
     cursor: $cursor-disabled;
     border-color: $custom-control-indicator-border;
     background-color: $custom-control-disabled-indicator-bg;
@@ -67,8 +76,14 @@
     @include border-radius($custom-checkbox-radius);
   }
 
-  input:checked ~ :local(.indicator) {
+  input:checked ~ :local(.indicator),
+  &:local(.checked) :local(.indicator) {
     background-image: $custom-checkbox-checked-icon;
+  }
+
+  .input:indeterminate ~ :local(.indicator),
+  &:local(.indeterminate) :local(.indicator) {
+    background-image: $custom-checkbox-indeterminate-icon;
   }
 }
 

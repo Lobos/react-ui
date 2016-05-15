@@ -75,14 +75,13 @@
       border-color: $brand-danger;
     }
 
-    :local(.dangerText) {
-      color: $brand-danger;
-    }
-
     :local(.button) {
       margin-right: $form-inline-control-margin;
     }
   }
 }
 
+:local(.dangerText) {
+  color: $brand-danger;
+}
 

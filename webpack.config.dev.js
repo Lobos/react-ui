@@ -34,11 +34,12 @@ module.exports = {
   ],
   module: {
     loaders: [
-      { test: /\.jsx?$/, loaders: ['babel'], include: [
+      { test: /\.jsx?$/, loader: 'babel', include: [
         path.resolve(__dirname, 'standalone'),
         path.resolve(__dirname, 'src'),
         path.resolve(__dirname, 'docs'),
-        path.resolve(__dirname, 'node_modules/refetch')
+        path.resolve(__dirname, 'node_modules/refetch'),
+        path.resolve(__dirname, 'node_modules/react-language')
       ] },
       { test: /\.(css|less)$/, loaders: ['style-loader', 'css-loader?localIdentName=[local]-[hash:base64:5]', 'postcss-loader', 'less-loader'] },
       { test: /\.scss$/, loaders: ['style-loader', 'css-loader?localIdentName=[local]-[hash:base64:5]', 'postcss-loader', 'sass-loader'] },
@@ -47,7 +48,7 @@ module.exports = {
       { test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=10000&name=./images/[name].[ext]' }
     ],
     preLoaders: [
-      { test: /\.less$/, loader: 'rctui-theme-loader?theme=' },
+      { test: /\.scss$/, loader: 'rctui-theme-loader?theme=' },
       { test: /\.jsx?$/, loader: 'rctui-example-loader', include: [path.resolve(__dirname, 'docs')] }
     ]
   },

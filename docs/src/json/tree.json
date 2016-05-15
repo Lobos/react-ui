@@ -1,44 +1,43 @@
 [
     {
-        "id": "account",
-        "text": "账户管理",
-        "icon": "user",
+        "id": "1",
+        "text": "Parent 1",
         "children": [
             {
-                "id": "user_list",
-                "text": "用户管理",
+                "id": "1.1",
+                "text": "Child 1",
                 "children": [
                     {
-                        "id": "user_edit",
-                        "text": "编辑"
+                        "id": "1.1.1",
+                        "text": "Grandchild 1"
                     }
                 ]
             },
             {
-                "id": "role_list",
-                "text": "角色管理",
+                "id": "1.2",
+                "text": "Child 2",
                 "children": [
                     {
-                        "id": "role_edit",
-                        "text": "编辑"
+                        "id": "1.2.1",
+                        "text": "Grandchild 1"
                     },
                     {
-                        "id": "role_delete",
-                        "text": "删除"
+                        "id": "1.2.2",
+                        "text": "Grandchild 2"
                     }
                 ]
             },
             {
-                "id": "auth_list",
-                "text": "权限管理",
+                "id": "1.3",
+                "text": "Child 3",
                 "children": [
                     {
-                        "id": "auth_edit",
-                        "text": "编辑"
+                        "id": "1.3.1",
+                        "text": "Grandchild 1"
                     },
                     {
-                        "id": "auth_delete",
-                        "text": "删除"
+                        "id": "1.3.2",
+                        "text": "Grandchild 2"
                     }
                 ]
             }
@@ -47,25 +46,24 @@
     },
 
     {
-        "id": "sys",
-        "text": "系统设置",
-        "icon": "cogs",
+        "id": "2",
+        "text": "Parent 2",
         "children": [
             {
-                "id": "system_log",
-                "text": "系统日志"
+                "id": "2.1",
+                "text": "Child 1"
             },
             {
-                "id": "config_list",
-                "text": "参数设置",
+                "id": "2.2",
+                "text": "Child 2",
                 "children": [
                     {
-                        "id": "config_edit",
-                        "text": "编辑"
+                        "id": "2.2.1",
+                        "text": "Grandchild 1"
                     },
                     {
-                        "id": "config_delete",
-                        "text": "删除"
+                        "id": "2.2.2",
+                        "text": "Grandchild 2"
                     }
                 ]
             }

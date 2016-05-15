@@ -32,12 +32,14 @@ module.exports = {
     loaders: [
       { test: /\.jsx?$/, loaders: ['babel'] },
       { test: /\.(css|less)$/, loader: 'style-loader!css-loader!postcss-loader!less-loader' },
+      { test: /\.scss$/, loaders: ['style-loader', 'css-loader?localIdentName=[hash:base64:8]', 'postcss-loader', 'sass-loader'] },
       { test: /\.(ttf|eot|woff|woff2|otf|svg)/, loader: 'file-loader?name=./font/[name].[ext]' },
       { test: /\.json$/, loader: 'file-loader?name=./json/[name].json' },
       { test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=10000&name=./images/[name].[ext]' }
     ],
     preLoaders: [
-      { test: /\.jsx?$/, loader: 'rctui-example-loader', include: [path.resolve(__dirname, 'docs')] }
+      { test: /\.jsx?$/, loader: 'rctui-example-loader', include: [path.resolve(__dirname, 'docs')] },
+      { test: /\.scss$/, loader: 'rctui-theme-loader?theme=' }
     ]
   },
   postcss: function(){
