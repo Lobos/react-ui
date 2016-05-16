@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import { forEach, isEmpty, deepEqual } from '../utils/objects';
 import { addClass } from '../utils/dom';
 import { Checkbox } from '../Checkbox';
+import pureRenderMixin from '../mixins/PureRender';
 
 import TreeStyles from '../styles/_tree.scss';
 
@@ -215,4 +216,4 @@ Item.propTypes = {
   value: PropTypes.any
 };
 
-module.exports = Item;
+module.exports = pureRenderMixin(Item);

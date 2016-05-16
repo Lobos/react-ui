@@ -4,6 +4,8 @@ import React from 'react';
 import Datetime from './Datetime';
 import { shallowEqual } from '../utils/objects';
 import { register } from '../higherOrders/FormItem';
+import { compose } from '../utils/compose';
+import pureRenderMixin from '../mixins/PureRender';
 
 class Datepicker extends React.Component {
   constructor (props) {
@@ -21,4 +23,7 @@ class Datepicker extends React.Component {
   }
 }
 
-export default register(['datetime', 'time', 'date'], {valueType: 'datetime'}, Datepicker);
+export default compose(
+  register(['datetime', 'time', 'date'], {valueType: 'datetime'}),
+  pureRenderMixin
+)(Datepicker);
