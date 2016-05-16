@@ -14,12 +14,16 @@ class Textarea extends Component {
     super(props);
     this.state = {
       value : props.value,
+      imeLock: false,
       rows: props.rows
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleTrigger = this.handleTrigger.bind(this);
-    this.bindElement = this.bindElement.bind(this);
+    this.bindElement = this.bindElement.bind(this)
+    this.handleCompositionStart = this.handleCompositionStart.bind(this);
+    this.handleCompositionEnd = this.handleCompositionEnd.bind(this);
+
   }
 
   componentDidMount (){
@@ -51,8 +55,8 @@ class Textarea extends Component {
     let value = event.target.value;
     this.setState({ value });
 
-    if (this.props.trigger === 'change') {
-      this.handleTrigger(event);
+    if (this.props.trigger === 'change' && !this.state.imeLock) {
+      this.props.onChange(value);
     }
   }
 
@@ -61,12 +65,19 @@ class Textarea extends Component {
     this.props.onChange(value, event);
   }
 
+  handleCompositionStart () {
+    this.setState({ imeLock: true });
+  }
+
+  handleCompositionEnd () {
+    this.setState({ imeLock: false });
+  }
+
   autoHeight () {
     let el = this.element;
     let scrH;
     let rows;
 
-    el.style.height = '1px';
     scrH = el.scrollHeight - this.paddingHeight;
     rows = Math.floor( scrH / this.lineHeight);
 
@@ -75,7 +86,6 @@ class Textarea extends Component {
         rows
       });
     }
-    el.style.height = 'auto';
   }
 
   render () {
@@ -95,6 +105,8 @@ class Textarea extends Component {
         Styles.input
       ),
       onChange: this.handleChange,
+      onCompositionStart: this.handleCompositionStart,
+      onCompositionEnd: this.handleCompositionEnd,
       style: objectAssign({}, this.props.style, style),
       readOnly,
       rows,
@@ -132,7 +144,7 @@ Textarea.defaultProps = {
   style: {},
   grid: 1,
   rows: 10,
-  trigger: 'blur',
+  trigger: 'change',
   value: ''
 };
 

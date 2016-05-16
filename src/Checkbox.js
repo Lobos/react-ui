@@ -2,8 +2,10 @@
 
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import { register } from './higherOrders/FormItem';
 import { shallowEqual } from './utils/objects';
+import { compose } from './utils/compose';
+import { register } from './higherOrders/FormItem';
+import pureRenderMixin from './mixins/PureRender';
 
 import Styles from './styles/_radio-checkbox.scss';
 
@@ -17,10 +19,6 @@ export class Checkbox extends Component {
     if (nextProps.value !== this.props.value) {
       this.handleChange(null, nextProps.value === nextProps.defaultValue);
     }
-  }
-
-  shouldComponentUpdate (nextProps) {
-    return !shallowEqual(this.props, nextProps);
   }
 
   handleChange (event, checked) {
@@ -111,4 +109,7 @@ Checkbox.defaultProps = {
   defaultValue: true
 }
 
-export default register('checkbox', {}, Checkbox);
+export default compose(
+  register('checkbox', {}),
+  pureRenderMixin
+)(Checkbox);

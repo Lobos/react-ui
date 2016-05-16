@@ -4,21 +4,23 @@ import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
 const {Icon} = global.uiRequire();
+import { Cn, En } from '../Language';
 
 module.exports = () => {
   return (
     <div>
       <div className="header">
         <h1>Icon</h1>
-        <h2>图标，使用</h2>
+        <Cn><h2>图标</h2></Cn>
       </div>
 
       <div className="content">
         <p>
-          支持 <a href="http://fontawesome.io/">font-awesome</a> 和 <a href="http://zavoloklom.github.io/material-design-iconic-font/">material-design-iconic-font</a><br />
-          <b>或者，在<a href="http://iconfont.cn/">iconfont.cn</a>生成自己的icon字库。个人比较推荐这种方式，可以定制化，文件大小比较容易控制。可选的图标也更多。</b>
+          Support <a href="http://fontawesome.io/">font-awesome</a> and <a href="http://zavoloklom.github.io/material-design-iconic-font/">material-design-iconic-font</a><br />
+          <Cn>或者，在<a href="http://iconfont.cn/">iconfont.cn</a>生成自己的icon字库。个人比较推荐这种方式，可以定制化，文件大小比较容易控制。可选的图标也更多。</Cn>
         </p>
 
+        <Cn>
         <h2 className="subhead">使用iconfont</h2>
         <div>使用iconfont只需要在css加入字体路径，不需要其他额外配置，直接用就可以</div>
         <Code>
@@ -44,7 +46,7 @@ module.exports = () => {
         <Example>
 <Icon>&#xe601;</Icon> 
 <Icon style={{color: 'red'}}>&#xe602;</Icon> 
-<span style={{color: 'green', fontSize: '2rem', verticalAlign: 'middle'}}>
+<span style={{color: 'green', fontSize: '2rem'}}>
   <Icon>&#xe603;</Icon>
 </span>
 
@@ -57,8 +59,10 @@ module.exports = () => {
 <Icon size={2.0}>&#xe601;</Icon> 
 <Icon size={2.5}>&#xe601;</Icon> 
         </Example>
+        </Cn>
 
-        <h2 className="subhead">使用font-awesome 或 material</h2>
+        <Cn><h2 className="subhead">使用font-awesome 或 material</h2></Cn>
+        <En><h2 className="subhead">Example</h2></En>
         <div>
           默认的前缀为 <em>icon</em>，如果使用less，生成这两个字体的css时，指定 <em>prefix</em> 为 <em>icon</em><br />
           如果使用这两个字体原生的前缀 <em>fa</em> 或者 <em>zmdi</em>，调用 <em>Icon.setPrefix(prefix)</em> 这个全局方法设置<br />
@@ -81,7 +85,11 @@ style={object}    // 样式，fontSize、color等等
 
         <h2 className="subhead">Normal</h2>
         <Example>
-<Icon icon="home" /> home
+<Icon icon="home" />
+<Icon size={2} icon="home" />
+<Icon size={3} icon="home" />
+<Icon size={4} icon="home" />
+<Icon size={5} icon="home" />
         </Example>
 
         <h2 className="subhead">Spin</h2>
@@ -89,8 +97,6 @@ style={object}    // 样式，fontSize、color等等
 <Icon icon="settings" spin />
 &nbsp; &nbsp;
 <Icon icon="refresh" spin />
-&nbsp; &nbsp;
-<Icon spin>&#xe605;</Icon> 
         </Example>
       </div>
     </div>

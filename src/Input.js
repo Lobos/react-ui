@@ -12,10 +12,13 @@ class Input extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: props.value
+      value: props.value,
+      imeLock: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleTrigger = this.handleTrigger.bind(this);
+    this.handleCompositionStart = this.handleCompositionStart.bind(this);
+    this.handleCompositionEnd = this.handleCompositionEnd.bind(this);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -42,14 +45,22 @@ class Input extends Component {
 
     this.setState({ value });
 
-    if (trigger === 'change') {
-      this.handleTrigger(event);
+    if (trigger === 'change' && !this.state.imeLock) {
+      this.props.onChange(value);
     }
   }
 
   handleTrigger (event) {
     let value = event.target.value;
     this.props.onChange(value, event);
+  }
+
+  handleCompositionStart () {
+    this.setState({ imeLock: true });
+  }
+
+  handleCompositionEnd () {
+    this.setState({ imeLock: false });
   }
 
   render () {
@@ -64,6 +75,8 @@ class Input extends Component {
       ),
       readOnly,
       onChange: this.handleChange,
+      onCompositionStart: this.handleCompositionStart,
+      onCompositionEnd: this.handleCompositionEnd,
       type: type === 'password' ? 'password' : 'text',
       value: this.state.value
     };
@@ -100,7 +113,7 @@ Input.propTypes = {
 
 Input.defaultProps = {
   size: 'middle',
-  trigger: 'blur',
+  trigger: 'change',
   value: ''
 };
 
