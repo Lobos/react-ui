@@ -39,7 +39,7 @@ describe('Input Spec', () => {
 
       wrapper.simulate('change', {target: {value: 'foo'}, nativeEvent: true})
 
-      expect(wrapper).to.have.className('has-error')
+      expect(wrapper).to.have.className('dangerInput')
     })
   })
 

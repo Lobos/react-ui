@@ -86,6 +86,8 @@ class Textarea extends Component {
         rows
       });
     }
+
+    el.style.height = 'auto';
   }
 
   render () {
