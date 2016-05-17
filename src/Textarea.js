@@ -13,23 +13,22 @@ class Textarea extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value : props.value,
+      value: props.value,
       imeLock: false,
       rows: props.rows
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleTrigger = this.handleTrigger.bind(this);
-    this.bindElement = this.bindElement.bind(this)
+    this.bindElement = this.bindElement.bind(this);
     this.handleCompositionStart = this.handleCompositionStart.bind(this);
     this.handleCompositionEnd = this.handleCompositionEnd.bind(this);
-
   }
 
-  componentDidMount (){
+  componentDidMount () {
     let el = this.element;
 
-    if(this.props.autoHeight){
+    if (this.props.autoHeight) {
       setTimeout(() => {
         this.lineHeight = getLineHeight(el);
         this.paddingHeight = parseInt(computedStyle(el, 'paddingTop')) +
@@ -38,7 +37,7 @@ class Textarea extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     let value = nextProps.value;
     if (value !== this.props.value && value !== this.state.value) {
       this.setState({ value });
@@ -49,7 +48,7 @@ class Textarea extends Component {
     this.element = ref;
   }
 
-  handleChange (event){
+  handleChange (event) {
     this.props.autoHeight && this.autoHeight();
 
     let value = event.target.value;
@@ -79,9 +78,9 @@ class Textarea extends Component {
     let rows;
 
     scrH = el.scrollHeight - this.paddingHeight;
-    rows = Math.floor( scrH / this.lineHeight);
+    rows = Math.floor(scrH / this.lineHeight);
 
-    if( rows >= this.props.rows ){
+    if (rows >= this.props.rows) {
       this.setState({
         rows
       });

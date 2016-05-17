@@ -7,17 +7,17 @@ module.exports = {
       max: {
         array: 'less than {0} choices',
         number: 'less than {0}',
-        string: 'less than {0} characters',
+        string: 'less than {0} characters'
       },
       min: {
         array: 'greater than {0} choices',
         number: 'greater than {0}',
-        string: 'greater than {0} characters',
+        string: 'greater than {0} characters'
       },
       minmax: {
         array: 'between {0} - {1} choices',
         number: 'between {0} - {1}',
-        string: '{0} - {1} characters',
+        string: '{0} - {1} characters'
       },
       number: 'number'
     },

@@ -25,8 +25,8 @@ class Upload extends Component {
   }
 
   isCompleted () {
-    let completed = true,
-        files = this.state.files;
+    let completed = true;
+    let files = this.state.files;
     Object.keys(files).forEach((id) => {
       if (files[id].status !== 2) {
         completed = false;
@@ -36,15 +36,15 @@ class Upload extends Component {
   }
 
   getValue () {
-    let values = [],
-        files = this.state.files;
+    let values = [];
+    let files = this.state.files;
     const { sep } = this.props;
     Object.keys(files).forEach((id) => {
-      //if (autoUpload) {
+      // if (autoUpload) {
         values.push(files[id].value);
-      //} else {
+      // } else {
       //  values.push(files[id].file.files[0]);
-      //}
+      // }
     });
     if (sep) {
       values = values.join(sep);
@@ -72,8 +72,8 @@ class Upload extends Component {
       return;
     }
 
-    let files = this.state.files,
-        file = document.createElement('input');
+    let files = this.state.files;
+    let file = document.createElement('input');
     file.type = 'file';
     file.accept = accept;
     file.click();
@@ -175,7 +175,7 @@ class Upload extends Component {
             <span>{file.name}</span>
             <a className="remove" onClick={this.removeFile.bind(this, id)}>&times; {getLang('buttons.cancel')}</a>
           </div>
-          <div ref={(c) => this.files[id] = c} className={'rct-upload-progress'}></div>
+          <div ref={(c) => { this.files[id] = c; }} className={'rct-upload-progress'}></div>
         </div>
       );
     });

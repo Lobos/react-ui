@@ -35,7 +35,7 @@ export default function Icon (props) {
         fontSize: size,
         width: size,
         height: size
-      }
+      };
     }
     style = objectAssign({}, { fontFamily: font }, size || {}, style);
   }
@@ -59,7 +59,7 @@ Icon.propTypes = {
 
 Icon.defaultProps = {
   font: 'iconfont'
-}
+};
 
 export const setPrefix = function (pre) {
   PREFIX = pre;

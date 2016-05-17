@@ -20,9 +20,9 @@ class Clock extends Component {
   }
 
   getRotate (type) {
-    let current = this.props.current,
-        value,
-        max = type === 'hour' ? 12 : 60;
+    let current = this.props.current;
+    let value;
+    let max = type === 'hour' ? 12 : 60;
 
     switch (type) {
       case 'hour':
@@ -85,8 +85,8 @@ class Clock extends Component {
 
   render () {
     const { stage, onClose } = this.props;
-    let steps = [],
-        step = (stage === 'hour' || stage === 'clock') ? 1 : 5;
+    let steps = [];
+    let step = (stage === 'hour' || stage === 'clock') ? 1 : 5;
 
     for (let i = 0, s; i < 12; i++) {
       s = i * step;
@@ -97,9 +97,9 @@ class Clock extends Component {
     }
 
     let sets = steps.map((s, i) => {
-      let pos = poslist[i],
-          left = pos[0] + '%',
-          top = pos[1] + '%';
+      let pos = poslist[i];
+      let left = pos[0] + '%';
+      let top = pos[1] + '%';
       return (
         <div key={i}
           className={Styles.clockSet}
@@ -141,6 +141,6 @@ Clock.propTypes = {
 
 Clock.defaultProps = {
   stage: 'clock'
-}
+};
 
 export default Clock;

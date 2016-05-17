@@ -46,9 +46,9 @@ export const textValueEnhance = curry((single, Component) => {
 
     handleChange (value, checked, index) {
       const { sep, onChange } = this.props;
-      let data = this.data,
-          values = [],
-          raw = [];
+      let data = this.data;
+      let values = [];
+      let raw = [];
 
       if (!single) {
         data[index].$checked = checked;

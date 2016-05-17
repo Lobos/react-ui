@@ -109,16 +109,17 @@ class ModalContainer extends Component {
         width: options.width || 500
       };
 
-      let header, buttons = [];
+      let header;
+      let buttons = [];
       if (options.header) {
         header = <div className="rct-modal-header">{options.header}</div>;
       }
 
       if (options.buttons) {
         buttons = Object.keys(options.buttons).map((btn, j) => {
-          let func = options.buttons[btn],
-              status = j === 0 ? 'primary' : '',
-              handle = () => {
+          let func = options.buttons[btn];
+          let status = j === 0 ? 'primary' : '';
+          let handle = () => {
                 if (func === true) {
                   this.close(options.id);
                 } else if (func === 'submit') {
@@ -149,7 +150,7 @@ class ModalContainer extends Component {
       const clickaway = options.clickaway ? this.clickaway : undefined;
 
       return (
-        <div ref={(el) => this.elements[options.id] = el} className="rct-modal-inner" onClick={clickaway} style={{ zIndex: ZINDEX + i }} key={options.id}>
+        <div ref={(el) => { this.elements[options.id] = el; }} className="rct-modal-inner" onClick={clickaway} style={{ zIndex: ZINDEX + i }} key={options.id}>
           <div style={style} className={className}>
             <a className="rct-modal-close" onClick={this.close.bind(this, options.id)}><span></span></a>
             {header}
@@ -203,7 +204,7 @@ function open (options) {
   return options.id;
 };
 
-function alert (content, header=<span>&nbsp;</span>) {
+function alert (content, header = <span>&nbsp;</span>) {
   let buttons = {};
   buttons[getLang('buttons.ok')] = true;
 
@@ -215,7 +216,7 @@ function alert (content, header=<span>&nbsp;</span>) {
   });
 };
 
-function confirm (content, callback, header=<span>&nbsp;</span>) {
+function confirm (content, callback, header = <span>&nbsp;</span>) {
   let buttons = {};
 
   buttons[getLang('buttons.ok')] = () => {
@@ -278,7 +279,10 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  buttons: PropTypes.object,
+  buttons: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array
+  ]),
   children: PropTypes.any,
   isOpen: PropTypes.bool,
   noPadding: PropTypes.bool,

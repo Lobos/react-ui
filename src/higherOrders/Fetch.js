@@ -24,7 +24,9 @@ export const fetchEnhance = (ComposedComponent) => {
         data: undefined,
         fetchStatus: FETCH_SUCCESS,
         error: ''
-      }
+      };
+
+      this.bindElement = this.bindElement.bind(this);
     }
 
     componentWillMount () {
@@ -81,7 +83,7 @@ export const fetchEnhance = (ComposedComponent) => {
       if (typeof fetch === 'string') {
         fetch = { url: fetch };
       }
-      let { method='get', url, data, then, request, ...options } = fetch;
+      let { method = 'get', url, data, then, request, ...options } = fetch;
       if (!request) {
         request = Refetch;
       }
@@ -110,12 +112,16 @@ export const fetchEnhance = (ComposedComponent) => {
       }
     }
 
+    bindElement (ref) {
+      this.component = ref;
+    }
+
     render () {
       const { data, ...others } = this.props;
       const { fetchStatus, error } = this.state;
       if (fetchStatus === FETCH_SUCCESS) {
         return (
-          <ComposedComponent ref={(c) => this.component = c} data={this.state.data} fetchStatus={this.state.fetchStatus} {...others} />
+          <ComposedComponent ref={this.bindElement} data={this.state.data} fetchStatus={this.state.fetchStatus} {...others} />
         );
       } else {
         let className = classnames(fetchStatus === FETCH_FAILURE && FormStyles.errorText);
@@ -138,4 +144,4 @@ export const fetchEnhance = (ComposedComponent) => {
   };
 
   return Fetch;
-}
+};

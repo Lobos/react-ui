@@ -19,8 +19,8 @@ class Tip extends ClickAway(Component) {
     this.hideTip = this.hideTip.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.trigger == 'click') {
+  componentDidMount () {
+    if (this.props.trigger === 'click') {
       this.registerClickAway(this.hideTip, this.root);
     }
   }
@@ -43,14 +43,14 @@ class Tip extends ClickAway(Component) {
     let props = this.props;
     let event = {};
     let pos = this.state.position;
-    let clsShow = 'pos-'+ pos;
-    let clsName = classnames('tip-block', pos +'-origin' ,{[clsShow]: this.state.show});
+    let clsShow = 'pos-' + pos;
+    let clsName = classnames('tip-block', pos + '-origin', {[clsShow]: this.state.show});
 
-    event[ props.trigger == 'hover' ? 'onMouseEnter':'onClick'] = this.showTip;
-    props.trigger == 'hover' && (event['onMouseLeave'] = this.hideTip);
+    event[ props.trigger === 'hover' ? 'onMouseEnter' : 'onClick'] = this.showTip;
+    props.trigger === 'hover' && (event['onMouseLeave'] = this.hideTip);
 
     return (
-      <div ref={(el)=>this.root = el} className="component-tip" {...event}>
+      <div ref={(el) => { this.root = el; }} className="component-tip" {...event}>
         { props.children[0]}
         <div ref="content" className={clsName}>
           <div className="tip-border">

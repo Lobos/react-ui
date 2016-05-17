@@ -209,16 +209,16 @@ export const enhance = (ComposedComponent) => {
   };
 
   return FormItem;
-}
+};
 
 export const register = curry((types, options, ComposedComponent) => {
   let newComponent = enhance(ComposedComponent);
 
   // allow empty type
-  //if (isEmpty(types)) {
+  // if (isEmpty(types)) {
   //  console.warn('types must be string or array');
   //  return;
-  //}
+  // }
 
   if (!Array.isArray(types)) {
     types = [types];
@@ -251,9 +251,9 @@ export const getValueType = (type) => {
     valueType = COMPONENTS[type].valueType;
   }
   return valueType;
-}
+};
 
-function getValue(props) {
+function getValue (props) {
   let { value, name, formData } = props;
   if (formData && formData[name] !== undefined) {
     value = formData[name];

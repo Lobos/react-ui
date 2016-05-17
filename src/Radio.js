@@ -27,7 +27,7 @@ export default class Radio extends Component {
 
   render () {
     const { style, className, checked, block, readOnly, defaultValue, text, children } = this.props;
-    
+
     let labelClass = classnames(
       className,
       Styles.radio,

@@ -19,9 +19,9 @@ class TableHeader extends Component {
   }
 
   render () {
-    let sort = [],
-        onSort = null,
-        style = {};
+    let sort = [];
+    let onSort = null;
+    let style = {};
 
     if (this.props.sortAble) {
       sort.push(<i key="up" className={classnames('arrow-up', {active: this.props.name === this.props.sort.name && this.state.asc === 1})} />);

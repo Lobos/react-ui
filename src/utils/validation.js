@@ -6,7 +6,7 @@ import { format, toArray } from './strings';
 import { getLang, setLang } from '../lang';
 setLang('validation');
 
-function handleError(label, value, key, tip) {
+function handleError (label, value, key, tip) {
   // handle error
   let text = getLang('validation.tips.' + key, null);
   if (text) {
@@ -17,7 +17,7 @@ function handleError(label, value, key, tip) {
   return new Error(text);
 }
 
-export function validate(value, valueType, {
+export function validate (value, valueType, {
   label,
   required,
   min,
@@ -68,7 +68,7 @@ export function validate(value, valueType, {
     return handleError(label, value, type, tip);
   }
 
-  switch(valueType) {
+  switch (valueType) {
     case 'array':
       len = toArray(value, sep).length;
     break;

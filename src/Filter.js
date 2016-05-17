@@ -96,8 +96,8 @@ class Filter extends ClickAway(Component) {
   }
 
   onChange (index, filter) {
-    let filters = this.state.filters,
-        f = filters[index];
+    let filters = this.state.filters;
+    let f = filters[index];
     Object.keys(filter).forEach((k) => {
       f[k] = filter[k];
     });
@@ -106,8 +106,8 @@ class Filter extends ClickAway(Component) {
 
   onFilter () {
     this.close();
-    let filters = this.state.filters,
-        local = this.props.local;
+    let filters = this.state.filters;
+    let local = this.props.local;
     this.setState({ resultText: this.formatText(filters) });
     if (this.props.onFilter) {
       let novs = [];

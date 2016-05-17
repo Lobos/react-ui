@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function compare (x, y) {
+export default function compare (x, y) {
   let p;
 
   // remember that NaN === NaN returns false
@@ -46,9 +46,6 @@ module.exports = function compare (x, y) {
   for (p in y) {
     if (!x.hasOwnProperty(p)) {
       return false;
-    //}
-    //else if (typeof y[p] !== typeof x[p]) {
-    //  return false;
     }
   }
 
@@ -64,7 +61,6 @@ module.exports = function compare (x, y) {
     if (!compare(x[p], y[p])) {
       return false;
     }
-
   }
 
   return true;

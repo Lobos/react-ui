@@ -10,7 +10,7 @@ const DEFAULT_OPS = ['=', 'like', '>', '>=', '<', '<=', 'in', 'not in'];
 class FilterItem extends Component {
   constructor (props) {
     super(props);
-    
+
     this.onOpChange = this.onOpChange.bind(this);
     this.onValueChange = this.onValueChange.bind(this);
     this.onLabelChange = this.onLabelChange.bind(this);
@@ -44,12 +44,12 @@ class FilterItem extends Component {
   }
 
   getFunc () {
-    let options = this.props.options,
-        name = this.props.name,
-        value = this.props.value,
-        op = this.props.op,
-        func = function () {},
-        filter = options[this.props.index];
+    let options = this.props.options;
+    let name = this.props.name;
+    let value = this.props.value;
+    let op = this.props.op;
+    let func = function () {};
+    let filter = options[this.props.index];
 
     if (options.type === 'integer' || options.type === 'number') {
       value = parseFloat(value);
@@ -110,11 +110,11 @@ class FilterItem extends Component {
     if (!this.props.label) {
       return null;
     }
-    let options = this.props.options[this.props.optionsIndex],
-        props = options.props || {},
-        onChange = this.onValueChange,
-        style = { width: 240 },
-        control;
+    let options = this.props.options[this.props.optionsIndex];
+    let props = options.props || {};
+    let onChange = this.onValueChange;
+    let style = { width: 240 };
+    let control;
     switch (options.type) {
       case 'select':
         control = <Select value={this.props.value} onChange={onChange} style={style} {...props} />;

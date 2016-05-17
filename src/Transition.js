@@ -58,7 +58,7 @@ export default class Transition extends React.Component {
     let style = {
       transition: `${duration}ms ${tf}`
     };
-    
+
     return cloneElement(children, {style, ref: this.bindElement});
   }
 }
@@ -68,9 +68,9 @@ Transition.propTypes = {
   children: PropTypes.element,
   duration: PropTypes.number,
   tf: PropTypes.string
-}
+};
 
 Transition.defaultProps = {
   duration: 400,
   tf: ''
-}
+};

@@ -12,8 +12,8 @@ class TimeSet extends Component {
   }
 
   add () {
-    let value = this.props.value,
-        max = this.props.type === 'hour' ? 24 : 60;
+    let value = this.props.value;
+    let max = this.props.type === 'hour' ? 24 : 60;
     value += 1;
     if (value >= max) {
       value = 0;
@@ -22,8 +22,8 @@ class TimeSet extends Component {
   }
 
   sub () {
-    let value = this.props.value,
-        max = this.props.type === 'hour' ? 23 : 59;
+    let value = this.props.value;
+    let max = this.props.type === 'hour' ? 23 : 59;
     value -= 1;
     if (value < 0) {
       value = max;
@@ -63,6 +63,6 @@ TimeSet.propTypes = {
 
 TimeSet.defaultProps = {
   value: 0
-}
+};
 
 export default TimeSet;

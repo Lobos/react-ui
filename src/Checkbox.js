@@ -2,7 +2,6 @@
 
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import { shallowEqual } from './utils/objects';
 import { compose } from './utils/compose';
 import { register } from './higherOrders/FormItem';
 import pureRenderMixin from './mixins/PureRender';
@@ -14,7 +13,7 @@ export class Checkbox extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
   }
-  
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.handleChange(null, nextProps.value === nextProps.defaultValue);
@@ -107,7 +106,7 @@ Checkbox.propTypes = {
 
 Checkbox.defaultProps = {
   defaultValue: true
-}
+};
 
 export default compose(
   register('checkbox', {}),

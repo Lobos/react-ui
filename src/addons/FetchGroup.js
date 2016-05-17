@@ -32,7 +32,7 @@ class FetchGroup extends React.Component {
   }
 
   render () {
-    let { url, data, method='get' } = this.state.fetch;
+    let { url, data, method = 'get' } = this.state.fetch;
     if (data) {
       data = JSON.stringify(data);
     }
@@ -43,7 +43,7 @@ class FetchGroup extends React.Component {
           value={method} data={['get', 'post', 'jsonp']}
           onChange={this.handleChange.bind(this, 'method')}
           />
-        <Input type="text" grid={1/2} value={url} placeholder="url"
+        <Input type="text" grid={1 / 2} value={url} placeholder="url"
           onChange={this.handleChange.bind(this, 'url')} />
         <Textarea onChange={this.handleChange.bind(this, 'data')}
           style={{ marginTop: 10 }}
@@ -57,10 +57,10 @@ class FetchGroup extends React.Component {
 FetchGroup.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.object
-}
+};
 
 FetchGroup.defaultProps = {
   value: {}
-}
+};
 
 module.exports = register(FetchGroup);

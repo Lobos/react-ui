@@ -4,7 +4,6 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import Overlay from './Overlay';
-//import { forEach } from './utils/objects'
 import PubSub from 'pubsub-js';
 
 import { requireCss } from './themes';
@@ -109,7 +108,7 @@ Message.show = function (content, type) {
   return containerElement;
 };
 
-function renderContainer() {
+function renderContainer () {
   containerElement = ReactDOM.render(<Message messages={messages} />, containerDOM);
 }
 

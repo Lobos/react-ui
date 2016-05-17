@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function merge(target) {
+export default function merge (target) {
   if (target === undefined || target === null) {
     return {};
   }
@@ -18,10 +18,7 @@ module.exports = function merge(target) {
       var nextKey = keysArray[nextIndex];
 
       // Object.Keys can't get enumerable key
-      //var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
-      //if (desc !== undefined && desc.enumerable) {
-        to[nextKey] = nextSource[nextKey];
-      //}
+      to[nextKey] = nextSource[nextKey];
     }
   }
   return to;

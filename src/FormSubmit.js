@@ -8,7 +8,7 @@ import Button from './Button';
 import FormStyles from './styles/_form.scss';
 
 export default function FormSubmit (props) {
-  console.log('FormSubmit is deprecated, use Form.buttons instead.')
+  console.log('FormSubmit is deprecated, use Form.buttons instead.');
 
   let children = props.children;
   let content;
@@ -25,7 +25,7 @@ export default function FormSubmit (props) {
       labelWidth += '%';
     }
   }
- 
+
   if (layout === 'aligned') {
     labelWidth = labelWidth || '10rem';
     style = objectAssign({}, style, { paddingLeft: labelWidth });

@@ -38,7 +38,7 @@ const CheckboxGroup = (props) => {
     }
     </div>
   );
-}
+};
 
 CheckboxGroup.propTypes = {
   block: PropTypes.bool,
@@ -49,7 +49,7 @@ CheckboxGroup.propTypes = {
   readOnly: PropTypes.bool,
   style: PropTypes.object
 };
- 
+
 CheckboxGroup.defaultProps = {
   data: []
 };
@@ -58,4 +58,4 @@ export default compose(
   register('checkbox-group', {valueType: 'array'}),
   fetchEnhance,
   textValueEnhance(false)
-)(CheckboxGroup)
+)(CheckboxGroup);

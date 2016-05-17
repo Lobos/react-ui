@@ -13,7 +13,7 @@ const GridClassName = 's_' + md5('rctui-grid').substr(24);
 const GridFullClassName = 's_' + md5('rctui-grid-full').substr(24);
 const defaultResponsive = 'md';
 
-export function getGrid(options) {
+export function getGrid (options) {
   if (!options) {
     return '';
   }
@@ -28,7 +28,7 @@ export function getGrid(options) {
   return `${GridClassName} ${GridFullClassName} ${gridClass} ${offsetClass}`;
 }
 
-function generate(width, type, responsive) {
+function generate (width, type, responsive) {
   if (!width || width <= 0) {
     return '';
   }
@@ -41,27 +41,27 @@ function generate(width, type, responsive) {
   let className = 'rctui-' + type + '-' + responsive + '-' + width.replace('.', '-');
   className = 's_' + md5(className).substr(24);
   if (!CACHES[className]) {
-    type === 'grid' ?
-      generateGrid(width, className, responsive) :
-      generateOffset(width, className, responsive);
+    type === 'grid'
+      ? generateGrid(width, className, responsive)
+      : generateOffset(width, className, responsive);
     CACHES[className] = true;
   }
   return className;
 }
 
-function generateGrid(width, className, responsive) {
+function generateGrid (width, className, responsive) {
   let minWidth = RESPONSIVE[responsive];
   let text = `@media screen and (min-width: ${minWidth}px) { .${className}{width: ${width}%} }`;
   createStyle(text, className);
 }
 
-function generateOffset(width, className, responsive) {
+function generateOffset (width, className, responsive) {
   let minWidth = RESPONSIVE[responsive];
   let text = `@media screen and (min-width: ${minWidth}px) { .${className}{margin-left: ${width}%} }`;
   createStyle(text, className);
 }
 
-function createStyle(text, id) {
+function createStyle (text, id) {
   let style = document.head.querySelector('#' + id);
   if (style) {
     return;

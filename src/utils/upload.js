@@ -1,6 +1,6 @@
 'use strict';
 
-function createCORSRequest(method, url) {
+function createCORSRequest (method, url) {
   var xhr = new XMLHttpRequest();
   if ('withCredentials' in xhr) {
     // XHR for Chrome/Firefox/Opera/Safari.
@@ -16,7 +16,7 @@ function createCORSRequest(method, url) {
   return xhr;
 }
 
-function ajaxUpload({url, name, cors, file, onProgress, onLoad, onError, withCredentials}) {
+function ajaxUpload ({url, name, cors, file, onProgress, onLoad, onError, withCredentials}) {
   let data = new FormData();
   data.append(name, file);
 
@@ -32,4 +32,4 @@ function ajaxUpload({url, name, cors, file, onProgress, onLoad, onError, withCre
 
 module.exports = function (args) {
   return ajaxUpload(args);
-}
+};

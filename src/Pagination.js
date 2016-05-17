@@ -62,10 +62,10 @@ class Pagination extends Component {
 
   getPages () {
     let { total, size, index, pages } = this.props;
-    let max = Math.ceil(total / size),
-        left,
-        right,
-        span = pages || 10;
+    let max = Math.ceil(total / size);
+    let left;
+    let right;
+    let span = pages || 10;
 
     // bad thing...
     pages = [];
@@ -111,10 +111,10 @@ class Pagination extends Component {
   }
 
   render () {
-    let index = this.state.index,
-        {mini} = this.props,
-        {pages, max} = this.getPages(),
-        items = [];
+    let index = this.state.index;
+    let { mini } = this.props;
+    let { pages, max } = this.getPages();
+    let items = [];
 
     // Previous
     items.push(

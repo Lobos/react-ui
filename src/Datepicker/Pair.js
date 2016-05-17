@@ -52,4 +52,4 @@ Pair.propTypes = {
 Pair.defaultProps = {
   con: '-',
   names: []
-}
+};

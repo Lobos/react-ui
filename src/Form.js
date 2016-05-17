@@ -28,7 +28,7 @@ class Form extends Component {
     this.validationPools = {};
 
     this.itemBind = (item) => {
-      this.items[item.id] =item;
+      this.items[item.id] = item;
 
       let data = this.state.data;
       data[item.name] = item.value;
@@ -56,7 +56,7 @@ class Form extends Component {
       const name = this.items[id].name;
 
       // don't use merge or immutablejs
-      //data = merge({}, data, {[name]: value});
+      // data = merge({}, data, {[name]: value});
 
       if (data[name] !== value) {
         data[name] = value;
@@ -183,7 +183,7 @@ class Form extends Component {
         hintType: hintType || this.props.hintType,
         labelWidth: labelWidth || this.props.labelWidth,
         readOnly: readOnly || disabled,
-        layout: this.props.layout,
+        layout: this.props.layout
       };
       if (child.type === FormControl || child.type.isFormItem) {
         props.itemBind = this.itemBind;

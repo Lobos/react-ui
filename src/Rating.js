@@ -19,7 +19,7 @@ class Rating extends Component {
     };
     this.handleLeave = this.handleLeave.bind(this);
   }
- 
+
   handleHover (value) {
     this.setState({ hover: value });
   }
@@ -47,9 +47,9 @@ class Rating extends Component {
   }
 
   getBackground () {
-    let items = [],
-        icon = this.getIcon(0),
-        maxValue = this.getMaxValue();
+    let items = [];
+    let icon = this.getIcon(0);
+    let maxValue = this.getMaxValue();
     for (let i = 0; i < maxValue; i++) {
       items.push(cloneElement(icon, { key: i }));
     }
@@ -59,21 +59,21 @@ class Rating extends Component {
 
   renderHandle () {
     let { value, onChange } = this.props;
-    let items = [],
-        icon = this.getIcon(1),
-        hover = this.state.hover,
-        maxValue = this.getMaxValue();
+    let items = [];
+    let icon = this.getIcon(1);
+    let hover = this.state.hover;
+    let maxValue = this.getMaxValue();
 
     value = parseInt(value);
-  
-    let [min, max] = [hover, value].sort((a,b) => a-b);
+
+    let [min, max] = [hover, value].sort((a, b) => a - b);
 
     for (let i = 0, state; i < maxValue; i++) {
       if (hover === 0) {
         state = value > i ? Styles.active : undefined;
       } else {
-        state = i < min ? Styles.active :
-                i >= max ? undefined : Styles.half;
+        state = i < min ? Styles.active
+          : i >= max ? undefined : Styles.half;
       }
 
       items.push(
@@ -94,9 +94,9 @@ class Rating extends Component {
   }
 
   renderMute () {
-    let items = [],
-        icon = this.getIcon(1),
-        width = (this.props.value / this.props.maxValue * 100) + '%';
+    let items = [];
+    let icon = this.getIcon(1);
+    let width = (this.props.value / this.props.maxValue * 100) + '%';
 
     for (let i = 0; i < this.props.maxValue; i++) {
       items.push(cloneElement(icon, { key: i }));

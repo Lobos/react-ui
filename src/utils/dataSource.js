@@ -2,16 +2,15 @@
 
 import refetch from 'refetch';
 
-module.exports = function (src, data, options) {
+export default function (src, data, options) {
   let stacks = {
         'then': [],
         'catch': [],
         'complete': []
-      },
-      promises = ['then', 'catch', 'complete'],
-      req = null,
-
-  pinky = function () {
+      };
+  let promises = ['then', 'catch', 'complete'];
+  let req = null;
+  let pinky = function () {
     req = refetch.get(src, data, options);
     promises.forEach((p) => {
       req[p]((res) => {

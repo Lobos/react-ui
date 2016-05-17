@@ -3,7 +3,7 @@
 import { substitute } from './strings';
 import objectAssign from 'object-assign';
 
-export const deepEqual = require('./deepEqual');
+export { default as deepEqual } from './deepEqual';
 
 export function isEmpty (obj) {
   // null and undefined are "empty"
@@ -34,7 +34,7 @@ export function forEach (obj, fn, context) {
   Object.keys(obj).forEach((key) => fn.call(context, obj[key], key));
 }
 
-export function toTextValue (arr, textTpl='{text}', valueTpl='{id}') {
+export function toTextValue (arr, textTpl = '{text}', valueTpl = '{id}') {
   if (!arr) {
     return [];
   }
@@ -51,22 +51,23 @@ export function toTextValue (arr, textTpl='{text}', valueTpl='{id}') {
       s = s.toString();
       return { $text: s, $value: s, $key: hashcode(s) };
     } else {
-      let $text = typeof textTpl === 'function' ? textTpl(s) : substitute(textTpl, s),
-          $value = typeof valueTpl === 'function' ? valueTpl(s) : substitute(valueTpl, s),
-          $key = s.id ? s.id : hashcode(s);
+      let $text = typeof textTpl === 'function' ? textTpl(s) : substitute(textTpl, s);
+      let $value = typeof valueTpl === 'function' ? valueTpl(s) : substitute(valueTpl, s);
+      let $key = s.id ? s.id : hashcode(s);
       return objectAssign({}, s, { $text, $value, $key });
     }
   });
 }
 
-export function hashcode(obj) {
-  let hash = 0, i, chr, len, str;
+export function hashcode (obj) {
+  let hash = 0;
+  let i, chr, len, str;
 
   let type = typeof obj;
   switch (type) {
       case 'object':
-          //let newObj = {};
-          //forEach(obj, (v, k) => v && (typeof v === 'object' || 'function') ? v.toString() : v);
+          // let newObj = {};
+          // forEach(obj, (v, k) => v && (typeof v === 'object' || 'function') ? v.toString() : v);
           str = JSON.stringify(obj);
           break;
       case 'string':
@@ -79,8 +80,8 @@ export function hashcode(obj) {
 
   if (str.length === 0) return hash;
   for (i = 0, len = str.length; i < len; i++) {
-    chr   = str.charCodeAt(i);
-    hash  = ((hash << 5) - hash) + chr;
+    chr = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
     hash |= 0; // Convert to 32bit integer
   }
   return hash.toString(36);
@@ -99,7 +100,7 @@ export function sortByKey (obj) {
   return newObj;
 }
 
-export function shallowEqual(objA, objB) {
+export function shallowEqual (objA, objB) {
   if (objA === objB) {
     return true;
   }

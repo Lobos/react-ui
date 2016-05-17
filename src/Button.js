@@ -6,7 +6,7 @@ import { getGrid } from './utils/grids';
 
 import Styles from './styles/_buttons.scss';
 
-const Button = (props) => {
+export default function Button (props) {
   let { children, status, size, grid, className, ...others } = props;
 
   className = classnames(
@@ -22,7 +22,7 @@ const Button = (props) => {
       { children }
     </button>
   );
-}
+};
 
 Button.propTypes = {
   children: PropTypes.any,
@@ -42,5 +42,3 @@ Button.defaultProps = {
   status: 'secondary',
   type: 'button'
 };
-
-module.exports = Button;

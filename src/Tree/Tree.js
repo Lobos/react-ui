@@ -31,7 +31,7 @@ class Tree extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  
+
   componentWillMount () {
     this.formatData(this.props);
   }
@@ -45,7 +45,7 @@ class Tree extends Component {
         nextProps.greedy !== this.props.greedy) {
       setTimeout(() => {
         this.handleChange();
-      }, 0)
+      }, 0);
     }
   }
 
@@ -92,8 +92,8 @@ class Tree extends Component {
     let values = toArray(props.value, props.sep);
 
     let getStatus = function (d, last, deep) {
-      let val = d.$value,
-          status,
+      let val = d.$value;
+      let status,
           newDeep,
           nextDeep;
       if (deep === undefined) {

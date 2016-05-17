@@ -54,7 +54,7 @@ class Datetime extends ClickAway(Component) {
   componentDidMount () {
     this.registerClickAway(this.close, findDOMNode(this.refs.datepicker));
   }
-  
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setState({ value: datetime.convert(nextProps.value) });
@@ -63,9 +63,9 @@ class Datetime extends ClickAway(Component) {
   }
 
   setMinMax (props) {
-    let zero = new Date(0),
-        min = datetime.convert(props.min, zero).getTime(),
-        max = datetime.convert(props.max, zero).getTime();
+    let zero = new Date(0);
+    let min = datetime.convert(props.min, zero).getTime();
+    let max = datetime.convert(props.max, zero).getTime();
     this.setState({ min, max });
   }
 
@@ -118,7 +118,6 @@ class Datetime extends ClickAway(Component) {
     this.setState({
       open: true,
       current: this.state.value || today,
-      //stage: isTime ? 'clock' : 'day',
       timeStage: isTime ? 'hour' : ''
     }, () => {
       let height = getOuterHeight(findDOMNode(this.refs.datepicker));
@@ -134,13 +133,13 @@ class Datetime extends ClickAway(Component) {
   }
 
   changeDate (obj) {
-    let c = this.state.current,
-        year = obj.year === undefined ? c.getFullYear() : obj.year,
-        month = obj.month === undefined ? c.getMonth() : obj.month,
-        day = obj.day === undefined ? c.getDate() : obj.day,
-        hour = obj.hour === undefined ? c.getHours() : obj.hour,
-        minute = obj.minute === undefined ? c.getMinutes() : obj.minute,
-        second = obj.second === undefined ? c.getSeconds() : obj.second;
+    let c = this.state.current;
+    let year = obj.year === undefined ? c.getFullYear() : obj.year;
+    let month = obj.month === undefined ? c.getMonth() : obj.month;
+    let day = obj.day === undefined ? c.getDate() : obj.day;
+    let hour = obj.hour === undefined ? c.getHours() : obj.hour;
+    let minute = obj.minute === undefined ? c.getMinutes() : obj.minute;
+    let second = obj.second === undefined ? c.getSeconds() : obj.second;
 
     let d = new Date(year, month, day, hour, minute, second);
     return d;
@@ -183,8 +182,8 @@ class Datetime extends ClickAway(Component) {
   }
 
   timeChange (time) {
-    let d = this.changeDate(time),
-        timestamp = d.getTime();
+    let d = this.changeDate(time);
+    let timestamp = d.getTime();
     let { min, max } = this.state;
 
     let valid = true;
@@ -264,10 +263,10 @@ class Datetime extends ClickAway(Component) {
   }
 
   renderYears () {
-    let year = this.state.current.getFullYear(),
-        years = [],
-        i = year - 8,
-        j = year + 9;
+    let year = this.state.current.getFullYear();
+    let years = [];
+    let i = year - 8;
+    let j = year + 9;
 
     for (; i <= j; i++) {
       years.push(i);
@@ -277,7 +276,7 @@ class Datetime extends ClickAway(Component) {
     const className = Styles.year;
 
     buttons.push(
-      <a className={className} key={i-1}
+      <a className={className} key={'prev'}
         onClick={this.pre.bind(this, 'year')}>
         {getLang('datetime.prev')}
       </a>
@@ -285,13 +284,13 @@ class Datetime extends ClickAway(Component) {
 
     years.forEach((y, i) => {
       buttons.push(
-        <a className={className} key={i}
+        <a className={className} key={y}
           onClick={this.yearChange.bind(this, y)}>{y}</a>
       );
     }, this);
 
     buttons.push(
-      <a className={className} key={i+1}
+      <a className={className} key={'next'}
         onClick={this.next.bind(this, 'year')}>
         {getLang('datetime.next')}
       </a>
@@ -312,31 +311,31 @@ class Datetime extends ClickAway(Component) {
 
   renderDays () {
     let { value, current, min, max } = this.state;
-    let year = current.getFullYear(),
-        month = current.getMonth(),
-        hour = current.getHours(),
-        minute = current.getMinutes(),
-        second = current.getSeconds(),
-        monthFirst = new Date(year, month, 1),
-        monthEnd = new Date(year, month + 1, 0),
-        first = 1 - monthFirst.getDay(),
-        end = (Math.ceil((monthEnd.getDate() - first + 1) / 7) * 7),
-        today = new Date(),
-        days = [];
+    let year = current.getFullYear();
+    let month = current.getMonth();
+    let hour = current.getHours();
+    let minute = current.getMinutes();
+    let second = current.getSeconds();
+    let monthFirst = new Date(year, month, 1);
+    let monthEnd = new Date(year, month + 1, 0);
+    let first = 1 - monthFirst.getDay();
+    let end = (Math.ceil((monthEnd.getDate() - first + 1) / 7) * 7);
+    let today = new Date();
+    let days = [];
 
     for (let date, i = 0; i < end; i++) {
       date = new Date(year, month, i + first, hour, minute, second);
       days.push(date);
     }
 
-    let isCurrent = value ?
-      (year === value.getFullYear() && month === value.getMonth()) :
-      false;
+    let isCurrent = value
+      ? (year === value.getFullYear() && month === value.getMonth())
+      : false;
     let isToday = year === today.getFullYear() && month === today.getMonth();
 
     return days.map(function (d, i) {
-      let disabled = false,
-          speedTime = d.getTime();
+      let disabled = false;
+      let speedTime = d.getTime();
       if (min > 0) {
         disabled = speedTime < min;
       }
@@ -351,7 +350,7 @@ class Datetime extends ClickAway(Component) {
         (isToday && today.getDate() === d.getDate() && today.getMonth() === d.getMonth()) && Styles.today,
         (isCurrent && value.getDate() === d.getDate() && value.getMonth() === d.getMonth()) && Styles.active
       );
-      
+
       return (
         <a href="javascript:;" key={i}
           onClick={disabled ? undefined : this.dayChange.bind(this, d)}
@@ -437,9 +436,8 @@ class Datetime extends ClickAway(Component) {
       <div ref="datetime" onClick={this.open} className={className}>
         <div className={classnames(Styles.control, InputStyles.input)}>
           {
-            text ?
-            <span>{text}</span> :
-            <span className={InputStyles.placeholder}>{placeholder}&nbsp;</span>
+            text ? <span>{text}</span>
+              : <span className={InputStyles.placeholder}>{placeholder}&nbsp;</span>
           }
         </div>
         <Transition ref="datepicker" duration={333} tf="ease-out" act={open ? 'enter' : 'leave'}>
@@ -478,7 +476,7 @@ Datetime.propTypes = {
 
 Datetime.defaultProps = {
   type: DATETIME
-}
+};
 
 export default Datetime;
 

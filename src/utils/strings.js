@@ -1,23 +1,23 @@
 'use strict';
 
 let uid = Date.now();
-export function nextUid() {
+export function nextUid () {
   return (uid++).toString(36);
 }
 
-export function format() {
-  let args = [].slice.call(arguments),
-      str = args.shift();
-  return str.replace(/{(\d+)}/g, function(match, number) {
+export function format () {
+  let args = [].slice.call(arguments);
+  let str = args.shift();
+  return str.replace(/{(\d+)}/g, function (match, number) {
     return args[number] !== undefined
       ? args[number]
       : match;
   });
 }
 
-export function substitute(str, obj) {
+export function substitute (str, obj) {
   if (typeof str === 'string') {
-    return str.replace((/\\?\{([^{}]+)\}/g), function(match, name){
+    return str.replace((/\\?\{([^{}]+)\}/g), function (match, name) {
       if (match.charAt(0) === '\\') {
         return match.slice(1);
       }
@@ -28,7 +28,7 @@ export function substitute(str, obj) {
   }
 }
 
-export function toArray(value, sep) {
+export function toArray (value, sep) {
   if (value === null || value === undefined) {
     value = [];
   }
@@ -38,7 +38,7 @@ export function toArray(value, sep) {
     value = [value.toString()];
   } else if (sep) {
     // if use sep, convert every value to string
-    value = value.map((v)=>v.toString());
+    value = value.map((v) => v.toString());
   }
 
   return value;
@@ -59,7 +59,7 @@ export function toStyleObject (str) {
       return;
     }
     let key = kv[0].replace(/-./g, (r) => {
-      return r.replace('-','').toUpperCase();
+      return r.replace('-', '').toUpperCase();
     }).trim();
     style[key] = kv[1].trim();
   });

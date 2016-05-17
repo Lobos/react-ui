@@ -35,7 +35,7 @@ const RadioGroup = (props) => {
   return (
     <div style={style} className={classnames(className, Styles.group)}>{items}</div>
   );
-}
+};
 
 RadioGroup.propTypes = {
   block: PropTypes.bool,

@@ -29,5 +29,5 @@ module.exports = [
   { path: '/message', text: 'Message', component: require('./pages/message.jsx') },
 
   'Highorder',
-  { path: '/fetch', text: 'Fetch', component: require('./pages/fetch.jsx') },
+  { path: '/fetch', text: 'Fetch', component: require('./pages/fetch.jsx') }
 ];

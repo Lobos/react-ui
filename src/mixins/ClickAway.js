@@ -5,10 +5,6 @@ import * as Events from '../utils/events';
 import { isDescendant } from '../utils/dom';
 
 module.exports = (Component) => class extends Component {
-  constructor (props) {
-    super(props);
-  }
-
   componentWillUnmount () {
     this.unbindClickAway();
   }
@@ -42,7 +38,7 @@ module.exports = (Component) => class extends Component {
             this.onClickAway();
           }
         }
-      }
+      };
       this._clickAwayEvent = fn;
     }
     return fn;

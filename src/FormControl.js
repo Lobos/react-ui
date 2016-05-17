@@ -14,7 +14,7 @@ setLang('validation');
 
 import FormStyles from './styles/_form.scss';
 
-function setHint(hints, key, value) {
+function setHint (hints, key, value) {
   let text = getLang('validation.hints.' + key, null);
   if (text) {
     hints.push(format(text, value));
@@ -53,7 +53,7 @@ class FormControl extends Component {
 
     if (nextProps.formData) {
       let keys = Object.keys(this.items);
-      for (let i=0, key; i<keys.length; i++) {
+      for (let i = 0, key; i < keys.length; i++) {
         key = keys[i];
         if (nextProps.formData[key] !== this.items[key].$value) {
           return true;
@@ -202,7 +202,7 @@ class FormControl extends Component {
       } else if (child.props && child.props.children === 'object') {
         props.children = this.renderChildren(child.props.children);
       }
-      
+
       child = cloneElement(child, props);
       return child;
     });
@@ -232,7 +232,7 @@ class FormControl extends Component {
     }
 
     items.push(this.renderTip());
-    
+
     return items;
   }
 
@@ -265,7 +265,7 @@ class FormControl extends Component {
         labelWidth += '%';
       }
     }
-   
+
     if (layout === 'aligned') {
       labelWidth = labelWidth || '10rem';
       style = objectAssign({}, style, { paddingLeft: labelWidth });
@@ -273,7 +273,7 @@ class FormControl extends Component {
 
     return (
       <div style={style} className={className}>
-        { 
+        {
           (label || !isInline) &&
           <label style={{ width: labelWidth }} className={labelClass}>
             {label}

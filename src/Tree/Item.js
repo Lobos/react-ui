@@ -24,7 +24,7 @@ class Item extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
   }
-  
+
   componentWillReceiveProps (nextProps) {
     if (!deepEqual(nextProps.value, this.props.value)) {
       this.setState({status: nextProps.data.$status});
@@ -157,10 +157,10 @@ class Item extends Component {
   render () {
     let { data, selectAble, readOnly, value, icons } = this.props;
 
+    let open = this.state.open;
     let children,
         handle,
-        icon,
-        open = this.state.open;
+        icon;
 
     if (data.children) {
       let items = data.children.map(function (item, i) {

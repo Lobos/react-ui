@@ -2,7 +2,7 @@
 
 export let THEME = 'pure';
 
-export function requireCss(pack) {
+export function requireCss (pack) {
   console.warn(`${pack} wait a minute...`);
-  //require(`./pure/${pack}.less`);
+  // require(`./pure/${pack}.less`);
 };

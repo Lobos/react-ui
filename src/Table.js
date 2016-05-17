@@ -41,7 +41,7 @@ class Table extends Component {
     const { height } = this.props;
     return !!height && height !== 'auto';
   }
-  
+
   setHeaderWidth () {
     if (!this.checkHeadFixed()) {
       return;
@@ -67,7 +67,7 @@ class Table extends Component {
 
   sortData (key, asc) {
     let data = this.state.data;
-    data = data.sort(function(a, b) {
+    data = data.sort(function (a, b) {
       var x = a[key];
       var y = b[key];
       if (asc) {
@@ -80,12 +80,13 @@ class Table extends Component {
   }
 
   onSelect (i, e) {
-    let checked = typeof e === 'boolean' ? e : e.target.checked,
-        data = this.state.data,
-        index = this.state.index,
-        size = this.props.pagination ? this.props.pagination.props.size : data.length,
-        start = 0,
-        end = 0;
+    let checked = typeof e === 'boolean' ? e : e.target.checked;
+    let data = this.state.data;
+    let index = this.state.index;
+    let size = this.props.pagination ? this.props.pagination.props.size : data.length;
+    let start = 0;
+    let end = 0;
+
     if (i === 'all') {
       start = (index - 1) * size;
       end = index * size;
@@ -115,9 +116,9 @@ class Table extends Component {
   }
 
   getData () {
-    let page = this.props.pagination,
-        filters = this.props.filters,
-        data = [];
+    let page = this.props.pagination;
+    let filters = this.props.filters;
+    let data = [];
 
     if (filters) {
       let filterCount = filters.length;
@@ -177,8 +178,8 @@ class Table extends Component {
         if (h.hidden) {
           return;
         }
-        let content = h.content,
-            tdStyle = {};
+        let content = h.content;
+        let tdStyle = {};
         if (typeof content === 'string') {
           content = substitute(content, d);
         } else if (typeof content === 'function') {
@@ -250,11 +251,11 @@ class Table extends Component {
   }
 
   render () {
-    let bodyStyle = {},
-        headerStyle = {},
-        tableStyle = {},
-        onBodyScroll = null,
-        { total, data } = this.getData();
+    let bodyStyle = {};
+    let headerStyle = {};
+    let tableStyle = {};
+    let onBodyScroll = null;
+    let { total, data } = this.getData();
 
     const { height, width, bordered, striped } = this.props;
     let fixedHead = this.checkHeadFixed();
@@ -336,6 +337,6 @@ Table.propTypes = {
 
 Table.defaultProps = {
   data: []
-}
+};
 
 module.exports = fetchEnhance(Table);

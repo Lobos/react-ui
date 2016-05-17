@@ -19,14 +19,14 @@ const DEMO_DATA = [
   { label: 'readonly', items: [{type: 'text', name: 'readonly', readOnly: true }]},
   { label: 'datetime', items: [{type: 'datetime', name: 'datetime', required: true, tip: '自定义tip文字' }]},
   { label: 'tree', items: [{type: 'tree', name: 'tree', fetch: { url: 'json/tree.json' }, selectAble: true }]},
-  { label: 'two items', 
+  { label: 'two items',
     items: [
-      { type: 'date', name: 'startTime', min: '2016-03-20' }, 
+      { type: 'date', name: 'startTime', min: '2016-03-20' },
       '-',
       { type: 'date', name: 'endTime' }
     ]
   },
-  { label: 'select', items: [{type: 'select', name: 'select', grid: 1/3, data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } }]},
+  { label: 'select', items: [{type: 'select', name: 'select', grid: 1 / 3, data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } }]},
   { label: 'checkbox-group', items: [{type: 'checkbox-group', name: 'checkbox-group', min: 2, data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } }]},
   { label: 'radio-group', items: [{type: 'radio-group', name: 'radio-group', data: { shanghai: '上海', beijing: '北京', hangzhou: '杭州', guangzhou: '广州', shenzhen: '深圳' } }]},
   { label: 'textarea', items: [{ type: 'textarea', name: 'textarea', autoHeight: true }]}
@@ -150,7 +150,7 @@ class FormBuilder extends React.Component {
   render () {
     return (
       <div style={this.props.style}>
-        <Form onSubmit={(data) => {console.log(JSON.stringify(data, null, 2))}}>
+        <Form onSubmit={(data) => { console.log(JSON.stringify(data, null, 2)); }}>
           {this.renderControls()}
           <FormSubmit>确定</FormSubmit>
           <FormControl>

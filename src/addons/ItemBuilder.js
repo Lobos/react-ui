@@ -44,7 +44,7 @@ class ItemBuilder extends React.Component {
   }
 
   renderGrid () {
-    if (['alpha','alphanum','email','integer','number','password','select','text','textarea','url'].indexOf(this.state.type) < 0) {
+    if (['alpha', 'alphanum', 'email', 'integer', 'number', 'password', 'select', 'text', 'textarea', 'url'].indexOf(this.state.type) < 0) {
       return;
     }
 
@@ -58,21 +58,21 @@ class ItemBuilder extends React.Component {
   }
 
   renderDataSource () {
-    if (['checkbox-group','radio-group','select','tree'].indexOf(this.state.type) < 0) {
+    if (['checkbox-group', 'radio-group', 'select', 'tree'].indexOf(this.state.type) < 0) {
       return;
     }
 
     let { datatype } = this.state;
-    let tip = datatype === 'data' ?
-              <span>静态数据为json格式，可以使用array，keyvalue格式object，或者复杂array</span> :
-              undefined 
+    let tip = datatype === 'data'
+      ? <span>静态数据为json格式，可以使用array，keyvalue格式object，或者复杂array</span>
+      : undefined;
     return (
       <div>
         <FormControl label="数据源" tip={tip}>
           <RadioGroup value={datatype} onChange={(datatype) => this.setState({ datatype })}
             data={[
               { id: 'data', text: '静态数据' },
-              { id: 'fetch', text: '服务端获取(fetch)' },
+              { id: 'fetch', text: '服务端获取(fetch)' }
             ]} />
 
           {
@@ -126,27 +126,27 @@ class ItemBuilder extends React.Component {
       <Form data={item} style={{ marginRight: 40 }} onSubmit={this.handleSubmit}>
         <FormControl
           onChange={this.handleType}
-          grid={1/2}
+          grid={1 / 2}
           required
           name="type"
           label="类型"
           type="select"
           data={TYPES} />
 
-        <FormControl grid={1/2} name="label" label="label文字" />
-        <FormControl grid={1/2} required name="name" label="name" />
-        <FormControl grid={1/2} name="placeholder" label="placeholder" />
+        <FormControl grid={1 / 2} name="label" label="label文字" />
+        <FormControl grid={1 / 2} required name="name" label="name" />
+        <FormControl grid={1 / 2} name="placeholder" label="placeholder" />
         <FormControl>
           <Checkbox name="required" text="必填" />
           <Checkbox name="readOnly" text="只读" />
         </FormControl>
 
-        { 
+        {
           lenTip &&
           <FormControl>
-            <span>{lenTip[0]}</span><Input grid={1/8} type="integer" name="min" />
+            <span>{lenTip[0]}</span><Input grid={1 / 8} type="integer" name="min" />
             {' '}
-            <span>{lenTip[1]}</span><Input grid={1/8} type="integer" name="max" />
+            <span>{lenTip[1]}</span><Input grid={1 / 8} type="integer" name="max" />
           </FormControl>
         }
 
@@ -174,7 +174,7 @@ ItemBuilder.propTypes = {
 
 ItemBuilder.defaultProps = {
   item: {}
-}
+};
 
 module.exports = ItemBuilder;
 

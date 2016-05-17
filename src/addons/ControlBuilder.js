@@ -24,8 +24,8 @@ class ControlBuilder extends React.Component {
   render () {
     return (
       <Form data={this.props.control} onSubmit={this.handleSubmit}>
-        <FormControl grid={1/3} name="label" label="label文字" />
-        <FormControl grid={4/5} type="textarea" name="tip" label="tip文字" rows={3} />
+        <FormControl grid={1 / 3} name="label" label="label文字" />
+        <FormControl grid={4 / 5} type="textarea" name="tip" label="tip文字" rows={3} />
         <FormSubmit>确定</FormSubmit>
       </Form>
     );

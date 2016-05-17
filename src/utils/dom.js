@@ -1,11 +1,10 @@
 'use strict';
 
-function tryParseInt(p) {
+function tryParseInt (p) {
   if (!p) {
     return 0;
   }
-  const pi = parseInt(p);
-  return pi || 0;
+  return parseInt(p) || 0;
 }
 
 export function isDescendant (parent, child) {
@@ -39,24 +38,24 @@ export function forceRedraw (el) {
 }
 
 export function withoutTransition (el, callback) {
-  //turn off transition
+  // turn off transition
   el.style.transition = 'none';
 
   callback();
 
-  //force a redraw
+  // force a redraw
   forceRedraw(el);
 
-  //put the transition back
+  // put the transition back
   el.style.transition = '';
 }
 
 export function getOuterHeight (el) {
-  let height = el.clientHeight
-    + tryParseInt(el.style.borderTopWidth)
-    + tryParseInt(el.style.borderBottomWidth)
-    + tryParseInt(el.style.marginTop)
-    + tryParseInt(el.style.marginBottom);
+  let height = el.clientHeight +
+    tryParseInt(el.style.borderTopWidth) +
+    tryParseInt(el.style.borderBottomWidth) +
+    tryParseInt(el.style.marginTop) +
+    tryParseInt(el.style.marginBottom);
   return height;
 }
 
@@ -80,9 +79,9 @@ export function overView (el, pad = 0) {
 export function computedStyle (el, attr) {
   var result;
   if (el.currentStyle) {
-    result = el.currentStyle[attr]
+    result = el.currentStyle[attr];
   } else if (window.getComputedStyle) {
-    result = window.getComputedStyle(el , null)[attr];
+    result = window.getComputedStyle(el, null)[attr];
   }
   return result;
 }
@@ -92,8 +91,8 @@ export function getLineHeight (origin) {
   let lineHeight;
   el.style.padding = 0;
   el.rows = 1;
-  el.innerHTML = '&nbsp;'
-  el.style.minHeight= 'inherit'
+  el.innerHTML = '&nbsp;';
+  el.style.minHeight = 'inherit';
   origin.parentNode.appendChild(el);
   lineHeight = el.clientHeight;
   origin.parentNode.removeChild(el);
@@ -106,9 +105,9 @@ export function addClass (el, className) {
 
   els.forEach((el) => {
     if (el.classList) {
-      el.classList.add(className)
+      el.classList.add(className);
     } else {
-      el.className += ' ' + className
+      el.className += ' ' + className;
     }
   });
 }
@@ -118,9 +117,9 @@ export function removeClass (el, className) {
 
   els.forEach((el) => {
     if (el.classList) {
-      el.classList.remove(className)
+      el.classList.remove(className);
     } else {
-      el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ')
+      el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
     }
   });
 }

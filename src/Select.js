@@ -24,7 +24,7 @@ class Select extends ClickAway(Component) {
     this.state = {
       active: false,
       scrollTop: 0,
-      filter: '',
+      filter: ''
     };
 
     // cache, store selected status
@@ -54,7 +54,7 @@ class Select extends ClickAway(Component) {
       wrap.querySelector('ul').style.height =
         (this._optionHeight * this.data.length) + 'px';
       this.toggleScroll('on');
-    }, 0)
+    }, 0);
   }
 
   toggleScroll (sw) {
@@ -98,8 +98,8 @@ class Select extends ClickAway(Component) {
   }
 
   getValue (sep, data) {
-    let values = [],
-        raw = [];
+    let values = [];
+    let raw = [];
     data.forEach((d) => {
       if (d.$selected) {
         values.push(d.$value);
@@ -233,7 +233,7 @@ class Select extends ClickAway(Component) {
     let result = [];
 
     data = this.formatData(data);
- 
+
     className = classnames(
       Styles.select,
       className,
@@ -245,8 +245,8 @@ class Select extends ClickAway(Component) {
 
     let filterText = filter ? filter.toLowerCase() : null;
     let showCount = data.length;
-    let scrolledOptCount = this._optionHeight > 0 ?
-      Math.floor(scrollTop / this._optionHeight - maxShowCount / 3) : 0;
+    let scrolledOptCount = this._optionHeight > 0
+      ? Math.floor(scrollTop / this._optionHeight - maxShowCount / 3) : 0;
     if (scrolledOptCount < 0) {
       scrolledOptCount = 0;
     }
@@ -272,7 +272,7 @@ class Select extends ClickAway(Component) {
 
       return d;
     });
-    
+
     // filter by search text
     if (filterText) {
       options = options.filter((d) => {
@@ -280,7 +280,7 @@ class Select extends ClickAway(Component) {
       });
       showCount = options.length;
     }
-  
+
     // limit show options
     if (options.length > maxShowCount) {
       let showedCount = 0;
@@ -330,9 +330,9 @@ class Select extends ClickAway(Component) {
       <div ref="container" onClick={this.showOptions} style={style} className={className}>
         <div className={classnames(Styles.control, InputStyles.input, readOnly && InputStyles.disabled)}>
         {
-          result.length > 0 ?
-            result :
-            <span className={InputStyles.placeholder}>{msg || placeholder}&nbsp;</span>
+          result.length > 0
+            ? result
+            : <span className={InputStyles.placeholder}>{msg || placeholder}&nbsp;</span>
         }
         </div>
         <Transition ref="options" act={active ? 'enter' : 'leave'} duration={166} tf="ease-out">
