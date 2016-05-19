@@ -8,7 +8,6 @@ import { requireCss } from './themes';
 requireCss('tip');
 
 class Tip extends ClickAway(Component) {
-
   constructor (props) {
     super(props);
     this.state = {
@@ -17,6 +16,14 @@ class Tip extends ClickAway(Component) {
     };
     this.showTip = this.showTip.bind(this);
     this.hideTip = this.hideTip.bind(this);
+    this.bindElement = this.bindElement.bind(this);
+  }
+
+  componentWillReceiveProps (nextProps) {
+    let show = nextProps.show;
+    if (show !== this.props.show && show !== this.state.show) {
+      this.setState({ show });
+    }
   }
 
   componentDidMount () {
@@ -39,6 +46,10 @@ class Tip extends ClickAway(Component) {
     this.unbindClickAway();
   }
 
+  bindElement (ref) {
+    this.root = ref;
+  }
+
   render () {
     let props = this.props;
     let event = {};
@@ -50,7 +61,7 @@ class Tip extends ClickAway(Component) {
     props.trigger === 'hover' && (event['onMouseLeave'] = this.hideTip);
 
     return (
-      <div ref={(el) => { this.root = el; }} className="component-tip" {...event}>
+      <div ref={this.bindElement} className="component-tip" {...event}>
         { props.children[0]}
         <div ref="content" className={clsName}>
           <div className="tip-border">

@@ -18,9 +18,7 @@
 
   input[type=checkbox], input[type=radio] {
     position: absolute;
-    left: 0;
-    top: 0;
-    display: none;
+    clip: rect(0,0,0,0);
   }
 
   & > span {

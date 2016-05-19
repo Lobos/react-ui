@@ -4,7 +4,7 @@ import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
 import { En, Cn } from '../Language';
-const { Input } = global.uiRequire();
+const { Input, Icon, Button, InputGroup } = global.uiRequire();
 
 module.exports = () => {
   return (
@@ -49,6 +49,36 @@ module.exports = () => {
 <Input grid={1/4} placeholder="middle" />
 <Input grid={1/4} size="large" placeholder="large" />
         </Example>
+
+        <h2 className="subhead">InputGroup</h2>
+        <Example>
+<InputGroup grid={1/2}>
+  text
+  <Input placeholder="front addon" />
+</InputGroup>
+
+<InputGroup grid={1/2}>
+  <Input placeholder="end addon" />
+  end
+</InputGroup>
+
+<InputGroup grid={1/2}>
+  front
+  <Input />
+  end
+</InputGroup>
+
+<InputGroup grid={1/2}>
+  <Icon icon="email" />
+  <Input placeholder="email" />
+</InputGroup>
+
+<InputGroup grid={1/2}>
+  <Input placeholder="button" />
+  <Button status="primary">button</Button>
+</InputGroup>
+        </Example>
+
         <p>更多示例见 <a href="#/formControl">FormControl</a></p>
       </div>
     </div>

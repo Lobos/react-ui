@@ -21,6 +21,7 @@
   display: block;
   line-height: $tree-line-height;
   overflow: hidden;
+  white-space: nowrap;
 
   > * {
     vertical-align: top;

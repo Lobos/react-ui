@@ -7,6 +7,7 @@ export { default as Datetime } from './Datepicker';
 export { default as DatepickerPair } from './Datepicker/Pair';
 export { default as Icon } from './Icon';
 export { default as Input } from './Input';
+export { default as InputGroup } from './InputGroup';
 export { default as Textarea } from './Textarea';
 export { default as Radio } from './Radio';
 export { default as RadioGroup } from './RadioGroup';

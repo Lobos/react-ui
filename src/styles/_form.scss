@@ -33,6 +33,7 @@
 
   :local(.control) {
     display: inline-block;
+    position: relative;
     
     :local(.hintText) {
       display: none;
@@ -40,6 +41,31 @@
 
     :local(.dangerText) {
       display: block;
+      position: absolute;
+      padding: 0.5rem 1rem;
+      color: $state-danger-text;
+      background: $state-danger-bg;
+      border: solid 1px $state-danger-border;
+      border-radius: 0.4rem;
+      width: 15rem;
+      left: 0;
+      bottom: 100%;
+      margin-bottom: 0.6rem;
+      z-index: $zindex-dropdown-backdrop;
+      @include box-shadow($thumbnail-box-shadow);
+
+      &::before {
+        content: '';
+        border: inherit;
+        background: inherit;
+        padding: 0.3rem;
+        transform: rotate(45deg);
+        position: absolute;
+        left: 1rem;
+        bottom: -0.4rem;
+        border-top: 0;
+        border-left: 0;
+      }
     }
   }
 }

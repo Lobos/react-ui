@@ -4,7 +4,7 @@ import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
 import Refetch from 'refetch';
-const {Form, FormControl, Button, FormSubmit, Icon, Input, Datepicker, DatepickerPair, RadioGroup, FormItem} = global.uiRequire();
+const {Form, FormControl, Button, FormSubmit, Icon, Input, InputGroup, Datepicker, DatepickerPair, RadioGroup, FormItem} = global.uiRequire();
 
 const HEARTS = [
   <Icon size={2} icon="favorite-outline" style={{color: 'red'}} />,
@@ -87,10 +87,10 @@ module.exports = class extends React.Component {
     max={6} />
 
   <FormControl label="email">
-    <span className="rct-input-group">
-      <span className="addon"><Icon icon="email" /></span>
+    <InputGroup grid={1/2}>
+      <Icon icon="email" />
       <Input name="email" type="email" />
-    </span>
+    </InputGroup>
   </FormControl>
 
   <FormControl grid={{width:13/24}}

@@ -1,13 +1,13 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import { PropTypes, createElement } from 'react';
 import classnames from 'classnames';
 import { getGrid } from './utils/grids';
 
 import Styles from './styles/_buttons.scss';
 
 export default function Button (props) {
-  let { children, status, size, grid, className, ...others } = props;
+  let { children, status, size, grid, tag, className, ...others } = props;
 
   className = classnames(
     className,
@@ -17,11 +17,14 @@ export default function Button (props) {
     Styles[status]
   );
 
+  return createElement(tag, { className, ...others }, children);
+  /*
   return (
     <button {...others} className={className}>
       { children }
     </button>
   );
+ */
 };
 
 Button.propTypes = {
@@ -40,5 +43,6 @@ Button.propTypes = {
 Button.defaultProps = {
   size: 'middle',
   status: 'secondary',
+  tag: 'button',
   type: 'button'
 };
