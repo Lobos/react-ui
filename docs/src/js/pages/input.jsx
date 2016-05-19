@@ -51,6 +51,18 @@ module.exports = () => {
         </Example>
 
         <h2 className="subhead">InputGroup</h2>
+        <Code>
+{`<InputGroup
+  className="string"
+  size="string"        // 'large|middle|small', default value is 'middle'
+  grid={{width, offset, responsive}} // 宽度，详见Grid
+>
+  'string'             // addon text
+  <Input />            // Input Element
+  <Button />           // Button Element
+</InputGroup>`}
+        </Code>
+
         <Example>
 <InputGroup grid={1/2}>
   text
@@ -77,6 +89,28 @@ module.exports = () => {
   <Input placeholder="button" />
   <Button status="primary">button</Button>
 </InputGroup>
+        </Example>
+
+        <h2 className="subhead">InputGroup size</h2>
+        <Example>
+<InputGroup size="large">
+  large
+  <Input placeholder="large input" />
+  <Button status="primary">button</Button>
+</InputGroup>
+
+<InputGroup size="middle" grid={3/4}>
+  middle
+  <Input placeholder="middle input" />
+  <Button status="primary">button</Button>
+</InputGroup>
+
+<InputGroup size="small" grid={1/2}>
+  small
+  <Input placeholder="small input" />
+  <Button status="primary">button</Button>
+</InputGroup>
+
         </Example>
 
         <p>更多示例见 <a href="#/formControl">FormControl</a></p>

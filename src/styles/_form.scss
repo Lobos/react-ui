@@ -13,10 +13,6 @@
  
   :local(.control) {
     margin-left: $form-aligned-control-margin;
-
-    :local(.dangerText), :local(.hintText) {
-      display: block;
-    }
   }
 }
 
@@ -103,6 +99,10 @@
 
     :local(.button) {
       margin-right: $form-inline-control-margin;
+    }
+
+    :local(.dangerText), :local(.hintText) {
+      display: block;
     }
   }
 }

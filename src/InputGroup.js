@@ -9,18 +9,29 @@ import Button from './Button';
 import InputStyles from './styles/_input-group.scss';
 
 export default function InputGroup (props) {
-  let className = classnames(InputStyles.group, getGrid(props.grid));
+  const { size, grid } = props;
+  let className = classnames(
+    InputStyles.group,
+    InputStyles[size],
+    getGrid(grid)
+  );
 
   const children = Children.map(props.children, (child) => {
     let type = child ? child.type : null;
 
     if (type === Input) {
-      return cloneElement(child, { className: classnames(props.className, InputStyles.input) });
+      return cloneElement(child, {
+        size,
+        className: classnames(props.className, InputStyles.input)
+      });
     } else if (type === Button) {
-      className = classnames(className, InputStyles.groupBtn);
-      return cloneElement(child, { tag: 'a', className: classnames(props.className, InputStyles.btn) });
+      return cloneElement(child, {
+        tag: 'a',
+        size,
+        className: classnames(props.className, InputStyles.btn)
+      });
     } else {
-      return <div className={InputStyles.addon}>{child}</div>;
+      return <div className={classnames(InputStyles.addon, InputStyles[size])}>{child}</div>;
     }
   });
 
@@ -33,5 +44,10 @@ InputGroup.propTypes = {
   grid: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.object
-  ])
+  ]),
+  size: PropTypes.oneOf(['large', 'middle', 'small'])
+};
+
+InputGroup.defaultProps = {
+  size: 'middle'
 };
