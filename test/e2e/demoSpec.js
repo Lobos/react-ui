@@ -6,6 +6,6 @@ describe('what?', () => {
 
     expect(title).to.be.equal('React ui docs')
 
-    console.log('we gonna do some e2e tests for table or tree !')
+    console.log('we gonna do some e2e tests for table or tree !!')
   })
 })

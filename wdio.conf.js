@@ -27,7 +27,7 @@ exports.config = {
   // https://docs.saucelabs.com/reference/platforms-configurator
   //
   capabilities: [{
-    browserName: 'firefox'
+    browserName: 'chrome'
   }],
   //
   // ===================
@@ -87,7 +87,8 @@ exports.config = {
   // The following are supported: dot (default), spec and xunit
   // see also: http://webdriver.io/guide/testrunner/reporters.html
   reporter: 'spec',
-
+  // Services
+  services: ['selenium-standalone'],
   //
   // =====
   // Hooks
