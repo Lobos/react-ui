@@ -28,7 +28,7 @@ module.exports = {
           path.resolve(__dirname, 'node_modules/refetch')
         ]
       },
-    
+
       {
         test: /\.(css|less)$/,
         loaders: ['style-loader', 'css-loader?localIdentName=[local]', 'postcss-loader', 'less-loader']
