@@ -2,10 +2,10 @@
 
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import Overlay from '../Overlay';
 import Modal, { ZINDEX } from './Modal';
 import { isEmpty } from '../utils/objects';
 import { removeItem } from '../utils/array';
+import Transition from '../Transition';
 
 import ModalStyles from '../styles/_modal.scss';
 
@@ -70,16 +70,16 @@ export default class extends Component {
     let mlen = this.state.ids.length;
 
     let className = classnames(
-      ModalStyles.container,
-      !isEmpty(this.state.modals) && ModalStyles.open
+      ModalStyles.container
     );
 
     return (
-      <div className={className}>
-        <Overlay style={{zIndex: ZINDEX + mlen - 1}}
-          className={classnames({active: !isEmpty(this.state.modals)})} />
-        { this.renderModals() }
-      </div>
+      <Transition act={isEmpty(this.state.modals) ? 'leave' : 'enter'} duration={333} tf="ease-out">
+        <div className={className}>
+          <div className={ModalStyles.overlay} style={{ zIndex: ZINDEX + mlen - 1 }} />
+          { this.renderModals() }
+        </div>
+      </Transition>
     );
   }
 }

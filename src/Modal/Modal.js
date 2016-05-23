@@ -6,12 +6,14 @@ import classnames from 'classnames';
 import Button from '../Button';
 import { CLOSE } from '../svgs';
 import { ArrayOrObject, StringOrNumber, StringOrElement } from '../utils/proptypes';
+import pureRender from '../mixins/PureRender';
+import { compose } from '../utils/compose';
 
 import ModalStyles from '../styles/_modal.scss';
 
 export const ZINDEX = 1100;
 
-export default class Modal extends React.Component {
+class Modal extends React.Component {
   constructor (props) {
     super(props);
 
@@ -105,3 +107,5 @@ Modal.propTypes = {
   padding: StringOrNumber,
   width: StringOrNumber
 };
+
+export default compose(pureRender)(Modal);

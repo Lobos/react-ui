@@ -8,15 +8,18 @@
   bottom: 0;
   left: 0;
   z-index: $zindex-modal;
-  display: none;
   overflow: hidden;
   // Prevent Chrome on Windows from adding a focus outline. For details, see
   // https://github.com/twbs/bootstrap/pull/10951.
   outline: 0;
   -webkit-overflow-scrolling: touch;
 
-  &:local(.open) {
-    display: block;
+  &.enter {
+    opacity: 1;
+  }
+
+  &.leave {
+    opacity: 0;
   }
 
   :local(.inner) {
@@ -77,4 +80,13 @@
   :local(button) {
     margin-left: .5rem;
   }
+}
+
+:local(.overlay) {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }

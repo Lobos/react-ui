@@ -167,7 +167,7 @@ Modal.close(id);
           <Cn>关闭指定的Modal，id为open方法返回，不填时关闭最上层Modal</Cn>
           <En>Close Modal by id, if id is undefined, will close the top level Modal. </En>
 
-          <h2 className="subhead">Open Modals on an other Modal</h2>
+          <h2 className="subhead">Open Modals on the other Modal</h2>
           <Example>
 <Button status="primary" onClick={this.multOpen}>mult open</Button>
           </Example>
