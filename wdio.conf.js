@@ -80,7 +80,8 @@ exports.config = {
   // Cucumber: `$ npm install cucumber`
   framework: 'mocha',
   mochaOpts: {
-    ui: 'bdd'
+    ui: 'bdd',
+    compilers: ['js:babel-core/register']
   },
   //
   // Test reporter for stdout.
@@ -106,9 +107,8 @@ exports.config = {
   // variables like `browser`. It is the perfect place to define custom commands.
   before: function () {
     // do something
-    var chai = require('chai')
-    global.expect = chai.expect
-    chai.Should()
+
+    global.expect = require('chai').expect
   },
   //
   // Gets executed after all tests are done. You still have access to all global variables from
