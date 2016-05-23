@@ -13,6 +13,7 @@ import Transition from '../Transition';
 
 import Styles from '../styles/_datepicker.scss';
 import InputStyles from '../styles/_input.scss';
+import FormStyles from '../styles/_form.scss';
 
 import { getLang, setLang } from '../lang';
 setLang('datetime');
@@ -418,7 +419,7 @@ class Datetime extends ClickAway(Component) {
   }
 
   render () {
-    const { type, readOnly, placeholder } = this.props;
+    const { type, readOnly, placeholder, hasError } = this.props;
     let { stage, value, open, popup } = this.state;
 
     let className = classnames(
@@ -434,7 +435,7 @@ class Datetime extends ClickAway(Component) {
 
     return (
       <div ref="datetime" onClick={this.open} className={className}>
-        <div className={classnames(Styles.control, InputStyles.input)}>
+        <div className={classnames(Styles.control, InputStyles.input, hasError && FormStyles.dangerInput)}>
           {
             text ? <span>{text}</span>
               : <span className={InputStyles.placeholder}>{placeholder}&nbsp;</span>
@@ -455,6 +456,7 @@ class Datetime extends ClickAway(Component) {
 Datetime.propTypes = {
   className: PropTypes.string,
   format: PropTypes.string,
+  hasError: PropTypes.bool,
   max: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

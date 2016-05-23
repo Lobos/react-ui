@@ -12,12 +12,14 @@ module.exports = class extends Component {
     this.state = {
       index: 0
     };
+
+    this.multOpen = this.multOpen.bind(this);
   }
 
   multOpen () {
-    let index = this.state.index + 1,
-        width = Math.ceil((Math.random() + 1) * 400),
-        ps = [];
+    let index = this.state.index + 1;
+    let width = Math.ceil((Math.random() + 1) * 400);
+    let ps = [];
 
     for (var i = 1; i <= index; i++) {
       ps.push(<p key={i}>{`第 ${i} 层Modal`}</p>);
@@ -29,17 +31,15 @@ module.exports = class extends Component {
       content: (
         <div>
           {ps}
-          <a style={{marginRight: 20}} onClick={this.multOpen.bind(this)}>弹出新的Modal</a>
-          <a style={{marginRight: 20}} onClick={() => Modal.alert('alert')}>alert</a>
-          <a onClick={() => Modal.close()}>关闭</a>
+          <a style={{marginRight: 20}} onClick={this.multOpen}>Open new Modal</a>
+          <a style={{marginRight: 20}} onClick={() => Modal.alert('alert')}>Alert</a>
+          <a onClick={() => Modal.close()}>Close</a>
         </div>
       ),
       onClose: () => {
         this.setState({ index: index - 1 });
       },
-      buttons: {
-        '关闭': true
-      }
+      buttons: { Close: true }
     };
     Modal.open(options);
     this.setState({ index });
@@ -50,7 +50,7 @@ module.exports = class extends Component {
       <div>
         <div className="header">
           <h1>Modal</h1>
-          <h2>对话框</h2>
+          <Cn><h2>对话框</h2></Cn>
         </div>
 
         <div className="content">
@@ -73,22 +73,22 @@ module.exports = class extends Component {
           </Code>
 
           <Example>
-<Modal width={700} header="一个弹出表单"
+<Modal width={700} header="Form"
   isOpen={this.state.modalIsOpen}
   onClose={() => this.setState({ modalIsOpen: false })}
   buttons={{
-    '确定': 'submit',
-    '取消': true
+    'Submit': 'submit',
+    'Cancel': true
   }}>
   <div>
     <Form onSubmit={
       (data) => {
         alert(JSON.stringify(data));
-        this.setState({ modalIsOpen: false })
+        this.setState({ modalIsOpen: false });
       }} layout="aligned">
-      <FormControl name="name" grid={7/8} required={true} label="姓名" type="text" />
-      <FormControl name="birthday" required={true} label="生日" type="date" />
-      <FormControl name="description" grid={7/8} label="简介" type="textarea" rows={6} />
+      <FormControl name="name" grid={7 / 8} required label="Name" type="text" />
+      <FormControl name="birthday" required label="Birthday" type="date" />
+      <FormControl name="description" grid={7 / 8} label="Description" type="textarea" rows={6} />
     </Form>
   </div>
 </Modal>
@@ -122,19 +122,18 @@ Modal.close(id);
     header: 'New Form',
     width: 700,
     buttons: {
-      '提交': 'submit',
-      '取消': true
+      'Submit': 'submit',
+      'Cancel': true
     },
     content: (
       <Form onSubmit={
         (data) => {
           alert(JSON.stringify(data));
-          {/* close by id */}
           Modal.close(id);
         }} layout="aligned">
-        <FormControl name="name" grid={7/8} required={true} label="姓名" type="text" />
-        <FormControl name="birthday" required={true} label="生日" type="date" />
-        <FormControl name="description" grid={7/8} label="简介" type="textarea" rows={6} />
+        <FormControl name="name" grid={7 / 8} required label="姓名" type="text" />
+        <FormControl name="birthday" required label="生日" type="date" />
+        <FormControl name="description" grid={7 / 8} label="简介" type="textarea" rows={6} />
       </Form>
     )
   });
@@ -145,7 +144,7 @@ Modal.close(id);
           <Cn>快捷方式， <em>content</em> 为 <em>string</em> 或者 <em>ReactElement</em></Cn>
           <Example>
 <Button status="primary"
-  onClick={() => Modal.alert('这是一个alert', 'title')}>
+  onClick={() => Modal.alert('Some message.', 'Title')}>
   alert example
 </Button>
           </Example>
@@ -165,45 +164,45 @@ Modal.close(id);
           </Example>
 
           <h2 className="subhead">Modal.close(id)</h2>
-          <div>关闭指定的Modal，id为open方法返回，不填时关闭最上层Modal</div>
+          <Cn>关闭指定的Modal，id为open方法返回，不填时关闭最上层Modal</Cn>
+          <En>Close Modal by id, if id is undefined, will close the top level Modal. </En>
 
-          <h2 className="subhead">多层弹出</h2>
+          <h2 className="subhead">Open Modals on an other Modal</h2>
           <Example>
-<Button status="primary" onClick={
-  () => {
-    let index = this.state.index + 1,
-        width = Math.ceil((Math.random() + 1) * 400),
-        ps = [];
-
-    for (var i = 1; i <= index; i++) {
-      ps.push(<p key={i}>{'第 ' + i + ' 层Modal'}</p>);
-    }
-
-    let options = {
-      header: '第 ' + index + ' 层Modal',
-      width: width,
-      content: (
-        <div>
-          {ps}
-          <a style={{marginRight: 20}} onClick={this.multOpen.bind(this)}>弹出新的Modal</a>
-          <a style={{marginRight: 20}} onClick={() => Modal.alert('alert')}>alert</a>
-          <a onClick={() => Modal.close()}>关闭</a>
-        </div>
-      ),
-      onClose: () => {
-        this.setState({ index: index - 1 });
-      },
-      buttons: {
-        '关闭': true
-      }
-    };
-    Modal.open(options);
-    this.setState({ index });
-  }
-}>mult open</Button>
+<Button status="primary" onClick={this.multOpen}>mult open</Button>
           </Example>
+          <Code>
+{`multOpen () {
+  let index = this.state.index + 1;
+  let width = Math.ceil((Math.random() + 1) * 400);
+  let ps = [];
+
+  for (var i = 1; i <= index; i++) {
+    ps.push(<p key={i}>the {i} Modal</p>);
+  }
+
+  let options = {
+    header: 'Modal',
+    width: width,
+    content: (
+      <div>
+        {ps}
+        <a style={{marginRight: 20}} onClick={this.multOpen}>Open new Modal</a>
+        <a style={{marginRight: 20}} onClick={() => Modal.alert('alert')}>Alert</a>
+        <a onClick={() => Modal.close()}>Close</a>
+      </div>
+    ),
+    onClose: () => {
+      this.setState({ index: index - 1 });
+    },
+    buttons: {'Close': true}
+  };
+  Modal.open(options);
+  this.setState({ index });
+}`}
+          </Code>
         </div>
       </div>
     );
   }
-}
+};

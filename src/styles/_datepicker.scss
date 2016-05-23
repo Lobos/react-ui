@@ -6,6 +6,7 @@
   position: relative;
   width: $datepicker-full-width;
   font-size: $datepicker-font-size;
+  color: $input-color;
 
   :local(.control) {
     cursor: pointer;

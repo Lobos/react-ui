@@ -1,16 +1,17 @@
 'use strict';
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import Button from '../Button';
 import { CLOSE } from '../svgs';
+import { ArrayOrObject, StringOrNumber, StringOrElement } from '../utils/proptypes';
 
 import ModalStyles from '../styles/_modal.scss';
 
 export const ZINDEX = 1100;
 
-export default class extends React.Component {
+export default class Modal extends React.Component {
   constructor (props) {
     super(props);
 
@@ -32,33 +33,45 @@ export default class extends React.Component {
       return undefined;
     }
 
-    let btns = Object.keys(buttons).map((btn, j) => {
-      let func = buttons[btn];
-      let status = j === 0 ? 'primary' : undefined;
+    let btns = [];
+    if (!Array.isArray(buttons)) {
+      Object.keys(buttons).forEach((key) => {
+        btns.push({ content: key, onClick: buttons[key] });
+      });
+    } else {
+      btns = buttons;
+    }
+
+    btns = btns.map((btn, i) => {
+      if (typeof btn === 'string') {
+        btn = { content: btn, onClick: true };
+      }
+      let { content, onClick } = btn;
+      let status = i === 0 ? 'primary' : undefined;
       let handle = () => {
-          if (func === true) {
+          if (onClick === true) {
             this.handleClose();
-          } else if (func === 'submit') {
+          } else if (onClick === 'submit') {
             let form = findDOMNode(this).querySelector('form');
             if (form) {
               let event = document.createEvent('HTMLEvents');
-              event.initEvent('submit');
+              event.initEvent('submit', true, true);
               form.dispatchEvent(event);
             }
           } else {
-            if (func()) {
+            if (onClick()) {
               this.handleClose();
             }
           }
         };
-      return <Button status={status} key={btn} onClick={handle}>{btn}</Button>;
+      return <Button status={status} key={i} onClick={handle}>{content}</Button>;
     });
 
     return <div className={ModalStyles.footer}>{btns}</div>;
   }
 
   render () {
-    const { width, content, index, padding, onClose } = this.props;
+    const { width, content, index, padding } = this.props;
 
     let className = classnames(
       ModalStyles.modal
@@ -80,3 +93,15 @@ export default class extends React.Component {
     );
   }
 }
+
+Modal.propTypes = {
+  buttons: ArrayOrObject,
+  clickaway: PropTypes.bool,
+  content: StringOrElement,
+  header: StringOrElement,
+  id: PropTypes.string,
+  index: PropTypes.number,
+  onClose: PropTypes.func,
+  padding: StringOrNumber,
+  width: StringOrNumber
+};

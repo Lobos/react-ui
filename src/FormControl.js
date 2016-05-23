@@ -139,7 +139,7 @@ class FormControl extends Component {
   }
 
   setItems (props) {
-    let { label, layout, items, children, ...otherProps} = props;
+    let { label, items, children, ...otherProps} = props;
     let hints = [];
 
     this.required = false;

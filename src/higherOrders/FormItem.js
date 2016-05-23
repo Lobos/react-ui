@@ -151,7 +151,7 @@ export const enhance = (ComposedComponent) => {
     }
 
     render () {
-      let { className, onChange, value, style, ...props } = this.props;
+      let { className, value, style, ...props } = this.props;
 
       className = classnames(
         className,
@@ -167,6 +167,7 @@ export const enhance = (ComposedComponent) => {
         <ComposedComponent
           ref={this.bindComponent}
           {...props}
+          hasError={this.state.hasError}
           onChange={this.handleChange}
           style={style}
           value={value}
