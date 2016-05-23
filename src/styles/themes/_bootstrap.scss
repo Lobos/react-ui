@@ -943,3 +943,7 @@ $tree-indicator-border-width:                1px;
 $tree-line-icon-mv:                          url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Cg fill='none' stroke='%23999999' stroke-width='1'%3E%3Cpath  stroke-dasharray='1,1' d='M10 0 l0 22'/%3E%3C/g%3E%3C/svg%3E");
 $tree-line-icon-mh:                          url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Cg fill='none' stroke='%23999999' stroke-width='1'%3E%3Cpath  stroke-dasharray='1,1' d='M10 0 l0 22 M10 11 l10 0'/%3E%3C/g%3E%3C/svg%3E");
 $tree-line-icon-ml:                          url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Cg fill='none' stroke='%23999999' stroke-width='1'%3E%3Cpath  stroke-dasharray='1,1' d='M10 0 l0 10 M10 11 l10 0'/%3E%3C/g%3E%3C/svg%3E");
+
+// modal =======================================================================
+$modal-close-size:                           1rem;
+$modal-close-padding:                        $modal-title-padding;

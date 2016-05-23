@@ -11,10 +11,6 @@
   },
   "parser": "babel-eslint",
   "rules": {
-    "babel/generator-star-spacing": 1,
-    "babel/object-shorthand": 1,
-    "babel/arrow-parens": 1,
-    "babel/no-await-in-loop": 1,
     "react/jsx-boolean-value": 1,
     "react/jsx-key": 1,
     "react/jsx-no-duplicate-props": 1,
@@ -146,7 +142,6 @@
     "yoda": [2, "never"]
   },
   "plugins": [
-    "babel",
     "react"
   ]
 }

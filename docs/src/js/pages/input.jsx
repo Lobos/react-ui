@@ -110,7 +110,6 @@ module.exports = () => {
   <Input placeholder="small input" />
   <Button status="primary">button</Button>
 </InputGroup>
-
         </Example>
 
         <p>更多示例见 <a href="#/formControl">FormControl</a></p>

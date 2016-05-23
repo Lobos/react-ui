@@ -3,6 +3,7 @@
 import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
+import { Cn, En } from '../Language';
 const {Button, Modal, Form, FormControl} = global.uiRequire();
 
 module.exports = class extends Component {
@@ -55,17 +56,18 @@ module.exports = class extends Component {
         <div className="content">
           <Code>
 {`<Modal
-  clickaway: {bool},         // 为 true 时，点击页面空白部分关闭Modal，默认值为 false
-  width={700}                // 宽度，默认值为 500
-  header={string|element}    // 标题，值为 string 或者 ReactElement，可为空
-  isOpen={bool}              // 是否打开
-  onClose={function}         // 关闭Modal时触发
+  clickaway={bool}         // 为 true 时，点击页面空白部分关闭Modal，默认值为 false
+  width={int|string}       // default is '35rem'
+  padding={string}         // content padding, default is '1rem'
+  header={string|element}  // 标题，值为 string 或者 ReactElement，可为空
+  isOpen={bool}            // 是否打开
+  onClose={function}       // 关闭Modal时触发
   buttons: {
-    {text}: func|string      // text 为按钮文字，func 返回 true 或者值为 true，关闭 Modal
-                             // func 可以设置为string，当func === 'submit' 时，会触发children下的form的submit事件
+    {text}: func|string    // text 为按钮文字，func 返回 true 或者值为 true，关闭 Modal
+                           // func 可以设置为string，当func === 'submit' 时，会触发children下的form的submit事件
   }
 >
-  {children}                 // 内容，任意对象
+  {children}               // 内容，任意对象
 </Modal>
 `}
           </Code>
@@ -100,7 +102,8 @@ module.exports = class extends Component {
   clickaway: {bool},         // 为 true 时，点击页面空白部分关闭Modal，默认值为 false
   header: {string|element},  // 标题，值为 string 或者 ReactElement，可为空
   content: {string|element}, // 内容，值为 string 或者 ReactElement，必填
-  width: {int|string},       // 宽度，默认值为 500
+  width: {int|string},       // default is '35rem'
+  padding: {int|string},     // content padding, default is '1rem'
   onClose: function,         // 当Modal关闭时触发
   buttons: {
     {text}: func|string      // text 为按钮文字，func 返回 true 或者值为 true，关闭 Modal
@@ -114,32 +117,37 @@ Modal.close(id);
 
           <h2 className="subhead">Modal.open</h2>
           <Example>
-<Button status="primary" onClick={() => Modal.open({
-  header: 'New Form',
-  width: 700,
-  buttons: {
-    '提交': 'submit',
-    '取消': true
-  },
-  content: (
-    <Form onSubmit={
-      (data) => {
-        alert(JSON.stringify(data));
-        {/*关闭最上层Modal*/}
-        Modal.close();
-      }} layout="aligned">
-      <FormControl name="name" grid={7/8} required={true} label="姓名" type="text" />
-      <FormControl name="birthday" required={true} label="生日" type="date" />
-      <FormControl name="description" grid={7/8} label="简介" type="textarea" rows={6} />
-    </Form>
-  )
-})}>open form</Button>
+<Button status="primary" onClick={() => {
+  let id = Modal.open({
+    header: 'New Form',
+    width: 700,
+    buttons: {
+      '提交': 'submit',
+      '取消': true
+    },
+    content: (
+      <Form onSubmit={
+        (data) => {
+          alert(JSON.stringify(data));
+          {/* close by id */}
+          Modal.close(id);
+        }} layout="aligned">
+        <FormControl name="name" grid={7/8} required={true} label="姓名" type="text" />
+        <FormControl name="birthday" required={true} label="生日" type="date" />
+        <FormControl name="description" grid={7/8} label="简介" type="textarea" rows={6} />
+      </Form>
+    )
+  });
+}}>open form</Button>
           </Example>
 
-          <h2 className="subhead">Modal.alert(content)</h2>
-          <div>快捷方式， <em>content</em> 为 <em>string</em> 或者 <em>ReactElement</em></div>
+          <h2 className="subhead">Modal.alert(content, title)</h2>
+          <Cn>快捷方式， <em>content</em> 为 <em>string</em> 或者 <em>ReactElement</em></Cn>
           <Example>
-<Button status="primary" onClick={() => Modal.alert('这是一个alert')}>alert example</Button>
+<Button status="primary"
+  onClick={() => Modal.alert('这是一个alert', 'title')}>
+  alert example
+</Button>
           </Example>
 
           <h2 className="subhead">Modal.confirm(content, callback)</h2>

@@ -1,0 +1,80 @@
+@import "mixins";
+@import "themes/bootstrap";
+
+:local(.container) {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $zindex-modal;
+  display: none;
+  overflow: hidden;
+  // Prevent Chrome on Windows from adding a focus outline. For details, see
+  // https://github.com/twbs/bootstrap/pull/10951.
+  outline: 0;
+  -webkit-overflow-scrolling: touch;
+
+  &:local(.open) {
+    display: block;
+  }
+
+  :local(.inner) {
+    width: 100%;
+    height: 100%;
+    padding: 5rem;
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
+  }
+}
+
+:local(.modal) {
+  position: relative;
+  margin: auto;
+  background-color: $modal-content-bg;
+  background-clip: padding-box;
+  border: $modal-content-border-width solid $modal-content-border-color;
+  @include border-radius($border-radius-lg);
+  @include box-shadow($modal-content-xs-box-shadow);
+  // Remove focus outline from opened modal
+  outline: 0;
+}
+
+:local(.header) {
+  padding: $modal-title-padding;
+  border-bottom: $modal-header-border-width solid $modal-header-border-color;
+  font-size: $font-size-h5;
+  font-weight: $headings-font-weight;
+  @include clearfix;
+}
+
+:local(.close) {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: $modal-close-padding;
+  svg {
+    width: $modal-close-size;
+    height: $modal-close-size;
+
+    path {
+      fill: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &:hover svg path {
+    fill: $brand-primary;
+  }
+}
+
+:local(.footer) {
+  padding: $modal-inner-padding;
+  text-align: right; // right align buttons
+  border-top: $modal-footer-border-width solid $modal-footer-border-color;
+
+  :local(button) {
+    margin-left: .5rem;
+  }
+}
