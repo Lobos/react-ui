@@ -9,7 +9,8 @@
     "docs": "env NODE_ENV=production webpack --config webpack.config.docs.js",
     "build": "env NODE_ENV=production webpack --config webpack.config.prod.js",
     "lint": "./node_modules/.bin/eslint src && ./node_modules/.bin/eslint docs/src",
-    "test": "env NODE_ENV=test ./node_modules/.bin/karma start"
+    "test": "env NODE_ENV=test ./node_modules/.bin/karma start",
+    "test:e2e": "gulp test:e2e"
   },
   "keywords": [
     "react ui",
@@ -55,6 +56,7 @@
     "express": "~4.13.4",
     "extract-text-webpack-plugin": "~1.0.1",
     "file-loader": "~0.8.5",
+    "gulp-webdriver": "^2.0.1",
     "history": "~2.0.1",
     "isparta-instrumenter-loader": "^1.0.0",
     "karma": "~0.13.22",
@@ -95,6 +97,8 @@
     "style-loader": "~0.13.0",
     "underscore": "^1.8.3",
     "url-loader": "~0.5.7",
+    "wdio-mocha-framework": "^0.2.13",
+    "wdio-selenium-standalone-service": "0.0.3",
     "webpack": "~1.12.14",
     "webpack-dev-middleware": "~1.5.1",
     "webpack-hot-middleware": "~2.10.0"
