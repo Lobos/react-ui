@@ -6,4 +6,8 @@ export default class Page {
   static open (path) {
     browser.url('http://localhost:3000/#/' + path)
   }
+
+  static pause (time) {
+    browser.pause(time = 3000)
+  }
 }
