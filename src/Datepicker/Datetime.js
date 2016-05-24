@@ -10,6 +10,7 @@ import TimeSet from './TimeSet';
 import Clock from './Clock';
 import { ANGLE_LEFT, ANGLE_RIGHT, ANGLE_LEFT_DOUBLE, ANGLE_RIGHT_DOUBLE } from '../svgs';
 import Transition from '../Transition';
+import { PropDatetime } from '../utils/proptypes';
 
 import Styles from '../styles/_datepicker.scss';
 import InputStyles from '../styles/_input.scss';
@@ -30,7 +31,7 @@ class Datetime extends ClickAway(Component) {
 
     this.state = {
       open: false,
-      popup: false,
+      dropup: false,
       stage: props.type === TIME ? 'clock' : 'day',
       timeStage: null,
       current: datetime.convert(value, new Date()),
@@ -123,7 +124,7 @@ class Datetime extends ClickAway(Component) {
     }, () => {
       let height = getOuterHeight(findDOMNode(this.refs.datepicker));
       this.setState({
-        popup: overView(this.refs.datetime, height)
+        dropup: overView(this.refs.datetime, height)
       });
     });
   }
@@ -420,7 +421,7 @@ class Datetime extends ClickAway(Component) {
 
   render () {
     const { type, readOnly, placeholder, hasError } = this.props;
-    let { stage, value, open, popup } = this.state;
+    let { stage, value, open, dropup } = this.state;
 
     let className = classnames(
       this.props.className,
@@ -428,7 +429,7 @@ class Datetime extends ClickAway(Component) {
       type !== DATETIME && Styles.short,
       readOnly ? InputStyles.disabled : (open && Styles.open),
       type === TIME && Styles.timepicker,
-      popup && Styles.popup
+      dropup && Styles.dropup
     );
 
     let text = value ? this.formatValue(value) : '';
@@ -457,16 +458,8 @@ Datetime.propTypes = {
   className: PropTypes.string,
   format: PropTypes.string,
   hasError: PropTypes.bool,
-  max: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.object
-  ]),
-  min: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.object
-  ]),
+  max: PropDatetime,
+  min: PropDatetime,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,

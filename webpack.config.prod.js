@@ -31,13 +31,13 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx?$/, loaders: ['babel'] },
-      { test: /\.scss$/, loaders: ['style-loader', 'css-loader?localIdentName=[hash:base64:8]', 'postcss-loader', 'sass-loader'] }
+      { test: /\.scss$/, loaders: ['style-loader', 'css-loader?modules&localIdentName=[hash:base64:8]', 'postcss-loader', 'sass-loader'] }
     ],
     preLoaders: [
       { test: /\.scss$/, loader: 'rctui-theme-loader?theme=' }
     ]
   },
-  postcss: function(){
-    return [autoprefixer, precss];
+  postcss: function () {
+    return [autoprefixer({ browsers: ['> 1%', 'IE 9'] }), precss];
   }
 };

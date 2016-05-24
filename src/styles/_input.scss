@@ -1,11 +1,11 @@
 @import "mixins";
 @import "themes/bootstrap";
 
-:local(.placeholder) {
+.placeholder {
   color: $input-color-placeholder;
 }
 
-:local(.input) {
+.input {
   padding: $input-padding-y $input-padding-x;
   font-size: $font-size-base;
   line-height: $input-line-height;
@@ -31,26 +31,26 @@
   }
 }
 
-:local(.small) {
+.small {
   padding: $input-padding-y-sm $input-padding-x-sm;
   font-size: $font-size-sm;
   @include border-radius($input-border-radius-sm);
 }
 
-:local(.large) {
+.large {
   padding: $input-padding-y-lg $input-padding-x-lg;
   font-size: $font-size-lg;
   @include border-radius($input-border-radius-lg);
 }
 
-:local(.disabled),
-:local(.readonly),
-:local(.input):disabled,
-:local(.disabled) :local(.input) {
+.disabled,
+.readonly,
+.input:disabled,
+.disabled .input {
   cursor: $cursor-disabled;
   background-color: $input-bg-disabled;
 }
 
-:local(.hasError) {
+.hasError {
   border-color: $brand-danger;
 }

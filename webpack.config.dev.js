@@ -42,7 +42,7 @@ module.exports = {
         path.resolve(__dirname, 'node_modules/react-language')
       ] },
       { test: /\.(css|less)$/, loaders: ['style-loader', 'css-loader?localIdentName=[local]-[hash:base64:5]', 'postcss-loader', 'less-loader'] },
-      { test: /\.scss$/, loaders: ['style-loader', 'css-loader?localIdentName=[local]-[hash:base64:5]', 'postcss-loader', 'sass-loader'] },
+      { test: /\.scss$/, loaders: ['style-loader', 'css-loader?modules&localIdentName=[local]-[hash:base64:5]', 'postcss-loader', 'sass-loader'] },
       { test: /\.(ttf|eot|woff|woff2|otf|svg)/, loader: 'file-loader?name=./font/[name].[ext]' },
       { test: /\.json$/, loader: 'file-loader?name=./json/[name].json' },
       { test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=10000&name=./images/[name].[ext]' }
@@ -52,8 +52,7 @@ module.exports = {
       { test: /\.jsx?$/, loader: 'rctui-example-loader', include: [path.resolve(__dirname, 'docs')] }
     ]
   },
-  postcss: function(){
-    return [autoprefixer, precss];
+  postcss: function () {
+    return [autoprefixer({ browsers: ['> 1%', 'IE 9'] }), precss];
   }
-
 };

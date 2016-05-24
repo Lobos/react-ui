@@ -80,12 +80,14 @@ export function validate (value, valueType, {
     break;
   }
 
-  if (max && len > max) {
-    return handleError(label, max, `max.${valueType}`, tip);
-  }
+  if (len > 0) {
+    if (max && len > max) {
+      return handleError(label, max, `max.${valueType}`, tip);
+    }
 
-  if (min && len < min) {
-    return handleError(label, min, `min.${valueType}`, tip);
+    if (min && len < min) {
+      return handleError(label, min, `min.${valueType}`, tip);
+    }
   }
 
   return true;

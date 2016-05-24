@@ -1,13 +1,13 @@
 @import "mixins";
 @import "themes/bootstrap";
 
-:local(.select) {
+.select {
   position: relative;
   display: inline-block;
   min-width: 10rem;
   max-width: 100%;
 
-  :local(.control) {
+  .control {
     padding: $input-padding-y ($custom-select-padding-x + $custom-select-indicator-padding) $input-padding-y $custom-select-padding-x;
     vertical-align: middle;
     background: {
@@ -19,15 +19,16 @@
   }
 }
 
-:local(.dropup) {
-  :local(.options) {
+.dropup {
+  .options {
     top: auto;
     bottom: 100%;
     transform-origin: 0 100%;
+    margin-bottom: $dropdown-margin-top;
   }
 }
 
-:local(.result) {
+.result {
   display: inline-block;
   padding-right: 0.25rem;
 
@@ -41,11 +42,11 @@
   }
 }
 
-:local(.open) :local(.result) a {
+.open .result a {
   display: inline;
 }
 
-:local(.filter) {
+.filter {
   padding: $select-option-padding-x $select-option-padding-x 0;
   input {
     width: 100%;
@@ -57,7 +58,7 @@
   }
 }
 
-:local(.options) {
+.options {
   position: absolute;
   top: 100%;
   left: 0;
@@ -71,19 +72,17 @@
   border: $dropdown-border-width solid $dropdown-border-color;
   @include border-radius($border-radius);
   @include box-shadow($dropdown-box-shadow);
+  margin: $dropdown-margin-top 0 0;
   transform-origin: 0 0;
+  transform: scaleY(0);
+  opacity: 0;
 
-  &.leave {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-
-  &.enter {
+  &:global(.enter) {
     transform: scaleY(1);
     opacity: 1;
   }
 
-  :local(.optionsWrap) {
+  .optionsWrap {
     max-height: $select-options-max-height;
     overflow: auto;
     padding: $dropdown-padding-y 0;
@@ -95,7 +94,7 @@
     padding: 0;
     margin: 0; // override default ul
 
-    :local(.option) {
+    .option {
       display: block;
       width: 100%;
       padding: 0 $select-option-padding-x;
@@ -114,7 +113,7 @@
       }
 
       // Active state
-      &:local(.active) {
+      &.active {
         @include plain-hover-focus {
           color: $dropdown-link-active-color;
           text-decoration: none;
@@ -123,21 +122,20 @@
         }
       }
 
-      &:local(.hidden) {
+      &.hidden {
         display: none;
       }
     }
 
-    :local(.absolute) {
+    .absolute {
       position: absolute;
       left: 0;
     }
 
-    :local(.group) {
+    .group {
       display: block;
       padding: 3px $select-option-padding-x;
       color: $input-color-placeholder;
     }
   }
 }
-

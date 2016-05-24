@@ -1,17 +1,17 @@
 @import "mixins";
 @import "themes/bootstrap";
 
-:local(.group) {
+.group {
   padding: $form-group-no-input-padding 0;
 }
 
-:local(.checkbox), :local(.radio) {
+.checkbox, .radio {
   position: relative;
   display: inline-block;
   vertical-align: middle;
   padding-right: 1rem;
 
-  &:local(.noPadding) {
+  &.noPadding {
     padding: 0;
     vertical-align: inherit;
   }
@@ -26,7 +26,7 @@
     vertical-align: middle;
   }
 
-  :local(.indicator) {
+  .indicator {
     width: $custom-control-indicator-size;
     height: $custom-control-indicator-size;
     border: 1px solid $custom-control-indicator-border;
@@ -44,15 +44,15 @@
     transition: 0.1s ease-in-out;
   }
 
-  &:hover :local(.indicator) {
+  &:hover .indicator {
     background-color: $custom-control-hover-indicator-bg;
     border-color: $custom-control-hover-indicator-border;
   }
 
-  input:checked ~ :local(.indicator),
-  &:local(.checked) :local(.indicator),
-  .input:indeterminate ~ :local(.indicator),
-  &:local(.indeterminate) :local(.indicator) {
+  input:checked ~ .indicator,
+  &.checked .indicator,
+  .input:indeterminate ~ .indicator,
+  &.indeterminate .indicator {
     border-color: $custom-control-checked-indicator-border;
     background: {
       size: 100%;
@@ -61,48 +61,48 @@
     }
   }
 
-  input:disabled ~ :local(.indicator),
-  &:local(.disabled) :local(.indicator) {
+  input:disabled ~ .indicator,
+  &.disabled .indicator {
     cursor: $cursor-disabled;
     border-color: $custom-control-indicator-border;
     background-color: $custom-control-disabled-indicator-bg;
   }
 }
 
-:local(.checkbox) {
-  :local(.indicator) {
+.checkbox {
+  .indicator {
     @include border-radius($custom-checkbox-radius);
   }
 
-  input:checked ~ :local(.indicator),
-  &:local(.checked) :local(.indicator) {
+  input:checked ~ .indicator,
+  &.checked .indicator {
     background-image: $custom-checkbox-checked-icon;
   }
 
-  .input:indeterminate ~ :local(.indicator),
-  &:local(.indeterminate) :local(.indicator) {
+  .input:indeterminate ~ .indicator,
+  &.indeterminate .indicator {
     background-image: $custom-checkbox-indeterminate-icon;
   }
 }
 
-:local(.radio) {
-  :local(.indicator) {
+.radio {
+  .indicator {
     @include border-radius($custom-radio-radius);
   }
 
-  input:checked ~ :local(.indicator) {
+  input:checked ~ .indicator {
     background-image: $custom-radio-checked-icon;
   }
 }
 
-:local(.disabled) {
+.disabled {
   color: $custom-control-disabled-description-color;
 }
 
-:local(.block) {
+.block {
   display: block;
 }
 
-:local(.inline) {
+.inline {
   display: inline-block;
 }

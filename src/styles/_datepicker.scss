@@ -1,14 +1,14 @@
 @import "mixins";
 @import "themes/bootstrap";
 
-:local(.datepicker) {
+.datepicker {
   display: inline-block;
   position: relative;
   width: $datepicker-full-width;
   font-size: $datepicker-font-size;
   color: $input-color;
 
-  :local(.control) {
+  .control {
     cursor: pointer;
     padding: $input-padding-y ($input-padding-x + $datepicker-indicator-padding) $input-padding-y $input-padding-x;
     background: $datepicker-bg $datepicker-indicator no-repeat right $datepicker-indicator-padding-x center;
@@ -16,46 +16,49 @@
   }
 }
 
-:local(.popup) {
-  :local(.picker) {
+.dropup {
+  .picker {
     top: auto;
     bottom: 100%;
+    margin-bottom: $dropdown-margin-top;
   }
 }
 
-:local(.picker) {
+.picker {
   background-color: $datepicker-picker-bg;
   border: $dropdown-border-width solid $dropdown-border-color;
-  border-radius: $datepicker-picker-border-radius;
   width: $datepicker-day-size * 7 + $datepicker-picker-padding * 2 + 1rem;
   position: absolute;
   top: 100%;
   left: 0;
   z-index: $zindex-dropdown;
+  @include border-radius($datepicker-picker-border-radius);
+  @include box-shadow($dropdown-box-shadow);
+  margin: $dropdown-margin-top 0 0;
 
-  &.enter {
+  &:global(.enter) {
     opacity: 1;
   }
 
-  &.leave {
+  &:global(.leave) {
     opacity: 0;
   }
 }
 
-:local(.inner), :local(.dayInner), :local(.monthInner), :local(.yearInner) {
+.inner, .dayInner, .monthInner, .yearInner {
   text-align: center;
   padding-bottom: $datepicker-picker-padding;
 }
 
-:local(.yearInner), :local(.monthInner) {
+.yearInner, .monthInner {
   padding: $datepicker-picker-padding 0;
 }
 
-:local(.inner) {
+.inner {
   height: $clock-size + 2rem;
 }
 
-:local(.header) {
+.header {
   position: relative;
   text-align: center;
   margin: $datepicker-header-margin 0;
@@ -101,7 +104,7 @@
   }
 }
 
-:local(.week), :local(.day) {
+.week, .day {
   display: inline-block;
   width: $datepicker-day-size;
   height: $datepicker-day-size;
@@ -109,7 +112,7 @@
   margin: 1px;
 }
 
-:local(.year), :local(.month), :local(.day) {
+.year, .month, .day {
   cursor: pointer;
   display: inline-block;
   line-height: $datepicker-day-size;
@@ -126,34 +129,34 @@
   }
 }
 
-:local(.year) {
+.year {
   width: $datepicker-day-size * 1.85;
   height: $datepicker-day-size;
 }
 
-:local(.month) {
+.month {
   width: $datepicker-day-size * 2.4;
   height: $datepicker-day-size * 1.2;
   line-height: $datepicker-day-size * 1.2;
 }
 
-:local(.day) {
+.day {
   width: $datepicker-day-size;
   height: $datepicker-day-size;
 
-  &:local(.today) {
+  &.today {
     color: $datepicker-day-today-color;
     border-color: $datepicker-day-today-border-color;
     background-color: $datepicker-day-today-bg;
   }
 
-  &:local(.active) {
+  &.active {
     color: $datepicker-day-active-color;
     border-color: $datepicker-day-active-border-color;
     background-color: $datepicker-day-active-bg;
   }
 
-  &:local(.disabled) {
+  &.disabled {
     cursor: $cursor-disabled;
     color: $datepicker-day-disable-color;
 
@@ -163,30 +166,30 @@
   }
 }
 
-:local(.gray) {
+.gray {
   color: $datepicker-day-disable-color;
   background-color: transparent;
 }
 
-:local(.timepicker) {
-  :local(.control) {
+.timepicker {
+  .control {
     background-image: $datepicker-time-indicator;
   }
 
-  :local(.picker) {
+  .picker {
     min-height: $clock-size + $timeset-height + $datepicker-time-padding * 2;
   }
 }
 
-:local(.short) {
+.short {
   width: $datepicker-short-width;
 }
 
-:local(.timeContainer) {
+.timeContainer {
   text-align: center;
   padding-bottom: $datepicker-time-padding;
 
-  :local(.timeSet) {
+  .timeSet {
     position: relative;
     width: $timeset-width;
     display: inline-block;
@@ -199,7 +202,7 @@
     padding-right: $timeset-padding;
     border-radius: $timeset-border-radius;
 
-    :local(.add), :local(.sub) {
+    .add, .sub {
       position: absolute;
       width: $timeset-padding;
       height: $timeset-height / 2;
@@ -210,13 +213,13 @@
       right: 0;
     }
 
-    :local(.add) {
+    .add {
       top: 0;
       background: $datepicker-day-bg $timeset-indicator-up no-repeat center center;
       background-size: 100% 100%;
     }
 
-    :local(.sub) {
+    .sub {
       bottom: 0;
       background: $datepicker-day-bg $timeset-indicator-down no-repeat center center;
       background-size: 100% 100%;
@@ -224,7 +227,7 @@
   }
 }
 
-:local(.clockWrapper) {
+.clockWrapper {
   position: absolute;
   top: 0;
   left: 0;
@@ -233,18 +236,18 @@
   visibility: hidden;
   opacity: 0;
 
-  &:local(.active) {
+  &.active {
     visibility: visible;
     opacity: 1;
   }
 
-  :local(.overlay) {
+  .overlay {
     width: 100%;
     height: 100%;
     background-color: $clock-overlay-bg;
   }
 
-  :local(.clock) {
+  .clock {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -257,7 +260,7 @@
     border: $clock-border-width solid $clock-border-color;
     background-color: $clock-bg-color;
 
-    :local(.am), :local(.pm) {
+    .am, .pm {
       position: absolute;
       text-align: center;
       width: $clock-indicator-width;
@@ -271,22 +274,22 @@
       background-color: $clock-bg-color;
       color: $clock-set-color;
 
-      &:hover, &:local(.active) {
+      &:hover, &.active {
         background-color: $clock-set-hover-bg;
         color: $clock-set-hover-color;
       }
     }
 
-    :local(.am) {
+    .am {
       left: 0 - $clock-indicator-width / 2;
     }
 
-    :local(.pm) {
+    .pm {
       right: 0 - $clock-indicator-width / 2;
     }
   }
 
-  :local(.close) {
+  .close {
     position: absolute;
     cursor: pointer;
     right: $clock-close-margin;
@@ -305,13 +308,13 @@
     }
   }
 
-  :local(.clockInner) {
+  .clockInner {
     width: $clock-inner-size;
     height: $clock-inner-size;
     padding: $clock-inner-padding;
     position: relative;
 
-    :local(.clockSet) {
+    .clockSet {
       position: absolute;
       width: $clock-set-size;
       height: $clock-set-size;
@@ -331,8 +334,8 @@
     }
   }
 
-  :local(.pointer) {
-    :local(.hour), :local(.minute), :local(.second) {
+  .pointer {
+    .hour, .minute, .second {
       position: absolute;
       left: 50%;
       top: 50%;
@@ -341,23 +344,23 @@
       transition: 0.3s;
     }
 
-    :local(.active) {
+    .active {
       background-color: $clock-pointer-active-color;
     }
 
-    :local(.hour) {
+    .hour {
       width: 3.2rem;
       height: 4px;
       margin: -2px 0 0 0-$clock-pointer-origin;
     }
 
-    :local(.minute) {
+    .minute {
       width: 3.8rem;
       height: 3px;
       margin: -1px 0 0 0-$clock-pointer-origin;
     }
 
-    :local(.second) {
+    .second {
       width: 4.5rem;
       height: 2px;
       margin: -1px 0 0 0-$clock-pointer-origin;

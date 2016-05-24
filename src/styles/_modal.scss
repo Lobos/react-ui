@@ -1,7 +1,7 @@
 @import "mixins";
 @import "themes/bootstrap";
 
-:local(.container) {
+.container {
   position: fixed;
   top: 0;
   right: 0;
@@ -13,16 +13,17 @@
   // https://github.com/twbs/bootstrap/pull/10951.
   outline: 0;
   -webkit-overflow-scrolling: touch;
+  background: rgba(0,0,0,$modal-backdrop-opacity);
 
-  &.enter {
+  &:global(.enter) {
     opacity: 1;
   }
 
-  &.leave {
+  &:global(.leave) {
     opacity: 0;
   }
 
-  :local(.inner) {
+  .inner {
     width: 100%;
     height: 100%;
     padding: 5rem;
@@ -33,8 +34,9 @@
   }
 }
 
-:local(.modal) {
+.modal {
   position: relative;
+  top: -2rem;
   margin: auto;
   background-color: $modal-content-bg;
   background-clip: padding-box;
@@ -43,9 +45,21 @@
   @include box-shadow($modal-content-xs-box-shadow);
   // Remove focus outline from opened modal
   outline: 0;
+  transition: {
+    duration: 0.25s;
+    timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  opacity: 0;
+  transition: transform .3s ease-out;
+  transform: translate(0, -25%);
 }
 
-:local(.header) {
+.in .modal {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.header {
   padding: $modal-title-padding;
   border-bottom: $modal-header-border-width solid $modal-header-border-color;
   font-size: $font-size-h5;
@@ -53,7 +67,7 @@
   @include clearfix;
 }
 
-:local(.close) {
+.close {
   position: absolute;
   top: 0;
   right: 0;
@@ -72,21 +86,12 @@
   }
 }
 
-:local(.footer) {
+.footer {
   padding: $modal-inner-padding;
   text-align: right; // right align buttons
   border-top: $modal-footer-border-width solid $modal-footer-border-color;
 
-  :local(button) {
+  button {
     margin-left: .5rem;
   }
-}
-
-:local(.overlay) {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
 }

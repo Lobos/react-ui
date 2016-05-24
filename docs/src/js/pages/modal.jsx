@@ -76,6 +76,7 @@ module.exports = class extends Component {
 <Modal width={700} header="Form"
   isOpen={this.state.modalIsOpen}
   onClose={() => this.setState({ modalIsOpen: false })}
+  clickaway
   buttons={{
     'Submit': 'submit',
     'Cancel': true
@@ -83,7 +84,7 @@ module.exports = class extends Component {
   <div>
     <Form onSubmit={
       (data) => {
-        alert(JSON.stringify(data));
+        Modal.alert(JSON.stringify(data));
         this.setState({ modalIsOpen: false });
       }} layout="aligned">
       <FormControl name="name" grid={7 / 8} required label="Name" type="text" />
@@ -128,7 +129,7 @@ Modal.close(id);
     content: (
       <Form onSubmit={
         (data) => {
-          alert(JSON.stringify(data));
+          Modal.alert(JSON.stringify(data));
           Modal.close(id);
         }} layout="aligned">
         <FormControl name="name" grid={7 / 8} required label="姓名" type="text" />
@@ -157,7 +158,7 @@ Modal.close(id);
     <p>如果你知道要做什么，请点确定。</p>
     <p>如果你不知道，点取消吧。</p>
   </div>,
-  () => { alert('点击了确定'); },
+  () => { Modal.alert('点击了确定'); },
   '警告'
 )}
 >confirm example</Button>

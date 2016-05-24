@@ -5,9 +5,10 @@ import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import Button from '../Button';
 import { CLOSE } from '../svgs';
-import { ArrayOrObject, StringOrNumber, StringOrElement } from '../utils/proptypes';
+import { PropArrayOrObject, PropStringOrNumber, PropStringOrElement } from '../utils/proptypes';
 import pureRender from '../mixins/PureRender';
 import { compose } from '../utils/compose';
+import { addClass } from '../utils/dom';
 
 import ModalStyles from '../styles/_modal.scss';
 
@@ -17,11 +18,24 @@ class Modal extends React.Component {
   constructor (props) {
     super(props);
 
+    this.clickaway = this.clickaway.bind(this);
     this.handleClose = this.handleClose.bind(this);
+  }
+
+  componentDidMount () {
+    setTimeout(() => {
+      addClass(findDOMNode(this), ModalStyles.in);
+    }, 0);
   }
 
   handleClose () {
     this.props.onClose(this.props.id);
+  }
+
+  clickaway (event) {
+    if (event.target === this.refs.element) {
+      this.handleClose();
+    }
   }
 
   renderHeader () {
@@ -82,7 +96,7 @@ class Modal extends React.Component {
     const clickaway = this.props.clickaway ? this.clickaway : undefined;
 
     return (
-      <div className={ModalStyles.inner} onClick={clickaway} style={{ zIndex: ZINDEX + index }}>
+      <div ref="element" className={ModalStyles.inner} onClick={clickaway} style={{ zIndex: ZINDEX + index }}>
         <div style={{width: width || '35rem'}} className={className}>
           <a className={ModalStyles.close} onClick={this.handleClose}>{CLOSE}</a>
           {this.renderHeader()}
@@ -97,15 +111,15 @@ class Modal extends React.Component {
 }
 
 Modal.propTypes = {
-  buttons: ArrayOrObject,
+  buttons: PropArrayOrObject,
   clickaway: PropTypes.bool,
-  content: StringOrElement,
-  header: StringOrElement,
+  content: PropStringOrElement,
+  header: PropStringOrElement,
   id: PropTypes.string,
   index: PropTypes.number,
   onClose: PropTypes.func,
-  padding: StringOrNumber,
-  width: StringOrNumber
+  padding: PropStringOrNumber,
+  width: PropStringOrNumber
 };
 
 export default compose(pureRender)(Modal);

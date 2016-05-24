@@ -4,7 +4,7 @@
 // Base styles
 //
 
-:local(.group) {
+.group {
   position: relative;
   width: 100%;
 
@@ -17,7 +17,7 @@
     border-collapse: separate;
   }
 
-  :local(.input) {
+  .input {
     // Ensure that the input is always above the *appended* addon button for
     // proper border colors.
     position: relative;
@@ -39,9 +39,9 @@
   }
 }
 
-:local(.addon),
-:local(.btn),
-:local(.input) {
+.addon,
+.btn,
+.input {
   @if not $enable-flex {
     display: table-cell;
   }
@@ -51,8 +51,8 @@
   }
 }
 
-:local(.btn),
-:local(.addon) {
+.btn,
+.addon {
   @if not $enable-flex {
     width: 1%;
   }
@@ -64,7 +64,7 @@
 // Text input groups
 //
 
-:local(.addon) {
+.addon {
   padding: $input-padding-y $input-padding-x;
   margin-bottom: 0; // Allow use of <label> elements by overriding our default margin-bottom
   font-size: $font-size-base;
@@ -77,12 +77,12 @@
   @include border-radius($border-radius);
 
   // Sizing
-  &:local(.small) {
+  &.small {
     padding: $input-padding-y-sm $input-padding-x-sm;
     font-size: $font-size-sm;
     @include border-radius($border-radius-sm);
   }
-  &:local(.large) {
+  &.large {
     padding: $input-padding-y-lg $input-padding-x-lg;
     font-size: $font-size-lg;
     @include border-radius($border-radius-lg);
@@ -101,25 +101,24 @@
 // Reset rounded corners
 //
 
-:local(.input):not(:last-child),
-:local(.addon):not(:last-child),
-:local(.btn):not(:last-child),
-:local(.groupBtn):not(:last-child) > .dropdown-toggle {
+.input:not(:last-child),
+.addon:not(:last-child),
+.btn:not(:last-child),
+.groupBtn:not(:last-child) > .dropdown-toggle {
   @include border-right-radius(0);
 }
-:local(.btn):not(:last-child),
-:local(.addon):not(:last-child) {
+.btn:not(:last-child),
+.addon:not(:last-child) {
   border-right: 0;
 }
-:local(.input):not(:first-child),
-:local(.addon):not(:first-child),
-:local(.btn):not(:first-child),
-:local(.groupBtn):not(:first-child) > .dropdown-toggle {
+.input:not(:first-child),
+.addon:not(:first-child),
+.btn:not(:first-child),
+.groupBtn:not(:first-child) > .dropdown-toggle {
   @include border-left-radius(0);
 }
 
-:local(.btn):not(:first-child),
-:local(.input) + :local(.addon):not(:first-child) {
+.btn:not(:first-child),
+.input + .addon:not(:first-child) {
   border-left: 0;
 }
-

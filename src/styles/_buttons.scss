@@ -3,7 +3,7 @@
 
 // Base styles
 
-:local(.button) {
+.button {
   display: inline-block;
   font-weight: $btn-font-weight;
   line-height: $btn-line-height;
@@ -26,7 +26,7 @@
   @include hover-focus {
     text-decoration: none;
   }
-  &.focus {
+  &:focus {
     text-decoration: none;
   }
 
@@ -43,33 +43,33 @@
   }
 }
 
-:local(.primary) {
+.primary {
   @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
 }
 
 // default
-:local(.secondary) {
+.secondary {
   @include button-variant($btn-secondary-color, $btn-secondary-bg, $btn-secondary-border);
 }
 
-:local(.success) {
+.success {
   @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
 }
 
-:local(.error), :local(.danger) {
+.error, .danger {
   @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
 }
 
-:local(.warning) {
+.warning {
   @include button-variant($btn-warning-color, $btn-warning-bg, $btn-warning-border);
 }
 
-:local(.info) {
+.info {
   @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
 }
 
 // Make a button look and behave like a link
-:local(.link) {
+.link {
   font-weight: normal;
   color: $link-color;
   border-radius: 0;
@@ -105,12 +105,12 @@
 // Button Sizes
 //
 
-:local(.large) {
+.large {
   // line-height: ensure even-numbered height of button next to large input
   @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-lg, $btn-border-radius-lg);
 }
 
-:local(.small) {
+.small {
   // line-height: ensure proper height of button next to small input
   @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-sm, $btn-border-radius-sm);
 }

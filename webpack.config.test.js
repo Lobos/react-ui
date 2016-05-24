@@ -1,5 +1,5 @@
-var path = require('path')
-var devConf = require('./webpack.config.dev.js')
+var path = require('path');
+var devConf = require('./webpack.config.dev.js');
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -36,7 +36,7 @@ module.exports = {
 
       {
         test: /\.scss$/,
-        loaders: ['style-loader', 'css-loader?localIdentName=[local]', 'postcss-loader', 'sass-loader']
+        loaders: ['style-loader', 'css-loader?modules&localIdentName=[local]', 'postcss-loader', 'sass-loader']
       },
 
       {
@@ -52,4 +52,4 @@ module.exports = {
 
     preLoaders: devConf.module.preLoaders.constructor === Array ? devConf.module.preLoaders : [devConf.module.preLoaders]
   }
-}
+};

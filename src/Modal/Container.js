@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import Modal, { ZINDEX } from './Modal';
+import Modal from './Modal';
 import { isEmpty } from '../utils/objects';
 import { removeItem } from '../utils/array';
 import Transition from '../Transition';
@@ -53,12 +53,6 @@ export default class extends Component {
     }
   }
 
-  clickaway (event) {
-    if (event.target.className === 'rct-modal-inner') {
-      event.stopPropagation();
-    }
-  }
-
   renderModals () {
     const { modals } = this.state;
     return Object.keys(modals).map((key, i) => {
@@ -67,16 +61,13 @@ export default class extends Component {
   }
 
   render () {
-    let mlen = this.state.ids.length;
-
     let className = classnames(
       ModalStyles.container
     );
 
     return (
-      <Transition act={isEmpty(this.state.modals) ? 'leave' : 'enter'} duration={333} tf="ease-out">
+      <Transition act={isEmpty(this.state.modals) ? 'leave' : 'enter'} duration={300} tf="ease-out">
         <div className={className}>
-          <div className={ModalStyles.overlay} style={{ zIndex: ZINDEX + mlen - 1 }} />
           { this.renderModals() }
         </div>
       </Transition>

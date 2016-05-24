@@ -1,7 +1,7 @@
 @import 'mixins';
 @import 'themes/bootstrap';
 
-:local(.overlay) {
+.overlay {
   position: fixed;
   left: -100%;
   top: 0;

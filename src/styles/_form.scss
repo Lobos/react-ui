@@ -1,8 +1,8 @@
 @import "mixins";
 @import "themes/bootstrap";
 
-:local(.aligned) {
-  :local(.label) {
+.aligned {
+  .label {
     display: inline-block;
     position: absolute;
     text-align: right;
@@ -11,103 +11,102 @@
     line-height: $form-group-label-line-height;
   }
  
-  :local(.control) {
+  .control {
     margin-left: $form-aligned-control-margin;
   }
 }
 
-:local(.inline) {
-  :local(.group) {
+.inline {
+  .group {
     display: inline-block;
     margin-right: $form-inline-group-margin;
     vertical-align: middle;
   }
 
-  :local(.label) ~ :local(.control) {
+  .label ~ .control {
     margin-left: $form-inline-control-margin;
   }
 
-  :local(.control) {
+  .control {
     display: inline-block;
     position: relative;
-    
-    :local(.hintText) {
-      display: none;
-    }
+  }
 
-    :local(.dangerText) {
-      display: block;
+  .hintText {
+    display: none;
+  }
+
+  .dangerText {
+    display: block;
+    position: absolute;
+    padding: 0.5rem 1rem;
+    color: $state-danger-text;
+    background: $state-danger-bg;
+    border: solid 1px $state-danger-border;
+    border-radius: 0.4rem;
+    width: 15rem;
+    left: 0;
+    bottom: 100%;
+    margin-bottom: 0.6rem;
+    z-index: $zindex-dropdown-backdrop;
+    @include box-shadow($thumbnail-box-shadow);
+
+    &::before {
+      content: '';
+      border: inherit;
+      background: inherit;
+      padding: 0.3rem;
+      transform: rotate(45deg);
       position: absolute;
-      padding: 0.5rem 1rem;
-      color: $state-danger-text;
-      background: $state-danger-bg;
-      border: solid 1px $state-danger-border;
-      border-radius: 0.4rem;
-      width: 15rem;
-      left: 0;
-      bottom: 100%;
-      margin-bottom: 0.6rem;
-      z-index: $zindex-dropdown-backdrop;
-      @include box-shadow($thumbnail-box-shadow);
-
-      &::before {
-        content: '';
-        border: inherit;
-        background: inherit;
-        padding: 0.3rem;
-        transform: rotate(45deg);
-        position: absolute;
-        left: 1rem;
-        bottom: -0.4rem;
-        border-top: 0;
-        border-left: 0;
-      }
+      left: 1rem;
+      bottom: -0.4rem;
+      border-top: 0;
+      border-left: 0;
     }
   }
 }
 
-:local(.stacked) {
-  :local(.control) {
-    :local(.dangerText), :local(.hintText) {
+.stacked {
+  .control {
+    .dangerText, .hintText {
       display: block;
     }
   }
 }
 
-:local(.group) {
+.group {
   position: relative;
   margin-bottom: $form-group-margin-bottom;
-
-  :local(.required)::before {
-    content: '*';
-    display: inline-block;
-    font-family: SimSun;
-    margin-right: $form-group-no-input-padding;
-    color: $brand-danger;
-  }
-
-  :local(.control) {
-    & > span {
-      display: inline-block;
-      padding-top: $form-group-no-input-padding;
-    }
-
-    :local(.dangerInput) {
-      //color: $brand-danger;
-      border-color: $brand-danger;
-    }
-
-    :local(.button) {
-      margin-right: $form-inline-control-margin;
-    }
-
-    :local(.dangerText), :local(.hintText) {
-      display: block;
-    }
-  }
 }
 
-:local(.dangerText) {
+.required::before {
+  content: '*';
+  display: inline-block;
+  font-family: SimSun;
+  margin-right: $form-group-no-input-padding;
   color: $brand-danger;
 }
 
+.control {
+  & > span {
+    display: inline-block;
+    padding-top: $form-group-no-input-padding;
+  }
+}
+
+.dangerInput {
+  //color: $brand-danger;
+  border-color: $brand-danger;
+}
+
+.button {
+  margin-right: $form-inline-control-margin;
+}
+
+.dangerText, .hintText {
+  display: block;
+}
+
+.dangerText {
+  color: $brand-danger;
+}

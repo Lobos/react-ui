@@ -1,7 +1,7 @@
 @import "mixins";
 @import "themes/bootstrap";
 
-:local(.tree) {
+.tree {
   &, ul {
     list-style-type: none;
     margin: 0;
@@ -12,12 +12,12 @@
     display: none;
   }
 
-  :local(.open) {
+  .open {
     display: block;
   }
 }
 
-:local(.label) {
+.label {
   display: block;
   line-height: $tree-line-height;
   overflow: hidden;
@@ -27,18 +27,18 @@
     vertical-align: top;
   }
 
-  &:local(.active) {
+  &.active {
     span {
       font-weight: bold;
     }
   }
 
-  :local(.text) {
+  .text {
     display: inline-block;
   }
 }
 
-:local(.marks) {
+.marks {
   width: $tree-icon-width;
   height: $tree-line-height + 0.05rem;
   display: inline-block;
@@ -56,28 +56,28 @@
   }
 }
 
-:local(.mv):before {
+.mv:before {
   background-image: $tree-line-icon-mv;
 }
 
-:local(.ml):before {
+.ml:before {
   height: 100%;
   background-repeat: no-repeat;
   background-image: $tree-line-icon-ml;
 }
 
-:local(.mh):before {
+.mh:before {
   background-image: $tree-line-icon-mh;
 }
 
-:local(.handle) {
+.handle {
   display: inline-block;
   vertical-align: middle;
   width: $tree-icon-width;
   text-align: center;
 }
 
-:local(.icon) {
+.icon {
   width:$tree-icon-width;
   text-align: center;
   vertical-align: middle;
@@ -85,7 +85,7 @@
   margin: 0 auto;
 }
 
-:local(.minus), :local(.plus) {
+.minus, .plus {
   border: solid $tree-indicator-border-width $tree-line-color;
   height: $tree-indicator-size;
   width: $tree-indicator-size;
@@ -103,7 +103,7 @@
   }
 }
 
-:local(.plus):before {
+.plus:before {
   content: '';
   display: block;
   height: 100%;
@@ -113,6 +113,6 @@
   position: absolute;
 }
 
-:local(.active) :local(.span) {
+.active .span {
   font-weight: bold;
 }

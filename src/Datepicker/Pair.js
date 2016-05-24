@@ -3,6 +3,7 @@
 import React, { PropTypes } from 'react';
 import { shallowEqual } from '../utils/objects';
 import Datepicker from './index';
+import { PropDatetime } from '../utils/proptypes';
 
 export default class Pair extends React.Component {
   constructor (props) {
@@ -36,16 +37,8 @@ Pair.isFormItem = true;
 
 Pair.propTypes = {
   con: PropTypes.any,
-  max: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.object
-  ]),
-  min: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.object
-  ]),
+  max: PropDatetime,
+  min: PropDatetime,
   names: PropTypes.array
 };
 
