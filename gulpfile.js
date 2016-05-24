@@ -4,8 +4,8 @@ var webdriver = require('gulp-webdriver')
 gulp.task('test:e2e', function () {
   return gulp.src('wdio.conf.js')
     .pipe(webdriver({
-      logLevel: 'verbose',
+      logLevel: 'silent',
       waitforTimeout: 10000,
-      reporter: 'spec'
+      reporter: 'dot'
     }))
 })
