@@ -87,7 +87,7 @@ exports.config = {
   // Test reporter for stdout.
   // The following are supported: dot (default), spec and xunit
   // see also: http://webdriver.io/guide/testrunner/reporters.html
-  reporter: 'spec',
+  reporter: 'dot',
   // Services
   services: ['selenium-standalone'],
   //
@@ -109,6 +109,12 @@ exports.config = {
     // do something
 
     global.expect = require('chai').expect
+
+    browser.url('http://localhost:3000')
+
+    const title = browser.getTitle()
+
+    expect(title).to.be.equal('React ui docs')
   },
   //
   // Gets executed after all tests are done. You still have access to all global variables from
