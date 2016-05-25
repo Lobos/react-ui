@@ -26,7 +26,7 @@
 
 .message {
   position: relative;
-  margin: 1rem auto 0;
+  margin: 0.5rem auto 0;
   max-width: 30rem;
   @include box-shadow($dropdown-box-shadow);
   animation: fade-in .3s ease-out;
