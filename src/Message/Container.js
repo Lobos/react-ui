@@ -1,7 +1,8 @@
 'use strict';
 
-import { Component } from 'react';
+import { Component, DOM } from 'react';
 import Message from './Message';
+import { isEmpty } from '../utils/objects';
 
 import Styles from '../styles/_message.scss';
 
@@ -31,19 +32,24 @@ export default class extends Component {
 
   render () {
     const messages = this.state.messages;
-    return (
-      <div className={Styles.container}>
-        {
-          Object.keys(messages).map((key) => {
-            return (
-              <Message key={key}
-                {...messages[key]}
-                onClose={this.removeMessage}
-              />
-            );
-          })
-        }
-      </div>
-    );
+
+    if (isEmpty(messages)) {
+      return DOM.noscript();
+    } else {
+      return (
+        <div className={Styles.container}>
+          {
+            Object.keys(messages).map((key) => {
+              return (
+                <Message key={key}
+                  {...messages[key]}
+                  onClose={this.removeMessage}
+                />
+              );
+            })
+          }
+        </div>
+      );
+    }
   }
 }

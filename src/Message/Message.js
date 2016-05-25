@@ -1,8 +1,6 @@
 'use strict';
 
 import { Component, PropTypes } from 'react';
-import { findDOMNode } from 'react-dom';
-import { addClass } from '../utils/dom';
 import Alert from '../Alert';
 
 import Styles from '../styles/_message.scss';
@@ -25,10 +23,7 @@ export default class Message extends Component {
   }
 
   dismiss () {
-    addClass(findDOMNode(this), Styles.fade);
-    setTimeout(() => {
-      this.props.onClose(this.props.id);
-    }, 300);
+    this.props.onClose(this.props.id);
   }
 
   handleMouseOver () {
@@ -42,8 +37,7 @@ export default class Message extends Component {
 
     return (
       <Alert {...props}
-        dismissible={duration <= 0}
-        onClose={this.dismiss}
+        onClose={duration <= 0 ? this.dismiss : undefined}
         onMouseOver={this.handleMouseOver}
         className={Styles.message}>
         {content}

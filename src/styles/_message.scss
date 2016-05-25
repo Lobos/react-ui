@@ -27,7 +27,7 @@
 .message {
   position: relative;
   margin: 1rem auto 0;
-  max-width: 25rem;
+  max-width: 30rem;
   @include box-shadow($dropdown-box-shadow);
   animation: fade-in .3s ease-out;
 }
@@ -42,9 +42,4 @@
   animation-name: countdown;
   animation-timing-function: linear;
   z-index: 0;
-}
-
-.fade {
-  transition: .3s ease-out;
-  opacity: 0;
 }
