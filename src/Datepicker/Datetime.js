@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import { overView, getOuterHeight } from '../utils/dom';
@@ -10,7 +10,7 @@ import TimeSet from './TimeSet';
 import Clock from './Clock';
 import { ANGLE_LEFT, ANGLE_RIGHT, ANGLE_LEFT_DOUBLE, ANGLE_RIGHT_DOUBLE } from '../svgs';
 import Transition from '../Transition';
-import { PropDatetime } from '../utils/proptypes';
+import PropTypes from '../utils/proptypes';
 
 import Styles from '../styles/_datepicker.scss';
 import InputStyles from '../styles/_input.scss';
@@ -458,8 +458,8 @@ Datetime.propTypes = {
   className: PropTypes.string,
   format: PropTypes.string,
   hasError: PropTypes.bool,
-  max: PropDatetime,
-  min: PropDatetime,
+  max: PropTypes.datetime,
+  min: PropTypes.datetime,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,

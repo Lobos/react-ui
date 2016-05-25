@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import { toArray, substitute } from './utils/strings';
@@ -13,6 +13,7 @@ import { register } from './higherOrders/FormItem';
 import { compose } from './utils/compose';
 import Transition from './Transition';
 import * as Events from './utils/events';
+import PropTypes from './utils/proptypes';
 
 import Styles from './styles/_select.scss';
 import InputStyles from './styles/_input.scss';
@@ -352,37 +353,22 @@ Select.displayName = 'Select';
 
 Select.propTypes = {
   className: PropTypes.string,
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object
-  ]),
+  data: PropTypes.array_object,
   filterAble: PropTypes.bool,
-  grid: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.object
-  ]),
+  grid: PropTypes.number_object,
   groupBy: PropTypes.string,
   maxShowCount: PropTypes.number,
   mult: PropTypes.bool,
   onChange: PropTypes.func,
-  optionTpl: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func
-  ]),
+  optionTpl: PropTypes.tpl,
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   responsive: PropTypes.string,
-  resultTpl: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func
-  ]),
+  resultTpl: PropTypes.tpl,
   sep: PropTypes.string,
   style: PropTypes.object,
   value: PropTypes.any,
-  valueTpl: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func
-  ]),
+  valueTpl: PropTypes.tpl,
   width: PropTypes.number
 };
 

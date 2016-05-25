@@ -1,11 +1,11 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import Button from '../Button';
 import { CLOSE } from '../svgs';
-import { PropArrayOrObject, PropStringOrNumber, PropStringOrElement } from '../utils/proptypes';
+import PropTypes from '../utils/proptypes';
 import pureRender from '../mixins/PureRender';
 import { compose } from '../utils/compose';
 import { addClass } from '../utils/dom';
@@ -111,15 +111,15 @@ class Modal extends React.Component {
 }
 
 Modal.propTypes = {
-  buttons: PropArrayOrObject,
+  buttons: PropTypes.array_object,
   clickaway: PropTypes.bool,
-  content: PropStringOrElement,
-  header: PropStringOrElement,
+  content: PropTypes.element_string,
+  header: PropTypes.element_string,
   id: PropTypes.string,
   index: PropTypes.number,
   onClose: PropTypes.func,
-  padding: PropStringOrNumber,
-  width: PropStringOrNumber
+  padding: PropTypes.number_string,
+  width: PropTypes.number_string
 };
 
 export default compose(pureRender)(Modal);

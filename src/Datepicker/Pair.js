@@ -1,9 +1,9 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { shallowEqual } from '../utils/objects';
 import Datepicker from './index';
-import { PropDatetime } from '../utils/proptypes';
+import PropTypes from '../utils/proptypes';
 
 export default class Pair extends React.Component {
   constructor (props) {
@@ -37,8 +37,8 @@ Pair.isFormItem = true;
 
 Pair.propTypes = {
   con: PropTypes.any,
-  max: PropDatetime,
-  min: PropDatetime,
+  max: PropTypes.datetime,
+  min: PropTypes.datetime,
   names: PropTypes.array
 };
 

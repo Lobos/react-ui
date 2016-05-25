@@ -1,8 +1,9 @@
 'use strict';
 
-import React, { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, cloneElement } from 'react';
 import classnames from 'classnames';
 import * as FormItem from './higherOrders/FormItem';
+import PropTypes from './utils/proptypes';
 
 import Styles from './styles/_rating.scss';
 
@@ -128,19 +129,13 @@ class Rating extends Component {
 Rating.propTypes = {
   className: PropTypes.string,
   icons: PropTypes.array,
-  maxValue: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
+  maxValue: PropTypes.number_string,
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
   size: PropTypes.number,
   style: PropTypes.object,
   theme: PropTypes.string,
-  value: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ])
+  value: PropTypes.number_string
 };
 
 Rating.defaultProps = {

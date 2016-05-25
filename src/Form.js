@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Children, Component, PropTypes, cloneElement } from 'react';
+import React, { Children, Component, cloneElement } from 'react';
 import classnames from 'classnames';
 import { forEach, deepEqual, hashcode } from './utils/objects';
 import clone from './utils/clone';
@@ -8,6 +8,7 @@ import { getGrid } from './utils/grids';
 import FormControl from './FormControl';
 import FormSubmit from './FormSubmit';
 import Button from './Button';
+import PropTypes from './utils/proptypes';
 
 import { fetchEnhance } from './higherOrders/Fetch';
 
@@ -217,7 +218,7 @@ class Form extends Component {
   }
 
   render () {
-    let { button, buttons, controls, children, className, onSubmit, grid, layout, ...props } = this.props;
+    let { button, buttons, controls, children, className, grid, layout, ...props } = this.props;
 
     className = classnames(
       className,
@@ -226,11 +227,10 @@ class Form extends Component {
       FormStyles[layout]
     );
 
-    // old api
     let btns = buttons || button;
 
     return (
-      <form onSubmit={this.handleSubmit} className={className} {...props}>
+      <form {...props} onSubmit={this.handleSubmit} className={className}>
         {controls && this.renderControls()}
         {this.renderChildren(children)}
         {btns && this.renderButtons(btns)}
@@ -242,24 +242,15 @@ class Form extends Component {
 Form.propTypes = {
   beforeSubmit: PropTypes.func,
   button: PropTypes.string,
-  buttons: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
-  ]),
+  buttons: PropTypes.object,
   children: PropTypes.any,
   className: PropTypes.string,
   controls: PropTypes.array,
   data: PropTypes.object,
   disabled: PropTypes.bool,
-  grid: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.object
-  ]),
+  grid: PropTypes.grid,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
-  labelWidth: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
+  labelWidth: PropTypes.number_string,
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
   onCancel: PropTypes.func,
   onReset: PropTypes.func,

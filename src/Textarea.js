@@ -1,11 +1,12 @@
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import objectAssign from 'object-assign';
 import { getGrid } from './utils/grids';
 import { register } from './higherOrders/FormItem';
 import { computedStyle, getLineHeight } from './utils/dom';
+import PropTypes from './utils/proptypes';
 
 import Styles from './styles/_input.scss';
 
@@ -128,10 +129,7 @@ class Textarea extends Component {
 Textarea.propTypes = {
   autoHeight: PropTypes.bool,
   className: PropTypes.string,
-  grid: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.object
-  ]),
+  grid: PropTypes.grid,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,

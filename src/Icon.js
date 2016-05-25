@@ -1,8 +1,9 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import objectAssign from 'object-assign';
+import PropTypes from './utils/proptypes';
 
 import Styles from './styles/_icon.scss';
 
@@ -52,7 +53,7 @@ Icon.propTypes = {
   font: PropTypes.string,
   icon: PropTypes.string,
   prefix: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  size: PropTypes.number_string,
   spin: PropTypes.bool,
   style: PropTypes.object
 };

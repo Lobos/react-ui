@@ -1,11 +1,11 @@
 'use strict';
 
-import { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import Alert from '../Alert';
 
 import Styles from '../styles/_message.scss';
 
-export default class Message extends Component {
+export default class Message extends React.Component {
   constructor (props) {
     super(props);
     this.state = {

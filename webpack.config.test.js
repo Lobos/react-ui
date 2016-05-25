@@ -25,6 +25,7 @@ module.exports = {
         include: [
           path.resolve(__dirname, 'src'),
           path.resolve(__dirname, 'test'),
+          path.resolve(__dirname, 'node_modules/one-of-type'),
           path.resolve(__dirname, 'node_modules/refetch')
         ]
       },

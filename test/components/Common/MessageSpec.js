@@ -1,8 +1,9 @@
+/*
 import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
-import { compClass, compData, compSelector } from '../../mock/message.js'
-import Message from '../../../src/Message.js'
-import Overlay from '../../../src/Overlay.js'
+import { compClass, compData, compSelector } from '../../mock/message'
+import Message from '../../../src/Message'
+import Overlay from '../../../src/Overlay'
 
 describe('Basic', () => {
   const {_foo, _bar, _baz} = compData
@@ -44,3 +45,4 @@ describe('Basic', () => {
     it('Should call Message.dismiss() to dismiss one item')
   })
 })
+*/

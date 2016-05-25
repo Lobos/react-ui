@@ -30,6 +30,7 @@ module.exports = class extends React.Component {
         <div className="content">
           <Code>
 {`<Form
+  button='string'       //  只有submit按钮，可以使用button
   buttons={
     submit: 'string',   // submit 按钮文字
     reset: 'string',    // reset 按钮文字
@@ -63,7 +64,7 @@ module.exports = class extends React.Component {
   value={this.state.layout}
   onChange={layout => this.setState({ layout })} />
 
-<Form buttons={'Submit'} layout={this.state.layout}>
+<Form button='Submit' layout={this.state.layout}>
   <FormControl label="name">
     <Input name="name" style={{width: '10rem'}} type="text" min={2} max={6} />
   </FormControl>

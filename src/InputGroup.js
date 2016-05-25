@@ -1,10 +1,11 @@
 'use strict';
 
-import React, { Children, PropTypes, cloneElement } from 'react';
+import React, { Children, cloneElement } from 'react';
 import classnames from 'classnames';
 import { getGrid } from './utils/grids';
 import Input from './Input';
 import Button from './Button';
+import PropTypes from './utils/proptypes';
 
 import InputStyles from './styles/_input-group.scss';
 
@@ -41,10 +42,7 @@ export default function InputGroup (props) {
 InputGroup.propTypes = {
   children: PropTypes.array,
   className: PropTypes.string,
-  grid: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.object
-  ]),
+  grid: PropTypes.grid,
   size: PropTypes.oneOf(['large', 'middle', 'small'])
 };
 

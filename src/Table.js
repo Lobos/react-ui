@@ -1,11 +1,12 @@
 'use strict';
 
-import React, { Component, PropTypes, cloneElement } from 'react';
+import React, { Component, cloneElement } from 'react';
 import classnames from 'classnames';
 import { substitute } from './utils/strings';
 import { deepEqual, hashcode } from './utils/objects';
 import TableHeader from './TableHeader';
 import { fetchEnhance } from './higherOrders/Fetch';
+import PropTypes from './utils/proptypes';
 
 import { requireCss } from './themes';
 requireCss('tables');
@@ -314,25 +315,16 @@ Table.propTypes = {
   bordered: PropTypes.bool,
   children: PropTypes.array,
   className: PropTypes.string,
-  data: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.element
-  ]),
+  data: PropTypes.array,
   filters: PropTypes.array,
   headers: PropTypes.array,
-  height: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
+  height: PropTypes.number_string,
   onSort: PropTypes.func,
   pagination: PropTypes.object,
   selectAble: PropTypes.bool,
   striped: PropTypes.bool,
   style: PropTypes.object,
-  width: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ])
+  width: PropTypes.number_string
 };
 
 Table.defaultProps = {

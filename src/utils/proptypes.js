@@ -1,24 +1,16 @@
 'use strict';
 
 import { PropTypes } from 'react';
+import oneOfType from 'one-of-type';
 
-export const PropStringOrElement = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.element
-]);
+export default {
+  ...PropTypes,
 
-export const PropStringOrNumber = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.number
-]);
+  ...oneOfType,
 
-export const PropArrayOrObject = PropTypes.oneOfType([
-  PropTypes.array,
-  PropTypes.object
-]);
+  datetime: oneOfType.number_object_string,
 
-export const PropDatetime = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.number,
-  PropTypes.object
-]);
+  grid: oneOfType.number_object,
+
+  tpl: oneOfType.func_string
+};

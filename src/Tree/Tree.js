@@ -4,7 +4,7 @@
 // 由于tree.state.data是一个array，当data值改变时，不经过setState，
 // 所有的Item的data也因此改变，可能破坏了react的一个原则
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import { toArray, substitute } from '../utils/strings';
@@ -13,6 +13,7 @@ import { fetchEnhance } from '../higherOrders/Fetch';
 import { register } from '../higherOrders/FormItem';
 import { removeClass } from '../utils/dom';
 import { compose } from '../utils/compose';
+import PropTypes from '../utils/proptypes';
 
 import TreeStyles from '../styles/_tree.scss';
 
@@ -195,15 +196,9 @@ Tree.propTypes = {
   selectAble: PropTypes.bool,
   sep: PropTypes.string,
   src: PropTypes.string,
-  textTpl: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func
-  ]),
+  textTpl: PropTypes.tpl,
   value: PropTypes.any,
-  valueTpl: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func
-  ])
+  valueTpl: PropTypes.tpl
 };
 
 Tree.defaultProps = {

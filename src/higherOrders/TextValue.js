@@ -1,9 +1,10 @@
 'use strict';
 
-import React, { PropTypes, Children } from 'react';
+import React, { Children } from 'react';
 import curry from 'curry';
 import { toArray } from '../utils/strings';
 import { toTextValue, hashcode } from '../utils/objects';
+import PropTypes from '../utils/proptypes';
 
 export const textValueEnhance = curry((single, Component) => {
   class TextValue extends React.Component {
@@ -84,25 +85,13 @@ export const textValueEnhance = curry((single, Component) => {
   }
 
   TextValue.propTypes = {
-    children: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.array
-    ]),
-    data: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.object
-    ]),
+    children: PropTypes.array_element,
+    data: PropTypes.array_object,
     onChange: PropTypes.func,
     sep: PropTypes.string,
-    textTpl: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func
-    ]),
+    textTpl: PropTypes.tpl,
     value: PropTypes.any,
-    valueTpl: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func
-    ])
+    valueTpl: PropTypes.tpl
   };
 
   TextValue.defaultProps = {
