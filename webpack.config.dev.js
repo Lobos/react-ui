@@ -39,7 +39,6 @@ module.exports = {
         path.resolve(__dirname, 'src'),
         path.resolve(__dirname, 'docs'),
         path.resolve(__dirname, 'node_modules/refetch'),
-        path.resolve(__dirname, 'node_modules/one-of-type'),
         path.resolve(__dirname, 'node_modules/react-language')
       ] },
       { test: /\.(css|less)$/, loaders: ['style-loader', 'css-loader?localIdentName=[local]-[hash:base64:5]', 'postcss-loader', 'less-loader'] },

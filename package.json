@@ -27,8 +27,7 @@
   },
   "peerDependencies": {
     "classnames": "^2.2.3",
-    "refetch": "~0.2.1",
-    "pubsub-js": "~1.5.3"
+    "refetch": "~0.2.1"
   },
   "devDependencies": {
     "autoprefixer": "~6.3.4",
@@ -107,7 +106,6 @@
   },
   "dependencies": {
     "curry": "^1.2.0",
-    "one-of-type": "^0.1.0",
     "refetch": "^0.2.1"
   }
 }
