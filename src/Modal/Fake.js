@@ -1,10 +1,11 @@
 'use strict';
 
-import React, { Component, PropTypes, DOM } from 'react';
+import React, { DOM } from 'react';
 import { nextUid } from '../utils/strings';
+import PropTypes from '../utils/proptypes';
 
 export default function (open, close) {
-  class Modal extends Component {
+  class Modal extends React.Component {
     constructor (props) {
       super(props);
       this.id = nextUid();
@@ -14,10 +15,6 @@ export default function (open, close) {
       if (this.props.isOpen) {
         this.renderModal(this.props);
       }
-    }
-
-    componentWillUnmount () {
-      close(this.id);
     }
 
     componentWillReceiveProps (nextProps) {
@@ -30,6 +27,10 @@ export default function (open, close) {
       } else {
         close(this.id);
       }
+    }
+
+    componentWillUnmount () {
+      close(this.id);
     }
 
     renderModal (props) {
@@ -46,21 +47,12 @@ export default function (open, close) {
   }
 
   Modal.propTypes = {
-    buttons: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.array
-    ]),
+    buttons: PropTypes.array_object,
     children: PropTypes.any,
     isOpen: PropTypes.bool,
     onClose: PropTypes.func,
-    padding: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string
-    ]),
-    title: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.element
-    ]),
+    padding: PropTypes.number_string,
+    title: PropTypes.element_string,
     width: PropTypes.number
   };
 

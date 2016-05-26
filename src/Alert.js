@@ -1,31 +1,46 @@
 'use strict';
 
-import { PropTypes } from 'react';
+import { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 
-import AlertStyles from './styles/_alert.scss';
+import Styles from './styles/_alert.scss';
 
-export default function Alert (props) {
-  const { children, dismissible, className, onClose, type, ...others } = props;
+export default class Alert extends Component {
+  constructor (props) {
+    super(props);
 
-  return (
-    <div {...others} className={
-      classnames(
-        AlertStyles.alert,
-        AlertStyles[type],
-        dismissible && AlertStyles.dismissible,
-        className
-      )}>
-      <a className={AlertStyles.close} onClick={onClose} href="javascript:;">×</a>
-      { children }
-    </div>
-  );
+    this.state = { dismissed: false };
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClose () {
+    this.setState({ dismissed: true });
+    setTimeout(this.props.onClose, 300);
+  }
+
+  render () {
+    const { children, className, onClose, type, ...others } = this.props;
+    const { dismissed } = this.state;
+
+    return (
+      <div ref="element" {...others} className={
+        classnames(
+          Styles.alert,
+          Styles[type],
+          onClose && Styles.dismissible,
+          dismissed && Styles.dismissed,
+          className
+        )}>
+        <a className={Styles.close} onClick={this.handleClose} href="javascript:;">×</a>
+        { children }
+      </div>
+    );
+  }
 }
 
 Alert.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
-  dismissible: PropTypes.bool,
   onClose: PropTypes.func,
   type: PropTypes.string
 };

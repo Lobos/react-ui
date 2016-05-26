@@ -1,0 +1,90 @@
+@import "mixins";
+@import "themes/bootstrap";
+
+.pagination {
+  display: inline-block;
+  padding-left: 0;
+  margin-top: $spacer-y;
+  margin-bottom: $spacer-y;
+  @include border-radius();
+
+  li {
+    display: inline-block;
+    a, & > span {
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+      background-color: $pagination-bg;
+      border: $pagination-border-width solid $pagination-border-color;
+      margin-left: -1px;
+      box-sizing: border-box;
+      text-align: center;
+      padding: $pagination-padding-y $pagination-padding-x;
+      line-height: $input-line-height;
+      text-decoration: none;
+      min-width: $pagination-padding-x * 2 + 1rem;
+    }
+
+    a {
+      color: $pagination-color;
+      @include hover-focus {
+        color: $pagination-hover-color;
+        background-color: $pagination-hover-bg;
+        border-color: $pagination-hover-border;
+      }
+    }
+
+    span {
+      cursor: default;
+    }
+  }
+
+  li:first-child a {
+    margin-left: 0;
+    @include border-left-radius($border-radius);
+  }
+
+  li:last-child a {
+    @include border-right-radius($border-radius);
+  }
+
+  .previous, .next {
+    a svg {
+      position: absolute;
+      width: 1rem * $input-line-height;
+      height: 1rem * $input-line-height;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    a:hover svg path {
+      fill: $brand-primary;
+    }
+  }
+
+  .active a {
+    @include plain-hover-focus {
+      z-index: 2;
+      color: $pagination-active-color;
+      cursor: default;
+      background-color: $pagination-active-bg;
+      border-color: $pagination-active-border;
+    }
+  }
+}
+
+.mini {
+  li {
+    margin-right: 0.5rem;
+    a {
+      @include border-radius($border-radius);
+    }
+  }
+
+  input {
+    width: 2rem;
+    text-align: center;
+    box-sizing: content-box;
+  }
+}

@@ -27,8 +27,7 @@
   },
   "peerDependencies": {
     "classnames": "^2.2.3",
-    "refetch": "~0.2.1",
-    "pubsub-js": "~1.5.3"
+    "refetch": "~0.2.1"
   },
   "devDependencies": {
     "autoprefixer": "~6.3.4",
@@ -56,6 +55,7 @@
     "express": "~4.13.4",
     "extract-text-webpack-plugin": "~1.0.1",
     "file-loader": "~0.8.5",
+    "gulp": "^3.9.1",
     "gulp-webdriver": "^2.0.1",
     "history": "~2.0.1",
     "isparta-instrumenter-loader": "^1.0.0",
@@ -99,6 +99,7 @@
     "url-loader": "~0.5.7",
     "wdio-mocha-framework": "^0.2.13",
     "wdio-selenium-standalone-service": "0.0.3",
+    "webdriverio": "^4.0.7",
     "webpack": "~1.12.14",
     "webpack-dev-middleware": "~1.5.1",
     "webpack-hot-middleware": "~2.10.0"

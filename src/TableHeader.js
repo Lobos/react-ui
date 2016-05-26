@@ -1,7 +1,8 @@
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
+import PropTypes from './utils/proptypes';
 
 class TableHeader extends Component {
   constructor (props) {
@@ -48,10 +49,7 @@ TableHeader.propTypes = {
   onSort: PropTypes.func,
   sort: PropTypes.object,
   sortAble: PropTypes.bool,
-  width: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ])
+  width: PropTypes.number_string
 };
 
 TableHeader.defaultProps = {

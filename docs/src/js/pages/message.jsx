@@ -42,11 +42,22 @@ error === danger`}
 <a onClick={() => Message.error('This is an error message.')}>click me</a>
         </Example>
 
+        <h2 className="subhead">duration</h2>
+        <Example>
+<a onClick={
+  () => Message.error(
+    'this message will close after 2 seconds.',
+    { duration: 2 }
+  )}>
+  click me
+</a>
+        </Example>
+
         <h2 className="subhead">with element</h2>
         <Example>
 <a onClick={
   () => Message.warning(
-    <div><h3>title</h3><span>some text.</span></div>
+    <div><span>some text.</span> <a>a link</a></div>
   )}>
   click me
 </a>
@@ -57,17 +68,6 @@ error === danger`}
 <a onClick={
   () => Message.success(
     <span><Icon icon="check" /> success with icon</span>
-  )}>
-  click me
-</a>
-        </Example>
-
-        <h2 className="subhead">duration</h2>
-        <Example>
-<a onClick={
-  () => Message.error(
-    'this message will close after 2 seconds.',
-    { duration: 2 }
   )}>
   click me
 </a>

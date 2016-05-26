@@ -1,10 +1,11 @@
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import Regs from './utils/regs';
 import { getGrid } from './utils/grids';
 import { register } from './higherOrders/FormItem';
+import PropTypes from './utils/proptypes';
 
 import Styles from './styles/_input.scss';
 
@@ -93,10 +94,7 @@ class Input extends Component {
 Input.propTypes = {
   className: PropTypes.string,
   defaultValue: PropTypes.string,
-  grid: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.object
-  ]),
+  grid: PropTypes.grid,
   id: PropTypes.string,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,

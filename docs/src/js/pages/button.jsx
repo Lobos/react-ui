@@ -1,8 +1,8 @@
 import React from 'react';
 import Code from '../Code';
 import Example from '../Example';
-import { Cn, En } from '../Language';
-const {Button, Icon} = global.uiRequire();
+import { Cn } from '../Language';
+import {Button, Icon} from '../rctui';
 
 module.exports = class extends React.Component {
   render () {
@@ -74,4 +74,4 @@ module.exports = class extends React.Component {
       </div>
     );
   }
-}
+};

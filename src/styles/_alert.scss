@@ -7,12 +7,21 @@
 
 .alert {
   padding: $alert-padding;
-  padding-right: $alert-padding + 10px;
+  padding-right: $alert-padding + 20px;
   margin-bottom: $spacer-y;
   border: $alert-border-width solid transparent;
   @include border-radius($alert-border-radius);
+
+  a {
+    color: inherit;
+    font-weight: $alert-link-font-weight;
+  }
 }
 
+.dismissed {
+  transition: .3s ease-out;
+  opacity: 0;
+}
 
 // Provide class for links that match alerts
 .link {
@@ -27,6 +36,11 @@
   top: -4px;
   right: 8px;
   color: inherit;
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 // Dismissible alerts

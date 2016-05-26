@@ -1,24 +1,29 @@
 'use strict';
 
 import { PropTypes } from 'react';
+import { combine } from './array';
 
-export const PropStringOrElement = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.element
-]);
+const TYPES = ['array', 'bool', 'element', 'func', 'number', 'object', 'string'];
 
-export const PropStringOrNumber = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.number
-]);
+let combineTypes = [];
+const oneOfType = {};
 
-export const PropArrayOrObject = PropTypes.oneOfType([
-  PropTypes.array,
-  PropTypes.object
-]);
+for (let i = 2; i <= 6; i++) {
+  combineTypes = combineTypes.concat(combine(TYPES, i));
+}
 
-export const PropDatetime = PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.number,
-  PropTypes.object
-]);
+combineTypes.forEach((arr) => {
+  oneOfType[arr.join('_')] = PropTypes.oneOfType(arr.map((key) => PropTypes[key]));
+});
+
+export default {
+  ...PropTypes,
+
+  ...oneOfType,
+
+  datetime: oneOfType.number_object_string,
+
+  grid: oneOfType.number_object,
+
+  tpl: oneOfType.func_string
+};

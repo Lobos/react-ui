@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Component, PropTypes, cloneElement, Children } from 'react';
+import React, { Component, cloneElement, Children } from 'react';
 import classnames from 'classnames';
 import objectAssign from 'object-assign';
 import { COMPONENTS, getValueType } from './higherOrders/FormItem';
@@ -8,6 +8,7 @@ import merge from './utils/merge';
 import { getGrid } from './utils/grids';
 import { format } from './utils/strings';
 import { forEach, shallowEqual } from './utils/objects';
+import PropTypes from './utils/proptypes';
 
 import { getLang, setLang } from './lang';
 setLang('validation');
@@ -294,33 +295,20 @@ FormControl.propTypes = {
   data: PropTypes.any,
   errorText: PropTypes.string,
   formData: PropTypes.object,
-  grid: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.object
-  ]),
+  grid: PropTypes.grid,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
   itemBind: PropTypes.func,
   itemChange: PropTypes.func,
   itemUnbind: PropTypes.func,
-  label: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element
-  ]),
-  labelWidth: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
+  label: PropTypes.element_string,
+  labelWidth: PropTypes.number_string,
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
   name: PropTypes.string,
   onChange: PropTypes.func,
-  placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   required: PropTypes.bool,
   style: PropTypes.object,
-  tip: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.string
-  ]),
+  tip: PropTypes.element_string,
   type: PropTypes.string,
   value: PropTypes.any
 };
