@@ -8,8 +8,7 @@ import TableHeader from './TableHeader';
 import { fetchEnhance } from './higherOrders/Fetch';
 import PropTypes from './utils/proptypes';
 
-import { requireCss } from './themes';
-requireCss('tables');
+import TableStyles from './styles/_tables.scss';
 
 class Table extends Component {
   constructor (props) {
@@ -267,22 +266,21 @@ class Table extends Component {
     }
     if (width) {
       headerStyle.width = width;
-      if (typeof headerStyle.width === 'number') {
-        headerStyle.width += 20;
+      if (/^[0-9]*$/.test(width)) {
+        headerStyle.width = parseInt(width) + 20;
       }
       tableStyle.width = width;
       bodyStyle.overflow = 'auto';
       onBodyScroll = this.onBodyScroll;
+      fixedHead = true;
     }
 
     let className = classnames(
       this.props.className,
-      'rct-table',
-      {
-        'rct-bordered': bordered,
-        'rct-scrolled': height,
-        'rct-striped': striped
-      }
+      TableStyles.table,
+      bordered && TableStyles.bordered,
+      height && TableStyles.scrolled,
+      striped && TableStyles.striped
     );
 
     return (

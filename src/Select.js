@@ -355,7 +355,7 @@ Select.propTypes = {
   className: PropTypes.string,
   data: PropTypes.array_object,
   filterAble: PropTypes.bool,
-  grid: PropTypes.number_object,
+  grid: PropTypes.grid,
   groupBy: PropTypes.string,
   maxShowCount: PropTypes.number,
   mult: PropTypes.bool,

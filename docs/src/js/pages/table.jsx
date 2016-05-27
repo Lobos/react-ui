@@ -13,7 +13,7 @@ module.exports = class extends Component {
       bordered: true,
       selectAble: true,
       filters: [],
-      height: 370,
+      height: '370px',
       pagination: false,
       striped: true,
       total: 0,
@@ -92,7 +92,7 @@ headers = [{
           <div>
             <em>实例方法</em>，获取当前选中的数据，返回结果为数组<br />
             <em>name</em>，如果为空，返回为原始data数据，如果指定了name，返回name对应的值。
-            <pre className="prettyprint">{`this.refs.table.getChecked('name')`}</pre>
+            <pre className="prettyprint">{'this.refs.table.getChecked("name")'}</pre>
           </div>
 
           <h2 className="subhead">Example</h2>
@@ -103,10 +103,10 @@ headers = [{
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.pagination} onChange={page => this.setState({pagination: page})} text="pagination" />
           </div>
           <div>
-            height: <RadioGroup style={{display: 'inline-block'}} inline={true} onChange={height => this.setState({height})} value={this.state.height} data={['auto', 200, 370, 500]} />
+            height: <RadioGroup style={{display: 'inline-block'}} onChange={(height) => this.setState({height})} value={this.state.height} data={['auto', '15rem', '370px', '500px']} />
           </div>
           <div>
-            width: <RadioGroup style={{display: 'inline-block'}} inline={true} onChange={width=> this.setState({width})} value={this.state.width} data={['100%', 1200, 2000]} />
+            width: <RadioGroup style={{display: 'inline-block'}} onChange={(width) => this.setState({width})} value={this.state.width} data={['100%', '1200px', '2000px']} />
           </div>
           {
             this.state.selectAble &&
@@ -120,7 +120,7 @@ headers = [{
             <Example>
 <Filter onFilter={(filters) => this.setState({ filters })}
   style={{marginBottom: 20}}
-  local={true}
+  local
   options={[{
     label: '姓名',
     name: 'name',
@@ -181,4 +181,4 @@ this.setState({ fetch });`}
       </div>
     );
   }
-}
+};

@@ -22,7 +22,6 @@
       padding: $pagination-padding-y $pagination-padding-x;
       line-height: $input-line-height;
       text-decoration: none;
-      min-width: $pagination-padding-x * 2 + 1rem;
     }
 
     a {
@@ -87,4 +86,12 @@
     text-align: center;
     box-sizing: content-box;
   }
+}
+
+.large {
+  @include pagination-size($pagination-padding-y-lg, $pagination-padding-x-lg, $font-size-lg, $line-height-lg, $border-radius-lg);
+}
+
+.small {
+  @include pagination-size($pagination-padding-y-sm, $pagination-padding-x-sm, $font-size-sm, $line-height-sm, $border-radius-sm);
 }

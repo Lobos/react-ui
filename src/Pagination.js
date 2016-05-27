@@ -93,7 +93,7 @@ class Pagination extends Component {
   }
 
   render () {
-    let { mini } = this.props;
+    let { mini, large, small } = this.props;
     let { pages, max } = this.getPages();
     let items = [];
     let currentPage = this.getCurrentPage();
@@ -146,7 +146,9 @@ class Pagination extends Component {
     let className = classnames(
       this.props.className,
       PagiStyles.pagination,
-      mini && PagiStyles.mini
+      mini && PagiStyles.mini,
+      large && PagiStyles.large,
+      small && PagiStyles.small
     );
     return (
       <ul className={className}>
@@ -159,12 +161,14 @@ class Pagination extends Component {
 Pagination.propTypes = {
   className: PropTypes.string,
   index: PropTypes.number,
+  large: PropTypes.bool,
   mini: PropTypes.bool,
   onChange: PropTypes.func,
   page: PropTypes.number,
   pages: PropTypes.number,
   range: PropTypes.number,
   size: PropTypes.number,
+  small: PropTypes.bool,
   style: PropTypes.object,
   total: PropTypes.number
 };
