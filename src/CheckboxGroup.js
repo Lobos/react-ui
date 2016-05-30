@@ -26,6 +26,7 @@ const CheckboxGroup = (props) => {
         return (
           <Checkbox key={item.$key}
             index={i}
+            className={item.className}
             readOnly={readOnly}
             block={checkBlock}
             checked={item.$checked}

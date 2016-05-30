@@ -11,6 +11,7 @@ export default class Transition extends React.Component {
   }
 
   componentDidMount () {
+    this.element.display = 'none';
     this.action(this.props.act);
   }
 
@@ -41,7 +42,7 @@ export default class Transition extends React.Component {
     setTimeout(() => {
       addClass(el, 'enter');
       removeClass(el, 'leave');
-    }, 0);
+    }, 10);
   }
 
   leave () {
@@ -56,7 +57,8 @@ export default class Transition extends React.Component {
   render () {
     const { children, tf, duration } = this.props;
     let style = {
-      transition: `${duration}ms ${tf}`
+      transitionDuration: `${duration}ms`,
+      transitionTimingFunction: tf
     };
 
     return cloneElement(children, {style, ref: this.bindElement});
