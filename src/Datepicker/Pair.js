@@ -1,22 +1,22 @@
-'use strict';
+'use strict'
 
-import React from 'react';
-import { shallowEqual } from '../utils/objects';
-import Datepicker from './index';
-import PropTypes from '../utils/proptypes';
+import React from 'react'
+import { shallowEqual } from '../utils/objects'
+import Datepicker from './index'
+import PropTypes from '../utils/proptypes'
 
 export default class Pair extends React.Component {
   constructor (props) {
-    super(props);
-    this.state = {};
+    super(props)
+    this.state = {}
   }
 
   shouldComponentUpdate (nextProps, nextState) {
-    return !shallowEqual(nextProps, this.props) || !shallowEqual(this.state, nextState);
+    return !shallowEqual(nextProps, this.props) || !shallowEqual(this.state, nextState)
   }
 
   render () {
-    const { names, min, max, con, ...other } = this.props;
+    const { names, min, max, con, ...other } = this.props
     return (
       <div>
         <Datepicker min={min} name={names[0]} {...other}
@@ -29,20 +29,20 @@ export default class Pair extends React.Component {
           onChange={(second) => this.setState({ second })}
         />
       </div>
-    );
+    )
   }
 };
 
-Pair.isFormItem = true;
+Pair.isFormItem = true
 
 Pair.propTypes = {
   con: PropTypes.any,
   max: PropTypes.datetime,
   min: PropTypes.datetime,
   names: PropTypes.array
-};
+}
 
 Pair.defaultProps = {
   con: '-',
   names: []
-};
+}

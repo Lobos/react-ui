@@ -1,22 +1,22 @@
-'use strict';
+'use strict'
 
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-import Refetch from 'refetch';
-const {Form, FormControl, Button, FormSubmit, Icon, Input, InputGroup, Datepicker, DatepickerPair, RadioGroup, FormItem} = global.uiRequire();
+import React from 'react'
+import Code from '../Code'
+import Example from '../Example'
+import Refetch from 'refetch'
+const {Form, FormControl, Button, FormSubmit, Icon, Input, InputGroup, Datepicker, DatepickerPair, RadioGroup, FormItem} = global.uiRequire()
 
 const HEARTS = [
   <Icon size={2} icon="favorite-outline" style={{color: 'red'}} />,
   <Icon size={2} icon="favorite" style={{color: 'red'}} />
-];
+]
 
 module.exports = class extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       layout: 'inline'
-    };
+    }
   }
 
   render () {
@@ -57,20 +57,20 @@ module.exports = class extends React.Component {
           </p>
 
           <h2 className="subhead">layout</h2>
-          
+
           <Example>
 <RadioGroup style={{ marginBottom: '2rem', borderBottom: 'solid 1px #ddd' }}
   data={['inline', 'aligned', 'stacked']}
   value={this.state.layout}
   onChange={layout => this.setState({ layout })} />
 
-<Form button='Submit' layout={this.state.layout}>
+<Form button="Submit" layout={this.state.layout}>
   <FormControl label="name">
     <Input name="name" style={{width: '10rem'}} type="text" min={2} max={6} />
   </FormControl>
   <FormControl name="email" placeholder="email" type="email" />
   <FormControl name="nationality" label="nationality" type="select"
-    data={["China", "America", "Russia", "Japan", "Franch", "England", "Spain"]} />
+    data={['China', 'America', 'Russia', 'Japan', 'Franch', 'England', 'Spain']} />
 </Form>
           </Example>
 
@@ -83,75 +83,75 @@ module.exports = class extends React.Component {
   <FormControl name="text"
     label="text"
     type="text"
-    grid={{width:12/24}}
+    grid={{width:12 / 24}}
     min={2}
     max={6} />
 
   <FormControl label="email">
-    <InputGroup grid={1/2}>
+    <InputGroup grid={1 / 2}>
       <Icon icon="email" />
       <Input name="email" type="email" />
     </InputGroup>
   </FormControl>
 
-  <FormControl grid={{width:13/24}}
+  <FormControl grid={{width:13 / 24}}
     name="alpha"
     label="alpha"
     required
     type="alpha" />
 
-  <FormControl grid={{width:14/24}}
+  <FormControl grid={{width:14 / 24}}
     name="alphanum"
     label="alphanum"
     type="alphanum" />
 
-  <FormControl grid={{width:15/24}}
+  <FormControl grid={{width:15 / 24}}
     name="integer"
     min={120}
     max={3200}
     label="integer"
     type="integer" />
 
-  <FormControl grid={{width:16/24}}
+  <FormControl grid={{width:16 / 24}}
     name="number"
     label="number"
     type="number" />
 
-  <FormControl grid={{width:16/24}}
+  <FormControl grid={{width:16 / 24}}
     name="password"
     min={6}
     max={20}
     label="password"
     type="password" />
 
-  <FormControl grid={{width:16/24}}
+  <FormControl grid={{width:16 / 24}}
     name="repassword"
-    ignore={true}
+    ignore
     label="repeat password"
     type="password"
     tip="same as the password."
     validator={
       {
         func: (value, formData) => {
-          let password = formData.password;
+          let password = formData.password
           if (!value ? !password : value === password) {
-            return true;
+            return true
           } else {
-            return new Error('This value should be the same as the password.');
+            return new Error('This value should be the same as the password.')
           }
         },
         bind: ['password']
       }
     } />
 
-  <FormControl grid={{width:17/24}}
+  <FormControl grid={{width:17 / 24}}
     name="url"
     label="url"
     type="url" />
 
-  <FormControl grid={{width:17/24}}
+  <FormControl grid={{width:17 / 24}}
     name="readonly"
-    readOnly={true}
+    readOnly
     label="readonly"
     type="text" />
 
@@ -166,29 +166,29 @@ module.exports = class extends React.Component {
 
   <FormControl label="datetime pair">
     <DatepickerPair type="date" min="2016-03-03" max="2016-08-21"
-      names={["startTime", "endTime"]} />
+      names={['startTime', 'endTime']} />
   </FormControl>
 
   <FormControl label="mult input" tip="each field require 5 alphanumeric characters">
-    <Input name="mult1" type="alphanum" min={5} max={5} grid={1/6} />
+    <Input name="mult1" type="alphanum" min={5} max={5} grid={1 / 6} />
     <span>-</span>
-    <Input name="mult2" type="alphanum" min={5} max={5} grid={1/6} />
+    <Input name="mult2" type="alphanum" min={5} max={5} grid={1 / 6} />
     <span>-</span>
-    <Input name="mult3" type="alphanum" min={5} max={5} grid={1/6} />
+    <Input name="mult3" type="alphanum" min={5} max={5} grid={1 / 6} />
     <span>-</span>
-    <Input name="mult4" type="alphanum" min={5} max={5} grid={1/6} />
+    <Input name="mult4" type="alphanum" min={5} max={5} grid={1 / 6} />
   </FormControl>
 
   <FormControl name="checkboxgroup"
     required
     min={2}
-    fetch={{url: "json/text-value.json", cache: 3600}}
+    fetch={{url: 'json/text-value.json', cache: 3600}}
     label="checkbox group"
     type="checkbox-group" />
 
   <FormControl name="radiogroup"
     required
-    fetch={{url: "json/text-value.json", cache: 3600}}
+    fetch={{url: 'json/text-value.json', cache: 3600}}
     label="radio group"
     inline={false}
     type="radio-group" />
@@ -202,22 +202,22 @@ module.exports = class extends React.Component {
     errorText="必须给一个评分哦"
     type="rating" />
 
-  <FormControl grid={{width:12/24}}
+  <FormControl grid={{width:12 / 24}}
     name="select"
     label="select"
     type="select"
-    fetch={{url:"json/countries.json", cache:3600}}
-    mult={true}
-    filterAble={true}
+    fetch={{url:'json/countries.json', cache:3600}}
+    mult
+    filterAble
     optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
     valueTpl="{en}" />
 
   <FormControl name="tree"
-    selectAble={true}
+    selectAble
     label="tree"
     type="tree"
     fetch={ Refetch.get('json/tree.json') }
-    textTpl='{text}({id})'
+    textTpl="{text}({id})"
     valueTpl="{id}" />
 
   <FormControl label="raw input">
@@ -229,14 +229,14 @@ module.exports = class extends React.Component {
   <FormControl name="upload"
     label="upload file"
     type="upload"
-    grid={1/2}
+    grid={1 / 2}
     action="http://216.189.159.94:8080/upload"
     accept="image/*"
     fileSize={300}
     limit={3}
     content={<Button><Icon icon="upload" /> 选择文件</Button>} />
 
-  <FormControl grid={{width:18/24}}
+  <FormControl grid={{width:18 / 24}}
     name="textarea"
     label="textarea"
     autoHeight
@@ -255,7 +255,7 @@ module.exports = class extends React.Component {
           </div>
           <Example>
 <Form button="确定" fetch={'json/form.json'} controls={[
-  { name: 'text', type: 'text', min: 3, max: 12, label: 'text', grid: 1/3 },
+  { name: 'text', type: 'text', min: 3, max: 12, label: 'text', grid: 1 / 3 },
   { name: 'datetime', required: true, type: 'datetime', label: 'datetime', tip: '自定义tip文字' },
   { label: 'two items', key: 'twoitem', items: [
     { name: 'startTime', type: 'date' },
@@ -263,14 +263,14 @@ module.exports = class extends React.Component {
     { name: 'endTime', type: 'date' }
   ] },
   {
-    name: 'select', type: 'select', label: 'select', grid: 1/2, fetch: {url:"json/countries.json", cache:3600},
-    mult: true, filterAble: true, valueTpl: "{en}",
+    name: 'select', type: 'select', label: 'select', grid: 1 / 2, fetch: {url:'json/countries.json', cache:3600},
+    mult: true, filterAble: true, valueTpl: '{en}',
     optionTpl: '<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
   }
 ]} />
           </Example>
         </div>
       </div>
-    );
+    )
   }
 }

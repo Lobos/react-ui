@@ -1,20 +1,20 @@
-'use strict';
+'use strict'
 
-import { PropTypes } from 'react';
-import { combine } from './array';
+import { PropTypes } from 'react'
+import { combine } from './array'
 
-const TYPES = ['array', 'bool', 'element', 'func', 'number', 'object', 'string'];
+const TYPES = ['array', 'bool', 'element', 'func', 'number', 'object', 'string']
 
-let combineTypes = [];
-const oneOfType = {};
+let combineTypes = []
+const oneOfType = {}
 
 for (let i = 2; i <= 6; i++) {
-  combineTypes = combineTypes.concat(combine(TYPES, i));
+  combineTypes = combineTypes.concat(combine(TYPES, i))
 }
 
 combineTypes.forEach((arr) => {
-  oneOfType[arr.join('_')] = PropTypes.oneOfType(arr.map((key) => PropTypes[key]));
-});
+  oneOfType[arr.join('_')] = PropTypes.oneOfType(arr.map((key) => PropTypes[key]))
+})
 
 export default {
   ...PropTypes,
@@ -26,4 +26,4 @@ export default {
   grid: oneOfType.number_object,
 
   tpl: oneOfType.func_string
-};
+}

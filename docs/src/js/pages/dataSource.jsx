@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-import React from 'react';
-import Code from '../Code';
+import React from 'react'
+import Code from '../Code'
 
 module.exports = class extends React.Component {
   render () {
@@ -51,6 +51,6 @@ module.exports = class extends React.Component {
           </Code>
         </div>
       </div>
-    );
+    )
   }
 }

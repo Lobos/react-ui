@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-import { En, Cn } from '../Language';
-const { Input, Icon, Button, InputGroup } = global.uiRequire();
+import React from 'react'
+import Code from '../Code'
+import Example from '../Example'
+import { En, Cn } from '../Language'
+const { Input, Icon, Button, InputGroup } = global.uiRequire()
 
 module.exports = () => {
   return (
@@ -36,18 +36,18 @@ module.exports = () => {
 
         <h2 className="subhead">Example</h2>
         <Example>
-<Input grid={1/4} placeholder="text" /><br />
-<Input type="integer" grid={1/6} placeholder="integer" /><br />
-<Input readOnly grid={1/4} placeholder="readOnly" /><br />
-<Input value="init value" grid={1/4} onChange={(value) => console.log(value)} placeholder="none" /><br />
-<Input value="change trigger" trigger="change" onChange={(value) => console.log(value)} grid={1/3} />
+<Input grid={1 / 4} placeholder="text" /><br />
+<Input type="integer" grid={1 / 6} placeholder="integer" /><br />
+<Input readOnly grid={1 / 4} placeholder="readOnly" /><br />
+<Input value="init value" grid={1 / 4} onChange={(value) => console.log(value)} placeholder="none" /><br />
+<Input value="change trigger" trigger="change" onChange={(value) => console.log(value)} grid={1 / 3} />
         </Example>
 
         <h2 className="subhead">Size</h2>
         <Example>
-<Input grid={1/4} size="small" placeholder="small" />
-<Input grid={1/4} placeholder="middle" />
-<Input grid={1/4} size="large" placeholder="large" />
+<Input grid={1 / 4} size="small" placeholder="small" />
+<Input grid={1 / 4} placeholder="middle" />
+<Input grid={1 / 4} size="large" placeholder="large" />
         </Example>
 
         <h2 className="subhead">InputGroup</h2>
@@ -64,28 +64,28 @@ module.exports = () => {
         </Code>
 
         <Example>
-<InputGroup grid={1/2}>
+<InputGroup grid={1 / 2}>
   text
   <Input placeholder="front addon" />
 </InputGroup>
 
-<InputGroup grid={1/2}>
+<InputGroup grid={1 / 2}>
   <Input placeholder="end addon" />
   end
 </InputGroup>
 
-<InputGroup grid={1/2}>
+<InputGroup grid={1 / 2}>
   front
   <Input />
   end
 </InputGroup>
 
-<InputGroup grid={1/2}>
+<InputGroup grid={1 / 2}>
   <Icon icon="email" />
   <Input placeholder="email" />
 </InputGroup>
 
-<InputGroup grid={1/2}>
+<InputGroup grid={1 / 2}>
   <Input placeholder="button" />
   <Button status="primary">button</Button>
 </InputGroup>
@@ -99,13 +99,13 @@ module.exports = () => {
   <Button status="primary">button</Button>
 </InputGroup>
 
-<InputGroup size="middle" grid={3/4}>
+<InputGroup size="middle" grid={3 / 4}>
   middle
   <Input placeholder="middle input" />
   <Button status="primary">button</Button>
 </InputGroup>
 
-<InputGroup size="small" grid={1/2}>
+<InputGroup size="small" grid={1 / 2}>
   small
   <Input placeholder="small input" />
   <Button status="primary">button</Button>
@@ -115,5 +115,5 @@ module.exports = () => {
         <p>更多示例见 <a href="#/formControl">FormControl</a></p>
       </div>
     </div>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-import { Cn } from '../Language';
-import {Button, Icon} from '../rctui';
+import React from 'react'
+import Code from '../Code'
+import Example from '../Example'
+import { Cn } from '../Language'
+import {Button, Icon} from '../rctui'
 
 module.exports = class extends React.Component {
   render () {
@@ -72,6 +72,6 @@ module.exports = class extends React.Component {
           </Example>
         </div>
       </div>
-    );
+    )
   }
-};
+}

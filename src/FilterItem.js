@@ -1,25 +1,25 @@
-'use strict';
+'use strict'
 
-import React, { Component, PropTypes } from 'react';
-import Datepicker from './Datepicker';
-import Input from './Input';
-import Select from './Select';
+import React, { Component, PropTypes } from 'react'
+import Datepicker from './Datepicker'
+import Input from './Input'
+import Select from './Select'
 
-const DEFAULT_OPS = ['=', 'like', '>', '>=', '<', '<=', 'in', 'not in'];
+const DEFAULT_OPS = ['=', 'like', '>', '>=', '<', '<=', 'in', 'not in']
 
 class FilterItem extends Component {
   constructor (props) {
-    super(props);
+    super(props)
 
-    this.onOpChange = this.onOpChange.bind(this);
-    this.onValueChange = this.onValueChange.bind(this);
-    this.onLabelChange = this.onLabelChange.bind(this);
-    this.remove = this.remove.bind(this);
+    this.onOpChange = this.onOpChange.bind(this)
+    this.onValueChange = this.onValueChange.bind(this)
+    this.onLabelChange = this.onLabelChange.bind(this)
+    this.remove = this.remove.bind(this)
   }
 
   onLabelChange (optionsIndex) {
-    optionsIndex = parseInt(optionsIndex);
-    let options = this.props.options[optionsIndex];
+    optionsIndex = parseInt(optionsIndex)
+    let options = this.props.options[optionsIndex]
     let filter = {
       optionsIndex,
       label: options.label,
@@ -27,114 +27,114 @@ class FilterItem extends Component {
       op: null,
       value: null,
       ops: options.ops || DEFAULT_OPS
-    };
+    }
     // only one op, use it
     if (filter.ops.length === 1) {
-      filter.op = filter.ops[0];
+      filter.op = filter.ops[0]
     }
-    this.props.onChange(this.props.index, filter);
+    this.props.onChange(this.props.index, filter)
   }
 
   onOpChange (op) {
-    this.props.onChange(this.props.index, { op });
+    this.props.onChange(this.props.index, { op })
   }
 
   onValueChange (value) {
-    this.props.onChange(this.props.index, { value });
+    this.props.onChange(this.props.index, { value })
   }
 
   getFunc () {
-    let options = this.props.options;
-    let name = this.props.name;
-    let value = this.props.value;
-    let op = this.props.op;
-    let func = function () {};
-    let filter = options[this.props.index];
+    let options = this.props.options
+    let name = this.props.name
+    let value = this.props.value
+    let op = this.props.op
+    let func = function () {}
+    let filter = options[this.props.index]
 
     if (options.type === 'integer' || options.type === 'number') {
-      value = parseFloat(value);
+      value = parseFloat(value)
     }
 
     if (filter[op]) {
       return function (d) {
-        return filter[op](d, value);
-      };
+        return filter[op](d, value)
+      }
     }
 
     switch (op) {
       case '=':
-        func = (d) => { return d[name].toString() === value.toString(); };
-      break;
+        func = (d) => { return d[name].toString() === value.toString() }
+      break
       case 'like':
-        func = (d) => { return d[name].indexOf(value) >= 0; };
-      break;
+        func = (d) => { return d[name].indexOf(value) >= 0 }
+      break
       case '>':
-        func = (d) => { return d[name] > value; };
-      break;
+        func = (d) => { return d[name] > value }
+      break
       case '>=':
-        func = (d) => { return d[name] >= value; };
-      break;
+        func = (d) => { return d[name] >= value }
+      break
       case '<':
-        func = (d) => { return d[name] < value; };
-      break;
+        func = (d) => { return d[name] < value }
+      break
       case '<=':
-        func = (d) => { return d[name] <= value; };
-      break;
+        func = (d) => { return d[name] <= value }
+      break
       case 'in':
-        func = (d) => { return value.split(',').indexOf(d[name].toString()) >= 0; };
-      break;
+        func = (d) => { return value.split(',').indexOf(d[name].toString()) >= 0 }
+      break
       case 'not in':
-        func = (d) => { return value.split(',').indexOf(d[name].toString()) < 0; };
-      break;
+        func = (d) => { return value.split(',').indexOf(d[name].toString()) < 0 }
+      break
     }
 
-    return func;
+    return func
   }
 
   remove () {
     // setTimeout wait parent clickaway completed
     setTimeout(() => {
-      this.props.removeFilter(this.props.index);
-    }, 0);
+      this.props.removeFilter(this.props.index)
+    }, 0)
   }
 
   renderOp () {
     if (this.props.ops) {
-      return <Select style={{width: 120}} value={this.props.op} onChange={this.onOpChange} data={this.props.ops} />;
+      return <Select style={{width: 120}} value={this.props.op} onChange={this.onOpChange} data={this.props.ops} />
     } else {
-      return null;
+      return null
     }
   }
 
   renderControl () {
     if (!this.props.label) {
-      return null;
+      return null
     }
-    let options = this.props.options[this.props.optionsIndex];
-    let props = options.props || {};
-    let onChange = this.onValueChange;
-    let style = { width: 240 };
-    let control;
+    let options = this.props.options[this.props.optionsIndex]
+    let props = options.props || {}
+    let onChange = this.onValueChange
+    let style = { width: 240 }
+    let control
     switch (options.type) {
       case 'select':
-        control = <Select value={this.props.value} onChange={onChange} style={style} {...props} />;
-      break;
+        control = <Select value={this.props.value} onChange={onChange} style={style} {...props} />
+      break
       case 'datetime':
       case 'date':
       case 'time':
-        control = <Datepicker value={this.props.value} onChange={onChange} {...props} />;
-      break;
+        control = <Datepicker value={this.props.value} onChange={onChange} {...props} />
+      break
       default:
-        control = <Input value={this.props.value} type={options.type} style={style} onChange={onChange} {...props} />;
-      break;
+        control = <Input value={this.props.value} type={options.type} style={style} onChange={onChange} {...props} />
+      break
     }
-    return control;
+    return control
   }
 
   render () {
-    let optionsIndex = this.props.optionsIndex;
+    let optionsIndex = this.props.optionsIndex
     if (optionsIndex !== undefined) {
-      optionsIndex = optionsIndex.toString();
+      optionsIndex = optionsIndex.toString()
     }
     return (
       <div className="rct-filter-item">
@@ -151,7 +151,7 @@ class FilterItem extends Component {
 
         <button onClick={this.remove} className="remove">&times;</button>
       </div>
-    );
+    )
   }
 }
 
@@ -167,6 +167,6 @@ FilterItem.propTypes = {
   removeFilter: PropTypes.func,
   type: PropTypes.string,
   value: PropTypes.any
-};
+}
 
-module.exports = FilterItem;
+module.exports = FilterItem

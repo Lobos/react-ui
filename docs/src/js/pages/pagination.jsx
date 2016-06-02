@@ -1,14 +1,14 @@
-'use strict';
+'use strict'
 
-import { Component } from 'react';
-import Code from '../Code';
-import Example from '../Example';
-import { Cn } from '../Language';
-const {Pagination, RadioGroup, Input, Checkbox} = global.uiRequire();
+import { Component } from 'react'
+import Code from '../Code'
+import Example from '../Example'
+import { Cn } from '../Language'
+const {Pagination, RadioGroup, Input, Checkbox} = global.uiRequire()
 
 module.exports = class extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       page: 2,
       size: 20,
@@ -16,7 +16,7 @@ module.exports = class extends Component {
       range: 10,
       lms: 'middle',
       mini: false
-    };
+    }
   }
 
   render () {
@@ -65,6 +65,6 @@ module.exports = class extends Component {
           </Example>
         </div>
       </div>
-    );
+    )
   }
-};
+}

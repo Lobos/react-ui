@@ -1,31 +1,31 @@
-'use strict';
+'use strict'
 
-import React, { Children } from 'react';
-import curry from 'curry';
-import { toArray } from '../utils/strings';
-import { toTextValue, hashcode } from '../utils/objects';
-import PropTypes from '../utils/proptypes';
+import React, { Children } from 'react'
+import curry from 'curry'
+import { toArray } from '../utils/strings'
+import { toTextValue, hashcode } from '../utils/objects'
+import PropTypes from '../utils/proptypes'
 
 export const textValueAble = curry((single, Component) => {
   class TextValue extends React.Component {
     constructor (props) {
-      super(props);
-      this.handleChange = this.handleChange.bind(this);
+      super(props)
+      this.handleChange = this.handleChange.bind(this)
     }
 
     formatData (data) {
-      let values = toArray(this.props.value, this.props.sep);
+      let values = toArray(this.props.value, this.props.sep)
       data = toTextValue(data, this.props.textTpl, this.props.valueTpl)
         .map((d) => {
-          d.$checked = values.indexOf(d.$value) >= 0;
-          return d;
-        });
+          d.$checked = values.indexOf(d.$value) >= 0
+          return d
+        })
 
       Children.map(this.props.children, (child) => {
         if (typeof child === 'object') {
-          let position = child.props.position;
+          let position = child.props.position
           if (position === undefined) {
-            position = data.length;
+            position = data.length
           }
           data = [
             ...data.slice(0, position),
@@ -37,41 +37,41 @@ export const textValueAble = curry((single, Component) => {
               $key: child.props.id || hashcode(child.props.defaultValue)
             },
             ...data.slice(position)
-          ];
+          ]
         }
-      });
+      })
 
       // for get checked values
-      this.data = data;
-      return data;
+      this.data = data
+      return data
     }
 
     handleChange (value, checked, index) {
-      const { sep, onChange } = this.props;
-      let data = this.data;
-      let values = [];
-      let raw = [];
+      const { sep, onChange } = this.props
+      let data = this.data
+      let values = []
+      let raw = []
 
       if (!single) {
-        data[index].$checked = checked;
+        data[index].$checked = checked
         data.forEach((d) => {
           if (d.$checked) {
-            values.push(d.$value);
-            raw.push(d);
+            values.push(d.$value)
+            raw.push(d)
           }
-        });
+        })
 
         if (sep && typeof sep === 'string') {
-          value = values.join(sep);
+          value = values.join(sep)
         } else if (typeof sep === 'function') {
-          value = sep(raw);
+          value = sep(raw)
         } else {
-          value = values;
+          value = values
         }
       }
 
       if (onChange) {
-        onChange(value);
+        onChange(value)
       }
     }
 
@@ -81,7 +81,7 @@ export const textValueAble = curry((single, Component) => {
           data={this.formatData(this.props.data)}
           onChange={this.handleChange}
         />
-      );
+      )
     }
   }
 
@@ -93,14 +93,14 @@ export const textValueAble = curry((single, Component) => {
     textTpl: PropTypes.tpl,
     value: PropTypes.any,
     valueTpl: PropTypes.tpl
-  };
+  }
 
   TextValue.defaultProps = {
     data: [],
     sep: ',',
     textTpl: '{text}',
     valueTpl: '{id}'
-  };
+  }
 
-  return TextValue;
-});
+  return TextValue
+})

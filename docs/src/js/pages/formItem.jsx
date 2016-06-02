@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
-import Code from '../Code';
-import Example from '../Example';
-const { Form, FormControl, FormItem } = global.uiRequire();
+import Code from '../Code'
+import Example from '../Example'
+const { Form, FormControl, FormItem } = global.uiRequire()
 
 module.exports = () => {
   return (
@@ -73,5 +73,5 @@ register(Input, ['text'], {
         </Code>
       </div>
     </div>
-  );
-};
+  )
+}

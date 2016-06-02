@@ -1,26 +1,26 @@
-"use strict";
+'use strict'
 
-import { Component } from 'react';
-import Code from '../Code';
-import Example from '../Example';
-const {Select, Button} = global.uiRequire();
+import { Component } from 'react'
+import Code from '../Code'
+import Example from '../Example'
+const {Select, Button} = global.uiRequire()
 
-const bigData = [];
-let i=10000;
-while (i--) { bigData.push(i); }
+const bigData = []
+let i = 10000
+while (i--) { bigData.push(i) }
 
 module.exports = class extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       country: ''
-    };
+    }
 
-    this.handleCountry = this.handleCountry.bind(this);
+    this.handleCountry = this.handleCountry.bind(this)
   }
 
   handleCountry (courtry) {
-    this.setState({ courtry });
+    this.setState({ courtry })
   }
 
   render () {
@@ -60,27 +60,27 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 
           <h2 className="subhead">简单数组</h2>
           <Example>
-<Select grid={{width:1/3}}
+<Select grid={{width:1 / 3}}
   placeholder="简单数组"
-  data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
-&nbsp; 
-<Select grid={{width:1/3}}
-  mult={true}
-  data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
+  data={['中国', '美国', '俄罗斯', '德国', '日本', '法国', '英格兰']} />
+&nbsp;
+<Select grid={{width:1 / 3}}
+  mult
+  data={['中国', '美国', '俄罗斯', '德国', '日本', '法国', '英格兰']} />
           </Example>
 
           <h2 className="subhead">KeyValue</h2>
           <Example>
-<Select grid={{width:1/4}}
+<Select grid={{width:1 / 4}}
   placeholder="Key Value"
   data={{ jiangsu: '江苏', shanghai: '上海', beijing: '北京', guangdong: '广东', zhejiang: '浙江' }} />
           </Example>
 
           <h2 className="subhead">单选</h2>
           <Example>
-<Select grid={{width:1/2}}
+<Select grid={{width:1 / 2}}
   placeholder="单选"
-  filterAble={true}
+  filterAble
   optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
   onChange={ this.handleCountry }
@@ -92,50 +92,50 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           <h2 className="subhead">超大数据</h2>
           <p>这个示例设置了10000个选项。</p>
           <Example>
-<Select grid={{width:1/3}}
-  filterAble={true}
+<Select grid={{width:1 / 3}}
+  filterAble
   placeholder="单选"
   data={bigData} />
-&nbsp; 
-<Select grid={{width:1/3}}
-  filterAble={true}
+&nbsp;
+<Select grid={{width:1 / 3}}
+  filterAble
   placeholder="多选"
-  mult={true}
+  mult
   data={bigData} />
           </Example>
 
           <h2 className="subhead">多选</h2>
           <Example>
-<Select grid={{width:1/2}}
-  mult={true}
+<Select grid={{width:1 / 2}}
+  mult
   placeholder="多选"
-  filterAble={true}
+  filterAble
   optionTpl="<img src='//lobos.github.io/react-ui/images/flags/{code}.png' /> {country}-{en}"
   resultTpl="<img src='//lobos.github.io/react-ui/images/flags/{code}.png' /> {country}"
   valueTpl="{en}"
-  fetch={{url:"json/countries.json", cache:3600}} />
+  fetch={{url:'json/countries.json', cache:3600}} />
           </Example>
 
           <h2 className="subhead">groupBy</h2>
           <Example>
-<Select grid={{width:1/2}}
+<Select grid={{width:1 / 2}}
   placeholder="Group by continent"
   groupBy="continent"
-  filterAble={true}
+  filterAble
   optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
-  fetch={{url: "json/countries.json", cache: true}} />
+  fetch={{url: 'json/countries.json', cache: true}} />
           </Example>
 
           <h2 className="subhead">readOnly</h2>
           <Example>
-<Select grid={{width:1/3}} readOnly
+<Select grid={{width:1 / 3}} readOnly
   value="俄罗斯"
-  data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
+  data={['中国', '美国', '俄罗斯', '德国', '日本', '法国', '英格兰']} />
           </Example>
 
         </div>
       </div>
-    );
+    )
   }
 }

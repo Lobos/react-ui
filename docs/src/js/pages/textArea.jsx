@@ -1,7 +1,7 @@
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-const {Textarea} = global.uiRequire();
+import React from 'react'
+import Code from '../Code'
+import Example from '../Example'
+const {Textarea} = global.uiRequire()
 
 module.exports = class extends React.Component {
 
@@ -29,16 +29,16 @@ module.exports = class extends React.Component {
 
           <h2 className="subhead">Example</h2>
           <Example>
-<Textarea grid={1/2} value="123123" />
+<Textarea grid={1 / 2} value="123123" />
           </Example>
 
           <h2 className="subhead">自动行高 autoHeight</h2>
           <Example>
-<Textarea autoHeight grid={1/2} rows={3} value="123123" />
+<Textarea autoHeight grid={1 / 2} rows={3} value="123123" />
           </Example>
 
         </div>
       </div>
-    );
+    )
   }
 }

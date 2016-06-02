@@ -1,13 +1,13 @@
-"use strict";
+'use strict'
 
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-import { TplDataDesc } from '../CommDocs';
-const {CheckboxGroup, Checkbox, Icon} = global.uiRequire();
+import React from 'react'
+import Code from '../Code'
+import Example from '../Example'
+import { TplDataDesc } from '../CommDocs'
+const {CheckboxGroup, Checkbox, Icon} = global.uiRequire()
 
-import { createKeyValue } from '../data/mock';
-const data1000 = createKeyValue(1000);
+import { createKeyValue } from '../data/mock'
+const data1000 = createKeyValue(1000)
 
 module.exports = class extends React.Component {
   render () {
@@ -42,13 +42,13 @@ module.exports = class extends React.Component {
           <h2 className="subhead">默认结构数据</h2>
           <Example>
 <CheckboxGroup value="shenzhen,chongqing" data={[
-  { "id": "nanjing", "text": "南京" },
-  { "id": "beijing", "text": "北京" },
-  { "id": "guangzhou", "text": "广州" },
-  { "id": "shenzhen", "text": "深圳" },
-  { "id": "chengdu", "text": "成都" },
-  { "id": "chongqing", "text": "重庆" },
-  { "id": "shanghai", "text": "上海" }
+  { 'id': 'nanjing', 'text': '南京' },
+  { 'id': 'beijing', 'text': '北京' },
+  { 'id': 'guangzhou', 'text': '广州' },
+  { 'id': 'shenzhen', 'text': '深圳' },
+  { 'id': 'chengdu', 'text': '成都' },
+  { 'id': 'chongqing', 'text': '重庆' },
+  { 'id': 'shanghai', 'text': '上海' }
 ]} />
           </Example>
 
@@ -56,48 +56,48 @@ module.exports = class extends React.Component {
           <div>0.6 后可以使用key value结构的object作为数据</div>
           <Example>
 <CheckboxGroup value="beijing" data={{
-  "nanjing": "南京",
-  "beijing": "北京",
-  "guangzhou": "广州",
-  "shenzhen": "深圳",
-  "chengdu": "成都",
-  "chongqing": "重庆",
-  "shanghai": "上海"
+  'nanjing': '南京',
+  'beijing': '北京',
+  'guangzhou': '广州',
+  'shenzhen': '深圳',
+  'chengdu': '成都',
+  'chongqing': '重庆',
+  'shanghai': '上海'
 }} />
           </Example>
-          
+
           <h2 className="subhead">定义模版(string)</h2>
           <Example>
 <CheckboxGroup
-  value='beijing'
-  textTpl='{cn}({en})'
-  valueTpl='{en}' 
+  value="beijing"
+  textTpl="{cn}({en})"
+  valueTpl="{en}"
   data={[
-    { "en": "nanjing",   "cn": "南京" },
-    { "en": "beijing",   "cn": "北京" },
-    { "en": "guangzhou", "cn": "广州" },
-    { "en": "shenzhen",  "cn": "深圳" },
-    { "en": "chengdu",   "cn": "成都" },
-    { "en": "chongqing", "cn": "重庆" },
-    { "en": "shanghai",  "cn": "上海" }
+    { 'en': 'nanjing', 'cn': '南京' },
+    { 'en': 'beijing', 'cn': '北京' },
+    { 'en': 'guangzhou', 'cn': '广州' },
+    { 'en': 'shenzhen', 'cn': '深圳' },
+    { 'en': 'chengdu', 'cn': '成都' },
+    { 'en': 'chongqing', 'cn': '重庆' },
+    { 'en': 'shanghai', 'cn': '上海' }
   ]}
 />
           </Example>
-          
+
           <h2 className="subhead">定义模版(function)</h2>
           <Example>
 <CheckboxGroup
-  value='beijing'
+  value="beijing"
   textTpl={(d) => d.cn + '-' + d.en}
-  valueTpl={(d) => d.en} 
+  valueTpl={(d) => d.en}
   data={[
-    { "en": "nanjing",   "cn": "南京" },
-    { "en": "beijing",   "cn": "北京" },
-    { "en": "guangzhou", "cn": "广州" },
-    { "en": "shenzhen",  "cn": "深圳" },
-    { "en": "chengdu",   "cn": "成都" },
-    { "en": "chongqing", "cn": "重庆" },
-    { "en": "shanghai",  "cn": "上海" }
+    { 'en': 'nanjing', 'cn': '南京' },
+    { 'en': 'beijing', 'cn': '北京' },
+    { 'en': 'guangzhou', 'cn': '广州' },
+    { 'en': 'shenzhen', 'cn': '深圳' },
+    { 'en': 'chengdu', 'cn': '成都' },
+    { 'en': 'chongqing', 'cn': '重庆' },
+    { 'en': 'shanghai', 'cn': '上海' }
   ]}
 />
           </Example>
@@ -106,28 +106,28 @@ module.exports = class extends React.Component {
           <div>显示文本和选中值一样时，可以使用简单数组</div>
           <Example>
 <CheckboxGroup sep=""
-  onChange={(value)=>console.log(value)}
-  value={["北京", "广州"]}
-  data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
+  onChange={(value) => console.log(value)}
+  value={['北京', '广州']}
+  data={['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安']}
 />
           </Example>
 
           <h2 className="subhead">服务端数据</h2>
           <div>支持<a href="#/fetch">fetch</a>从服务端获取数据</div>
           <Example>
-<CheckboxGroup 
-  onChange={(value)=>console.log(value)}
+<CheckboxGroup
+  onChange={(value) => console.log(value)}
   value="shanghai,chengdu"
-  fetch={{url: "json/text-value.json", cache: 3600}}
+  fetch={{url: 'json/text-value.json', cache: 3600}}
 />
           </Example>
 
           <h2 className="subhead">单行数据</h2>
           <Example>
 <CheckboxGroup block
-  onChange={(value)=>console.log(value)}
+  onChange={(value) => console.log(value)}
   value="shanghai,chengdu"
-  fetch={{url: "json/text-value.json", cache: 3600}}
+  fetch={{url: 'json/text-value.json', cache: 3600}}
 />
           </Example>
 
@@ -135,18 +135,18 @@ module.exports = class extends React.Component {
           <div>使用自定义数据分隔符</div>
           <Example>
 <CheckboxGroup
-  onChange={(value)=>console.log(value)}
+  onChange={(value) => console.log(value)}
   sep="|"
   value="shanghai|chengdu"
-  fetch={{url: "json/text-value.json", cache: 3600}}
+  fetch={{url: 'json/text-value.json', cache: 3600}}
 />
           </Example>
 
           <h2 className="subhead">只读</h2>
           <Example>
-<CheckboxGroup readOnly={true}
-  value={["北京", "广州"]}
-  data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
+<CheckboxGroup readOnly
+  value={['北京', '广州']}
+  data={['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安']}
 />
           </Example>
 
@@ -154,9 +154,9 @@ module.exports = class extends React.Component {
           <div>0.6 支持数据和Checkbox元素混合传入，position为插入位置，正整数</div>
           <Example>
 <CheckboxGroup sep={null}
-  onChange={(value)=>console.log(value)}
-  value={["北京", "香港"]}
-  data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
+  onChange={(value) => console.log(value)}
+  value={['北京', '香港']}
+  data={['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安']}
   >
   <Checkbox position={3} defaultValue="香港"><Icon icon="cloud-outline" />香港</Checkbox>
   <Checkbox defaultValue="澳门">澳门</Checkbox>
@@ -169,6 +169,6 @@ module.exports = class extends React.Component {
           </Example>
         </div>
       </div>
-    );
+    )
   }
 }

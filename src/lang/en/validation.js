@@ -46,4 +46,4 @@ module.exports = {
       fileSize: 'The {0} file size must less than {1} KB'
     }
   }
-};
+}

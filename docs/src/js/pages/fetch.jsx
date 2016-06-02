@@ -1,24 +1,24 @@
-'use strict';
+'use strict'
 
-import { Component } from 'react';
-import Code from '../Code';
-import Example from '../Example';
-import Refetch from 'refetch';
-const { Select, RadioGroup } = global.uiRequire();
+import { Component } from 'react'
+import Code from '../Code'
+import Example from '../Example'
+import Refetch from 'refetch'
+const { Select, RadioGroup } = global.uiRequire()
 
 const request = Refetch.create({
   promise: (f) => f.then((res) => {
     if (res.success) {
-      return res.list;
+      return res.list
     } else {
-      return new Error(res.message); 
+      return new Error(res.message)
     }
   })
-});
+})
 
 module.exports = class extends Component {
   constructor (props) {
-    super(props);
+    super(props)
   }
 
   render () {
@@ -57,15 +57,15 @@ module.exports = class extends Component {
 }`}
           </Code>
           <Example>
-<Select grid={1/4}
+<Select grid={1 / 4}
   fetch={{
     method: 'get',
     url: './json/select.json',
     then: (res) => {
       if (res.success) {
-        return res.list;
+        return res.list
       } else {
-        return new Error(res.message); 
+        return new Error(res.message)
       }
     }
   }} />
@@ -73,15 +73,15 @@ module.exports = class extends Component {
 
           <h2 className="subhead">获取失败</h2>
           <Example>
-<Select grid={1/4}
+<Select grid={1 / 4}
   fetch={{
     method: 'get',
     url: './json/no-result.json',
     then: (res) => {
       if (res.success) {
-        return res.list;
+        return res.list
       } else {
-        return new Error('数据获取失败，这里只是一个演示.'); 
+        return new Error('数据获取失败，这里只是一个演示.')
       }
     }
   }} />
@@ -101,7 +101,7 @@ const request = Refetch.create({
 });`}
           </Code>
           <Example>
-<Select grid={1/4}
+<Select grid={1 / 4}
   fetch={{
     request: request,
     method: 'get',
@@ -112,16 +112,16 @@ const request = Refetch.create({
           <h2 className="subhead">Promise</h2>
           <div>第二种用法，传入一个Promise对象。</div>
           <Code>
-{`fetch = Refetch.get('/example/url', ...)`}
+{'fetch = Refetch.get(\'/example/url\', ...)'}
           </Code>
           <Example>
 <RadioGroup
   fetch={
     Refetch.get('./json/select.json').then((res) => {
       if (res.success) {
-        return res.list;
+        return res.list
       } else {
-        return new Error(res.message); 
+        return new Error(res.message)
       }
     })
   }
@@ -134,6 +134,6 @@ const request = Refetch.create({
           </div>
         </div>
       </div>
-    );
+    )
   }
-};
+}

@@ -1,7 +1,7 @@
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-const {Tip} = global.uiRequire();
+import React from 'react'
+import Code from '../Code'
+import Example from '../Example'
+const {Tip} = global.uiRequire()
 
 module.exports = class extends React.Component {
 
@@ -41,7 +41,7 @@ module.exports = class extends React.Component {
 
           <h2 className="subhead">鼠标点击展开提示，展示在下面</h2>
 <Example>
-<Tip trigger='click' position='top'>
+<Tip trigger="click" position="top">
   <span>点开展开提示</span>
   <div style={{width:'120px'}}>
     this is tip content!!!
@@ -51,6 +51,6 @@ module.exports = class extends React.Component {
 
         </div>
       </div>
-    );
+    )
   }
 }

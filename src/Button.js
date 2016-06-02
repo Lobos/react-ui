@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-import { PropTypes, createElement } from 'react';
-import classnames from 'classnames';
-import { getGrid } from './utils/grids';
+import { PropTypes, createElement } from 'react'
+import classnames from 'classnames'
+import { getGrid } from './utils/grids'
 
-import Styles from './styles/_buttons.scss';
+import Styles from './styles/_buttons.scss'
 
 export default function Button (props) {
-  let { children, status, size, grid, tag, className, ...others } = props;
+  let { children, status, size, grid, tag, className, ...others } = props
 
   className = classnames(
     className,
@@ -15,9 +15,9 @@ export default function Button (props) {
     Styles.button,
     Styles[size],
     Styles[status]
-  );
+  )
 
-  return createElement(tag, { className, ...others }, children);
+  return createElement(tag, { className, ...others }, children)
   /*
   return (
     <button {...others} className={className}>
@@ -38,11 +38,11 @@ Button.propTypes = {
   status: PropTypes.oneOf(['primary', 'secondary', 'success', 'warning', 'danger', 'error', 'info', 'link']),
   style: PropTypes.object,
   type: PropTypes.oneOf(['submit', 'button'])
-};
+}
 
 Button.defaultProps = {
   size: 'middle',
   status: 'secondary',
   tag: 'button',
   type: 'button'
-};
+}

@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-import { Component } from 'react';
-import Code from '../Code';
-import Example from '../Example';
-const {Button, Icon, Upload} = global.uiRequire();
+import { Component } from 'react'
+import Code from '../Code'
+import Example from '../Example'
+const {Button, Icon, Upload} = global.uiRequire()
 
 module.exports = class extends Component {
   render () {
@@ -37,25 +37,25 @@ module.exports = class extends Component {
           <h2 className="subhead">Example</h2>
           <Example>
 <Upload
-  grid={1/2}
+  grid={1 / 2}
   name="test"
   action="http://216.189.159.94:8080/upload"
   accept="image/*"
   limit={3}
   onUpload={(res) => {
-    var json = JSON.parse(res); // res 是返回的responseText，需要手动转为json
+    var json = JSON.parse(res) // res 是返回的responseText，需要手动转为json
     if (json.success) {
       // 如果服务端返回成功，返回value
-      return json.id;
+      return json.id
     } else {
       // 如果服务端返回失败，返回一个Error
-      return new Error(json.message);
+      return new Error(json.message)
     }
   }}
   content={<Button><Icon icon="upload" /> 选择文件</Button>} />
           </Example>
         </div>
       </div>
-    );
+    )
   }
 }

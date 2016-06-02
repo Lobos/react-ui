@@ -1,14 +1,14 @@
-"use strict";
+'use strict'
 
-import { Component } from 'react';
-import Code from '../Code';
-import Example from '../Example';
-const {Rating, Icon, RadioGroup, Input, Checkbox} = global.uiRequire();
+import { Component } from 'react'
+import Code from '../Code'
+import Example from '../Example'
+const {Rating, Icon, RadioGroup, Input, Checkbox} = global.uiRequire()
 
 const STARS = [
   <Icon size={2} style={{color: 'gold'}}>&#xe607;</Icon>,
   <Icon size={2} style={{color: 'gold'}}>&#xe606;</Icon>
-];
+]
 
 const HEARTS = [
   <Icon size={2} icon="favorite-outline" style={{color: 'red'}} />,
@@ -17,13 +17,13 @@ const HEARTS = [
 
 module.exports = class extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       readOnly: false,
       maxValue: 10,
       value: 3,
       icons: STARS
-    };
+    }
   }
 
   render () {
@@ -67,37 +67,37 @@ const HEARTS = [
   icons={this.state.icons}
   readOnly={this.state.readOnly}
   value={this.state.value}
-  onChange={value=>this.setState({ value })}
+  onChange={value => this.setState({ value })}
 />
 
 {/* =================== state control ====================== */}
 <div style={{marginBottom: 10}}>
   <span>maxValue: </span>
-  <RadioGroup inline={true}
-    onChange={maxValue=>this.setState({ maxValue })}
+  <RadioGroup inline
+    onChange={maxValue => this.setState({ maxValue })}
     value={this.state.maxValue}
     data={[5, 10, 12, 20]} />
 </div>
 
 <div>
   <Checkbox onChange={
-    checked=>this.setState({
+    checked => this.setState({
       icons: checked ? HEARTS : STARS
     })}
     text={'设置icons为heart'} />
 </div>
 
 <div>
-  <Checkbox value="readOnly" onChange={readOnly=>this.setState({ readOnly })} text={'readOnly'} />
+  <Checkbox value="readOnly" onChange={readOnly => this.setState({ readOnly })} text={'readOnly'} />
 </div>
 
 <div style={{marginBottom: 10}}>
   <span>value: </span>
-  <Input onChange={value=>this.setState({ value })} type="number" value={this.state.value} />
+  <Input onChange={value => this.setState({ value })} type="number" value={this.state.value} />
 </div>
           </Example>
         </div>
       </div>
-    );
+    )
   }
 }

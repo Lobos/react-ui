@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-import Code from './Code';
+import Code from './Code'
 
 module.exports = {
   TplDataDesc () {
@@ -22,6 +22,6 @@ module.exports = {
         <div>可以使用一维数组，这种情况下，显示文字与值相同</div>
         <Code>{'["北京","上海","广州"]'}</Code>
       </div>
-    );
+    )
   }
-};
+}

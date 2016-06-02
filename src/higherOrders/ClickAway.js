@@ -1,68 +1,68 @@
-'use strict';
+'use strict'
 
-import React, { PropTypes } from 'react';
-import { findDOMNode } from 'react-dom';
-import * as Events from '../utils/events';
-import { isDescendant } from '../utils/dom';
+import React, { PropTypes } from 'react'
+import { findDOMNode } from 'react-dom'
+import * as Events from '../utils/events'
+import { isDescendant } from '../utils/dom'
 
 export function clickAwayAble (Component) {
   class ClickAway extends React.Component {
     constructor (props) {
-      super(props);
-      this.state = { open: props.open };
-      this.handleOpen = this.handleOpen.bind(this);
-      this.handleClose = this.handleClose.bind(this);
-      this.registerTarget = this.registerTarget.bind(this);
+      super(props)
+      this.state = { open: props.open }
+      this.handleOpen = this.handleOpen.bind(this)
+      this.handleClose = this.handleClose.bind(this)
+      this.registerTarget = this.registerTarget.bind(this)
     }
 
     componentDidMount () {
-      if (!this.target) this.target = findDOMNode(this);
+      if (!this.target) this.target = findDOMNode(this)
     }
 
     componentWillUnmount () {
-      this.unbindClickAway();
+      this.unbindClickAway()
     }
 
     bindClickAway () {
-      const fn = this.getClickAwayEvent();
-      Events.on(document, 'click', fn);
-      Events.on(document, 'touchstart', fn);
+      const fn = this.getClickAwayEvent()
+      Events.on(document, 'click', fn)
+      Events.on(document, 'touchstart', fn)
     }
 
     unbindClickAway () {
-      const fn = this.getClickAwayEvent();
-      Events.off(document, 'click', fn);
-      Events.off(document, 'touchstart', fn);
+      const fn = this.getClickAwayEvent()
+      Events.off(document, 'click', fn)
+      Events.off(document, 'touchstart', fn)
     }
 
     registerTarget (target) {
-      this.target = target;
+      this.target = target
     }
 
     getClickAwayEvent () {
-      let fn = this._clickAwayEvent;
+      let fn = this._clickAwayEvent
       if (!fn) {
         fn = (event) => {
-          let el = this.target;
+          let el = this.target
 
           // Check if the target is inside the current component
           if (event.target !== el && !isDescendant(el, event.target)) {
-            this.handleClose();
+            this.handleClose()
           }
-        };
-        this._clickAwayEvent = fn;
+        }
+        this._clickAwayEvent = fn
       }
-      return fn;
+      return fn
     }
 
     handleOpen (callback) {
-      this.bindClickAway();
-      this.setState({ open: true }, callback);
+      this.bindClickAway()
+      this.setState({ open: true }, callback)
     }
 
     handleClose (callback) {
-      this.unbindClickAway();
-      this.setState({ open: false }, callback);
+      this.unbindClickAway()
+      this.setState({ open: false }, callback)
     }
 
     render () {
@@ -73,15 +73,15 @@ export function clickAwayAble (Component) {
           onClose={this.handleClose}
           registerTarget={this.registerTarget}
         />
-      );
+      )
     }
   }
 
   ClickAway.propTypes = {
     open: PropTypes.bool
-  };
+  }
 
-  return ClickAway;
+  return ClickAway
 }
 
 export const clickAwayProps = {
@@ -89,4 +89,4 @@ export const clickAwayProps = {
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
   registerTarget: PropTypes.func
-};
+}

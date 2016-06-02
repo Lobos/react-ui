@@ -1,3 +1,3 @@
-import * as ReactUI from '../../../src';
+import * as ReactUI from '../../../src'
 
-module.exports = ReactUI;
+module.exports = ReactUI

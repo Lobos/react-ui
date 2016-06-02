@@ -1,10 +1,10 @@
-"use strict";
+'use strict'
 
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-const {Icon} = global.uiRequire();
-import { Cn, En } from '../Language';
+import React from 'react'
+import Code from '../Code'
+import Example from '../Example'
+const {Icon} = global.uiRequire()
+import { Cn, En } from '../Language'
 
 module.exports = () => {
   return (
@@ -44,20 +44,20 @@ module.exports = () => {
 
         <h2 className="subhead">iconfont</h2>
         <Example>
-<Icon>&#xe601;</Icon> 
-<Icon style={{color: 'red'}}>&#xe602;</Icon> 
+<Icon>&#xe601;</Icon>
+<Icon style={{color: 'red'}}>&#xe602;</Icon>
 <span style={{color: 'green', fontSize: '2rem'}}>
   <Icon>&#xe603;</Icon>
 </span>
 
 <br />
 
-<Icon size={0.7}>&#xe601;</Icon> 
-<Icon size={1}>&#xe601;</Icon> 
-<Icon size={1.2}>&#xe601;</Icon> 
-<Icon size={1.5}>&#xe601;</Icon> 
-<Icon size={2.0}>&#xe601;</Icon> 
-<Icon size={2.5}>&#xe601;</Icon> 
+<Icon size={0.7}>&#xe601;</Icon>
+<Icon size={1}>&#xe601;</Icon>
+<Icon size={1.2}>&#xe601;</Icon>
+<Icon size={1.5}>&#xe601;</Icon>
+<Icon size={2.0}>&#xe601;</Icon>
+<Icon size={2.5}>&#xe601;</Icon>
         </Example>
         </Cn>
 
@@ -100,5 +100,5 @@ style={object}    // 样式，fontSize、color等等
         </Example>
       </div>
     </div>
-  );
+  )
 }

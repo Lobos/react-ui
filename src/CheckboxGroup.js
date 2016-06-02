@@ -1,22 +1,22 @@
-'use strict';
+'use strict'
 
-import React, { PropTypes } from 'react';
-import classnames from 'classnames';
-import { Checkbox } from './Checkbox';
-import { fetchable } from './higherOrders/Fetch';
-import { register } from './higherOrders/FormItem';
-import { textValueAble } from './higherOrders/TextValue';
-import { compose } from './utils/compose';
+import React, { PropTypes } from 'react'
+import classnames from 'classnames'
+import { Checkbox } from './Checkbox'
+import { fetchable } from './higherOrders/Fetch'
+import { register } from './higherOrders/FormItem'
+import { textValueAble } from './higherOrders/TextValue'
+import { compose } from './utils/compose'
 
-import Styles from './styles/_radio-checkbox.scss';
+import Styles from './styles/_radio-checkbox.scss'
 
 const CheckboxGroup = (props) => {
-  const { className, style, data, readOnly, block, inline, onChange } = props;
+  const { className, style, data, readOnly, block, inline, onChange } = props
 
   // old inline prop
-  let checkBlock = block;
+  let checkBlock = block
   if (block === undefined && inline !== undefined) {
-    checkBlock = !inline;
+    checkBlock = !inline
   }
 
   return (
@@ -34,12 +34,12 @@ const CheckboxGroup = (props) => {
             text={item.$text}
             defaultValue={item.$value}
           />
-        );
+        )
       })
     }
     </div>
-  );
-};
+  )
+}
 
 CheckboxGroup.propTypes = {
   block: PropTypes.bool,
@@ -49,14 +49,14 @@ CheckboxGroup.propTypes = {
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
   style: PropTypes.object
-};
+}
 
 CheckboxGroup.defaultProps = {
   data: []
-};
+}
 
 export default compose(
   register('checkbox-group', {valueType: 'array'}),
   fetchable,
   textValueAble(false)
-)(CheckboxGroup);
+)(CheckboxGroup)

@@ -1,99 +1,99 @@
-'use strict';
+'use strict'
 
-import React from 'react';
-import { findDOMNode } from 'react-dom';
-import classnames from 'classnames';
-import Button from '../Button';
-import { CLOSE } from '../svgs';
-import PropTypes from '../utils/proptypes';
-import pureRender from '../mixins/PureRender';
-import { compose } from '../utils/compose';
-import { addClass } from '../utils/dom';
+import React from 'react'
+import { findDOMNode } from 'react-dom'
+import classnames from 'classnames'
+import Button from '../Button'
+import { CLOSE } from '../svgs'
+import PropTypes from '../utils/proptypes'
+import pureRender from '../mixins/PureRender'
+import { compose } from '../utils/compose'
+import { addClass } from '../utils/dom'
 
-import ModalStyles from '../styles/_modal.scss';
+import ModalStyles from '../styles/_modal.scss'
 
-export const ZINDEX = 1100;
+export const ZINDEX = 1100
 
 class Modal extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
 
-    this.clickaway = this.clickaway.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+    this.clickaway = this.clickaway.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
 
   componentDidMount () {
     setTimeout(() => {
-      addClass(findDOMNode(this), ModalStyles.in);
-    }, 0);
+      addClass(findDOMNode(this), ModalStyles.in)
+    }, 0)
   }
 
   handleClose () {
-    this.props.onClose(this.props.id);
+    this.props.onClose(this.props.id)
   }
 
   clickaway (event) {
     if (event.target === this.refs.element) {
-      this.handleClose();
+      this.handleClose()
     }
   }
 
   renderHeader () {
-    const { header } = this.props;
-    return header ? <div className={ModalStyles.header}>{header}</div> : undefined;
+    const { header } = this.props
+    return header ? <div className={ModalStyles.header}>{header}</div> : undefined
   }
 
   renderFooter () {
-    const { buttons } = this.props;
+    const { buttons } = this.props
     if (!buttons) {
-      return undefined;
+      return undefined
     }
 
-    let btns = [];
+    let btns = []
     if (!Array.isArray(buttons)) {
       Object.keys(buttons).forEach((key) => {
-        btns.push({ content: key, onClick: buttons[key] });
-      });
+        btns.push({ content: key, onClick: buttons[key] })
+      })
     } else {
-      btns = buttons;
+      btns = buttons
     }
 
     btns = btns.map((btn, i) => {
       if (typeof btn === 'string') {
-        btn = { content: btn, onClick: true };
+        btn = { content: btn, onClick: true }
       }
-      let { content, onClick } = btn;
-      let status = i === 0 ? 'primary' : undefined;
+      let { content, onClick } = btn
+      let status = i === 0 ? 'primary' : undefined
       let handle = () => {
           if (onClick === true) {
-            this.handleClose();
+            this.handleClose()
           } else if (onClick === 'submit') {
-            let form = findDOMNode(this).querySelector('form');
+            let form = findDOMNode(this).querySelector('form')
             if (form) {
-              let event = document.createEvent('HTMLEvents');
-              event.initEvent('submit', true, true);
-              form.dispatchEvent(event);
+              let event = document.createEvent('HTMLEvents')
+              event.initEvent('submit', true, true)
+              form.dispatchEvent(event)
             }
           } else {
             if (onClick()) {
-              this.handleClose();
+              this.handleClose()
             }
           }
-        };
-      return <Button status={status} key={i} onClick={handle}>{content}</Button>;
-    });
+        }
+      return <Button status={status} key={i} onClick={handle}>{content}</Button>
+    })
 
-    return <div className={ModalStyles.footer}>{btns}</div>;
+    return <div className={ModalStyles.footer}>{btns}</div>
   }
 
   render () {
-    const { width, content, index, padding } = this.props;
+    const { width, content, index, padding } = this.props
 
     let className = classnames(
       ModalStyles.modal
-    );
+    )
 
-    const clickaway = this.props.clickaway ? this.clickaway : undefined;
+    const clickaway = this.props.clickaway ? this.clickaway : undefined
 
     return (
       <div ref="element" className={ModalStyles.inner} onClick={clickaway} style={{ zIndex: ZINDEX + index }}>
@@ -106,7 +106,7 @@ class Modal extends React.Component {
           {this.renderFooter()}
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -120,6 +120,6 @@ Modal.propTypes = {
   onClose: PropTypes.func,
   padding: PropTypes.number_string,
   width: PropTypes.number_string
-};
+}
 
-export default compose(pureRender)(Modal);
+export default compose(pureRender)(Modal)

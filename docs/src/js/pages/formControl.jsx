@@ -1,24 +1,24 @@
-'use strict';
+'use strict'
 
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-let {FormControl, Button, Input, Icon, Datepicker, Grid} = global.uiRequire();
+import React from 'react'
+import Code from '../Code'
+import Example from '../Example'
+let {FormControl, Button, Input, Icon, Datepicker, Grid} = global.uiRequire()
 
 module.exports = class extends React.Component {
   renderExample (type, component) {
-    component = component || 'Input';
+    component = component || 'Input'
     return (
       <div>
-        <p><em><b>{type}</b></em> => <a href={"#/" + component.toLowerCase()}>{component}</a></p>
+        <p><em><b>{type}</b></em> => <a href={'#/' + component.toLowerCase()}>{component}</a></p>
         <div>
-          <FormControl grid={{width: 1/4}} type={type} />
+          <FormControl grid={{width: 1 / 4}} type={type} />
         </div>
         <Code>
           {`<FormControl grid={{width: 1/4}} type="${type}" />`}
         </Code>
       </div>
-    );
+    )
   }
 
   render () {
@@ -70,7 +70,7 @@ validator = {
           <div>
             <p><em><b>text</b></em> => <a href="#/input">Input</a></p>
             <Example>
-<FormControl required={true} grid={{width: 1/4}} type="text" min={2} max={10} />
+<FormControl required grid={{width: 1 / 4}} type="text" min={2} max={10} />
             </Example>
           </div>
 
@@ -98,12 +98,12 @@ validator = {
             <Example>
 <FormControl
   type="select"
-  required={true}
-  fetch={{url:"json/countries.json", cache: 3600}}
-  filterAble={true}
+  required
+  fetch={{url:'json/countries.json', cache: 3600}}
+  filterAble
   optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
-  mult={true}
+  mult
   min={2}
   max={6}
  />
@@ -115,8 +115,8 @@ validator = {
             <Example>
 <FormControl
   type="tree"
-  checkAble={true}
-  fetch={{url:"json/tree.json", cache:3600}}
+  checkAble
+  fetch={{url:'json/tree.json', cache:3600}}
   textTpl="{text}({id})"
   valueTpl="{id}"
  />
@@ -135,7 +135,7 @@ validator = {
             <Example>
 <FormControl
   type="checkbox-group"
-  fetch={{url:"json/text-value.json", cache:3600}}
+  fetch={{url:'json/text-value.json', cache:3600}}
   textTpl="{text}"
   valueTpl="{id}"
   min={2}
@@ -149,7 +149,7 @@ validator = {
             <Example>
 <FormControl
   type="radio-group"
-  fetch={{url:"json/text-value.json", cache:3600}}
+  fetch={{url:'json/text-value.json', cache:3600}}
   textTpl="{text}"
   valueTpl="{id}"
  />
@@ -163,7 +163,7 @@ validator = {
   type="rating"
   maxValue={10}
   tip="亲，给个好评吧"
-  required={true}
+  required
   icons={[<Icon icon="favorite-outline" style={{color: 'red'}} />, <Icon icon="favorite" style={{color: 'red'}} />]}
  />
             </Example>
@@ -174,7 +174,7 @@ validator = {
             <Example>
 <FormControl
   type="upload"
-  autoUpload={true}
+  autoUpload
   grid={{width:1}}
   name="test"
   action="http://216.189.159.94:8080/upload"
@@ -204,6 +204,6 @@ validator = {
 
         </div>
       </div>
-    );
+    )
   }
 }

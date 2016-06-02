@@ -1,137 +1,137 @@
-'use strict';
+'use strict'
 
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-import Button from './Button';
-import FilterItem from './FilterItem';
-import ClickAway from './mixins/ClickAway';
+import React, { Component, PropTypes } from 'react'
+import classnames from 'classnames'
+import Button from './Button'
+import FilterItem from './FilterItem'
+import ClickAway from './mixins/ClickAway'
 
-import { requireCss } from './themes';
-requireCss('filter');
+import { requireCss } from './themes'
+requireCss('filter')
 
-import {getLang, setLang} from './lang';
-setLang('buttons');
+import {getLang, setLang} from './lang'
+setLang('buttons')
 
 class Filter extends ClickAway(Component) {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       active: false,
       filters: []
-    };
+    }
 
-    this.addFilter = this.addFilter.bind(this);
-    this.clearFilter = this.clearFilter.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onFilter = this.onFilter.bind(this);
-    this.open = this.open.bind(this);
-    this.removeFilter = this.removeFilter.bind(this);
+    this.addFilter = this.addFilter.bind(this)
+    this.clearFilter = this.clearFilter.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.onFilter = this.onFilter.bind(this)
+    this.open = this.open.bind(this)
+    this.removeFilter = this.removeFilter.bind(this)
   }
 
   componentWillMount () {
-    this.initData(this.props.options);
+    this.initData(this.props.options)
   }
 
   componentDidMount () {
-    this.registerClickAway(this.close);
+    this.registerClickAway(this.close)
   }
 
   initData (options) {
     options = options.map((d, i) => {
-      d.optionsIndex = i;
-      return d;
-    });
-    this.setState({ options });
+      d.optionsIndex = i
+      return d
+    })
+    this.setState({ options })
   }
 
   onSearch () {
     if (this.props.onSearch) {
-      this.props.onSearch();
+      this.props.onSearch()
     }
   }
 
   open () {
     if (this.state.active) {
-      return;
+      return
     }
-    this.bindClickAway();
-    let options = this.refs.options;
-    options.style.display = 'block';
+    this.bindClickAway()
+    let options = this.refs.options
+    options.style.display = 'block'
     setTimeout(() => {
-      this.setState({ active: true });
-    }, 0);
+      this.setState({ active: true })
+    }, 0)
     setTimeout(() => {
-      options.parentNode.style.overflow = 'visible';
-    }, 450);
+      options.parentNode.style.overflow = 'visible'
+    }, 450)
   }
 
   close () {
-    let options = this.refs.options;
-    options.parentNode.style.overflow = 'hidden';
-    this.setState({ active: false });
-    this.unbindClickAway();
+    let options = this.refs.options
+    options.parentNode.style.overflow = 'hidden'
+    this.setState({ active: false })
+    this.unbindClickAway()
     setTimeout(() => {
-      options.style.display = 'none';
-    }, 450);
+      options.style.display = 'none'
+    }, 450)
   }
 
   addFilter () {
-    let filters = this.state.filters;
-    filters.push({});
-    this.setState({ filters });
+    let filters = this.state.filters
+    filters.push({})
+    this.setState({ filters })
   }
 
   removeFilter (index) {
-    let filters = this.state.filters;
-    filters.splice(index, 1);
-    this.setState({ filters });
+    let filters = this.state.filters
+    filters.splice(index, 1)
+    this.setState({ filters })
   }
 
   clearFilter () {
-    this.setState({ filters: [], resultText: '' });
-    this.close();
+    this.setState({ filters: [], resultText: '' })
+    this.close()
     if (this.props.onFilter) {
-      this.props.onFilter([]);
+      this.props.onFilter([])
     }
   }
 
   onChange (index, filter) {
-    let filters = this.state.filters;
-    let f = filters[index];
+    let filters = this.state.filters
+    let f = filters[index]
     Object.keys(filter).forEach((k) => {
-      f[k] = filter[k];
-    });
-    this.setState({ filters });
+      f[k] = filter[k]
+    })
+    this.setState({ filters })
   }
 
   onFilter () {
-    this.close();
-    let filters = this.state.filters;
-    let local = this.props.local;
-    this.setState({ resultText: this.formatText(filters) });
+    this.close()
+    let filters = this.state.filters
+    let local = this.props.local
+    this.setState({ resultText: this.formatText(filters) })
     if (this.props.onFilter) {
-      let novs = [];
+      let novs = []
       filters.forEach((f, i) => {
         if (f.op && f.value) {
-          let nov = { name: f.name, op: f.op, value: f.value };
+          let nov = { name: f.name, op: f.op, value: f.value }
           if (local) {
-            nov.func = this.refs[`fi${i}`].getFunc();
+            nov.func = this.refs[`fi${i}`].getFunc()
           }
-          novs.push(nov);
+          novs.push(nov)
         }
-      });
-      this.props.onFilter(novs);
+      })
+      this.props.onFilter(novs)
     }
   }
 
   formatText (filters) {
-    let text = [];
+    let text = []
     filters.forEach((f) => {
       if (f.op && f.value) {
-        text.push(`${f.label} ${f.op} '${f.value}'`);
+        text.push(`${f.label} ${f.op} '${f.value}'`)
       }
-    });
-    return text.join(', ');
+    })
+    return text.join(', ')
   }
 
   renderFilters () {
@@ -144,9 +144,9 @@ class Filter extends ClickAway(Component) {
           key={i}
           {...f}
           options={this.state.options} />
-      );
-    });
-    return filters;
+      )
+    })
+    return filters
   }
 
   render () {
@@ -155,7 +155,7 @@ class Filter extends ClickAway(Component) {
       'rct-filter',
       'rct-form-control',
       this.state.active ? 'active' : ''
-    );
+    )
     return (
       <div style={this.props.style} className={className}>
         <div onClick={this.open} className="rct-filter-result">
@@ -177,7 +177,7 @@ class Filter extends ClickAway(Component) {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -189,10 +189,10 @@ Filter.propTypes = {
   options: PropTypes.array,
   style: PropTypes.object,
   type: PropTypes.string
-};
+}
 
 Filter.defaultProps = {
   options: []
-};
+}
 
-module.exports = Filter;
+module.exports = Filter

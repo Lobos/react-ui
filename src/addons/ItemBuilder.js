@@ -1,51 +1,51 @@
-'use strict';
+'use strict'
 
-import React, { PropTypes } from 'react';
-import Form from '../Form';
-import FormControl from '../FormControl';
-import { COMPONENTS } from '../higherOrders/FormItem';
-import FormSubmit from '../FormSubmit';
-import Checkbox from '../Checkbox';
-import Input from '../Input';
-import Textarea from '../Textarea';
-import '../Select';
-import '../Tree';
-import '../Datepicker';
-import RadioGroup from '../RadioGroup';
-import '../CheckboxGroup';
-import FetchGroup from './FetchGroup';
+import React, { PropTypes } from 'react'
+import Form from '../Form'
+import FormControl from '../FormControl'
+import { COMPONENTS } from '../higherOrders/FormItem'
+import FormSubmit from '../FormSubmit'
+import Checkbox from '../Checkbox'
+import Input from '../Input'
+import Textarea from '../Textarea'
+import '../Select'
+import '../Tree'
+import '../Datepicker'
+import RadioGroup from '../RadioGroup'
+import '../CheckboxGroup'
+import FetchGroup from './FetchGroup'
 
-const TYPES = Object.keys(COMPONENTS).sort();
+const TYPES = Object.keys(COMPONENTS).sort()
 
 class ItemBuilder extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       type: props.item.type || 'text',
       datatype: props.item.fetch ? 'fetch' : 'data'
-    };
+    }
 
-    this.handleType = this.handleType.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleType = this.handleType.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleType (type) {
-    this.setState({ type });
+    this.setState({ type })
   }
 
   handleSubmit (item) {
     if (item.grid) {
-      item.grid = parseFloat(item.grid);
+      item.grid = parseFloat(item.grid)
     }
     if (item.data) {
-      item.data = JSON.parse(item.data);
+      item.data = JSON.parse(item.data)
     }
-    this.props.onSubmit(item);
+    this.props.onSubmit(item)
   }
 
   renderGrid () {
     if (['alpha', 'alphanum', 'email', 'integer', 'number', 'password', 'select', 'text', 'textarea', 'url'].indexOf(this.state.type) < 0) {
-      return;
+      return
     }
 
     return (
@@ -54,18 +54,18 @@ class ItemBuilder extends React.Component {
         { id: 0.5, text: '中' },
         { id: 1, text: '长' }
       ]} />
-    );
+    )
   }
 
   renderDataSource () {
     if (['checkbox-group', 'radio-group', 'select', 'tree'].indexOf(this.state.type) < 0) {
-      return;
+      return
     }
 
-    let { datatype } = this.state;
+    let { datatype } = this.state
     let tip = datatype === 'data'
       ? <span>静态数据为json格式，可以使用array，keyvalue格式object，或者复杂array</span>
-      : undefined;
+      : undefined
     return (
       <div>
         <FormControl label="数据源" tip={tip}>
@@ -80,10 +80,10 @@ class ItemBuilder extends React.Component {
             <Textarea trigger="blur" style={{ marginTop: 10 }} rows={5} name="data"
               validator={{ func: (value) => {
                 try {
-                  JSON.parse(value);
-                  return true;
+                  JSON.parse(value)
+                  return true
                 } catch (e) {
-                  return new Error('数据格式错误');
+                  return new Error('数据格式错误')
                 }
               }}} />
           }
@@ -95,32 +95,32 @@ class ItemBuilder extends React.Component {
           </FormControl>
         }
       </div>
-    );
+    )
   }
 
   getLenTip (type) {
     if (['checkbox', 'datetime', 'date', 'time'].indexOf(type) >= 0) {
-      return null;
+      return null
     }
 
-    const component = COMPONENTS[type];
+    const component = COMPONENTS[type]
     switch (component.valueType) {
       case 'number':
-        return ['最小值', '最大值'];
+        return ['最小值', '最大值']
       case 'array':
-        return ['最少选择项', '最多选择项'];
+        return ['最少选择项', '最多选择项']
       default:
-        return ['最少字符数', '最多字符数'];
+        return ['最少字符数', '最多字符数']
     }
   }
 
   render () {
-    let { item } = this.props;
-    item.type = this.state.type;
+    let { item } = this.props
+    item.type = this.state.type
     if (item.data) {
-      item.data = JSON.stringify(item.data);
+      item.data = JSON.stringify(item.data)
     }
-    let lenTip = this.getLenTip(item.type);
+    let lenTip = this.getLenTip(item.type)
 
     return (
       <Form data={item} style={{ marginRight: 40 }} onSubmit={this.handleSubmit}>
@@ -163,18 +163,18 @@ class ItemBuilder extends React.Component {
 
         <FormSubmit>确定</FormSubmit>
       </Form>
-    );
+    )
   }
 }
 
 ItemBuilder.propTypes = {
   item: PropTypes.object,
   onSubmit: PropTypes.func
-};
+}
 
 ItemBuilder.defaultProps = {
   item: {}
-};
+}
 
-module.exports = ItemBuilder;
+module.exports = ItemBuilder
 

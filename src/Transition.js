@@ -1,67 +1,67 @@
-'use strict';
+'use strict'
 
-import React, { PropTypes, cloneElement } from 'react';
-import { findDOMNode } from 'react-dom';
-import { addClass, removeClass } from './utils/dom';
+import React, { PropTypes, cloneElement } from 'react'
+import { findDOMNode } from 'react-dom'
+import { addClass, removeClass } from './utils/dom'
 
 export default class Transition extends React.Component {
   constructor (props) {
-    super(props);
-    this.bindElement = this.bindElement.bind(this);
+    super(props)
+    this.bindElement = this.bindElement.bind(this)
   }
 
   componentDidMount () {
-    this.element.display = 'none';
-    this.action(this.props.act);
+    this.element.display = 'none'
+    this.action(this.props.act)
   }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.act !== this.props.act) {
-      this.action(nextProps.act);
+      this.action(nextProps.act)
     }
   }
 
   bindElement (ref) {
-    this.element = findDOMNode(ref);
+    this.element = findDOMNode(ref)
   }
 
   action (act) {
     switch (act) {
       case 'enter':
-        this.enter();
-        break;
+        this.enter()
+        break
       case 'leave':
-        this.leave();
-        break;
+        this.leave()
+        break
     }
   }
 
   enter () {
-    let el = this.element;
-    el.style.display = '';
+    let el = this.element
+    el.style.display = ''
     setTimeout(() => {
-      addClass(el, 'enter');
-      removeClass(el, 'leave');
-    }, 10);
+      addClass(el, 'enter')
+      removeClass(el, 'leave')
+    }, 10)
   }
 
   leave () {
-    let el = this.element;
-    addClass(el, 'leave');
-    removeClass(el, 'enter');
+    let el = this.element
+    addClass(el, 'leave')
+    removeClass(el, 'enter')
     setTimeout(() => {
-      el.style.display = 'none';
-    }, this.props.duration);
+      el.style.display = 'none'
+    }, this.props.duration)
   }
 
   render () {
-    const { children, tf, duration } = this.props;
+    const { children, tf, duration } = this.props
     let style = {
       transitionDuration: `${duration}ms`,
       transitionTimingFunction: tf
-    };
+    }
 
-    return cloneElement(children, {style, ref: this.bindElement});
+    return cloneElement(children, {style, ref: this.bindElement})
   }
 }
 
@@ -70,9 +70,9 @@ Transition.propTypes = {
   children: PropTypes.element,
   duration: PropTypes.number,
   tf: PropTypes.string
-};
+}
 
 Transition.defaultProps = {
   duration: 400,
   tf: ''
-};
+}

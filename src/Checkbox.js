@@ -1,57 +1,57 @@
-'use strict';
+'use strict'
 
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-import { compose } from './utils/compose';
-import { register } from './higherOrders/FormItem';
-import pureRenderMixin from './mixins/PureRender';
+import React, { Component, PropTypes } from 'react'
+import classnames from 'classnames'
+import { compose } from './utils/compose'
+import { register } from './higherOrders/FormItem'
+import pureRenderMixin from './mixins/PureRender'
 
-import Styles from './styles/_radio-checkbox.scss';
+import Styles from './styles/_radio-checkbox.scss'
 
 export class Checkbox extends Component {
   constructor (props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange (event, checked) {
-    const { readOnly, onChange, index } = this.props;
+    const { readOnly, onChange, index } = this.props
 
     if (readOnly) {
-      return;
+      return
     }
 
-    const defaultValue = this.getDefaultValue();
+    const defaultValue = this.getDefaultValue()
 
     if (onChange) {
-      checked = event ? event.target.checked : checked;
-      const value = checked ? defaultValue : undefined;
-      onChange(value, checked, index);
+      checked = event ? event.target.checked : checked
+      const value = checked ? defaultValue : undefined
+      onChange(value, checked, index)
     }
   }
 
   getDefaultValue () {
-    let { defaultValue, checkValue } = this.props;
+    let { defaultValue, checkValue } = this.props
 
     if (checkValue !== undefined) {
-      defaultValue = checkValue;
-      console.warn('checkValue is deprecated, use defaultValue instead.');
+      defaultValue = checkValue
+      console.warn('checkValue is deprecated, use defaultValue instead.')
     }
 
-    return defaultValue;
+    return defaultValue
   }
 
   getCheckStatus () {
-    const { value, checked } = this.props;
+    const { value, checked } = this.props
     if (checked !== undefined) {
-      return checked;
+      return checked
     }
-    return value === this.getDefaultValue();
+    return value === this.getDefaultValue()
   }
 
   render () {
-    const { style, className, block, readOnly, defaultValue, isIndicator, indeterminate, text, children } = this.props;
-    const checked = this.getCheckStatus();
+    const { style, className, block, readOnly, defaultValue, isIndicator, indeterminate, text, children } = this.props
+    const checked = this.getCheckStatus()
 
     let labelClass = classnames(
       className,
@@ -61,7 +61,7 @@ export class Checkbox extends Component {
       checked && Styles.checked,
       indeterminate && Styles.indeterminate,
       isIndicator && Styles.noPadding
-    );
+    )
 
     return (
       <label style={style} className={ labelClass }>
@@ -76,7 +76,7 @@ export class Checkbox extends Component {
         {(text && !isIndicator) && <span>{text}</span>}
         {children}
       </label>
-    );
+    )
   }
 }
 
@@ -96,13 +96,13 @@ Checkbox.propTypes = {
   style: PropTypes.object,
   text: PropTypes.any,
   value: PropTypes.any
-};
+}
 
 Checkbox.defaultProps = {
   defaultValue: true
-};
+}
 
 export default compose(
   register('checkbox', {}),
   pureRenderMixin
-)(Checkbox);
+)(Checkbox)

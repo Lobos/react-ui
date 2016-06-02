@@ -1,102 +1,102 @@
-'use strict';
+'use strict'
 
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-import { forEach } from './utils/objects';
-import Input from './Input';
-import { ANGLE_LEFT, ANGLE_RIGHT } from './svgs';
+import React, { Component, PropTypes } from 'react'
+import classnames from 'classnames'
+import { forEach } from './utils/objects'
+import Input from './Input'
+import { ANGLE_LEFT, ANGLE_RIGHT } from './svgs'
 
-import PagiStyles from './styles/_pagination.scss';
+import PagiStyles from './styles/_pagination.scss'
 
 class Pagination extends Component {
   constructor (props) {
-    super(props);
-    this.handleInput = this.handleInput.bind(this);
-    this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    super(props)
+    this.handleInput = this.handleInput.bind(this)
+    this.handleKeyUp = this.handleKeyUp.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleInput (value) {
-    value = parseInt(value);
-    let page = this.getCurrentPage();
+    value = parseInt(value)
+    let page = this.getCurrentPage()
 
     if (!(isNaN(value) || value < 1) && value !== page) {
-      this.handleChange(value);
+      this.handleChange(value)
     }
   }
 
   handleKeyUp (event) {
-    if (event.keyCode === 13) this.handleInput(event.target.value);
+    if (event.keyCode === 13) this.handleInput(event.target.value)
   }
 
   handleChange (value) {
     if (this.props.onChange) {
-      this.props.onChange(value);
+      this.props.onChange(value)
     }
   }
 
   getRange () {
-    return this.props.range || this.props.pages || 10;
+    return this.props.range || this.props.pages || 10
   }
 
   getCurrentPage () {
-    return this.props.page || this.props.index || 1;
+    return this.props.page || this.props.index || 1
   }
 
   getPages () {
-    let { total = 0, size } = this.props;
-    let max = Math.ceil(total / size);
-    let left;
-    let right;
-    let range = this.getRange();
-    let pages = [];
-    let currentPage = this.getCurrentPage();
+    let { total = 0, size } = this.props
+    let max = Math.ceil(total / size)
+    let left
+    let right
+    let range = this.getRange()
+    let pages = []
+    let currentPage = this.getCurrentPage()
 
     if (currentPage > max) {
-      currentPage = max;
+      currentPage = max
     }
 
-    left = currentPage - Math.floor(range / 2) + 1;
+    left = currentPage - Math.floor(range / 2) + 1
     if (left < 1) {
-      left = 1;
+      left = 1
     }
-    right = left + range - 2;
+    right = left + range - 2
     if (right >= max) {
-      right = max;
-      left = right - range + 2;
+      right = max
+      left = right - range + 2
       if (left < 1) {
-        left = 1;
+        left = 1
       }
     } else {
-      right -= left > 1 ? 1 : 0;
+      right -= left > 1 ? 1 : 0
     }
 
     // push first
     if (left > 1) {
-      pages.push(1);
+      pages.push(1)
     }
     if (left > 2) {
-      pages.push('<..');
+      pages.push('<..')
     }
     for (let i = left; i < right + 1; i++) {
-      pages.push(i);
+      pages.push(i)
     }
     if (right < max - 1) {
-      pages.push('..>');
+      pages.push('..>')
     }
     // push last
     if (right < max) {
-      pages.push(max);
+      pages.push(max)
     }
 
-    return {pages, max};
+    return {pages, max}
   }
 
   render () {
-    let { mini, large, small } = this.props;
-    let { pages, max } = this.getPages();
-    let items = [];
-    let currentPage = this.getCurrentPage();
+    let { mini, large, small } = this.props
+    let { pages, max } = this.getPages()
+    let items = []
+    let currentPage = this.getCurrentPage()
 
     // Previous
     items.push(
@@ -105,7 +105,7 @@ class Pagination extends Component {
         className={classnames(PagiStyles.previous, { disabled: currentPage <= 1 })}>
         <a>&nbsp;{ANGLE_LEFT}</a>
       </li>
-    );
+    )
 
     if (mini) {
       items.push(
@@ -116,12 +116,12 @@ class Pagination extends Component {
             onKeyUp={this.handleKeyUp}
             trigger="blur" />
         </li>
-      );
-      items.push(<li key="s"> / {max}</li>);
+      )
+      items.push(<li key="s"> / {max}</li>)
     } else {
       forEach(pages, function (i) {
         if (i === '<..' || i === '..>') {
-          items.push(<li key={i} className={PagiStyles.sep}><span>...</span></li>);
+          items.push(<li key={i} className={PagiStyles.sep}><span>...</span></li>)
         } else {
           items.push(
             <li key={i}
@@ -129,9 +129,9 @@ class Pagination extends Component {
               className={classnames(i === currentPage && PagiStyles.active)}>
               <a>{i}</a>
             </li>
-          );
+          )
         }
-      }, this);
+      }, this)
     }
 
     // Next
@@ -141,7 +141,7 @@ class Pagination extends Component {
         className={classnames(PagiStyles.next, { disabled: currentPage >= max })}>
         <a>&nbsp;{ANGLE_RIGHT}</a>
       </li>
-    );
+    )
 
     let className = classnames(
       this.props.className,
@@ -149,12 +149,12 @@ class Pagination extends Component {
       mini && PagiStyles.mini,
       large && PagiStyles.large,
       small && PagiStyles.small
-    );
+    )
     return (
       <ul className={className}>
         {items}
       </ul>
-    );
+    )
   }
 }
 
@@ -171,10 +171,10 @@ Pagination.propTypes = {
   small: PropTypes.bool,
   style: PropTypes.object,
   total: PropTypes.number
-};
+}
 
 Pagination.defaultProps = {
   size: 20
-};
+}
 
-module.exports = Pagination;
+module.exports = Pagination

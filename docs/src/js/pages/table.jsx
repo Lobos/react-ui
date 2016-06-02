@@ -1,14 +1,14 @@
-'use strict';
+'use strict'
 
-import { Component } from 'react';
-import Code from '../Code';
-import Example from '../Example';
-import Refetch from 'refetch';
-const {Table, Filter, Modal, Checkbox, RadioGroup} = global.uiRequire();
+import { Component } from 'react'
+import Code from '../Code'
+import Example from '../Example'
+import Refetch from 'refetch'
+const {Table, Filter, Modal, Checkbox, RadioGroup} = global.uiRequire()
 
 module.exports = class extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       bordered: true,
       selectAble: true,
@@ -19,21 +19,21 @@ module.exports = class extends Component {
       striped: true,
       total: 0,
       width: 'auto'
-    };
+    }
   }
 
   componentWillMount () {
-    let fetch = Refetch.get('json/table.json', null, {catch: 3600});
+    let fetch = Refetch.get('json/table.json', null, {catch: 3600})
     fetch.then(res => {
-      this.setState({ total: res.length });
-      return res;
-    });
-    this.setState({ fetch });
+      this.setState({ total: res.length })
+      return res
+    })
+    this.setState({ fetch })
   }
 
   getCheckedName () {
-    let names = (this.refs.table.getChecked('name')).join(',');
-    this.setState({ checkedNames: names });
+    let names = (this.refs.table.getChecked('name')).join(',')
+    this.setState({ checkedNames: names })
   }
 
   render () {
@@ -135,7 +135,7 @@ headers = [{
     name: 'name',
     ops: ['like', '=', 'startWidth'],
     startWidth: function (d, value) {
-      return d.name.indexOf(value) === 0;
+      return d.name.indexOf(value) === 0
     }
   }, {
     label: '地区',
@@ -161,7 +161,7 @@ headers = [{
   columns={[
     { name: 'name', sort: true, header: 'Name',
       content: (d) => {
-        return <a onClick={() => { Modal.alert('点击了:' + d.name); }}>{d.name}</a>;
+        return <a onClick={() => { Modal.alert('点击了:' + d.name) }}>{d.name}</a>
       }
     },
     { name: 'position', hidden: true },
@@ -172,17 +172,17 @@ headers = [{
     ] },
     { name: 'salary', content: '{salary}', header: 'Salary', sort: (a, b) => {
       return parseInt(a.salary.replace(/[\$,]/g, '')) >
-        parseInt(b.salary.replace(/[\$,]/g, '')) ? 1 : -1;
+        parseInt(b.salary.replace(/[\$,]/g, '')) ? 1 : -1
     } },
     { name: 'tools', width: 60,
       content: (d) => {
         return (
           <a onClick={() => {
             Modal.confirm('确定要删除' + d.name + '吗', () => {
-              console.log('just a kidding.');
-            });
+              console.log('just a kidding.')
+            })
           }}>删除</a>
-        );
+        )
       }
     }
   ]}
@@ -200,6 +200,6 @@ this.setState({ fetch });`}
           </div>
         </div>
       </div>
-    );
+    )
   }
-};
+}

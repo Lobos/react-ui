@@ -1,12 +1,12 @@
-'use strict';
+'use strict'
 
-import { create, getLanguage } from 'react-language';
+import { create, getLanguage } from 'react-language'
 
-export const En = create(true);
-export const Cn = create('zh-CN');
+export const En = create(true)
+export const Cn = create('zh-CN')
 
-import EN from '../../../src/lang/en';
-import CN from '../../../src/lang/zh-cn';
-import { setLang } from '../../../src/lang';
+import EN from '../../../src/lang/en'
+import CN from '../../../src/lang/zh-cn'
+import { setLang } from '../../../src/lang'
 
-setLang(getLanguage().toLowerCase() === 'zh-cn' ? CN : EN);
+setLang(getLanguage().toLowerCase() === 'zh-cn' ? CN : EN)

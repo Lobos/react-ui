@@ -1,44 +1,44 @@
-'use strict';
+'use strict'
 
-import React, { Component, PropTypes } from 'react';
-import Styles from '../styles/_datepicker.scss';
+import React, { Component, PropTypes } from 'react'
+import Styles from '../styles/_datepicker.scss'
 
 class TimeSet extends Component {
   constructor (props) {
-    super(props);
-    this.changeStage = this.changeStage.bind(this);
-    this.add = this.add.bind(this);
-    this.sub = this.sub.bind(this);
+    super(props)
+    this.changeStage = this.changeStage.bind(this)
+    this.add = this.add.bind(this)
+    this.sub = this.sub.bind(this)
   }
 
   add () {
-    let value = this.props.value;
-    let max = this.props.type === 'hour' ? 24 : 60;
-    value += 1;
+    let value = this.props.value
+    let max = this.props.type === 'hour' ? 24 : 60
+    value += 1
     if (value >= max) {
-      value = 0;
+      value = 0
     }
-    this.changeTime(value);
+    this.changeTime(value)
   }
 
   sub () {
-    let value = this.props.value;
-    let max = this.props.type === 'hour' ? 23 : 59;
-    value -= 1;
+    let value = this.props.value
+    let max = this.props.type === 'hour' ? 23 : 59
+    value -= 1
     if (value < 0) {
-      value = max;
+      value = max
     }
-    this.changeTime(value);
+    this.changeTime(value)
   }
 
   changeTime (value) {
-    let d = {};
-    d[this.props.type] = value;
-    this.props.onTimeChange(d);
+    let d = {}
+    d[this.props.type] = value
+    this.props.onTimeChange(d)
   }
 
   changeStage () {
-    this.props.onStageChange(this.props.type);
+    this.props.onStageChange(this.props.type)
   }
 
   render () {
@@ -50,7 +50,7 @@ class TimeSet extends Component {
           <a onClick={this.sub} className={Styles.sub}><i className={Styles.down} /></a>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -59,10 +59,10 @@ TimeSet.propTypes = {
   onTimeChange: PropTypes.func,
   type: PropTypes.string,
   value: PropTypes.number
-};
+}
 
 TimeSet.defaultProps = {
   value: 0
-};
+}
 
-export default TimeSet;
+export default TimeSet

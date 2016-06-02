@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-import { Cn, En } from '../Language';
+import React from 'react'
+import Code from '../Code'
+import Example from '../Example'
+import { Cn, En } from '../Language'
 
-const { Message, Icon } = global.uiRequire();
+const { Message, Icon } = global.uiRequire()
 
 module.exports = () => {
   return (
@@ -75,5 +75,5 @@ error === danger`}
 
       </div>
     </div>
-  );
-};
+  )
+}

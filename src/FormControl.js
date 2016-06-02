@@ -1,39 +1,39 @@
-'use strict';
+'use strict'
 
-import React, { Component, cloneElement, Children } from 'react';
-import classnames from 'classnames';
-import { COMPONENTS, getValueType } from './higherOrders/FormItem';
-import merge from './utils/merge';
-import { getGrid } from './utils/grids';
-import { format } from './utils/strings';
-import { forEach, shallowEqual, objectAssign } from './utils/objects';
-import PropTypes from './utils/proptypes';
+import React, { Component, cloneElement, Children } from 'react'
+import classnames from 'classnames'
+import { COMPONENTS, getValueType } from './higherOrders/FormItem'
+import merge from './utils/merge'
+import { getGrid } from './utils/grids'
+import { format } from './utils/strings'
+import { forEach, shallowEqual, objectAssign } from './utils/objects'
+import PropTypes from './utils/proptypes'
 
-import { getLang, setLang } from './lang';
-setLang('validation');
+import { getLang, setLang } from './lang'
+setLang('validation')
 
-import FormStyles from './styles/_form.scss';
+import FormStyles from './styles/_form.scss'
 
 function setHint (hints, key, value) {
-  let text = getLang('validation.hints.' + key, null);
+  let text = getLang('validation.hints.' + key, null)
   if (text) {
-    hints.push(format(text, value));
+    hints.push(format(text, value))
   }
 }
 
 class FormControl extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       validations: ''
-    };
+    }
 
     // for check props
-    this.items = {};
-    this.itemBind = this.itemBind.bind(this);
-    this.itemUnbind = this.itemUnbind.bind(this);
-    this.itemChange = this.itemChange.bind(this);
-    this.handleValidate = this.handleValidate.bind(this);
+    this.items = {}
+    this.itemBind = this.itemBind.bind(this)
+    this.itemUnbind = this.itemUnbind.bind(this)
+    this.itemChange = this.itemChange.bind(this)
+    this.handleValidate = this.handleValidate.bind(this)
   }
 
   /*
@@ -50,228 +50,228 @@ class FormControl extends Component {
 
   shouldComponentUpdate (nextProps, nextState) {
     if (!shallowEqual(this.props, nextProps)) {
-      return true;
+      return true
     }
 
     if (nextProps.formData) {
-      let keys = Object.keys(this.items);
+      let keys = Object.keys(this.items)
       for (let i = 0, key; i < keys.length; i++) {
-        key = keys[i];
+        key = keys[i]
         if (nextProps.formData[key] !== this.items[key].$value) {
-          return true;
+          return true
         }
       }
     }
 
-    return !shallowEqual(this.state, nextState);
+    return !shallowEqual(this.state, nextState)
   }
 
   itemBind (props) {
-    this.items[props.id] = props;
+    this.items[props.id] = props
 
     if (this.props.itemBind) {
-      this.props.itemBind(props);
+      this.props.itemBind(props)
     }
   }
 
   itemUnbind (id) {
-    delete this.items[id];
+    delete this.items[id]
 
     if (this.props.itemUnbind) {
-      this.props.itemUnbind(...arguments);
+      this.props.itemUnbind(...arguments)
     }
   }
 
   itemChange (id, value, result) {
-    this.items[id].$value = value;
+    this.items[id].$value = value
 
-    this.handleValidate(id, result);
+    this.handleValidate(id, result)
 
     if (this.props.itemChange) {
-      this.props.itemChange(...arguments);
+      this.props.itemChange(...arguments)
     }
   }
 
   handleValidate (id, result) {
-    this.items[id].$validation = result;
+    this.items[id].$validation = result
 
-    let validations = [];
+    let validations = []
     forEach(this.items, (item) => {
       if (item.$validation instanceof Error) {
-        validations.push(item.$validation.message);
+        validations.push(item.$validation.message)
       }
-    });
-    validations = validations.join(', ');
+    })
+    validations = validations.join(', ')
     if (validations !== this.state.validations) {
-      this.setState({ validations });
+      this.setState({ validations })
     }
   }
 
   getHint (props) {
     if (props.required) {
-      this.required = true;
+      this.required = true
     }
 
     // allow empty string
     if (props.tip || props.tip === '') {
-      return '';
+      return ''
     }
 
-    let valueType = getValueType(props.type);
-    let hints = [];
+    let valueType = getValueType(props.type)
+    let hints = []
 
-    setHint(hints, props.type);
-    if (props.min) { setHint(hints, `min.${valueType}`, props.min); }
-    if (props.max) { setHint(hints, `max.${valueType}`, props.max); }
+    setHint(hints, props.type)
+    if (props.min) { setHint(hints, `min.${valueType}`, props.min) }
+    if (props.max) { setHint(hints, `max.${valueType}`, props.max) }
 
-    return hints.join(', ');
+    return hints.join(', ')
   }
 
   setChildrenHint (hints, children) {
     Children.toArray(children).forEach((child) => {
       if (child.type && child.type.isFormItem) {
-        let hint = this.getHint(child.props);
+        let hint = this.getHint(child.props)
         if (hint) {
-          hints.push(hint);
+          hints.push(hint)
         }
       } else if (child.children) {
-        this.setChildrenHint(hints, children);
+        this.setChildrenHint(hints, children)
       }
-    });
+    })
   }
 
   getItems () {
-    let { label, items, children, ...otherProps} = this.props;
-    let hints = [];
+    let { label, items, children, ...otherProps} = this.props
+    let hints = []
 
-    this.required = false;
+    this.required = false
     if (children) {
-      this.setChildrenHint(hints, children);
+      this.setChildrenHint(hints, children)
     } else {
       if (!items) {
-        items = [objectAssign({}, otherProps, {label})];
+        items = [objectAssign({}, otherProps, {label})]
       }
     }
 
     if (items) {
       items.forEach((control) => {
-        let hint = this.getHint(control);
+        let hint = this.getHint(control)
         if (hint) {
-          hints.push(hint);
+          hints.push(hint)
         }
-      });
+      })
     }
 
-    return { items, hints: hints.join(', ') };
+    return { items, hints: hints.join(', ') }
   }
 
   renderTip (hints) {
-    let { tip, errorText } = this.props;
-    let { validations } = this.state;
-    hints = tip || hints;
+    let { tip, errorText } = this.props
+    let { validations } = this.state
+    hints = tip || hints
 
     if (validations) {
       // if has tip，use tip
-      if (errorText) { validations = errorText; }
-      return <span key="tip" className={FormStyles.dangerText}>{validations}</span>;
+      if (errorText) { validations = errorText }
+      return <span key="tip" className={FormStyles.dangerText}>{validations}</span>
     }
 
     if (hints) {
-      return <span key="tip" className={FormStyles.hintText}>{hints}</span>;
+      return <span key="tip" className={FormStyles.hintText}>{hints}</span>
     } else {
-      return;
+      return
     }
   }
 
   propsExtend (props) {
-    props.itemBind = this.itemBind;
-    props.itemUnbind = this.itemUnbind;
-    props.itemChange = this.itemChange;
-    props.formData = this.props.formData;
-    props.onValidate = this.handleValidate;
-    props.readOnly = props.readOnly || this.props.readOnly;
+    props.itemBind = this.itemBind
+    props.itemUnbind = this.itemUnbind
+    props.itemChange = this.itemChange
+    props.formData = this.props.formData
+    props.onValidate = this.handleValidate
+    props.readOnly = props.readOnly || this.props.readOnly
   }
 
   renderChildren (children) {
     let newChildren = Children.toArray(children).map((child, i) => {
       if (typeof child === 'string') {
-        return <span key={i}>{child}</span>;
+        return <span key={i}>{child}</span>
       }
 
-      let props = {};
+      let props = {}
       if (child.type.isFormItem) {
-        this.propsExtend(props);
+        this.propsExtend(props)
       } else if (child.props && child.props.children === 'object') {
-        props.children = this.renderChildren(child.props.children);
+        props.children = this.renderChildren(child.props.children)
       }
 
-      child = cloneElement(child, props);
-      return child;
-    });
-    return newChildren;
+      child = cloneElement(child, props)
+      return child
+    })
+    return newChildren
   }
 
   renderItems (grid) {
-    const { children } = this.props;
-    let { items, hints } = this.getItems();
+    const { children } = this.props
+    let { items, hints } = this.getItems()
 
     items = (items || []).map((props, i) => {
-      i += length;
+      i += length
       if (typeof props === 'string') {
-        return <span key={i} dangerouslySetInnerHTML={{__html: props}} />;
+        return <span key={i} dangerouslySetInnerHTML={{__html: props}} />
       }
-      let component = COMPONENTS[props.type];
+      let component = COMPONENTS[props.type]
       if (component) {
-        this.propsExtend(props);
-        props.key = `${props.label}|${props.name}`;
-        props.$controlId = this.id;
-        props = merge({}, props, grid);
-        return component.render(props);
+        this.propsExtend(props)
+        props.key = `${props.label}|${props.name}`
+        props.$controlId = this.id
+        props = merge({}, props, grid)
+        return component.render(props)
       }
-    });
+    })
 
     if (children) {
-      items = items.concat(this.renderChildren(children));
+      items = items.concat(this.renderChildren(children))
     }
 
-    items.push(this.renderTip(hints));
+    items.push(this.renderTip(hints))
 
-    return items;
+    return items
   }
 
   render () {
-    let { hintType, layout, label, grid, labelWidth, className, required, style } = this.props;
-    let isInline = layout === 'inline';
+    let { hintType, layout, label, grid, labelWidth, className, required, style } = this.props
+    let isInline = layout === 'inline'
 
     if (!hintType) {
-      hintType = isInline ? 'pop' : 'block';
+      hintType = isInline ? 'pop' : 'block'
     }
 
     className = classnames(
       className,
       FormStyles.group,
       this.state.validations.length > 0 && FormStyles.hasError
-    );
+    )
 
     if (isInline) {
-      className += ' ' + getGrid(grid);
-      grid = undefined;
+      className += ' ' + getGrid(grid)
+      grid = undefined
     }
 
     let labelClass = classnames(
       FormStyles.label,
       (required || this.required) && FormStyles.required
-    );
+    )
 
     if (labelWidth) {
       if (typeof labelWidth === 'number' && labelWidth < 1) {
-        labelWidth += '%';
+        labelWidth += '%'
       }
     }
 
     if (layout === 'aligned') {
-      labelWidth = labelWidth || '10rem';
-      style = objectAssign({}, style, { paddingLeft: labelWidth });
+      labelWidth = labelWidth || '10rem'
+      style = objectAssign({}, style, { paddingLeft: labelWidth })
     }
 
     return (
@@ -287,7 +287,7 @@ class FormControl extends Component {
         </div>
       </div>
 
-    );
+    )
   }
 }
 
@@ -314,12 +314,12 @@ FormControl.propTypes = {
   tip: PropTypes.element_string,
   type: PropTypes.string,
   value: PropTypes.any
-};
+}
 
 FormControl.defaultProps = {
   layout: 'inline',
   type: 'text'
-};
+}
 
-export default FormControl;
+export default FormControl
 

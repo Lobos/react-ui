@@ -1,20 +1,20 @@
-"use strict";
+'use strict'
 
-import { Component } from 'react';
-import Code from '../Code';
-import Example from '../Example';
-import Refetch from 'refetch';
-const {Tree, Checkbox, RadioGroup, Icon} = global.uiRequire();
+import { Component } from 'react'
+import Code from '../Code'
+import Example from '../Example'
+import Refetch from 'refetch'
+const {Tree, Checkbox, RadioGroup, Icon} = global.uiRequire()
 
 Tree.setDefaultIcons([
   <Icon style={{color: '#f2da81'}} icon="folder-star" />,
   <Icon style={{color: '#f2da81'}} icon="folder" />,
   <Icon icon="file" />
-]);
+])
 
 module.exports = class extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       readOnly: false,
       selectAble: true,
@@ -24,21 +24,21 @@ module.exports = class extends Component {
       showValue: '1.2.2',
       showAccountsIcon: false,
       treeData: null
-    };
+    }
   }
 
   componentWillMount () {
     Refetch.get('json/tree.json', null, {cache: 3600})
       .then(res => {
-        this.setState({ treeData: JSON.stringify(res, null, 2) });
-      });
+        this.setState({ treeData: JSON.stringify(res, null, 2) })
+      })
   }
 
   handleChange (value) {
     if (Array.isArray(value)) {
-      value = JSON.stringify(value);
+      value = JSON.stringify(value)
     }
-    this.setState({ showValue: value });
+    this.setState({ showValue: value })
   }
 
   render () {
@@ -86,7 +86,7 @@ module.exports = class extends Component {
         <Icon icon="accounts-add" />,
         <Icon icon="accounts" />,
         <Icon icon="account" />
-      ]:
+      ] :
       undefined
   }
   onClick={(data) => console.log(data)}
@@ -99,7 +99,7 @@ module.exports = class extends Component {
           <Icon icon="edit" />edit
         </a>
       </label>
-    );
+    )
   }}
   valueTpl="{id}"
   value={this.state.value}
@@ -112,19 +112,19 @@ module.exports = class extends Component {
 </div>
 
 <div>
-  <div><Checkbox onChange={(value)=>this.setState({ selectAble: value })} checked={this.state.selectAble} text="selectAble" /></div>
-  <div><Checkbox onChange={(value)=>this.setState({ readOnly: value })} checked={this.state.readOnly} text="readOnly" /></div>
-  <div><Checkbox onChange={(value)=>this.setState({ showAccountsIcon: value })} checked={this.state.showAccountsIcon} text="switch to accounts icon" /></div>
+  <div><Checkbox onChange={(value) => this.setState({ selectAble: value })} checked={this.state.selectAble} text="selectAble" /></div>
+  <div><Checkbox onChange={(value) => this.setState({ readOnly: value })} checked={this.state.readOnly} text="readOnly" /></div>
+  <div><Checkbox onChange={(value) => this.setState({ showAccountsIcon: value })} checked={this.state.showAccountsIcon} text="switch to accounts icon" /></div>
   <div>capture: <RadioGroup style={{ display: 'inline-block' }} onChange={(value) => this.setState({ capture: value })} value={this.state.capture} data={[0, 1, 2, 3]} /></div>
-  <div>sep: 
+  <div>sep:
     {
       ([',', '|', '#', null]).map((sep, i) => {
         return (
-          <a key={i} style={{margin: "0 10px", color: this.state.sep === sep ? 'red' : ''}}
+          <a key={i} style={{margin: '0 10px', color: this.state.sep === sep ? 'red' : ''}}
             onClick={() => { this.setState({ sep }) }}>
             {JSON.stringify(sep)}
           </a>
-        );
+        )
       })
     }
   </div>
@@ -151,11 +151,11 @@ Tree.setDefaultIcons([
   <Icon icon="file" />
 ]);`}
           </Code>
-          
+
           <h2 className="subhead">Example Data</h2>
           <pre className="prettyprint">{this.state.treeData}</pre>
         </div>
       </div>
-    );
+    )
   }
 }

@@ -1,16 +1,16 @@
-'use strict';
+'use strict'
 
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-const { Filter } = global.uiRequire();
+import React from 'react'
+import Code from '../Code'
+import Example from '../Example'
+const { Filter } = global.uiRequire()
 
 module.exports = class extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       filterText: ''
-    };
+    }
   }
 
   render () {
@@ -40,7 +40,7 @@ module.exports = class extends React.Component {
       ops: ['='],
       type: 'select',
       props: { fetch: {url: 'json/countries.json', cache:3600}, optionTpl: '{country}', valueTpl: '{en}' }
-    }];
+    }]
 
     return (
       <div>
@@ -81,7 +81,7 @@ options = {
 
           <h2 className="subhead">Example</h2>
           <Example>
-<Filter local={true}
+<Filter local
   onFilter={fs => this.setState({ filterText: JSON.stringify(fs) })}
   options={[{
     label: '姓名',
@@ -114,6 +114,6 @@ options = {
           </Example>
         </div>
       </div>
-    );
+    )
   }
 }

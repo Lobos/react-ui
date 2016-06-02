@@ -1,9 +1,9 @@
-"use strict";
+'use strict'
 
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-const {Checkbox} = global.uiRequire();
+import React from 'react'
+import Code from '../Code'
+import Example from '../Example'
+const {Checkbox} = global.uiRequire()
 
 module.exports = class extends React.Component {
   render () {
@@ -41,11 +41,11 @@ module.exports = class extends React.Component {
 
           <h2 className="subhead">Readonly</h2>
           <Example>
-<Checkbox checked={true} readOnly={true} text="readonly checkbox" />
-<Checkbox readOnly={true} text="readonly checkbox" />
+<Checkbox checked readOnly text="readonly checkbox" />
+<Checkbox readOnly text="readonly checkbox" />
           </Example>
         </div>
       </div>
-    );
+    )
   }
 }

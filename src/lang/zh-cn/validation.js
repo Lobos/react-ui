@@ -52,4 +52,4 @@ module.exports = {
       fileSize: '{0} 最大上传文件大小不能超过 {1} KB'
     }
   }
-};
+}

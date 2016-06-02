@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-import { Component } from 'react';
-const FormBuilder = global.uiRequire('addons/FormBuilder');
+import { Component } from 'react'
+const FormBuilder = global.uiRequire('addons/FormBuilder')
 
 module.exports = () => {
   return (
@@ -14,5 +14,5 @@ module.exports = () => {
         <FormBuilder />
       </div>
     </div>
-  );
+  )
 }

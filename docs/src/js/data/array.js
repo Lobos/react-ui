@@ -1,1 +1,1 @@
-module.exports = ['China', 'America', 'English', 'German', 'Japan', 'Spain'];
+module.exports = ['China', 'America', 'English', 'German', 'Japan', 'Spain']

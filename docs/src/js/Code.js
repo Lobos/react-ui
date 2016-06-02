@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-import { Component, PropTypes } from 'react';
-import { findDOMNode } from 'react-dom';
+import { Component, PropTypes } from 'react'
+import { findDOMNode } from 'react-dom'
 
 class Code extends Component {
   componentDidMount () {
-    window.prettyPrint(null, findDOMNode(this.code));
+    window.prettyPrint(null, findDOMNode(this.code))
   }
 
   render () {
@@ -15,12 +15,12 @@ class Code extends Component {
           {this.props.children}
         </pre>
       </div>
-    );
+    )
   }
 };
 
 Code.propTypes = {
   children: PropTypes.any
-};
+}
 
-export default Code;
+export default Code

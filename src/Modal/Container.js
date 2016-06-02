@@ -1,69 +1,69 @@
-'use strict';
+'use strict'
 
-import React, { Component } from 'react';
-import classnames from 'classnames';
-import Modal from './Modal';
-import { isEmpty } from '../utils/objects';
-import { removeItem } from '../utils/array';
-import Transition from '../Transition';
+import React, { Component } from 'react'
+import classnames from 'classnames'
+import Modal from './Modal'
+import { isEmpty } from '../utils/objects'
+import { removeItem } from '../utils/array'
+import Transition from '../Transition'
 
-import ModalStyles from '../styles/_modal.scss';
+import ModalStyles from '../styles/_modal.scss'
 
 export default class extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       increase: false,
       ids: [],
       modals: {}
-    };
-    this.addModal = this.addModal.bind(this);
-    this.removeModal = this.removeModal.bind(this);
+    }
+    this.addModal = this.addModal.bind(this)
+    this.removeModal = this.removeModal.bind(this)
   }
 
   addModal (props) {
-    let { modals, ids } = this.state;
-    modals[props.id] = props;
+    let { modals, ids } = this.state
+    modals[props.id] = props
     if (ids.indexOf(props.id) < 0) {
-      ids.push(props.id);
+      ids.push(props.id)
     }
 
-    this.setState({ modals, ids, increase: true });
-    document.body.style.height = '100%';
-    document.body.style.overflow = 'hidden';
+    this.setState({ modals, ids, increase: true })
+    document.body.style.height = '100%'
+    document.body.style.overflow = 'hidden'
   }
 
   removeModal (id) {
-    let { modals, ids } = this.state;
+    let { modals, ids } = this.state
 
-    id = id || ids.pop();
-    let props = modals[id];
+    id = id || ids.pop()
+    let props = modals[id]
 
-    if (!props) { return; }
+    if (!props) { return }
 
-    props.onClose && props.onClose();
+    props.onClose && props.onClose()
 
-    delete modals[id];
-    ids = removeItem(ids, id);
-    this.setState({ modals, ids, increase: false });
+    delete modals[id]
+    ids = removeItem(ids, id)
+    this.setState({ modals, ids, increase: false })
 
     if (isEmpty(modals)) {
-      document.body.style.height = '';
-      document.body.style.overflow = '';
+      document.body.style.height = ''
+      document.body.style.overflow = ''
     }
   }
 
   renderModals () {
-    const { modals } = this.state;
+    const { modals } = this.state
     return Object.keys(modals).map((key, i) => {
-      return <Modal key={key} {...modals[key]} index={i} onClose={this.removeModal} />;
-    });
+      return <Modal key={key} {...modals[key]} index={i} onClose={this.removeModal} />
+    })
   }
 
   render () {
     let className = classnames(
       ModalStyles.container
-    );
+    )
 
     return (
       <Transition act={isEmpty(this.state.modals) ? 'leave' : 'enter'} duration={300} tf="ease-out">
@@ -71,6 +71,6 @@ export default class extends Component {
           { this.renderModals() }
         </div>
       </Transition>
-    );
+    )
   }
 }

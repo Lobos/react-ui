@@ -1,28 +1,28 @@
-'use strict';
+'use strict'
 
-import { Component } from 'react';
-import Code from '../Code';
-import Example from '../Example';
-import { Cn, En } from '../Language';
-const {Button, Modal, Form, FormControl} = global.uiRequire();
+import { Component } from 'react'
+import Code from '../Code'
+import Example from '../Example'
+import { Cn, En } from '../Language'
+const {Button, Modal, Form, FormControl} = global.uiRequire()
 
 module.exports = class extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       index: 0
-    };
+    }
 
-    this.multOpen = this.multOpen.bind(this);
+    this.multOpen = this.multOpen.bind(this)
   }
 
   multOpen () {
-    let index = this.state.index + 1;
-    let width = Math.ceil((Math.random() + 1) * 400);
-    let ps = [];
+    let index = this.state.index + 1
+    let width = Math.ceil((Math.random() + 1) * 400)
+    let ps = []
 
     for (var i = 1; i <= index; i++) {
-      ps.push(<p key={i}>{`第 ${i} 层Modal`}</p>);
+      ps.push(<p key={i}>{`第 ${i} 层Modal`}</p>)
     }
 
     let options = {
@@ -37,12 +37,12 @@ module.exports = class extends Component {
         </div>
       ),
       onClose: () => {
-        this.setState({ index: index - 1 });
+        this.setState({ index: index - 1 })
       },
       buttons: { Close: true }
-    };
-    Modal.open(options);
-    this.setState({ index });
+    }
+    Modal.open(options)
+    this.setState({ index })
   }
 
   render () {
@@ -84,8 +84,8 @@ module.exports = class extends Component {
   <div>
     <Form onSubmit={
       (data) => {
-        Modal.alert(JSON.stringify(data));
-        this.setState({ modalIsOpen: false });
+        Modal.alert(JSON.stringify(data))
+        this.setState({ modalIsOpen: false })
       }} layout="aligned">
       <FormControl name="name" grid={7 / 8} required label="Name" type="text" />
       <FormControl name="birthday" required label="Birthday" type="date" />
@@ -129,15 +129,15 @@ Modal.close(id);
     content: (
       <Form onSubmit={
         (data) => {
-          Modal.alert(JSON.stringify(data));
-          Modal.close(id);
+          Modal.alert(JSON.stringify(data))
+          Modal.close(id)
         }} layout="aligned">
         <FormControl name="name" grid={7 / 8} required label="姓名" type="text" />
         <FormControl name="birthday" required label="生日" type="date" />
         <FormControl name="description" grid={7 / 8} label="简介" type="textarea" rows={6} />
       </Form>
     )
-  });
+  })
 }}>open form</Button>
           </Example>
 
@@ -158,7 +158,7 @@ Modal.close(id);
     <p>如果你知道要做什么，请点确定。</p>
     <p>如果你不知道，点取消吧。</p>
   </div>,
-  () => { Modal.alert('点击了确定'); },
+  () => { Modal.alert('点击了确定') },
   '警告'
 )}
 >confirm example</Button>
@@ -204,6 +204,6 @@ Modal.close(id);
           </Code>
         </div>
       </div>
-    );
+    )
   }
-};
+}

@@ -1,7 +1,7 @@
-"use strict";
+'use strict'
 
-import React from 'react';
-const {Icon} = global.uiRequire();
+import React from 'react'
+const {Icon} = global.uiRequire()
 
 module.exports = class Home extends React.Component {
   render () {
@@ -17,6 +17,6 @@ module.exports = class Home extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

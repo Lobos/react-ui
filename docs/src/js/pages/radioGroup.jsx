@@ -1,20 +1,20 @@
-"use strict";
+'use strict'
 
-import { Component } from 'react';
-import Code from '../Code';
-import Example from '../Example';
-import { TplDataDesc } from '../CommDocs';
-const {RadioGroup, Radio, Icon} = global.uiRequire();
+import { Component } from 'react'
+import Code from '../Code'
+import Example from '../Example'
+import { TplDataDesc } from '../CommDocs'
+const {RadioGroup, Radio, Icon} = global.uiRequire()
 
-import { createKeyValue } from '../data/mock';
-const data1000 = createKeyValue(1000);
+import { createKeyValue } from '../data/mock'
+const data1000 = createKeyValue(1000)
 
 module.exports = class extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       inline: false
-    };
+    }
   }
 
   render () {
@@ -48,48 +48,48 @@ module.exports = class extends Component {
           <h2 className="subhead">默认结构数据</h2>
           <Example>
 <RadioGroup data={[
-  { "id": "nanjing", "text": "南京" },
-  { "id": "beijing", "text": "北京" },
-  { "id": "guangzhou", "text": "广州" },
-  { "id": "shenzhen", "text": "深圳" },
-  { "id": "chengdu", "text": "成都" },
-  { "id": "chongqing", "text": "重庆" },
-  { "id": "shanghai", "text": "上海" }
+  { 'id': 'nanjing', 'text': '南京' },
+  { 'id': 'beijing', 'text': '北京' },
+  { 'id': 'guangzhou', 'text': '广州' },
+  { 'id': 'shenzhen', 'text': '深圳' },
+  { 'id': 'chengdu', 'text': '成都' },
+  { 'id': 'chongqing', 'text': '重庆' },
+  { 'id': 'shanghai', 'text': '上海' }
 ]} />
           </Example>
-          
+
           <h2 className="subhead">定义模版(string)</h2>
           <Example>
-<RadioGroup 
-  value='beijing'
-  textTpl='{cn}({en})'
-  valueTpl='{en}' 
+<RadioGroup
+  value="beijing"
+  textTpl="{cn}({en})"
+  valueTpl="{en}"
   data={[
-    { "en": "nanjing",   "cn": "南京" },
-    { "en": "beijing",   "cn": "北京" },
-    { "en": "guangzhou", "cn": "广州" },
-    { "en": "shenzhen",  "cn": "深圳" },
-    { "en": "chengdu",   "cn": "成都" },
-    { "en": "chongqing", "cn": "重庆" },
-    { "en": "shanghai",  "cn": "上海" }
+    { 'en': 'nanjing', 'cn': '南京' },
+    { 'en': 'beijing', 'cn': '北京' },
+    { 'en': 'guangzhou', 'cn': '广州' },
+    { 'en': 'shenzhen', 'cn': '深圳' },
+    { 'en': 'chengdu', 'cn': '成都' },
+    { 'en': 'chongqing', 'cn': '重庆' },
+    { 'en': 'shanghai', 'cn': '上海' }
   ]}
 />
           </Example>
- 
+
           <h2 className="subhead">定义模版(function)</h2>
           <Example>
 <RadioGroup block
-  value='beijing'
+  value="beijing"
   textTpl={(d) => <span><b>{d.cn}</b> - {d.en}</span>}
   valueTpl={(d) => d.en}
   data={[
-    { "en": "nanjing",   "cn": "南京" },
-    { "en": "beijing",   "cn": "北京" },
-    { "en": "guangzhou", "cn": "广州" },
-    { "en": "shenzhen",  "cn": "深圳" },
-    { "en": "chengdu",   "cn": "成都" },
-    { "en": "chongqing", "cn": "重庆" },
-    { "en": "shanghai",  "cn": "上海" }
+    { 'en': 'nanjing', 'cn': '南京' },
+    { 'en': 'beijing', 'cn': '北京' },
+    { 'en': 'guangzhou', 'cn': '广州' },
+    { 'en': 'shenzhen', 'cn': '深圳' },
+    { 'en': 'chengdu', 'cn': '成都' },
+    { 'en': 'chongqing', 'cn': '重庆' },
+    { 'en': 'shanghai', 'cn': '上海' }
   ]}
 />
           </Example>
@@ -98,13 +98,13 @@ module.exports = class extends Component {
           <div>0.6 后可以使用key value结构的object作为数据</div>
           <Example>
 <RadioGroup value="beijing" data={{
-  "nanjing": "南京",
-  "beijing": "北京",
-  "guangzhou": "广州",
-  "shenzhen": "深圳",
-  "chengdu": "成都",
-  "chongqing": "重庆",
-  "shanghai": "上海"
+  'nanjing': '南京',
+  'beijing': '北京',
+  'guangzhou': '广州',
+  'shenzhen': '深圳',
+  'chengdu': '成都',
+  'chongqing': '重庆',
+  'shanghai': '上海'
 }} />
           </Example>
 
@@ -112,14 +112,14 @@ module.exports = class extends Component {
           <Example>
 <RadioGroup
   value="北京"
-  data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
+  data={['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安']} />
           </Example>
 
           <h2 className="subhead">只读</h2>
           <Example>
-<RadioGroup readOnly={true}
+<RadioGroup readOnly
   value="北京"
-  data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]} />
+  data={['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安']} />
           </Example>
 
           <h2 className="subhead">服务端数据</h2>
@@ -127,15 +127,15 @@ module.exports = class extends Component {
           <Example>
 <RadioGroup
   value="chengdu"
-  fetch={{url:"json/text-value.json", cache: 3600 }} />
+  fetch={{url:'json/text-value.json', cache: 3600 }} />
           </Example>
 
           <h2 className="subhead">data && children</h2>
           <Example>
 <RadioGroup
-  onChange={(value)=>console.log(value)}
+  onChange={(value) => console.log(value)}
   value="北京"
-  data={["南京", "北京", "上海", "广州", "深圳", "成都", "重庆", "西安"]}
+  data={['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安']}
   >
   <Radio position={3} defaultValue="香港"><Icon icon="cloud-outline" />香港</Radio>
 </RadioGroup>
@@ -148,6 +148,6 @@ module.exports = class extends Component {
 
         </div>
       </div>
-    );
+    )
   }
 }

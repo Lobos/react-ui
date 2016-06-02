@@ -1,21 +1,21 @@
-"use strict";
+'use strict'
 
-import { Component } from 'react';
-import Code from '../Code';
-import { getLang } from '../../../../src/lang';
+import { Component } from 'react'
+import Code from '../Code'
+import { getLang } from '../../../../src/lang'
 
 module.exports = class extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       path: 'buttons.ok',
       text: getLang('request.status.405')
-    };
+    }
   }
 
   handleChange (event) {
-    let path = event.target.value;
-    this.setState({ path });
+    let path = event.target.value
+    this.setState({ path })
   }
 
   render () {
@@ -42,6 +42,6 @@ module.exports = class extends React.Component {
           <Code>{JSON.stringify(getLang(), null, 4)}</Code>
         </div>
       </div>
-    );
+    )
   }
 }

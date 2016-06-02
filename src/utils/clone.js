@@ -9,7 +9,7 @@
  * isEqual(a, clone(a)) // false
  */
 
-import type from './type';
+import type from './type'
 
 /**
  * Clones objects.
@@ -21,34 +21,34 @@ import type from './type';
 export default function clone (obj) {
   switch (type(obj)) {
     case 'object':
-      let copy = {};
+      let copy = {}
       Object.keys(obj).forEach((key) => {
-        copy[key] = clone(obj[key]);
-      });
-      return copy;
+        copy[key] = clone(obj[key])
+      })
+      return copy
 
     case 'element':
-      return obj.cloneNode(true);
+      return obj.cloneNode(true)
 
     case 'array':
-      let arr = new Array(obj.length);
+      let arr = new Array(obj.length)
       for (let i = 0, l = obj.length; i < l; i++) {
-        arr[i] = clone(obj[i]);
+        arr[i] = clone(obj[i])
       }
-      return arr;
+      return arr
 
     case 'regexp':
       // from millermedeiros/amd-utils - MIT
-      let flags = '';
-      flags += obj.multiline ? 'm' : '';
-      flags += obj.global ? 'g' : '';
-      flags += obj.ignoreCase ? 'i' : '';
-      return new RegExp(obj.source, flags);
+      let flags = ''
+      flags += obj.multiline ? 'm' : ''
+      flags += obj.global ? 'g' : ''
+      flags += obj.ignoreCase ? 'i' : ''
+      return new RegExp(obj.source, flags)
 
     case 'date':
-      return new Date(obj.getTime());
+      return new Date(obj.getTime())
 
     default: // string, number, boolean, …
-      return obj;
+      return obj
   }
 }

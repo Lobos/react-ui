@@ -1,99 +1,99 @@
-'use strict';
+'use strict'
 
-import React, { Component, createElement, PropTypes } from 'react';
-import classnames from 'classnames';
-import curry from 'curry';
-import { deepEqual } from '../utils/objects';
-import * as Validation from '../utils/validation';
-import { toStyleObject, nextUid } from '../utils/strings';
+import React, { Component, createElement, PropTypes } from 'react'
+import classnames from 'classnames'
+import curry from 'curry'
+import { deepEqual } from '../utils/objects'
+import * as Validation from '../utils/validation'
+import { toStyleObject, nextUid } from '../utils/strings'
 
-import _inputs from '../styles/_input.scss';
+import _inputs from '../styles/_input.scss'
 
-export const COMPONENTS = {};
+export const COMPONENTS = {}
 
 export const valueble = (ComposedComponent) => {
   class FormItem extends Component {
     constructor (props) {
-      super(props);
+      super(props)
 
       this.state = {
         hasError: false,
         value: getValue(props)
-      };
+      }
 
-      this.valueType = getValueType(props.type);
-      this.handleChange = this.handleChange.bind(this);
-      this.bindComponent = this.bindComponent.bind(this);
+      this.valueType = getValueType(props.type)
+      this.handleChange = this.handleChange.bind(this)
+      this.bindComponent = this.bindComponent.bind(this)
     }
 
     componentWillMount () {
-      const { itemBind } = this.props;
+      const { itemBind } = this.props
 
       if (itemBind) {
-        const value = getValue(this.props);
-        this.bindToForm(this.props, value);
+        const value = getValue(this.props)
+        this.bindToForm(this.props, value)
       }
     }
 
     componentDidMount () {
-      let component = this.component;
+      let component = this.component
       if (!component) {
-        return;
+        return
       }
       Object.keys(component).forEach((key) => {
         if (!this.hasOwnProperty(key)) {
-          let func = component[key];
+          let func = component[key]
           if (typeof func === 'function') {
-            this[key] = func;
+            this[key] = func
           }
         }
-      });
+      })
     }
 
     componentWillReceiveProps (nextProps) {
-      let { name, value, formData, itemUnbind } = nextProps;
+      let { name, value, formData, itemUnbind } = nextProps
 
       if (nextProps.type && nextProps.type !== this.props.type) {
-        this.valueType = getValueType(nextProps.type);
+        this.valueType = getValueType(nextProps.type)
       }
 
       if (formData) {
-        value = formData[name];
+        value = formData[name]
 
         if (this.props.name !== name && itemUnbind) {
-          itemUnbind(this.id, this.props.name);
-          this.bindToForm(nextProps, value);
+          itemUnbind(this.id, this.props.name)
+          this.bindToForm(nextProps, value)
         }
 
         if (value !== this.state.value) {
-          this.handleChange(value, nextProps);
+          this.handleChange(value, nextProps)
         }
       } else {
         if (value !== this.props.value && value !== this.state.value) {
-          this.handleChange(value, nextProps);
+          this.handleChange(value, nextProps)
         }
       }
     }
 
     shouldComponentUpdate (nextProps, nextState) {
-      return !deepEqual(nextProps, this.props) || !deepEqual(this.state, nextState);
+      return !deepEqual(nextProps, this.props) || !deepEqual(this.state, nextState)
     }
 
     componentWillUnmount () {
-      const { itemUnbind, name } = this.props;
+      const { itemUnbind, name } = this.props
       if (itemUnbind) {
-        itemUnbind(this.id, name);
+        itemUnbind(this.id, name)
       }
     }
 
     bindToForm (props, value) {
-      const { name, validator, disabled, ignore, itemBind } = props;
-      this.id = nextUid();
-      let valiBind;
+      const { name, validator, disabled, ignore, itemBind } = props
+      this.id = nextUid()
+      let valiBind
       if (validator && validator.bind) {
-        valiBind = validator.bind;
+        valiBind = validator.bind
         if (typeof valiBind === 'string') {
-          valiBind = [valiBind];
+          valiBind = [valiBind]
         }
       }
 
@@ -104,63 +104,63 @@ export const valueble = (ComposedComponent) => {
         disabled: disabled || ignore,
         value,
         validate: this.validate.bind(this)
-      });
+      })
     }
 
     bindComponent (component) {
-      this.component = component;
+      this.component = component
     }
 
     validate (value = this.state.value, props = this.props) {
-      let { onValidate, ...other } = props;
-      let result = Validation.validate(value, this.valueType, other);
-      this.setState({ hasError: result !== true });
+      let { onValidate, ...other } = props
+      let result = Validation.validate(value, this.valueType, other)
+      this.setState({ hasError: result !== true })
       if (onValidate) {
-        onValidate(this.id, result);
+        onValidate(this.id, result)
       }
-      return result;
+      return result
     }
 
     getValue () {
-      return this.state.value;
+      return this.state.value
     }
 
     setValue (value) {
-      this.handleChange(value);
+      this.handleChange(value)
     }
 
     handleChange (value, props) {
       if (!props || typeof props !== 'object' || props.nativeEvent) {
-        props = this.props;
+        props = this.props
       }
       if (typeof value === 'object' && value.nativeEvent) {
-        value = value.target.value;
+        value = value.target.value
       }
-      let { itemChange, onChange } = props;
-      let result = value instanceof Error ? value : this.validate(value, props);
+      let { itemChange, onChange } = props
+      let result = value instanceof Error ? value : this.validate(value, props)
       this.setState({ value }, () => {
-        itemChange = itemChange || this.props.itemChange;
-        onChange = onChange || this.props.onChange;
+        itemChange = itemChange || this.props.itemChange
+        onChange = onChange || this.props.onChange
         if (itemChange) {
-          itemChange(this.id, value, result);
+          itemChange(this.id, value, result)
         }
         if (onChange) {
-          onChange(...arguments);
+          onChange(...arguments)
         }
-      });
+      })
     }
 
     render () {
-      let { className, value, style, ...props } = this.props;
+      let { className, value, style, ...props } = this.props
 
       className = classnames(
         className,
         this.state.hasError && _inputs.dangerInput
-      );
-      value = this.state.value;
+      )
+      value = this.state.value
 
       if (typeof style === 'string') {
-        style = toStyleObject(style);
+        style = toStyleObject(style)
       }
 
       return (
@@ -173,13 +173,13 @@ export const valueble = (ComposedComponent) => {
           value={value}
           className={className}
         />
-      );
+      )
     }
   }
 
-  FormItem.displayName = 'FormItem';
+  FormItem.displayName = 'FormItem'
 
-  FormItem.isFormItem = true;
+  FormItem.isFormItem = true
 
   FormItem.propTypes = {
     className: PropTypes.string,
@@ -204,17 +204,17 @@ export const valueble = (ComposedComponent) => {
       PropTypes.object
     ]),
     value: PropTypes.any
-  };
+  }
 
   FormItem.defaultProps = {
     sep: ','
-  };
+  }
 
-  return FormItem;
-};
+  return FormItem
+}
 
 export const register = curry((types, options, ComposedComponent) => {
-  let newComponent = valueble(ComposedComponent);
+  let newComponent = valueble(ComposedComponent)
 
   // allow empty type
   // if (isEmpty(types)) {
@@ -223,43 +223,43 @@ export const register = curry((types, options, ComposedComponent) => {
   // }
 
   if (!Array.isArray(types)) {
-    types = [types];
+    types = [types]
   }
 
   types.forEach((type) => {
     if (COMPONENTS.hasOwnProperty(type)) {
-      console.warn(`type ${type} was already existed.`);
-      return;
+      console.warn(`type ${type} was already existed.`)
+      return
     }
 
-    let { valueType, render } = options;
+    let { valueType, render } = options
     if (!valueType) {
-      valueType = ['integer', 'number'].indexOf(type) > -1 ? 'number' : 'string';
+      valueType = ['integer', 'number'].indexOf(type) > -1 ? 'number' : 'string'
     }
 
     if (!render) {
-      render = (props) => createElement(newComponent, props);
+      render = (props) => createElement(newComponent, props)
     }
 
-    COMPONENTS[type] = { render, valueType, component: ComposedComponent };
-  });
+    COMPONENTS[type] = { render, valueType, component: ComposedComponent }
+  })
 
-  return newComponent;
-});
+  return newComponent
+})
 
 export const getValueType = (type) => {
-  let valueType = 'string';
+  let valueType = 'string'
   if (COMPONENTS[type]) {
-    valueType = COMPONENTS[type].valueType;
+    valueType = COMPONENTS[type].valueType
   }
-  return valueType;
-};
+  return valueType
+}
 
 function getValue (props) {
-  let { value, name, formData } = props;
+  let { value, name, formData } = props
   if (formData && formData[name] !== undefined) {
-    value = formData[name];
+    value = formData[name]
   }
 
-  return value;
+  return value
 }

@@ -49,5 +49,5 @@ module.exports = {
     prev: 'prev',
     next: 'next'
   }
-};
+}
 

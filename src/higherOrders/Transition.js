@@ -1,49 +1,49 @@
-'use strict';
+'use strict'
 
-import React from 'react';
-import PropTypes from '../utils/proptypes';
+import React from 'react'
+import PropTypes from '../utils/proptypes'
 
 function childrenToItems (children) {
   if (!children) {
-    return {};
+    return {}
   }
 
-  let items = {};
+  let items = {}
   if (!Array.isArray(children)) {
-    children = [children];
+    children = [children]
   }
 
   children.forEach((child) => {
-    items[child.key] = child;
-  });
+    items[child.key] = child
+  })
 
-  return items;
+  return items
 }
 
 function itemsToChildren (items) {
   return Object.keys(items).map((key) => {
-    return items[key];
-  });
+    return items[key]
+  })
 }
 
 export function transitionAble (Component) {
   class Transition extends React.Component {
     constructor (props) {
-      super(props);
+      super(props)
 
       this.state = {
         items: childrenToItems(props.children)
-      };
+      }
     }
 
     render () {
-      return <Component {...this.props}>{itemsToChildren(this.state.items)}</Component>;
+      return <Component {...this.props}>{itemsToChildren(this.state.items)}</Component>
     }
   }
 
   Transition.propTypes = {
     children: PropTypes.element_array
-  };
+  }
 
-  return Transition;
+  return Transition
 }

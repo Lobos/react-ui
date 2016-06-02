@@ -1,21 +1,21 @@
-'use strict';
+'use strict'
 
-import React, { Component, PropTypes } from 'react';
-import { objectAssign } from './utils/objects';
-import { clickAwayAble, clickAwayProps } from './higherOrders/ClickAway';
-import classnames from 'classnames';
+import React, { Component, PropTypes } from 'react'
+import { objectAssign } from './utils/objects'
+import { clickAwayAble, clickAwayProps } from './higherOrders/ClickAway'
+import classnames from 'classnames'
 
-import { requireCss } from './themes';
-requireCss('tip');
+import { requireCss } from './themes'
+requireCss('tip')
 
 class Tip extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       position: props.position
-    };
-    this.showTip = this.showTip.bind(this);
-    this.bindElement = this.bindElement.bind(this);
+    }
+    this.showTip = this.showTip.bind(this)
+    this.bindElement = this.bindElement.bind(this)
   }
 
   /*
@@ -27,22 +27,22 @@ class Tip extends Component {
   */
 
   showTip () {
-    this.onOpen();
+    this.onOpen()
   }
 
   bindElement (ref) {
-    this.root = ref;
+    this.root = ref
   }
 
   render () {
-    let props = this.props;
-    let event = {};
-    let pos = this.state.position;
-    let clsShow = 'pos-' + pos;
-    let clsName = classnames('tip-block', pos + '-origin', {[clsShow]: props.open});
+    let props = this.props
+    let event = {}
+    let pos = this.state.position
+    let clsShow = 'pos-' + pos
+    let clsName = classnames('tip-block', pos + '-origin', {[clsShow]: props.open})
 
-    event[props.trigger === 'hover' ? 'onMouseEnter' : 'onClick'] = this.showTip;
-    props.trigger === 'hover' && (event['onMouseLeave'] = this.props.onClose);
+    event[props.trigger === 'hover' ? 'onMouseEnter' : 'onClick'] = this.showTip
+    props.trigger === 'hover' && (event['onMouseLeave'] = this.props.onClose)
 
     return (
       <div ref={this.bindElement} className="component-tip" {...event}>
@@ -54,20 +54,20 @@ class Tip extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 };
 
 Tip.defaultProps = {
   position: 'bottom',
   trigger: 'hover'
-};
+}
 
 Tip.propTypes = objectAssign({
   className: PropTypes.string,
   position: PropTypes.oneOf(['top', 'bottom']),
   style: PropTypes.object,
   trigger: PropTypes.oneOf(['click', 'hover'])
-}, clickAwayProps);
+}, clickAwayProps)
 
-module.exports = clickAwayAble(Tip);
+module.exports = clickAwayAble(Tip)

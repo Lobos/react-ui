@@ -1,34 +1,34 @@
-'use strict';
+'use strict'
 
-import React, { PropTypes } from 'react';
-import classnames from 'classnames';
-import { objectAssign } from './utils/objects';
-import Button from './Button';
+import React, { PropTypes } from 'react'
+import classnames from 'classnames'
+import { objectAssign } from './utils/objects'
+import Button from './Button'
 
-import FormStyles from './styles/_form.scss';
+import FormStyles from './styles/_form.scss'
 
 export default function FormSubmit (props) {
-  console.log('FormSubmit is deprecated, use Form.buttons instead.');
+  console.log('FormSubmit is deprecated, use Form.buttons instead.')
 
-  let children = props.children;
-  let content;
+  let children = props.children
+  let content
   if (Array.isArray(children)) {
-    content = props.disabled ? children[1] : children[0];
+    content = props.disabled ? children[1] : children[0]
   } else {
-    content = children;
+    content = children
   }
 
-  let { labelWidth, style, layout } = props;
+  let { labelWidth, style, layout } = props
 
   if (labelWidth) {
     if (typeof labelWidth === 'number' && labelWidth < 1) {
-      labelWidth += '%';
+      labelWidth += '%'
     }
   }
 
   if (layout === 'aligned') {
-    labelWidth = labelWidth || '10rem';
-    style = objectAssign({}, style, { paddingLeft: labelWidth });
+    labelWidth = labelWidth || '10rem'
+    style = objectAssign({}, style, { paddingLeft: labelWidth })
   }
 
   return (
@@ -40,7 +40,7 @@ export default function FormSubmit (props) {
         {content}
       </Button>
     </div>
-  );
+  )
 }
 
 FormSubmit.propTypes = {
@@ -53,4 +53,4 @@ FormSubmit.propTypes = {
   layout: PropTypes.string,
   onClick: PropTypes.func,
   style: PropTypes.object
-};
+}

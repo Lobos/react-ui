@@ -1,165 +1,165 @@
-'use strict';
+'use strict'
 
-import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
-import classnames from 'classnames';
-import { toArray, substitute } from '../utils/strings';
-import { forEach, deepEqual, hashcode } from '../utils/objects';
-import { fetchable } from '../higherOrders/Fetch';
-import { register } from '../higherOrders/FormItem';
-import { removeClass } from '../utils/dom';
-import { compose } from '../utils/compose';
-import PropTypes from '../utils/proptypes';
+import React, { Component } from 'react'
+import { findDOMNode } from 'react-dom'
+import classnames from 'classnames'
+import { toArray, substitute } from '../utils/strings'
+import { forEach, deepEqual, hashcode } from '../utils/objects'
+import { fetchable } from '../higherOrders/Fetch'
+import { register } from '../higherOrders/FormItem'
+import { removeClass } from '../utils/dom'
+import { compose } from '../utils/compose'
+import PropTypes from '../utils/proptypes'
 
-import TreeStyles from '../styles/_tree.scss';
+import TreeStyles from '../styles/_tree.scss'
 
-import Item from './Item';
+import Item from './Item'
 
-let defaultIcons = [];
+let defaultIcons = []
 
 class Tree extends Component {
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
       data: []
-    };
+    }
 
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this)
+    this.handleChange = this.handleChange.bind(this)
 
     if (props.greedy !== undefined) {
-      console.warn('greedy is deprecated, use capture instead.');
+      console.warn('greedy is deprecated, use capture instead.')
     }
   }
 
   componentWillMount () {
-    this.formatData(this.props);
+    this.formatData(this.props)
   }
 
   componentWillReceiveProps (nextProps) {
     if (!deepEqual(nextProps.data, this.props.data)) {
-      this.formatData(nextProps);
+      this.formatData(nextProps)
     }
 
     if (nextProps.sep !== this.props.sep ||
         nextProps.capture !== this.props.capture) {
       setTimeout(() => {
-        this.handleChange();
-      }, 0);
+        this.handleChange()
+      }, 0)
     }
   }
 
   getValue (sep) {
-    let list = [];
+    let list = []
 
-    let capture = this.props.capture;
+    let capture = this.props.capture
     if (this.props.greedy === true) {
-      capture = 1;
+      capture = 1
     }
 
     forEach(this.refs, (ref) => {
-      ref.getChecked(list, capture);
-    });
+      ref.getChecked(list, capture)
+    })
 
     let values = list.map((d) => {
-      return d.$value;
-    });
+      return d.$value
+    })
 
     if (sep === undefined) {
-      sep = this.props.sep;
+      sep = this.props.sep
     }
     if (sep) {
-      values = values.join(this.props.sep);
+      values = values.join(this.props.sep)
     }
-    return values;
+    return values
   }
 
   setTpl (data, tt, vt) {
     data.forEach((d) => {
-      d.$text = substitute(tt, d);
-      d.$value = substitute(vt, d);
-      d.$key = d.id || d.key || hashcode(`${d.$value}-${d.$text}`);
+      d.$text = substitute(tt, d)
+      d.$value = substitute(vt, d)
+      d.$key = d.id || d.key || hashcode(`${d.$value}-${d.$text}`)
       if (d.children) {
-        this.setTpl(d.children, tt, vt);
+        this.setTpl(d.children, tt, vt)
       }
-    });
+    })
   }
 
   formatData (props) {
-    let { data } = props;
+    let { data } = props
 
     if (data.length === 0) {
-      return;
+      return
     }
 
-    this.setTpl(props.data, props.textTpl, props.valueTpl);
+    this.setTpl(props.data, props.textTpl, props.valueTpl)
 
-    let values = toArray(props.value, props.sep);
+    let values = toArray(props.value, props.sep)
 
     let getStatus = function (d, last, deep) {
-      let val = d.$value;
+      let val = d.$value
       let status,
           newDeep,
-          nextDeep;
+          nextDeep
       if (deep === undefined) {
-        newDeep = [];
-        nextDeep = [last ? 0 : 1];
+        newDeep = []
+        nextDeep = [last ? 0 : 1]
       } else {
-        newDeep = deep.slice();
+        newDeep = deep.slice()
         if (!d.children || d.children.length === 0) {
-          newDeep.push(last ? 2 : 1);
+          newDeep.push(last ? 2 : 1)
         }
-        nextDeep = deep.slice();
-        nextDeep.push(last ? 0 : 1);
+        nextDeep = deep.slice()
+        nextDeep.push(last ? 0 : 1)
       }
       if (d.children && d.children.length > 0) {
-        let count = d.children.length;
+        let count = d.children.length
         d.children.forEach((sub, i) => {
-          let subStatus = getStatus(sub, i === (count - 1), nextDeep);
+          let subStatus = getStatus(sub, i === (count - 1), nextDeep)
           if (status === undefined) {
-            status = subStatus;
+            status = subStatus
           } else if (status !== subStatus) {
-            status = 1;
+            status = 1
           }
-        });
+        })
       } else {
-        status = values.indexOf(val) >= 0 ? 2 : 0;
+        status = values.indexOf(val) >= 0 ? 2 : 0
       }
-      d.$status = status;
-      d.$deep = newDeep;
-      return status;
-    };
-    for (let i = 0, count = data.length; i < count; i++) {
-      getStatus(data[i], i === (count - 1));
+      d.$status = status
+      d.$deep = newDeep
+      return status
     }
-    this.setState({ data });
+    for (let i = 0, count = data.length; i < count; i++) {
+      getStatus(data[i], i === (count - 1))
+    }
+    this.setState({ data })
   }
 
   toggleAll (open) {
     forEach(this.refs, function (ref) {
-      ref.toggleAll(open);
-    });
+      ref.toggleAll(open)
+    })
   }
 
   handleChange () {
     if (this.props.onChange) {
-      this.props.onChange(this.getValue());
+      this.props.onChange(this.getValue())
     }
   }
 
   handleClick (item) {
-    let active = TreeStyles.active;
-    removeClass([].slice.call(findDOMNode(this).querySelectorAll('.' + active)), active);
+    let active = TreeStyles.active
+    removeClass([].slice.call(findDOMNode(this).querySelectorAll('.' + active)), active)
     if (this.props.onClick) {
-      this.props.onClick(item);
+      this.props.onClick(item)
     }
   }
 
   render () {
-    const { selectAble, className, readOnly, open, icons } = this.props;
+    const { selectAble, className, readOnly, open, icons } = this.props
 
-    const { value, data } = this.state;
+    const { value, data } = this.state
 
     let items = data.map(function (item, i) {
       return (
@@ -174,18 +174,18 @@ class Tree extends Component {
           key={item.$key}
           data={item}
         />
-      );
-    }, this);
+      )
+    }, this)
 
     let rootClassName = classnames(
       className,
       TreeStyles.tree,
       readOnly && TreeStyles.readonly
-    );
+    )
 
     return (
       <ul className={rootClassName}>{items}</ul>
-    );
+    )
   }
 }
 
@@ -205,7 +205,7 @@ Tree.propTypes = {
   textTpl: PropTypes.tpl,
   value: PropTypes.any,
   valueTpl: PropTypes.tpl
-};
+}
 
 Tree.defaultProps = {
   capture: 0,
@@ -213,13 +213,13 @@ Tree.defaultProps = {
   data: [],
   textTpl: '{text}',
   valueTpl: '{id}'
-};
+}
 
 module.exports = compose(
   register('tree', { valueType: 'array' }),
   fetchable
-)(Tree);
+)(Tree)
 
 module.exports.setDefaultIcons = function (icons) {
-  defaultIcons = icons;
-};
+  defaultIcons = icons
+}

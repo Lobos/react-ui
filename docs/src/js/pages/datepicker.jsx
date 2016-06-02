@@ -1,14 +1,14 @@
-"use strict";
+'use strict'
 
-import { Component } from 'react';
-import { findDOMNode } from 'react-dom';
-import Code from '../Code';
-import Example from '../Example';
-const {Datepicker, DatepickerPair} = global.uiRequire();
+import { Component } from 'react'
+import { findDOMNode } from 'react-dom'
+import Code from '../Code'
+import Example from '../Example'
+const {Datepicker, DatepickerPair} = global.uiRequire()
 
 module.exports = class extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       min: null,
       max: null
@@ -89,12 +89,12 @@ module.exports = class extends Component {
 
           <h2 className="subhead">readOnly</h2>
           <Example>
-<Datepicker readOnly={true} value="2015-06-21 17:24:03" />
+<Datepicker readOnly value="2015-06-21 17:24:03" />
           </Example>
 
           <h2 className="subhead">unixtime</h2>
           <Example>
-<Datepicker unixtime={true}
+<Datepicker unixtime
   onChange={(value) => this.setState({ unixtimeValue: value })} />
 <span>{this.state.unixtimeValue}</span>
           </Example>
@@ -111,10 +111,10 @@ module.exports = class extends Component {
 />`}
           </Code>
           <Example>
-<DatepickerPair min="2016-03-16" max="2016-08-21" type="date" names={["startTime", "endTime"]} />
+<DatepickerPair min="2016-03-16" max="2016-08-21" type="date" names={['startTime', 'endTime']} />
           </Example>
         </div>
       </div>
-    );
+    )
   }
 }

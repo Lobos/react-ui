@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = [
   '基础',
@@ -30,4 +30,4 @@ module.exports = [
 
   'Highorder',
   { path: '/fetch', text: 'Fetch', component: require('./pages/fetch.jsx') }
-];
+]
