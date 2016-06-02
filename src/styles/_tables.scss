@@ -71,10 +71,89 @@
   }
 }
 
-.pagi_center {
+@mixin sort-indicator {
+  border-style: solid;
+  content: ' ';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  opacity: 0.2;
+  transition: 0.2s;
+}
+
+.sort-up, .sort-down, .sort-one {
+  position: absolute;
+  display: block;
+  width: 1rem;
+  right: 0;
+  top: 50%;
+
+  &:hover, &.active {
+    &::before, &::after {
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    cursor: default;
+  }
+}
+
+.sort-up, .sort-down {
+  height: 1rem;
+
+  &::before {
+    @include sort-indicator();
+  }
+}
+
+.sort-up {
+  margin-top: -0.6rem;
+  &::before {
+    border-color: transparent transparent #333;
+    border-width: 0 .3rem .5rem .3rem;
+  }
+}
+
+.sort-down {
+  margin-top: 0.1rem;
+  &::before {
+    border-color: #333 transparent transparent;
+    border-width: .5rem .3rem 0 .3rem;
+  }
+}
+
+.sort-one {
+  height: 2rem;
+  transform: translateY(-50%);
+
+  &::before, &::after {
+    @include sort-indicator();
+    top: 50%;
+  }
+
+  &::before {
+    margin-top: -0.6rem;
+    border-color: transparent transparent #333;
+    border-width: 0 .3rem .5rem .3rem;
+  }
+
+  &::after {
+    margin-top: 0.1rem;
+    border-color: #333 transparent transparent;
+    border-width: .5rem .3rem 0 .3rem;
+  }
+}
+
+.checkbox {
+  width: $custom-control-indicator-size;
+}
+
+.pagi-center {
   text-align: center;
 }
 
-.pagi_right {
+.pagi-right {
   text-align: right;
 }

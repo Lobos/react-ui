@@ -1,57 +1,53 @@
 'use strict';
 
-import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from '../utils/proptypes';
 
-export default class Header extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      asc: 0
-    };
-    this.onSort = this.onSort.bind(this);
+import _tables from '../styles/_tables.scss';
+
+function getClassName (base, name, asc, status) {
+  return classnames(
+    base,
+    name === status.key && asc === status.asc && _tables.active
+  );
+}
+
+export default function Header (props) {
+  const { onSort, sortStatus, name, sort, header, children } = props;
+
+  const handleSort = (asc, fn) => {
+    if (name === sortStatus.key && asc === sortStatus.asc) return;
+    return () => onSort(name, asc, fn);
+  };
+
+  let icons;
+
+  if (sort === true || Array.isArray(sort)) {
+    let fns = sort === true ? [] : sort;
+    icons = [
+      <a key="up" onClick={handleSort(0, fns[0])} className={getClassName(_tables['sort-up'], name, 0, sortStatus)} />,
+      <a key="down" onClick={handleSort(1, fns[1])} className={getClassName(_tables['sort-down'], name, 1, sortStatus)} />
+    ];
+  } else if (typeof sort === 'function') {
+    icons = <a onClick={handleSort(0, sort)} className={getClassName(_tables['sort-one'], name, 0, sortStatus)} />;
   }
 
-  onSort () {
-    let asc = this.state.asc === 0 ? 1 : 0;
-    this.setState({ asc });
-    this.props.onSort(this.props.name, asc);
-  }
-
-  render () {
-    let sort = [];
-    let onSort = null;
-    let style = {};
-
-    if (this.props.sortAble) {
-      sort.push(<i key="up" className={classnames('arrow-up', {active: this.props.name === this.props.sort.name && this.state.asc === 1})} />);
-      sort.push(<i key="down" className={classnames('arrow-down', {active: this.props.name === this.props.sort.name && this.state.asc === 0})} />);
-
-      onSort = this.onSort;
-      style = { cursor: 'pointer' };
-    }
-
-    return (
-      <th style={style} onClick={onSort}>
-        {this.props.header}
-        {sort}
-      </th>
-    );
-  }
+  return <th>{header}{children}{icons}</th>;
 }
 
 Header.propTypes = {
+  children: PropTypes.any,
   content: PropTypes.any,
   header: PropTypes.any,
   hidden: PropTypes.bool,
   name: PropTypes.string,
   onSort: PropTypes.func,
-  sort: PropTypes.object,
-  sortAble: PropTypes.bool,
+  sort: PropTypes.bool_func,
+  sortStatus: PropTypes.object,
   width: PropTypes.number_string
 };
 
 Header.defaultProps = {
-  hidden: false
+  hidden: false,
+  sortStatus: {}
 };

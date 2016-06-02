@@ -63,7 +63,7 @@ headers = [{
   content:{string|func}   // 表格显示内容，{}格式字符串模板或一个返回ReactElement的方法
   hidden:{bool}           // 是否显示，默认为true
   name:{string}           // 必填，字段名称，和data对应，如果不填content，使用name获取数据
-  sortAble:{bool}         // 是否可以排序，默认值为false
+  sort:{bool}             // 是否可以排序，默认值为false
   width:{number}          // 宽度
   header:{string|element} // 表头内容，string或者ReactElement
 }]
@@ -158,19 +158,31 @@ headers = [{
   width={this.state.width}
   height={this.state.height}
   fetch={this.state.fetch}
-  headers={[
-    { name: 'name', sortAble: true, header: 'Name',
+  columns={[
+    { name: 'name', sort: true, header: 'Name',
       content: (d) => {
         return <a onClick={() => { Modal.alert('点击了:' + d.name); }}>{d.name}</a>;
       }
     },
     { name: 'position', hidden: true },
-    { name: 'office', sortAble: true, header: 'Office' },
-    { name: 'start_date', sortAble: true, content: '{start_date}', header: 'Start Date' },
-    { name: 'salary', content: '{salary}', header: 'Salary' },
+    { name: 'office', sort: true, header: 'Office' },
+    { name: 'start_date', content: '{start_date}', header: 'Start Date', sort: [
+      (a, b) => a.start_date > b.start_date ? 1 : -1,
+      (a, b) => a.start_date < b.start_date ? 1 : -1
+    ] },
+    { name: 'salary', content: '{salary}', header: 'Salary', sort: (a, b) => {
+      return parseInt(a.salary.replace(/[\$,]/g, '')) >
+        parseInt(b.salary.replace(/[\$,]/g, '')) ? 1 : -1;
+    } },
     { name: 'tools', width: 60,
       content: (d) => {
-        return <a onClick={() => { Modal.confirm('确定要删除' + d.name + '吗', () => { console.log('just a kidding.'); }); }}>删除</a>;
+        return (
+          <a onClick={() => {
+            Modal.confirm('确定要删除' + d.name + '吗', () => {
+              console.log('just a kidding.');
+            });
+          }}>删除</a>
+        );
       }
     }
   ]}

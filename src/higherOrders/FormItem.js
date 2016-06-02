@@ -87,7 +87,7 @@ export const valueble = (ComposedComponent) => {
     }
 
     bindToForm (props, value) {
-      const { name, validator, ignore, itemBind } = props;
+      const { name, validator, disabled, ignore, itemBind } = props;
       this.id = nextUid();
       let valiBind;
       if (validator && validator.bind) {
@@ -101,7 +101,7 @@ export const valueble = (ComposedComponent) => {
         id: this.id,
         name,
         valiBind,
-        ignore,
+        disabled: disabled || ignore,
         value,
         validate: this.validate.bind(this)
       });
@@ -183,6 +183,7 @@ export const valueble = (ComposedComponent) => {
 
   FormItem.propTypes = {
     className: PropTypes.string,
+    disabled: PropTypes.bool,
     formData: PropTypes.object,
     ignore: PropTypes.bool,
     itemBind: PropTypes.func,

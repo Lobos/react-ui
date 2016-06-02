@@ -14,10 +14,6 @@ import _tables from '../styles/_tables.scss';
 export default class Table extends Component {
   constructor (props) {
     super(props);
-    this.state = {
-      sort: {}
-    };
-
     this.onBodyScroll = this.onBodyScroll.bind(this);
   }
 
@@ -54,7 +50,6 @@ export default class Table extends Component {
     if (!tr) return;
 
     let ths = this.refs.header.querySelectorAll('th');
-
     let tds = tr.querySelectorAll('td');
 
     if (tds.length <= 1) return;
@@ -64,16 +59,6 @@ export default class Table extends Component {
         ths[i].style.width = tds[i].offsetWidth + 'px';
       }
     }
-  }
-
-  getSelected (name) {
-    let values = [];
-    this.state.data.forEach((d) => {
-      if (d.$checked) {
-        values.push(name ? d[name] : d);
-      }
-    });
-    return values;
   }
 
   onBodyScroll (e) {
@@ -86,13 +71,14 @@ export default class Table extends Component {
   }
 
   renderBody (data) {
-    const { selectAble, headers } = this.props;
+    const { selectAble } = this.props;
+    const columns = this.getColumns();
 
     if (!Array.isArray(data)) {
-      return <tbody><tr><td colSpan={headers.length}>{data}</td></tr></tbody>;
+      return <tbody><tr><td colSpan={columns.length}>{data}</td></tr></tbody>;
     }
 
-    const headerKeys = headers.map((h) => {
+    const headerKeys = columns.map((h) => {
       return h.name || hashcode(h);
     });
 
@@ -106,7 +92,7 @@ export default class Table extends Component {
         );
       }
       let rowKey = d.id ? d.id : hashcode(d);
-      headers.map((h, j) => {
+      columns.map((h, j) => {
         if (h.hidden) {
           return;
         }
@@ -127,15 +113,19 @@ export default class Table extends Component {
   }
 
   renderColgroup () {
-    const { selectAble, headers } = this.props;
+    const { selectAble } = this.props;
     let cols = [];
     if (selectAble) {
       cols.push(<col key="check" />);
     }
-    headers.forEach((h, i) => {
+    this.getColumns().forEach((h, i) => {
       cols.push(<col key={i} style={h.width ? { width: h.width } : undefined} />);
     });
     return <colgroup>{cols}</colgroup>;
+  }
+
+  getColumns () {
+    return this.props.columns || this.props.headers();
   }
 
   renderHeader () {
@@ -147,19 +137,20 @@ export default class Table extends Component {
         } />
       );
     }
-    this.props.headers.map((header, i) => {
+
+    const { onSort, sortStatus } = this.props;
+
+    this.getColumns().forEach((header, i) => {
       if (header.hidden) {
         return;
       }
 
-      let props = {
-        key: header.name || i,
-        onSort: this.props.onSort,
-        sort: this.state.sort
-      };
-
       headers.push(
-        <Header {...header} {...props} />
+        <Header {...header}
+          key={header.name || i}
+          onSort={onSort}
+          sortStatus={sortStatus}
+        />
       );
     });
     return <tr>{headers}</tr>;
@@ -170,7 +161,7 @@ export default class Table extends Component {
     if (!pagination) return;
 
     return (
-      <div className={_tables[`pagi_${pagination.position}`]}>
+      <div className={_tables[`pagi-${pagination.position}`]}>
         <Pagination {...pagination} />
       </div>
     );
@@ -236,6 +227,7 @@ Table.propTypes = {
   bordered: PropTypes.bool,
   children: PropTypes.array,
   className: PropTypes.string,
+  columns: PropTypes.array,
   data: PropTypes.array,
   filters: PropTypes.array,
   headers: PropTypes.array,
@@ -243,6 +235,7 @@ Table.propTypes = {
   onSort: PropTypes.func,
   pagination: PropTypes.object,
   selectAble: PropTypes.bool,
+  sortStatus: PropTypes.object,
   striped: PropTypes.bool,
   style: PropTypes.object,
   width: PropTypes.number_string

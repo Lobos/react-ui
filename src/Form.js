@@ -138,9 +138,9 @@ class Form extends Component {
       // send clone data
       let data = clone(this.state.data);
 
-      // remove ignore value
+      // remove disabled value
       forEach(this.items, (item) => {
-        if (item.ignore) {
+        if (item.disabled) {
           delete data[item.name];
         }
       });

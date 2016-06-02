@@ -1,6 +1,5 @@
 'use strict';
 
-import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
 const { Form, FormControl, FormItem } = global.uiRequire();
@@ -24,7 +23,7 @@ module.exports = () => {
         <div>可以直接当作Component，把自定义组件当作children传入。一个FormItem只能接受一个自定义组件，并且这个组件必须实现一个<em>onChange(value)</em>事件返回值，接受<em>value</em>作为props传入值</div>
         <Code>
 {`<FormItem
-  className="string",     // 需要额外添加的 className
+  className="string"      // 需要额外添加的 className
   name={string}           // 数据key名称，唯一
   type={string}           // 自动验证以下type: email,integer,number,alpha,alphanum,tel,url
   min={int}               // 值类型为 string 时，最小长度；为 number 时，最小值；为 array 时，最少选项数
