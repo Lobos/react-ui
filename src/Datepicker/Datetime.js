@@ -13,9 +13,8 @@ import { ANGLE_LEFT, ANGLE_RIGHT, ANGLE_LEFT_DOUBLE, ANGLE_RIGHT_DOUBLE } from '
 import Transition from '../Transition';
 import PropTypes from '../utils/proptypes';
 
-import Styles from '../styles/_datepicker.scss';
-import InputStyles from '../styles/_input.scss';
-import FormStyles from '../styles/_form.scss';
+import _datepickers from '../styles/_datepicker.scss';
+import _inputs from '../styles/_input.scss';
 
 import { getLang, setLang } from '../lang';
 setLang('datetime');
@@ -201,7 +200,7 @@ class Datetime extends Component {
     const { current, timeStage } = this.state;
 
     return (
-      <div className={Styles.timeContainer}>
+      <div className={_datepickers.timeContainer}>
         <Clock current={current} active={!!timeStage}
           stage={timeStage}
           onClose={this.props.type === TIME ? undefined : this.timeStageChange}
@@ -268,7 +267,7 @@ class Datetime extends Component {
     }
 
     let buttons = [];
-    const className = Styles.year;
+    const className = _datepickers.year;
 
     buttons.push(
       <a className={className} key={'prev'}
@@ -299,7 +298,7 @@ class Datetime extends Component {
       return (
         <a type="button"
           onClick={this.monthChange.bind(this, i)}
-          key={i} className={Styles.month}>{m}</a>
+          key={i} className={_datepickers.month}>{m}</a>
       );
     }, this);
   }
@@ -339,11 +338,11 @@ class Datetime extends Component {
       }
 
       let className = classnames(
-        Styles.day,
-        d.getMonth() !== month && Styles.gray,
-        disabled && Styles.disabled,
-        (isToday && today.getDate() === d.getDate() && today.getMonth() === d.getMonth()) && Styles.today,
-        (isCurrent && value.getDate() === d.getDate() && value.getMonth() === d.getMonth()) && Styles.active
+        _datepickers.day,
+        d.getMonth() !== month && _datepickers.gray,
+        disabled && _datepickers.disabled,
+        (isToday && today.getDate() === d.getDate() && today.getMonth() === d.getMonth()) && _datepickers.today,
+        (isCurrent && value.getDate() === d.getDate() && value.getMonth() === d.getMonth()) && _datepickers.active
       );
 
       return (
@@ -372,7 +371,7 @@ class Datetime extends Component {
     let display = stage === 'day' ? 'inline-block' : 'none';
 
     return (
-      <div style={this.props.style} className={Styles.header}>
+      <div style={this.props.style} className={_datepickers.header}>
         <i style={{float: 'left', display}} onClick={this.pre.bind(this, 'month')}>
           {ANGLE_LEFT_DOUBLE}
         </i>
@@ -399,15 +398,15 @@ class Datetime extends Component {
     switch (this.state.stage) {
       case 'day':
         let weeks = getLang('datetime.weekday').map(function (w, i) {
-          return <div key={i} className={Styles.week}>{w}</div>;
+          return <div key={i} className={_datepickers.week}>{w}</div>;
         });
-        return <div className={Styles.dayInner}>{weeks}{this.renderDays()}</div>;
+        return <div className={_datepickers.dayInner}>{weeks}{this.renderDays()}</div>;
       case 'month':
-        return <div className={Styles.monthInner}>{this.renderMonths()}</div>;
+        return <div className={_datepickers.monthInner}>{this.renderMonths()}</div>;
       case 'year':
-        return <div className={Styles.yearInner}>{this.renderYears()}</div>;
+        return <div className={_datepickers.yearInner}>{this.renderYears()}</div>;
       case 'clock':
-        return <div className={Styles.inner}></div>;
+        return <div className={_datepickers.inner}></div>;
     }
     return null;
   }
@@ -418,25 +417,25 @@ class Datetime extends Component {
 
     let className = classnames(
       this.props.className,
-      Styles.datepicker,
-      type !== DATETIME && Styles.short,
-      readOnly ? InputStyles.disabled : (open && Styles.open),
-      type === TIME && Styles.timepicker,
-      dropup && Styles.dropup
+      _datepickers.datepicker,
+      type !== DATETIME && _datepickers.short,
+      readOnly ? _inputs.disabled : (open && _datepickers.open),
+      type === TIME && _datepickers.timepicker,
+      dropup && _datepickers.dropup
     );
 
     let text = value ? this.formatValue(value) : '';
 
     return (
       <div ref="datetime" onClick={this.handleOpen} className={className}>
-        <div className={classnames(Styles.control, InputStyles.input, hasError && FormStyles.dangerInput)}>
+        <div className={classnames(_datepickers.control, _inputs.input, hasError && _inputs.dangerInput)}>
           {
             text ? <span>{text}</span>
-              : <span className={InputStyles.placeholder}>{placeholder}&nbsp;</span>
+              : <span className={_inputs.placeholder}>{placeholder}&nbsp;</span>
           }
         </div>
         <Transition ref="datepicker" duration={333} tf="ease-out" act={open ? 'enter' : 'leave'}>
-          <div className={Styles.picker}>
+          <div className={_datepickers.picker}>
             {this.renderHeader()}
             {this.renderInner()}
             {(stage === 'day' || stage === 'clock') && type !== DATE && this.renderTime()}

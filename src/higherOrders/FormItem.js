@@ -7,7 +7,7 @@ import { deepEqual } from '../utils/objects';
 import * as Validation from '../utils/validation';
 import { toStyleObject, nextUid } from '../utils/strings';
 
-import FormStyles from '../styles/_form.scss';
+import _inputs from '../styles/_input.scss';
 
 export const COMPONENTS = {};
 
@@ -155,7 +155,7 @@ export const valueble = (ComposedComponent) => {
 
       className = classnames(
         className,
-        this.state.hasError && FormStyles.dangerInput
+        this.state.hasError && _inputs.dangerInput
       );
       value = this.state.value;
 
