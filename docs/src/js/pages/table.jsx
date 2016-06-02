@@ -4,7 +4,7 @@ import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
 import Refetch from 'refetch';
-const {Table, Filter, Modal, Pagination, Checkbox, RadioGroup} = global.uiRequire();
+const {Table, Filter, Modal, Checkbox, RadioGroup} = global.uiRequire();
 
 module.exports = class extends Component {
   constructor (props) {
@@ -15,9 +15,10 @@ module.exports = class extends Component {
       filters: [],
       height: '370px',
       pagination: false,
+      position: 'center',
       striped: true,
       total: 0,
-      width: '100%'
+      width: 'auto'
     };
   }
 
@@ -106,8 +107,16 @@ headers = [{
             height: <RadioGroup style={{display: 'inline-block'}} onChange={(height) => this.setState({height})} value={this.state.height} data={['auto', '15rem', '370px', '500px']} />
           </div>
           <div>
-            width: <RadioGroup style={{display: 'inline-block'}} onChange={(width) => this.setState({width})} value={this.state.width} data={['100%', '1200px', '2000px']} />
+            width: <RadioGroup style={{display: 'inline-block'}} onChange={(width) => this.setState({width})} value={this.state.width} data={['auto', '1200px', '2000px']} />
           </div>
+
+          {
+            this.state.pagination &&
+            <div>
+              pagination position: <RadioGroup style={{display: 'inline-block'}} onChange={(position) => this.setState({position})} value={this.state.position} data={['left', 'center', 'right']} />
+            </div>
+          }
+
           {
             this.state.selectAble &&
             <div>
@@ -161,11 +170,11 @@ headers = [{
     { name: 'salary', content: '{salary}', header: 'Salary' },
     { name: 'tools', width: 60,
       content: (d) => {
-        return <a onClick={() => { Modal.confirm('确定要删除' + d.name + '吗', () => {}); }}>删除</a>;
+        return <a onClick={() => { Modal.confirm('确定要删除' + d.name + '吗', () => { console.log('just a kidding.'); }); }}>删除</a>;
       }
     }
   ]}
-  pagination={this.state.pagination ? <Pagination size={10} total={this.state.total} /> : null} />
+  pagination={this.state.pagination ? {size: 10, position: this.state.position} : null} />
             </Example>
             <Code>
 {`// set fetch

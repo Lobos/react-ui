@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
-import objectAssign from 'object-assign';
+import { objectAssign } from '../utils/objects';
 import { overView, getOuterHeight } from '../utils/dom';
 import * as datetime from '../utils/datetime';
-import { clickAwayEnhance, clickAwayProps } from '../higherOrders/ClickAway';
+import { clickAwayAble, clickAwayProps } from '../higherOrders/ClickAway';
 import TimeSet from './TimeSet';
 import Clock from './Clock';
 import { ANGLE_LEFT, ANGLE_RIGHT, ANGLE_LEFT_DOUBLE, ANGLE_RIGHT_DOUBLE } from '../svgs';
@@ -468,5 +468,5 @@ Datetime.defaultProps = {
   type: DATETIME
 };
 
-export default clickAwayEnhance(Datetime);
+export default clickAwayAble(Datetime);
 

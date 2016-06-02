@@ -2,7 +2,7 @@
 
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
-import objectAssign from 'object-assign';
+import { objectAssign } from './utils/objects';
 import Button from './Button';
 
 import FormStyles from './styles/_form.scss';

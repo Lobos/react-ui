@@ -1,7 +1,7 @@
 'use strict';
 
 import ReactDOM from 'react-dom';
-import objectAssign from 'object-assign';
+import { objectAssign } from '../utils/objects';
 import { nextUid } from '../utils/strings';
 
 import Container from './Container';
@@ -32,9 +32,16 @@ function open (options) {
   return options.id;
 };
 
-function alert (content, header = <span>&nbsp;</span>) {
+function alert (content, header = <span>&nbsp;</span>, callback) {
   let buttons = {};
-  buttons[getLang('buttons.ok')] = true;
+  if (typeof callback === 'function') {
+    buttons[getLang('buttons.ok')] = function () {
+      callback();
+      return true;
+    };
+  } else {
+    buttons[getLang('buttons.ok')] = true;
+  }
 
   return open({
     clickaway: false,

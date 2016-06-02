@@ -11,7 +11,7 @@ import FormStyles from '../styles/_form.scss';
 
 export const COMPONENTS = {};
 
-export const enhance = (ComposedComponent) => {
+export const valueble = (ComposedComponent) => {
   class FormItem extends Component {
     constructor (props) {
       super(props);
@@ -213,7 +213,7 @@ export const enhance = (ComposedComponent) => {
 };
 
 export const register = curry((types, options, ComposedComponent) => {
-  let newComponent = enhance(ComposedComponent);
+  let newComponent = valueble(ComposedComponent);
 
   // allow empty type
   // if (isEmpty(types)) {

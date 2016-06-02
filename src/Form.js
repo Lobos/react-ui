@@ -10,7 +10,7 @@ import FormSubmit from './FormSubmit';
 import Button from './Button';
 import PropTypes from './utils/proptypes';
 
-import { fetchEnhance } from './higherOrders/Fetch';
+import { fetchable } from './higherOrders/Fetch';
 
 import FormStyles from './styles/_form.scss';
 
@@ -264,4 +264,4 @@ Form.defaultProps = {
   disabled: false
 };
 
-export default fetchEnhance(Form);
+export default fetchable(Form);

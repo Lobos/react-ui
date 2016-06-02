@@ -2,9 +2,9 @@
 
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import PropTypes from './utils/proptypes';
+import PropTypes from '../utils/proptypes';
 
-class TableHeader extends Component {
+export default class Header extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -41,7 +41,7 @@ class TableHeader extends Component {
   }
 }
 
-TableHeader.propTypes = {
+Header.propTypes = {
   content: PropTypes.any,
   header: PropTypes.any,
   hidden: PropTypes.bool,
@@ -52,8 +52,6 @@ TableHeader.propTypes = {
   width: PropTypes.number_string
 };
 
-TableHeader.defaultProps = {
+Header.defaultProps = {
   hidden: false
 };
-
-module.exports = TableHeader;

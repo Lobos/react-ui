@@ -3,13 +3,12 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
-import objectAssign from 'object-assign';
 import { toArray, substitute } from './utils/strings';
 import { getOuterHeight, overView, withoutTransition } from './utils/dom';
-import { hashcode } from './utils/objects';
-import { clickAwayEnhance, clickAwayProps } from './higherOrders/ClickAway';
+import { hashcode, objectAssign } from './utils/objects';
+import { clickAwayAble, clickAwayProps } from './higherOrders/ClickAway';
 import { getGrid } from './utils/grids';
-import { fetchEnhance } from './higherOrders/Fetch';
+import { fetchable } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
 import { compose } from './utils/compose';
 import Transition from './Transition';
@@ -373,7 +372,7 @@ Select.defaultProps = {
 
 export default compose(
   register('select', {valueType: 'array'}),
-  fetchEnhance,
-  clickAwayEnhance
+  fetchable,
+  clickAwayAble
 )(Select);
 

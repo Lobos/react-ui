@@ -6,7 +6,7 @@ import { toArray } from '../utils/strings';
 import { toTextValue, hashcode } from '../utils/objects';
 import PropTypes from '../utils/proptypes';
 
-export const textValueEnhance = curry((single, Component) => {
+export const textValueAble = curry((single, Component) => {
   class TextValue extends React.Component {
     constructor (props) {
       super(props);

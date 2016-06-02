@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import objectAssign from 'object-assign';
+import { objectAssign } from './utils/objects';
 import { getGrid } from './utils/grids';
 import { register } from './higherOrders/FormItem';
 import { computedStyle, getLineHeight } from './utils/dom';
@@ -14,13 +14,12 @@ class Textarea extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: props.value,
-      imeLock: false,
       rows: props.rows
     };
 
+    this.imeLock = false;
+
     this.handleChange = this.handleChange.bind(this);
-    this.handleTrigger = this.handleTrigger.bind(this);
     this.bindElement = this.bindElement.bind(this);
     this.handleCompositionStart = this.handleCompositionStart.bind(this);
     this.handleCompositionEnd = this.handleCompositionEnd.bind(this);
@@ -38,39 +37,21 @@ class Textarea extends Component {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-    let value = nextProps.value;
-    if (value !== this.props.value && value !== this.state.value) {
-      this.setState({ value });
-    }
-  }
-
   bindElement (ref) {
     this.element = ref;
   }
 
   handleChange (event) {
     this.props.autoHeight && this.autoHeight();
-
-    let value = event.target.value;
-    this.setState({ value });
-
-    if (this.props.trigger === 'change' && !this.state.imeLock) {
-      this.props.onChange(value);
-    }
-  }
-
-  handleTrigger (event) {
-    let value = event.target.value;
-    this.props.onChange(value, event);
+    this.props.onChange(event.target.value);
   }
 
   handleCompositionStart () {
-    this.setState({ imeLock: true });
+    this.imeLock = true;
   }
 
   handleCompositionEnd () {
-    this.setState({ imeLock: false });
+    this.imeLock = false;
   }
 
   autoHeight () {
@@ -91,8 +72,8 @@ class Textarea extends Component {
   }
 
   render () {
-    let { className, grid, autoHeight, readOnly, trigger, ...other } = this.props;
-    const { rows, value } = this.state;
+    let { className, grid, autoHeight, readOnly, ...other } = this.props;
+    const { rows } = this.state;
 
     let style = { minHeight: 'auto' };
     if (autoHeight) {
@@ -111,14 +92,8 @@ class Textarea extends Component {
       onCompositionEnd: this.handleCompositionEnd,
       style: objectAssign({}, this.props.style, style),
       readOnly,
-      rows,
-      value
+      rows
     };
-
-    if (trigger !== 'change') {
-      let handle = 'on' + trigger.charAt(0).toUpperCase() + trigger.slice(1);
-      props[handle] = this.handleTrigger;
-    }
 
     return (
       <textarea ref={this.bindElement} { ...other } { ...props } />
@@ -135,7 +110,6 @@ Textarea.propTypes = {
   readOnly: PropTypes.bool,
   rows: PropTypes.number,
   style: PropTypes.object,
-  trigger: PropTypes.string,
   value: PropTypes.any
 };
 
@@ -143,7 +117,6 @@ Textarea.defaultProps = {
   style: {},
   grid: 1,
   rows: 10,
-  trigger: 'change',
   value: ''
 };
 

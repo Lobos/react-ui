@@ -1,6 +1,7 @@
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from '../utils/proptypes';
 
 function childrenToItems (children) {
   if (!children) {
@@ -25,7 +26,7 @@ function itemsToChildren (items) {
   });
 }
 
-export function transitionEnhance (Component) {
+export function transitionAble (Component) {
   class Transition extends React.Component {
     constructor (props) {
       super(props);
@@ -39,4 +40,10 @@ export function transitionEnhance (Component) {
       return <Component {...this.props}>{itemsToChildren(this.state.items)}</Component>;
     }
   }
+
+  Transition.propTypes = {
+    children: PropTypes.element_array
+  };
+
+  return Transition;
 }

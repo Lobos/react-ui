@@ -3,9 +3,9 @@
 import React, { PropTypes } from 'react';
 import classnames from 'classnames';
 import { Checkbox } from './Checkbox';
-import { fetchEnhance } from './higherOrders/Fetch';
+import { fetchable } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
-import { textValueEnhance } from './higherOrders/TextValue';
+import { textValueAble } from './higherOrders/TextValue';
 import { compose } from './utils/compose';
 
 import Styles from './styles/_radio-checkbox.scss';
@@ -57,6 +57,6 @@ CheckboxGroup.defaultProps = {
 
 export default compose(
   register('checkbox-group', {valueType: 'array'}),
-  fetchEnhance,
-  textValueEnhance(false)
+  fetchable,
+  textValueAble(false)
 )(CheckboxGroup);

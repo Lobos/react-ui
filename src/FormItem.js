@@ -1,7 +1,7 @@
 'use strict';
 
 import React, { cloneElement, PropTypes } from 'react';
-import { enhance } from './higherOrders/FormItem';
+import { valueble } from './higherOrders/FormItem';
 
 class FormItem extends React.Component {
   constructor (props) {
@@ -31,4 +31,4 @@ FormItem.propTypes = {
   value: PropTypes.any
 };
 
-export default enhance(FormItem);
+export default valueble(FormItem);

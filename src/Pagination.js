@@ -44,7 +44,7 @@ class Pagination extends Component {
   }
 
   getPages () {
-    let { total, size } = this.props;
+    let { total = 0, size } = this.props;
     let max = Math.ceil(total / size);
     let left;
     let right;
@@ -174,8 +174,7 @@ Pagination.propTypes = {
 };
 
 Pagination.defaultProps = {
-  size: 20,
-  total: 0
+  size: 20
 };
 
 module.exports = Pagination;

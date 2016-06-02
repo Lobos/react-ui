@@ -1,8 +1,8 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import objectAssign from 'object-assign';
-import { clickAwayEnhance, clickAwayProps } from './higherOrders/ClickAway';
+import { objectAssign } from './utils/objects';
+import { clickAwayAble, clickAwayProps } from './higherOrders/ClickAway';
 import classnames from 'classnames';
 
 import { requireCss } from './themes';
@@ -70,4 +70,4 @@ Tip.propTypes = objectAssign({
   trigger: PropTypes.oneOf(['click', 'hover'])
 }, clickAwayProps);
 
-module.exports = clickAwayEnhance(Tip);
+module.exports = clickAwayAble(Tip);

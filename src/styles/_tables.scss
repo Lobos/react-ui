@@ -2,11 +2,14 @@
 @import "themes/bootstrap";
 
 .table {
-  width: 100%;
-  max-width: 100%;
   margin-bottom: $spacer;
-  background-color: $body-bg;
+  max-width: 100%;
   overflow: hidden;
+
+  table {
+    width: 100%;
+    background-color: $body-bg;
+  }
 
   th,
   td {
@@ -25,6 +28,10 @@
   tbody + tbody {
     border-top: (2 * $table-border-width) solid $table-border-color;
   }
+
+  tbody tr:first-child td {
+    border-top: 0;
+  }
 }
 
 // Bordered version
@@ -32,10 +39,8 @@
 // Add borders all around the table and between all the columns.
 
 .bordered {
-  border: $table-border-width solid $table-border-color;
-  table {
-    border-left-width: 0;
-    border-right-width: 0;
+  .body {
+    border-bottom: $table-border-width solid $table-border-color;
   }
 
   th,
@@ -48,6 +53,10 @@
     td {
       border-bottom-width: (2 * $table-border-width);
     }
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
   }
 }
 
@@ -62,4 +71,10 @@
   }
 }
 
+.pagi_center {
+  text-align: center;
+}
 
+.pagi_right {
+  text-align: right;
+}

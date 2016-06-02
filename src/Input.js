@@ -13,9 +13,11 @@ class Input extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      value: props.value,
-      imeLock: false
+      value: props.value
     };
+
+    this.imeLock = false;
+
     this.handleChange = this.handleChange.bind(this);
     this.handleTrigger = this.handleTrigger.bind(this);
     this.handleCompositionStart = this.handleCompositionStart.bind(this);
@@ -46,7 +48,7 @@ class Input extends Component {
 
     this.setState({ value });
 
-    if (trigger === 'change' && !this.state.imeLock) {
+    if (trigger === 'change' && !this.imeLock) {
       this.props.onChange(value);
     }
   }
@@ -57,11 +59,11 @@ class Input extends Component {
   }
 
   handleCompositionStart () {
-    this.setState({ imeLock: true });
+    this.imeLock = true;
   }
 
   handleCompositionEnd () {
-    this.setState({ imeLock: false });
+    this.imeLock = false;
   }
 
   render () {

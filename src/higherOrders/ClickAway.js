@@ -5,7 +5,7 @@ import { findDOMNode } from 'react-dom';
 import * as Events from '../utils/events';
 import { isDescendant } from '../utils/dom';
 
-export function clickAwayEnhance (Component) {
+export function clickAwayAble (Component) {
   class ClickAway extends React.Component {
     constructor (props) {
       super(props);

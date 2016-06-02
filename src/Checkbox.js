@@ -14,12 +14,6 @@ export class Checkbox extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.handleChange(null, nextProps.value === nextProps.defaultValue);
-    }
-  }
-
   handleChange (event, checked) {
     const { readOnly, onChange, index } = this.props;
 

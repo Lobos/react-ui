@@ -2,12 +2,11 @@
 
 import React, { Component, cloneElement, Children } from 'react';
 import classnames from 'classnames';
-import objectAssign from 'object-assign';
 import { COMPONENTS, getValueType } from './higherOrders/FormItem';
 import merge from './utils/merge';
 import { getGrid } from './utils/grids';
 import { format } from './utils/strings';
-import { forEach, shallowEqual } from './utils/objects';
+import { forEach, shallowEqual, objectAssign } from './utils/objects';
 import PropTypes from './utils/proptypes';
 
 import { getLang, setLang } from './lang';
@@ -37,6 +36,7 @@ class FormControl extends Component {
     this.handleValidate = this.handleValidate.bind(this);
   }
 
+  /*
   componentWillMount () {
     this.setItems(this.props);
   }
@@ -46,6 +46,7 @@ class FormControl extends Component {
       this.setItems(nextProps);
     }
   }
+  */
 
   shouldComponentUpdate (nextProps, nextState) {
     if (!shallowEqual(this.props, nextProps)) {
@@ -139,8 +140,8 @@ class FormControl extends Component {
     });
   }
 
-  setItems (props) {
-    let { label, items, children, ...otherProps} = props;
+  getItems () {
+    let { label, items, children, ...otherProps} = this.props;
     let hints = [];
 
     this.required = false;
@@ -161,12 +162,12 @@ class FormControl extends Component {
       });
     }
 
-    this.setState({ items, hints: hints.join(', ') });
+    return { items, hints: hints.join(', ') };
   }
 
-  renderTip () {
+  renderTip (hints) {
     let { tip, errorText } = this.props;
-    let { validations, hints } = this.state;
+    let { validations } = this.state;
     hints = tip || hints;
 
     if (validations) {
@@ -212,8 +213,9 @@ class FormControl extends Component {
 
   renderItems (grid) {
     const { children } = this.props;
+    let { items, hints } = this.getItems();
 
-    let items = (this.state.items || []).map((props, i) => {
+    items = (items || []).map((props, i) => {
       i += length;
       if (typeof props === 'string') {
         return <span key={i} dangerouslySetInnerHTML={{__html: props}} />;
@@ -232,7 +234,7 @@ class FormControl extends Component {
       items = items.concat(this.renderChildren(children));
     }
 
-    items.push(this.renderTip());
+    items.push(this.renderTip(hints));
 
     return items;
   }
@@ -300,6 +302,7 @@ FormControl.propTypes = {
   itemBind: PropTypes.func,
   itemChange: PropTypes.func,
   itemUnbind: PropTypes.func,
+  items: PropTypes.array,
   label: PropTypes.element_string,
   labelWidth: PropTypes.number_string,
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
