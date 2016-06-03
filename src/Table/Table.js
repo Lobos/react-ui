@@ -2,20 +2,29 @@
 
 import React, { Component } from 'react'
 import classnames from 'classnames'
-import { substitute } from '../utils/strings'
+import { substitute, toArray } from '../utils/strings'
 import { shallowEqual, hashcode } from '../utils/objects'
 import PropTypes from '../utils/proptypes'
 import Header from './Header'
 import Pagination from '../Pagination'
 import Checkbox from '../Checkbox'
+import ValuesHolder from '../ValuesHolder'
 
 import _tables from '../styles/_tables.scss'
 
 export default class Table extends Component {
   constructor (props, context) {
     super(props, context)
-    this.onBodyScroll = this.onBodyScroll.bind(this)
+
     this.isWidthSetted = false
+    this.onBodyScroll = this.onBodyScroll.bind(this)
+
+    // cache for handleSelect
+    if (props.onSelect) {
+      this.values = (props.onSelect instanceof ValuesHolder)
+                    ? props.onSelect : new ValuesHolder()
+      this.values.init(toArray(props.value, props.sep))
+    }
   }
 
   componentDidMount () {
@@ -29,12 +38,10 @@ export default class Table extends Component {
   }
 
   componentDidUpdate () {
-    this.setHeaderWidth()
+    if (!this.isWidthSetted) this.setHeaderWidth()
   }
 
   setHeaderWidth () {
-    if (this.isWidthSetted) return
-
     let body = this.refs.body
 
     let tr = body.querySelector('tr')
@@ -61,18 +68,26 @@ export default class Table extends Component {
   }
 
   handleSelect (d, e, checked) {
-    console.log(d, e, checked)
+    const { onSelect, data, sep } = this.props
+
+    let value = d === 'all' ? data.map(d => d.$value) : d.$value
+    this.values[checked ? 'add' : 'remove'](value)
+
+    if (typeof onSelect === 'function') {
+      onSelect(this.values.getValue(sep))
+    }
+    this.setState({})
   }
 
-  renderBody (data) {
-    const { selectAble } = this.props
+  renderBody (values) {
+    const { data, onSelect, valueTpl } = this.props
     const columns = this.getColumns()
 
     if (!Array.isArray(data)) {
       return (
         <tbody>
           <tr>
-            <td colSpan={columns.length + (selectAble ? 1 : 0)}>{data}</td>
+            <td colSpan={columns.length + (onSelect ? 1 : 0)}>{data}</td>
           </tr>
         </tbody>
       )
@@ -82,20 +97,27 @@ export default class Table extends Component {
       return h.name || hashcode(h)
     })
 
+    this.allSelected = true
     let trs = data.map((d, i) => {
       let tds = []
-      if (selectAble) {
+      if (onSelect) {
+        if (!d.$value) d.$value = substitute(valueTpl, d)
+
+        let checked = values.indexOf(d.$value) >= 0
+        this.allSelected = this.allSelected && checked
+
         tds.push(
           <td className={_tables.checkbox} key="checkbox">
-            <Checkbox isIndicator onChange={this.handleSelect.bind(this, d)} />
+            <Checkbox isIndicator
+              checked={checked}
+              onChange={this.handleSelect.bind(this, d)} />
           </td>
         )
       }
       let rowKey = d.id ? d.id : hashcode(d)
       columns.map((h, j) => {
-        if (h.hidden) {
-          return
-        }
+        if (h.hidden) return
+
         let content = h.content
         if (typeof content === 'string') {
           content = substitute(content, d)
@@ -113,9 +135,9 @@ export default class Table extends Component {
   }
 
   renderColgroup () {
-    const { selectAble } = this.props
+    const { onSelect } = this.props
     let cols = []
-    if (selectAble) {
+    if (onSelect) {
       cols.push(<col key="check" />)
     }
     this.getColumns().forEach((h, i) => {
@@ -129,21 +151,21 @@ export default class Table extends Component {
   }
 
   renderHeader () {
+    const { onSort, onSelect, sortStatus, pagination = {} } = this.props
+
     let headers = []
-    if (this.props.selectAble) {
+    if (onSelect) {
       headers.push(
         <Header key="checkbox" name="$checkbox">
-          <Checkbox isIndicator onChange={this.handleSelect.bind(this, 'all')} />
+          <Checkbox isIndicator
+            checked={this.allSelected}
+            onChange={this.handleSelect.bind(this, 'all')} />
         </Header>
       )
     }
 
-    const { onSort, sortStatus, pagination = {} } = this.props
-
     this.getColumns().forEach((header, i) => {
-      if (header.hidden) {
-        return
-      }
+      if (header.hidden) return
 
       headers.push(
         <Header {...header}
@@ -174,7 +196,10 @@ export default class Table extends Component {
     let tableStyle = {}
     let onBodyScroll = null
 
-    const { data, height, width, bordered, striped } = this.props
+    const { height, width, bordered, striped } = this.props
+    const values = this.values ? this.values.getValue() : []
+
+    const body = this.renderBody(values)
 
     if (height && height !== 'auto') {
       bodyStyle.height = height
@@ -210,7 +235,7 @@ export default class Table extends Component {
         <div className={_tables.body} onScroll={onBodyScroll} style={bodyStyle}>
           <table style={tableStyle} ref="body">
             { this.renderColgroup() }
-            { this.renderBody(data) }
+            { body }
           </table>
         </div>
 
@@ -229,20 +254,22 @@ Table.propTypes = {
   filters: PropTypes.array,
   headers: PropTypes.array,
   height: PropTypes.number_string,
-  onSelect: PropTypes.func,
+  onSelect: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.instanceOf(ValuesHolder)
+  ]),
   onSort: PropTypes.func,
   pagination: PropTypes.object,
-  selectAble: PropTypes.bool,
+  sep: PropTypes.func_string,
   sortStatus: PropTypes.object,
   striped: PropTypes.bool,
   style: PropTypes.object,
+  value: PropTypes.array_string,
+  valueTpl: PropTypes.tpl,
   width: PropTypes.number_string
 }
 
-Table.contextTypes = {
-  dataHolder: PropTypes.object
-}
-
 Table.defaultProps = {
-  data: []
+  data: [],
+  sep: ','
 }

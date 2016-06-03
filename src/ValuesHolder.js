@@ -3,9 +3,13 @@
 import { objectAssign } from './utils/objects'
 
 export default class DataHolder {
-  constructor (data, options) {
-    this.data = data || []
+  constructor (values, options) {
+    this.values = values || []
     this.options = objectAssign({}, options)
+  }
+
+  init (values) {
+    this.values = values
   }
 
   add (items) {
@@ -13,28 +17,28 @@ export default class DataHolder {
 
     let temp = []
     items.forEach((d) => {
-      if (this.data.indexOf(d) < 0) {
+      if (this.values.indexOf(d) < 0) {
         temp.push(d)
       }
     })
 
-    this.data = this.data.concat(temp)
+    this.values = this.values.concat(temp)
   }
 
   remove (items) {
     if (!Array.isArray(items)) items = [items]
 
-    this.data = this.data.filter((d) => {
+    this.values = this.values.filter((d) => {
       return items.indexOf(d) < 0
     })
   }
 
   clear () {
-    this.data = []
+    this.values = []
   }
 
-  getValue (tpl) {
-    console.log(tpl)
+  getValue (sep) {
+    return sep ? this.values.join(sep) : [...this.values]
   }
 }
 

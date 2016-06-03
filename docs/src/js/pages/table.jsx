@@ -1,27 +1,28 @@
 'use strict'
 
-import { Component, PropTypes } from 'react'
+import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
-const {Table, Modal, Checkbox, RadioGroup} = global.uiRequire()
+import { Cn } from '../Language'
+const {Button, Table, Modal, Checkbox, RadioGroup, ValuesHolder} = global.uiRequire()
 
 class TableDemo extends Component {
   constructor (props) {
     super(props)
     this.state = {
       bordered: true,
-      selectAble: true,
+      valuesHolder: true,
       height: 'auto',
       pagination: true,
       position: 'center',
       striped: true,
       width: 'auto'
     }
-  }
 
-  getChildContext () {
-    return { test: 123 }
+    this.valuesHolder = new ValuesHolder()
+    this.getSelectedName = this.getSelectedName.bind(this)
+    this.handleSelectedName = this.handleSelectedName.bind(this)
   }
 
   componentWillMount () {
@@ -32,9 +33,12 @@ class TableDemo extends Component {
     this.setState({ fetch })
   }
 
-  getCheckedName () {
-    let names = (this.refs.table.getChecked('name')).join(',')
-    this.setState({ checkedNames: names })
+  getSelectedName () {
+    this.setState({ selectedNames: this.valuesHolder.getValue() })
+  }
+
+  handleSelectedName (values) {
+    this.setState({ selectedNames: values })
   }
 
   render () {
@@ -49,13 +53,14 @@ class TableDemo extends Component {
           <Code>
 {`<Table
   bordered={bool}          // 是否显示边框，默认值 false
-  selectAble={bool}        // 是否显示选择，默认值 false
+  selectAble={bool}        // is deprecated, use onSelect instead
   striped={bool}           // 是否交替显示背景，默认值 false
   width={number}           // 表格宽度，默认值 100%
   height={number}          // 表格高度（body部分），默认值 auto
   data={array}             // 数据
   fetch={object}
   pagination={Pagination}  // 分页控件
+  onSelect={func|ValuesHolder} // if onSelect is not null, show checkbox
   onSort={func(name, asc)} // TableHeader的sort事件，name为TableHeader的name，asc值为1|0
   columns={array}
 />
@@ -90,18 +95,21 @@ columns = [{
             </pre>
           </div>
 
-          <h2 className="subhead">getChecked(name)</h2>
-          <div>
-            <em>实例方法</em>，获取当前选中的数据，返回结果为数组<br />
-            <em>name</em>，如果为空，返回为原始data数据，如果指定了name，返回name对应的值。
-            <pre className="prettyprint">{'this.refs.table.getChecked("name")'}</pre>
-          </div>
+          <h2 className="subhead">ValuesHolder</h2>
+          <Cn>如果不想在每次选中/清除每个选项后获取值（需要用state维护状态），可以在onSelect中传入一个ValuesHolder的实例，ValuesHolder内部包含了一个add和remove方法维护选项，不过使用者不需要关心这个。只需要在需要数据的时候，调用getValue(sep)就好了</Cn>
+          <Code>
+{`let valuesHolder = new ValuesHolder()
+...
+<Table onSelect={valuesHolder} ... />
+...
+values = valuesHolder.get(',')`}
+          </Code>
 
           <h2 className="subhead">Example</h2>
           <div>
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.bordered} onChange={bordered => this.setState({bordered})} text="bordered" />
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.striped} onChange={striped => this.setState({striped})} text="striped" />
-            <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.selectAble} onChange={selectAble => this.setState({selectAble})} text="selectAble" />
+            <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.valuesHolder} onChange={valuesHolder => this.setState({valuesHolder})} text="valuesHolder" />
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.pagination} onChange={page => this.setState({pagination: page})} text="pagination" />
           </div>
           <div>
@@ -119,23 +127,30 @@ columns = [{
           }
 
           {
-            this.state.selectAble &&
+            this.state.valuesHolder &&
             <div>
-              <a onClick={this.getCheckedName.bind(this)}>获取选中 Name</a>
-              <p>{this.state.checkedNames}</p>
+              <a onClick={this.getSelectedName}>get selected names</a>
             </div>
           }
-          <div style={{marginTop: 10}}>
+          <div style={{marginBottom: 10}}>values: {JSON.stringify(this.state.selectedNames)}</div>
 
-            <Example>
+          <Example>
+<Button status="danger"
+  style={{marginBottom: '1rem', display: this.state.valuesHolder ? 'block' : 'none'}}
+  onClick={() => { Modal.confirm('Are you sure to delete "' + this.valuesHolder.getValue(',') + '"?', () => {}, 'Warning') }}>
+  Delete selected
+</Button>
 <Table ref="table"
   bordered={this.state.bordered}
   filters={this.state.filters}
-  selectAble={this.state.selectAble}
+  onSelect={this.state.valuesHolder ? this.valuesHolder : this.handleSelectedName}
   striped={this.state.striped}
   width={this.state.width}
   height={this.state.height}
   fetch={{url: 'json/table.json', catch: 3600}}
+  sep={null}
+  value={['Ashton Cox', 'Airi Satou']}
+  valueTpl="name"
   columns={[
     { name: 'name', sort: true, header: 'Name',
       content: (d) => {
@@ -148,10 +163,11 @@ columns = [{
       (a, b) => a.start_date > b.start_date ? 1 : -1,
       (a, b) => a.start_date < b.start_date ? 1 : -1
     ] },
-    { name: 'salary', content: '{salary}', header: 'Salary', sort: (a, b) => {
-      return parseInt(a.salary.replace(/[\$,]/g, '')) >
-        parseInt(b.salary.replace(/[\$,]/g, '')) ? 1 : -1
-    } },
+    { name: 'salary', content: '{salary}', header: 'Salary',
+      sort: (a, b) => {
+        return parseInt(a.salary.replace(/[\$,]/g, '')) > parseInt(b.salary.replace(/[\$,]/g, '')) ? 1 : -1
+      }
+    },
     { name: 'tools', width: 60,
       content: (d) => {
         return (
@@ -165,16 +181,11 @@ columns = [{
     }
   ]}
   pagination={this.state.pagination ? {size: 10, position: this.state.position} : null} />
-            </Example>
-          </div>
+          </Example>
         </div>
       </div>
     )
   }
-}
-
-TableDemo.childContextTypes = {
-  test: PropTypes.number
 }
 
 module.exports = TableDemo

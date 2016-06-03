@@ -141,7 +141,7 @@ Modal.close(id);
 }}>open form</Button>
           </Example>
 
-          <h2 className="subhead">Modal.alert(content, title)</h2>
+          <h2 className="subhead">Modal.alert(content, header, callback)</h2>
           <Cn>快捷方式， <em>content</em> 为 <em>string</em> 或者 <em>ReactElement</em></Cn>
           <Example>
 <Button status="primary"
@@ -150,7 +150,7 @@ Modal.close(id);
 </Button>
           </Example>
 
-          <h2 className="subhead">Modal.confirm(content, callback)</h2>
+          <h2 className="subhead">Modal.confirm(content, header, callback)</h2>
           <div>快捷方式， <em>content</em> 为 <em>string</em> 或者 <em>ReactElement</em>。 <em>callback</em> 为 <em>function </em>，点击确定后回调。</div>
           <Example>
 <Button status="primary" onClick={() => Modal.confirm(
@@ -159,7 +159,7 @@ Modal.close(id);
     <p>如果你不知道，点取消吧。</p>
   </div>,
   () => { Modal.alert('点击了确定') },
-  '警告'
+  'Warning'
 )}
 >confirm example</Button>
           </Example>
