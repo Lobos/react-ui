@@ -15,7 +15,7 @@ export const FETCH_PENDING = 'pending'
 export const FETCH_SUCCESS = 'success'
 export const FETCH_FAILURE = 'failure'
 
-export const fetchable = (ComposedComponent) => {
+export default function (ComposedComponent) {
   class Fetch extends Component {
     constructor (props) {
       super(props)
@@ -25,8 +25,6 @@ export const fetchable = (ComposedComponent) => {
         fetchStatus: FETCH_SUCCESS,
         error: ''
       }
-
-      this.bindElement = this.bindElement.bind(this)
     }
 
     componentWillMount () {
@@ -112,15 +110,11 @@ export const fetchable = (ComposedComponent) => {
       }
     }
 
-    bindElement (ref) {
-      this.component = ref
-    }
-
     render () {
-      const { fetchStatus, error } = this.state
+      const { fetchStatus, error, data } = this.state
       if (fetchStatus === FETCH_SUCCESS) {
         return (
-          <ComposedComponent {...this.props} ref={this.bindElement} data={this.state.data} fetchStatus={this.state.fetchStatus} />
+          <ComposedComponent {...this.props} data={data} fetchStatus={fetchStatus} />
         )
       } else {
         let className = classnames(fetchStatus === FETCH_FAILURE && FormStyles.errorText)

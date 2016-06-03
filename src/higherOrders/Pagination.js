@@ -4,14 +4,14 @@ import React from 'react'
 import { objectAssign } from '../utils/objects'
 import PropTypes from '../utils/proptypes'
 
-export function pagible (Component) {
+export default function (Component) {
   class Pagination extends React.Component {
     constructor (props) {
       super(props)
 
-      this.state = {
-        page: 1
-      }
+      this.state = { page: 1 }
+
+      this.handleChange = this.handleChange.bind(this)
     }
 
     getData (pagination) {
@@ -23,6 +23,15 @@ export function pagible (Component) {
       }
 
       return data
+    }
+
+    handleChange (page) {
+      const { onChange } = this.props.pagination
+      if (typeof onChange === 'function') {
+        onChange(page)
+      } else {
+        this.setState({ page })
+      }
     }
 
     getPagination (pagination) {
@@ -38,15 +47,7 @@ export function pagible (Component) {
         pagination.props || pagination
       )
 
-      let onChange = props.onChange
-      props.onChange = (page) => {
-        if (typeof onChange === 'function') {
-          onChange(page)
-        } else {
-          this.setState({ page })
-        }
-      }
-
+      props.onChange = this.handleChange
       return props
     }
 

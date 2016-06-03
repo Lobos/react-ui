@@ -26,7 +26,7 @@ function itemsToChildren (items) {
   })
 }
 
-export function transitionAble (Component) {
+export default function (Component) {
   class Transition extends React.Component {
     constructor (props) {
       super(props)

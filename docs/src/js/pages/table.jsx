@@ -1,31 +1,32 @@
 'use strict'
 
-import { Component } from 'react'
+import { Component, PropTypes } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
-const {Table, Filter, Modal, Checkbox, RadioGroup} = global.uiRequire()
+const {Table, Modal, Checkbox, RadioGroup} = global.uiRequire()
 
-module.exports = class extends Component {
+class TableDemo extends Component {
   constructor (props) {
     super(props)
     this.state = {
       bordered: true,
       selectAble: true,
-      filters: [],
-      height: '370px',
-      pagination: false,
+      height: 'auto',
+      pagination: true,
       position: 'center',
       striped: true,
-      total: 0,
       width: 'auto'
     }
+  }
+
+  getChildContext () {
+    return { test: 123 }
   }
 
   componentWillMount () {
     let fetch = Refetch.get('json/table.json', null, {catch: 3600})
     fetch.then(res => {
-      this.setState({ total: res.length })
       return res
     })
     this.setState({ fetch })
@@ -56,16 +57,16 @@ module.exports = class extends Component {
   fetch={object}
   pagination={Pagination}  // 分页控件
   onSort={func(name, asc)} // TableHeader的sort事件，name为TableHeader的name，asc值为1|0
-  headers={array}
+  columns={array}
 />
 
-headers = [{
+columns = [{
+  header:{string|element} // 表头内容，string或者ReactElement
   content:{string|func}   // 表格显示内容，{}格式字符串模板或一个返回ReactElement的方法
   hidden:{bool}           // 是否显示，默认为true
   name:{string}           // 必填，字段名称，和data对应，如果不填content，使用name获取数据
   sort:{bool}             // 是否可以排序，默认值为false
   width:{number}          // 宽度
-  header:{string|element} // 表头内容，string或者ReactElement
 }]
 `}
           </Code>
@@ -127,29 +128,6 @@ headers = [{
           <div style={{marginTop: 10}}>
 
             <Example>
-<Filter onFilter={(filters) => this.setState({ filters })}
-  style={{marginBottom: 20}}
-  local
-  options={[{
-    label: '姓名',
-    name: 'name',
-    ops: ['like', '=', 'startWidth'],
-    startWidth: function (d, value) {
-      return d.name.indexOf(value) === 0
-    }
-  }, {
-    label: '地区',
-    name: 'office',
-    ops: ['='],
-    type: 'select',
-    props: { data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
-  }, {
-    label: '地区2',
-    name: 'office',
-    ops: ['in', 'not in'],
-    type: 'select',
-    props: { mult: true, data: ['Tokyo', 'Singapore', 'New York', 'London', 'San Francisco'] }
-  }]} />
 <Table ref="table"
   bordered={this.state.bordered}
   filters={this.state.filters}
@@ -157,7 +135,7 @@ headers = [{
   striped={this.state.striped}
   width={this.state.width}
   height={this.state.height}
-  fetch={this.state.fetch}
+  fetch={{url: 'json/table.json', catch: 3600}}
   columns={[
     { name: 'name', sort: true, header: 'Name',
       content: (d) => {
@@ -188,18 +166,15 @@ headers = [{
   ]}
   pagination={this.state.pagination ? {size: 10, position: this.state.position} : null} />
             </Example>
-            <Code>
-{`// set fetch
-let fetch = Refetch.get('json/table.json', null, {catch: 3600});
-fetch.then(res => {
-  this.setState({ total: res.length });
-  return res;
-});
-this.setState({ fetch });`}
-            </Code>
           </div>
         </div>
       </div>
     )
   }
 }
+
+TableDemo.childContextTypes = {
+  test: PropTypes.number
+}
+
+module.exports = TableDemo

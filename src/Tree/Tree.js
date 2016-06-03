@@ -5,7 +5,7 @@ import { findDOMNode } from 'react-dom'
 import classnames from 'classnames'
 import { toArray, substitute } from '../utils/strings'
 import { forEach, deepEqual, hashcode } from '../utils/objects'
-import { fetchable } from '../higherOrders/Fetch'
+import Fetch from '../higherOrders/Fetch'
 import { register } from '../higherOrders/FormItem'
 import { removeClass } from '../utils/dom'
 import { compose } from '../utils/compose'
@@ -217,7 +217,7 @@ Tree.defaultProps = {
 
 module.exports = compose(
   register('tree', { valueType: 'array' }),
-  fetchable
+  Fetch
 )(Tree)
 
 module.exports.setDefaultIcons = function (icons) {

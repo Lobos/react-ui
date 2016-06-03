@@ -2,7 +2,7 @@
 
 import React, {PropTypes} from 'react'
 
-export function triggerAble (Component) {
+export default function (Component) {
   class Trigger extends React.Component {
     constructor (props) {
       super(props)

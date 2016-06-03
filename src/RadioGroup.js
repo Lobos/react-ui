@@ -2,11 +2,11 @@
 
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
-import { fetchable } from './higherOrders/Fetch'
+import Fetch from './higherOrders/Fetch'
 import { register } from './higherOrders/FormItem'
 import Radio from './Radio'
 import { compose } from './utils/compose'
-import { textValueAble } from './higherOrders/TextValue'
+import TextValue from './higherOrders/TextValue'
 
 import Styles from './styles/_radio-checkbox.scss'
 
@@ -49,6 +49,6 @@ RadioGroup.propTypes = {
 
 export default compose(
   register('radio-group', {}),
-  fetchable,
-  textValueAble(true)
+  Fetch,
+  TextValue(true)
 )(RadioGroup)

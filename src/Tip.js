@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes } from 'react'
 import { objectAssign } from './utils/objects'
-import { clickAwayAble, clickAwayProps } from './higherOrders/ClickAway'
+import ClickAway from './higherOrders/ClickAway'
 import classnames from 'classnames'
 
 import { requireCss } from './themes'
@@ -68,6 +68,6 @@ Tip.propTypes = objectAssign({
   position: PropTypes.oneOf(['top', 'bottom']),
   style: PropTypes.object,
   trigger: PropTypes.oneOf(['click', 'hover'])
-}, clickAwayProps)
+}, ClickAway.propTypes)
 
-module.exports = clickAwayAble(Tip)
+module.exports = ClickAway(Tip)

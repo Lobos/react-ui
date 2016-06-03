@@ -29,6 +29,10 @@ export default class DataHolder {
     })
   }
 
+  clear () {
+    this.data = []
+  }
+
   getValue (tpl) {
     console.log(tpl)
   }

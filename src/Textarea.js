@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import { objectAssign } from './utils/objects'
 import { getGrid } from './utils/grids'
 import { register } from './higherOrders/FormItem'
-import { triggerAble } from './higherOrders/Trigger'
+import Trigger from './higherOrders/Trigger'
 import { cloneShadow } from './utils/dom'
 import PropTypes from './utils/proptypes'
 import { compose } from './utils/compose'
@@ -91,6 +91,6 @@ Textarea.defaultProps = {
 
 export default compose(
   register(['textarea'], {}),
-  triggerAble
+  Trigger
 )(Textarea)
 

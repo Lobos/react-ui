@@ -13,11 +13,14 @@ function getClassName (base, name, asc, status) {
 }
 
 export default function Header (props) {
-  const { onSort, sortStatus, name, sort, header, children } = props
+  const { onSort, sortStatus, onPageChange, name, sort, header, children } = props
 
   const handleSort = (asc, fn) => {
     if (name === sortStatus.key && asc === sortStatus.asc) return
-    return () => onSort(name, asc, fn)
+    return function () {
+      onSort(name, asc, fn)
+      onPageChange && onPageChange(1)
+    }
   }
 
   let icons
@@ -41,8 +44,9 @@ Header.propTypes = {
   header: PropTypes.any,
   hidden: PropTypes.bool,
   name: PropTypes.string,
+  onPageChange: PropTypes.func,
   onSort: PropTypes.func,
-  sort: PropTypes.bool_func,
+  sort: PropTypes.array_bool_func,
   sortStatus: PropTypes.object,
   width: PropTypes.number_string
 }

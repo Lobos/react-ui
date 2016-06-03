@@ -2,12 +2,12 @@
 
 import Table from './Table'
 import { compose } from '../utils/compose'
-import { fetchable } from '../higherOrders/Fetch'
-import { sortable } from '../higherOrders/Sort'
-import { pagible } from '../higherOrders/Pagination'
+import Fetch from '../higherOrders/Fetch'
+import Sort from '../higherOrders/Sort'
+import Pagination from '../higherOrders/Pagination'
 
 export default compose(
-  fetchable,
-  sortable,
-  pagible
+  Fetch,
+  Sort,
+  Pagination
 )(Table)

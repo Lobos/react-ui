@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import Regs from './utils/regs'
 import { getGrid } from './utils/grids'
 import { register } from './higherOrders/FormItem'
-import { triggerAble } from './higherOrders/Trigger'
+import Trigger from './higherOrders/Trigger'
 import PropTypes from './utils/proptypes'
 import { compose } from './utils/compose'
 
@@ -71,5 +71,5 @@ Input.defaultProps = {
 
 export default compose(
   register(['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number'], {}),
-  triggerAble
+  Trigger
 )(Input)

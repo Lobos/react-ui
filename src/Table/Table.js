@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import { substitute } from '../utils/strings'
-import { hashcode } from '../utils/objects'
+import { shallowEqual, hashcode } from '../utils/objects'
 import PropTypes from '../utils/proptypes'
 import Header from './Header'
 import Pagination from '../Pagination'
@@ -12,9 +12,10 @@ import Checkbox from '../Checkbox'
 import _tables from '../styles/_tables.scss'
 
 export default class Table extends Component {
-  constructor (props) {
-    super(props)
+  constructor (props, context) {
+    super(props, context)
     this.onBodyScroll = this.onBodyScroll.bind(this)
+    this.isWidthSetted = false
   }
 
   componentDidMount () {
@@ -22,13 +23,8 @@ export default class Table extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.height !== this.props.height || nextProps.width !== this.props.width) {
-      if (!this.checkHeadFixed(nextProps)) {
-        let ths = this.refs.header.querySelectorAll('th')
-        for (let i = 0, count = ths.length; i < count; i++) {
-          ths[i].style.width = ''
-        }
-      }
+    if (!shallowEqual(this.props.pagination, nextProps.pagination)) {
+      this.isWidthSetted = false
     }
   }
 
@@ -36,28 +32,26 @@ export default class Table extends Component {
     this.setHeaderWidth()
   }
 
-  checkHeadFixed (props = this.props) {
-    const { width, height } = props
-    return (!!width && width !== 'auto') || (!!height && height !== 'auto')
-  }
-
   setHeaderWidth () {
-    if (!this.checkHeadFixed()) return
+    if (this.isWidthSetted) return
 
     let body = this.refs.body
-    let tr = body.querySelector('tr')
 
+    let tr = body.querySelector('tr')
     if (!tr) return
 
-    let ths = this.refs.header.querySelectorAll('th')
     let tds = tr.querySelectorAll('td')
-
     if (tds.length <= 1) return
 
+    this.isWidthSetted = true
+
+    let bodyCgs = body.querySelectorAll('col')
+    let headCgs = this.refs.header.querySelectorAll('col')
+
     for (let i = 0, count = tds.length; i < count; i++) {
-      if (ths[i]) {
-        ths[i].style.width = tds[i].offsetWidth + 'px'
-      }
+      let width = tds[i].offsetWidth + 'px'
+      headCgs[i].style.width = width
+      bodyCgs[i].style.width = width
     }
   }
 
@@ -75,7 +69,13 @@ export default class Table extends Component {
     const columns = this.getColumns()
 
     if (!Array.isArray(data)) {
-      return <tbody><tr><td colSpan={columns.length}>{data}</td></tr></tbody>
+      return (
+        <tbody>
+          <tr>
+            <td colSpan={columns.length + (selectAble ? 1 : 0)}>{data}</td>
+          </tr>
+        </tbody>
+      )
     }
 
     const headerKeys = columns.map((h) => {
@@ -132,13 +132,13 @@ export default class Table extends Component {
     let headers = []
     if (this.props.selectAble) {
       headers.push(
-        <Header key="checkbox" name="$checkbox" header={
+        <Header key="checkbox" name="$checkbox">
           <Checkbox isIndicator onChange={this.handleSelect.bind(this, 'all')} />
-        } />
+        </Header>
       )
     }
 
-    const { onSort, sortStatus } = this.props
+    const { onSort, sortStatus, pagination = {} } = this.props
 
     this.getColumns().forEach((header, i) => {
       if (header.hidden) {
@@ -148,12 +148,13 @@ export default class Table extends Component {
       headers.push(
         <Header {...header}
           key={header.name || i}
+          onPageChange={pagination.onChange}
           onSort={onSort}
           sortStatus={sortStatus}
         />
       )
     })
-    return <tr>{headers}</tr>
+    return <thead><tr>{headers}</tr></thead>
   }
 
   renderPagination () {
@@ -174,7 +175,6 @@ export default class Table extends Component {
     let onBodyScroll = null
 
     const { data, height, width, bordered, striped } = this.props
-    let fixedHead = this.checkHeadFixed()
 
     if (height && height !== 'auto') {
       bodyStyle.height = height
@@ -198,21 +198,18 @@ export default class Table extends Component {
 
     return (
       <div style={this.props.style} className={className}>
-        {
-          fixedHead &&
-          <div className={_tables.header}>
-            <div ref="headerContainer" style={headerStyle}>
-              <table ref="header">
-                <thead>{this.renderHeader()}</thead>
-              </table>
-            </div>
+        <div className={_tables.header}>
+          <div ref="headerContainer" style={headerStyle}>
+            <table ref="header">
+              { this.renderColgroup() }
+              { this.renderHeader() }
+            </table>
           </div>
-        }
+        </div>
 
         <div className={_tables.body} onScroll={onBodyScroll} style={bodyStyle}>
           <table style={tableStyle} ref="body">
             { this.renderColgroup() }
-            { !fixedHead && <thead>{this.renderHeader()}</thead> }
             { this.renderBody(data) }
           </table>
         </div>
@@ -232,6 +229,7 @@ Table.propTypes = {
   filters: PropTypes.array,
   headers: PropTypes.array,
   height: PropTypes.number_string,
+  onSelect: PropTypes.func,
   onSort: PropTypes.func,
   pagination: PropTypes.object,
   selectAble: PropTypes.bool,
@@ -239,6 +237,10 @@ Table.propTypes = {
   striped: PropTypes.bool,
   style: PropTypes.object,
   width: PropTypes.number_string
+}
+
+Table.contextTypes = {
+  dataHolder: PropTypes.object
 }
 
 Table.defaultProps = {

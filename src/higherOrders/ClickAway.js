@@ -5,7 +5,7 @@ import { findDOMNode } from 'react-dom'
 import * as Events from '../utils/events'
 import { isDescendant } from '../utils/dom'
 
-export function clickAwayAble (Component) {
+export default function ClickAwayWrap (Component) {
   class ClickAway extends React.Component {
     constructor (props) {
       super(props)
@@ -84,9 +84,9 @@ export function clickAwayAble (Component) {
   return ClickAway
 }
 
-export const clickAwayProps = {
-  open: PropTypes.bool,
-  onOpen: PropTypes.func,
+ClickAwayWrap.propTypes = {
   onClose: PropTypes.func,
+  onOpen: PropTypes.func,
+  open: PropTypes.bool,
   registerTarget: PropTypes.func
 }

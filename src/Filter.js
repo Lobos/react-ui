@@ -4,7 +4,6 @@ import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import Button from './Button'
 import FilterItem from './FilterItem'
-import ClickAway from './mixins/ClickAway'
 
 import { requireCss } from './themes'
 requireCss('filter')
@@ -12,7 +11,7 @@ requireCss('filter')
 import {getLang, setLang} from './lang'
 setLang('buttons')
 
-class Filter extends ClickAway(Component) {
+class Filter extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -33,7 +32,7 @@ class Filter extends ClickAway(Component) {
   }
 
   componentDidMount () {
-    this.registerClickAway(this.close)
+    // this.registerClickAway(this.close)
   }
 
   initData (options) {

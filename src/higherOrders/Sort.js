@@ -14,7 +14,7 @@ const defaultSort = (key, asc) => (a, b) => {
   }
 }
 
-export function sortable (Component) {
+export default function (Component) {
   class Sort extends React.Component {
     constructor (props) {
       super(props)

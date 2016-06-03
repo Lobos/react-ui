@@ -6,7 +6,7 @@ import classnames from 'classnames'
 import { objectAssign } from '../utils/objects'
 import { overView, getOuterHeight } from '../utils/dom'
 import * as datetime from '../utils/datetime'
-import { clickAwayAble, clickAwayProps } from '../higherOrders/ClickAway'
+import ClickAway from '../higherOrders/ClickAway'
 import TimeSet from './TimeSet'
 import Clock from './Clock'
 import { ANGLE_LEFT, ANGLE_RIGHT, ANGLE_LEFT_DOUBLE, ANGLE_RIGHT_DOUBLE } from '../svgs'
@@ -446,7 +446,7 @@ class Datetime extends Component {
   }
 }
 
-Datetime.propTypes = objectAssign({}, {
+Datetime.propTypes = objectAssign({
   className: PropTypes.string,
   dateOnly: PropTypes.bool,
   format: PropTypes.string,
@@ -461,11 +461,11 @@ Datetime.propTypes = objectAssign({}, {
   type: PropTypes.oneOf([DATETIME, DATE, TIME]),
   unixtime: PropTypes.bool,
   value: PropTypes.any
-}, clickAwayProps)
+}, ClickAway.propTypes)
 
 Datetime.defaultProps = {
   type: DATETIME
 }
 
-export default clickAwayAble(Datetime)
+export default ClickAway(Datetime)
 
