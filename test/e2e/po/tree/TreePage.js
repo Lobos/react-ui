@@ -2,68 +2,53 @@ import Page from '../common/Page'
 import * as Locator from './TreePageLocator'
 
 export default class TreePage extends Page {
-  get locator () {
-    return Locator
+  constructor (props) {
+    super(props)
+    this.locator = Locator
   }
 
   get firstRootLabel () {
-    return browser.element(Locator.firstRootLabel)
+    return browser.element(this.locator.firstRootLabel)
+  }
+
+  get firstRootIcon () {
+    return browser.element(this.locator.firstRootIcon)
   }
 
   get child212Label () {
-    return browser.element(Locator.child212Label)
+    return browser.element(this.locator.child212Label)
   }
 
   get grand1121Label () {
-    return browser.element(Locator.grand1121Label)
+    return browser.element(this.locator.grand1121Label)
   }
 
   get valuePreviewDiv () {
-    return browser.element(Locator.valuePreviewDiv)
+    return browser.element(this.locator.valuePreviewDiv)
   }
 
   get selectAbleToggle () {
-    return browser.element(Locator.selectAbleToggle)
+    return browser.element(this.locator.selectAbleToggle)
   }
 
-  init () {
-    Page.open('tree')
-    Page.pause()
+  get readOnlyToggle () {
+    return browser.element(this.locator.readOnlyToggle)
   }
 
-  select (label) {
-    const className = label.getAttribute('class')
-
-    if (className.indexOf('checked') < 0) return label.click()
+  get iconsToggle () {
+    return browser.element(this.locator.iconsToggle)
   }
 
-  cancelSelect (label) {
-    const className = label.getAttribute('class')
+  get sepMarks () {
+    const els = browser.elements(this.locator.sepMarks)
 
-    if (className.indexOf('checked') > 0) return label.click()
+    return els.value.map(e => {
+      return e.ELEMENT
+    })
   }
 
-  assertSelectedValue (value) {
-    const text = this.valuePreviewDiv.getText()
-
-    expect(text).to.be.equal(value)
-  }
-
-  assertSelectedStatus (label) {
-    const className = label.getAttribute('class')
-
-    expect(className).to.contains('checked')
-  }
-
-  assertindeterminateStatus (label) {
-    const className = label.getAttribute('class')
-
-    expect(className).to.contains('indeterminate')
-  }
-
-  assertIsSelectAble (locator, ok) {
-    const assert = expect(browser.isExisting(locator))
-
-    ok ? assert.to.be.true : assert.to.be.false
+  setUp () {
+    super.open('tree')
+    super.pause()
   }
 }
