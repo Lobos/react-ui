@@ -41,14 +41,6 @@ describe('Textarea Spec', () => {
 
       expect(wrapper).to.have.style('resize', 'none')
     })
-
-    it('should apply height:auto when current rows > minimal rows', () => {
-      const wrapper = mount(<Textarea autoHeight grid={1 / 2} rows={3} />)
-
-      wrapper.simulate('change', {target: {value: 'foo\n\n\n\n'}})
-
-      expect(wrapper).to.have.style('height', 'auto')
-    })
   })
 
   describe('Behavior', () => {
