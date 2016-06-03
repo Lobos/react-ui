@@ -42,6 +42,10 @@
     @include box-shadow($custom-control-indicator-box-shadow);
     box-sizing: border-box;
     transition: 0.1s ease-in-out;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 
   &:hover .indicator {

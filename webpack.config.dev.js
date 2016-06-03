@@ -4,7 +4,7 @@ var autoprefixer = require('autoprefixer');
 var precss = require('precss');
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
+  devtool: 'cheap-module-inline-source-map',
   entry: {
     app: [
       'webpack-hot-middleware/client',

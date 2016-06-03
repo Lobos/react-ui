@@ -4,7 +4,7 @@ import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
 import Refetch from 'refetch';
-const {Table, Filter, Modal, Pagination, Checkbox, RadioGroup} = global.uiRequire();
+const {Table, Filter, Modal, Checkbox, RadioGroup} = global.uiRequire();
 
 module.exports = class extends Component {
   constructor (props) {
@@ -13,11 +13,12 @@ module.exports = class extends Component {
       bordered: true,
       selectAble: true,
       filters: [],
-      height: 370,
+      height: '370px',
       pagination: false,
+      position: 'center',
       striped: true,
       total: 0,
-      width: '100%'
+      width: 'auto'
     };
   }
 
@@ -62,7 +63,7 @@ headers = [{
   content:{string|func}   // 表格显示内容，{}格式字符串模板或一个返回ReactElement的方法
   hidden:{bool}           // 是否显示，默认为true
   name:{string}           // 必填，字段名称，和data对应，如果不填content，使用name获取数据
-  sortAble:{bool}         // 是否可以排序，默认值为false
+  sort:{bool}             // 是否可以排序，默认值为false
   width:{number}          // 宽度
   header:{string|element} // 表头内容，string或者ReactElement
 }]
@@ -92,7 +93,7 @@ headers = [{
           <div>
             <em>实例方法</em>，获取当前选中的数据，返回结果为数组<br />
             <em>name</em>，如果为空，返回为原始data数据，如果指定了name，返回name对应的值。
-            <pre className="prettyprint">{`this.refs.table.getChecked('name')`}</pre>
+            <pre className="prettyprint">{'this.refs.table.getChecked("name")'}</pre>
           </div>
 
           <h2 className="subhead">Example</h2>
@@ -103,11 +104,19 @@ headers = [{
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.pagination} onChange={page => this.setState({pagination: page})} text="pagination" />
           </div>
           <div>
-            height: <RadioGroup style={{display: 'inline-block'}} inline={true} onChange={height => this.setState({height})} value={this.state.height} data={['auto', 200, 370, 500]} />
+            height: <RadioGroup style={{display: 'inline-block'}} onChange={(height) => this.setState({height})} value={this.state.height} data={['auto', '15rem', '370px', '500px']} />
           </div>
           <div>
-            width: <RadioGroup style={{display: 'inline-block'}} inline={true} onChange={width=> this.setState({width})} value={this.state.width} data={['100%', 1200, 2000]} />
+            width: <RadioGroup style={{display: 'inline-block'}} onChange={(width) => this.setState({width})} value={this.state.width} data={['auto', '1200px', '2000px']} />
           </div>
+
+          {
+            this.state.pagination &&
+            <div>
+              pagination position: <RadioGroup style={{display: 'inline-block'}} onChange={(position) => this.setState({position})} value={this.state.position} data={['left', 'center', 'right']} />
+            </div>
+          }
+
           {
             this.state.selectAble &&
             <div>
@@ -120,7 +129,7 @@ headers = [{
             <Example>
 <Filter onFilter={(filters) => this.setState({ filters })}
   style={{marginBottom: 20}}
-  local={true}
+  local
   options={[{
     label: '姓名',
     name: 'name',
@@ -149,23 +158,35 @@ headers = [{
   width={this.state.width}
   height={this.state.height}
   fetch={this.state.fetch}
-  headers={[
-    { name: 'name', sortAble: true, header: 'Name',
+  columns={[
+    { name: 'name', sort: true, header: 'Name',
       content: (d) => {
         return <a onClick={() => { Modal.alert('点击了:' + d.name); }}>{d.name}</a>;
       }
     },
     { name: 'position', hidden: true },
-    { name: 'office', sortAble: true, header: 'Office' },
-    { name: 'start_date', sortAble: true, content: '{start_date}', header: 'Start Date' },
-    { name: 'salary', content: '{salary}', header: 'Salary' },
+    { name: 'office', sort: true, header: 'Office' },
+    { name: 'start_date', content: '{start_date}', header: 'Start Date', sort: [
+      (a, b) => a.start_date > b.start_date ? 1 : -1,
+      (a, b) => a.start_date < b.start_date ? 1 : -1
+    ] },
+    { name: 'salary', content: '{salary}', header: 'Salary', sort: (a, b) => {
+      return parseInt(a.salary.replace(/[\$,]/g, '')) >
+        parseInt(b.salary.replace(/[\$,]/g, '')) ? 1 : -1;
+    } },
     { name: 'tools', width: 60,
       content: (d) => {
-        return <a onClick={() => { Modal.confirm('确定要删除' + d.name + '吗', () => {}); }}>删除</a>;
+        return (
+          <a onClick={() => {
+            Modal.confirm('确定要删除' + d.name + '吗', () => {
+              console.log('just a kidding.');
+            });
+          }}>删除</a>
+        );
       }
     }
   ]}
-  pagination={this.state.pagination ? <Pagination size={10} total={this.state.total} /> : null} />
+  pagination={this.state.pagination ? {size: 10, position: this.state.position} : null} />
             </Example>
             <Code>
 {`// set fetch
@@ -181,4 +202,4 @@ this.setState({ fetch });`}
       </div>
     );
   }
-}
+};

@@ -1,6 +1,6 @@
 'use strict';
 
-import objectAssign from 'object-assign';
+import { objectAssign } from '../../utils/objects';
 
 import buttons from './buttons';
 import datetime from './datetime';

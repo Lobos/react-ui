@@ -6,7 +6,7 @@ import { toArray } from '../utils/strings';
 import { toTextValue, hashcode } from '../utils/objects';
 import PropTypes from '../utils/proptypes';
 
-export const textValueEnhance = curry((single, Component) => {
+export const textValueAble = curry((single, Component) => {
   class TextValue extends React.Component {
     constructor (props) {
       super(props);
@@ -30,6 +30,7 @@ export const textValueEnhance = curry((single, Component) => {
           data = [
             ...data.slice(0, position),
             {
+              ...child.props,
               $checked: values.indexOf(child.props.defaultValue) >= 0,
               $value: child.props.defaultValue,
               $text: child.props.children || child.props.text,

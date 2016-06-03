@@ -1,9 +1,11 @@
 'use strict';
 
 import { substitute } from './strings';
-import objectAssign from 'object-assign';
+import assign from 'object-assign';
 
 export { default as deepEqual } from './deepEqual';
+
+export const objectAssign = assign;
 
 export function isEmpty (obj) {
   // null and undefined are "empty"
@@ -54,7 +56,7 @@ export function toTextValue (arr, textTpl = '{text}', valueTpl = '{id}') {
       let $text = typeof textTpl === 'function' ? textTpl(s) : substitute(textTpl, s);
       let $value = typeof valueTpl === 'function' ? valueTpl(s) : substitute(valueTpl, s);
       let $key = s.id ? s.id : hashcode(s);
-      return objectAssign({}, s, { $text, $value, $key });
+      return assign({}, s, { $text, $value, $key });
     }
   });
 }

@@ -28,3 +28,5 @@ export { default as Table } from './Table';
 export { default as Filter } from './Filter';
 export { default as Modal } from './Modal';
 export { default as Message } from './Message';
+
+export { default as DataHolder } from './DataHolder';

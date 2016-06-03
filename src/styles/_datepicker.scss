@@ -35,6 +35,7 @@
   @include border-radius($datepicker-picker-border-radius);
   @include box-shadow($dropdown-box-shadow);
   margin: $dropdown-margin-top 0 0;
+  transition-property: opacity;
 
   &:global(.enter) {
     opacity: 1;
@@ -46,6 +47,7 @@
 }
 
 .inner, .dayInner, .monthInner, .yearInner {
+  clear: both;
   text-align: center;
   padding-bottom: $datepicker-picker-padding;
 }

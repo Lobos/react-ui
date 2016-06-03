@@ -1,49 +1,33 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
-import ClickAway from './mixins/ClickAway';
+import { objectAssign } from './utils/objects';
+import { clickAwayAble, clickAwayProps } from './higherOrders/ClickAway';
 import classnames from 'classnames';
 
 import { requireCss } from './themes';
 requireCss('tip');
 
-class Tip extends ClickAway(Component) {
+class Tip extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      show: props.show,
       position: props.position
     };
     this.showTip = this.showTip.bind(this);
-    this.hideTip = this.hideTip.bind(this);
     this.bindElement = this.bindElement.bind(this);
   }
 
-  componentWillReceiveProps (nextProps) {
-    let show = nextProps.show;
-    if (show !== this.props.show && show !== this.state.show) {
-      this.setState({ show });
-    }
-  }
-
+  /*
   componentDidMount () {
     if (this.props.trigger === 'click') {
-      this.registerClickAway(this.hideTip, this.root);
+      this.registerTarget(this.root);
     }
   }
+  */
 
   showTip () {
-    this.setState({
-      show: true
-    });
-    this.bindClickAway();
-  }
-
-  hideTip () {
-    this.setState({
-      show: false
-    });
-    this.unbindClickAway();
+    this.onOpen();
   }
 
   bindElement (ref) {
@@ -55,10 +39,10 @@ class Tip extends ClickAway(Component) {
     let event = {};
     let pos = this.state.position;
     let clsShow = 'pos-' + pos;
-    let clsName = classnames('tip-block', pos + '-origin', {[clsShow]: this.state.show});
+    let clsName = classnames('tip-block', pos + '-origin', {[clsShow]: props.open});
 
-    event[ props.trigger === 'hover' ? 'onMouseEnter' : 'onClick'] = this.showTip;
-    props.trigger === 'hover' && (event['onMouseLeave'] = this.hideTip);
+    event[props.trigger === 'hover' ? 'onMouseEnter' : 'onClick'] = this.showTip;
+    props.trigger === 'hover' && (event['onMouseLeave'] = this.props.onClose);
 
     return (
       <div ref={this.bindElement} className="component-tip" {...event}>
@@ -76,16 +60,14 @@ class Tip extends ClickAway(Component) {
 
 Tip.defaultProps = {
   position: 'bottom',
-  trigger: 'hover',
-  show: false
+  trigger: 'hover'
 };
 
-Tip.propTypes = {
+Tip.propTypes = objectAssign({
   className: PropTypes.string,
   position: PropTypes.oneOf(['top', 'bottom']),
-  show: PropTypes.bool,
   style: PropTypes.object,
   trigger: PropTypes.oneOf(['click', 'hover'])
-};
+}, clickAwayProps);
 
-module.exports = Tip;
+module.exports = clickAwayAble(Tip);

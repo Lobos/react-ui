@@ -4,7 +4,7 @@ import { Component } from 'react';
 import Code from '../Code';
 import Example from '../Example';
 import { Cn } from '../Language';
-const {Pagination, Input, Checkbox} = global.uiRequire();
+const {Pagination, RadioGroup, Input, Checkbox} = global.uiRequire();
 
 module.exports = class extends Component {
   constructor (props) {
@@ -14,6 +14,7 @@ module.exports = class extends Component {
       size: 20,
       total: 1000,
       range: 10,
+      lms: 'middle',
       mini: false
     };
   }
@@ -50,6 +51,8 @@ module.exports = class extends Component {
   total={this.state.total}
   range={this.state.range}
   mini={this.state.mini}
+  large={this.state.lms === 'large'}
+  small={this.state.lms === 'small'}
   onChange={(page) => this.setState({ page })}
 />
 
@@ -57,6 +60,7 @@ module.exports = class extends Component {
 <p>size: <Input value={this.state.size} onChange={v => this.setState({size: parseInt(v) || 0})} /></p>
 <p>total: <Input value={this.state.total} onChange={v => this.setState({total: parseInt(v) || 0})} /></p>
 <p>range: <Input value={this.state.range} onChange={v => this.setState({range: parseInt(v) || 0})} /></p>
+<RadioGroup onChange={lms => this.setState({lms})} value={this.state.lms} data={['large', 'middle', 'small']} />
 <p><Checkbox text="mini" onChange={mini => this.setState({mini})} value={this.state.mini} /></p>
           </Example>
         </div>

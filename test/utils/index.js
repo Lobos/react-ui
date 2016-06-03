@@ -5,6 +5,7 @@ describe('Utils API Unit Test', function () {
   require('./deepEqual')
   require('./lang')
   require('./merge')
+  require('./proptypes')
   require('./objects')
   require('./strings')
 })

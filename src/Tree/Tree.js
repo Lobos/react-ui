@@ -1,15 +1,11 @@
 'use strict';
 
-// 为了提高效率，直接操作了tree.state.data，
-// 由于tree.state.data是一个array，当data值改变时，不经过setState，
-// 所有的Item的data也因此改变，可能破坏了react的一个原则
-
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import { toArray, substitute } from '../utils/strings';
 import { forEach, deepEqual, hashcode } from '../utils/objects';
-import { fetchEnhance } from '../higherOrders/Fetch';
+import { fetchable } from '../higherOrders/Fetch';
 import { register } from '../higherOrders/FormItem';
 import { removeClass } from '../utils/dom';
 import { compose } from '../utils/compose';
@@ -31,6 +27,10 @@ class Tree extends Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+
+    if (props.greedy !== undefined) {
+      console.warn('greedy is deprecated, use capture instead.');
+    }
   }
 
   componentWillMount () {
@@ -43,7 +43,7 @@ class Tree extends Component {
     }
 
     if (nextProps.sep !== this.props.sep ||
-        nextProps.greedy !== this.props.greedy) {
+        nextProps.capture !== this.props.capture) {
       setTimeout(() => {
         this.handleChange();
       }, 0);
@@ -53,8 +53,13 @@ class Tree extends Component {
   getValue (sep) {
     let list = [];
 
+    let capture = this.props.capture;
+    if (this.props.greedy === true) {
+      capture = 1;
+    }
+
     forEach(this.refs, (ref) => {
-      ref.getChecked(list, this.props.greedy);
+      ref.getChecked(list, capture);
     });
 
     let values = list.map((d) => {
@@ -185,9 +190,10 @@ class Tree extends Component {
 }
 
 Tree.propTypes = {
+  capture: PropTypes.oneOf([0, 1, 2, 3]),
   className: PropTypes.string,
   data: PropTypes.array,
-  greedy: PropTypes.oneOf([true, false, 'true', 'false', 'never']),
+  greedy: PropTypes.bool,
   icons: PropTypes.array,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
@@ -202,16 +208,16 @@ Tree.propTypes = {
 };
 
 Tree.defaultProps = {
+  capture: 0,
   sep: ',',
   data: [],
-  greedy: false,
   textTpl: '{text}',
   valueTpl: '{id}'
 };
 
 module.exports = compose(
   register('tree', { valueType: 'array' }),
-  fetchEnhance
+  fetchable
 )(Tree);
 
 module.exports.setDefaultIcons = function (icons) {

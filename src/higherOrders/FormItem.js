@@ -7,11 +7,11 @@ import { deepEqual } from '../utils/objects';
 import * as Validation from '../utils/validation';
 import { toStyleObject, nextUid } from '../utils/strings';
 
-import FormStyles from '../styles/_form.scss';
+import _inputs from '../styles/_input.scss';
 
 export const COMPONENTS = {};
 
-export const enhance = (ComposedComponent) => {
+export const valueble = (ComposedComponent) => {
   class FormItem extends Component {
     constructor (props) {
       super(props);
@@ -87,7 +87,7 @@ export const enhance = (ComposedComponent) => {
     }
 
     bindToForm (props, value) {
-      const { name, validator, ignore, itemBind } = props;
+      const { name, validator, disabled, ignore, itemBind } = props;
       this.id = nextUid();
       let valiBind;
       if (validator && validator.bind) {
@@ -101,7 +101,7 @@ export const enhance = (ComposedComponent) => {
         id: this.id,
         name,
         valiBind,
-        ignore,
+        disabled: disabled || ignore,
         value,
         validate: this.validate.bind(this)
       });
@@ -155,7 +155,7 @@ export const enhance = (ComposedComponent) => {
 
       className = classnames(
         className,
-        this.state.hasError && FormStyles.dangerInput
+        this.state.hasError && _inputs.dangerInput
       );
       value = this.state.value;
 
@@ -183,6 +183,7 @@ export const enhance = (ComposedComponent) => {
 
   FormItem.propTypes = {
     className: PropTypes.string,
+    disabled: PropTypes.bool,
     formData: PropTypes.object,
     ignore: PropTypes.bool,
     itemBind: PropTypes.func,
@@ -213,7 +214,7 @@ export const enhance = (ComposedComponent) => {
 };
 
 export const register = curry((types, options, ComposedComponent) => {
-  let newComponent = enhance(ComposedComponent);
+  let newComponent = valueble(ComposedComponent);
 
   // allow empty type
   // if (isEmpty(types)) {

@@ -100,6 +100,21 @@ export function getLineHeight (origin) {
   return lineHeight;
 }
 
+export function cloneShadow (origin) {
+  let el = origin.cloneNode(true);
+  el.style.position = 'absolute';
+  el.style.opacity = 0;
+  el.style.visibility = 'hidden';
+  el.style.height = 0;
+  el.style.left = 0;
+  el.style.zIndex = -1;
+  el.disabled = 'disabled';
+  el.name = '';
+  el.id = '';
+  origin.parentNode.appendChild(el);
+  return el;
+}
+
 export function addClass (el, className) {
   let els = Array.isArray(el) ? el : [el];
 

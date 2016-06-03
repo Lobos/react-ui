@@ -103,16 +103,24 @@ class Item extends Component {
     this.props.onStatusChange();
   }
 
-  getChecked (list, greedy) {
-    let checked = (greedy === true || greedy === 'true') ? 1 : 2;
+  /** capture
+  * 0 - return checked item data, include parent and child
+  * 1 - contains indeterminate item data, include parent and child
+  * 2 - if parent all children checked, renturn parent only
+  * 3 - return checked child data only, without parent data
+  */
+  getChecked (list, capture) {
+    let checked = (capture === 1) ? 1 : 2;
     if (this.state.status >= checked) {
-      list.push(this.props.data);
-      if (greedy === 'never') {
-        return;
+      if (capture !== 3 || isEmpty(this.props.data.children)) {
+        list.push(this.props.data);
       }
+
+      // parent only
+      if (capture === 2) return;
     }
     forEach(this.refs, function (ref) {
-      ref.getChecked(list, greedy);
+      ref.getChecked(list, capture);
     });
   }
 

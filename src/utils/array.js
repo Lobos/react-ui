@@ -30,3 +30,22 @@ export function combine (arr, num) {
   _(arr, 0, [], num, num);
   return list;
 }
+
+export function perm (arr) {
+  var result = [];
+  var fac = 1;
+  for (var i = 2; i <= arr.length; i++) {
+    fac *= i;
+  }
+  for (let index = 0; index < fac; index++) {
+    var t = index;
+    for (let i = 1; i <= arr.length; i++) {
+      var w = t % i;
+      for (let j = i - 1; j > w; j--) {
+        result[j] = result[j - 1];
+      }
+      result[w] = arr[i - 1];
+      t = Math.floor(t / i);
+    }
+  }
+}

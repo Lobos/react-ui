@@ -10,7 +10,7 @@ import FormSubmit from './FormSubmit';
 import Button from './Button';
 import PropTypes from './utils/proptypes';
 
-import { fetchEnhance } from './higherOrders/Fetch';
+import { fetchable } from './higherOrders/Fetch';
 
 import FormStyles from './styles/_form.scss';
 
@@ -138,9 +138,9 @@ class Form extends Component {
       // send clone data
       let data = clone(this.state.data);
 
-      // remove ignore value
+      // remove disabled value
       forEach(this.items, (item) => {
-        if (item.ignore) {
+        if (item.disabled) {
           delete data[item.name];
         }
       });
@@ -264,4 +264,4 @@ Form.defaultProps = {
   disabled: false
 };
 
-export default fetchEnhance(Form);
+export default fetchable(Form);

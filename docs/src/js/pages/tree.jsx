@@ -18,7 +18,7 @@ module.exports = class extends Component {
     this.state = {
       readOnly: false,
       selectAble: true,
-      greedy: false,
+      capture: 0,
       sep: ',',
       value: '1.2.2',
       showValue: '1.2.2',
@@ -51,18 +51,20 @@ module.exports = class extends Component {
         <div className="content">
           <Code>
 {`<Tree
+  capture={0|1|2|3}   // onChagne(value) settings
+                         0 - only checked item data, include parent and child
+                         1 - contains indeterminate item data, include parent and child
+                         2 - if parent all children checked, renturn parent only
+                         3 - return checked child data only, without parent data
   className={string}  // class
-  selectAble={bool}   // show checkbox, default is false
   data={array}        // array
   fetch={object}
   sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
-  greedy={bool|string} // true|false|never, default is false
-                      true or 'true', onChange value will contains indeterminate value
-                      false or 'false', onChange value only contains checked value
-                      'never', if a node all children are checked, return only parent value
+  greedy              // is deprecated
   onClick={function(data)}  // 点击某元素触发事件，参数为当前节点
   onChange={function} // 当选项改变时回调方法，参数为 value
   readOnly={bool}     // 为 true 时，只读。默认为 false
+  selectAble={bool}   // show checkbox, default is false
   textTpl="string"    // 显示文字模板，默认为 "{text}"
   valueTpl="string"   // 返回数据模板，默认为 "{id}"
   value={string|array}
@@ -77,7 +79,7 @@ module.exports = class extends Component {
 <Tree fetch={{ url: './json/tree.json' }}
   readOnly={this.state.readOnly}
   selectAble={this.state.selectAble}
-  greedy={this.state.greedy}
+  capture={parseInt(this.state.capture)}
   icons={
     this.state.showAccountsIcon ?
       [
@@ -101,7 +103,7 @@ module.exports = class extends Component {
   }}
   valueTpl="{id}"
   value={this.state.value}
-  open={true}
+  open
   sep={this.state.sep}
 />
 
@@ -113,7 +115,7 @@ module.exports = class extends Component {
   <div><Checkbox onChange={(value)=>this.setState({ selectAble: value })} checked={this.state.selectAble} text="selectAble" /></div>
   <div><Checkbox onChange={(value)=>this.setState({ readOnly: value })} checked={this.state.readOnly} text="readOnly" /></div>
   <div><Checkbox onChange={(value)=>this.setState({ showAccountsIcon: value })} checked={this.state.showAccountsIcon} text="switch to accounts icon" /></div>
-  <div>greedy: <RadioGroup style={{ display: 'inline-block' }} onChange={(value) => this.setState({ greedy: value })} value={this.state.greedy} data={['true', 'false', 'never']} /></div>
+  <div>capture: <RadioGroup style={{ display: 'inline-block' }} onChange={(value) => this.setState({ capture: value })} value={this.state.capture} data={[0, 1, 2, 3]} /></div>
   <div>sep: 
     {
       ([',', '|', '#', null]).map((sep, i) => {

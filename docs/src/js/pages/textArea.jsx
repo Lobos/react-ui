@@ -19,11 +19,10 @@ module.exports = class extends React.Component {
   autoHeight={bool}     // 根据输入文字长度自动调整高度，默认为false
   className={string}    // 加class
   grid={object}         // 默认宽度为1，也就是 100%
-  onChange={func}       // 回调方法，实际是由trigger指定的事件触发，非change事件
+  onChange={func}       // 回调方法
   placeholder={string}
   rows={int}            // 行高，当autoHeight为true时，rows为最小行高
   style={object}        // 
-  trigger={string}      // 触发onChange的事件，可选值为 blur|change|keyDown|keyUp，默认为blur
   value={string}        // 初始值
 />`}
           </Code>
