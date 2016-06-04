@@ -43,6 +43,10 @@ export default class Table extends Component {
 
   setHeaderWidth () {
     let body = this.refs.body
+    if (!body) {
+      this.isWidthSetted = true
+      return
+    }
 
     let tr = body.querySelector('tr')
     if (!tr) return
@@ -79,9 +83,10 @@ export default class Table extends Component {
     this.setState({})
   }
 
-  renderBody (values) {
+  renderBody (values, columns) {
+    if (!columns) return
+
     const { data, onSelect, valueTpl } = this.props
-    const columns = this.getColumns()
 
     if (!Array.isArray(data)) {
       return (
@@ -134,23 +139,23 @@ export default class Table extends Component {
     return <tbody>{trs}</tbody>
   }
 
-  renderColgroup () {
+  renderColgroup (columns) {
     const { onSelect } = this.props
     let cols = []
     if (onSelect) {
       cols.push(<col key="check" />)
     }
-    this.getColumns().forEach((h, i) => {
+    columns.forEach((h, i) => {
       cols.push(<col key={i} style={h.width ? { width: h.width } : undefined} />)
     })
     return <colgroup>{cols}</colgroup>
   }
 
   getColumns () {
-    return this.props.columns || this.props.headers()
+    return this.props.columns || this.props.headers
   }
 
-  renderHeader () {
+  renderHeader (columns) {
     const { onSort, onSelect, sortStatus, pagination = {} } = this.props
 
     let headers = []
@@ -164,7 +169,7 @@ export default class Table extends Component {
       )
     }
 
-    this.getColumns().forEach((header, i) => {
+    columns.forEach((header, i) => {
       if (header.hidden) return
 
       headers.push(
@@ -196,10 +201,10 @@ export default class Table extends Component {
     let tableStyle = {}
     let onBodyScroll = null
 
-    const { height, width, bordered, striped } = this.props
+    const { children, height, width, bordered, striped } = this.props
     const values = this.values ? this.values.getValue() : []
-
-    const body = this.renderBody(values)
+    const columns = this.getColumns()
+    const body = this.renderBody(values, columns)
 
     if (height && height !== 'auto') {
       bodyStyle.height = height
@@ -223,19 +228,22 @@ export default class Table extends Component {
 
     return (
       <div style={this.props.style} className={className}>
-        <div className={_tables.header}>
-          <div ref="headerContainer" style={headerStyle}>
-            <table ref="header">
-              { this.renderColgroup() }
-              { this.renderHeader() }
-            </table>
+        { columns &&
+          <div className={_tables.header}>
+            <div ref="headerContainer" style={headerStyle}>
+              <table ref="header">
+                { this.renderColgroup(columns) }
+                { this.renderHeader(columns) }
+              </table>
+            </div>
           </div>
-        </div>
+        }
 
         <div className={_tables.body} onScroll={onBodyScroll} style={bodyStyle}>
           <table style={tableStyle} ref="body">
-            { this.renderColgroup() }
-            { body }
+            { children }
+            { columns && this.renderColgroup(columns) }
+            { columns && body }
           </table>
         </div>
 
@@ -247,7 +255,7 @@ export default class Table extends Component {
 
 Table.propTypes = {
   bordered: PropTypes.bool,
-  children: PropTypes.array,
+  children: PropTypes.any,
   className: PropTypes.string,
   columns: PropTypes.array,
   data: PropTypes.array,

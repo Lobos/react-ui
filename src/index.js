@@ -25,7 +25,7 @@ export { default as FormItem } from './FormItem'
 export { default as Grid } from './Grid'
 export { default as Pagination } from './Pagination'
 export { default as Table } from './Table'
-export { default as Filter } from './Filter'
+// export { default as Filter } from './Filter'
 export { default as Modal } from './Modal'
 export { default as Message } from './Message'
 

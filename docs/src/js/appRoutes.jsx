@@ -3,7 +3,6 @@
 import {Route, Router} from 'react-router'
 import Master from './pages/master.jsx'
 import Home from './pages/home.jsx'
-import FormBuilder from './pages/formBuilder.jsx'
 import createHistory from 'history/lib/createHashHistory'
 
 const history = createHistory({ queryKey: false })
@@ -22,7 +21,6 @@ const AppRoutes = (
     <Route path="/" indexRoute={{component: Home}} component={Master}>
       <Route path="/home" component={Home} />
       {menulist}
-      <Route path="/form-builder" component={FormBuilder} />
     </Route>
   </Router>
 )

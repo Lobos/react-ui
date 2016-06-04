@@ -67,6 +67,10 @@
   @include clearfix;
 }
 
+.content {
+  min-height: 6rem;
+}
+
 .close {
   position: absolute;
   top: 0;

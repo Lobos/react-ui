@@ -23,7 +23,6 @@ module.exports = [
   { path: '/upload', text: 'Upload', component: require('./pages/upload.jsx') },
   '常用',
   { path: '/table', text: 'Table', component: require('./pages/table.jsx') },
-  { path: '/filter', text: 'Filter', component: require('./pages/filter.jsx') },
   { path: '/pagination', text: 'Pagination', component: require('./pages/pagination.jsx') },
   { path: '/modal', text: 'Modal', component: require('./pages/modal.jsx') },
   { path: '/message', text: 'Message', component: require('./pages/message.jsx') },

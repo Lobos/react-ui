@@ -8,7 +8,7 @@ import Container from './Container'
 import fakeModal from './Fake'
 
 import {getLang, setLang} from '../lang'
-setLang('buttons')
+setLang('buttons', 'modal')
 
 // create container ===================================================
 
@@ -32,7 +32,7 @@ function open (options) {
   return options.id
 };
 
-function alert (content, header = <span>&nbsp;</span>, callback) {
+function alert (content, header = getLang('modal.alert'), callback) {
   let buttons = {}
   if (typeof callback === 'function') {
     buttons[getLang('buttons.ok')] = function () {
@@ -51,7 +51,7 @@ function alert (content, header = <span>&nbsp;</span>, callback) {
   })
 };
 
-function confirm (content, callback, header = <span>&nbsp;</span>) {
+function confirm (content, callback, header = getLang('modal.confirm')) {
   let buttons = {}
 
   buttons[getLang('buttons.ok')] = () => {

@@ -59,41 +59,48 @@ class TableDemo extends Component {
   height={number}          // 表格高度（body部分），默认值 auto
   data={array}             // 数据
   fetch={object}
-  pagination={Pagination}  // 分页控件
-  onSelect={func|ValuesHolder} // if onSelect is not null, show checkbox
-  onSort={func(name, asc)} // TableHeader的sort事件，name为TableHeader的name，asc值为1|0
+  pagination={             // internal pagination
+    size: int,             // how many items per page, default is 20
+    page: int,             // current page
+    total: int,            // defautl value is data.length
+    range: int,            // page buttons number
+    onChange(int),         // page change callback
+    position: 'string'     // 'left|right|center', default is 'center'
+  }
+  onSelect={func|ValuesHolder} // if onSelect is not undefined, auto add checkbox column
+  onSort={func(            // sort callback
+    string,                // column name
+    int                    // 0 - asc, 1 - desc
+  )}
   columns={array}
 />
 
 columns = [{
-  header:{string|element} // 表头内容，string或者ReactElement
-  content:{string|func}   // 表格显示内容，{}格式字符串模板或一个返回ReactElement的方法
-  hidden:{bool}           // 是否显示，默认为true
-  name:{string}           // 必填，字段名称，和data对应，如果不填content，使用name获取数据
-  sort:{bool}             // 是否可以排序，默认值为false
-  width:{number}          // 宽度
+  header:{string|element} // th content, string or ReactElement
+  content:{string|func}   // td conent, see conent section
+  hidden:{bool}           // if true, this column did not render, default is false
+  name:{string}           // field name, if content not set, use data[name] for content
+  sort:{bool|func|array}  // if sort is true, use internal sort
+                             if sort is a method, use data.sort(method)
+                             if sort is an array with 2 motheds, the first method used for asc sort, the second used for desc sort
+  width:{number}          // width, if not set, use first render td width
 }]
 `}
           </Code>
-          <div><a href="#/fetch">fetch 参见这里</a></div>
-
-          <h2 className="subhead">pagination</h2>
-          <div>
-            如果大量数据为非服务端分页，需要在前端分页时，创建一个Pagination控件，作为参数传入。
-          </div>
+          <Cn><a href="#/fetch">fetch 参见这里</a></Cn>
 
           <h2 className="subhead">content</h2>
-          <div>
+          <Cn>
             content 有三种情况<br />
             第一种不填，表格内容会根据 name 找到对应的字段<br />
             {'第二种模板字符串，{} 形式，例：{foo}-{bar}'}<br />
-            第三种为返回ReactElement的方法，例如：<br />
-            <pre className="prettyprint">
+            第三种为返回ReactElement的方法，例如：
+          </Cn>
+          <pre className="prettyprint">
 {`function (data) {
-  return <button onClick={this.removeEntity.bind(this, data.id)}>remove</button>
+return <button onClick={this.removeEntity.bind(this, data.id)}>remove</button>
 }`}
-            </pre>
-          </div>
+          </pre>
 
           <h2 className="subhead">ValuesHolder</h2>
           <Cn>如果不想在每次选中/清除每个选项后获取值（需要用state维护状态），可以在onSelect中传入一个ValuesHolder的实例，ValuesHolder内部包含了一个add和remove方法维护选项，不过使用者不需要关心这个。只需要在需要数据的时候，调用getValue(sep)就好了</Cn>
@@ -142,7 +149,6 @@ values = valuesHolder.get(',')`}
 </Button>
 <Table ref="table"
   bordered={this.state.bordered}
-  filters={this.state.filters}
   onSelect={this.state.valuesHolder ? this.valuesHolder : this.handleSelectedName}
   striped={this.state.striped}
   width={this.state.width}
@@ -154,7 +160,7 @@ values = valuesHolder.get(',')`}
   columns={[
     { name: 'name', sort: true, header: 'Name',
       content: (d) => {
-        return <a onClick={() => { Modal.alert('点击了:' + d.name) }}>{d.name}</a>
+        return <a onClick={() => { Modal.alert('You clicked "' + d.name + '"') }}>{d.name}</a>
       }
     },
     { name: 'position', hidden: true },
@@ -172,7 +178,7 @@ values = valuesHolder.get(',')`}
       content: (d) => {
         return (
           <a onClick={() => {
-            Modal.confirm('确定要删除' + d.name + '吗', () => {
+            Modal.confirm('Are you sure to delete "' + d.name + '"?', () => {
               console.log('just a kidding.')
             })
           }}>删除</a>
@@ -181,6 +187,46 @@ values = valuesHolder.get(',')`}
     }
   ]}
   pagination={this.state.pagination ? {size: 10, position: this.state.position} : null} />
+          </Example>
+
+          <h2 className="subhead">Raw html</h2>
+          <Example>
+<Table bordered={this.state.bordered} striped={this.state.striped}>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Office</th>
+      <th>Start Date</th>
+      <th>Salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ashton Cox</td>
+      <td>San Francisco</td>
+      <td>2009/01/12</td>
+      <td>$86,000</td>
+    </tr>
+    <tr>
+      <td>Ashton Cox</td>
+      <td>San Francisco</td>
+      <td>2009/01/12</td>
+      <td>$86,000</td>
+    </tr>
+    <tr>
+      <td>Ashton Cox</td>
+      <td>San Francisco</td>
+      <td>2009/01/12</td>
+      <td>$86,000</td>
+    </tr>
+    <tr>
+      <td>Ashton Cox</td>
+      <td>San Francisco</td>
+      <td>2009/01/12</td>
+      <td>$86,000</td>
+    </tr>
+  </tbody>
+</Table>
           </Example>
         </div>
       </div>
