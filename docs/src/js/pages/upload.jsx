@@ -28,6 +28,7 @@ module.exports = class extends Component {
   name={string}           // field name，必填
   onUpload={func}           // 处理服务端返回的数据
   readOnly={bool}         // 只读，默认为 false
+  params={object}
   style={object}
   grid={[width, responsive]} // 宽度，详见Grid
   withCredentials={bool}  // xhr2 withCredentials
@@ -42,6 +43,7 @@ module.exports = class extends Component {
   action="http://216.189.159.94:8080/upload"
   accept="image/*"
   limit={3}
+  params={{ arg: 'test' }}
   onUpload={(res) => {
     var json = JSON.parse(res) // res 是返回的responseText，需要手动转为json
     if (json.success) {

@@ -12,7 +12,7 @@ import PropTypes from './utils/proptypes'
 
 import Fetch from './higherOrders/Fetch'
 
-import FormStyles from './styles/_form.scss'
+import _forms from './styles/_form.scss'
 
 class Form extends Component {
   constructor (props) {
@@ -121,7 +121,7 @@ class Form extends Component {
       delete item.$validation
     })
 
-    onReset && onReset()
+    onReset && onReset(data)
   }
 
   submit () {
@@ -174,13 +174,14 @@ class Form extends Component {
 
   renderChildren (children) {
     let { data } = this.state
-    let { disabled } = this.props
+    let { disabled, columns } = this.props
 
     return Children.map(children, (child) => {
       if (!child) { return null }
       if (typeof child === 'string') { return child }
       let { hintType, labelWidth, readOnly } = child.props
       let props = {
+        columns,
         hintType: hintType || this.props.hintType,
         labelWidth: labelWidth || this.props.labelWidth,
         readOnly: readOnly || disabled,
@@ -210,9 +211,9 @@ class Form extends Component {
 
     return (
       <FormControl layout={this.props.layout}>
-        { submit && <Button className={FormStyles.button} type="submit" status="primary">{submit}</Button> }
-        { reset && <Button onClick={this.handleReset} className={FormStyles.button}>{reset}</Button> }
-        { cancel && <Button onClick={this.props.onCancel} className={FormStyles.button}>{cancel}</Button> }
+        { submit && <Button className={_forms.button} type="submit" status="primary">{submit}</Button> }
+        { reset && <Button onClick={this.handleReset} className={_forms.button}>{reset}</Button> }
+        { cancel && <Button onClick={this.props.onCancel} className={_forms.button}>{cancel}</Button> }
       </FormControl>
     )
   }
@@ -223,8 +224,8 @@ class Form extends Component {
     className = classnames(
       className,
       getGrid(grid),
-      FormStyles.form,
-      FormStyles[layout]
+      _forms.form,
+      _forms[layout]
     )
 
     let btns = buttons || button
@@ -245,6 +246,7 @@ Form.propTypes = {
   buttons: PropTypes.object,
   children: PropTypes.any,
   className: PropTypes.string,
+  columns: PropTypes.number,
   controls: PropTypes.array,
   data: PropTypes.object,
   disabled: PropTypes.bool,

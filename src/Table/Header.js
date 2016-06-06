@@ -13,7 +13,7 @@ function getClassName (base, name, asc, status) {
 }
 
 export default function Header (props) {
-  const { onSort, sortStatus, onPageChange, name, sort, header, children } = props
+  const { className, onSort, sortStatus, onPageChange, name, sort, header, children } = props
 
   const handleSort = (asc, fn) => {
     if (name === sortStatus.key && asc === sortStatus.asc) return
@@ -35,11 +35,12 @@ export default function Header (props) {
     icons = <a onClick={handleSort(0, sort)} className={getClassName(_tables['sort-one'], name, 0, sortStatus)} />
   }
 
-  return <th>{header}{children}{icons}</th>
+  return <th className={className}>{header}{children}{icons}</th>
 }
 
 Header.propTypes = {
   children: PropTypes.any,
+  className: PropTypes.string,
   content: PropTypes.any,
   header: PropTypes.any,
   hidden: PropTypes.bool,

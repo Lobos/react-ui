@@ -1,197 +1,84 @@
 'use strict'
 
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import classnames from 'classnames'
-import Button from './Button'
-import FilterItem from './FilterItem'
+import PropTypes from './utils/proptypes'
+import Form from './Form'
+import FormControl from './FormControl'
 
-import { requireCss } from './themes'
-requireCss('filter')
-
-import {getLang, setLang} from './lang'
+import { getLang, setLang } from './lang'
 setLang('buttons')
 
-class Filter extends Component {
+import _filters from './styles/_filter.scss'
+
+export default class Filter extends Component {
   constructor (props) {
     super(props)
-    this.state = {
-      active: false,
-      filters: []
-    }
-
-    this.addFilter = this.addFilter.bind(this)
-    this.clearFilter = this.clearFilter.bind(this)
-    this.onChange = this.onChange.bind(this)
-    this.onFilter = this.onFilter.bind(this)
-    this.open = this.open.bind(this)
-    this.removeFilter = this.removeFilter.bind(this)
+    this.filters = []
+    this.handleFilter = this.handleFilter.bind(this)
   }
 
-  componentWillMount () {
-    this.initData(this.props.options)
-  }
-
-  componentDidMount () {
-    // this.registerClickAway(this.close)
-  }
-
-  initData (options) {
-    options = options.map((d, i) => {
-      d.optionsIndex = i
-      return d
-    })
-    this.setState({ options })
-  }
-
-  onSearch () {
-    if (this.props.onSearch) {
-      this.props.onSearch()
-    }
-  }
-
-  open () {
-    if (this.state.active) {
-      return
-    }
-    this.bindClickAway()
-    let options = this.refs.options
-    options.style.display = 'block'
-    setTimeout(() => {
-      this.setState({ active: true })
-    }, 0)
-    setTimeout(() => {
-      options.parentNode.style.overflow = 'visible'
-    }, 450)
-  }
-
-  close () {
-    let options = this.refs.options
-    options.parentNode.style.overflow = 'hidden'
-    this.setState({ active: false })
-    this.unbindClickAway()
-    setTimeout(() => {
-      options.style.display = 'none'
-    }, 450)
-  }
-
-  addFilter () {
-    let filters = this.state.filters
-    filters.push({})
-    this.setState({ filters })
-  }
-
-  removeFilter (index) {
-    let filters = this.state.filters
-    filters.splice(index, 1)
-    this.setState({ filters })
-  }
-
-  clearFilter () {
-    this.setState({ filters: [], resultText: '' })
-    this.close()
+  handleFilter (data) {
     if (this.props.onFilter) {
-      this.props.onFilter([])
+      this.props.onFilter(data)
     }
-  }
-
-  onChange (index, filter) {
-    let filters = this.state.filters
-    let f = filters[index]
-    Object.keys(filter).forEach((k) => {
-      f[k] = filter[k]
-    })
-    this.setState({ filters })
-  }
-
-  onFilter () {
-    this.close()
-    let filters = this.state.filters
-    let local = this.props.local
-    this.setState({ resultText: this.formatText(filters) })
-    if (this.props.onFilter) {
-      let novs = []
-      filters.forEach((f, i) => {
-        if (f.op && f.value) {
-          let nov = { name: f.name, op: f.op, value: f.value }
-          if (local) {
-            nov.func = this.refs[`fi${i}`].getFunc()
-          }
-          novs.push(nov)
-        }
-      })
-      this.props.onFilter(novs)
-    }
-  }
-
-  formatText (filters) {
-    let text = []
-    filters.forEach((f) => {
-      if (f.op && f.value) {
-        text.push(`${f.label} ${f.op} '${f.value}'`)
-      }
-    })
-    return text.join(', ')
   }
 
   renderFilters () {
-    let filters = this.state.filters.map((f, i) => {
+    const { items } = this.props
+
+    return items.map((f, i) => {
       return (
-        <FilterItem ref={`fi${i}`}
-          onChange={this.onChange}
-          removeFilter={this.removeFilter}
-          index={i}
-          key={i}
-          {...f}
-          options={this.state.options} />
+        <FormControl key={f.component.props.name} grid={f.grid} label={f.label}>
+          { f.component }
+        </FormControl>
       )
     })
-    return filters
   }
 
   render () {
+    const { style, columns, data, buttons, labelWidth } = this.props
+
     let className = classnames(
       this.props.className,
-      'rct-filter',
-      'rct-form-control',
-      this.state.active ? 'active' : ''
+      _filters.container
     )
     return (
-      <div style={this.props.style} className={className}>
-        <div onClick={this.open} className="rct-filter-result">
-          {this.state.resultText}
-          <i className="search" />
-        </div>
-
-        <div className="rct-filter-options-wrap">
-          <div ref="options" className="rct-filter-options">
-
-            {this.renderFilters()}
-
-            <div>
-              <Button status="success" onClick={this.addFilter}>+</Button>
-              <Button style={{marginLeft: 10}} onClick={this.clearFilter}>{getLang('buttons.clear')}</Button>
-              <Button style={{marginLeft: 10}} status="primary" onClick={this.onFilter}>{getLang('buttons.ok')}</Button>
-            </div>
-
-          </div>
-        </div>
+      <div style={style} className={className}>
+        <Form data={data}
+          buttons={buttons}
+          columns={columns}
+          labelWidth={labelWidth}
+          layout="inline"
+          onReset={this.handleFilter}
+          onSubmit={this.handleFilter}>
+          { this.renderFilters() }
+        </Form>
       </div>
     )
   }
 }
 
 Filter.propTypes = {
+  buttons: PropTypes.object,
   className: PropTypes.string,
-  local: PropTypes.bool,
+  columns: PropTypes.number,
+  data: PropTypes.object,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    component: PropTypes.element,
+    filter: PropTypes.func,
+    label: PropTypes.string,
+    name: PropTypes.string
+  })),
+  labelWidth: PropTypes.number_string,
   onFilter: PropTypes.func,
-  onSearch: PropTypes.func,
-  options: PropTypes.array,
-  style: PropTypes.object,
-  type: PropTypes.string
+  style: PropTypes.object
 }
 
 Filter.defaultProps = {
-  options: []
+  buttons: {
+    submit: getLang('buttons.filter'),
+    reset: getLang('buttons.reset')
+  },
+  items: []
 }
-
-module.exports = Filter

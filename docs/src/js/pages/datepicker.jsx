@@ -1,10 +1,9 @@
 'use strict'
 
 import { Component } from 'react'
-import { findDOMNode } from 'react-dom'
 import Code from '../Code'
 import Example from '../Example'
-const {Datepicker, DatepickerPair} = global.uiRequire()
+const {Datepicker, DatepickerRange} = global.uiRequire()
 
 module.exports = class extends Component {
   constructor (props) {
@@ -37,7 +36,7 @@ module.exports = class extends Component {
   value={string|number} // 初始值
 />`}
           </Code>
-          <p style={{color:'red'}}>0.6 删除了 dateOnly and timeOnly，使用type="date|time"代替</p>
+          <p style={{color: 'red'}}>0.6 删除了 dateOnly and timeOnly，使用type="date|time"代替</p>
           <p>0.6 改名为Datepicker，Datetime暂时可以继续使用</p>
 
           <h2 className="subhead">Example</h2>
@@ -99,10 +98,10 @@ module.exports = class extends Component {
 <span>{this.state.unixtimeValue}</span>
           </Example>
 
-          <h2 className="subhead">DatepickerPair</h2>
+          <h2 className="subhead">DatepickerRange</h2>
           <div>增加一个快捷方式，可以成对的使用Datepicker，第一个Datepicker的选中值作为第二个Datepicker的最小值，第二个Datepicker的选中值作为第一个Datepicker的最大值</div>
           <Code>
-{`<DatepickerPair
+{`<DatepickerRange
   names={[string, string]}  // 字段名，长度为2的数组
   con={string|element}      // 两个控件中间的连接符，默认为 '-'
   max={string|long|Date}    // 第二个控件的最大值
@@ -111,7 +110,7 @@ module.exports = class extends Component {
 />`}
           </Code>
           <Example>
-<DatepickerPair min="2016-03-16" max="2016-08-21" type="date" names={['startTime', 'endTime']} />
+<DatepickerRange min="2016-03-16" max="2016-08-21" type="datetime" names={['startTime', 'endTime']} />
           </Example>
         </div>
       </div>

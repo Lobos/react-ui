@@ -17,6 +17,7 @@ class TableDemo extends Component {
       pagination: true,
       position: 'center',
       striped: true,
+      size: 'normal',
       width: 'auto'
     }
 
@@ -125,6 +126,9 @@ values = valuesHolder.get(',')`}
           <div>
             width: <RadioGroup style={{display: 'inline-block'}} onChange={(width) => this.setState({width})} value={this.state.width} data={['auto', '1200px', '2000px']} />
           </div>
+          <div>
+            size: <RadioGroup style={{display: 'inline-block'}} onChange={(size) => this.setState({size})} value={this.state.size} data={['small', 'normal']} />
+          </div>
 
           {
             this.state.pagination &&
@@ -153,6 +157,7 @@ values = valuesHolder.get(',')`}
   striped={this.state.striped}
   width={this.state.width}
   height={this.state.height}
+  size={this.state.size}
   fetch={{url: 'json/table.json', catch: 3600}}
   sep={null}
   value={['Ashton Cox', 'Airi Satou']}
@@ -186,12 +191,12 @@ values = valuesHolder.get(',')`}
       }
     }
   ]}
-  pagination={this.state.pagination ? {size: 10, position: this.state.position} : null} />
+  pagination={this.state.pagination ? {size: 10, small: this.state.size === 'small', position: this.state.position} : null} />
           </Example>
 
           <h2 className="subhead">Raw html</h2>
           <Example>
-<Table bordered={this.state.bordered} striped={this.state.striped}>
+<Table bordered={this.state.bordered} size={this.state.size} striped={this.state.striped}>
   <thead>
     <tr>
       <th>Name</th>

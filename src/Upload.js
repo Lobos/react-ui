@@ -8,8 +8,7 @@ import { getGrid } from './utils/grids'
 import upload from './utils/upload'
 import { register } from './higherOrders/FormItem'
 
-import { requireCss } from './themes'
-requireCss('upload')
+import _uploads from './styles/_upload.scss'
 
 import { getLang, setLang } from './lang'
 setLang('validation', 'buttons')
@@ -108,8 +107,12 @@ class Upload extends Component {
     if (file.xhr) {
       file.xhr.abort()
     }
-    delete files[id]
+    file.isDeleted = true
     this.setState({ files })
+    setTimeout(() => {
+      delete files[id]
+      this.setState({ files })
+    }, 200)
     this.handleChange()
   }
 
@@ -124,7 +127,7 @@ class Upload extends Component {
       file: file.files[0],
       onProgress: (e) => {
         let progress = this.files[id]
-        progress.style.width = (e.loaded / e.total) * 100 + '%'
+        progress.style.backgroundSize = (e.loaded / e.total) * 100 + '%' + ' 2px'
         this.handleChange(new Error(''))
       },
       onLoad: (e) => {
@@ -165,17 +168,20 @@ class Upload extends Component {
     let files = this.state.files
     return Object.keys(files).map((id, i) => {
       let file = this.state.files[id]
-      let className = classnames({
-        'uploaded': file.status === 2,
-        'has-error': file.status === 3
-      })
+      let className = classnames(
+        _uploads.file,
+        file.isDeleted && _uploads['is-deleted'],
+        file.status === 2 && _uploads.uploaded,
+        file.status === 3 && _uploads['has-error']
+      )
       return (
-        <div key={i} className={className}>
-          <div className="rct-file">
-            <span>{file.name}</span>
-            <a className="remove" onClick={this.removeFile.bind(this, id)}>&times; {getLang('buttons.cancel')}</a>
-          </div>
-          <div ref={(c) => { this.files[id] = c }} className={'rct-upload-progress'}></div>
+        <div key={id} className={className}
+          ref={(c) => { this.files[id] = c }}>
+          <span>{file.name}</span>
+          <a className={_uploads.remove}
+            onClick={this.removeFile.bind(this, id)}>
+            &times; {getLang('buttons.cancel')}
+          </a>
         </div>
       )
     })
@@ -185,7 +191,7 @@ class Upload extends Component {
     let { className, grid, limit, style, content } = this.props
     className = classnames(
       getGrid(grid),
-      'rct-upload-container',
+      _uploads.container,
       className
     )
     return (

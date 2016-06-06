@@ -161,7 +161,7 @@ export default class Table extends Component {
     let headers = []
     if (onSelect) {
       headers.push(
-        <Header key="checkbox" name="$checkbox">
+        <Header key="checkbox" className={_tables.checkbox} name="$checkbox">
           <Checkbox isIndicator
             checked={this.allSelected}
             onChange={this.handleSelect.bind(this, 'all')} />
@@ -201,7 +201,7 @@ export default class Table extends Component {
     let tableStyle = {}
     let onBodyScroll = null
 
-    const { children, height, width, bordered, striped } = this.props
+    const { children, size, height, width, bordered, striped } = this.props
     const values = this.values ? this.values.getValue() : []
     const columns = this.getColumns()
     const body = this.renderBody(values, columns)
@@ -221,6 +221,7 @@ export default class Table extends Component {
     let className = classnames(
       this.props.className,
       _tables.table,
+      _tables[size],
       bordered && _tables.bordered,
       height && _tables.scrolled,
       striped && _tables.striped
@@ -269,6 +270,7 @@ Table.propTypes = {
   onSort: PropTypes.func,
   pagination: PropTypes.object,
   sep: PropTypes.func_string,
+  size: PropTypes.string,
   sortStatus: PropTypes.object,
   striped: PropTypes.bool,
   style: PropTypes.object,

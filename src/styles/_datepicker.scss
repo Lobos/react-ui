@@ -9,10 +9,40 @@
   color: $input-color;
 
   .control {
+    min-width: 100%;
     cursor: pointer;
-    padding: $input-padding-y ($input-padding-x + $datepicker-indicator-padding) $input-padding-y $input-padding-x;
+    padding: $input-padding-y ($input-padding-x * 2 + $datepicker-indicator-padding) $input-padding-y $input-padding-x;
     background: $datepicker-bg $datepicker-indicator no-repeat right $datepicker-indicator-padding-x center;
     background-size: $datepicker-bg-size;
+    white-space: nowrap;
+  }
+}
+
+.short {
+  width: $datepicker-short-width;
+}
+
+.range {
+  display: inline-block;
+  border: $input-btn-border-width solid $input-border-color;
+  @include border-radius($input-border-radius);
+  @include box-shadow($input-box-shadow);
+  .control {
+    border: none;
+    box-shadow: none;
+    text-align: center;
+  }
+
+  .datepicker:first-child {
+    width: $datepicker-full-width - $input-padding-x - $datepicker-indicator-padding;
+    .control {
+      background: none;
+      padding-right: $input-padding-x;
+    }
+
+    &.short {
+      width: $datepicker-short-width - $input-padding-x - $datepicker-indicator-padding;
+    }
   }
 }
 
@@ -181,10 +211,6 @@
   .picker {
     min-height: $clock-size + $timeset-height + $datepicker-time-padding * 2;
   }
-}
-
-.short {
-  width: $datepicker-short-width;
 }
 
 .timeContainer {

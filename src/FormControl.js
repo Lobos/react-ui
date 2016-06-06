@@ -12,7 +12,7 @@ import PropTypes from './utils/proptypes'
 import { getLang, setLang } from './lang'
 setLang('validation')
 
-import FormStyles from './styles/_form.scss'
+import _forms from './styles/_form.scss'
 
 function setHint (hints, key, value) {
   let text = getLang('validation.hints.' + key, null)
@@ -35,18 +35,6 @@ class FormControl extends Component {
     this.itemChange = this.itemChange.bind(this)
     this.handleValidate = this.handleValidate.bind(this)
   }
-
-  /*
-  componentWillMount () {
-    this.setItems(this.props);
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (!shallowEqual(this.props, nextProps)) {
-      this.setItems(nextProps);
-    }
-  }
-  */
 
   shouldComponentUpdate (nextProps, nextState) {
     if (!shallowEqual(this.props, nextProps)) {
@@ -173,11 +161,11 @@ class FormControl extends Component {
     if (validations) {
       // if has tip，use tip
       if (errorText) { validations = errorText }
-      return <span key="tip" className={FormStyles.dangerText}>{validations}</span>
+      return <span key="tip" className={_forms.dangerText}>{validations}</span>
     }
 
     if (hints) {
-      return <span key="tip" className={FormStyles.hintText}>{hints}</span>
+      return <span key="tip" className={_forms.hintText}>{hints}</span>
     } else {
       return
     }
@@ -192,17 +180,17 @@ class FormControl extends Component {
     props.readOnly = props.readOnly || this.props.readOnly
   }
 
-  renderChildren (children) {
+  renderChildren (children, grid) {
     let newChildren = Children.toArray(children).map((child, i) => {
       if (typeof child === 'string') {
         return <span key={i}>{child}</span>
       }
 
-      let props = {}
+      let props = { grid }
       if (child.type.isFormItem) {
         this.propsExtend(props)
       } else if (child.props && child.props.children === 'object') {
-        props.children = this.renderChildren(child.props.children)
+        props.children = this.renderChildren(child.props.children, grid)
       }
 
       child = cloneElement(child, props)
@@ -218,7 +206,8 @@ class FormControl extends Component {
     items = (items || []).map((props, i) => {
       i += length
       if (typeof props === 'string') {
-        return <span key={i} dangerouslySetInnerHTML={{__html: props}} />
+        // return <span key={i} dangerouslySetInnerHTML={{__html: props}} />
+        return <span key={i}>{props}</span>
       }
       let component = COMPONENTS[props.type]
       if (component) {
@@ -231,7 +220,7 @@ class FormControl extends Component {
     })
 
     if (children) {
-      items = items.concat(this.renderChildren(children))
+      items = items.concat(this.renderChildren(children, grid))
     }
 
     items.push(this.renderTip(hints))
@@ -240,27 +229,32 @@ class FormControl extends Component {
   }
 
   render () {
-    let { hintType, layout, label, grid, labelWidth, className, required, style } = this.props
+    let { hintType, layout, label, grid, labelWidth, required, style, columns } = this.props
     let isInline = layout === 'inline'
+    let newStyle = { ...style }
 
     if (!hintType) {
       hintType = isInline ? 'pop' : 'block'
     }
 
-    className = classnames(
-      className,
-      FormStyles.group,
-      this.state.validations.length > 0 && FormStyles.hasError
+    let className = classnames(
+      this.props.className,
+      _forms.group,
+      this.state.validations.length > 0 && _forms.hasError
     )
 
     if (isInline) {
-      className += ' ' + getGrid(grid)
-      grid = undefined
+      className = classnames(
+        className,
+        getGrid(grid || (columns ? 1 / columns : undefined)),
+        columns && columns > 0 && _forms.columned
+      )
+      grid = columns && columns > 0 ? 1 : undefined
     }
 
     let labelClass = classnames(
-      FormStyles.label,
-      (required || this.required) && FormStyles.required
+      _forms.label,
+      (required || this.required) && _forms.required
     )
 
     if (labelWidth) {
@@ -271,19 +265,19 @@ class FormControl extends Component {
 
     if (layout === 'aligned') {
       labelWidth = labelWidth || '10rem'
-      style = objectAssign({}, style, { paddingLeft: labelWidth })
+      newStyle.paddingLeft = labelWidth
     }
 
     return (
-      <div style={style} className={className}>
+      <div style={newStyle} className={className}>
         {
-          (label || !isInline) &&
+          label &&
           <label style={{ width: labelWidth }} className={labelClass}>
             {label}
           </label>
         }
-        <div className={FormStyles.control}>
-          { this.renderItems({ grid }) }
+        <div className={_forms.control}>
+          { this.renderItems(grid) }
         </div>
       </div>
 
@@ -294,6 +288,7 @@ class FormControl extends Component {
 FormControl.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
+  columns: PropTypes.number,
   data: PropTypes.any,
   errorText: PropTypes.string,
   formData: PropTypes.object,

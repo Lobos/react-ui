@@ -11,18 +11,23 @@
     background-color: $body-bg;
   }
 
-  th,
-  td {
-    padding: $table-cell-padding;
-    vertical-align: top;
-    border-top: $table-border-width solid $table-border-color;
-  }
-
   thead th {
     position: relative;
     text-align: left;
     vertical-align: bottom;
     border-bottom: (2 * $table-border-width) solid $table-border-color;
+  }
+
+  th,
+  td {
+    padding: $table-cell-padding;
+    vertical-align: top;
+    border-top: $table-border-width solid $table-border-color;
+
+    &.checkbox {
+      width: $custom-control-indicator-size;
+      text-align: center;
+    }
   }
 
   tbody + tbody {
@@ -31,6 +36,12 @@
 
   tbody tr:first-child td {
     border-top: 0;
+  }
+
+  &.small {
+    td, th {
+      padding: $table-sm-cell-padding;
+    }
   }
 }
 
@@ -144,10 +155,6 @@
     border-color: #333 transparent transparent;
     border-width: .5rem .3rem 0 .3rem;
   }
-}
-
-.checkbox {
-  width: $custom-control-indicator-size;
 }
 
 .pagi-center {

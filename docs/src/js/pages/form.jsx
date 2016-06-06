@@ -4,11 +4,11 @@ import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
-const {Form, FormControl, Button, FormSubmit, Icon, Input, InputGroup, Datepicker, DatepickerPair, RadioGroup, FormItem} = global.uiRequire()
+const {Form, FormControl, Button, Icon, Input, InputGroup, DatepickerRange, RadioGroup, FormItem} = global.uiRequire()
 
 const HEARTS = [
-  <Icon size={2} icon="favorite-outline" style={{color: 'red'}} />,
-  <Icon size={2} icon="favorite" style={{color: 'red'}} />
+  <Icon size={2} key={1} icon="favorite-outline" style={{color: 'red'}} />,
+  <Icon size={2} key={2} icon="favorite" style={{color: 'red'}} />
 ]
 
 module.exports = class extends React.Component {
@@ -70,7 +70,7 @@ module.exports = class extends React.Component {
   </FormControl>
   <FormControl name="email" placeholder="email" type="email" />
   <FormControl name="nationality" label="nationality" type="select"
-    data={['China', 'America', 'Russia', 'Japan', 'Franch', 'England', 'Spain']} />
+    data={['Chinese', 'American', 'Russian', 'Japanese', 'English', 'Spainish']} />
 </Form>
           </Example>
 
@@ -164,8 +164,8 @@ module.exports = class extends React.Component {
     type="datetime"
     label="datetime" />
 
-  <FormControl label="datetime pair">
-    <DatepickerPair type="date" min="2016-03-03" max="2016-08-21"
+  <FormControl label="datetime range">
+    <DatepickerRange type="date" min="2016-03-03" max="2016-08-21"
       names={['startTime', 'endTime']} />
   </FormControl>
 
@@ -234,6 +234,14 @@ module.exports = class extends React.Component {
     accept="image/*"
     fileSize={300}
     limit={3}
+    onUpload={(res) => {
+      var json = JSON.parse(res)
+      if (json.success) {
+        return json.id
+      } else {
+        return new Error(json.message)
+      }
+    }}
     content={<Button><Icon icon="upload" /> 选择文件</Button>} />
 
   <FormControl grid={{width:18 / 24}}

@@ -151,10 +151,6 @@ export function getTime (d) {
 
 // string, unixtimestamp convert to Date
 export function convert (obj, def) {
-  if (def === undefined) {
-    def = new Date()
-  }
-
   if (!obj) {
     return def
   }

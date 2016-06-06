@@ -1,0 +1,15 @@
+@import "mixins";
+@import "themes/bootstrap";
+
+.container {
+}
+
+.wrap {
+  &:global(.enter) {
+    opacity: 1;
+  }
+
+  &:global(.leave) {
+    opacity: 0;
+  }
+}

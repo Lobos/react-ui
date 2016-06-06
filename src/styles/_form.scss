@@ -17,14 +17,38 @@
 }
 
 .inline {
-  .group {
+  &::after {
+    content: ' ';
+    clear: both;
+  }
+
+ .group {
     display: inline-block;
     margin-right: $form-inline-group-margin;
     vertical-align: middle;
   }
 
+  .label {
+    display: inline-block;
+    margin: auto;
+  }
+
   .label ~ .control {
     margin-left: $form-inline-control-margin;
+  }
+
+  .columned {
+    display: inline-block;
+    margin-right: 0;
+    display: flex;
+    float: left;
+    padding-right: 1rem;
+
+    .control {
+      flex: 1;
+      margin-bottom: 0;
+      position: relative;
+    }
   }
 
   .control {
