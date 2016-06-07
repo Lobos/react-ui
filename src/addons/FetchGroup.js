@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { PropTypes } from 'react'
-import { register } from '../higherOrders/FormItem'
+import FormItem from '../higherOrders/FormItem'
 import Input from '../Input'
 import Textarea from '../Textarea'
 import RadioGroup from '../RadioGroup'
@@ -63,4 +63,4 @@ FetchGroup.defaultProps = {
   value: {}
 }
 
-module.exports = register(FetchGroup)
+module.exports = FormItem.register(FetchGroup)

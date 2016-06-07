@@ -3,7 +3,7 @@
 import React, { PropTypes } from 'react'
 import classnames from 'classnames'
 import Fetch from './higherOrders/Fetch'
-import { register } from './higherOrders/FormItem'
+import FormItem from './higherOrders/FormItem'
 import Radio from './Radio'
 import { compose } from './utils/compose'
 import TextValue from './higherOrders/TextValue'
@@ -48,7 +48,7 @@ RadioGroup.propTypes = {
 }
 
 export default compose(
-  register('radio-group', {}),
+  FormItem.register('radio-group', {}),
   Fetch,
   TextValue(true)
 )(RadioGroup)

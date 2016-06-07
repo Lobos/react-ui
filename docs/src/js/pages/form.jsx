@@ -144,12 +144,12 @@ module.exports = class extends React.Component {
       }
     } />
 
-  <FormControl grid={{width:17 / 24}}
+  <FormControl grid={{width: 17 / 24}}
     name="url"
     label="url"
     type="url" />
 
-  <FormControl grid={{width:17 / 24}}
+  <FormControl grid={{width: 17 / 24}}
     name="readonly"
     readOnly
     label="readonly"
@@ -166,7 +166,7 @@ module.exports = class extends React.Component {
 
   <FormControl label="datetime range">
     <DatepickerRange type="date" min="2016-03-03" max="2016-08-21"
-      names={['startTime', 'endTime']} />
+      required name="dateRange" />
   </FormControl>
 
   <FormControl label="mult input" tip="each field require 5 alphanumeric characters">

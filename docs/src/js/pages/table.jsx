@@ -5,7 +5,7 @@ import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
 import { Cn } from '../Language'
-const {Button, Table, Modal, Checkbox, RadioGroup, ValuesHolder} = global.uiRequire()
+const {Button, Table, Modal, Filter, Input, Select, DatepickerRange, Checkbox, RadioGroup, ValuesHolder} = global.uiRequire()
 
 class TableDemo extends Component {
   constructor (props) {
@@ -151,6 +151,7 @@ values = valuesHolder.get(',')`}
   onClick={() => { Modal.confirm('Are you sure to delete "' + this.valuesHolder.getValue(',') + '"?', () => {}, 'Warning') }}>
   Delete selected
 </Button>
+
 <Table ref="table"
   bordered={this.state.bordered}
   onSelect={this.state.valuesHolder ? this.valuesHolder : this.handleSelectedName}
@@ -162,6 +163,37 @@ values = valuesHolder.get(',')`}
   sep={null}
   value={['Ashton Cox', 'Airi Satou']}
   valueTpl="name"
+  filter={
+    <Filter
+      columns={2}
+      labelWidth="5rem"
+      onFilter={fs => this.setState({ filterText: JSON.stringify(fs) })}
+      items={[
+        {
+          label: 'Name:',
+          name: 'name',
+          component: <Input />,
+          filter: (value, data) => data.filter((d) => d.name.toLowerCase().indexOf(value) >= 0)
+        }, {
+          label: 'Start Date:',
+          name: 'start_date',
+          component: <DatepickerRange type="date" />,
+          filter: (value, data) => {
+            let min = value[0] ? new Date(value[0].replace('-', '/')).getTime() : 0
+            let max = value[1] ? new Date(value[1].replace('-', '/')).getTime() : Number.MAX_VALUE
+            return data.filter((d) => {
+              let startDate = new Date(d.start_date).getTime()
+              return min <= startDate && startDate <= max
+            })
+          }
+        }, {
+          label: 'Office:',
+          name: 'office',
+          component: <Select data={['Edinburgh', 'Sidney', 'London', 'Tokyo', 'San Francisco', 'New York']} />,
+          filter: (value, data) => data.filter((d) => d.office === value)
+        }
+      ]} />
+  }
   columns={[
     { name: 'name', sort: true, header: 'Name',
       content: (d) => {

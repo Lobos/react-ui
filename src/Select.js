@@ -9,7 +9,7 @@ import { hashcode, objectAssign } from './utils/objects'
 import ClickAway from './higherOrders/ClickAway'
 import { getGrid } from './utils/grids'
 import Fetch from './higherOrders/Fetch'
-import { register } from './higherOrders/FormItem'
+import FormItem from './higherOrders/FormItem'
 import { compose } from './utils/compose'
 import Transition from './Transition'
 import PropTypes from './utils/proptypes'
@@ -247,7 +247,7 @@ class Select extends Component {
         <Transition ref="options" act={open ? 'enter' : 'leave'} duration={166} tf="ease-out">
           <div className={_select.options}>
             {this.renderFilter()}
-            <List data={options} onChange={this.handleChange} className={_select.optionsWrap} />
+            <List data={options} maxShowCount={maxShowCount} onChange={this.handleChange} className={_select.optionsWrap} />
           </div>
         </Transition>
       </div>
@@ -287,7 +287,7 @@ Select.defaultProps = {
 }
 
 export default compose(
-  register('select', {valueType: 'array'}),
+  FormItem.register('select', {valueType: 'array'}),
   Fetch,
   ClickAway
 )(Select)

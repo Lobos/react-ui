@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import classnames from 'classnames'
 import Regs from './utils/regs'
 import { getGrid } from './utils/grids'
-import { register } from './higherOrders/FormItem'
+import FormItem from './higherOrders/FormItem'
 import Trigger from './higherOrders/Trigger'
 import PropTypes from './utils/proptypes'
 import { compose } from './utils/compose'
@@ -70,6 +70,6 @@ Input.defaultProps = {
 }
 
 export default compose(
-  register(['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number'], {}),
+  FormItem.register(['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number'], {}),
   Trigger
 )(Input)

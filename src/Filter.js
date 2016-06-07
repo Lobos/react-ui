@@ -1,7 +1,8 @@
 'use strict'
 
-import React, { Component } from 'react'
+import React, { Component, cloneElement } from 'react'
 import classnames from 'classnames'
+import curry from 'curry'
 import PropTypes from './utils/proptypes'
 import Form from './Form'
 import FormControl from './FormControl'
@@ -19,8 +20,16 @@ export default class Filter extends Component {
   }
 
   handleFilter (data) {
-    if (this.props.onFilter) {
-      this.props.onFilter(data)
+    const { items, onFilter, innerFilter } = this.props
+    onFilter && onFilter(data)
+    if (innerFilter) {
+      let filters = []
+      items.forEach((item) => {
+        if (data[item.name] && item.filter) {
+          filters.push(curry(item.filter)(data[item.name]))
+        }
+      })
+      innerFilter(filters)
     }
   }
 
@@ -29,8 +38,8 @@ export default class Filter extends Component {
 
     return items.map((f, i) => {
       return (
-        <FormControl key={f.component.props.name} grid={f.grid} label={f.label}>
-          { f.component }
+        <FormControl key={f.name} grid={f.grid} label={f.label}>
+          { cloneElement(f.component, {name: f.name}) }
         </FormControl>
       )
     })
@@ -64,11 +73,12 @@ Filter.propTypes = {
   className: PropTypes.string,
   columns: PropTypes.number,
   data: PropTypes.object,
+  innerFilter: PropTypes.func,
   items: PropTypes.arrayOf(PropTypes.shape({
     component: PropTypes.element,
     filter: PropTypes.func,
     label: PropTypes.string,
-    name: PropTypes.string
+    name: PropTypes.string.isRequired
   })),
   labelWidth: PropTypes.number_string,
   onFilter: PropTypes.func,

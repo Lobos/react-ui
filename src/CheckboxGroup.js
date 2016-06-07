@@ -4,7 +4,7 @@ import React, { PropTypes } from 'react'
 import classnames from 'classnames'
 import { Checkbox } from './Checkbox'
 import Fetch from './higherOrders/Fetch'
-import { register } from './higherOrders/FormItem'
+import FormItem from './higherOrders/FormItem'
 import TextValue from './higherOrders/TextValue'
 import { compose } from './utils/compose'
 
@@ -56,7 +56,7 @@ CheckboxGroup.defaultProps = {
 }
 
 export default compose(
-  register('checkbox-group', {valueType: 'array'}),
+  FormItem.register('checkbox-group', {valueType: 'array'}),
   Fetch,
   TextValue(false)
 )(CheckboxGroup)

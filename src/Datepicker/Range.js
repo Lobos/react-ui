@@ -2,47 +2,54 @@
 
 import React from 'react'
 import classnames from 'classnames'
-import Datepicker from './index'
 import PropTypes from '../utils/proptypes'
+import Datepicker from './Datetime'
 import PureRender from '../mixins/PureRender'
+import FormItem from '../higherOrders/FormItem'
+import { compose } from '../utils/compose'
 
 import _datepickers from '../styles/_datepicker.scss'
 
 class Range extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {}
     this.firstChange = this.firstChange.bind(this)
     this.secondChange = this.secondChange.bind(this)
   }
 
+  handleChange (val, index) {
+    let values = [...this.props.value]
+    values[index] = val
+    this.props.onChange(values)
+  }
+
   firstChange (value) {
-    this.setState({ first: value })
-    this.props.onChange(value, this.props.names[0])
+    this.handleChange(value, 0)
   }
 
   secondChange (value) {
-    this.setState({ second: value })
-    this.props.onChange(value, this.props.names[1])
+    this.handleChange(value, 1)
   }
 
   render () {
-    const { className, names, min, max, con, ...other } = this.props
+    const { className, value, min, max, con, ...other } = this.props
     return (
       <div className={classnames(className, _datepickers.range)}>
-        <Datepicker min={min} name={names[0]} {...other}
-          max={this.state.second}
+        <Datepicker min={min} {...other}
+          max={value[1]}
+          value={value[0]}
           onChange={this.firstChange}
         />
         {con}
-        <Datepicker max={max} name={names[1]} {...other}
-          min={this.state.first}
+        <Datepicker max={max} {...other}
+          min={value[0]}
+          value={value[1]}
           onChange={this.secondChange}
         />
       </div>
     )
   }
-};
+}
 
 Range.isFormItem = true
 
@@ -52,13 +59,17 @@ Range.propTypes = {
   max: PropTypes.datetime,
   min: PropTypes.datetime,
   names: PropTypes.arrayOf(PropTypes.string),
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  value: PropTypes.array
 }
 
 Range.defaultProps = {
   con: '-',
   names: [],
-  onChange: () => {}
+  value: []
 }
 
-export default PureRender(Range)
+export default compose(
+  FormItem.register('datetime-range', { valueType: 'array' }),
+  PureRender
+)(Range)

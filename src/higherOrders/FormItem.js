@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component, createElement, PropTypes } from 'react'
+import React, { createElement, PropTypes } from 'react'
 import classnames from 'classnames'
 import curry from 'curry'
 import { deepEqual } from '../utils/objects'
@@ -11,8 +11,8 @@ import _inputs from '../styles/_input.scss'
 
 export const COMPONENTS = {}
 
-export const valueble = (ComposedComponent) => {
-  class FormItem extends Component {
+export default function FormItem (Component) {
+  class FormItem extends React.Component {
     constructor (props) {
       super(props)
 
@@ -164,7 +164,7 @@ export const valueble = (ComposedComponent) => {
       }
 
       return (
-        <ComposedComponent
+        <Component
           ref={this.bindComponent}
           {...props}
           hasError={this.state.hasError}
@@ -213,8 +213,8 @@ export const valueble = (ComposedComponent) => {
   return FormItem
 }
 
-export const register = curry((types, options, ComposedComponent) => {
-  let newComponent = valueble(ComposedComponent)
+FormItem.register = curry((types, options, Component) => {
+  let newComponent = FormItem(Component)
 
   // allow empty type
   // if (isEmpty(types)) {
@@ -241,7 +241,7 @@ export const register = curry((types, options, ComposedComponent) => {
       render = (props) => createElement(newComponent, props)
     }
 
-    COMPONENTS[type] = { render, valueType, component: ComposedComponent }
+    COMPONENTS[type] = { render, valueType, component: Component }
   })
 
   return newComponent

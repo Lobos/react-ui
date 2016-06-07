@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import classnames from 'classnames'
 import { objectAssign } from './utils/objects'
 import { getGrid } from './utils/grids'
-import { register } from './higherOrders/FormItem'
+import FormItem from './higherOrders/FormItem'
 import Trigger from './higherOrders/Trigger'
 import { cloneShadow } from './utils/dom'
 import PropTypes from './utils/proptypes'
@@ -90,7 +90,7 @@ Textarea.defaultProps = {
 }
 
 export default compose(
-  register(['textarea'], {}),
+  FormItem.register(['textarea'], {}),
   Trigger
 )(Textarea)
 

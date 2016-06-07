@@ -186,7 +186,7 @@ class FormControl extends Component {
         return <span key={i}>{child}</span>
       }
 
-      let props = { grid }
+      let props = grid ? { grid } : {}
       if (child.type.isFormItem) {
         this.propsExtend(props)
       } else if (child.props && child.props.children === 'object') {

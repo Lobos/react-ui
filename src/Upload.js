@@ -6,7 +6,7 @@ import * as Events from './utils/events'
 import { nextUid, format } from './utils/strings'
 import { getGrid } from './utils/grids'
 import upload from './utils/upload'
-import { register } from './higherOrders/FormItem'
+import FormItem from './higherOrders/FormItem'
 
 import _uploads from './styles/_upload.scss'
 
@@ -235,4 +235,4 @@ Upload.defaultProps = {
   withCredentials: false
 }
 
-module.exports = register('upload', {valueType: 'array'}, Upload)
+export default FormItem.register('upload', {valueType: 'array'}, Upload)

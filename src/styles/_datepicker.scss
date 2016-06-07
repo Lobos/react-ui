@@ -44,6 +44,13 @@
       width: $datepicker-short-width - $input-padding-x - $datepicker-indicator-padding;
     }
   }
+
+  .datepicker:last-child {
+    .picker {
+      right: 0;
+      left: auto;
+    }
+  }
 }
 
 .dropup {

@@ -2,7 +2,7 @@
 
 import React, { Component, cloneElement } from 'react'
 import classnames from 'classnames'
-import * as FormItem from './higherOrders/FormItem'
+import FormItem from './higherOrders/FormItem'
 import PropTypes from './utils/proptypes'
 
 import Styles from './styles/_rating.scss'

@@ -6,7 +6,7 @@ import classnames from 'classnames'
 import { toArray, substitute } from '../utils/strings'
 import { forEach, deepEqual, hashcode } from '../utils/objects'
 import Fetch from '../higherOrders/Fetch'
-import { register } from '../higherOrders/FormItem'
+import FormItem from '../higherOrders/FormItem'
 import { removeClass } from '../utils/dom'
 import { compose } from '../utils/compose'
 import PropTypes from '../utils/proptypes'
@@ -216,7 +216,7 @@ Tree.defaultProps = {
 }
 
 module.exports = compose(
-  register('tree', { valueType: 'array' }),
+  FormItem.register('tree', { valueType: 'array' }),
   Fetch
 )(Tree)
 

@@ -201,7 +201,7 @@ export default class Table extends Component {
     let tableStyle = {}
     let onBodyScroll = null
 
-    const { children, size, height, width, bordered, striped } = this.props
+    const { children, size, height, width, bordered, striped, filter } = this.props
     const values = this.values ? this.values.getValue() : []
     const columns = this.getColumns()
     const body = this.renderBody(values, columns)
@@ -229,6 +229,8 @@ export default class Table extends Component {
 
     return (
       <div style={this.props.style} className={className}>
+        { filter }
+
         { columns &&
           <div className={_tables.header}>
             <div ref="headerContainer" style={headerStyle}>
@@ -260,7 +262,7 @@ Table.propTypes = {
   className: PropTypes.string,
   columns: PropTypes.array,
   data: PropTypes.array,
-  filters: PropTypes.array,
+  filter: PropTypes.element,
   headers: PropTypes.array,
   height: PropTypes.number_string,
   onSelect: PropTypes.oneOfType([

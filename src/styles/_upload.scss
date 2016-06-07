@@ -1,21 +1,18 @@
 @import "mixins";
 @import "themes/bootstrap";
 
-.container {
-}
-
 .file {
   line-height: normal;
   padding: $upload-file-padding-y $upload-file-padding-x;
   margin-top: $upload-margin;
   border-radius: $upload-file-border-radius;
-  transition: 0.2s;
+  transition: 0.2s ease-out;
 
   background-color: $upload-file-bg;
   background-size: 0% 2px;
   background-repeat: no-repeat;
   background-position: left bottom;
-  background-image: linear-gradient( 0deg, $brand-success, $brand-success );
+  background-image: linear-gradient(0deg, $brand-success, $brand-success);
 
   .remove {
     float: right;
@@ -33,8 +30,7 @@
 
 .is-deleted {
   opacity: 0;
-  height: 0;
-  margin: 0;
+  transform: scale(1,0);
 }
 
 .uploaded {
