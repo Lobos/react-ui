@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import { compose } from './utils/compose'
 import FormItem from './higherOrders/FormItem'
-import pureRenderMixin from './mixins/PureRender'
+import PureRender from './mixins/PureRender'
 
 import Styles from './styles/_radio-checkbox.scss'
 
@@ -104,5 +104,5 @@ Checkbox.defaultProps = {
 
 export default compose(
   FormItem.register('checkbox', {}),
-  pureRenderMixin
+  PureRender()
 )(Checkbox)

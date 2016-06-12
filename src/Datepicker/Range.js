@@ -69,7 +69,10 @@ Range.defaultProps = {
   value: []
 }
 
+function validate (value) {
+}
+
 export default compose(
-  FormItem.register('datetime-range', { valueType: 'array' }),
-  PureRender
+  FormItem.register('datetime-range', { valueType: 'array', validate }),
+  PureRender()
 )(Range)

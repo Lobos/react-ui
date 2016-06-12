@@ -6,7 +6,7 @@ import classnames from 'classnames'
 import Button from '../Button'
 import { CLOSE } from '../svgs'
 import PropTypes from '../utils/proptypes'
-import pureRender from '../mixins/PureRender'
+import PureRender from '../mixins/PureRender'
 import { compose } from '../utils/compose'
 import { addClass } from '../utils/dom'
 
@@ -122,4 +122,4 @@ Modal.propTypes = {
   width: PropTypes.number_string
 }
 
-export default compose(pureRender)(Modal)
+export default compose(PureRender())(Modal)

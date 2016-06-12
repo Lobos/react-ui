@@ -1,7 +1,6 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { findDOMNode } from 'react-dom'
 import classnames from 'classnames'
 import { toArray, substitute } from './utils/strings'
 import { getOuterHeight, overView, withoutTransition } from './utils/dom'
@@ -35,8 +34,7 @@ class Select extends Component {
   }
 
   componentDidMount () {
-    this.options = findDOMNode(this.refs.options)
-    if (!this.props.mult) this.props.registerTarget(this.options)
+    if (!this.props.mult) this.props.registerTarget(this.refs.options)
   }
 
   showOptions () {
@@ -46,7 +44,7 @@ class Select extends Component {
 
     this.props.onOpen()
     this.setState({ filter: '' }, () => {
-      let offset = getOuterHeight(this.options) + 5
+      let offset = getOuterHeight(this.refs.options) + 5
 
       let el = this.refs.container
       let dropup = overView(el, offset)
@@ -244,8 +242,8 @@ class Select extends Component {
             : <span className={_input.placeholder}>{msg || placeholder}&nbsp;</span>
         }
         </div>
-        <Transition ref="options" act={open ? 'enter' : 'leave'} duration={166} tf="ease-out">
-          <div className={_select.options}>
+        <Transition act={open ? 'enter' : 'leave'} duration={166} tf="ease-out">
+          <div ref="options" className={_select.options}>
             {this.renderFilter()}
             <List data={options} maxShowCount={maxShowCount} onChange={this.handleChange} className={_select.optionsWrap} />
           </div>

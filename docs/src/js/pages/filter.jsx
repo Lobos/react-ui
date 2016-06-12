@@ -32,7 +32,7 @@ module.exports = class extends React.Component {
   items={[{                     // filter选项列表，数组
     label: 'string'             // 显示label文字
     grid: {object}              // 分列后，如果某项比较长，可以通过grid调整
-    name: 'string'              // required
+    name: 'string'              // required，获取数据的key，component不需要写name
     componenent: {ReactElement} // Input, Datepicker, Select 等Form 元素
     filter: func(               // 如果使用内部筛选，需要传入筛选方法，返回值是array
       value,                    // 第一个参数，component的value

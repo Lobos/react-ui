@@ -6,7 +6,7 @@ import { COMPONENTS, getValueType } from './higherOrders/FormItem'
 import merge from './utils/merge'
 import { getGrid } from './utils/grids'
 import { format } from './utils/strings'
-import { forEach, shallowEqual, objectAssign } from './utils/objects'
+import { forEach, objectAssign, shallowEqual } from './utils/objects'
 import PropTypes from './utils/proptypes'
 
 import { getLang, setLang } from './lang'
@@ -30,13 +30,15 @@ class FormControl extends Component {
 
     // for check props
     this.items = {}
-    this.itemBind = this.itemBind.bind(this)
-    this.itemUnbind = this.itemUnbind.bind(this)
-    this.itemChange = this.itemChange.bind(this)
+    // this.itemBind = this.itemBind.bind(this)
+    // this.itemUnbind = this.itemUnbind.bind(this)
+    // this.itemChange = this.itemChange.bind(this)
     this.handleValidate = this.handleValidate.bind(this)
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate (nextProps, nextState, nextContext) {
+    return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState) || !shallowEqual(this.context, nextContext)
+    /*
     if (!shallowEqual(this.props, nextProps)) {
       return true
     }
@@ -52,8 +54,10 @@ class FormControl extends Component {
     }
 
     return !shallowEqual(this.state, nextState)
+    */
   }
 
+  /*
   itemBind (props) {
     this.items[props.id] = props
 
@@ -79,9 +83,12 @@ class FormControl extends Component {
       this.props.itemChange(...arguments)
     }
   }
+  */
 
-  handleValidate (id, result) {
-    this.items[id].$validation = result
+  handleValidate (name, result) {
+    console.log(result)
+    /*
+    this.items[name].$validation = result
 
     let validations = []
     forEach(this.items, (item) => {
@@ -93,6 +100,7 @@ class FormControl extends Component {
     if (validations !== this.state.validations) {
       this.setState({ validations })
     }
+    */
   }
 
   getHint (props) {
@@ -172,10 +180,10 @@ class FormControl extends Component {
   }
 
   propsExtend (props) {
-    props.itemBind = this.itemBind
-    props.itemUnbind = this.itemUnbind
-    props.itemChange = this.itemChange
-    props.formData = this.props.formData
+    // props.itemBind = this.itemBind
+    // props.itemUnbind = this.itemUnbind
+    // props.itemChange = this.itemChange
+    // props.formData = this.props.formData
     props.onValidate = this.handleValidate
     props.readOnly = props.readOnly || this.props.readOnly
   }
@@ -214,7 +222,7 @@ class FormControl extends Component {
         this.propsExtend(props)
         props.key = `${props.label}|${props.name}`
         props.$controlId = this.id
-        props = merge({}, props, grid)
+        props = merge({}, props, { grid })
         return component.render(props)
       }
     })
@@ -280,7 +288,6 @@ class FormControl extends Component {
           { this.renderItems(grid) }
         </div>
       </div>
-
     )
   }
 }
@@ -291,12 +298,12 @@ FormControl.propTypes = {
   columns: PropTypes.number,
   data: PropTypes.any,
   errorText: PropTypes.string,
-  formData: PropTypes.object,
+  // formData: PropTypes.object,
   grid: PropTypes.grid,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
-  itemBind: PropTypes.func,
-  itemChange: PropTypes.func,
-  itemUnbind: PropTypes.func,
+  // itemBind: PropTypes.func,
+  // itemChange: PropTypes.func,
+  // itemUnbind: PropTypes.func,
   items: PropTypes.array,
   label: PropTypes.element_string,
   labelWidth: PropTypes.number_string,
@@ -312,8 +319,12 @@ FormControl.propTypes = {
 }
 
 FormControl.defaultProps = {
-  layout: 'inline',
+  layout: 'stacked',
   type: 'text'
+}
+
+FormControl.contextTypes = {
+  formData: PropTypes.object
 }
 
 export default FormControl

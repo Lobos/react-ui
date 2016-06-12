@@ -1,7 +1,6 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { findDOMNode } from 'react-dom'
 import classnames from 'classnames'
 import { objectAssign } from '../utils/objects'
 import { overView, getOuterHeight } from '../utils/dom'
@@ -53,7 +52,7 @@ class Datetime extends Component {
   }
 
   componentDidMount () {
-    this.props.registerTarget(findDOMNode(this.refs.datepicker))
+    this.props.registerTarget(this.refs.datepicker)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -117,7 +116,7 @@ class Datetime extends Component {
     today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
 
     let isTime = this.props.type === TIME
-    let height = getOuterHeight(findDOMNode(this.refs.datepicker))
+    let height = getOuterHeight(this.refs.datepicker)
 
     this.setState({
       current: this.state.value || today,
@@ -434,8 +433,8 @@ class Datetime extends Component {
               : <span className={_inputs.placeholder}>{placeholder}&nbsp;</span>
           }
         </div>
-        <Transition ref="datepicker" duration={333} tf="ease-out" act={open ? 'enter' : 'leave'}>
-          <div className={_datepickers.picker}>
+        <Transition duration={333} tf="ease-out" act={open ? 'enter' : 'leave'}>
+          <div ref="datepicker" className={_datepickers.picker}>
             {this.renderHeader()}
             {this.renderInner()}
             {(stage === 'day' || stage === 'clock') && type !== DATE && this.renderTime()}

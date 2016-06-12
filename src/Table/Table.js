@@ -5,10 +5,12 @@ import classnames from 'classnames'
 import { substitute, toArray } from '../utils/strings'
 import { shallowEqual, hashcode } from '../utils/objects'
 import PropTypes from '../utils/proptypes'
-import Header from './Header'
 import Pagination from '../Pagination'
-import Checkbox from '../Checkbox'
+import { Checkbox } from '../Checkbox'
 import ValuesHolder from '../ValuesHolder'
+
+import Header from './Header'
+import Tr from './Tr'
 
 import _tables from '../styles/_tables.scss'
 
@@ -25,6 +27,8 @@ export default class Table extends Component {
                     ? props.onSelect : new ValuesHolder()
       this.values.init(toArray(props.value, props.sep))
     }
+
+    this.handleSelect = this.handleSelect.bind(this)
   }
 
   componentDidMount () {
@@ -98,42 +102,19 @@ export default class Table extends Component {
       )
     }
 
-    const headerKeys = columns.map((h) => {
-      return h.name || hashcode(h)
-    })
-
     this.allSelected = true
     let trs = data.map((d, i) => {
-      let tds = []
-      if (onSelect) {
-        if (!d.$value) d.$value = substitute(valueTpl, d)
+      if (!d.$value) d.$value = substitute(valueTpl, d)
+      let checked = values.indexOf(d.$value) >= 0
+      this.allSelected = this.allSelected && checked
 
-        let checked = values.indexOf(d.$value) >= 0
-        this.allSelected = this.allSelected && checked
-
-        tds.push(
-          <td className={_tables.checkbox} key="checkbox">
-            <Checkbox isIndicator
-              checked={checked}
-              onChange={this.handleSelect.bind(this, d)} />
-          </td>
-        )
-      }
-      let rowKey = d.id ? d.id : hashcode(d)
-      columns.map((h, j) => {
-        if (h.hidden) return
-
-        let content = h.content
-        if (typeof content === 'string') {
-          content = substitute(content, d)
-        } else if (typeof content === 'function') {
-          content = content(d)
-        } else {
-          content = d[h.name]
-        }
-        tds.push(<td key={headerKeys[j]}>{content}</td>)
-      })
-      return <tr key={rowKey}>{tds}</tr>
+      return (
+        <Tr key={d.id || hashcode(d)}
+          columns={columns}
+          data={d}
+          checked={checked}
+          onSelect={onSelect && this.handleSelect} />
+      )
     })
 
     return <tbody>{trs}</tbody>

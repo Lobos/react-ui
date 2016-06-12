@@ -17,7 +17,7 @@ function handleError (label, value, key, tip) {
   return new Error(text)
 }
 
-export function validate (value, valueType, {
+export function validate (value, valueType, formData, {
   label,
   required,
   min,
@@ -26,8 +26,7 @@ export function validate (value, valueType, {
   sep,
   tip,
   type,
-  validator,
-  formData
+  validator
 }) {
   let len = 0
 

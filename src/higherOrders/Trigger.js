@@ -18,9 +18,7 @@ export default function (Component) {
     }
 
     componentWillReceiveProps (nextProps) {
-      if (nextProps.value !== this.props.value) {
-        this.setState({ value: nextProps.value })
-      }
+      this.setState({ value: nextProps.value })
     }
 
     handleChange (value, event) {

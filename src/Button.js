@@ -1,7 +1,8 @@
 'use strict'
 
-import { PropTypes, createElement } from 'react'
+import { createElement } from 'react'
 import classnames from 'classnames'
+import PropTypes from './utils/proptypes'
 import { getGrid } from './utils/grids'
 
 import Styles from './styles/_buttons.scss'
@@ -18,20 +19,13 @@ export default function Button (props) {
   )
 
   return createElement(tag, { className, ...others }, children)
-  /*
-  return (
-    <button {...others} className={className}>
-      { children }
-    </button>
-  );
- */
 };
 
 Button.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   disabled: PropTypes.bool,
-  grid: PropTypes.object,
+  grid: PropTypes.grid,
   onClick: PropTypes.func,
   once: PropTypes.bool,
   size: PropTypes.oneOf(['large', 'small', 'middle']),

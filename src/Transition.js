@@ -5,12 +5,8 @@ import { findDOMNode } from 'react-dom'
 import { addClass, removeClass } from './utils/dom'
 
 export default class Transition extends React.Component {
-  constructor (props) {
-    super(props)
-    this.bindElement = this.bindElement.bind(this)
-  }
-
   componentDidMount () {
+    this.element = findDOMNode(this)
     this.element.display = 'none'
     this.action(this.props.act)
   }
@@ -19,10 +15,6 @@ export default class Transition extends React.Component {
     if (nextProps.act !== this.props.act) {
       this.action(nextProps.act)
     }
-  }
-
-  bindElement (ref) {
-    this.element = findDOMNode(ref)
   }
 
   action (act) {
@@ -61,7 +53,7 @@ export default class Transition extends React.Component {
       transitionTimingFunction: tf
     }
 
-    return cloneElement(children, {style, ref: this.bindElement})
+    return cloneElement(children, {style})
   }
 }
 

@@ -6,7 +6,7 @@ import classnames from 'classnames'
 import { forEach, isEmpty, deepEqual } from '../utils/objects'
 import { addClass } from '../utils/dom'
 import { Checkbox } from '../Checkbox'
-import pureRenderMixin from '../mixins/PureRender'
+import PureRender from '../mixins/PureRender'
 
 import TreeStyles from '../styles/_tree.scss'
 
@@ -34,6 +34,8 @@ class Item extends Component {
   toggle () {
     let open = !this.state.open
     this.setState({open})
+    const { onToggle, data } = this.props
+    onToggle && onToggle(data, open)
   }
 
   toggleAll (open) {
@@ -163,7 +165,7 @@ class Item extends Component {
   }
 
   render () {
-    let { data, selectAble, readOnly, value, icons } = this.props
+    let { data, selectAble, readOnly, onToggle, value, icons } = this.props
 
     let open = this.state.open
     let children,
@@ -177,6 +179,7 @@ class Item extends Component {
             key={item.$key}
             icons={icons}
             open={this.props.open}
+            onToggle={onToggle}
             readOnly={readOnly}
             value={value}
             selectAble={selectAble}
@@ -218,10 +221,11 @@ Item.propTypes = {
   icons: PropTypes.array,
   onClick: PropTypes.func,
   onStatusChange: PropTypes.func,
+  onToggle: PropTypes.func,
   open: PropTypes.bool,
   readOnly: PropTypes.bool,
   selectAble: PropTypes.bool,
   value: PropTypes.any
 }
 
-module.exports = pureRenderMixin(Item)
+module.exports = PureRender(true)(Item)

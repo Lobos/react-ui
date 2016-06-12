@@ -157,7 +157,7 @@ class Tree extends Component {
   }
 
   render () {
-    const { selectAble, className, readOnly, open, icons } = this.props
+    const { selectAble, className, onToggle, readOnly, open, icons } = this.props
 
     const { value, data } = this.state
 
@@ -169,6 +169,7 @@ class Tree extends Component {
           readOnly={readOnly}
           onClick={this.handleClick}
           onStatusChange={this.handleChange}
+          onToggle={onToggle}
           value={value}
           selectAble={selectAble}
           key={item.$key}
@@ -197,6 +198,7 @@ Tree.propTypes = {
   icons: PropTypes.array,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
+  onToggle: PropTypes.func,
   open: PropTypes.bool,
   readOnly: PropTypes.bool,
   selectAble: PropTypes.bool,

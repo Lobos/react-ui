@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import { forEach } from './utils/objects'
 import Input from './Input'
+import PureRender from './mixins/PureRender'
 import { ANGLE_LEFT, ANGLE_RIGHT } from './svgs'
 
 import PagiStyles from './styles/_pagination.scss'
@@ -177,4 +178,4 @@ Pagination.defaultProps = {
   size: 20
 }
 
-module.exports = Pagination
+export default PureRender()(Pagination)

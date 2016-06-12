@@ -2,15 +2,17 @@
 
 import React, { Children, Component, cloneElement } from 'react'
 import classnames from 'classnames'
-import { forEach, deepEqual, hashcode } from './utils/objects'
+import { forEach, deepEqual, hashcode, objectAssign } from './utils/objects'
 import clone from './utils/clone'
 import { getGrid } from './utils/grids'
 import FormControl from './FormControl'
 import FormSubmit from './FormSubmit'
 import Button from './Button'
 import PropTypes from './utils/proptypes'
+import { compose } from './utils/compose'
 
 import Fetch from './higherOrders/Fetch'
+import PureRender from './mixins/PureRender'
 
 import _forms from './styles/_form.scss'
 
@@ -25,7 +27,13 @@ class Form extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.submit = this.submit.bind(this)
 
+    this.itemBind = this.itemBind.bind(this)
+    this.itemUnbind = this.itemUnbind.bind(this)
+    this.itemChange = this.itemChange.bind(this)
+
     this.items = {}
+
+    /*
     this.validationPools = {}
 
     this.itemBind = (item) => {
@@ -76,6 +84,16 @@ class Form extends Component {
 
       this.items[id].$validation = err
     }
+    */
+  }
+
+  getChildContext () {
+    return {
+      formData: this.state.data,
+      itemBind: this.itemBind,
+      itemUnbind: this.itemUnbind,
+      itemChange: this.itemChange
+    }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -89,15 +107,24 @@ class Form extends Component {
     }
   }
 
+  itemBind (item) {
+    this.items[item.name] = item
+  }
+
+  itemUnbind (name) {
+    delete this.items[name]
+  }
+
+  itemChange (name, value) {
+    const data = objectAssign({}, this.state.data, {[name]: value})
+    this.setState({ data })
+  }
+
   validate () {
     let success = true
     forEach(this.items, (item) => {
-      let suc = item.$validation
-      if (suc === undefined) {
-        suc = item.validate()
-        this.items[item.id].$validation = suc
-      }
-      success = success && (suc === true)
+      console.log(item.name, item.validate())
+      success = success && (item.validate() === true)
     })
     return success
   }
@@ -113,13 +140,7 @@ class Form extends Component {
 
   handleReset () {
     const { onReset, data } = this.props
-
     this.setState({ data: clone(data) })
-
-    // clear validation
-    forEach(this.items, (item) => {
-      delete item.$validation
-    })
 
     onReset && onReset(data)
   }
@@ -152,7 +173,6 @@ class Form extends Component {
   }
 
   renderControls () {
-    const { data } = this.state
     const { hintType, controls, disabled, layout } = this.props
 
     return clone(controls).map((control) => {
@@ -163,17 +183,16 @@ class Form extends Component {
         control.hintType = control.hintType || hintType
         control.readOnly = control.readOnly || disabled
         control.layout = layout
-        control.itemBind = this.itemBind
-        control.itemUnbind = this.itemUnbind
-        control.itemChange = this.itemChange
-        control.formData = data
+        // control.itemBind = this.itemBind
+        // control.itemUnbind = this.itemUnbind
+        // control.itemChange = this.itemChange
+        // control.formData = data
         return <FormControl { ...control } />
       }
     })
   }
 
   renderChildren (children) {
-    let { data } = this.state
     let { disabled, columns } = this.props
 
     return Children.map(children, (child) => {
@@ -188,10 +207,10 @@ class Form extends Component {
         layout: this.props.layout
       }
       if (child.type === FormControl || child.type.isFormItem) {
-        props.itemBind = this.itemBind
-        props.itemUnbind = this.itemUnbind
-        props.itemChange = this.itemChange
-        props.formData = data
+        // props.itemBind = this.itemBind
+        // props.itemUnbind = this.itemUnbind
+        // props.itemChange = this.itemChange
+        // props.formData = data
       } else if (child.type === FormSubmit) {
         props.disabled = disabled
       } else if (child.props.children) {
@@ -266,4 +285,11 @@ Form.defaultProps = {
   disabled: false
 }
 
-export default Fetch(Form)
+Form.childContextTypes = {
+  formData: PropTypes.object,
+  itemBind: PropTypes.func,
+  itemChange: PropTypes.func,
+  itemUnbind: PropTypes.func
+}
+
+export default compose(Fetch, PureRender(true))(Form)

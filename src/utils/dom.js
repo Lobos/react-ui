@@ -116,11 +116,13 @@ export function cloneShadow (origin) {
 }
 
 export function addClass (el, className) {
+  if (!className) return
+
   let els = Array.isArray(el) ? el : [el]
 
   els.forEach((el) => {
     if (el.classList) {
-      el.classList.add(className)
+      el.classList.add(className.split(' '))
     } else {
       el.className += ' ' + className
     }
@@ -128,11 +130,13 @@ export function addClass (el, className) {
 }
 
 export function removeClass (el, className) {
+  if (!className) return
+
   let els = Array.isArray(el) ? el : [el]
 
   els.forEach((el) => {
     if (el.classList) {
-      el.classList.remove(className)
+      el.classList.remove(className.split(' '))
     } else {
       el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ')
     }

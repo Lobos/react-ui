@@ -3,6 +3,7 @@
 import React from 'react'
 import PropTypes from '../utils/proptypes'
 import { isEmpty } from '../utils/objects'
+import PureRender from '../mixins/PureRender'
 
 const defaultSort = (key, asc) => (a, b) => {
   let x = a[key]
@@ -51,6 +52,6 @@ export default function (Component) {
     onSort: PropTypes.func
   }
 
-  return Sort
+  return PureRender()(Sort)
 }
 

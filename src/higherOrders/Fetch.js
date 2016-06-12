@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react'
 import Refetch from 'refetch'
 import classnames from 'classnames'
-import { deepEqual } from '../utils/objects'
+import { deepEqual, shallowEqual } from '../utils/objects'
 import clone from '../utils/clone'
 
 import { setLang, getLang } from '../lang'
@@ -44,6 +44,13 @@ export default function (ComposedComponent) {
       if (!deepEqual(this.props.fetch, nextProps.fetch)) {
         this.fetchData(nextProps.fetch)
       }
+    }
+
+    shouldComponentUpdate (nextProps, nextState) {
+      if (!deepEqual(this.props.fetch, nextProps.fetch)) return true
+
+      return !shallowEqual(this.props.data, nextProps.data) ||
+        !shallowEqual(nextState.data, this.state.data)
     }
 
     componentWillUnmount () {

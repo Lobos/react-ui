@@ -3,6 +3,7 @@
 import React from 'react'
 import { objectAssign } from '../utils/objects'
 import PropTypes from '../utils/proptypes'
+import PureRender from '../mixins/PureRender'
 
 export default function (Component) {
   class Pagination extends React.Component {
@@ -69,5 +70,5 @@ export default function (Component) {
     pagination: PropTypes.element_object
   }
 
-  return Pagination
+  return PureRender()(Pagination)
 }
