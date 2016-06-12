@@ -33,6 +33,10 @@
     text-align: center;
   }
 
+  &.danger {
+    border-color: $brand-danger;
+  }
+
   .datepicker:first-child {
     width: $datepicker-full-width - $input-padding-x - $datepicker-indicator-padding;
     .control {

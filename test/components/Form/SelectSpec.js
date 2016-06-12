@@ -97,6 +97,7 @@ describe('Select Spec', () => {
       it('Should render by valueTpl', () => {
         _optionsWrapper1.forEach((e, i) => {
           e.simulate('click')
+          console.log(wrapper1.find('span').at(0))
           expect(wrapper1.find('span').at(0)).to.have.text(compData.dataList2[i].content)
         })
       })

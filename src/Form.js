@@ -32,59 +32,6 @@ class Form extends Component {
     this.itemChange = this.itemChange.bind(this)
 
     this.items = {}
-
-    /*
-    this.validationPools = {}
-
-    this.itemBind = (item) => {
-      this.items[item.id] = item
-
-      let data = this.state.data
-      data[item.name] = item.value
-      this.setState({ data })
-
-      // bind triger item
-      if (item.valiBind) {
-        item.valiBind.forEach((vb) => {
-          this.validationPools[vb] = (this.validationPools[vb] || []).concat(item.validate)
-        })
-      }
-    }
-
-    this.itemUnbind = (id, name) => {
-      let data = this.state.data
-      delete this.items[id]
-      delete data[name]
-      // remove valiBind
-      delete this.validationPools[name]
-      this.setState({ data })
-    }
-
-    this.itemChange = (id, value, err) => {
-      let data = this.state.data
-      const name = this.items[id].name
-
-      // don't use merge or immutablejs
-      // data = merge({}, data, {[name]: value});
-
-      if (data[name] !== value) {
-        data[name] = value
-        // setState only triger render, data was changed
-        this.setState({ data })
-      }
-
-      let valiBind = this.validationPools[name]
-      if (valiBind) {
-        valiBind.forEach((validate) => {
-          if (validate) {
-            validate()
-          }
-        })
-      }
-
-      this.items[id].$validation = err
-    }
-    */
   }
 
   getChildContext () {
@@ -108,11 +55,18 @@ class Form extends Component {
   }
 
   itemBind (item) {
-    this.items[item.name] = item
+    const { name, value } = item
+    this.items[name] = item
+    let { data } = this.state
+    if (value && !data[name]) {
+      data = objectAssign({}, data, {[name]: value})
+      this.setState({ data })
+    }
   }
 
   itemUnbind (name) {
     delete this.items[name]
+    delete this.state.data[name]
   }
 
   itemChange (name, value) {
@@ -121,12 +75,8 @@ class Form extends Component {
   }
 
   validate () {
-    let success = true
-    forEach(this.items, (item) => {
-      console.log(item.name, item.validate())
-      success = success && (item.validate() === true)
-    })
-    return success
+    return Object.keys(this.items)
+      .reduce((suc, key) => suc && (this.items[key].validate() === true), true)
   }
 
   handleSubmit (event) {

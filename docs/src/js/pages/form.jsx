@@ -110,6 +110,7 @@ module.exports = class extends React.Component {
     min={120}
     max={3200}
     label="integer"
+    value={1234}
     type="integer" />
 
   <FormControl grid={{width:16 / 24}}

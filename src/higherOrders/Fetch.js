@@ -49,8 +49,10 @@ export default function (ComposedComponent) {
     shouldComponentUpdate (nextProps, nextState) {
       if (!deepEqual(this.props.fetch, nextProps.fetch)) return true
 
-      return !shallowEqual(this.props.data, nextProps.data) ||
-        !shallowEqual(nextState.data, this.state.data)
+      if (!shallowEqual(this.props.data, nextProps.data) ||
+          !shallowEqual(nextState.data, this.state.data)) return true
+
+      return !shallowEqual(this.props, nextProps) || !shallowEqual(nextState, this.state)
     }
 
     componentWillUnmount () {

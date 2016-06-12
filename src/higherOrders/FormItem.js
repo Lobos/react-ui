@@ -25,21 +25,13 @@ export default function FormItem (Component) {
     }
 
     componentWillMount () {
-      const { name, disabled, ignore } = this.props
+      const { name, value, disabled, ignore } = this.props
       const { itemBind } = this.context
 
       if (itemBind) {
-        /*
-        let valiBind
-        if (validator && validator.bind) {
-          valiBind = validator.bind
-          if (typeof valiBind === 'string') {
-            valiBind = [valiBind]
-          }
-        }
-        */
         itemBind({
           name,
+          value,
           disabled: disabled || ignore,
           validate: this.validate.bind(this)
         })
@@ -77,7 +69,11 @@ export default function FormItem (Component) {
       value = value || this.getValue()
       const { formData } = this.context
       const { onValidate, name, ...other } = this.props
-      const result = Validation.validate(value, getValueType(other.type), formData, other)
+
+      const validate = this.refs.component && this.refs.component.validate
+
+      const result = validate ? validate(value, other, formData)
+        : Validation.validate(value, getValueType(other.type), formData, other)
 
       this.setState({ hasError: result !== true })
       onValidate && onValidate(name, result)
@@ -121,8 +117,8 @@ export default function FormItem (Component) {
       }
 
       return (
-        <Component
-          {...props}
+        <Component {...props}
+          ref="component"
           hasError={this.state.hasError}
           onChange={this.handleChange}
           style={style}

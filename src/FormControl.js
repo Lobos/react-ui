@@ -6,7 +6,7 @@ import { COMPONENTS, getValueType } from './higherOrders/FormItem'
 import merge from './utils/merge'
 import { getGrid } from './utils/grids'
 import { format } from './utils/strings'
-import { forEach, objectAssign, shallowEqual } from './utils/objects'
+import { isEmpty, objectAssign, shallowEqual } from './utils/objects'
 import PropTypes from './utils/proptypes'
 
 import { getLang, setLang } from './lang'
@@ -25,82 +25,24 @@ class FormControl extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      validations: ''
+      validations: {}
     }
 
-    // for check props
-    this.items = {}
-    // this.itemBind = this.itemBind.bind(this)
-    // this.itemUnbind = this.itemUnbind.bind(this)
-    // this.itemChange = this.itemChange.bind(this)
     this.handleValidate = this.handleValidate.bind(this)
   }
 
   shouldComponentUpdate (nextProps, nextState, nextContext) {
     return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState) || !shallowEqual(this.context, nextContext)
-    /*
-    if (!shallowEqual(this.props, nextProps)) {
-      return true
-    }
-
-    if (nextProps.formData) {
-      let keys = Object.keys(this.items)
-      for (let i = 0, key; i < keys.length; i++) {
-        key = keys[i]
-        if (nextProps.formData[key] !== this.items[key].$value) {
-          return true
-        }
-      }
-    }
-
-    return !shallowEqual(this.state, nextState)
-    */
   }
-
-  /*
-  itemBind (props) {
-    this.items[props.id] = props
-
-    if (this.props.itemBind) {
-      this.props.itemBind(props)
-    }
-  }
-
-  itemUnbind (id) {
-    delete this.items[id]
-
-    if (this.props.itemUnbind) {
-      this.props.itemUnbind(...arguments)
-    }
-  }
-
-  itemChange (id, value, result) {
-    this.items[id].$value = value
-
-    this.handleValidate(id, result)
-
-    if (this.props.itemChange) {
-      this.props.itemChange(...arguments)
-    }
-  }
-  */
 
   handleValidate (name, result) {
-    console.log(result)
-    /*
-    this.items[name].$validation = result
-
-    let validations = []
-    forEach(this.items, (item) => {
-      if (item.$validation instanceof Error) {
-        validations.push(item.$validation.message)
-      }
-    })
-    validations = validations.join(', ')
-    if (validations !== this.state.validations) {
-      this.setState({ validations })
+    let { validations } = this.state
+    if (result === true) {
+      delete validations[name]
+    } else {
+      validations = objectAssign({}, validations, {[name]: result})
     }
-    */
+    this.setState({ validations })
   }
 
   getHint (props) {
@@ -127,9 +69,7 @@ class FormControl extends Component {
     Children.toArray(children).forEach((child) => {
       if (child.type && child.type.isFormItem) {
         let hint = this.getHint(child.props)
-        if (hint) {
-          hints.push(hint)
-        }
+        if (hint) hints.push(hint)
       } else if (child.children) {
         this.setChildrenHint(hints, children)
       }
@@ -166,10 +106,10 @@ class FormControl extends Component {
     let { validations } = this.state
     hints = tip || hints
 
-    if (validations) {
+    if (!isEmpty(validations)) {
       // if has tip，use tip
-      if (errorText) { validations = errorText }
-      return <span key="tip" className={_forms.dangerText}>{validations}</span>
+      let text = errorText || (Object.keys(validations).map((key) => validations[key].message)).join(', ')
+      return <span key="tip" className={_forms.dangerText}>{text}</span>
     }
 
     if (hints) {
@@ -180,10 +120,6 @@ class FormControl extends Component {
   }
 
   propsExtend (props) {
-    // props.itemBind = this.itemBind
-    // props.itemUnbind = this.itemUnbind
-    // props.itemChange = this.itemChange
-    // props.formData = this.props.formData
     props.onValidate = this.handleValidate
     props.readOnly = props.readOnly || this.props.readOnly
   }
@@ -241,14 +177,12 @@ class FormControl extends Component {
     let isInline = layout === 'inline'
     let newStyle = { ...style }
 
-    if (!hintType) {
-      hintType = isInline ? 'pop' : 'block'
-    }
+    if (!hintType) hintType = isInline ? 'pop' : 'block'
 
     let className = classnames(
       this.props.className,
       _forms.group,
-      this.state.validations.length > 0 && _forms.hasError
+      !isEmpty(this.state.validations) && _forms.hasError
     )
 
     if (isInline) {
@@ -260,7 +194,11 @@ class FormControl extends Component {
       grid = columns && columns > 0 ? 1 : undefined
     }
 
-    let labelClass = classnames(
+    // set this.required
+    const items = this.renderItems(grid)
+
+    // label =================================================
+    const labelClass = classnames(
       _forms.label,
       (required || this.required) && _forms.required
     )
@@ -284,9 +222,7 @@ class FormControl extends Component {
             {label}
           </label>
         }
-        <div className={_forms.control}>
-          { this.renderItems(grid) }
-        </div>
+        <div className={_forms.control}>{items}</div>
       </div>
     )
   }
@@ -298,12 +234,8 @@ FormControl.propTypes = {
   columns: PropTypes.number,
   data: PropTypes.any,
   errorText: PropTypes.string,
-  // formData: PropTypes.object,
   grid: PropTypes.grid,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
-  // itemBind: PropTypes.func,
-  // itemChange: PropTypes.func,
-  // itemUnbind: PropTypes.func,
   items: PropTypes.array,
   label: PropTypes.element_string,
   labelWidth: PropTypes.number_string,
