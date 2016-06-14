@@ -110,3 +110,93 @@
 .inline {
   display: inline-block;
 }
+
+.switch {
+  display: inline-block;
+  border: $input-btn-border-width solid $input-border-color;
+  white-space: nowrap;
+  overflow: hidden;
+
+  .checkbox {
+    text-align: center;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    margin-left: -1px;
+  }
+
+  .on, .off {
+    width: 50%;
+    position: absolute;
+    display: inline-block;
+  }
+
+  .on {
+    left: 0;
+    color: $switch-on-color;
+    background-color: $switch-on-bg;
+  }
+
+  .off {
+    right: 0;
+    color: $switch-off-color;
+    background-color: $switch-off-bg;
+  }
+
+  .indicator {
+    background: $switch-indicator-color;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    z-index: 1;
+  }
+
+  input:checked ~ .indicator,
+  input:disabled ~ .indicator,
+  &.disabled .indicator,
+  &.checked .indicator {
+    background: #fff;
+  }
+
+  &.disabled {
+    .checkbox {
+      cursor: $cursor-disabled;
+    }
+    border-color: $custom-control-indicator-border;
+
+    .on, .off {
+      color: $switch-disabled-color;
+      background-color: $switch-disabled-bg;
+    }
+  }
+
+  @include switch-size($switch-width, $switch-height, $switch-width / 2, $input-border-radius);
+
+  &.small {
+    @include switch-size($switch-width-sm, $switch-height-sm, $switch-width-sm / 2, $input-border-radius-sm);
+  }
+
+  &.large {
+    @include switch-size($switch-width-lg, $switch-height-lg, $switch-width-lg / 2, $input-border-radius-lg);
+  }
+}
+
+.round {
+  @include switch-size($switch-width, $switch-height, $switch-height, $switch-height / 2);
+
+  .indicator {
+    border-radius: 50%;
+  }
+
+  &.small {
+    @include switch-size($switch-width-sm, $switch-height-sm, $switch-height-sm, $switch-height-sm / 2);
+  }
+
+  &.large {
+    @include switch-size($switch-width-lg, $switch-height-lg, $switch-height-lg, $switch-height-lg / 2);
+  }
+}
+
+.large {
+  font-size: $switch-fontsize-lg;
+}
+

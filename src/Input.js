@@ -57,7 +57,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   rows: PropTypes.number,
-  size: PropTypes.oneOf(['small', 'large', 'middle']),
+  size: PropTypes.size,
   style: PropTypes.object,
   type: PropTypes.string,
   value: PropTypes.any

@@ -6,7 +6,7 @@ import { compose } from './utils/compose'
 import FormItem from './higherOrders/FormItem'
 import PureRender from './mixins/PureRender'
 
-import Styles from './styles/_radio-checkbox.scss'
+import _styles from './styles/_radio-checkbox.scss'
 
 export class Checkbox extends Component {
   constructor (props) {
@@ -55,12 +55,12 @@ export class Checkbox extends Component {
 
     let labelClass = classnames(
       className,
-      Styles.checkbox,
-      readOnly && Styles.disabled,
-      block ? Styles.block : Styles.inline,
-      checked && Styles.checked,
-      indeterminate && Styles.indeterminate,
-      isIndicator && Styles.noPadding
+      _styles.checkbox,
+      readOnly && _styles.disabled,
+      block ? _styles.block : _styles.inline,
+      checked && _styles.checked,
+      indeterminate && _styles.indeterminate,
+      isIndicator && _styles.noPadding
     )
 
     return (
@@ -72,7 +72,7 @@ export class Checkbox extends Component {
           checked={checked}
           value={defaultValue}
         />
-        <span className={Styles.indicator}></span>
+        <span className={_styles.indicator}></span>
         {(text && !isIndicator) && <span>{text}</span>}
         {children}
       </label>

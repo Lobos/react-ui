@@ -1,16 +1,16 @@
 'use strict'
 
 module.exports = [
-  '基础',
+  'BASE',
   { path: '/button', text: 'Button', component: require('./pages/button.jsx') },
   { path: '/icon', text: 'Icon', component: require('./pages/icon.jsx') },
   { path: '/grid', text: 'Grid', component: require('./pages/grid.jsx') },
   { path: '/lang', text: 'Lang', component: require('./pages/lang.jsx') },
-  '表单',
+  { path: '/switch', text: 'Switch', component: require('./pages/switch.jsx') },
+  'FORM',
   { path: '/form', text: 'Form', component: require('./pages/form.jsx') },
   { path: '/formitem', text: 'FormItem', component: require('./pages/formItem.jsx') },
   { path: '/formControl', text: 'FormControl', component: require('./pages/formControl.jsx') },
-  { path: '/formSubmit', text: 'FormSubmit', component: require('./pages/formSubmit.jsx') },
   { path: '/checkbox', text: 'Checkbox', component: require('./pages/checkbox.jsx') },
   { path: '/checkboxGroup', text: 'CheckboxGroup', component: require('./pages/checkboxGroup.jsx') },
   { path: '/datepicker', text: 'Datepicker', component: require('./pages/datepicker.jsx') },
@@ -21,13 +21,13 @@ module.exports = [
   { path: '/select', text: 'Select', component: require('./pages/select.jsx') },
   { path: '/tree', text: 'Tree', component: require('./pages/tree.jsx') },
   { path: '/upload', text: 'Upload', component: require('./pages/upload.jsx') },
-  '常用',
+  'COMMON',
   { path: '/table', text: 'Table', component: require('./pages/table.jsx') },
   { path: '/filter', text: 'Filter', component: require('./pages/filter.jsx') },
   { path: '/pagination', text: 'Pagination', component: require('./pages/pagination.jsx') },
   { path: '/modal', text: 'Modal', component: require('./pages/modal.jsx') },
   { path: '/message', text: 'Message', component: require('./pages/message.jsx') },
 
-  'Highorder',
+  'HIGHERORDER',
   { path: '/fetch', text: 'Fetch', component: require('./pages/fetch.jsx') }
 ]

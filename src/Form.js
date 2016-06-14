@@ -6,7 +6,6 @@ import { forEach, deepEqual, hashcode, objectAssign } from './utils/objects'
 import clone from './utils/clone'
 import { getGrid } from './utils/grids'
 import FormControl from './FormControl'
-import FormSubmit from './FormSubmit'
 import Button from './Button'
 import PropTypes from './utils/proptypes'
 import { compose } from './utils/compose'
@@ -70,8 +69,14 @@ class Form extends Component {
   }
 
   itemChange (name, value) {
+    const item = this.items[name]
     const data = objectAssign({}, this.state.data, {[name]: value})
-    this.setState({ data })
+    this.setState({ data }, () => {
+      if (item.dispatch) {
+        const ds = Array.isArray(item.dispatch) ? item.dispatch : [item.dispatch]
+        ds.forEach((d) => this.items[d].validate())
+      }
+    })
   }
 
   validate () {
@@ -133,10 +138,6 @@ class Form extends Component {
         control.hintType = control.hintType || hintType
         control.readOnly = control.readOnly || disabled
         control.layout = layout
-        // control.itemBind = this.itemBind
-        // control.itemUnbind = this.itemUnbind
-        // control.itemChange = this.itemChange
-        // control.formData = data
         return <FormControl { ...control } />
       }
     })
@@ -156,6 +157,8 @@ class Form extends Component {
         readOnly: readOnly || disabled,
         layout: this.props.layout
       }
+
+      /*
       if (child.type === FormControl || child.type.isFormItem) {
         // props.itemBind = this.itemBind
         // props.itemUnbind = this.itemUnbind
@@ -164,6 +167,11 @@ class Form extends Component {
       } else if (child.type === FormSubmit) {
         props.disabled = disabled
       } else if (child.props.children) {
+        props.children = this.renderChildren(child.props.children)
+      }
+      */
+
+      if (!(child.type === FormControl || child.type.isFormItem) && child.props.children) {
         props.children = this.renderChildren(child.props.children)
       }
 

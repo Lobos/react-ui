@@ -279,8 +279,8 @@ Select.propTypes = objectAssign({
 Select.defaultProps = {
   dropup: false,
   maxShowCount: 30,
-  sep: ',',
   optionTpl: '{text}',
+  sep: ',',
   valueTpl: '{id}'
 }
 

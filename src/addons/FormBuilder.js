@@ -10,8 +10,8 @@ import ControlBuilder from './ControlBuilder'
 import ItemBuilder from './ItemBuilder'
 import clone from '../utils/clone'
 
-import { requireCss } from '../themes'
-requireCss('form-builder')
+// import { requireCss } from '../themes'
+// requireCss('form-builder')
 
 const DEMO_DATA = [
   { label: 'text', items: [{ type: 'text', name: 'text', required: true, min: 3, max: 12, grid: 1 }]},

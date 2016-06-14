@@ -25,5 +25,7 @@ export default {
 
   grid: oneOfType.number_object,
 
+  size: PropTypes.oneOf(['small', 'middle', 'large']),
+
   tpl: oneOfType.func_string
 }

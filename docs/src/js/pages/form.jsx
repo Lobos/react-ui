@@ -83,7 +83,7 @@ module.exports = class extends React.Component {
   <FormControl name="text"
     label="text"
     type="text"
-    grid={{width:12 / 24}}
+    grid={{width: 12 / 24}}
     min={2}
     max={6} />
 
@@ -94,18 +94,18 @@ module.exports = class extends React.Component {
     </InputGroup>
   </FormControl>
 
-  <FormControl grid={{width:13 / 24}}
+  <FormControl grid={{width: 13 / 24}}
     name="alpha"
     label="alpha"
     required
     type="alpha" />
 
-  <FormControl grid={{width:14 / 24}}
+  <FormControl grid={{width: 14 / 24}}
     name="alphanum"
     label="alphanum"
     type="alphanum" />
 
-  <FormControl grid={{width:15 / 24}}
+  <FormControl grid={{width: 15 / 24}}
     name="integer"
     min={120}
     max={3200}
@@ -113,35 +113,33 @@ module.exports = class extends React.Component {
     value={1234}
     type="integer" />
 
-  <FormControl grid={{width:16 / 24}}
+  <FormControl grid={{width: 16 / 24}}
     name="number"
     label="number"
     type="number" />
 
-  <FormControl grid={{width:16 / 24}}
+  <FormControl grid={{width: 16 / 24}}
     name="password"
     min={6}
     max={20}
     label="password"
+    dispatch={['repassword']}
     type="password" />
 
-  <FormControl grid={{width:16 / 24}}
+  <FormControl grid={{width: 16 / 24}}
     name="repassword"
     ignore
     label="repeat password"
     type="password"
     tip="same as the password."
     validator={
-      {
-        func: (value, formData) => {
-          let password = formData.password
-          if (!value ? !password : value === password) {
-            return true
-          } else {
-            return new Error('This value should be the same as the password.')
-          }
-        },
-        bind: ['password']
+      (value, formData) => {
+        let password = formData.password
+        if (!value ? !password : value === password) {
+          return true
+        } else {
+          return new Error('This value should be the same as the password.')
+        }
       }
     } />
 
@@ -203,11 +201,11 @@ module.exports = class extends React.Component {
     errorText="必须给一个评分哦"
     type="rating" />
 
-  <FormControl grid={{width:12 / 24}}
+  <FormControl grid={{width: 12 / 24}}
     name="select"
     label="select"
     type="select"
-    fetch={{url:'json/countries.json', cache:3600}}
+    fetch={{url: 'json/countries.json', cache: 3600}}
     mult
     filterAble
     optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
@@ -245,7 +243,7 @@ module.exports = class extends React.Component {
     }}
     content={<Button><Icon icon="upload" /> 选择文件</Button>} />
 
-  <FormControl grid={{width:18 / 24}}
+  <FormControl grid={{width: 18 / 24}}
     name="textarea"
     label="textarea"
     autoHeight

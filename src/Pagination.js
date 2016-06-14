@@ -1,10 +1,11 @@
 'use strict'
 
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import classnames from 'classnames'
 import { forEach } from './utils/objects'
 import Input from './Input'
 import PureRender from './mixins/PureRender'
+import PropTypes from './utils/proptypes'
 import { ANGLE_LEFT, ANGLE_RIGHT } from './svgs'
 
 import PagiStyles from './styles/_pagination.scss'

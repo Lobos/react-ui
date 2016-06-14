@@ -7,11 +7,12 @@
  - Message拆分，去除PubSub依赖，暴露success, warning, error接口，UI调整到顶部
  - Modal拆分，去除PubSub依赖，改为垂直居中
  - Tree折线改为SVG，greedy改为capture
- - 增加Alert
  - Table 拆分，Sort，Pagination改为高阶组件，去除state
+ - Form, FormControl, FormItem 改为context方式传递form数据
+ - 增加Alert
 
 # v0.6.1
- - dataSource 变为了 [fetch](http://lobos.github.io/react-ui/#/fetch)。方式改为higher order component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
+ - dataSource 变为了 [fetch](http://lobos.github.io/react-ui/0.6/fetch)。方式改为higher order component，使用[refetch](https://github.com/Lobos/react-ui)，支持ajax，jsonp，cache
  - clickaway 改为 Mixins，增加registerClickAway
  - datetime 加入today, min, max, 移除 dateOnly, timeOnly, 使用 type 代替
  - 文档重构，增加rctui-example-loader把Example转为Code，避免文档和示例不同步造成误导

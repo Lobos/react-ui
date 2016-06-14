@@ -829,7 +829,24 @@ $custom-control-hover-indicator-border:      #aaa;
 $custom-control-hover-indicator-bg:          #fff;
 $custom-checkbox-checked-icon:               url('data:image/svg+xml,%3Csvg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.015625, 0.015625)"%3E%3Cpath d="M952.448527 347.935692 806.785274 202.272439 430.747604 578.309086 243.760259 391.322765 98.095983 536.987041 430.727138 869.618196 439.078323 861.268034 439.097766 861.286453Z" fill="%23ffffff"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
 $custom-checkbox-indeterminate-icon:         url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16 '%3E%3Cpath fill='%23fff' d='M2 6 14 6 14 10 2 10 2 6Z'/%3E%3C/svg%3E");
-$custom-radio-checked-icon: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='2' fill='%23fff'/%3E%3C/svg%3E");
+$custom-radio-checked-icon:                  url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='2' fill='%23fff'/%3E%3C/svg%3E");
+
+// switch ======================================================================
+
+$switch-width:                               6rem;
+$switch-width-sm:                            5rem;
+$switch-width-lg:                            8rem;
+$switch-height:                              $input-padding-y * 2 + $input-line-height;
+$switch-height-sm:                           $input-padding-y-sm * 2 + $input-line-height;
+$switch-height-lg:                           $input-padding-y-lg * 2 + $input-line-height;
+$switch-indicator-color:                     #fff;
+$switch-on-color:                            #fff;
+$switch-on-bg:                               $brand-primary;
+$switch-off-color:                           #333;
+$switch-off-bg:                              #eee;
+$switch-disabled-color:                      #fff;
+$switch-disabled-bg:                         #ddd;
+$switch-fontsize-lg:                          1.25rem;
 
 // select ======================================================================
 

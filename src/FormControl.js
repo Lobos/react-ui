@@ -39,6 +39,7 @@ class FormControl extends Component {
     let { validations } = this.state
     if (result === true) {
       delete validations[name]
+      validations = {...validations}
     } else {
       validations = objectAssign({}, validations, {[name]: result})
     }

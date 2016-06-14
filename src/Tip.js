@@ -5,8 +5,8 @@ import { objectAssign } from './utils/objects'
 import ClickAway from './higherOrders/ClickAway'
 import classnames from 'classnames'
 
-import { requireCss } from './themes'
-requireCss('tip')
+// import { requireCss } from './themes'
+// requireCss('tip')
 
 class Tip extends Component {
   constructor (props) {

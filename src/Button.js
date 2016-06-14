@@ -28,7 +28,7 @@ Button.propTypes = {
   grid: PropTypes.grid,
   onClick: PropTypes.func,
   once: PropTypes.bool,
-  size: PropTypes.oneOf(['large', 'small', 'middle']),
+  size: PropTypes.size,
   status: PropTypes.oneOf(['primary', 'secondary', 'success', 'warning', 'danger', 'error', 'info', 'link']),
   style: PropTypes.object,
   type: PropTypes.oneOf(['submit', 'button'])

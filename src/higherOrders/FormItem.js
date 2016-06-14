@@ -1,11 +1,12 @@
 'use strict'
 
-import React, { createElement, PropTypes } from 'react'
+import React, { createElement } from 'react'
 import classnames from 'classnames'
 import curry from 'curry'
 import { shallowEqual } from '../utils/objects'
 import * as Validation from '../utils/validation'
 import { toStyleObject } from '../utils/strings'
+import PropTypes from '../utils/proptypes'
 
 import _inputs from '../styles/_input.scss'
 
@@ -22,18 +23,20 @@ export default function FormItem (Component) {
       }
 
       this.handleChange = this.handleChange.bind(this)
+      this.validate = this.validate.bind(this)
     }
 
     componentWillMount () {
-      const { name, value, disabled, ignore } = this.props
+      const { name, value, dispatch, disabled, ignore } = this.props
       const { itemBind } = this.context
 
       if (itemBind) {
         itemBind({
           name,
+          dispatch,
           value,
           disabled: disabled || ignore,
-          validate: this.validate.bind(this)
+          validate: this.validate
         })
       }
     }
@@ -136,20 +139,15 @@ export default function FormItem (Component) {
   FormItem.propTypes = {
     className: PropTypes.string,
     disabled: PropTypes.bool,
+    dispatch: PropTypes.array_string,
     ignore: PropTypes.bool,
     name: PropTypes.string,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
     sep: PropTypes.string,
-    style: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ]),
+    style: PropTypes.object_string,
     type: PropTypes.string,
-    validator: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.object
-    ]),
+    validator: PropTypes.func_object,
     value: PropTypes.any
   }
 
