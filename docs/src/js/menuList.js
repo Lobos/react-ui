@@ -6,6 +6,7 @@ module.exports = [
   { path: '/icon', text: 'Icon', component: require('./pages/icon.jsx') },
   { path: '/grid', text: 'Grid', component: require('./pages/grid.jsx') },
   { path: '/lang', text: 'Lang', component: require('./pages/lang.jsx') },
+  { path: '/switch', text: 'Switch', component: require('./pages/switch.jsx') },
   '表单',
   { path: '/form', text: 'Form', component: require('./pages/form.jsx') },
   { path: '/formitem', text: 'FormItem', component: require('./pages/formItem.jsx') },
