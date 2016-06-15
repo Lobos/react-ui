@@ -47,6 +47,14 @@ export default class TreePage extends Page {
     })
   }
 
+  get captureModes () {
+    const els = browser.elements(this.locator.captureModes)
+
+    return els.value.map(e => {
+      return e.ELEMENT
+    })
+  }
+
   setUp () {
     super.open('tree')
     super.pause()

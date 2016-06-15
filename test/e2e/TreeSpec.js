@@ -101,6 +101,22 @@ describe('Tree e2e Testing', function () {
       treePage.assertClass(treePage.firstRootIcon, 'icon-accounts')
     })
 
-    it('should be greedy by greedy prop')
+    it('should apply right selected mode by capture prop', () => {
+      const [mode0, mode1, mode2, mode3] = treePage.captureModes
+
+      treePage.select(treePage.child212Label)
+
+      treePage.click(mode0)
+      treePage.assertSelectedValue('current value: 1.2,1.2.1,1.2.2')
+
+      treePage.click(mode1)
+      treePage.assertSelectedValue('current value: 1,1.2,1.2.1,1.2.2')
+
+      treePage.click(mode2)
+      treePage.assertSelectedValue('current value: 1.2')
+
+      treePage.click(mode3)
+      treePage.assertSelectedValue('current value: 1.2.1,1.2.2')
+    })
   })
 })
