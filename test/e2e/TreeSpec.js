@@ -8,6 +8,8 @@ describe('Tree e2e Testing', function () {
   })
 
   beforeEach(() => {
+    treePage.pause(1000)
+
     treePage.select(treePage.firstRootLabel)
 
     treePage.cancelSelect(treePage.firstRootLabel)
@@ -103,6 +105,9 @@ describe('Tree e2e Testing', function () {
 
     it('should apply right selected mode by capture prop', () => {
       const [mode0, mode1, mode2, mode3] = treePage.captureModes
+
+      treePage.click(treePage.sepMarks[0])
+      treePage.click(treePage.captureModes[0])
 
       treePage.select(treePage.child212Label)
 
