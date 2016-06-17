@@ -11,6 +11,9 @@ describe('DatePicker', () => {
     it('display current date', function (done) {
       datePicker.click(datePicker.datePickerToggle)
       datePicker.pause()
+
+      datePicker.click(datePicker.datePickerPanel)
+      datePicker.pause()
     })
   })
 

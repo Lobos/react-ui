@@ -11,6 +11,12 @@ export default class DatePickerPage extends Page {
     return browser.element(this.locator.datePickerToggle)
   }
 
+  get datePickerPanel () {
+    const {ELEMENT} = this.datePickerToggle.value
+
+    return browser.elementIdElement(ELEMENT, '.' + this.locator.datePickerPanel)
+  }
+
   setUp () {
     super.open('datepicker')
     super.pause()
