@@ -2,22 +2,21 @@ import DatePicker from './po/datepicker/DatePickerPage'
 
 const datePicker = new DatePicker()
 
-describe('DatePicker e2e Testing', () => {
+describe('DatePicker', () => {
   before(() => {
     datePicker.setUp()
   })
 
   describe('Date', () => {
-    
-    it('should do what...', function (done) {
-      
-    });
-    
+    it('display current date', function (done) {
+      datePicker.click(datePicker.datePickerToggle)
+      datePicker.pause()
+    })
   })
 
-  describe('time', () => {
+  describe('Time', () => {
   })
 
-  describe('min & max', () => {
+  describe('Min & Max', () => {
   })
 })

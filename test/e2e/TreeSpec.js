@@ -2,7 +2,7 @@ import TreePage from './po/tree/TreePage'
 
 const treePage = new TreePage()
 
-describe('Tree e2e Testing', function () {
+describe('Tree', function () {
   before(() => {
     treePage.setUp()
   })
