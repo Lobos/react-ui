@@ -80,19 +80,22 @@ class Table extends Component {
   }
 
   onSelect (i, e) {
-    let checked = typeof e === 'boolean' ? e : e.target.checked,
+    var checked = typeof e === 'boolean' ? e : e.target.checked,
         data = this.state.data,
         index = this.state.index,
         size = this.props.pagination ? this.props.pagination.props.size : data.length,
         start = 0,
-        end = 0;
+        end = 0,
+        lastSize = data.length % this.props.pagination.props.size,
+        lastIndex = parseInt(data.length / this.props.pagination.props.size + 1);
     if (i === 'all') {
       start = (index - 1) * size;
-      end = index * size;
+      end = index === lastIndex ? (index - 1) * size + lastSize : index * size;
     } else {
       start = (index - 1) * size + i;
       end = start + 1;
     }
+
     for (; start < end; start++) {
       data[start].$checked = checked;
     }

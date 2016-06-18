@@ -15,6 +15,7 @@ export const Select = require('./Select');
 export const Tree = require('./Tree');
 export const Upload = require('./Upload');
 export const Button = require('./Button');
+export const Switch = require('./Switch');
 
 export const FormControl = require('./FormControl');
 export const FormSubmit = require('./FormSubmit');
