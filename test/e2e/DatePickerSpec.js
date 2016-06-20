@@ -2,18 +2,68 @@ import DatePicker from './po/datepicker/DatePickerPage'
 
 const datePicker = new DatePicker()
 
+const monthMapping = {
+  0: '一',
+  1: '二',
+  2: '三',
+  3: '四',
+  4: '五',
+  5: '六',
+  6: '七',
+  7: '八',
+  8: '九',
+  9: '十',
+  10: '十一',
+  11: '十二'
+}
+
+const instant = new Date()
+
 describe('DatePicker', () => {
   before(() => {
     datePicker.setUp()
   })
 
   describe('Date', () => {
-    it('display current date', function (done) {
+    beforeEach(() => {
+      if (datePicker.isVisible(datePicker.datePickerPanel.selector)) return
+
       datePicker.click(datePicker.datePickerToggle)
       datePicker.pause()
+    })
 
-      datePicker.click(datePicker.datePickerPanel)
-      datePicker.pause()
+    it('display current date(value & UI)', () => {
+      // ui
+      datePicker.assertText(datePicker.activeYear, `${instant.getFullYear()}年`)
+      datePicker.assertText(datePicker.activeMonth, `${monthMapping[instant.getMonth()]}月`)
+      datePicker.assertText(datePicker.activeDay, `${instant.getDate()}`)
+
+      datePicker.click(datePicker.activeDay)
+
+      // value
+      datePicker.assertText(datePicker.valuePreview, `${instant.toLocaleDateString().replace('/', '-')}`)
+    })
+
+    it('set year & month by toggle', () => {
+      const [lastYear, lastMonth, nextMonth, nextYear] = datePicker.headerToggles
+
+      datePicker.click(lastYear)
+      datePicker.assertText(datePicker.activeYear, `${instant.getFullYear() - 1}年`)
+
+      datePicker.click(nextMonth)
+      datePicker.assertText(datePicker.activeYear, `${instant.getFullYear()}年`)
+
+      datePicker.click(lastMonth)
+      datePicker.assertText(datePicker.activeMonth, `${monthMapping[instant.getMonth() - 1]}月`)
+
+      datePicker.click(nextYear)
+      datePicker.assertText(datePicker.activeMonth, `${monthMapping[instant.getMonth()]}月`)
+    })
+
+    it('set year & month by choose', () => {
+      datePicker.click(datePicker.activeYear)
+
+      datePicker.assertText(datePicker.yearBase, `${instant.getFullYear()}`)
     })
   })
 
