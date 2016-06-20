@@ -7,7 +7,8 @@ exports.config = {
   // file.
   //
   specs: [
-    './test/e2e/DatePickerSpec.js'
+    './test/e2e/*Spec.js'
+  // './test/e2e/DatePickerSpec.js'
   ],
   // Patterns to exclude.
   exclude: [
