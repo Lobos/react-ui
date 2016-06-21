@@ -14,72 +14,66 @@ export default class DatePickerPage extends Page {
     return browser.element(locator.datePickerPanel)
   }
 
-  get activeYear () {
-    const {ELEMENT} = this.header.value
+  get timePickerToggle () {
+    return browser.element(locator.timePickerToggle)
+  }
 
-    return browser.elementIdElement(ELEMENT, locator.currentYear)
+  get timePickerPanel () {
+    return browser.element(locator.timePickerPanel)
+  }
+
+  // date
+  get activeYear () {
+    return super.findOneByElement(this.header, locator.currentYear)
   }
 
   get activeMonth () {
-    const {ELEMENT} = this.header.value
-
-    return browser.elementIdElement(ELEMENT, locator.currentMonth)
+    return super.findOneByElement(this.header, locator.currentMonth)
   }
 
   get activeDay () {
-    const {ELEMENT} = this.dayInner.value
-
-    return browser.elementIdElement(ELEMENT, locator.currentDay)
+    return super.findOneByElement(this.dayInner, locator.currentDay)
   }
 
   get valuePreview () {
-    const {ELEMENT} = this.datePickerToggle.value
-
-    return browser.elementIdElement(ELEMENT, locator.valuePreview)
+    return super.findOneByElement(this.datePickerToggle, locator.valuePreview)
   }
 
   get headerToggles () {
-    const {ELEMENT} = this.datePickerToggle.value
-
-    return browser.elementIdElements(ELEMENT, locator.headerToggles).value.map((e) => {
-      return e.ELEMENT
-    })
+    return super.findMultByElement(this.datePickerToggle, locator.headerToggles)
   }
 
   get dayInner () {
-    const {ELEMENT} = this.datePickerToggle.value
-
-    return browser.elementIdElement(ELEMENT, locator.dayInner)
+    return super.findOneByElement(this.datePickerToggle, locator.dayInner)
   }
 
   get monthInner () {
-    const {ELEMENT} = this.datePickerToggle.value
-
-    return browser.elementIdElement(ELEMENT, locator.monthInner)
+    return super.findOneByElement(this.datePickerToggle, locator.monthInner)
   }
 
   get yearInner () {
-    const {ELEMENT} = this.datePickerToggle.value
-
-    return browser.elementIdElement(ELEMENT, locator.yearInner)
+    return super.findOneByElement(this.datePickerToggle, locator.yearInner)
   }
 
   get header () {
-    const {ELEMENT} = this.datePickerToggle.value
-
-    return browser.elementIdElement(ELEMENT, locator.header)
+    return super.findOneByElement(this.datePickerToggle, locator.header)
   }
 
   get yearBase () {
-    const {ELEMENT} = this.yearInner.value
-
-    return browser.elementIdElement(ELEMENT, locator.yearBase)
+    return super.findOneByElement(this.yearInner, locator.yearBase)
   }
 
   get january () {
-    const {ELEMENT} = this.monthInner.value
+    return super.findOneByElement(this.monthInner, locator.january)
+  }
 
-    return browser.elementIdElement(ELEMENT, locator.january)
+  // time
+  get clockInner () {
+    return super.findOneByElement(this.timePickerToggle, locator.clockInner)
+  }
+
+  get minMarks () {
+    return super.findMultByElement(this.clockInner, locator.minMarks)
   }
 
   setUp () {

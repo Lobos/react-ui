@@ -11,6 +11,26 @@ export default class Page {
     browser.pause(time)
   }
 
+  findOneByElement (base, locator) {
+    if (!base || !base.value) return
+
+    const {ELEMENT} = base.value
+
+    return browser.elementIdElement(ELEMENT, locator)
+  }
+
+  findMultByElement (base, locator, callback) {
+    if (!base || !base.value) return
+
+    const {ELEMENT} = base.value
+
+    return callback
+      ? browser.elementIdElements(ELEMENT, locator).value.map(callback)
+      : browser.elementIdElements(ELEMENT, locator).value.map((e) => {
+        return e.ELEMENT
+      })
+  }
+
   click (el) {
     switch (el.constructor) {
       case Object:
@@ -20,6 +40,20 @@ export default class Page {
         browser.elementIdClick(el)
         break
     }
+  }
+
+  getText (el) {
+    let text = ''
+
+    switch (el.constructor) {
+      case Object:
+        text = el.getText()
+        break
+      case String:
+        text = browser.elementIdText(el).value
+    }
+
+    return text
   }
 
   select (el) {

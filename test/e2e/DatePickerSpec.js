@@ -1,5 +1,4 @@
 import DatePicker from './po/datepicker/DatePickerPage'
-import TimePicker from './po/datepicker/TimePickerPage'
 
 const datePicker = new DatePicker()
 
@@ -25,57 +24,73 @@ describe('DatePicker', () => {
     datePicker.setUp()
   })
 
-  describe('Date', () => {
-    beforeEach(() => {
-      if (datePicker.isVisible(datePicker.datePickerPanel.selector)) return
+  // describe('Date', () => {
+  //   beforeEach(() => {
+  //     if (datePicker.isVisible(datePicker.datePickerPanel.selector)) return
 
-      datePicker.click(datePicker.datePickerToggle)
+  //     datePicker.click(datePicker.datePickerToggle)
+  //     datePicker.pause()
+  //   })
+
+  //   it('display current date', () => {
+  //     datePicker.assertText(datePicker.activeYear, `${instant.getFullYear()}年`)
+  //     datePicker.assertText(datePicker.activeMonth, `${monthMapping[instant.getMonth()]}月`)
+  //     datePicker.assertText(datePicker.activeDay, `${instant.getDate()}`)
+  //   })
+
+  //   it('set day by choose', () => {
+  //     datePicker.click(datePicker.activeDay)
+  //     datePicker.assertText(datePicker.valuePreview, `${instant.toLocaleDateString().replace('/', '-')}`)
+  //   })
+
+  //   it('set year & month by toggle', () => {
+  //     const [lastYear, lastMonth, nextMonth, nextYear] = datePicker.headerToggles
+
+  //     datePicker.click(lastYear)
+  //     datePicker.assertText(datePicker.activeYear, `${instant.getFullYear() - 1}年`)
+
+  //     datePicker.click(nextMonth)
+  //     datePicker.assertText(datePicker.activeYear, `${instant.getFullYear()}年`)
+
+  //     datePicker.click(lastMonth)
+  //     datePicker.assertText(datePicker.activeMonth, `${monthMapping[instant.getMonth() - 1]}月`)
+
+  //     datePicker.click(nextYear)
+  //     datePicker.assertText(datePicker.activeMonth, `${monthMapping[instant.getMonth()]}月`)
+  //   })
+
+  //   it('set year & month by choose', () => {
+  //     datePicker.click(datePicker.activeYear)
+
+  //     datePicker.assertText(datePicker.yearBase, `${instant.getFullYear()}`)
+
+  //     datePicker.click(datePicker.yearBase)
+
+  //     datePicker.assertText(datePicker.activeYear, `${instant.getFullYear()}年`)
+
+  //     datePicker.click(datePicker.january)
+
+  //     datePicker.assertText(datePicker.activeMonth, `一月`)
+  //   })
+  // })
+
+  describe('Time', () => {
+    beforeEach(() => {
+      if (datePicker.isVisible(datePicker.timePickerPanel.selector)) return
+
+      datePicker.click(datePicker.timePickerToggle)
       datePicker.pause()
     })
 
-    it('display current date', () => {
-      datePicker.assertText(datePicker.activeYear, `${instant.getFullYear()}年`)
-      datePicker.assertText(datePicker.activeMonth, `${monthMapping[instant.getMonth()]}月`)
-      datePicker.assertText(datePicker.activeDay, `${instant.getDate()}`)
+    it('set sec & min & hour by toggle', () => {
+      const minMarks = datePicker.minMarks
+
+      console.log(datePicker.getText(minMarks[0]))
     })
 
-    it('set day by choose', () => {
-      datePicker.click(datePicker.activeDay)
-      datePicker.assertText(datePicker.valuePreview, `${instant.toLocaleDateString().replace('/', '-')}`)
-    })
+    it('set sec & min & hour by choose')
 
-    it('set year & month by toggle', () => {
-      const [lastYear, lastMonth, nextMonth, nextYear] = datePicker.headerToggles
-
-      datePicker.click(lastYear)
-      datePicker.assertText(datePicker.activeYear, `${instant.getFullYear() - 1}年`)
-
-      datePicker.click(nextMonth)
-      datePicker.assertText(datePicker.activeYear, `${instant.getFullYear()}年`)
-
-      datePicker.click(lastMonth)
-      datePicker.assertText(datePicker.activeMonth, `${monthMapping[instant.getMonth() - 1]}月`)
-
-      datePicker.click(nextYear)
-      datePicker.assertText(datePicker.activeMonth, `${monthMapping[instant.getMonth()]}月`)
-    })
-
-    it('set year & month by choose', () => {
-      datePicker.click(datePicker.activeYear)
-
-      datePicker.assertText(datePicker.yearBase, `${instant.getFullYear()}`)
-
-      datePicker.click(datePicker.yearBase)
-
-      datePicker.assertText(datePicker.activeYear, `${instant.getFullYear()}年`)
-
-      datePicker.click(datePicker.january)
-
-      datePicker.assertText(datePicker.activeMonth, `一月`)
-    })
-  })
-
-  describe('Time', () => {
+    it('am & pm')
   })
 
   describe('Min & Max', () => {
