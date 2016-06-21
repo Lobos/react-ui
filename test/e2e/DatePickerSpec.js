@@ -1,4 +1,5 @@
 import DatePicker from './po/datepicker/DatePickerPage'
+import TimePicker from './po/datepicker/TimePickerPage'
 
 const datePicker = new DatePicker()
 
@@ -32,15 +33,14 @@ describe('DatePicker', () => {
       datePicker.pause()
     })
 
-    it('display current date(value & UI)', () => {
-      // ui
+    it('display current date', () => {
       datePicker.assertText(datePicker.activeYear, `${instant.getFullYear()}年`)
       datePicker.assertText(datePicker.activeMonth, `${monthMapping[instant.getMonth()]}月`)
       datePicker.assertText(datePicker.activeDay, `${instant.getDate()}`)
+    })
 
+    it('set day by choose', () => {
       datePicker.click(datePicker.activeDay)
-
-      // value
       datePicker.assertText(datePicker.valuePreview, `${instant.toLocaleDateString().replace('/', '-')}`)
     })
 
@@ -64,6 +64,14 @@ describe('DatePicker', () => {
       datePicker.click(datePicker.activeYear)
 
       datePicker.assertText(datePicker.yearBase, `${instant.getFullYear()}`)
+
+      datePicker.click(datePicker.yearBase)
+
+      datePicker.assertText(datePicker.activeYear, `${instant.getFullYear()}年`)
+
+      datePicker.click(datePicker.january)
+
+      datePicker.assertText(datePicker.activeMonth, `一月`)
     })
   })
 

@@ -52,7 +52,13 @@ export default class DatePickerPage extends Page {
     return browser.elementIdElement(ELEMENT, locator.dayInner)
   }
 
-  get yearInner(){
+  get monthInner () {
+    const {ELEMENT} = this.datePickerToggle.value
+
+    return browser.elementIdElement(ELEMENT, locator.monthInner)
+  }
+
+  get yearInner () {
     const {ELEMENT} = this.datePickerToggle.value
 
     return browser.elementIdElement(ELEMENT, locator.yearInner)
@@ -68,6 +74,12 @@ export default class DatePickerPage extends Page {
     const {ELEMENT} = this.yearInner.value
 
     return browser.elementIdElement(ELEMENT, locator.yearBase)
+  }
+
+  get january () {
+    const {ELEMENT} = this.monthInner.value
+
+    return browser.elementIdElement(ELEMENT, locator.january)
   }
 
   setUp () {
