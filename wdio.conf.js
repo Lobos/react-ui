@@ -8,6 +8,7 @@ exports.config = {
   //
   specs: [
     './test/e2e/*Spec.js'
+  // './test/e2e/DatePickerSpec.js'
   ],
   // Patterns to exclude.
   exclude: [
@@ -50,6 +51,8 @@ exports.config = {
   //
   // Default timeout for all waitForXXX commands.
   waitforTimeout: 10000,
+
+  maxInstances: 1,
   //
   // Initialise the browser instance with a WebdriverIO plugin. The object should have the
   // plugin name as key and the desired plugin options as property. Make sure you have

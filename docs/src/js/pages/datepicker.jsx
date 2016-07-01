@@ -6,6 +6,8 @@ import Example from '../Example'
 import { Cn, En } from '../Language'
 import { Datepicker, DatepickerRange } from '../rctui'
 
+const _now = new Date()
+
 module.exports = class extends Component {
   constructor (props) {
     super(props)
@@ -63,21 +65,23 @@ module.exports = class extends Component {
           <Example>
 <Datepicker
   onChange={(value) => this.setState({ normal: value })}
-  value="2015-06-21 17:24:03" />
+  value={_now} />
 <span>{this.state.normal}</span>
           </Example>
 
           <h2 className="subhead">date</h2>
           <Example>
 <Datepicker type="date"
-  onChange={(value) => this.setState({ dateValue: value })} />
+  onChange={(value) => this.setState({ dateValue: value })} 
+  value={_now}
+  />
 <span>{this.state.dateValue}</span>
           </Example>
 
           <h2 className="subhead">time</h2>
           <Example>
 <Datepicker type="time"
-  value="17:05:21"
+  value={_now}
   onChange={(value) => this.setState({ timeValue: value })} />
 <span>{this.state.timeValue}</span>
           </Example>
@@ -102,7 +106,7 @@ module.exports = class extends Component {
           <Example>
 <Datepicker format="yyyy/MM/dd hh:mm"
   onChange={(value) => this.setState({ formatValue: value })}
-  value="2015-06-21 17:24" />
+  value={_now} />
 <span>{this.state.formatValue}</span>
           </Example>
 
@@ -114,7 +118,9 @@ module.exports = class extends Component {
           <h2 className="subhead">unixtime</h2>
           <Example>
 <Datepicker unixtime
-  onChange={(value) => this.setState({ unixtimeValue: value })} />
+  onChange={(value) => this.setState({ unixtimeValue: value })} 
+  value={_now}
+  />
 <span>{this.state.unixtimeValue}</span>
           </Example>
 
