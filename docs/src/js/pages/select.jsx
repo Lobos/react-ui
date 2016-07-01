@@ -6,8 +6,12 @@ import Example from '../Example'
 const {Select, Button} = global.uiRequire()
 
 const bigData = []
-let i = 10000
+let i = 1000
 while (i--) { bigData.push(i) }
+
+function imageTpl (d) {
+  return <span><img src={`//lobos.github.io/react-ui/images/flags/${d.code}.png`} /> {d.en}</span>
+}
 
 module.exports = class extends Component {
   constructor (props) {
@@ -81,8 +85,8 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 <Select grid={{width:1 / 2}}
   placeholder="单选"
   filterAble
-  optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
-  valueTpl="{country}-{en}"
+  optionTpl={imageTpl}
+  valueTpl="{en}"
   onChange={ this.handleCountry }
   value={this.state.country}
   fetch={"json/countries.json"} />
@@ -90,7 +94,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           </Example>
 
           <h2 className="subhead">超大数据</h2>
-          <p>这个示例设置了10000个选项。</p>
+          <p>这个示例设置了1000个选项。</p>
           <Example>
 <Select grid={{width:1 / 3}}
   filterAble
@@ -110,8 +114,8 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   mult
   placeholder="多选"
   filterAble
-  optionTpl="<img src='//lobos.github.io/react-ui/images/flags/{code}.png' /> {country}-{en}"
-  resultTpl="<img src='//lobos.github.io/react-ui/images/flags/{code}.png' /> {country}"
+  optionTpl={imageTpl}
+  resultTpl="{country}"
   valueTpl="{en}"
   fetch={{url:'json/countries.json', cache:3600}} />
           </Example>
@@ -122,7 +126,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   placeholder="Group by continent"
   groupBy="continent"
   filterAble
-  optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
+  optionTpl={imageTpl}
   valueTpl="{country}-{en}"
   fetch={{url: 'json/countries.json', cache: true}} />
           </Example>

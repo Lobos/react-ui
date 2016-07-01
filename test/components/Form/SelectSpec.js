@@ -107,7 +107,7 @@ describe('Select Spec', () => {
     it('Should apply correct group number by groupBy key', () => {
       const _groupWrapper1 = _defaultMultiObjectWrapper.find(compClass.options).find('ul')
 
-      expect(_groupWrapper1).to.have.exactly(2).descendants('span')
+      expect(_groupWrapper1).to.have.exactly(2).descendants('.group')
     })
 
     it('Should return value by sep', () => {

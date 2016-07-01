@@ -19,14 +19,14 @@ export default class Radio extends Component {
   }
 
   handleClick () {
-    const { onClick, index, defaultValue } = this.props
+    const { onClick, index, checkValue } = this.props
     if (onClick) {
-      onClick(defaultValue, true, index)
+      onClick(checkValue, true, index)
     }
   }
 
   render () {
-    const { style, className, checked, block, readOnly, defaultValue, text, children } = this.props
+    const { style, className, checked, block, readOnly, checkValue, text, children } = this.props
 
     let labelClass = classnames(
       className,
@@ -44,7 +44,7 @@ export default class Radio extends Component {
           onChange={this.handleChange}
           onClick={this.handleClick}
           checked={checked}
-          value={defaultValue}
+          value={checkValue}
         />
         <span className={Styles.indicator} />
         <span>{text}</span>
@@ -56,10 +56,10 @@ export default class Radio extends Component {
 
 Radio.propTypes = {
   block: PropTypes.bool,
+  checkValue: PropTypes.any,
   checked: PropTypes.bool,
   children: PropTypes.any,
   className: PropTypes.string,
-  defaultValue: PropTypes.any,
   index: PropTypes.number,
   onClick: PropTypes.func,
   readOnly: PropTypes.bool,

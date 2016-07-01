@@ -15,7 +15,7 @@ describe('Checkbox & Checkbox Group Spec', () => {
     })
 
     it('should apply text content by text', () => {
-      expect(_defaultCheckbox).to.have.text('foo')
+      expect(_defaultCheckbox.find('span').nodes[1].innerHTML).to.equal('foo')
     })
 
     it('should apply boolean value by default', (done) => {
@@ -26,12 +26,13 @@ describe('Checkbox & Checkbox Group Spec', () => {
       }, 0)
     })
 
-    it('should apply checked value by value', () => {
-      const wrapper1 = shallow(<Checkbox text='foo' value='foo' />),
-        wrapper2 = shallow(<Checkbox text='foo' value={1} />)
-
-      expect(wrapper1.instance().getValue()).to.equal('foo')
-      expect(wrapper2.instance().getValue()).to.equal(1)
+    it('should apply checked value by value', (done) => {
+      const cb = (value) => {
+        expect(value).to.equal('foo')
+        done()
+      }
+      const wrapper1 = mount(<Checkbox text='foo' onChange={cb} value='foo' />)
+      wrapper1.find('input').simulate('change', { target: { checked: true } })
     })
 
     it('should apply checked status by checked', () => {

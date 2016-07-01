@@ -5,7 +5,6 @@ import classnames from 'classnames'
 import curry from 'curry'
 import { shallowEqual } from '../utils/objects'
 import * as Validation from '../utils/validation'
-import { toStyleObject } from '../utils/strings'
 import PropTypes from '../utils/proptypes'
 
 import _inputs from '../styles/_input.scss'
@@ -19,7 +18,7 @@ export default function FormItem (Component) {
 
       this.state = {
         hasError: false,
-        value: props.value
+        value: props.value || props.defaultValue
       }
 
       this.handleChange = this.handleChange.bind(this)
@@ -27,14 +26,14 @@ export default function FormItem (Component) {
     }
 
     componentWillMount () {
-      const { name, value, dispatch, disabled, ignore } = this.props
+      const { name, defaultValue, dispatch, disabled, ignore } = this.props
       const { itemBind } = this.context
 
       if (itemBind) {
         itemBind({
           name,
           dispatch,
-          value,
+          value: defaultValue,
           disabled: disabled || ignore,
           validate: this.validate
         })
@@ -73,7 +72,8 @@ export default function FormItem (Component) {
       const { formData } = this.context
       const { onValidate, name, ...other } = this.props
 
-      const validate = this.refs.component && this.refs.component.validate
+      // component's inner validate
+      const validate = getValidate(other.type)
 
       const result = validate ? validate(value, other, formData)
         : Validation.validate(value, getValueType(other.type), formData, other)
@@ -115,13 +115,11 @@ export default function FormItem (Component) {
         this.state.hasError && _inputs.dangerInput
       )
 
-      if (typeof style === 'string') {
-        style = toStyleObject(style)
-      }
+      // remove defaultValue,  use controlled value
+      delete props['defaultValue']
 
       return (
         <Component {...props}
-          ref="component"
           hasError={this.state.hasError}
           onChange={this.handleChange}
           style={style}
@@ -138,6 +136,7 @@ export default function FormItem (Component) {
 
   FormItem.propTypes = {
     className: PropTypes.string,
+    defaultValue: PropTypes.any,
     disabled: PropTypes.bool,
     dispatch: PropTypes.array_string,
     ignore: PropTypes.bool,
@@ -165,8 +164,8 @@ export default function FormItem (Component) {
   return FormItem
 }
 
-FormItem.register = curry((types, options, Component) => {
-  let newComponent = FormItem(Component)
+FormItem.register = curry((types, options, component) => {
+  let newComponent = FormItem(component)
 
   // allow empty type
   // if (isEmpty(types)) {
@@ -184,7 +183,7 @@ FormItem.register = curry((types, options, Component) => {
       return
     }
 
-    let { valueType, render } = options
+    let { valueType, render, validate } = options
     if (!valueType) {
       valueType = ['integer', 'number'].indexOf(type) > -1 ? 'number' : 'string'
     }
@@ -193,7 +192,7 @@ FormItem.register = curry((types, options, Component) => {
       render = (props) => createElement(newComponent, props)
     }
 
-    COMPONENTS[type] = { render, valueType, component: Component }
+    COMPONENTS[type] = { render, valueType, component, validate }
   })
 
   return newComponent
@@ -207,3 +206,6 @@ export const getValueType = (type) => {
   return valueType
 }
 
+export const getValidate = (type) => {
+  if (COMPONENTS[type]) return COMPONENTS[type].validate
+}

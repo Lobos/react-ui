@@ -6,7 +6,7 @@ import { COMPONENTS, getValueType } from './higherOrders/FormItem'
 import merge from './utils/merge'
 import { getGrid } from './utils/grids'
 import { format } from './utils/strings'
-import { isEmpty, objectAssign, shallowEqual } from './utils/objects'
+import { isEmpty, objectAssign, shallowEqual, partialEqual } from './utils/objects'
 import PropTypes from './utils/proptypes'
 
 import { getLang, setLang } from './lang'
@@ -28,11 +28,15 @@ class FormControl extends Component {
       validations: {}
     }
 
+    this.names = []
     this.handleValidate = this.handleValidate.bind(this)
   }
 
   shouldComponentUpdate (nextProps, nextState, nextContext) {
-    return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState) || !shallowEqual(this.context, nextContext)
+    return !shallowEqual(this.props, nextProps) ||
+      !shallowEqual(this.state, nextState) ||
+      !partialEqual(this.context.formData, nextContext.formData, this.names) ||
+      !shallowEqual(this.context.controlProps, nextContext.controlProps)
   }
 
   handleValidate (name, result) {
@@ -71,6 +75,9 @@ class FormControl extends Component {
       if (child.type && child.type.isFormItem) {
         let hint = this.getHint(child.props)
         if (hint) hints.push(hint)
+
+        // set name
+        this.names.push(child.props.name)
       } else if (child.children) {
         this.setChildrenHint(hints, children)
       }
@@ -81,6 +88,7 @@ class FormControl extends Component {
     let { label, items, children, ...otherProps} = this.props
     let hints = []
 
+    this.names = []
     this.required = false
     if (children) {
       this.setChildrenHint(hints, children)
@@ -93,9 +101,10 @@ class FormControl extends Component {
     if (items) {
       items.forEach((control) => {
         let hint = this.getHint(control)
-        if (hint) {
-          hints.push(hint)
-        }
+        if (hint) hints.push(hint)
+
+        // set names
+        this.names.push(control.name)
       })
     }
 
@@ -158,7 +167,6 @@ class FormControl extends Component {
       if (component) {
         this.propsExtend(props)
         props.key = `${props.label}|${props.name}`
-        props.$controlId = this.id
         props = merge({}, props, { grid })
         return component.render(props)
       }
@@ -174,7 +182,9 @@ class FormControl extends Component {
   }
 
   render () {
-    let { hintType, layout, label, grid, labelWidth, required, style, columns } = this.props
+    const mergeProps = objectAssign({}, this.context.controlProps, this.props)
+    let { hintType, layout, label, grid, labelWidth, required, style, columns } = mergeProps
+
     let isInline = layout === 'inline'
     let newStyle = { ...style }
 
@@ -252,12 +262,11 @@ FormControl.propTypes = {
 }
 
 FormControl.defaultProps = {
-  layout: 'stacked',
   type: 'text'
 }
 
 FormControl.contextTypes = {
-  formData: PropTypes.object
+  controlProps: PropTypes.object
 }
 
 export default FormControl

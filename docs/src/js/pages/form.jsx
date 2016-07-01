@@ -4,7 +4,7 @@ import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
-const {Form, FormControl, Button, Icon, Input, InputGroup, DatepickerRange, RadioGroup, FormItem} = global.uiRequire()
+const {Form, FormControl, Button, Icon, Input, InputGroup, DatepickerRange, RadioGroup, FormItem, If} = global.uiRequire()
 
 const HEARTS = [
   <Icon size={2} key={1} icon="favorite-outline" style={{color: 'red'}} />,
@@ -110,7 +110,7 @@ module.exports = class extends React.Component {
     min={120}
     max={3200}
     label="integer"
-    value={1234}
+    defaultValue={1234}
     type="integer" />
 
   <FormControl grid={{width: 16 / 24}}
@@ -156,8 +156,12 @@ module.exports = class extends React.Component {
 
   <FormControl name="checkbox"
     type="checkbox"
-    defaultValue={1}
-    text="It's a checkbox" />
+    checkValue={1}
+    text="show if" />
+
+  <If predicate={(formData) => formData.checkbox === 1}>
+    <FormControl label="if" name="if" />
+  </If>
 
   <FormControl name="datetime"
     type="datetime"

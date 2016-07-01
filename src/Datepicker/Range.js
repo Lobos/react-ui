@@ -19,7 +19,6 @@ class Range extends React.Component {
     super(props)
     this.firstChange = this.firstChange.bind(this)
     this.secondChange = this.secondChange.bind(this)
-    this.validate = this.validate.bind(this)
   }
 
   handleChange (val, index) {
@@ -34,14 +33,6 @@ class Range extends React.Component {
 
   secondChange (value) {
     this.handleChange(value, 1)
-  }
-
-  // custom validate
-  validate (value = [], args) {
-    if (!args.required) return true
-    let result = (value[0] && value[1]) ? true
-      : new Error(format(getLang('validation.tips.required'), args.label || ''))
-    return result
   }
 
   render () {
@@ -84,7 +75,11 @@ Range.defaultProps = {
   value: []
 }
 
-function validate (value) {
+function validate (value = [], args) {
+  if (!args.required) return true
+  let result = (value[0] && value[1]) ? true
+    : new Error(format(getLang('validation.tips.required'), args.label || ''))
+  return result
 }
 
 export default compose(

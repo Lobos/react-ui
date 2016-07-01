@@ -15,42 +15,25 @@ export class Checkbox extends Component {
   }
 
   handleChange (event, checked) {
-    const { readOnly, onChange, index } = this.props
+    const { readOnly, onChange, checkValue, index } = this.props
 
-    if (readOnly) {
-      return
-    }
-
-    const defaultValue = this.getDefaultValue()
-
-    if (onChange) {
+    if (!readOnly && onChange) {
       checked = event ? event.target.checked : checked
-      const value = checked ? defaultValue : undefined
+      const value = checked ? checkValue : undefined
       onChange(value, checked, index)
     }
   }
 
-  getDefaultValue () {
-    let { defaultValue, checkValue } = this.props
-
-    if (checkValue !== undefined) {
-      defaultValue = checkValue
-      console.warn('checkValue is deprecated, use defaultValue instead.')
-    }
-
-    return defaultValue
-  }
-
   getCheckStatus () {
-    const { value, checked } = this.props
+    const { value, checked, checkValue } = this.props
     if (checked !== undefined) {
       return checked
     }
-    return value === this.getDefaultValue()
+    return value === checkValue
   }
 
   render () {
-    const { style, className, block, readOnly, defaultValue, isIndicator, indeterminate, text, children } = this.props
+    const { style, className, block, readOnly, checkValue, isIndicator, indeterminate, text, children } = this.props
     const checked = this.getCheckStatus()
 
     let labelClass = classnames(
@@ -70,7 +53,7 @@ export class Checkbox extends Component {
           indeterminate={indeterminate}
           onChange={this.handleChange}
           checked={checked}
-          value={defaultValue}
+          value={checkValue}
         />
         <span className={_styles.indicator}></span>
         {(text && !isIndicator) && <span>{text}</span>}
@@ -86,7 +69,6 @@ Checkbox.propTypes = {
   checked: PropTypes.bool,
   children: PropTypes.any,
   className: PropTypes.string,
-  defaultValue: PropTypes.any.isRequired,
   indeterminate: PropTypes.bool,
   index: PropTypes.number,
   isIndicator: PropTypes.bool,
@@ -99,10 +81,25 @@ Checkbox.propTypes = {
 }
 
 Checkbox.defaultProps = {
-  defaultValue: true
+  checkValue: true
+}
+
+function assetCheck (Component) {
+  function Checked (props) {
+    const { value, checkValue, ...other } = props
+    return <Component {...other} checkValue={checkValue || value} />
+  }
+
+  Checked.propTypes = {
+    checkValue: PropTypes.any,
+    value: PropTypes.any
+  }
+
+  return Checked
 }
 
 export default compose(
+  assetCheck,
   FormItem.register('checkbox', {}),
   PureRender()
 )(Checkbox)

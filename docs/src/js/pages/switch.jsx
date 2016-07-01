@@ -20,7 +20,7 @@ module.exports = class extends React.Component {
 {`<Switch
   className={string}  // class
   text="string"       // 显示的文字信息
-  value={bool}         // 传入校验是否选中的值，只用来做校验，选中后实际返回值是defaultValue
+  value={bool}        // 是否选中，提供给Form使用，默认为 false
   checked={bool}      // 是否选中，默认为 false
   readOnly={bool}     // 是否只读，默认为 false
   onChange={function} // 状态改变回调事件

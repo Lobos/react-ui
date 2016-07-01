@@ -102,7 +102,7 @@ export default function (ComposedComponent) {
         this.setData(data)
       })
       .catch((err) => {
-        console.warn(err)
+        console.warn(fetch, err)
         this.setData(new Error())
       })
     }

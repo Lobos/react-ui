@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Children, Component, cloneElement } from 'react'
+import React, { Component } from 'react'
 import classnames from 'classnames'
 import { forEach, deepEqual, hashcode, objectAssign } from './utils/objects'
 import clone from './utils/clone'
@@ -34,11 +34,20 @@ class Form extends Component {
   }
 
   getChildContext () {
+    const { columns, disabled, labelWidth, layout, hintType } = this.props
+
     return {
       formData: this.state.data,
       itemBind: this.itemBind,
       itemUnbind: this.itemUnbind,
-      itemChange: this.itemChange
+      itemChange: this.itemChange,
+      controlProps: {
+        hintType,
+        labelWidth,
+        disabled,
+        layout,
+        columns
+      }
     }
   }
 
@@ -143,42 +152,6 @@ class Form extends Component {
     })
   }
 
-  renderChildren (children) {
-    let { disabled, columns } = this.props
-
-    return Children.map(children, (child) => {
-      if (!child) { return null }
-      if (typeof child === 'string') { return child }
-      let { hintType, labelWidth, readOnly } = child.props
-      let props = {
-        columns,
-        hintType: hintType || this.props.hintType,
-        labelWidth: labelWidth || this.props.labelWidth,
-        readOnly: readOnly || disabled,
-        layout: this.props.layout
-      }
-
-      /*
-      if (child.type === FormControl || child.type.isFormItem) {
-        // props.itemBind = this.itemBind
-        // props.itemUnbind = this.itemUnbind
-        // props.itemChange = this.itemChange
-        // props.formData = data
-      } else if (child.type === FormSubmit) {
-        props.disabled = disabled
-      } else if (child.props.children) {
-        props.children = this.renderChildren(child.props.children)
-      }
-      */
-
-      if (!(child.type === FormControl || child.type.isFormItem) && child.props.children) {
-        props.children = this.renderChildren(child.props.children)
-      }
-
-      return cloneElement(child, props)
-    })
-  }
-
   renderButtons (buttons) {
     if (typeof buttons === 'string') {
       buttons = { 'submit': buttons }
@@ -187,7 +160,7 @@ class Form extends Component {
     const { submit, reset, cancel } = buttons
 
     return (
-      <FormControl layout={this.props.layout}>
+      <FormControl key="buttons" columns={null}>
         { submit && <Button className={_forms.button} type="submit" status="primary">{submit}</Button> }
         { reset && <Button onClick={this.handleReset} className={_forms.button}>{reset}</Button> }
         { cancel && <Button onClick={this.props.onCancel} className={_forms.button}>{cancel}</Button> }
@@ -196,21 +169,21 @@ class Form extends Component {
   }
 
   render () {
-    let { button, buttons, controls, children, className, grid, layout, ...props } = this.props
+    const { button, buttons, controls, children, grid, layout, ...props } = this.props
 
-    className = classnames(
-      className,
+    const className = classnames(
+      this.props.className,
       getGrid(grid),
       _forms.form,
       _forms[layout]
     )
 
-    let btns = buttons || button
+    const btns = buttons || button
 
     return (
       <form {...props} onSubmit={this.handleSubmit} className={className}>
         {controls && this.renderControls()}
-        {this.renderChildren(children)}
+        {children}
         {btns && this.renderButtons(btns)}
       </form>
     )
@@ -247,7 +220,8 @@ Form.childContextTypes = {
   formData: PropTypes.object,
   itemBind: PropTypes.func,
   itemChange: PropTypes.func,
-  itemUnbind: PropTypes.func
+  itemUnbind: PropTypes.func,
+  controlProps: PropTypes.object
 }
 
 export default compose(Fetch, PureRender(true))(Form)
