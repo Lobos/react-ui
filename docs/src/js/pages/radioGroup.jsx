@@ -127,7 +127,7 @@ module.exports = class extends Component {
           <Example>
 <RadioGroup
   value="chengdu"
-  fetch={{url:'json/text-value.json', cache: 3600 }} />
+  fetch={{url: 'json/text-value.json', cache: 3600 }} />
           </Example>
 
           <h2 className="subhead">data && children</h2>
@@ -137,7 +137,7 @@ module.exports = class extends Component {
   value="北京"
   data={['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安']}
   >
-  <Radio position={3} defaultValue="香港"><Icon icon="cloud-outline" />香港</Radio>
+  <Radio position={3} value="香港"><Icon icon="cloud-outline" />香港</Radio>
 </RadioGroup>
           </Example>
 

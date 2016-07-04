@@ -4,7 +4,8 @@ import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
-const { Select, RadioGroup } = global.uiRequire()
+import { Select, RadioGroup } from '../rctui'
+import { Cn, En } from '../Language'
 
 const request = Refetch.create({
   promise: (f) => f.then((res) => {
@@ -17,29 +18,28 @@ const request = Refetch.create({
 })
 
 module.exports = class extends Component {
-  constructor (props) {
-    super(props)
-  }
-
   render () {
     return (
       <div>
         <div className="header">
           <h1>Fetch</h1>
-          <h2>数据</h2>
+          <Cn tag="h2">数据</Cn>
         </div>
 
         <div className="content">
-          <div>
+          <Cn>
             <ul>
-              <li>Fetch 是一个Highorder Component，通过增加一个fetch属性，提供给Select, CheckboxGroup, RadioGroup, Table, Tree等组件获取服务端数据的能力。替代早期版本的DataSource。</li>
+              <li>Fetch 是一个高阶组件，通过增加一个fetch属性，提供给Select, CheckboxGroup, RadioGroup, Table, Tree等组件获取服务端数据的能力。替代早期版本的DataSource。</li>
               <li>这些组件可以不使用fetch，通过data传入数据，当作一个Dumb组件使用。</li>
               <li>服务端交互部分使用了另外封装的一个工具，<a href="https://github.com/Lobos/refetch" target="_blank">Refetch</a></li>
             </ul>
-          </div>
+          </Cn>
+          <En>
+            Fetch is a higherorder Component, fetch remote data from server for dumb component, like Select, CheckboxGroup, RadioGroup, Table, Tree...
+          </En>
 
-          <h2 className="subhead">Options</h2>
-          <div>第一种用法，传入和Refetch对应的config</div>
+          <h2 className="subhead">Fetch Config</h2>
+          <Cn>第一种用法，传入和Refetch对应的config</Cn>
           <Code>
 {`fetch = {
   url: string
@@ -71,7 +71,7 @@ module.exports = class extends Component {
   }} />
           </Example>
 
-          <h2 className="subhead">获取失败</h2>
+          <h2 className="subhead">Handle Failure</h2>
           <Example>
 <Select grid={1 / 4}
   fetch={{
@@ -87,10 +87,9 @@ module.exports = class extends Component {
   }} />
           </Example>
 
-          <h2 className="subhead">使用request</h2>
+          <h2 className="subhead">Create a request</h2>
           <Code>
-{`// 定制一个refetch处理返回数据
-const request = Refetch.create({
+{`const request = Refetch.create({
   promise: (f) => f.then((res) => {
     if (res.success) {
       return res.list;

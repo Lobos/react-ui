@@ -13,6 +13,7 @@ import { compose } from './utils/compose'
 import Transition from './Transition'
 import PropTypes from './utils/proptypes'
 import List from './List'
+import SafeHtml from './SafeHtml'
 
 import _select from './styles/_select.scss'
 import _input from './styles/_input.scss'
@@ -212,14 +213,12 @@ class Select extends Component {
           result.push(
             <div key={d.$key} className={_select.result}
               onClick={this.handleRemove.bind(this, d)}>
-              <span dangerouslySetInnerHTML={{__html: d.$result}} />
+              <SafeHtml>{d.$result}</SafeHtml>
               <a href="javascript:;">&times;</a>
             </div>
           )
         } else {
-          result.push(
-            <span key={d.$key} dangerouslySetInnerHTML={{__html: d.$result}} />
-          )
+          result.push(<SafeHtml key={d.$key}>{d.$result}</SafeHtml>)
         }
       }
 

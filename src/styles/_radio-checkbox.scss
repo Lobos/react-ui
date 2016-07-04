@@ -14,6 +14,10 @@
   &.noPadding {
     padding: 0;
     vertical-align: inherit;
+
+    .indicator {
+      padding-right: 0;
+    }
   }
 
   input[type=checkbox], input[type=radio] {
@@ -42,10 +46,6 @@
     @include box-shadow($custom-control-indicator-box-shadow);
     box-sizing: border-box;
     transition: 0.1s ease-in-out;
-
-    &:last-child {
-      margin-right: 0;
-    }
   }
 
   &:hover .indicator {

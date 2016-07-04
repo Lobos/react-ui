@@ -6,6 +6,7 @@
 //
 
 .alert {
+  position: relative;
   padding: $alert-padding;
   padding-right: $alert-padding + 20px;
   margin-bottom: $spacer-y;

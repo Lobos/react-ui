@@ -31,10 +31,10 @@ export default curry((single, Component) => {
             ...data.slice(0, position),
             {
               ...child.props,
-              $checked: values.indexOf(child.props.defaultValue) >= 0,
-              $value: child.props.defaultValue,
+              $checked: values.indexOf(child.props.value) >= 0,
+              $value: child.props.value,
               $text: child.props.children || child.props.text,
-              $key: child.props.id || hashcode(child.props.defaultValue)
+              $key: child.props.id || hashcode(child.props.value)
             },
             ...data.slice(position)
           ]

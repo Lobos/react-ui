@@ -27,7 +27,7 @@ const RadioGroup = (props) => {
         readOnly={readOnly}
         checked={item.$checked}
         text={item.$text}
-        defaultValue={item.$value}
+        checkValue={item.$value}
       />
     )
   }, this)

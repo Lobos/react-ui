@@ -4,6 +4,7 @@ import React from 'react'
 import PropTypes from './utils/proptypes'
 import classnames from 'classnames'
 import * as Events from './utils/events'
+import SafeHtml from './SafeHtml'
 
 import _lists from './styles/_list.scss'
 
@@ -41,10 +42,7 @@ export default class List extends React.Component {
 
     if (Math.abs(scrollTop - lastScroll) < minScroll) return
 
-    this.toggleScroll('off')
-    this.setState({ scrollTop }, () => {
-      this.toggleScroll('on')
-    })
+    this.setState({ scrollTop })
   }
 
   render () {
@@ -68,6 +66,8 @@ export default class List extends React.Component {
         return true
       })
     }
+
+    if (scrolledOptCount < 0) scrolledOptCount = 0
 
     options = options.map((d, i) => {
       let optionClass = classnames(
@@ -94,9 +94,9 @@ export default class List extends React.Component {
         return (
           <li key={d.$key} style={optionStyle}
             onClick={onChange.bind(this, d)}
-            className={ optionClass }
-            dangerouslySetInnerHTML={{__html: d.$html}}
-          />
+            className={ optionClass }>
+            <SafeHtml>{d.$html}</SafeHtml>
+          </li>
         )
       }
     })
@@ -117,6 +117,6 @@ List.propTypes = {
 }
 
 List.defaultProps = {
-  maxShowCount: 30,
+  maxShowCount: 60,
   onChange: function () {}
 }

@@ -3,9 +3,10 @@
 import { substitute } from './strings'
 import assign from 'object-assign'
 
-export { default as deepEqual } from './deepEqual'
+import { default as _deepEqual } from './deepEqual'
 
 export const objectAssign = assign
+export const deepEqual = _deepEqual
 
 export function isEmpty (obj) {
   // null and undefined are "empty"
@@ -76,7 +77,7 @@ export function hashcode (obj) {
           str = obj
           break
       default:
-          str = obj.toString()
+          str = obj ? obj.toString() : ''
           break
   }
 
@@ -126,4 +127,17 @@ export function shallowEqual (objA, objB) {
   }
 
   return true
+}
+
+export function partialEqual (objA = {}, objB = {}, keys) {
+  if (!keys || keys.length === 0) return true
+
+  let newA = {}
+  let newB = {}
+  keys.forEach((key) => {
+    newA[key] = objA
+    newB[key] = objB
+  })
+
+  return _deepEqual(newA, newB)
 }

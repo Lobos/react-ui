@@ -32,7 +32,7 @@ const CheckboxGroup = (props) => {
             checked={item.$checked}
             onChange={onChange}
             text={item.$text}
-            defaultValue={item.$value}
+            checkValue={item.$value}
           />
         )
       })
