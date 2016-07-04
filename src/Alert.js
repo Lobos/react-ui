@@ -17,7 +17,7 @@ export default class Alert extends Component {
     this.setState({ dismissed: true })
     setTimeout(() => {
       this.refs.element.style.display = 'none'
-      this.props.onClose
+      this.props.onClose.call(this)
     }, 300)
   }
 
