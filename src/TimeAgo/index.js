@@ -6,6 +6,6 @@ import { compose } from '../utils/compose'
 import PureRender from '../mixins/PureRender'
 
 export default compose(
-  FormItem.register(['timeago'], {valueType: 'timeago'}),
+  FormItem.register(['timeago'], {valueType: 'string'}),
   PureRender()
 )(TimeAgo)
