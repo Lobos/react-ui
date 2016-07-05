@@ -13,16 +13,17 @@ module.exports = function () {
     </div>
     <div className="content">
       <Code>
-    {`timeago`}
+{`<TimeAgo
+className={string}
+onClick={func}      // click callback
+base={date}      // 'the time base for timeago(required)'
+/>`}
   </Code>
       <h2 className="subhead">Example</h2>
       <Example>
-        <TimeAgo base={new Date(2016, 6, 5, 0, 0, 0)}>
-        </TimeAgo>
-        <TimeAgo base={new Date(1991, 5, 14)}>
-        </TimeAgo>
-        <TimeAgo base={new Date(2019, 5, 14)}>
-        </TimeAgo>
+        <TimeAgo base={new Date(2016, 6, 5, 0, 0, 0)} />
+        <TimeAgo base={new Date(1991, 5, 14)} />
+        <TimeAgo base={new Date(2019, 5, 14)} />
       </Example>
     </div>
   </div>

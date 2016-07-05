@@ -46,7 +46,7 @@ export default class TimeAgo extends Component {
   }
 
   template (margin, category) {
-    return margin ? Math.round(margin) + getLang(category) : getLang('now')
+    return margin ? Math.round(margin) + format(getLang(category), margin > 1 ? 's' : '') : getLang('now')
   }
 
   handleClick () {
@@ -56,7 +56,6 @@ export default class TimeAgo extends Component {
   render () {
     const { children, className } = this.props
     const current = new Date()
-    // const { dismissed } = this.state
 
     return (
     <div className={className}>
