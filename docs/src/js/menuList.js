@@ -23,6 +23,7 @@ module.exports = [
   { path: '/upload', text: 'Upload', component: require('./pages/upload.jsx') },
   'COMMON',
   { path: '/alert', text: 'Alert', component: require('./pages/alert.jsx') },
+  {path: '/timeago', text: 'TimeAgo', component: require('./pages/timeago.jsx')},
   { path: '/table', text: 'Table', component: require('./pages/table.jsx') },
   { path: '/filter', text: 'Filter', component: require('./pages/filter.jsx') },
   { path: '/pagination', text: 'Pagination', component: require('./pages/pagination.jsx') },

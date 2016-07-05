@@ -1,6 +1,6 @@
 'use strict'
 
-import { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 
 import Styles from './styles/_alert.scss'
@@ -17,7 +17,7 @@ export default class Alert extends Component {
     this.setState({ dismissed: true })
     setTimeout(() => {
       this.refs.element.style.display = 'none'
-      this.props.onClose
+      this.props.onClose && this.props.onClose()
     }, 300)
   }
 
