@@ -3,8 +3,8 @@
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Cn } from '../Language'
-const { Filter, Input, Select, DatepickerRange } = global.uiRequire()
+import { Cn, En } from '../Language'
+import { Filter, Input, Select, DatepickerRange } from '../rctui'
 
 module.exports = class extends React.Component {
   constructor (props) {
@@ -22,25 +22,50 @@ module.exports = class extends React.Component {
         </div>
 
         <div className="content">
-          <Code>
-{`<Filter
-  columns={number}              // 如果填写，filter选项会按指定的列数排列，否则无序排列
-  labelWidth={number|string}    // label 宽度，未设定columns，不要填写
-  className={string}
-  style={object}
-  onFilter={func(data)}         // 外部回调事件，返回当前filter表单值，如果是内部筛选，不要传入
-  items={[{                     // filter选项列表，数组
-    label: 'string'             // 显示label文字
-    grid: {object}              // 分列后，如果某项比较长，可以通过grid调整
-    name: 'string'              // required，获取数据的key，component不需要写name
-    componenent: {ReactElement} // Input, Datepicker, Select 等Form 元素
-    filter: func(               // 如果使用内部筛选，需要传入筛选方法，返回值是array
-      value,                    // 第一个参数，component的value
-      data                      // 第二个参数，筛选的源数据
-    )   
-  }]}
-/>`}
-          </Code>
+          <Cn>
+            <Code>
+  {`<Filter
+    columns={number}              // 如果填写，filter选项会按指定的列数排列，否则无序排列
+    labelWidth={number|string}    // label 宽度，未设定columns，不要填写
+    className={string}
+    style={object}
+    onFilter={func(data)}         // 外部回调事件，返回当前filter表单值，如果是内部筛选，不要传入
+    items={[{                     // filter选项列表，数组
+      label: 'string'             // 显示label文字
+      grid: {object}              // 分列后，如果某项比较长，可以通过grid调整
+      name: 'string'              // required，获取数据的key，component不需要写name
+      componenent: {ReactElement} // Input, Datepicker, Select 等Form 元素
+      filter: func(               // 如果使用内部筛选，需要传入筛选方法，返回值是array
+        value,                    // 第一个参数，component的value
+        data                      // 第二个参数，筛选的源数据
+      )   
+    }]}
+  />`}
+            </Code>
+          </Cn>
+          <En>
+            <Code>
+  {`<Filter
+    columns={number}              // default is undefined
+    labelWidth={number|string}    // if columns not set, ignore
+    className={string}
+    style={object}
+    onFilter={function(
+      data                        // object, callback data
+    )}
+    items={[{                     // array, item list
+      label: 'string'             // text
+      grid: {object}              // if item width over 1 column, set grid
+      name: 'string'              // required
+      componenent: {ReactElement} // Form Component, like Input, Datepicker, Select
+      filter: func(               // array result
+        value,                    // item value
+        data                      // origin data
+      )   
+    }]}
+  />`}
+            </Code>
+          </En>
           <Cn>0.7 彻底重写了Filter组件，原来的组件有点过于理想化，并且稍微有点复杂，改为一个比较常用的实现。</Cn>
 
           <h2 className="subhead">Example</h2>
@@ -74,7 +99,8 @@ module.exports = class extends React.Component {
           </Example>
 
           <h2 className="subhead">Inner Filter</h2>
-          <div>内部过滤示例见<a href="#table">Table</a></div>
+          <Cn>内部过滤示例见<a href="#table">Table</a></Cn>
+          <En>Example see <a href="#table">Table</a></En>
         </div>
       </div>
     )

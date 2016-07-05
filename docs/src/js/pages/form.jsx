@@ -4,7 +4,8 @@ import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
-const {Form, FormControl, Button, Icon, Input, InputGroup, DatepickerRange, RadioGroup, FormItem, If} = global.uiRequire()
+import { Form, FormControl, Button, Icon, Input, InputGroup, DatepickerRange, RadioGroup, FormItem, If } from '../rctui'
+import { Cn, En } from '../Language'
 
 const HEARTS = [
   <Icon size={2} key={1} icon="favorite-outline" style={{color: 'red'}} />,
@@ -24,37 +25,65 @@ module.exports = class extends React.Component {
       <div>
         <div className="header">
           <h1>Form</h1>
-          <h2>表单</h2>
+          <Cn tag="h2">表单</Cn>
         </div>
 
         <div className="content">
-          <Code>
-{`<Form
-  button='string'       //  只有submit按钮，可以使用button
-  buttons={
-    submit: 'string',   // submit 按钮文字
-    reset: 'string',    // reset 按钮文字
-    cancel: 'string'    // cancel 按钮文字
-  }                     
-  data={object}         // 数据，object
-  fetch={object}        // 获取服务端表单数据
-  hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
-                           layout 为 stacked, aligned 时，默认为 "block"
-                           layout 为 inline 时，默认为 "pop"
-                           会被 FormControl 的 hintType 覆盖
-  layout={string}       // 布局，可选值为 "aligned", "stacked", "inline"，默认为 "aligned"
-  onSubmit={function}   // 数据验证成功后回调函数
-  onCancel={function}   // 点击cancel按钮回调函数
-  onReset={function}    // 点击reset按钮回调函数
-  >
-  {children}
-</Form>`}
-          </Code>
-          <p><a href="#/fetch">fetch 属性参见这里</a></p>
-          <p>
+          <Cn>
+            <Code>
+  {`<Form
+    button='string'       //  只有submit按钮，可以使用button
+    buttons={
+      submit: 'string',   // submit 按钮文字
+      reset: 'string',    // reset 按钮文字
+      cancel: 'string'    // cancel 按钮文字
+    }                     
+    data={object}         // 数据，object
+    fetch={object}        // 获取服务端表单数据，如果传入了data，fetch无效
+    hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
+                             layout 为 stacked, aligned 时，默认为 "block"
+                             layout 为 inline 时，默认为 "pop"
+                             会被 FormControl 的 hintType 覆盖
+    layout={string}       // 布局，可选值为 "aligned", "stacked", "inline"，默认为 "aligned"
+    onSubmit={function(   // 点击提交按钮，数据验证成功后回调函数
+      data:object
+    )}
+    onCancel={function}   // 点击cancel按钮回调函数
+    onReset={function}    // 点击reset按钮回调函数
+    >
+    {children}
+  </Form>`}
+            </Code>
+          </Cn>
+          <En>
+            <Code>
+  {`<Form
+    buttons={
+      submit: 'string',   // submit button text
+      reset: 'string',    // reset button text
+      cancel: 'string'    // cancel button text
+    }                     
+    data={object}         // 
+    fetch={object}        // if data set, fetch will be ignored
+    hintType={string}     // 'block|pop|inline|none'
+                             if layout is 'stacked' or 'aligned', default is 'block'
+                             if layout is 'inline', default is 'pop'
+    layout={string}       // 'aligned|stacked|inline', default is 'aligned'
+    onSubmit={function(
+      data:object
+    )}
+    onCancel={function}
+    onReset={function}
+    >
+    {children}
+  </Form>`}
+            </Code>
+          </En>
+          <p><a href="#/fetch">fetch see here</a></p>
+          <Cn>
             0.6 版更新，data不再支持dataSource，改用fetch<br />
             0.3 版更新，From 不再提供内置 Ajax 提交功能，需要在onSubmit中进行提交
-          </p>
+          </Cn>
 
           <h2 className="subhead">layout</h2>
 
@@ -201,8 +230,7 @@ module.exports = class extends React.Component {
     required
     icons={HEARTS}
     maxValue={10}
-    tip="亲，给个好评吧"
-    errorText="必须给一个评分哦"
+    tip=""
     type="rating" />
 
   <FormControl grid={{width: 12 / 24}}
@@ -245,7 +273,7 @@ module.exports = class extends React.Component {
         return new Error(json.message)
       }
     }}
-    content={<Button><Icon icon="upload" /> 选择文件</Button>} />
+    content={<Button><Icon icon="upload" /> Choose a file</Button>} />
 
   <FormControl grid={{width: 18 / 24}}
     name="textarea"
@@ -256,9 +284,10 @@ module.exports = class extends React.Component {
     type="textarea" />
 </Form>
 
-{ this.state.formData && <Code>提交表单数据:<br />{JSON.stringify(this.state.formData, null, 4)}</Code> }
+{ this.state.formData && <Code>FormData:<br />{JSON.stringify(this.state.formData, null, 4)}</Code> }
           </Example>
 
+          {/*
           <h2 className="subhead">json方式使用</h2>
           <div>
             controls属性等于FormControls的props，items属性等于FormItem的props<br />
@@ -274,12 +303,13 @@ module.exports = class extends React.Component {
     { name: 'endTime', type: 'date' }
   ] },
   {
-    name: 'select', type: 'select', label: 'select', grid: 1 / 2, fetch: {url:'json/countries.json', cache:3600},
+    name: 'select', type: 'select', label: 'select', grid: 1 / 2, fetch: { url: 'json/countries.json', cache: 3600 },
     mult: true, filterAble: true, valueTpl: '{en}',
     optionTpl: '<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
   }
 ]} />
           </Example>
+          */}
         </div>
       </div>
     )

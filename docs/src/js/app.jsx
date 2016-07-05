@@ -8,6 +8,9 @@ global.uiRequire = function (src) {
   }
 }
 
+import * as Language from './Language'
+Language.set()
+
 import ReactDOM from 'react-dom'
 const AppRoutes = require('./appRoutes.jsx')
 

@@ -57,7 +57,7 @@ module.exports = class extends React.Component {
   />`}
             </Code>
           </En>
-          <p><a href="#/fetch">fetch</a></p>
+          <p><a href="#/fetch">fetch see here</a></p>
 
           <TplDataDesc />
 

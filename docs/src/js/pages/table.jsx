@@ -218,7 +218,7 @@ values = valuesHolder.get(',')`}
             Modal.confirm('Are you sure to delete "' + d.name + '"?', () => {
               console.log('just a kidding.')
             })
-          }}>删除</a>
+          }}>Delete</a>
         )
       }
     }

@@ -40,22 +40,42 @@ module.exports = class extends Component {
 
           <h2 className="subhead">Fetch Config</h2>
           <Cn>第一种用法，传入和Refetch对应的config</Cn>
-          <Code>
-{`fetch = {
-  url: string
-  method: get,post,delete,put,jsonp 默认为 get
-  dataType: method 为jsonp时无效。可选值 post (default), json, text, arraybuffer, blob, document, formdata
-  responseType: method 为jsonp时无效。可选值 json (default), text, xml, arraybuffer, blob, document
-  headers: method 为jsonp时无效。object
-  timeout: 毫秒
-  cache: 缓存，单位秒，大于0时有效。使用localStorage做长期缓存，需要注意缓存数据大小。
-  withCredentials: method 为jsonp时无效。是否支持跨域 default false
-  async: method 为jsonp时无效。是否同步 default true
-  delay: 延时处理，单位毫秒，默认为0。
-  then: function 处理服务端返回数据,
-  request: fetch对象，Promise A+ 规范。为空时使用内置的 refetch
-}`}
-          </Code>
+          <Cn>
+            <Code>
+  {`fetch = {
+    url: string
+    method: get,post,delete,put,jsonp 默认为 get
+    dataType: method 为jsonp时无效。可选值 post (default), json, text, arraybuffer, blob, document, formdata
+    responseType: method 为jsonp时无效。可选值 json (default), text, xml, arraybuffer, blob, document
+    headers: method 为jsonp时无效。object
+    timeout: 毫秒
+    cache: 缓存，单位秒，大于0时有效。使用localStorage做长期缓存，需要注意缓存数据大小。
+    withCredentials: method 为jsonp时无效。是否支持跨域 default false
+    async: method 为jsonp时无效。是否同步 default true
+    delay: 延时处理，单位毫秒，默认为0。
+    then: function 处理服务端返回数据,
+    request: fetch对象，Promise A+ 规范。为空时使用内置的 refetch
+  }`}
+            </Code>
+          </Cn>
+          <En>
+            <Code>
+  {`fetch = {
+    url             // string
+    method          // 'get|post|delete|put|jsonp', default is 'get'
+    dataType        // 'post|json|text|arraybuffer|blob|document|formdata', default is post. It's not work when method is 'jsonp'.
+    responseType    // 'json|text|xml|arraybuffer|blob|document', default is json.  It's not work when method is 'jsonp'.
+    headers         // http headers
+    timeout         // ms
+    cache           // second
+    withCredentials // default is false
+    async           // default is true
+    delay           // ms
+    then            // handle callback
+    request         // fetch object, default is Refetch
+  }`}
+            </Code>
+          </En>
           <Example>
 <Select grid={1 / 4}
   fetch={{
@@ -81,7 +101,7 @@ module.exports = class extends Component {
       if (res.success) {
         return res.list
       } else {
-        return new Error('数据获取失败，这里只是一个演示.')
+        return new Error('Remote data error.')
       }
     }
   }} />
@@ -109,7 +129,7 @@ module.exports = class extends Component {
           </Example>
 
           <h2 className="subhead">Promise</h2>
-          <div>第二种用法，传入一个Promise对象。</div>
+          <Cn>第二种用法，传入一个Promise对象。</Cn>
           <Code>
 {'fetch = Refetch.get(\'/example/url\', ...)'}
           </Code>
@@ -127,7 +147,7 @@ module.exports = class extends Component {
 />
           </Example>
 
-          <h2 className="subhead">简单的示意图</h2>
+          <Cn><h2 className="subhead">简单的示意图</h2></Cn>
           <div>
             <img src="./images/fetch.png" />
           </div>

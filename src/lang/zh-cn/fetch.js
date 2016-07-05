@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   fetch: {
     status: {
       pending: '数据加载中...',

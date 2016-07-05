@@ -3,7 +3,8 @@
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
-let {FormControl, Button, Input, Icon, Datepicker, Grid} = global.uiRequire()
+import { FormControl, Button, Icon, Datepicker } from '../rctui'
+import { Cn, En } from '../Language'
 
 module.exports = class extends React.Component {
   renderExample (type, component) {
@@ -26,14 +27,15 @@ module.exports = class extends React.Component {
       <div>
         <div className="header">
           <h1>FormControl</h1>
-          <h2>表单区块</h2>
+          <Cn tag="h2">表单区块</Cn>
         </div>
 
         <div className="content pure-form">
-          <p>表单中一个横行的区块，包含label提示，输入提示等等。如果一个区块只有一个FormItem，可以直接传入FormItem的props。</p>
-          <Code>
+          <Cn>表单中一个横行的区块，包含label提示，输入提示等等。如果一个区块只有一个FormItem，可以直接传入FormItem的props。</Cn>
+          <Cn>
+            <Code>
 {`<FormControl
-  className="string",     // 需要额外添加的 className
+  className="string"
   label={string|element}  // 提示文字
   name={string}           // 数据key名称，唯一
   ignore={bool}           // 为true时，不提交该项数据，默认为 false
@@ -45,11 +47,30 @@ module.exports = class extends React.Component {
   {children}              // 表单组件
 </FormControl>
   `}
-          </Code>
+            </Code>
+          </Cn>
+          <En>
+            <Code>
+{`<FormControl
+  className="string"
+  label={string|element}
+  name={string}           // input name, unique
+  ignore={bool}           // if ignore is true, form data will ignore this filed, default is false
+  type={string}           // FormItem type
+  grid={{width, offset, responsive}} // see Grid
+  {...validate}
+  {...props}
+>
+  {children}              // FormItem
+</FormControl>
+  `}
+            </Code>
+          </En>
 
-          <h2 className="subhead">数据验证属性</h2>
-          <p><em>FormControl</em> 会根据这些属性自动验证输入，自动生成提示文字和错误信息，文字在 <a href="#/lang">Lang</a> 中设置。</p>
-          <Code>
+          <h2 className="subhead">validate props</h2>
+          <Cn><em>FormControl</em> 会根据这些属性自动验证输入，自动生成提示文字和错误信息，文字在 <a href="#/lang">Lang</a> 中设置。</Cn>
+          <Cn>
+            <Code>
 {`<FormControl
   min={int}       // 值类型为 string 时，最小长度；为 number 时，最小值；为 array 时，最少选项数
   max={int}       // 值类型为 string 时，最大长度；为 number 时，最大值；为 array 时，最多选项数
@@ -63,9 +84,28 @@ validator = {
   reg: {string},       // 指定一个正则表达式，和func 二选一
   bind: [string]       // 当form内其他控件数据变化时，触发校验，参数为控件name
 }`}
-          </Code>
+            </Code>
+          </Cn>
+          <En>
+            <Code>
+{`<FormControl
+  min={int}       // if value type is 'string' or 'array', value length must great than min; if value type if 'number', value must great than min; 
+  max={int}       // if value type is 'string' or 'array', value length must less than max; if value type if 'number', value must less than max;  
+  required={bool} // default is false
+  tip={string}    // if tip is undefined, use generated text
+  type={string}   // email,integer,number,alpha,alphanum,tel,url
+  validator       // custom validator
+/>
+// =========================
+validator = {
+  func: (value, formData), // custom validate function
+  reg: {string},           // if func set, reg will be ignored
+  bind: ['name']           // bind other FormItem with 'name' in the same Form, if the FormItem value changed, execute this validate
+}`}
+            </Code>
+          </En>
 
-          <h2 className="subhead">已注册控件</h2>
+          <h2 className="subhead">registered FormItem</h2>
 
           <div>
             <p><em><b>text</b></em> => <a href="#/input">Input</a></p>
@@ -99,7 +139,7 @@ validator = {
 <FormControl
   type="select"
   required
-  fetch={{url:'json/countries.json', cache: 3600}}
+  fetch={{ url: 'json/countries.json', cache: 3600 }}
   filterAble
   optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
   valueTpl="{country}-{en}"
@@ -116,7 +156,7 @@ validator = {
 <FormControl
   type="tree"
   checkAble
-  fetch={{url:'json/tree.json', cache:3600}}
+  fetch={{ url: 'json/tree.json', cache: 3600 }}
   textTpl="{text}({id})"
   valueTpl="{id}"
  />
@@ -135,7 +175,7 @@ validator = {
             <Example>
 <FormControl
   type="checkbox-group"
-  fetch={{url:'json/text-value.json', cache:3600}}
+  fetch={{ url: 'json/text-value.json', cache: 3600 }}
   textTpl="{text}"
   valueTpl="{id}"
   min={2}
@@ -149,7 +189,7 @@ validator = {
             <Example>
 <FormControl
   type="radio-group"
-  fetch={{url:'json/text-value.json', cache:3600}}
+  fetch={{ url: 'json/text-value.json', cache: 3600 }}
   textTpl="{text}"
   valueTpl="{id}"
  />
@@ -164,7 +204,7 @@ validator = {
   maxValue={10}
   tip="亲，给个好评吧"
   required
-  icons={[<Icon icon="favorite-outline" style={{color: 'red'}} />, <Icon icon="favorite" style={{color: 'red'}} />]}
+  icons={[<Icon key={0} icon="favorite-outline" style={{color: 'red'}} />, <Icon key={1} icon="favorite" style={{color: 'red'}} />]}
  />
             </Example>
           </div>
@@ -175,33 +215,29 @@ validator = {
 <FormControl
   type="upload"
   autoUpload
-  grid={{width:1}}
+  grid={{ width: 1 }}
   name="test"
   action="http://216.189.159.94:8080/upload"
   accept="image/*"
   limit={3}
-  content={<Button><Icon icon="upload" /> 选择文件</Button>} />
+  content={<Button><Icon icon="upload" /> Choose a file</Button>} />
             </Example>
           </div>
 
           <h2 className="subhead">Children</h2>
-          <p>0.6 可以任意使用已注册的表单组件</p>
+          <Cn>0.6 可以任意使用已注册的表单组件</Cn>
           <Example>
 <FormControl label="two items">
   <Datepicker type="date"
     min="2016-1-22"
     required
     placeholder="startTime" />
-  至
+  -
   <Datepicker type="date"
     max="2017-1-22"
     placeholder="endTime" />
 </FormControl>
           </Example>
-
-          <h2 className="subhead">注册自定义组件</h2>
-          <div>见<a href="#/formitem">FormItem</a></div>
-
         </div>
       </div>
     )
