@@ -9,15 +9,19 @@ module.exports = function () {
   return (
   <div>
     <div className="header">
-      <h1>Alert</h1>
+      <h1>TimeAgo</h1>
     </div>
     <div className="content">
       <Code>
-  {`abc`}
+    {`timeago`}
   </Code>
       <h2 className="subhead">Example</h2>
       <Example>
-        <TimeAgo>
+        <TimeAgo base={new Date(2016, 6, 5, 0, 0, 0)}>
+        </TimeAgo>
+        <TimeAgo base={new Date(1991, 5, 14)}>
+        </TimeAgo>
+        <TimeAgo base={new Date(2019, 5, 14)}>
         </TimeAgo>
       </Example>
     </div>
