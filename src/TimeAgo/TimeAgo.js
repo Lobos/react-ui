@@ -1,20 +1,17 @@
 'use strict'
 
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from '../utils/proptypes'
 import { getLang, setLang } from '../lang'
 import { format } from '../utils/strings'
+import * as Datetime from '../utils/datetime'
 
 setLang('timeago')
 import classnames from 'classnames'
 
 export default class TimeAgo extends Component {
-  constructor (props) {
-    super(props)
-    this.tpl = {}
-  }
-
   count (current) {
-    const marginms = this.props.base.getTime() - current.getTime()
+    const marginms = Datetime.convert(this.props.base).getTime() - current.getTime()
 
     const marginHuman = this.toReadable(marginms)
 
@@ -46,28 +43,27 @@ export default class TimeAgo extends Component {
     return margin ? Math.round(margin) + format(getLang(category), margin > 1 ? 's' : '') : getLang('now')
   }
 
-  handleClick () {
-    this.props.onClick && this.props.onClick.call(this)
-  }
-
   render () {
-    const { children, className } = this.props
+    const { children, className, onClick } = this.props
     const current = new Date()
 
     return (
-    <div className={classnames({className})}>
+    <label className={classnames({className})}>
       {children}
-      <a onClick={this.handleClick.bind(this)}>
-        {this.count(current)}
-      </a>
-    </div>
+
+      {
+        onClick
+        ? <a onClick={onClick}>{this.count(current)}</a>
+        : this.count(current)
+      }
+    </label>
     )
   }
 }
 
 TimeAgo.propTypes = {
-  onClick: PropTypes.func,
+  base: PropTypes.datetime.isRequired,
   children: PropTypes.any,
   className: PropTypes.string,
-  base: PropTypes.object.isRequired
+  onClick: PropTypes.func
 }
