@@ -5,15 +5,12 @@ import { getLang, setLang } from '../lang'
 import { format } from '../utils/strings'
 
 setLang('timeago')
-// import classnames from 'classnames'
-
-// import Styles from './styles/_alert.scss'
+import classnames from 'classnames'
 
 export default class TimeAgo extends Component {
   constructor (props) {
     super(props)
     this.tpl = {}
-  // this.state = { dismissed: false }
   }
 
   count (current) {
@@ -58,7 +55,7 @@ export default class TimeAgo extends Component {
     const current = new Date()
 
     return (
-    <div className={className}>
+    <div className={classnames({className})}>
       {children}
       <a onClick={this.handleClick.bind(this)}>
         {this.count(current)}
