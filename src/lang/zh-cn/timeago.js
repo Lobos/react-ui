@@ -4,8 +4,8 @@ module.exports = {
   week: '周',
   day: '天',
   hour: '小时',
-  minutes: '分',
-  seconds: '秒',
+  minute: '分',
+  second: '秒',
   ago: '{0}前',
   in: '{0}后',
   now: '现在'

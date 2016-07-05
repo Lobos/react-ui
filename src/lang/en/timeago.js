@@ -4,9 +4,9 @@ module.exports = {
   week: 'week',
   day: 'day',
   hour: 'hour',
-  minutes: 'minute',
-  seconds: 'second',
-  ago: 'ago',
-  in: 'later',
+  minute: 'minute',
+  second: 'second',
+  ago: '{0} ago',
+  in: 'in {0}',
   now: 'right now'
 }
