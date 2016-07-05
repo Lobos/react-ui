@@ -21,7 +21,7 @@ export default class TimeAgo extends Component {
 
     const marginHuman = this.toReadable(marginms)
 
-    return marginHuman ? format(getLang(marginms > 0 ? 'ago' : 'in'), marginHuman) : 'right now'
+    return marginHuman ? format(getLang(marginms > 0 ? 'in' : 'ago'), marginHuman) : 'right now'
   }
 
   toReadable (marginms) {
