@@ -26,6 +26,7 @@ export { default as FormItem } from './FormItem'
 export { default as If } from './If'
 
 export { default as Alert } from './Alert'
+export { default as TimeAgo } from './TimeAgo'
 export { default as Grid } from './Grid'
 export { default as Pagination } from './Pagination'
 export { default as Table } from './Table'
