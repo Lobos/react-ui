@@ -2,6 +2,7 @@
 
 import React, { Component, PropTypes } from 'react'
 import { getLang, setLang } from '../lang'
+import { format } from '../utils/strings'
 
 setLang('timeago')
 // import classnames from 'classnames'
@@ -16,6 +17,14 @@ export default class TimeAgo extends Component {
   }
 
   count (current) {
+    const marginms = this.props.base.getTime() - current.getTime()
+
+    const marginHuman = this.toReadable(marginms)
+
+    return marginHuman ? format(getLang(marginms > 0 ? 'ago' : 'in'), marginHuman) : 'right now'
+  }
+
+  toReadable (marginms) {
     const SECOND = 1000
     const MINUTE = SECOND * 60
     const HOUR = MINUTE * 60
@@ -24,15 +33,9 @@ export default class TimeAgo extends Component {
     const MONTH = DAY * 30
     const YEAR = DAY * 365
 
-    const basems = this.props.base.getTime()
-    const currentms = current.getTime()
-
-    let marginms = currentms - basems
-    const suffix = getLang(marginms > 0 ? 'ago' : 'in')
-
     marginms = Math.abs(marginms)
 
-    const marginHuman = marginms > YEAR
+    return marginms > YEAR
       ? this.template(marginms / YEAR, 'year') : marginms > MONTH
         ? this.template(marginms / MONTH, 'month') : marginms > WEEK
           ? this.template(marginms / WEEK, 'week') : marginms > DAY
@@ -40,8 +43,6 @@ export default class TimeAgo extends Component {
               ? this.template(marginms / HOUR, 'hour') : marginms > MINUTE
                 ? this.template(marginms / MINUTE, 'minute') : marginms > SECOND
                   ? this.template(marginms / SECOND, 'second') : this.template(0)
-
-    return marginHuman ? `${(marginHuman)}${suffix}` : 'right now'
   }
 
   template (margin, category) {

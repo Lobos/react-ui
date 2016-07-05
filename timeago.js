@@ -6,7 +6,7 @@ module.exports = {
   hour: '小时',
   minutes: '分',
   seconds: '秒',
-  ago: '{0}前',
-  in: '{0}后',
+  ago: '前',
+  in: '后',
   now: '现在'
 }
