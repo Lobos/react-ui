@@ -40,7 +40,13 @@ export default class TimeAgo extends Component {
   }
 
   template (margin, category) {
-    return margin ? Math.round(margin) + format(getLang(category), margin > 1 ? 's' : '') : getLang('now')
+    const strategy = {
+      default: Math.round,
+      least: Math.floor,
+      most: Math.ceil
+    }
+
+    return margin ? strategy[this.props.mode](margin) + format(getLang(category), margin > 1 ? 's' : '') : getLang('now')
   }
 
   render () {
@@ -50,20 +56,24 @@ export default class TimeAgo extends Component {
     return (
     <label className={classnames({className})}>
       {children}
-
-      {
-        onClick
-        ? <a onClick={onClick}>{this.count(current)}</a>
-        : this.count(current)
-      }
+      {onClick
+         ? <a onClick={onClick}>
+             {this.count(current)}
+           </a>
+         : this.count(current)}
     </label>
     )
   }
 }
 
 TimeAgo.propTypes = {
+  mode: PropTypes.string,
   base: PropTypes.datetime.isRequired,
   children: PropTypes.any,
   className: PropTypes.string,
   onClick: PropTypes.func
+}
+
+TimeAgo.defaultProps = {
+  mode: 'default'
 }

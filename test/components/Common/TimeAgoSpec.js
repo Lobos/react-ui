@@ -57,7 +57,7 @@ describe('TimeAgo Spec', () => {
     })
 
     it('should apply correct timeago text on year level', () => {
-      const defaultWrapper = mount(<TimeAgo base={yearDemo} />)
+      const defaultWrapper = mount(<TimeAgo base={yearDemo}/>)
 
       expect(defaultWrapper).to.be.text(`17年前`)
     })
