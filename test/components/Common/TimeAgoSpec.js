@@ -16,50 +16,58 @@ describe('TimeAgo Spec', () => {
   describe('Custom', () => {
     it('should apply correct timeago text on second level', () => {
       const now = new Date()
-      const defaultWrapper = mount(<TimeAgo base={new Date(now.setSeconds(now.getSeconds() - 10))} />)
+      const wrapper1 = mount(<TimeAgo base={new Date(now.setSeconds(now.getSeconds() - 10))} />)
 
-      expect(defaultWrapper).to.be.text(`10秒前`)
+      expect(wrapper1).to.be.text(`10秒前`)
     })
 
     it('should apply correct timeago text on minute level', () => {
       const now = new Date()
-      const defaultWrapper = mount(<TimeAgo base={new Date((now.setMinutes(now.getMinutes() - 5)))} />)
+      const wrapper1 = mount(<TimeAgo base={new Date((now.setMinutes(now.getMinutes() - 5)))} />)
 
-      expect(defaultWrapper).to.be.text(`5分钟前`)
+      expect(wrapper1).to.be.text(`5分钟前`)
     })
 
     it('should apply correct timeago text on hour level', () => {
       const now = new Date()
-      const defaultWrapper = mount(<TimeAgo base={new Date(now.setHours(now.getHours() - 1))} />)
+      const wrapper1 = mount(<TimeAgo base={new Date(now.setHours(now.getHours() - 1))} />)
 
-      expect(defaultWrapper).to.be.text(`1小时前`)
+      expect(wrapper1).to.be.text(`1小时前`)
     })
 
     it('should apply correct timeago text on day level', () => {
       const now = new Date()
-      const defaultWrapper = mount(<TimeAgo base={new Date(now.setDate(now.getDate() - 5))} />)
+      const wrapper1 = mount(<TimeAgo base={new Date(now.setDate(now.getDate() - 5))} />)
 
-      expect(defaultWrapper).to.be.text(`5天前`)
+      expect(wrapper1).to.be.text(`5天前`)
     })
 
     it('should apply correct timeago text on week level', () => {
       const now = new Date()
-      const defaultWrapper = mount(<TimeAgo base={new Date(now.setDate(now.getDate() - 8))} />)
+      const wrapper1 = mount(<TimeAgo base={new Date(now.setDate(now.getDate() - 8))} />)
 
-      expect(defaultWrapper).to.be.text(`1周前`)
+      expect(wrapper1).to.be.text(`1周前`)
     })
 
     it('should apply correct timeago text on month level', () => {
       const now = new Date()
-      const defaultWrapper = mount(<TimeAgo base={new Date(now.setMonth(now.getMonth() - 1))} />)
+      const wrapper1 = mount(<TimeAgo base={new Date(now.setMonth(now.getMonth() - 1))} />)
 
-      expect(defaultWrapper).to.be.text(`1月前`)
+      expect(wrapper1).to.be.text(`1月前`)
     })
 
     it('should apply correct timeago text on year level', () => {
-      const defaultWrapper = mount(<TimeAgo base={yearDemo}/>)
+      const wrapper1 = mount(<TimeAgo base={yearDemo} />)
 
-      expect(defaultWrapper).to.be.text(`17年前`)
+      expect(wrapper1).to.be.text(`17年前`)
+    })
+
+    it('should apply correct strategy by mode prop', () => {
+      const wrapper1 = mount(<TimeAgo base={yearDemo} mode='least' />)
+      const wrapper2 = mount(<TimeAgo base={yearDemo} mode='most' />)
+
+      expect(wrapper1).to.be.text(`16年前`)
+      expect(wrapper2).to.be.text(`17年前`)
     })
   })
 
