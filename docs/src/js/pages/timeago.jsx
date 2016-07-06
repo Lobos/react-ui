@@ -24,8 +24,10 @@ module.exports = function () {
       <Code>
 {`<TimeAgo
   className={string}
-  onClick={func}      // click callback
-  base={date}         // 'the time base for timeago(required)'
+  onClick={func}      // click callback, when func exists, the timeago text wrapped by <a> tag
+  base={date}         // the time base for timeago('required')
+  mode={string}       // the strategy of counter 
+                             'default|least|most', default is 'default'
 />`}
       </Code>
 
@@ -43,6 +45,8 @@ module.exports = function () {
 <TimeAgo base={monthDemo} />
 <div>yearDemo: {yearDemo.toLocaleString()}</div>
 <TimeAgo base={yearDemo} />
+<div>yearDemo: {yearDemo.toLocaleString()}</div>
+<TimeAgo base={yearDemo} mode='least'/>
       </Example>
     </div>
   </div>
