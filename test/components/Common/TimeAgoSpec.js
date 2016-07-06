@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme'
 import TimeAgo from '../../../src/TimeAgo'
 
 describe('TimeAgo Spec', () => {
-  const yearDemo = new Date('2000-01-01 00:00:00')
+  const yearDemo = new Date(2000, 0, 1, 0, 0, 0)
 
   describe('Default', () => {
     const defaultWrapper = shallow(<TimeAgo base={yearDemo} />)

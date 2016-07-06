@@ -11,7 +11,7 @@ const minuteDemo = new Date(now.setMinutes(now.getMinutes() - 5))
 const hourDemo = new Date(now.setHours(now.getHours() - 1))
 const dayDemo = new Date(now.setDate(now.getDate() - 10))
 const monthDemo = new Date(now.setMonth(now.getMonth() - 1))
-const yearDemo = '2000-01-01 00:00:00'
+const yearDemo = new Date(2000, 0, 1, 0, 0, 0)
 
 module.exports = function () {
   return (
