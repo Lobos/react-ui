@@ -30,9 +30,9 @@ describe('TimeAgo Spec', () => {
 
     it('should apply correct timeago text on hour level', () => {
       const now = new Date()
-      const wrapper1 = mount(<TimeAgo base={new Date(now.setHours(now.getHours() - 1))} />)
+      const wrapper1 = mount(<TimeAgo base={new Date(now.setHours(now.getHours() - 2))} />)
 
-      expect(wrapper1).to.be.text(`1小时前`)
+      expect(wrapper1).to.be.text(`2小时前`)
     })
 
     it('should apply correct timeago text on day level', () => {
@@ -51,9 +51,9 @@ describe('TimeAgo Spec', () => {
 
     it('should apply correct timeago text on month level', () => {
       const now = new Date()
-      const wrapper1 = mount(<TimeAgo base={new Date(now.setMonth(now.getMonth() - 1))} />)
+      const wrapper1 = mount(<TimeAgo base={new Date(now.setMonth(now.getMonth() - 2))} />)
 
-      expect(wrapper1).to.be.text(`1月前`)
+      expect(wrapper1).to.be.text(`2月前`)
     })
 
     it('should apply correct timeago text on year level', () => {
