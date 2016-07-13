@@ -2,30 +2,32 @@
 
 import Code from '../Code'
 import Example from '../Example'
-const { Form, FormControl, FormItem } = global.uiRequire()
+import { Form, FormControl, FormItem } from '../rctui'
+import { Cn, En } from '../Language'
 
 module.exports = () => {
   return (
     <div>
       <div className="header">
         <h1>FormItem</h1>
-        <h2>表单元素</h2>
+        <Cn tag="h2">表单元素</Cn>
       </div>
 
       <div className="content pure-form">
-        <p>
+        <Cn>
           一系列表单控件的higherorder component，统一封装用来实现表单数据验证，输入提示等功能。<br />
           ReactUI的所有表单组件都是FormItem组件，一般情况下，不需要直接使用FormItem。<br />
           自己定义的组件如果想要加入Form，实现自动化校验和整体提交数据，有两个方式实现。
-        </p>
+        </Cn>
 
         <h2 className="subhead">Component</h2>
-        <div>可以直接当作Component，把自定义组件当作children传入。一个FormItem只能接受一个自定义组件，并且这个组件必须实现一个<em>onChange(value)</em>事件返回值，接受<em>value</em>作为props传入值</div>
+        <Cn>可以直接当作Component，把自定义组件当作children传入。一个FormItem只能接受一个自定义组件，并且这个组件必须实现一个<em>onChange(value)</em>事件返回值，接受<em>value</em>作为props传入值</Cn>
+        <En>If Component</En>
         <Code>
 {`<FormItem
-  className="string"      // 需要额外添加的 className
-  name={string}           // 数据key名称，唯一
-  type={string}           // 自动验证以下type: email,integer,number,alpha,alphanum,tel,url
+  className="string"
+  name={string}           // unique in the form
+  type={string}           // 'email|integer|number|alpha|alphanum|tel|url'
   min={int}               // 值类型为 string 时，最小长度；为 number 时，最小值；为 array 时，最少选项数
   max={int}               // 值类型为 string 时，最大长度；为 number 时，最大值；为 array 时，最多选项数
   required={bool}         // 是否必填，默认为 false
@@ -43,7 +45,7 @@ module.exports = () => {
 <Form layout="aligned" data={{input: 'init value'}}>
   <FormControl label="label文字">
     <FormItem required min={4} max={12} name="input">
-      <input className="rct-form-control" />
+      <input />
     </FormItem>
   </FormControl>
 </Form>
