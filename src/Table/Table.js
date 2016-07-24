@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component } from 'react'
+import { Component } from 'react'
 import classnames from 'classnames'
 import { substitute, toArray } from '../utils/strings'
 import { shallowEqual, hashcode } from '../utils/objects'

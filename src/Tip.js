@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component, PropTypes } from 'react'
+import { Component, PropTypes } from 'react'
 import { objectAssign } from './utils/objects'
 import ClickAway from './higherOrders/ClickAway'
 import classnames from 'classnames'

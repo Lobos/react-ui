@@ -3,12 +3,9 @@
 import { create, getLanguage, setLanguage } from 'react-language'
 
 export const En = create(true)
-export const Cn = create('zh-CN')
+export const Cn = create('zh-cn')
 
-import { setLocation, setLang } from '../../../src/lang'
-
-import EN from '../../../src/lang/en'
-import CN from '../../../src/lang/zh-cn'
+import { setLocation } from '../../../src/lang'
 
 export const set = (lang) => {
   if (!lang) {
@@ -16,7 +13,7 @@ export const set = (lang) => {
     setLocation(lang === 'zh-cn' ? 'zh-cn' : 'en')
   } else {
     setLanguage(lang)
-    setLang(lang === 'zh-cn' ? CN : EN)
+    setLocation(lang === 'zh-cn' ? 'zh-cn' : 'en')
   }
 }
 

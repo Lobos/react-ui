@@ -1,6 +1,6 @@
 'use strict'
 
-import React from 'react'
+import { Component } from 'react'
 import PropTypes from './utils/proptypes'
 import classnames from 'classnames'
 import * as Events from './utils/events'
@@ -8,7 +8,7 @@ import SafeHtml from './SafeHtml'
 
 import _lists from './styles/_list.scss'
 
-export default class List extends React.Component {
+export default class List extends Component {
   constructor (props) {
     super(props)
     this.state = { scrollTop: 0 }

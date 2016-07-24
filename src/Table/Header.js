@@ -1,6 +1,6 @@
 'use strict'
 
-import React from 'react'
+import { Component } from 'react'
 import classnames from 'classnames'
 import PropTypes from '../utils/proptypes'
 import PureRender from '../mixins/PureRender'
@@ -14,7 +14,7 @@ function getClassName (base, name, asc, status) {
   )
 }
 
-class Header extends React.Component {
+class Header extends Component {
   render () {
     const { className, onSort, sortStatus, onPageChange, name, sort, header, children } = this.props
 

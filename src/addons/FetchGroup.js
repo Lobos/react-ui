@@ -1,12 +1,12 @@
 'use strict'
 
-import React, { PropTypes } from 'react'
+import { Component, PropTypes } from 'react'
 import FormItem from '../higherOrders/FormItem'
 import Input from '../Input'
 import Textarea from '../Textarea'
 import RadioGroup from '../RadioGroup'
 
-class FetchGroup extends React.Component {
+class FetchGroup extends Component {
   constructor (props) {
     super(props)
 

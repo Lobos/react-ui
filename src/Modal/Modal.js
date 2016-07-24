@@ -1,6 +1,6 @@
 'use strict'
 
-import React from 'react'
+import { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import classnames from 'classnames'
 import Button from '../Button'
@@ -14,7 +14,7 @@ import ModalStyles from '../styles/_modal.scss'
 
 export const ZINDEX = 1100
 
-class Modal extends React.Component {
+class Modal extends Component {
   constructor (props) {
     super(props)
 

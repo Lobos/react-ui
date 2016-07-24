@@ -4,8 +4,7 @@ import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import { Cn, En } from '../Language'
-
-const { Message, Icon } = global.uiRequire()
+import { Message, Icon } from '../rctui'
 
 module.exports = () => {
   return (

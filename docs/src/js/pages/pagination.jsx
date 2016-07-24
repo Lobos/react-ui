@@ -3,8 +3,8 @@
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Cn } from '../Language'
-const {Pagination, RadioGroup, Input, Checkbox} = global.uiRequire()
+import { Cn, En } from '../Language'
+import { Pagination, RadioGroup, Input, Checkbox } from '../rctui'
 
 module.exports = class extends Component {
   constructor (props) {
@@ -14,8 +14,7 @@ module.exports = class extends Component {
       size: 20,
       total: 1000,
       range: 10,
-      lms: 'middle',
-      mini: false
+      lms: 'middle'
     }
   }
 
@@ -24,20 +23,35 @@ module.exports = class extends Component {
       <div>
         <div className="header">
           <h1>Pagination</h1>
-          <h2>分页</h2>
+          <Cn tag="h2">分页</Cn>
         </div>
 
         <div className="content">
-          <Code>
+          <Cn>
+            <Code>
 {`<Pagination
   page={int}          // 当前页码，默认为 1
   size={int}          // 每页显示条数，默认为 20
   range={int}         // 显示的页码按钮数量， 默认为 10
   total={int}         // 总条目数，默认为 0
   mini={bool}         // 是否简化版本
-  onChange={function} // 页码点击时触发事件，参数为页码
+  onChange={function(page)}
 />`}
-          </Code>
+            </Code>
+          </Cn>
+          <En>
+            <Code>
+{`<Pagination
+  page={int}          // current page, default is 1
+  size={int}          // items count per page, default is 20
+  range={int}         // page buttons count, default is 10
+  total={int}         // total items count
+  mini={bool}
+  onChange={function(page)}
+/>`}
+            </Code>
+          </En>
+
           <Cn>
             0.7 移除jumper, 如果有需要可以自行扩展<br />
             移除了内部state, 改为dumb组件, 需要用props来维护状态

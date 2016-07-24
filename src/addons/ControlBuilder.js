@@ -1,13 +1,13 @@
 'use strict'
 
-import React, { PropTypes } from 'react'
+import { Component, PropTypes } from 'react'
 import Form from '../Form'
 import FormControl from '../FormControl'
 import FormSubmit from '../FormSubmit'
 import '../Input'
 import '../Textarea'
 
-class ControlBuilder extends React.Component {
+class ControlBuilder extends Component {
   constructor (props) {
     super(props)
 

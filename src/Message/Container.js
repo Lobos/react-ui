@@ -1,12 +1,12 @@
 'use strict'
 
-import React, { DOM } from 'react'
+import { Component, DOM } from 'react'
 import Message from './Message'
 import { isEmpty } from '../utils/objects'
 
 import Styles from '../styles/_message.scss'
 
-export default class extends React.Component {
+export default class extends Component {
   constructor (props) {
     super(props)
 

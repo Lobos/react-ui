@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component, cloneElement, Children } from 'react'
+import { Component, cloneElement, Children } from 'react'
 import classnames from 'classnames'
 import { COMPONENTS, getValueType } from './higherOrders/FormItem'
 import merge from './utils/merge'

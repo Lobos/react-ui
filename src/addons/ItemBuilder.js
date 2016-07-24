@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { PropTypes } from 'react'
+import { Component, PropTypes } from 'react'
 import Form from '../Form'
 import FormControl from '../FormControl'
 import { COMPONENTS } from '../higherOrders/FormItem'
@@ -17,7 +17,7 @@ import FetchGroup from './FetchGroup'
 
 const TYPES = Object.keys(COMPONENTS).sort()
 
-class ItemBuilder extends React.Component {
+class ItemBuilder extends Component {
   constructor (props) {
     super(props)
     this.state = {

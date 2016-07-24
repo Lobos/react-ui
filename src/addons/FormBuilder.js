@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { PropTypes } from 'react'
+import { Component, PropTypes } from 'react'
 import Form from '../Form'
 import Modal from '../Modal'
 import FormControl from '../FormControl'
@@ -32,7 +32,7 @@ const DEMO_DATA = [
   { label: 'textarea', items: [{ type: 'textarea', name: 'textarea', autoHeight: true }]}
 ]
 
-class FormBuilder extends React.Component {
+class FormBuilder extends Component {
   constructor (props) {
     super(props)
 

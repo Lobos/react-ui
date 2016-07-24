@@ -1,6 +1,6 @@
 'use strict'
 
-import React from 'react'
+import { Component } from 'react'
 import PropTypes from '../utils/proptypes'
 import { substitute } from '../utils/strings'
 import { Checkbox } from '../Checkbox'
@@ -8,7 +8,7 @@ import PureRender from '../mixins/PureRender'
 
 import _tables from '../styles/_tables.scss'
 
-class Tr extends React.Component {
+class Tr extends Component {
   render () {
     const { columns, data, checked, onSelect } = this.props
 

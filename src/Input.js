@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component } from 'react'
+import { Component } from 'react'
 import classnames from 'classnames'
 import Regs from './utils/regs'
 import { getGrid } from './utils/grids'

@@ -19,14 +19,19 @@ module.exports = () => {
           ReactUI的所有表单组件都是FormItem组件，一般情况下，不需要直接使用FormItem。<br />
           自己定义的组件如果想要加入Form，实现自动化校验和整体提交数据，有两个方式实现。
         </Cn>
+        <En>
+          FormItem is a higherorder component, help for validate input value, show tip text or error text. <br />
+          Under normal circumstances, you don't need to use this Component because all form components were registered in FromItem, include Input, Select, Checkbox, CheckboxGroup, Radio, RadioGroup..
+        </En>
 
         <h2 className="subhead">Component</h2>
         <Cn>可以直接当作Component，把自定义组件当作children传入。一个FormItem只能接受一个自定义组件，并且这个组件必须实现一个<em>onChange(value)</em>事件返回值，接受<em>value</em>作为props传入值</Cn>
-        <En>If Component</En>
-        <Code>
+        <En>FormItem can use as a Component, only accept an element as child. the element must has onChange and value props like 'input'.</En>
+        <Cn>
+          <Code>
 {`<FormItem
   className="string"
-  name={string}           // unique in the form
+  name={string}           // 字段名，表单内唯一
   type={string}           // 'email|integer|number|alpha|alphanum|tel|url'
   min={int}               // 值类型为 string 时，最小长度；为 number 时，最小值；为 array 时，最少选项数
   max={int}               // 值类型为 string 时，最大长度；为 number 时，最大值；为 array 时，最多选项数
@@ -40,10 +45,31 @@ module.exports = () => {
 >
   {element}               // 只能接受一个element
 </FormItem>`}
-        </Code>
+          </Code>
+        </Cn>
+        <En>
+          <Code>
+{`<FormItem
+  className="string"
+  name={string}           // filed name, unique in the form
+  type={string}           // 'email|integer|number|alpha|alphanum|tel|url'
+  min={int}               // if value type is 'string' or 'array', value length must great than min; if value type if 'number', value must great than min; 
+  max={int}               // if value type is 'string' or 'array', value length must less than max; if value type if 'number', value must less than max;  
+  required={bool}         // default is false
+  tip={string}            // tip text, overwrite generated tip text
+  validator={             // custom validation
+    func: (value, form),  // first argument is the filed value, second is the form data
+    reg: {string},        // regular expressions, if func was set, reg will ignore
+    bind: [string]        // bind to other FormItem (by name) in the form, if the other FormItem value change, execute this validate
+  }
+>
+  {element}               // only one element accept
+</FormItem>`}
+          </Code>
+        </En>
         <Example>
 <Form layout="aligned" data={{input: 'init value'}}>
-  <FormControl label="label文字">
+  <FormControl label="label text">
     <FormItem required min={4} max={12} name="input">
       <input />
     </FormItem>
@@ -52,26 +78,35 @@ module.exports = () => {
         </Example>
 
         <h2 className="subhead">register</h2>
-        <div>将自定义组件注册到FormItem，可以通过FormControl的快捷方式调用</div>
+        <Cn>将自定义组件注册到FormItem，可以通过FormControl的快捷方式调用</Cn>
+        <En>You can registered you component to FormItem, then use FormControl.</En>
         <Code>
 {`import { register } from 'rctui/higherOrders/FormItem';
 register(
-  Component,    // 自定义组件
-  types,        // 注册到FormControl的type，字符串或数组
+  types,        // string or array[string], unique
   options:{
-    valueType,  // 数据类型，用来进行数据校验，值为'number|string|array'，默认值为'string'
-    render      // 处理特殊的render，一般不需要
-  }
+    valueType,  // 'number|string|array'，default is 'string'
+    render      // special render function, not required
+  },
+  Component     // custom component
 );
 
 // example
-class Input extends React.Component { ... }
-register(Input, ['text'], {
-  valueType: 'string',
-  render: function (props) {
-    return <Input someProps="xxx" {...props} />;
-  }
-})`}
+class MyInput extends React.Component { ... }
+
+register(
+  ['my-text'],
+  {
+    valueType: 'string',
+    render: function (props) {
+      return <Input someProps="xxx" {...props} />;
+    }
+  },
+  MyInput
+)
+
+<FormControl type="my-text" {...props} />
+`}
         </Code>
       </div>
     </div>

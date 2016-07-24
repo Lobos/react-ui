@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component, cloneElement } from 'react'
+import { Component, cloneElement } from 'react'
 import classnames from 'classnames'
 import curry from 'curry'
 import PropTypes from './utils/proptypes'

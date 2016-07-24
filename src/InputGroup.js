@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Children, cloneElement } from 'react'
+import { Children, cloneElement } from 'react'
 import classnames from 'classnames'
 import { getGrid } from './utils/grids'
 import Input from './Input'

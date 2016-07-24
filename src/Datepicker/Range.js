@@ -1,6 +1,6 @@
 'use strict'
 
-import React from 'react'
+import { Component } from 'react'
 import classnames from 'classnames'
 import PropTypes from '../utils/proptypes'
 import Datepicker from './Datetime'
@@ -14,7 +14,7 @@ setLang('validation')
 
 import _datepickers from '../styles/_datepicker.scss'
 
-class Range extends React.Component {
+class Range extends Component {
   constructor (props) {
     super(props)
     this.firstChange = this.firstChange.bind(this)

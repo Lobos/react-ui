@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component } from 'react'
+import { Component } from 'react'
 import classnames from 'classnames'
 import { forEach, deepEqual, hashcode, objectAssign } from './utils/objects'
 import clone from './utils/clone'

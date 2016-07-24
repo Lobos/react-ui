@@ -1,7 +1,7 @@
 'use strict'
 
 import merge from '../utils/merge'
-let langData = {}
+let LangData = {}
 
 export let LOCATION = 'zh-cn'
 
@@ -9,15 +9,15 @@ export function setLang () {
   let args = [].slice.call(arguments)
   args.forEach(function (arg) {
     if (typeof arg === 'object') {
-      langData = merge({}, langData, arg)
+      LangData = merge({}, LangData, arg)
     } else if (typeof arg === 'string') {
-      langData = merge({}, langData, require(`./${LOCATION}/${arg}`))
+      LangData = merge({}, LangData, require(`./${LOCATION}/${arg}`))
     }
   })
 }
 
 export function getLang (path, def) {
-  let result = langData
+  let result = LangData
 
   if (path === undefined) {
     return result
@@ -45,4 +45,5 @@ export function getLang (path, def) {
 
 export function setLocation (location) {
   LOCATION = location
+  LangData = merge({}, LangData, require(`./${LOCATION}/index`))
 }

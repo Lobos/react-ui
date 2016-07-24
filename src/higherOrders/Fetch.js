@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component, PropTypes } from 'react'
+import { Component, PropTypes } from 'react'
 import Refetch from 'refetch'
 import classnames from 'classnames'
 import { deepEqual, shallowEqual } from '../utils/objects'

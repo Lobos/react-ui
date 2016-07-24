@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component } from 'react'
+import { Component } from 'react'
 import PropTypes from '../utils/proptypes'
 import { getLang, setLang } from '../lang'
 import { format } from '../utils/strings'
@@ -67,10 +67,10 @@ export default class TimeAgo extends Component {
 }
 
 TimeAgo.propTypes = {
-  mode: PropTypes.string,
   base: PropTypes.datetime.isRequired,
   children: PropTypes.any,
   className: PropTypes.string,
+  mode: PropTypes.string,
   onClick: PropTypes.func
 }
 

@@ -1,6 +1,5 @@
 'use strict'
 
-import React from 'react'
 import ReactDOM from 'react-dom'
 import { nextUid } from '../utils/strings'
 import Container from './Container'

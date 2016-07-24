@@ -1,10 +1,10 @@
-var path = require('path');
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
-var precss = require('precss');
+var path = require('path')
+var webpack = require('webpack')
+var autoprefixer = require('autoprefixer')
+var precss = require('precss')
 
 module.exports = {
-  devtool: 'cheap-module-inline-source-map',
+  devtool: 'cheap-module-source-map',
   entry: {
     app: [
       'webpack-hot-middleware/client',
@@ -53,6 +53,6 @@ module.exports = {
     ]
   },
   postcss: function () {
-    return [autoprefixer({ browsers: ['> 1%', 'IE 9'] }), precss];
+    return [autoprefixer({ browsers: ['> 1%', 'IE 9'] }), precss]
   }
-};
+}

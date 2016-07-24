@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component } from 'react'
+import { Component } from 'react'
 import classnames from 'classnames'
 import { forEach } from './utils/objects'
 import Input from './Input'

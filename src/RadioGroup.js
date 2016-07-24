@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { PropTypes } from 'react'
+import { PropTypes } from 'react'
 import classnames from 'classnames'
 import Fetch from './higherOrders/Fetch'
 import FormItem from './higherOrders/FormItem'

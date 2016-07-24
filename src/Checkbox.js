@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component, PropTypes } from 'react'
+import { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import { compose } from './utils/compose'
 import FormItem from './higherOrders/FormItem'
@@ -87,7 +87,9 @@ Checkbox.defaultProps = {
 function assetCheck (Component) {
   function Checked (props) {
     const { value, checkValue, ...other } = props
-    return <Component {...other} checkValue={checkValue || value} />
+    let cv = checkValue !== undefined ? checkValue
+      : value !== undefined ? value : true
+    return <Component {...other} checkValue={cv} />
   }
 
   Checked.propTypes = {

@@ -11,7 +11,7 @@ module.exports = () => {
     <div>
       <div className="header">
         <h1>Input</h1>
-        <Cn><h2>输入框</h2></Cn>
+        <Cn tag="h2">输入框</Cn>
       </div>
 
       <div className="content">
@@ -20,12 +20,12 @@ module.exports = () => {
   id={string}
   type={string}        // text, email, alpha, alphanum, password, url, number, integer
   placeholder={string}
-  readOnly={bool}      // == disabled
-  onChange={func}      // 回调方法，实际是由trigger指定的事件触发，非change事件
+  readOnly={bool}      // default is false
+  trigger={string}     // 'blur|change|keyDown|keyUp', default is 'change'
+  onChange={func}      // callback on trigger
   size="string"        // 'large|middle|small', default value is 'middle'
-  trigger={string}     // 触发数据校验和回填form的事件，可选值为 blur|change|keyDown|keyUp，默认为blur
-  value={string}       // 初始值
-  grid={{width, offset, responsive}} // 宽度，详见Grid
+  value={string}       // initial value
+  grid={{width, offset, responsive}} // see Grid 
 />`}
         </Code>
         <Cn>0.6 textarea 不再包含在Input中</Cn>
@@ -112,7 +112,7 @@ module.exports = () => {
 </InputGroup>
         </Example>
 
-        <p>更多示例见 <a href="#/formControl">FormControl</a></p>
+        <Cn>更多示例见 <a href="#/formControl">FormControl</a></Cn>
       </div>
     </div>
   )

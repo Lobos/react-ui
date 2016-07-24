@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component } from 'react'
+import { Component } from 'react'
 import classnames from 'classnames'
 import { objectAssign } from '../utils/objects'
 import { overView, getOuterHeight } from '../utils/dom'

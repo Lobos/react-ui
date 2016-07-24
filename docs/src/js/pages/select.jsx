@@ -3,7 +3,9 @@
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
-const {Select, Button} = global.uiRequire()
+import { TplDataDesc } from '../CommDocs'
+import { Select, Button } from '../rctui'
+import { Cn, En } from '../Language'
 
 const bigData = []
 let i = 1000
@@ -32,11 +34,12 @@ module.exports = class extends Component {
       <div>
         <div className="header">
           <h1>Select</h1>
-          <h2>下拉列表</h2>
+          <Cn tag="h2">下拉列表</Cn>
         </div>
 
         <div className="content">
-          <Code>
+          <Cn>
+            <Code>
 {`<Select
   className={string}    // class
   data={array|object}   // 数据
@@ -58,31 +61,65 @@ module.exports = class extends Component {
 模板使用 "{key}" 形式的字符串进行格式化。
 data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所有模板无效。
 `}
-          </Code>
-          <div><a href="#/fetch">fetch 参见这里</a></div>
-          <div>0.7 加入了lazy render的机制，一个Select最多同时render maxShowCount个选项，提升大数据下的性能。</div>
+            </Code>
+          </Cn>
+          <En>
+            <Code>
+{`<Select
+  className={string}    // class
+  data={array|object}
+  fetch={object}
+  grid={{width, offset, responsive}} // see Grid
+  sep={string|null}     // default is ','
+  filterAble={bool}     // default is false
+  readOnly={bool}       // default is false
+  groupBy={string}      // data key
+  placeholder={string}
+  maxShowCount={number} // max render count, use for large data, default is 30
+  mult={bool}           // default is false
+  onChange={function(value)}
+  optionTpl={string}    // option template, default is "{text}"
+  resultTpl={string}    // result template, default is same as optionTpl
+  valueTpl={string}     // value template, default is "{value}"
+  value={string}        // 初始值
+/>`}
+            </Code>
+          </En>
+          <p><a href="#/fetch">fetch see here</a></p>
+          <Cn>0.7 加入了lazy render的机制，一个Select最多同时render maxShowCount个选项，提升大数据下的性能。</Cn>
 
-          <h2 className="subhead">简单数组</h2>
+          <TplDataDesc />
+
+          <h2 className="subhead">Simple Array</h2>
           <Example>
-<Select grid={{width:1 / 3}}
-  placeholder="简单数组"
-  data={['中国', '美国', '俄罗斯', '德国', '日本', '法国', '英格兰']} />
+<Select grid={{width: 1 / 3}}
+  placeholder="City"
+  data={['Beijing', 'Tokyo', 'New York', 'Edinburgh', 'San Francisco', 'Sidney']} />
 &nbsp;
-<Select grid={{width:1 / 3}}
+<Select grid={{width: 1 / 3}}
   mult
-  data={['中国', '美国', '俄罗斯', '德国', '日本', '法国', '英格兰']} />
+  data={['Beijing', 'Tokyo', 'New York', 'Edinburgh', 'San Francisco', 'Sidney']} />
           </Example>
 
-          <h2 className="subhead">KeyValue</h2>
+          <h2 className="subhead">Object</h2>
           <Example>
-<Select grid={{width:1 / 4}}
+<Select grid={{width: 1 / 4}}
   placeholder="Key Value"
-  data={{ jiangsu: '江苏', shanghai: '上海', beijing: '北京', guangdong: '广东', zhejiang: '浙江' }} />
+  value="us"
+  data={{
+    'cn': 'China',
+    'us': 'United States',
+    'jp': 'Japan',
+    'gb': 'Great Britain',
+    'fr': 'France',
+    'de': 'Germany',
+    'es': 'Spain'
+  }} />
           </Example>
 
           <h2 className="subhead">单选</h2>
           <Example>
-<Select grid={{width:1 / 2}}
+<Select grid={{width: 1 / 2}}
   placeholder="单选"
   filterAble
   optionTpl={imageTpl}
@@ -96,12 +133,12 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           <h2 className="subhead">超大数据</h2>
           <p>这个示例设置了1000个选项。</p>
           <Example>
-<Select grid={{width:1 / 3}}
+<Select grid={{width: 1 / 3}}
   filterAble
   placeholder="单选"
   data={bigData} />
 &nbsp;
-<Select grid={{width:1 / 3}}
+<Select grid={{width: 1 / 3}}
   filterAble
   placeholder="多选"
   mult
@@ -110,19 +147,19 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 
           <h2 className="subhead">多选</h2>
           <Example>
-<Select grid={{width:1 / 2}}
+<Select grid={{width: 1 / 2}}
   mult
   placeholder="多选"
   filterAble
   optionTpl={imageTpl}
   resultTpl="{country}"
   valueTpl="{en}"
-  fetch={{url:'json/countries.json', cache:3600}} />
+  fetch={{url: 'json/countries.json', cache: 3600}} />
           </Example>
 
           <h2 className="subhead">groupBy</h2>
           <Example>
-<Select grid={{width:1 / 2}}
+<Select grid={{width: 1 / 2}}
   placeholder="Group by continent"
   groupBy="continent"
   filterAble
@@ -133,7 +170,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 
           <h2 className="subhead">readOnly</h2>
           <Example>
-<Select grid={{width:1 / 3}} readOnly
+<Select grid={{width: 1 / 3}} readOnly
   value="俄罗斯"
   data={['中国', '美国', '俄罗斯', '德国', '日本', '法国', '英格兰']} />
           </Example>

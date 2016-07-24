@@ -4,7 +4,8 @@ import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import { TplDataDesc } from '../CommDocs'
-const {RadioGroup, Radio, Icon} = global.uiRequire()
+import { RadioGroup, Radio, Icon } from '../rctui'
+import { Cn, En } from '../Language'
 
 import { createKeyValue } from '../data/mock'
 const data1000 = createKeyValue(1000)
@@ -22,12 +23,12 @@ module.exports = class extends Component {
       <div>
         <div className="header">
           <h1>Radio Group</h1>
-          <h2>一组单选框</h2>
+          <Cn tag="h2">一组单选框</Cn>
         </div>
 
         <div className="content">
-
-          <Code>
+          <Cn>
+            <Code>
 {`<RadioGroup
   block={bool}           // 为 true 时，各选项单行排列。默认为 false 
   className={string}     // class
@@ -40,104 +41,139 @@ module.exports = class extends Component {
   valueTpl={string|func} // 返回数据模板，字符串或方法，默认为 "{id}"
   value={any}
 />`}
-          </Code>
-          <div><a href="#/fetch">fetch 参见这里</a></div>
+            </Code>
+          </Cn>
+          <En>
+            <Code>
+{`<RadioGroup
+  block={bool}           // default is false
+  className={string}     // class
+  data={array|object}    // array or object
+  fetch={object}
+  onChange={function(value)}
+  readOnly={bool}        // default is false
+  textTpl={string|func}  // text template, default is  "{text}"
+  value={string|array}
+  valueTpl={string|func} // value template, default is "{id}"
+/>`}
+            </Code>
+          </En>
+          <p><a href="#/fetch">fetch see here</a></p>
 
           <TplDataDesc />
 
-          <h2 className="subhead">默认结构数据</h2>
+          <h2 className="subhead">Array Data</h2>
           <Example>
-<RadioGroup data={[
-  { 'id': 'nanjing', 'text': '南京' },
-  { 'id': 'beijing', 'text': '北京' },
-  { 'id': 'guangzhou', 'text': '广州' },
-  { 'id': 'shenzhen', 'text': '深圳' },
-  { 'id': 'chengdu', 'text': '成都' },
-  { 'id': 'chongqing', 'text': '重庆' },
-  { 'id': 'shanghai', 'text': '上海' }
+<RadioGroup value="fr" data={[
+  { 'id': 'cn', 'text': 'China' },
+  { 'id': 'us', 'text': 'United States' },
+  { 'id': 'jp', 'text': 'Japan' },
+  { 'id': 'gb', 'text': 'Great Britain' },
+  { 'id': 'fr', 'text': 'France' },
+  { 'id': 'de', 'text': 'Germany' },
+  { 'id': 'es', 'text': 'Spain' }
 ]} />
           </Example>
 
-          <h2 className="subhead">定义模版(string)</h2>
+          <h2 className="subhead">Object Data</h2>
+          <Cn>0.6 后可以使用key value结构的object作为数据</Cn>
           <Example>
-<RadioGroup
-  value="beijing"
-  textTpl="{cn}({en})"
-  valueTpl="{en}"
-  data={[
-    { 'en': 'nanjing', 'cn': '南京' },
-    { 'en': 'beijing', 'cn': '北京' },
-    { 'en': 'guangzhou', 'cn': '广州' },
-    { 'en': 'shenzhen', 'cn': '深圳' },
-    { 'en': 'chengdu', 'cn': '成都' },
-    { 'en': 'chongqing', 'cn': '重庆' },
-    { 'en': 'shanghai', 'cn': '上海' }
-  ]}
-/>
-          </Example>
-
-          <h2 className="subhead">定义模版(function)</h2>
-          <Example>
-<RadioGroup block
-  value="beijing"
-  textTpl={(d) => <span><b>{d.cn}</b> - {d.en}</span>}
-  valueTpl={(d) => d.en}
-  data={[
-    { 'en': 'nanjing', 'cn': '南京' },
-    { 'en': 'beijing', 'cn': '北京' },
-    { 'en': 'guangzhou', 'cn': '广州' },
-    { 'en': 'shenzhen', 'cn': '深圳' },
-    { 'en': 'chengdu', 'cn': '成都' },
-    { 'en': 'chongqing', 'cn': '重庆' },
-    { 'en': 'shanghai', 'cn': '上海' }
-  ]}
-/>
-          </Example>
-
-          <h2 className="subhead">key value 结构数据</h2>
-          <div>0.6 后可以使用key value结构的object作为数据</div>
-          <Example>
-<RadioGroup value="beijing" data={{
-  'nanjing': '南京',
-  'beijing': '北京',
-  'guangzhou': '广州',
-  'shenzhen': '深圳',
-  'chengdu': '成都',
-  'chongqing': '重庆',
-  'shanghai': '上海'
+<RadioGroup value="gb" data={{
+  'cn': 'China',
+  'us': 'United States',
+  'jp': 'Japan',
+  'gb': 'Great Britain',
+  'fr': 'France',
+  'de': 'Germany',
+  'es': 'Spain'
 }} />
           </Example>
 
-          <h2 className="subhead">简单数组</h2>
+          <h2 className="subhead">String Template</h2>
           <Example>
 <RadioGroup
-  value="北京"
-  data={['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安']} />
+  value="us"
+  textTpl="{name}({code})"
+  valueTpl="{code}"
+  data={[
+    { 'code': 'cn', 'name': 'China' },
+    { 'code': 'us', 'name': 'United States' },
+    { 'code': 'jp', 'name': 'Japan' },
+    { 'code': 'gb', 'name': 'Great Britain' },
+    { 'code': 'fr', 'name': 'France' },
+    { 'code': 'de', 'name': 'Germany' },
+    { 'code': 'es', 'name': 'Spain' }
+  ]}
+/>
           </Example>
 
-          <h2 className="subhead">只读</h2>
+          <h2 className="subhead">Function Template</h2>
+          <Example>
+<RadioGroup
+  value="us"
+  textTpl={(d) => d.name + '-' + d.code }
+  valueTpl={(d) => d.code}
+  data={[
+    { 'code': 'cn', 'name': 'China' },
+    { 'code': 'us', 'name': 'United States' },
+    { 'code': 'jp', 'name': 'Japan' },
+    { 'code': 'gb', 'name': 'Great Britain' },
+    { 'code': 'fr', 'name': 'France' },
+    { 'code': 'de', 'name': 'Germany' },
+    { 'code': 'es', 'name': 'Spain' }
+  ]}
+/>
+          </Example>
+
+          <h2 className="subhead">Array[string]</h2>
+          <Cn>显示文本和选中值一样时，可以使用简单数组</Cn>
+          <Example>
+<RadioGroup
+  onChange={(value) => console.log(value)}
+  value={'Beijing'}
+  data={['Beijing', 'Tokyo', 'New York', 'HongKong', 'Edinburgh',
+    'San Francisco', 'London', 'Sidney']}
+/>
+          </Example>
+
+          <h2 className="subhead">Remote Data</h2>
+          <Cn>支持<a href="#/fetch">fetch</a>从服务端获取数据</Cn>
+          <En>Get data from server with <a href="#/fetch">fetch</a></En>
+          <Example>
+<RadioGroup
+  onChange={(value) => console.log(value)}
+  value="us"
+  fetch={{url: 'json/text-value.json', cache: 3600}}
+/>
+          </Example>
+
+          <h2 className="subhead">Block</h2>
+          <Example>
+<RadioGroup block
+  onChange={(value) => console.log(value)}
+  value="us,fr"
+  fetch={{url: 'json/text-value.json', cache: 3600}}
+/>
+          </Example>
+
+          <h2 className="subhead">ReadOnly</h2>
           <Example>
 <RadioGroup readOnly
-  value="北京"
-  data={['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安']} />
-          </Example>
-
-          <h2 className="subhead">服务端数据</h2>
-          <div>支持<a href="#/fetch">fetch</a>从服务端获取数据</div>
-          <Example>
-<RadioGroup
-  value="chengdu"
-  fetch={{url: 'json/text-value.json', cache: 3600 }} />
+  value={'Edinburgh'}
+  data={['Beijing', 'Tokyo', 'New York', 'HongKong', 'Edinburgh',
+    'San Francisco', 'London', 'Sidney']}
+/>
           </Example>
 
           <h2 className="subhead">data && children</h2>
           <Example>
 <RadioGroup
   onChange={(value) => console.log(value)}
-  value="北京"
-  data={['南京', '北京', '上海', '广州', '深圳', '成都', '重庆', '西安']}
+  value="Edinburgh"
+  data={['Beijing', 'Tokyo', 'New York', 'Edinburgh', 'San Francisco', 'Sidney']}
   >
-  <Radio position={3} value="香港"><Icon icon="cloud-outline" />香港</Radio>
+  <Radio position={3} value="Hongkong"><Icon icon="cloud-outline" />Hongkong</Radio>
+  <Radio value="London">London</Radio>
 </RadioGroup>
           </Example>
 
