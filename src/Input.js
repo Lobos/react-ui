@@ -30,7 +30,7 @@ class Input extends Component {
   }
 
   render () {
-    const { className, grid, type, size, readOnly, ...other } = this.props
+    const { className, grid, type, size, readOnly, placeholder } = this.props
     const props = {
       className: classnames(
         className,
@@ -40,11 +40,12 @@ class Input extends Component {
         getGrid(grid)
       ),
       readOnly,
+      placeholder,
       onChange: readOnly ? undefined : this.handleChange,
       type: type === 'password' ? 'password' : 'text'
     }
 
-    return (<input {...other} {...props} />)
+    return (<input {...props} />)
   }
 }
 

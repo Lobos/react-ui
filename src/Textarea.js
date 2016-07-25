@@ -44,7 +44,7 @@ class Textarea extends Component {
   }
 
   render () {
-    let { className, grid, autoHeight, readOnly, ...other } = this.props
+    let { className, grid, autoHeight, readOnly, placeholder } = this.props
 
     let style = {}
     if (autoHeight) {
@@ -61,11 +61,12 @@ class Textarea extends Component {
       ),
       onChange: readOnly ? undefined : this.handleChange,
       style: objectAssign({}, this.props.style, style),
-      readOnly
+      readOnly,
+      placeholder
     }
 
     return (
-      <textarea ref="element" { ...other } { ...props } />
+      <textarea ref="element" { ...props } />
     )
   }
 }
