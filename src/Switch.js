@@ -3,7 +3,6 @@
 import classnames from 'classnames'
 import { Checkbox } from './Checkbox'
 import PropTypes from './utils/proptypes'
-import { filterInputProps } from './utils/propsFilter'
 import FormItem from './higherOrders/FormItem'
 
 import _styles from './styles/_radio-checkbox.scss'
@@ -21,7 +20,7 @@ function Switch (props) {
 
   return (
     <div className={className}>
-      <Checkbox {...filterInputProps(props)} isIndicator block>
+      <Checkbox {...props} isIndicator block>
         <span className={_styles.on}>{text[0] || 'On'}</span>
         <span className={_styles.off}>{text[1] || 'Off'}</span>
       </Checkbox>
