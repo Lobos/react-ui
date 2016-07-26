@@ -7,3 +7,7 @@ export function filterInputProps (...props) {
 
   return others
 }
+
+export function filterTextareaProps(...props){
+  return filterInputProps(props)
+}
