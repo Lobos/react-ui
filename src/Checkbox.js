@@ -50,7 +50,6 @@ export class Checkbox extends Component {
       <label style={style} className={ labelClass }>
         <input type="checkbox"
           disabled={readOnly}
-          indeterminate={indeterminate}
           onChange={this.handleChange}
           checked={checked}
           value={checkValue}

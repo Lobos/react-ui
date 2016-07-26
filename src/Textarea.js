@@ -4,6 +4,7 @@ import { Component } from 'react'
 import classnames from 'classnames'
 import { objectAssign } from './utils/objects'
 import { getGrid } from './utils/grids'
+import { filterInputProps } from './utils/propsFilter'
 import FormItem from './higherOrders/FormItem'
 import Trigger from './higherOrders/Trigger'
 import { cloneShadow } from './utils/dom'
@@ -65,7 +66,7 @@ class Textarea extends Component {
     }
 
     return (
-      <textarea ref="element" { ...other } { ...props } />
+      <textarea ref="element" { ...filterInputProps(other, props) } />
     )
   }
 }

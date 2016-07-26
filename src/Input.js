@@ -3,6 +3,7 @@
 import { Component } from 'react'
 import classnames from 'classnames'
 import Regs from './utils/regs'
+import { filterInputProps } from './utils/propsFilter'
 import { getGrid } from './utils/grids'
 import FormItem from './higherOrders/FormItem'
 import Trigger from './higherOrders/Trigger'
@@ -44,7 +45,7 @@ class Input extends Component {
       type: type === 'password' ? 'password' : 'text'
     }
 
-    return (<input {...other} {...props} />)
+    return (<input {...filterInputProps(other, props)} />)
   }
 }
 
