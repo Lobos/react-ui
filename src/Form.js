@@ -5,6 +5,7 @@ import classnames from 'classnames'
 import { forEach, deepEqual, hashcode, objectAssign } from './utils/objects'
 import clone from './utils/clone'
 import { getGrid } from './utils/grids'
+import { filterFormProps } from './utils/propsFilter'
 import FormControl from './FormControl'
 import Button from './Button'
 import PropTypes from './utils/proptypes'
@@ -181,7 +182,7 @@ class Form extends Component {
     const btns = buttons || button
 
     return (
-      <form {...props} onSubmit={this.handleSubmit} className={className}>
+      <form {...filterFormProps(props)} onSubmit={this.handleSubmit} className={className}>
         {controls && this.renderControls()}
         {children}
         {btns && this.renderButtons(btns)}

@@ -1,13 +1,23 @@
-export function filterInputProps (...props) {
-  const temp = props.reduce((p, c) => {
+export function merge(...props){
+    return props.reduce((p, c) => {
     return Object.assign(p, c)
   })
+}
 
-  const {indeterminate, hasError, trigger, sep, ...others} = temp
+export function filterInputProps (...props) {
+  const {onValidate, dispatch, ignore, tip, validator, hasError, trigger, sep, ...others} = merge(...props)
 
   return others
 }
 
-export function filterTextareaProps(...props){
-  return filterInputProps(props)
+export function filterTextareaProps(...props) {
+  const {onValidate, sep, hasError, trigger, ...others} = merge(...props)
+
+  return others
+}
+
+export function filterFormProps(...props) {
+  const {fetchStatus, fetch,  ...others} = merge(...props)
+
+  return others
 }
