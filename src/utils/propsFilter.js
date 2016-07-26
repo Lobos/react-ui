@@ -1,5 +1,5 @@
 export function merge(...props){
-    return props.reduce((p, c) => {
+  return props.reduce((p, c) => {
     return Object.assign(p, c)
   })
 }
@@ -17,7 +17,7 @@ export function filterTextareaProps(...props) {
 }
 
 export function filterFormProps(...props) {
-  const {fetchStatus, fetch,  ...others} = merge(...props)
+  const {fetchStatus, fetch, columns, labelWidth, ...others} = merge(...props)
 
   return others
 }
