@@ -3,4 +3,5 @@ describe('Basic', function () {
   require('./GridSpec.js')
   require('./IconSpec.js')
   require('./LangSpec.js')
+  require('./SwitchSpec.js')
 })
