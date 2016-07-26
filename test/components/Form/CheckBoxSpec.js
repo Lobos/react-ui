@@ -18,12 +18,8 @@ describe('Checkbox & Checkbox Group Spec', () => {
       expect(_defaultCheckbox.find('span').nodes[1].innerHTML).to.equal('foo')
     })
 
-    it('should apply boolean value by default', (done) => {
-      _defaultCheckbox.find('input').simulate('change', { target: { checked: true } })
-      setTimeout(() => {
-        expect(_defaultCheckbox.find('input')).to.have.value('true')
-        done()
-      }, 0)
+    it('should apply boolean value by default', () => {
+      expect(_defaultCheckbox.find('input')).to.have.value('true')
     })
 
     it('should apply checked value by value', (done) => {
