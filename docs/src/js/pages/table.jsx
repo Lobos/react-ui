@@ -29,8 +29,8 @@ module.exports = class extends Component {
     this.setState({ fetch });
   }
 
-  getCheckedName () {
-    let names = (this.refs.table.getChecked('name')).join(',');
+  getSelectedName () {
+    let names = (this.refs.table.getSelected('name')).join(',');
     this.setState({ checkedNames: names });
   }
 
@@ -87,11 +87,11 @@ headers = [{
             </pre>
           </div>
 
-          <h2 className="subhead">getChecked(name)</h2>
+          <h2 className="subhead">getSelected(name)</h2>
           <div>
             <em>实例方法</em>，获取当前选中的数据，返回结果为数组<br />
             <em>name</em>，如果为空，返回为原始data数据，如果指定了name，返回name对应的值。
-            <pre className="prettyprint">{`this.refs.table.getChecked('name')`}</pre>
+            <pre className="prettyprint">{`this.refs.table.getSelected('name')`}</pre>
           </div>
 
           <h2 className="subhead">Example</h2>
@@ -110,7 +110,7 @@ headers = [{
           {
             this.state.selectAble &&
             <div>
-              <a onClick={this.getCheckedName.bind(this)}>获取选中 Name</a>
+              <a onClick={this.getSelectedName.bind(this)}>获取选中 Name</a>
               <p>{this.state.checkedNames}</p>
             </div>
           }

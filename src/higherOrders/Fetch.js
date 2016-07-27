@@ -30,6 +30,8 @@ export const fetchEnhance = (ComposedComponent) => {
         data: undefined,
         fetchStatus: FETCH_SUCCESS
       }
+
+      this.getSelected = this.getSelected.bind(this)
     }
 
     componentWillMount () {
@@ -80,6 +82,10 @@ export const fetchEnhance = (ComposedComponent) => {
       } else {
         this.setState({ data: clone(data), fetchStatus: FETCH_SUCCESS });
       }
+    }
+
+    getSelected () {
+      return this.component.getSelected(...arguments);
     }
 
     fetchData (fetch) {

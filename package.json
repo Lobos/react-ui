@@ -1,15 +1,15 @@
 {
   "name": "rctui",
   "author": "lobos841@gmail.com",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "description": "a collection of components for React",
   "main": "./src/index.js",
   "scripts": {
     "dev": "node devServer.js",
-    "docs": "env NODE_ENV=production webpack --config webpack.config.docs.js",
-    "build": "env NODE_ENV=production webpack --config webpack.config.prod.js",
+    "docs": "cross-env NODE_ENV=production webpack --config webpack.config.docs.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "lint": "./node_modules/.bin/eslint src && ./node_modules/.bin/eslint docs/src",
-    "test": "env NODE_ENV=test ./node_modules/.bin/karma start"
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/karma start"
   },
   "keywords": [
     "react ui",
@@ -44,6 +44,7 @@
     "babel-preset-react-hmre": "~1.1.1",
     "chai": "~3.5.0",
     "chai-enzyme": "^0.4.2",
+    "cross-env": "^2.0.0",
     "css-loader": "~0.23.1",
     "enzyme": "~2.2.0",
     "eslint": "~2.4.0",
