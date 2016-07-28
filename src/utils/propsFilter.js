@@ -1,23 +1,29 @@
-export function merge(...props){
-  return props.reduce((p, c) => {
-    return Object.assign(p, c)
-  })
+import { objectAssign } from './objects'
+
+function filter (args, keys) {
+  let props = args.reduce((p, c) => objectAssign(p, c))
+  keys.forEach(key => delete props[key])
+
+  return props
 }
 
-export function filterInputProps (...props) {
-  const {onValidate, dispatch, ignore, tip, validator, hasError, trigger, sep, ...others} = merge(...props)
-
-  return others
+export function filterInputProps () {
+  return filter(
+    [...arguments],
+    ['onValidate', 'dispatch', 'ignore', 'tip', 'validator', 'hasError', 'trigger', 'sep']
+  )
 }
 
-export function filterTextareaProps(...props) {
-  const {onValidate, sep, hasError, trigger, ...others} = merge(...props)
-
-  return others
+export function filterTextareaProps () {
+  return filter(
+    [...arguments],
+    ['onValidate', 'sep', 'hasError', 'trigger']
+  )
 }
 
-export function filterFormProps(...props) {
-  const {fetchStatus, fetch, columns, labelWidth, ...others} = merge(...props)
-
-  return others
+export function filterFormProps () {
+  return filter(
+    [...arguments],
+    ['fetchStatus', 'fetch', 'columns', 'labelWidth']
+  )
 }
