@@ -117,42 +117,41 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   }} />
           </Example>
 
-          <h2 className="subhead">单选</h2>
+          <h2 className="subhead">Single Select</h2>
           <Example>
 <Select grid={{width: 1 / 2}}
-  placeholder="单选"
+  placeholder="Single Select"
   filterAble
   optionTpl={imageTpl}
   valueTpl="{en}"
   onChange={ this.handleCountry }
   value={this.state.country}
   fetch={"json/countries.json"} />
-<Button style={{ marginLeft: 10 }} onClick={ () => this.setState({ country: '' }) }>清空</Button>
+<Button style={{ marginLeft: 10 }} onClick={ () => this.setState({ country: '' }) }>Clear</Button>
           </Example>
 
-          <h2 className="subhead">超大数据</h2>
-          <p>这个示例设置了1000个选项。</p>
+          <h2 className="subhead">Large Options</h2>
+          <Cn>这个示例设置了1000个选项。</Cn>
           <Example>
 <Select grid={{width: 1 / 3}}
   filterAble
-  placeholder="单选"
+  placeholder="single"
   data={bigData} />
 &nbsp;
 <Select grid={{width: 1 / 3}}
   filterAble
-  placeholder="多选"
+  placeholder="mult"
   mult
   data={bigData} />
           </Example>
 
-          <h2 className="subhead">多选</h2>
+          <h2 className="subhead">Mult Select</h2>
           <Example>
 <Select grid={{width: 1 / 2}}
   mult
-  placeholder="多选"
   filterAble
   optionTpl={imageTpl}
-  resultTpl="{country}"
+  resultTpl="{en}"
   valueTpl="{en}"
   fetch={{url: 'json/countries.json', cache: 3600}} />
           </Example>
@@ -171,10 +170,9 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
           <h2 className="subhead">readOnly</h2>
           <Example>
 <Select grid={{width: 1 / 3}} readOnly
-  value="俄罗斯"
-  data={['中国', '美国', '俄罗斯', '德国', '日本', '法国', '英格兰']} />
+  value="New York"
+  data={['Beijing', 'Tokyo', 'New York', 'Edinburgh', 'San Francisco', 'Sidney']} />
           </Example>
-
         </div>
       </div>
     )
