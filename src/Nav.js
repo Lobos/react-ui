@@ -1,6 +1,7 @@
-import { Component, PropTypes, Children } from 'react'
+import { Component, Children } from 'react'
+import PropTypes from './utils/proptypes'
 import classnames from 'classnames'
-
+import { getGrid } from './utils/grids'
 import Styles from './styles/_nav.scss'
 
 class Navs extends Component {
@@ -20,27 +21,38 @@ class Navs extends Component {
   }
 
   render () {
-    const {children, inline, type} = this.props
+    const {children, inline, type, grid} = this.props
     const {activeId} = this.state
 
+    const itemGrid = 1 / children.length
+
     const items = Children.map(children, (e, i) => {
+      const wrapperClassName = classnames(
+        inline || type === 'tab' ? Styles.inline : '',
+        inline ? getGrid(itemGrid) : ''
+      )
+
       const className = classnames(
         Styles[`navItem-${type}`],
-        activeId === (i + 1) ? Styles[`active-${type}`] : Styles[`inactive-${type}`],
-        inline || type === 'tab' ? Styles.inline : ''
+        activeId === (i + 1) ? Styles[`active-${type}`] : Styles[`inactive-${type}`]
       )
 
       const onClick = activeId === (i + 1) ? null : this.handleChoose.bind(this, i + 1)
 
-      const props = {className, onClick}
-
-      return <div {...props}>
-               {e}
+      return <div className={wrapperClassName} onClick={onClick}>
+               <div className={className}>
+                 {e}
+               </div>
              </div>
     })
 
+    const className = classnames(
+      Styles.nav,
+      getGrid(grid)
+    )
+
     return (
-      <div className={Styles.nav}>
+      <div className={className}>
         <div className={Styles[`wrapper-${type}`]}>
           {items}
         </div>
@@ -54,7 +66,8 @@ Navs.propTypes = {
   inline: PropTypes.bool,
   type: PropTypes.string,
   children: PropTypes.arrayOf(PropTypes.object),
-  active: PropTypes.number
+  active: PropTypes.number,
+  grid: PropTypes.grid
 }
 
 Navs.defaultProps = {

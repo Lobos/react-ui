@@ -2,7 +2,7 @@
 @import 'themes/bootstrap';
 
 /*base*/
-$itemWidth: 200px;
+
 $itemHeight: 40px;
 .nav {
     .inline {
@@ -24,14 +24,13 @@ $itemHeight: 40px;
 
 .navItem-pill,
 .navItem-tab {
-    width: $itemWidth;
     height: $itemHeight;
     text-align: center;
     transition: background 0.5s;
 }
 
 .navItem-pill {
-    margin: 1px;
+    margin: 1px; 
     border-radius: 4px;
 }
 
@@ -44,12 +43,14 @@ $itemHeight: 40px;
 
 .wrapper-pill,
 .wrapper-tab {
+    width: 100%;
     display: inline-block;
     height: $itemHeight+1px;
 }
 
+// .wrapper-pill {
+// }
 .wrapper-tab {
-    width: 100%;
     border: 1px solid transparent;
     border-bottom: 1px solid #ccc;
 }
