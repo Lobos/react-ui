@@ -7,6 +7,8 @@ module.exports = [
   { path: '/grid', text: 'Grid', component: require('./pages/grid.jsx') },
   { path: '/lang', text: 'Lang', component: require('./pages/lang.jsx') },
   { path: '/switch', text: 'Switch', component: require('./pages/switch.jsx') },
+  'Layout',
+  { path: '/nav', text: 'Nav', component: require('./pages/nav.jsx')},
   'FORM',
   { path: '/form', text: 'Form', component: require('./pages/form.jsx') },
   { path: '/formitem', text: 'FormItem', component: require('./pages/formItem.jsx') },

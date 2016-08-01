@@ -1,0 +1,88 @@
+@import 'mixins';
+@import 'themes/bootstrap';
+
+/*base*/
+$itemWidth: 200px;
+$itemHeight: 40px;
+.nav {
+    .inline {
+        display: inline-block;
+    }
+    label {
+        line-height: $itemHeight;
+    }
+}
+
+
+/*item*/
+
+.navItem {
+    label {
+        line-height: $itemHeight;
+    }
+}
+
+.navItem-pill,
+.navItem-tab {
+    width: $itemWidth;
+    height: $itemHeight;
+    text-align: center;
+    transition: background 0.5s;
+}
+
+.navItem-pill {
+    margin: 1px;
+    border-radius: 4px;
+}
+
+.navItem-tab {
+    border-radius: 4px 4px 0 0;
+}
+
+
+/*wrapper*/
+
+.wrapper-pill,
+.wrapper-tab {
+    display: inline-block;
+    height: $itemHeight+1px;
+}
+
+.wrapper-tab {
+    width: 100%;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #ccc;
+}
+
+
+/*pill*/
+
+.active-pill {
+    background-color: #0078e7;
+    border: 1px solid #ccc;
+    a {
+        color: white;
+    }
+}
+
+.inactive-pill {
+    &:hover {
+        background-color: #ccc;
+    }
+}
+
+
+/*tab*/
+
+.active-tab {
+    border: 1px solid #ccc;
+    border-bottom: 1px solid white;
+}
+
+.inactive-tab {
+    border-top: 1px solid transparent;
+    &:hover {
+        border-top: 1px solid #ccc;
+        background-color: #ccc;
+    }
+}

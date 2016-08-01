@@ -35,4 +35,7 @@ export { default as Modal } from './Modal'
 export { default as Message } from './Message'
 export { default as SafeHtml } from './SafeHtml'
 
+export { default as Nav } from './Nav'
+export { default as NavItem } from './NavItem'
+
 export { default as ValuesHolder } from './ValuesHolder'
