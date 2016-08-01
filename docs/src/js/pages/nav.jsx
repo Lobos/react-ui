@@ -25,13 +25,15 @@ module.exports = function () {
 {`<Nav 
   active={1}  // active id
   onSelect={onSelect}  // select callback
-  type='tab' // item style type, 'tab|pill', default is tab
+  type='tab|pill' // item style type, default is tab
   inline // inline style for items, default value is false
          // if you choose pill item type, default value is true
+  grid={{width, offset, responsive}} // see Grid 
   />
   <NavItem 
   text='foo' // item text
   onClick={onClick} // click callback
+  grid={{width, offset, responsive}} // see Grid, only effect when Nav is inline
   />                    
                   `}
         </Code>
@@ -55,9 +57,24 @@ module.exports = function () {
         <h2 className="subhead">tab</h2>
         <Example>
           <Nav active={1} onSelect={onSelect} type='tab'>
-              <NavItem text='foo' onClick={onClick} grid={1/4}/>
+              <NavItem text='foo' onClick={onClick}/>
               <NavItem text='bar' />
               <NavItem text='baz' />
+          </Nav>
+        </Example> 
+        <h2 className="subhead">grid custom</h2>
+        <Example>
+          <Nav active={1} onSelect={onSelect} type='pill' inline>
+              <NavItem text='foo' onClick={onClick} grid={1/4}/>
+              <NavItem text='bar' grid={1/4}/>
+              <NavItem text='baz' grid={1/4}/>
+          </Nav>
+        </Example> 
+        <Example>
+          <Nav active={1} onSelect={onSelect} type='tab'>
+              <NavItem text='foo' onClick={onClick} grid={1/4}/>
+              <NavItem text='bar' grid={1/4}/>
+              <NavItem text='baz' grid={1/4}/>
           </Nav>
         </Example> 
       </div>
