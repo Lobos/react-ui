@@ -12,16 +12,8 @@ class Navs extends Component {
     }
   }
 
-  handleChoose (id) {
-    const {onSelect} = this.props
-
-    this.setState({activeId: id}, () => {
-      onSelect && onSelect.call(this, id)
-    })
-  }
-
-  render () {
-    const {children, inline, type, grid} = this.props
+  generateItems () {
+    const {children, inline, type} = this.props
     const {activeId} = this.state
 
     const defualtGrid = 1 / children.length
@@ -43,6 +35,20 @@ class Navs extends Component {
              </div>
     })
 
+    return items
+  }
+
+  handleChoose (id) {
+    const {onSelect} = this.props
+
+    this.setState({activeId: id}, () => {
+      onSelect && onSelect.call(this, id)
+    })
+  }
+
+  render () {
+    const {grid, type} = this.props
+
     const className = classnames(
       Styles.nav,
       getGrid(grid)
@@ -51,7 +57,7 @@ class Navs extends Component {
     return (
       <div className={className}>
         <div className={Styles[`wrapper-${type}`]}>
-          {items}
+          {this.generateItems()}
         </div>
       </div>
     )
