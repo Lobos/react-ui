@@ -24,10 +24,10 @@ class Navs extends Component {
     const {children, inline, type, grid} = this.props
     const {activeId} = this.state
 
-    const itemGrid = 1 / children.length
+    const defualtGrid = 1 / children.length
 
     const items = Children.map(children, (e, i) => {
-      const wrapperClassName = inline || type === 'tab' ? classnames(Styles.inline, getGrid(itemGrid)) : ''
+      const wrapperClassName = inline || type === 'tab' ? classnames(Styles.inline, getGrid(e.props.grid ? e.props.grid : defualtGrid)) : ''
 
       const className = classnames(
         Styles[`navItem-${type}`],

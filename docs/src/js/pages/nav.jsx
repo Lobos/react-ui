@@ -55,7 +55,7 @@ module.exports = function () {
         <h2 className="subhead">tab</h2>
         <Example>
           <Nav active={1} onSelect={onSelect} type='tab'>
-              <NavItem text='foo' onClick={onClick}/>
+              <NavItem text='foo' onClick={onClick} grid={1/4}/>
               <NavItem text='bar' />
               <NavItem text='baz' />
           </Nav>

@@ -1,4 +1,5 @@
-import { Component, PropTypes } from 'react'
+import { Component } from 'react'
+import PropTypes from './utils/proptypes'
 
 class Nav extends Component {
   render () {
@@ -18,7 +19,8 @@ class Nav extends Component {
 
 Nav.propTypes = {
   text: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  grid: PropTypes.grid
 }
 
 export default Nav
