@@ -38,7 +38,7 @@ module.exports = function () {
 
         <h2 className="subhead">pill</h2>
         <Example>
-          <Nav active={1} onSelect={onSelect} type='pill' grid={1/4}>
+          <Nav active={1} onSelect={onSelect} type='pill' grid={1/3}>
               <NavItem text='foo' onClick={onClick}/>
               <NavItem text='bar' />
               <NavItem text='baz' />

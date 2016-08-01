@@ -30,7 +30,7 @@ $itemHeight: 40px;
 }
 
 .navItem-pill {
-    margin: 1px; 
+    margin: 1px;
     border-radius: 4px;
 }
 
@@ -61,7 +61,8 @@ $itemHeight: 40px;
 .active-pill {
     background-color: #0078e7;
     border: 1px solid #ccc;
-    a {
+    label,
+    label a {
         color: white;
     }
 }

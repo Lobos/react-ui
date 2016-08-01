@@ -27,10 +27,7 @@ class Navs extends Component {
     const itemGrid = 1 / children.length
 
     const items = Children.map(children, (e, i) => {
-      const wrapperClassName = classnames(
-        inline || type === 'tab' ? Styles.inline : '',
-        inline ? getGrid(itemGrid) : ''
-      )
+      const wrapperClassName = inline || type === 'tab' ? classnames(Styles.inline, getGrid(itemGrid)) : ''
 
       const className = classnames(
         Styles[`navItem-${type}`],
