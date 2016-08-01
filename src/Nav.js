@@ -23,13 +23,11 @@ class Navs extends Component {
     const {children, inline, type} = this.props
     const {activeId} = this.state
 
-    const suffix = type && inline ? type : 'pill'
-
     const items = Children.map(children, (e, i) => {
       const className = classnames(
-        Styles[`navItem-${suffix}`],
-        activeId === (i + 1) ? Styles[`active-${suffix}`] : Styles[`inactive-${suffix}`],
-        inline ? Styles.inline : ''
+        Styles[`navItem-${type}`],
+        activeId === (i + 1) ? Styles[`active-${type}`] : Styles[`inactive-${type}`],
+        inline || type === 'tab' ? Styles.inline : ''
       )
 
       const onClick = activeId === (i + 1) ? null : this.handleChoose.bind(this, i + 1)
@@ -43,7 +41,7 @@ class Navs extends Component {
 
     return (
       <div className={Styles.nav}>
-        <div className={Styles[`wrapper-${suffix}`]}>
+        <div className={Styles[`wrapper-${type}`]}>
           {items}
         </div>
       </div>
