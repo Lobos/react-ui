@@ -24,11 +24,11 @@ type={string}       // 'info|warning|success|danger|error', default is 'info'
 
         <h2 className="subhead">Example</h2>
         <Example>
-<Alert onClose={() => console.log('closed')}>Some text...</Alert>
-<Alert type="success">type success...</Alert>
-<Alert type="warning">type warning...</Alert>
-<Alert type="danger">type danger...</Alert>
-<Alert type="error"><h3>Error</h3><p>some text</p></Alert>
+          <Alert onClose={() => console.log('closed')}>Some text...</Alert>
+          <Alert type="success">type success...</Alert>
+          <Alert type="warning">type warning...</Alert>
+          <Alert type="danger">type danger...</Alert>
+          <Alert type="error"><h3>Error</h3><p>some text</p></Alert>
         </Example>
       </div>
     </div>

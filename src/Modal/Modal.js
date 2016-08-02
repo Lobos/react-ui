@@ -70,8 +70,13 @@ class Modal extends Component {
           } else if (onClick === 'submit') {
             let form = findDOMNode(this).querySelector('form')
             if (form) {
-              let event = document.createEvent('HTMLEvents')
-              event.initEvent('submit', true, true)
+              let event
+              if (CustomEvent) {
+                event = new CustomEvent('submit', { bubbles: true,	cancelable: true })
+              } else {
+                event = document.createEvent('HTMLEvents')
+                event.initEvent('submit', true, true)
+              }
               form.dispatchEvent(event)
             }
           } else {

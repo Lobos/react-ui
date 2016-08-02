@@ -1,41 +1,21 @@
-import { Component, Children } from 'react'
+import { Component, Children, cloneElement } from 'react'
 import PropTypes from './utils/proptypes'
 import classnames from 'classnames'
 import { getGrid } from './utils/grids'
-import Styles from './styles/_nav.scss'
+import _styles from './styles/_nav.scss'
 
 class Navs extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      activeId: 1
+      activeId: props.active
     }
   }
 
-  generateItems () {
-    const {children, inline, type} = this.props
-    const {activeId} = this.state
-
-    const defualtGrid = 1 / children.length
-
-    const items = Children.map(children, (e, i) => {
-      const wrapperClassName = inline || type === 'tab' ? classnames(Styles.inline, getGrid(e.props.grid ? e.props.grid : defualtGrid)) : ''
-
-      const className = classnames(
-        Styles[`navItem-${type}`],
-        activeId === (i + 1) ? Styles[`active-${type}`] : Styles[`inactive-${type}`]
-      )
-
-      const onClick = activeId === (i + 1) ? null : this.handleChoose.bind(this, i + 1)
-
-      return <div className={wrapperClassName} onClick={onClick}>
-               <div className={className}>
-                 {e}
-               </div>
-             </div>
-    })
-
-    return items
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.active !== this.props.active) {
+      this.setState({ activeId: nextProps.active })
+    }
   }
 
   handleChoose (id) {
@@ -46,31 +26,49 @@ class Navs extends Component {
     })
   }
 
+  renderItems () {
+    const { children } = this.props
+    const { activeId } = this.state
+    const items = Children.map(children, (child, i) => {
+      const id = child.props.id || i.toString()
+      const props = {
+        active: activeId === id,
+        id,
+        onChoose: this.handleChoose.bind(this, id)
+      }
+      return cloneElement(child, props)
+    })
+
+    return items
+  }
+
   render () {
-    const {grid, type} = this.props
+    const {grid, type, inline, ...other} = this.props
 
     const className = classnames(
-      Styles.nav,
+      other.className,
+      _styles.nav,
+      type === 'pill' ? _styles.pills : _styles.tabs,
+      (inline || type === 'tab') ? _styles.inline : _styles.stacked,
       getGrid(grid)
     )
 
     return (
-      <div className={className}>
-        <div className={Styles[`wrapper-${type}`]}>
-          {this.generateItems()}
-        </div>
-      </div>
+      <ul className={className}>
+        {this.renderItems()}
+      </ul>
     )
   }
 }
 
 Navs.propTypes = {
-  onSelect: PropTypes.func,
-  inline: PropTypes.bool,
-  type: PropTypes.string,
+  active: PropTypes.string,
   children: PropTypes.arrayOf(PropTypes.object),
-  active: PropTypes.number,
-  grid: PropTypes.grid
+  className: PropTypes.string,
+  grid: PropTypes.grid,
+  inline: PropTypes.bool,
+  onSelect: PropTypes.func,
+  type: PropTypes.string
 }
 
 Navs.defaultProps = {

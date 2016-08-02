@@ -283,8 +283,6 @@ module.exports = class extends React.Component {
     max={100}
     type="textarea" />
 </Form>
-
-{ this.state.formData && <Code>FormData:<br />{JSON.stringify(this.state.formData, null, 4)}</Code> }
           </Example>
 
           {/*

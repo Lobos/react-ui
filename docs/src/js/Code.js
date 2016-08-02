@@ -9,10 +9,15 @@ class Code extends Component {
   }
 
   render () {
+    let lines = this.props.children.split('\n')
+    const length = lines[0] ? /^(\s*)/.exec(lines[0])[1].length : 0
+    const reg = new RegExp('^(\\s{' + length + '})')
+    lines = lines.map(line => line.replace(reg, ''))
+
     return (
       <div className="code">
         <pre className="prettyprint">
-          {this.props.children}
+          {lines.join('\n')}
         </pre>
       </div>
     )
@@ -20,7 +25,11 @@ class Code extends Component {
 };
 
 Code.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.string
+}
+
+Code.defaultProps = {
+  children: ''
 }
 
 export default Code

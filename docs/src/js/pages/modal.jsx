@@ -104,7 +104,7 @@ module.exports = class extends Component {
     'Cancel': true
   }}>
   <div>
-    <Form onSubmit={
+    <Form data={{}} onSubmit={
       (data) => {
         Modal.alert(JSON.stringify(data))
         this.setState({ modalIsOpen: false })

@@ -23,60 +23,62 @@ module.exports = function () {
       <div className="content">
         <Code>
 {`<Nav 
-  active={1}  // active id
-  onSelect={onSelect}  // select callback
-  type='tab|pill' // item style type, default is tab
-  inline // inline style for items, default value is false
-         // if you choose pill item type, default value is true
+  active={string}  // active id
+  onSelect={func}  // select callback
+  type='tab|pill'  // item style type, default is tab
+  inline={bool}    // inline style for items, default value is false
+                   // if you choose tab item type, default value is true
   grid={{width, offset, responsive}} // see Grid 
-  />
-  <NavItem 
-  text='foo' // item text
-  onClick={onClick} // click callback
+/>
+<NavItem 
+  id={string}     // unique in Nav, if not set, use index
+  onClick={func}  // click callback
   grid={{width, offset, responsive}} // see Grid, only effect when Nav is inline
-  />                    
-                  `}
+>
+  {children}
+</NavItem>
+`}
         </Code>
 
         <h2 className="subhead">pill</h2>
         <Example>
-          <Nav active={1} onSelect={onSelect} type='pill' grid={1/3}>
-              <NavItem text='foo' onClick={onClick}/>
-              <NavItem text='bar' />
-              <NavItem text='baz' />
+          <Nav active="foo" onSelect={onSelect} type="pill" grid={1 / 3}>
+            <NavItem id="foo" onClick={onClick}>foo</NavItem>
+            <NavItem id="bar">bar</NavItem>
+            <NavItem id="baz" disabled>baz</NavItem>
           </Nav>
-        </Example> 
+        </Example>
         <h2 className="subhead">inline pill</h2>
         <Example>
-          <Nav active={1} onSelect={onSelect} type='pill' inline>
-              <NavItem text='foo' onClick={onClick}/>
-              <NavItem text='bar' />
-              <NavItem text='baz' />
+          <Nav active="bar" onSelect={onSelect} type="pill" inline>
+            <NavItem id="foo" onClick={onClick}>foo</NavItem>
+            <NavItem id="bar">bar</NavItem>
+            <NavItem id="baz" disabled>baz</NavItem>
           </Nav>
         </Example>
         <h2 className="subhead">tab</h2>
         <Example>
-          <Nav active={1} onSelect={onSelect} type='tab'>
-              <NavItem text='foo' onClick={onClick}/>
-              <NavItem text='bar' />
-              <NavItem text='baz' />
+          <Nav active="bar" onSelect={onSelect} type="tab">
+            <NavItem id="foo" onClick={onClick}>foo</NavItem>
+            <NavItem id="bar">bar</NavItem>
+            <NavItem id="baz" disabled>baz</NavItem>
           </Nav>
-        </Example> 
+        </Example>
         <h2 className="subhead">grid custom</h2>
         <Example>
-          <Nav active={1} onSelect={onSelect} type='pill' inline>
-              <NavItem text='foo' onClick={onClick} grid={1/4}/>
-              <NavItem text='bar' grid={1/4}/>
-              <NavItem text='baz' grid={1/4}/>
+          <Nav active="foo" onSelect={onSelect} type="pill" inline>
+            <NavItem id="foo" grid={1 / 4} onClick={onClick}>foo</NavItem>
+            <NavItem id="bar" grid={1 / 4}>bar</NavItem>
+            <NavItem id="baz" grid={1 / 4} disabled>baz</NavItem>
           </Nav>
-        </Example> 
+        </Example>
         <Example>
-          <Nav active={1} onSelect={onSelect} type='tab'>
-              <NavItem text='foo' onClick={onClick} grid={1/4}/>
-              <NavItem text='bar' grid={1/4}/>
-              <NavItem text='baz' grid={1/4}/>
+          <Nav active="baz" onSelect={onSelect} type="tab">
+            <NavItem id="foo" grid={1 / 4} onClick={onClick}>foo</NavItem>
+            <NavItem id="bar" grid={1 / 4}>bar</NavItem>
+            <NavItem id="baz" grid={1 / 4}>baz</NavItem>
           </Nav>
-        </Example> 
+        </Example>
       </div>
     </div>
   )

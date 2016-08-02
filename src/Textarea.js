@@ -39,8 +39,10 @@ class Textarea extends Component {
 
   handleChange (event) {
     let value = event.target.value
-    this.shadow.value = value
-    this.refs.element.style.height = Math.max(this.minHeight, this.shadow.scrollHeight) + 'px'
+    if (this.props.autoHeight) {
+      this.shadow.value = value
+      this.refs.element.style.height = Math.max(this.minHeight, this.shadow.scrollHeight) + 'px'
+    }
     this.props.onChange(event.target.value, event)
   }
 
