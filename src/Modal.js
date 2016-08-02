@@ -124,8 +124,13 @@ class ModalContainer extends Component {
                 } else if (func === 'submit') {
                   let form = this.elements[options.id].querySelector('form');
                   if (form) {
-                    let event = document.createEvent('HTMLEvents');
-                    event.initEvent('submit');
+                    let event;
+                    if (CustomEvent) {
+                      event = new CustomEvent('submit', { bubbles: true,	cancelable: true });
+                    } else {
+                      event = document.createEvent('HTMLEvents');
+                      event.initEvent('submit', true, true);
+                    }
                     form.dispatchEvent(event);
                   }
                 } else {
