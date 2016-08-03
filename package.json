@@ -25,10 +25,6 @@
   "bugs": {
     "url": "https://github.com/lobos/react-ui/issues"
   },
-  "peerDependencies": {
-    "classnames": "^2.2.3",
-    "refetch": "~0.2.1"
-  },
   "devDependencies": {
     "autoprefixer": "~6.3.4",
     "babel": "^6.5.2",
@@ -105,6 +101,7 @@
     "webpack-hot-middleware": "~2.10.0"
   },
   "dependencies": {
+    "classnames": "^2.2.3",
     "curry": "^1.2.0",
     "refetch": "^0.2.1"
   }
