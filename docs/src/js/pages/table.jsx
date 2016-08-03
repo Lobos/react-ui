@@ -4,10 +4,10 @@ import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
-import { Cn } from '../Language'
-const {Button, Table, Modal, Filter, Input, Select, DatepickerRange, Checkbox, RadioGroup, ValuesHolder} = global.uiRequire()
+import { Cn, En } from '../Language'
+import {Button, Table, Modal, Filter, Input, Select, DatepickerRange, Checkbox, RadioGroup, ValuesHolder} from '../rctui'
 
-class TableDemo extends Component {
+module.exports = class extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -47,18 +47,57 @@ class TableDemo extends Component {
       <div>
         <div className="header">
           <h1>Table</h1>
-          <h2>表格</h2>
+          <Cn tag="h2">表格</Cn>
         </div>
 
         <div className="content">
-          <Code>
+          <Cn>
+            <Code>
 {`<Table
   bordered={bool}          // 是否显示边框，默认值 false
-  selectAble={bool}        // is deprecated, use onSelect instead
+  selectAble={bool}        // 已废除，会根据onSelect自动判断是否可筛选
   striped={bool}           // 是否交替显示背景，默认值 false
   width={number}           // 表格宽度，默认值 100%
   height={number}          // 表格高度（body部分），默认值 auto
   data={array}             // 数据
+  fetch={object}
+  pagination={             // 内置分页选项
+    size: int,             // 每页显示数量，默认值 20
+    page: int,             // 当前页码
+    total: int,            // 总条目数，默认值data.length
+    range: int,            // 显示的分页按钮数
+    onChange(int),         // 
+    position: 'string'     // 位置，'left|right|center', 默认值 'center'
+  }
+  onSelect={func|ValuesHolder} // 如果设置了onSelect，会自动增加checkbox列
+  onSort={func(            // 自定义内置排序
+    string,                // 字段名
+    int                    // 0 - 正序, 1 - 倒序
+  )}
+  columns={array}
+/>
+
+columns = [{
+  header:{string|element} // 表头单元格内容
+  content:{string|func}   // 表格内容
+  hidden:{bool}           // 默认值false
+  name:{string}           // 字段名，如果content没有设置，使用data[name]
+  sort:{bool|func|array}  // sort === true, 使用内置排序
+                             typeof sort === 'method', 使用 data.sort(method)
+                             如果sort是由两个函数组成的二维数组, 第一个函数作为正序排序, 第二个函数用于倒序排序
+  width:{number}          // 列宽度，如果不设定，会使用第一次render时自动生成的宽度
+}]
+`}
+            </Code>
+          </Cn>
+          <En>
+            <Code>
+{`<Table
+  bordered={bool}          // default value is false
+  striped={bool}           // default value is false
+  width={number}           // default value is 100%
+  height={number}          // body height, default is 'auto'
+  data={array}             // 
   fetch={object}
   pagination={             // internal pagination
     size: int,             // how many items per page, default is 20
@@ -78,7 +117,7 @@ class TableDemo extends Component {
 
 columns = [{
   header:{string|element} // th content, string or ReactElement
-  content:{string|func}   // td conent, see conent section
+  content:{string|func}   // td conent
   hidden:{bool}           // if true, this column did not render, default is false
   name:{string}           // field name, if content not set, use data[name] for content
   sort:{bool|func|array}  // if sort is true, use internal sort
@@ -87,8 +126,10 @@ columns = [{
   width:{number}          // width, if not set, use first render td width
 }]
 `}
-          </Code>
-          <Cn><a href="#/fetch">fetch 参见这里</a></Cn>
+            </Code>
+          </En>
+
+          <div><a href="#/fetch">fetch see here</a></div>
 
           <h2 className="subhead">content</h2>
           <Cn>
@@ -271,4 +312,3 @@ values = valuesHolder.get(',')`}
   }
 }
 
-module.exports = TableDemo

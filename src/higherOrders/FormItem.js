@@ -81,7 +81,6 @@ export default function FormItem (Component) {
       this.setState({ hasError: result !== true })
       onValidate && onValidate(name, result)
 
-      console.log(value, this.props.name, this.context.formData[this.props.name])
       return result
     }
 

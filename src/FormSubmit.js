@@ -8,7 +8,7 @@ import Button from './Button'
 import FormStyles from './styles/_form.scss'
 
 export default function FormSubmit (props) {
-  console.log('FormSubmit is deprecated, use Form.buttons instead.')
+  console.warn('FormSubmit is deprecated, use Form.buttons instead.')
 
   let children = props.children
   let content
