@@ -9,7 +9,7 @@ class Code extends Component {
   }
 
   render () {
-    let lines = this.props.children.split('\n')
+    let lines = this.props.children.split('\n').filter(l => l.length > 0)
     const length = lines[0] ? /^(\s*)/.exec(lines[0])[1].length : 0
     const reg = new RegExp('^(\\s{' + length + '})')
     lines = lines.map(line => line.replace(reg, ''))

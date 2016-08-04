@@ -1,14 +1,9 @@
-'use strict'
-
 import { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import classnames from 'classnames'
 import { toArray, substitute } from '../utils/strings'
 import { forEach, deepEqual, hashcode } from '../utils/objects'
-import Fetch from '../higherOrders/Fetch'
-import FormItem from '../higherOrders/FormItem'
 import { removeClass } from '../utils/dom'
-import { compose } from '../utils/compose'
 import PropTypes from '../utils/proptypes'
 
 import TreeStyles from '../styles/_tree.scss'
@@ -17,7 +12,7 @@ import Item from './Item'
 
 let defaultIcons = []
 
-class Tree extends Component {
+export class Tree extends Component {
   constructor (props) {
     super(props)
 
@@ -217,11 +212,6 @@ Tree.defaultProps = {
   valueTpl: '{id}'
 }
 
-module.exports = compose(
-  FormItem.register('tree', { valueType: 'array' }),
-  Fetch
-)(Tree)
-
-module.exports.setDefaultIcons = function (icons) {
+export const setDefaultIcons = function (icons) {
   defaultIcons = icons
 }

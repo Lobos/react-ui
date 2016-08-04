@@ -131,21 +131,34 @@ columns = [{
 
           <div><a href="#/fetch">fetch see here</a></div>
 
-          <h2 className="subhead">content</h2>
+          <h2 className="subhead">td content</h2>
           <Cn>
-            content 有三种情况<br />
+            有三种方式设置 content<br />
             第一种不填，表格内容会根据 name 找到对应的字段<br />
             {'第二种模板字符串，{} 形式，例：{foo}-{bar}'}<br />
             第三种为返回ReactElement的方法，例如：
           </Cn>
-          <pre className="prettyprint">
-{`function (data) {
-return <button onClick={this.removeEntity.bind(this, data.id)}>remove</button>
-}`}
-          </pre>
+          <En>
+            <ul>
+              <li>Undefined, will use data[name] as content.</li>
+              <li>String template, example: {'{foo}-{bar}'}</li>
+              <li>Function, use result as content.</li>
+            </ul>
+          </En>
+          <Code className="prettyprint">{`
+            content: (data) => {
+              return <button onClick={this.removeEntity.bind(this, data.id)}>remove</button>
+            }
+            `}
+          </Code>
 
           <h2 className="subhead">ValuesHolder</h2>
           <Cn>如果不想在每次选中/清除每个选项后获取值（需要用state维护状态），可以在onSelect中传入一个ValuesHolder的实例，ValuesHolder内部包含了一个add和remove方法维护选项，不过使用者不需要关心这个。只需要在需要数据的时候，调用getValue(sep)就好了</Cn>
+          <En>
+            There are 2 ways to get selected values.<br />
+            One is set onSelect to a function, every time the checkboxes change will receive the values. <br />
+            The second is set onSelect to an instance of ValuesHolder, then when you need values, use valuesHolder.getValue(sep)
+          </En>
           <Code>
 {`let valuesHolder = new ValuesHolder()
 ...

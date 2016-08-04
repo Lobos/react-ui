@@ -4,7 +4,7 @@ import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import { En, Cn } from '../Language'
-const { Input, Icon, Button, InputGroup } = global.uiRequire()
+import { Input, Icon, Button, InputGroup } from '../rctui'
 
 module.exports = () => {
   return (

@@ -1,13 +1,5 @@
 'use strict'
 
-global.uiRequire = function (src) {
-  if (src) {
-    return require('../../../src/' + src)
-  } else {
-    return require('../../../src/')
-  }
-}
-
 import * as Language from './Language'
 Language.set()
 

@@ -188,7 +188,7 @@ class Upload extends Component {
   }
 
   render () {
-    let { className, grid, limit, style, content } = this.props
+    let { className, grid, limit, style, children } = this.props
     className = classnames(
       getGrid(grid),
       _uploads.container,
@@ -196,7 +196,7 @@ class Upload extends Component {
     )
     return (
       <div className={className} style={style}>
-        { Object.keys(this.state.files).length < limit && <div onClick={this.addFile}>{content}</div> }
+        { Object.keys(this.state.files).length < limit && <div onClick={this.addFile}>{children}</div> }
         { this.renderFiles() }
       </div>
     )
@@ -207,8 +207,8 @@ Upload.propTypes = {
   accept: PropTypes.string,
   action: PropTypes.string.isRequired,
   autoUpload: PropTypes.bool,
+  children: PropTypes.any,
   className: PropTypes.string,
-  content: PropTypes.object,
   cors: PropTypes.bool,
   disabled: PropTypes.bool,
   fileSize: PropTypes.number,

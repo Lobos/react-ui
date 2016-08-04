@@ -4,12 +4,13 @@ import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
-const {Tree, Checkbox, RadioGroup, Icon} = global.uiRequire()
+import { Tree, Checkbox, RadioGroup, Icon } from '../rctui'
+import { Cn, En } from '../Language'
 
 Tree.setDefaultIcons([
-  <Icon style={{color: '#f2da81'}} icon="folder-star" />,
-  <Icon style={{color: '#f2da81'}} icon="folder" />,
-  <Icon icon="file" />
+  <Icon key="fold" style={{color: '#f2da81'}} icon="folder-star" />,
+  <Icon key="expand" style={{color: '#f2da81'}} icon="folder" />,
+  <Icon key="leaf" icon="file" />
 ])
 
 module.exports = class extends Component {
@@ -17,7 +18,7 @@ module.exports = class extends Component {
     super(props)
     this.state = {
       readOnly: false,
-      selectAble: true,
+      selectAble: false,
       capture: 0,
       sep: ',',
       value: '1.2.2',
@@ -25,6 +26,8 @@ module.exports = class extends Component {
       showAccountsIcon: false,
       treeData: null
     }
+
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentWillMount () {
@@ -49,7 +52,31 @@ module.exports = class extends Component {
         </div>
 
         <div className="content">
-          <Code>
+          <Cn>
+            <Code>
+{`<Tree
+  capture={0|1|2|3}   // onChagne(value) 回调设置
+                         0 - 只返回全选中的节点数据，包含父节点和子节点
+                         1 - 包含半选中的节点数据
+                         2 - 如果父节点所有子节点都选中，只返回父节点数据
+                         3 - 只返回选中的子节点数据，不含父节点
+  className={string}  // class
+  data={array}        // 
+  fetch={object}
+  sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
+  greedy              // is deprecated
+  onClick={function(data)}  // 点击某元素触发事件，参数为当前节点
+  onChange={function} // 如果设置了回调方法，显示checkbox
+  readOnly={bool}     // 为 true 时，只读。默认为 false
+  textTpl="string"    // 显示文字模板，默认为 "{text}"
+  valueTpl="string"   // 返回数据模板，默认为 "{id}"
+  value={string|array}
+  icons={array}       // 图标 0-目录折起 1-目录展开 2-子节点
+/>`}
+            </Code>
+          </Cn>
+          <En>
+            <Code>
 {`<Tree
   capture={0|1|2|3}   // onChagne(value) settings
                          0 - only checked item data, include parent and child
@@ -59,38 +86,36 @@ module.exports = class extends Component {
   className={string}  // class
   data={array}        // array
   fetch={object}
-  sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
-  greedy              // is deprecated
-  onClick={function(data)}  // 点击某元素触发事件，参数为当前节点
-  onChange={function} // 当选项改变时回调方法，参数为 value
-  readOnly={bool}     // 为 true 时，只读。默认为 false
-  selectAble={bool}   // show checkbox, default is false
-  textTpl="string"    // 显示文字模板，默认为 "{text}"
-  valueTpl="string"   // 返回数据模板，默认为 "{id}"
+  sep={string|null}   // default is ','
+  onClick={function(data)}
+  onChange={function} // if onChange set, show checkbox
+  readOnly={bool}     // default value is false
+  textTpl="string"    // default value is "{text}"
+  valueTpl="string"   // default value is "{id}"
   value={string|array}
-  icons={array}       // 图标 0-目录折起 1-目录展开 2-子节点
+  icons={array}       // array['fold branch', 'expand branch', 'leaf']
 />`}
-          </Code>
-          <div><a href="#/fetch">fetch 参见这里</a></div>
-          <div>0.6 删除默认icon，需要icon可以通过icons传入</div>
+            </Code>
+          </En>
+          <div><a href="#/fetch">fetch see here</a></div>
+          <Cn>0.6 删除默认icon，需要icon可以通过icons传入</Cn>
 
           <h2 className="subhead">Example</h2>
           <Example>
 <Tree fetch={{ url: './json/tree.json' }}
   readOnly={this.state.readOnly}
-  selectAble={this.state.selectAble}
   capture={parseInt(this.state.capture)}
   icons={
-    this.state.showAccountsIcon ?
-      [
-        <Icon icon="accounts-add" />,
-        <Icon icon="accounts" />,
-        <Icon icon="account" />
-      ] :
-      undefined
+    this.state.showAccountsIcon
+      ? [
+        <Icon key="fold" icon="accounts-add" />,
+        <Icon key="expand" icon="accounts" />,
+        <Icon key="leaf" icon="account" />
+      ]
+      : undefined
   }
   onClick={(data) => console.log(data)}
-  onChange={this.handleChange.bind(this)}
+  onChange={this.state.selectAble ? this.handleChange : undefined}
   textTpl={(data) => {
     return (
       <label className="tree-example">
