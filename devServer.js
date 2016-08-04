@@ -29,6 +29,10 @@ app.get('/formBuilder.html', function (req, res) {
   res.sendFile(path.join(__dirname, 'standalone/formBuilder/formBuilder.html'))
 })
 
+app.post('/upload', function (req, res) {
+  res.send({success: true, id: Date.now().toString()})
+})
+
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'docs/src/index.html'))
 })

@@ -80,7 +80,7 @@ withCredentials={bool}  // xhr2 withCredentials
 <Upload
   grid={1 / 2}
   name="test"
-  action="http://216.189.159.94:8080/upload"
+  action="/upload"
   accept="image/*"
   limit={3}
   params={{ arg: 'test' }}
