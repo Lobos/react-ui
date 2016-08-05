@@ -1,5 +1,7 @@
 'use strict'
 
+export { default as Button } from './Button'
+export { default as ButtonGroup } from './ButtonGroup'
 export { default as Checkbox } from './Checkbox'
 export { default as CheckboxGroup } from './CheckboxGroup'
 export { default as Datepicker } from './Datepicker'
@@ -16,7 +18,6 @@ export { default as Rating } from './Rating'
 export { default as Select } from './Select'
 export { default as Tree } from './Tree'
 export { default as Upload } from './Upload'
-export { default as Button } from './Button'
 export { default as Switch } from './Switch'
 
 export { default as FormControl } from './FormControl'

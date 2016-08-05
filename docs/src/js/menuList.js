@@ -3,11 +3,12 @@
 module.exports = [
   'BASE',
   { path: '/button', text: 'Button', component: require('./pages/button.jsx') },
+  { path: '/buttonGroup', text: 'ButtonGroup', component: require('./pages/buttonGroup.jsx') },
   { path: '/icon', text: 'Icon', component: require('./pages/icon.jsx') },
-  { path: '/grid', text: 'Grid', component: require('./pages/grid.jsx') },
   { path: '/lang', text: 'Lang', component: require('./pages/lang.jsx') },
   { path: '/switch', text: 'Switch', component: require('./pages/switch.jsx') },
   'Layout',
+  { path: '/grid', text: 'Grid', component: require('./pages/grid.jsx') },
   { path: '/nav', text: 'Nav', component: require('./pages/nav.jsx')},
   'FORM',
   { path: '/form', text: 'Form', component: require('./pages/form.jsx') },
