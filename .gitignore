@@ -15,3 +15,4 @@ publish
 typings
 jsconfig.json
 /errorShots
+.sass-cache

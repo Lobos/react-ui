@@ -42,6 +42,7 @@ class Datetime extends Component {
     this.next = this.next.bind(this)
     this.open = this.open.bind(this)
     this.handleOpen = this.handleOpen.bind(this)
+    this.handleClear = this.handleClear.bind(this)
   }
 
   componentWillMount () {
@@ -123,6 +124,10 @@ class Datetime extends Component {
       timeStage: isTime ? 'hour' : '',
       dropup: overView(this.refs.datetime, height)
     })
+  }
+
+  handleClear () {
+    this.props.onChange()
   }
 
   changeDate (obj) {
@@ -432,8 +437,12 @@ class Datetime extends Component {
             text ? <span>{text}</span>
               : <span className={_inputs.placeholder}>{placeholder}&nbsp;</span>
           }
+          {
+            open &&
+            <a className={_datepickers.clear} onClick={this.handleClear} href="javascript:;" />
+          }
         </div>
-        <Transition duration={333} tf="ease-out" act={open ? 'enter' : 'leave'}>
+        <Transition duration={333} enter={_datepickers.enter} leave={_datepickers.leave} tf="ease-out" act={open ? 'enter' : 'leave'}>
           <div ref="datepicker" className={_datepickers.picker}>
             {this.renderHeader()}
             {this.renderInner()}

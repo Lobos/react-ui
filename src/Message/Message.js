@@ -35,6 +35,8 @@ export default class Message extends Component {
     const { content, ...props } = this.props
     const { duration } = this.state
 
+    delete props.duration
+
     return (
       <Alert {...props}
         onClose={duration <= 0 ? this.dismiss : undefined}

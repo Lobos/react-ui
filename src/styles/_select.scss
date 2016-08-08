@@ -31,19 +31,19 @@
 .result {
   display: inline-block;
   padding-right: 0.25rem;
+  color: $input-color;
 
-  a {
-    display: none;
-    color: $input-color-placeholder;
-  }
-
-  a:hover {
+  .remove {
+    display: inline-block;
+    width: 1rem;
+    text-align: center;
+    visibility: hidden;
     color: $brand-danger;
   }
 }
 
-.open .result a {
-  display: inline;
+.open .result .remove {
+  visibility: visible;
 }
 
 .filter {
@@ -77,7 +77,7 @@
   transform: scaleY(0);
   opacity: 0;
 
-  &:global(.enter) {
+  &.enter {
     transform: scaleY(1);
     opacity: 1;
   }

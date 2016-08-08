@@ -15,11 +15,11 @@
   -webkit-overflow-scrolling: touch;
   background: rgba(0,0,0,$modal-backdrop-opacity);
 
-  &:global(.enter) {
+  &.enter {
     opacity: 1;
   }
 
-  &:global(.leave) {
+  &.leave {
     opacity: 0;
   }
 

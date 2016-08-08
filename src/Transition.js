@@ -29,18 +29,20 @@ export default class Transition extends Component {
   }
 
   enter () {
+    const { enter, leave } = this.props
     let el = this.element
     el.style.display = ''
     setTimeout(() => {
-      addClass(el, 'enter')
-      removeClass(el, 'leave')
+      addClass(el, enter)
+      removeClass(el, leave)
     }, 10)
   }
 
   leave () {
+    const { enter, leave } = this.props
     let el = this.element
-    addClass(el, 'leave')
-    removeClass(el, 'enter')
+    addClass(el, leave)
+    removeClass(el, enter)
     setTimeout(() => {
       el.style.display = 'none'
     }, this.props.duration)
@@ -61,6 +63,8 @@ Transition.propTypes = {
   act: PropTypes.oneOf(['enter', 'leave']),
   children: PropTypes.element,
   duration: PropTypes.number,
+  enter: PropTypes.string,
+  leave: PropTypes.string,
   tf: PropTypes.string
 }
 

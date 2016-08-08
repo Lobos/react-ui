@@ -1,7 +1,6 @@
 'use strict'
 
 import { Component, cloneElement } from 'react'
-import classnames from 'classnames'
 import curry from 'curry'
 import PropTypes from './utils/proptypes'
 import Form from './Form'
@@ -9,8 +8,6 @@ import FormControl from './FormControl'
 
 import { getLang, setLang } from './lang'
 setLang('buttons')
-
-import _filters from './styles/_filter.scss'
 
 export default class Filter extends Component {
   constructor (props) {
@@ -46,12 +43,8 @@ export default class Filter extends Component {
   }
 
   render () {
-    const { style, columns, data, buttons, labelWidth } = this.props
+    const { style, className, columns, data, buttons, labelWidth } = this.props
 
-    let className = classnames(
-      this.props.className,
-      _filters.container
-    )
     return (
       <div style={style} className={className}>
         <Form data={data}

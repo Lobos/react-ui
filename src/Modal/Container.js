@@ -7,7 +7,7 @@ import { isEmpty } from '../utils/objects'
 import { removeItem } from '../utils/array'
 import Transition from '../Transition'
 
-import ModalStyles from '../styles/_modal.scss'
+import _modal from '../styles/_modal.scss'
 
 export default class extends Component {
   constructor (props) {
@@ -62,11 +62,15 @@ export default class extends Component {
 
   render () {
     let className = classnames(
-      ModalStyles.container
+      _modal.container
     )
 
     return (
-      <Transition act={isEmpty(this.state.modals) ? 'leave' : 'enter'} duration={300} tf="ease-out">
+      <Transition act={isEmpty(this.state.modals) ? 'leave' : 'enter'}
+        duration={300}
+        enter={_modal.enter}
+        leave={_modal.leave}
+        tf="ease-out">
         <div className={className}>
           { this.renderModals() }
         </div>

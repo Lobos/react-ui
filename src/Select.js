@@ -76,17 +76,17 @@ class Select extends Component {
     return value
   }
 
-  formatData (data) {
+  formatData () {
     let values = toArray(this.props.value, this.props.mult && this.props.sep)
+
+    let { data, filterAble, valueTpl, optionTpl, resultTpl, groupBy } = this.props
+    let noResultTpl = !resultTpl
 
     if (!Array.isArray(data)) {
       data = Object.keys(data).map((key) => {
         return { text: data[key], id: key }
       })
     }
-
-    const { filterAble, valueTpl, optionTpl, resultTpl, groupBy } = this.props
-    let noResultTpl = !resultTpl
 
     data = data.map((d) => {
       if (typeof d !== 'object') {
@@ -108,7 +108,7 @@ class Select extends Component {
 
       let val = substitute(valueTpl, d)
       d.$html = substitute(optionTpl, d)
-      d.$result = noResultTpl ? d.$html : substitute(this.props.resultTpl, d)
+      d.$result = noResultTpl ? d.$html : substitute(resultTpl, d)
       d.$value = val
       d.$selected = values.indexOf(val) >= 0
       d.$key = d.id ? d.id : hashcode(val + d.$html)
@@ -165,9 +165,13 @@ class Select extends Component {
       return
     }
     // wait checkClickAway completed
-    setTimeout(() => {
-      this.handleChange(item)
-    }, 0)
+    if (this.props.mult) {
+      setTimeout(() => {
+        this.handleChange(item)
+      }, 0)
+    } else {
+      this.props.onChange()
+    }
   }
 
   handleFilter (e) {
@@ -192,7 +196,7 @@ class Select extends Component {
     let { filter, msg, dropup } = this.state
     let result = []
 
-    data = this.formatData(data)
+    data = this.formatData()
 
     className = classnames(
       _select.select,
@@ -209,17 +213,18 @@ class Select extends Component {
       d.$index = i
 
       if (d.$selected) {
-        if (mult) {
+        // if (mult) {
           result.push(
-            <div key={d.$key} className={_select.result}
+            <a key={d.$key} className={_select.result}
+              href="javascript:;"
               onClick={this.handleRemove.bind(this, d)}>
               <SafeHtml>{d.$result}</SafeHtml>
-              <a href="javascript:;">&times;</a>
-            </div>
+              <span className={_select.remove}>&times;</span>
+            </a>
           )
-        } else {
-          result.push(<SafeHtml key={d.$key}>{d.$result}</SafeHtml>)
-        }
+        // } else {
+        //  result.push(<SafeHtml key={d.$key}>{d.$result}</SafeHtml>)
+        // }
       }
 
       return d
@@ -241,7 +246,11 @@ class Select extends Component {
             : <span className={_input.placeholder}>{msg || placeholder}&nbsp;</span>
         }
         </div>
-        <Transition act={open ? 'enter' : 'leave'} duration={166} tf="ease-out">
+        <Transition act={open ? 'enter' : 'leave'}
+          duration={166}
+          enter={_select.enter}
+          leave={_select.leave}
+          tf="ease-out">
           <div ref="options" className={_select.options}>
             {this.renderFilter()}
             <List data={options} maxShowCount={maxShowCount} onChange={this.handleChange} className={_select.optionsWrap} />
