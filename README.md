@@ -1,4 +1,4 @@
-A collection of components for React. [Docs](http://lobos.github.io/react-ui/)
+A collection of components for React, base on bootstrap 4.0. [Docs](http://lobos.github.io/react-ui/)
 
 # Usage
 
@@ -12,7 +12,7 @@ var Form = ReactUI.Form
 // or
 import { Form } from 'rctui'
 ...
-// import one Component without the other
+// import one Component without other components
 var Input = require('rctui/Input')
 var CheckboxGroup = require('rctui/CheckboxGroup')
 var FormControl = require('rctui/FormControl')
@@ -34,26 +34,4 @@ options:
     - server     在项目根目录下添加一个devServer.js文件，可以通过 node devServer.js 启动
     - webpack    在项目根目录下添加一个webpack.config.js文件，注意备份原来项目里的webpack配置文件
 ```
-
-# Components
-
-- [Button](http://lobos.github.io/react-ui/#/button)
-- [Checkbox](http://lobos.github.io/react-ui/#/checkbox)
-- [Checkbox group](http://lobos.github.io/react-ui/#/checkboxGroup)
-- [Datetime](http://lobos.github.io/react-ui/#/datetime)
-- [Form](http://lobos.github.io/react-ui/#/form)
-- [Form Control](http://lobos.github.io/react-ui/#/formControl)
-- [Icon](http://lobos.github.io/react-ui/#/icon)
-- [Message](http://lobos.github.io/react-ui/#/message)
-- [Pagination](http://lobos.github.io/react-ui/#/pagination)
-- [Radio group](http://lobos.github.io/react-ui/#/radioGroup)
-- [Rating](http://lobos.github.io/react-ui/#/rating)
-- [Select](http://lobos.github.io/react-ui/#/select)
-- [Tree](http://lobos.github.io/react-ui/#/tree)
-- [Table](http://lobos.github.io/react-ui/#/table)
-- [Filter](http://lobos.github.io/react-ui/#/filter)
-- [Modal](http://lobos.github.io/react-ui/#/modal)
-- [Upload](http://lobos.github.io/react-ui/#/upload)
-- [Grid](http://lobos.github.io/react-ui/#/grid)
-
 
