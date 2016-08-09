@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import PropTypes from './utils/proptypes'
 import _styles from './styles/_button-group.scss'
 
-function ButtonGroup (props) {
+export default function ButtonGroup (props) {
   const { children, size, vertical, ...other } = props
   const className = classnames(
     other.className,
@@ -30,5 +30,3 @@ ButtonGroup.propTypes = {
 ButtonGroup.defaultProps = {
   size: 'middle'
 }
-
-export default ButtonGroup

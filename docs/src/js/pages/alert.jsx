@@ -1,5 +1,3 @@
-'use strict'
-
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'

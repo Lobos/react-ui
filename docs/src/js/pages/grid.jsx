@@ -1,5 +1,3 @@
-'use strict'
-
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
@@ -66,7 +64,7 @@ module.exports = class extends Component {
           <Cn>
             <Code>
 {`<Grid
-  width={n/m}         // 必填，小于1的小数，值为列数/总列数，例如：1/2, 2/5
+  width={n/m}         // 小于1的小数，值为列数/总列数，例如：1/2, 2/5，默认值为1
   offset={n/m}        // 可选，小于1的小数，值为列数/总列数，例如：1/2, 2/5，默认为0
   responsive={string} // 可选值为'sm|md|lg|xl'，对应的值为'568px|768px|992px|1200px'，默认值为'md'
   style={object}
@@ -77,7 +75,7 @@ module.exports = class extends Component {
           <En>
             <Code>
 {`<Grid
-  width={n/m}         // required, fraction less than 1, example: 1/2, 2/5
+  width={n/m}         // fraction, less than 1, example: 1/2, 2/5, default value is 1
   offset={n/m}        // optional, fraction less than 1, example: 1/2, 2/5, default is 0
   responsive={string} // option: 'sm(568px)|md(768px}|lg(992px)|xl(1200px)', default is 'md'
   style={object}
@@ -93,12 +91,13 @@ module.exports = class extends Component {
             All ReactUI FormItem extends Grid, you can just use grid props.
           </En>
           <Example>
-<Input type="text" grid={{ width: 1 / 2, offset: 1 / 4, responsive: 'md' }} />
+            <Input type="text" grid={{ width: 1 / 2, offset: 1 / 4, responsive: 'md' }} />
           </Example>
-<Cn>如果只定义宽度，可以再简化为</Cn>
-<En>If only use width, can simplify use like this.</En>
+
+          <Cn>如果只定义宽度，可以再简化为</Cn>
+          <En>If only use width, can simplify use like this.</En>
           <Example>
-<Input type="text" grid={1 / 2} />
+            <Input type="text" grid={1 / 2} />
           </Example>
 
           <Cn tag="h2" className="subhead">任意等分</Cn>
@@ -115,26 +114,40 @@ module.exports = class extends Component {
 
           <h2 className="subhead">Offset</h2>
           <Example>
-<Grid width={1 / 4} offset={1 / 4} style={borderGridStyle}>offset 1/4</Grid>
-<Grid width={1 / 4} offset={1 / 4} style={borderGridStyle}>offset 1/4</Grid>
-<Grid width={1 / 3} offset={0} style={borderGridStyle}>offset 0</Grid>
-<Grid width={1 / 2} offset={1 / 6} style={borderGridStyle}>offset 1/6</Grid>
+            <Grid width={1 / 4} offset={1 / 4} style={borderGridStyle}>offset 1/4</Grid>
+            <Grid width={1 / 4} offset={1 / 4} style={borderGridStyle}>offset 1/4</Grid>
+            <Grid width={1 / 3} offset={0} style={borderGridStyle}>offset 0</Grid>
+            <Grid width={1 / 2} offset={1 / 6} style={borderGridStyle}>offset 1/6</Grid>
           </Example>
 
           <Cn tag="h2" className="subhead">嵌套</Cn>
           <En tag="h2" className="subhead">Nested</En>
           <Example>
-<Grid style={{background: '#eee'}} width={ 1 / 2 }>
-  <div style={{ textAlign: 'center', lineHeight: '30px' }}>1/2</div>
-  <Grid style={borderGridStyle} width={ 1 / 3 }>1/3</Grid>
-  <Grid style={borderGridStyle} width={ 2 / 3 }>2/3</Grid>
-</Grid>
-<Grid style={{background: '#fafafa'}} width={ 1 / 2 }>
-  <div style={{ textAlign: 'center', lineHeight: '30px' }}>1/2</div>
-  <Grid style={borderGridStyle} width={ 1 / 5 }>1/5</Grid>
-  <Grid style={borderGridStyle} width={ 2 / 5 }>2/5</Grid>
-  <Grid style={borderGridStyle} width={ 2 / 5 }>2/5</Grid>
-</Grid>
+            <Grid style={{background: '#eee'}} width={ 1 / 2 }>
+              <div style={{ textAlign: 'center', lineHeight: '30px' }}>1/2</div>
+              <Grid style={borderGridStyle} width={ 1 / 3 }>1/3</Grid>
+              <Grid style={borderGridStyle} width={ 2 / 3 }>2/3</Grid>
+            </Grid>
+            <Grid style={{background: '#fafafa'}} width={ 1 / 2 }>
+              <div style={{ textAlign: 'center', lineHeight: '30px' }}>1/2</div>
+              <Grid style={borderGridStyle} width={ 1 / 5 }>1/5</Grid>
+              <Grid style={borderGridStyle} width={ 2 / 5 }>2/5</Grid>
+              <Grid style={borderGridStyle} width={ 2 / 5 }>2/5</Grid>
+            </Grid>
+          </Example>
+
+          <h2 className="subhead">Auto Width</h2>
+          <Cn>如果Grid嵌套在另一个Grid内，并且没有设定width，未设定width的Grid将会平分剩余的width</Cn>
+          <Example>
+            <Grid width={ 1 }>
+              <Grid style={borderGridStyle} width={ 1 / 4 }>1/4</Grid>
+              <Grid style={borderGridStyle}>auto</Grid>
+              <Grid style={borderGridStyle}>auto</Grid>
+              <Grid style={borderGridStyle}>auto</Grid>
+              <Grid style={borderGridStyle}>auto</Grid>
+              <Grid style={borderGridStyle}>auto</Grid>
+              <Grid style={borderGridStyle}>auto</Grid>
+            </Grid>
           </Example>
         </div>
       </div>
