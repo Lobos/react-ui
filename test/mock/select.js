@@ -31,7 +31,7 @@ const compClass = {
 const compSelector = {
   filterContainer: 'div.filter',
   showItem: 'li',
-  multSelectResultContainer: 'div.result',
+  multSelectResultContainer: 'div.control'
 }
 
 export { compClass, compData, compSelector }
