@@ -11,6 +11,11 @@ module.exports = function () {
       </div>
 
       <div className="content">
+        <div>
+          <a href="https://github.com/tobiasahlin/SpinKit" target="_blank">
+            base on SpinKit
+          </a>
+        </div>
         <Code>
 {`<Spin
 className={string}

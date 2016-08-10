@@ -4,6 +4,7 @@
 
   .checkbox {
     width: $width + $indicator-width;
+    margin: 0 0 0 -1px;
     left: 0 - $width / 2;
 
     &.checked {

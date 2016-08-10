@@ -28,6 +28,7 @@ export { default as If } from './If'
 
 export { default as Alert } from './Alert'
 export { default as Breadcrumb } from './Breadcrumb'
+export { default as Card } from './Card'
 export { default as Filter } from './Filter'
 export { default as Grid } from './Grid'
 export { default as Modal } from './Modal'
