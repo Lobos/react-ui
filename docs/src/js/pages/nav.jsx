@@ -35,7 +35,6 @@ module.exports = function () {
   onClick={func}  // click callback
   grid={{width, offset, responsive}} // see Grid, only effect when Nav is inline
 >
-  {children}
 </NavItem>
 `}
         </Code>

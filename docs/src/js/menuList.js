@@ -12,6 +12,7 @@ module.exports = [
   { path: '/breadcrumb', text: 'Breadcrumb', component: require('./pages/breadcrumb.jsx')},
   { path: '/grid', text: 'Grid', component: require('./pages/grid.jsx') },
   { path: '/nav', text: 'Nav', component: require('./pages/nav.jsx')},
+  { path: '/card', text: 'Card', component: require('./pages/card.jsx')},
   'FORM',
   { path: '/form', text: 'Form', component: require('./pages/form.jsx') },
   { path: '/formitem', text: 'FormItem', component: require('./pages/formItem.jsx') },

@@ -43,7 +43,7 @@ describe('Select Spec', () => {
 
       expect(_selectWrapper1.find('span').at(0)).to.have.text('foo')
       expect(_selectWrapper2.find(compSelector.multSelectResultContainer).find('span').at(0)).to.have.text('foo')
-      expect(_selectWrapper2.find(compSelector.multSelectResultContainer).find('span').at(1)).to.have.text('bar')
+      expect(_selectWrapper2.find(compSelector.multSelectResultContainer).find('span').at(2)).to.have.text('bar')
     })
 
     it('Should apply correct Class by grid prop', () => {
