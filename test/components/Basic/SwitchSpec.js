@@ -19,9 +19,11 @@ describe('SwitchSpec', () => {
     })
 
     it('should apply correct swtich status after trigger change event', () => {
-      defaultWrapper.find('input').simulate('change', {target: { checked: true }})
+      const wrapper1 = mount(<Switch />)
 
-      expect(defaultWrapper.instance().getValue()).to.be.true
+      wrapper1.find('input').simulate('change', {target: { checked: true }})
+
+      expect(wrapper1.instance().getValue()).to.be.true
     })
   })
 
