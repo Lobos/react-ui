@@ -2,9 +2,11 @@ import { Component, Children, cloneElement } from 'react'
 import PropTypes from './utils/proptypes'
 import classnames from 'classnames'
 import { getGrid } from './utils/grids'
+import NavItem from './NavItem'
+
 import _styles from './styles/_nav.scss'
 
-class Navs extends Component {
+class Nav extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -61,7 +63,7 @@ class Navs extends Component {
   }
 }
 
-Navs.propTypes = {
+Nav.propTypes = {
   active: PropTypes.string,
   children: PropTypes.arrayOf(PropTypes.object),
   className: PropTypes.string,
@@ -71,8 +73,10 @@ Navs.propTypes = {
   type: PropTypes.string
 }
 
-Navs.defaultProps = {
+Nav.defaultProps = {
   type: 'pill'
 }
 
-export default Navs
+Nav.Item = NavItem
+
+export default Nav

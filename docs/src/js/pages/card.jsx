@@ -1,6 +1,6 @@
 import Code from '../Code'
 import Example from '../Example'
-import { Card } from '../rctui'
+import { Card, Nav } from '../rctui'
 
 module.exports = function () {
   return (
@@ -30,6 +30,30 @@ module.exports = function () {
         <Example>
           <Card grid={1 / 3}>
             <Card.Header>Header</Card.Header>
+            <div style={{padding: 20}}>
+              Some quick example text to build on the card title and make up the bulk of the card's content.
+            </div>
+          </Card>
+        </Example>
+
+        <h2 className="subhead">With Nav</h2>
+        <Example>
+          <Card grid={1 / 2}>
+            <Card.Nav inline active="1" type="tab">
+              <Card.NavItem id="1">Tab 1</Card.NavItem>
+              <Card.NavItem id="2">Tab 2</Card.NavItem>
+              <Card.NavItem id="3">Tab 3</Card.NavItem>
+            </Card.Nav>
+            <div style={{padding: 20}}>
+              Some quick example text to build on the card title and make up the bulk of the card's content.
+            </div>
+          </Card>
+          <Card grid={1 / 2}>
+            <Card.Nav inline active="1" type="pill">
+              <Card.NavItem id="1">Tab 1</Card.NavItem>
+              <Card.NavItem id="2">Tab 2</Card.NavItem>
+              <Card.NavItem id="3">Tab 3</Card.NavItem>
+            </Card.Nav>
             <div style={{padding: 20}}>
               Some quick example text to build on the card title and make up the bulk of the card's content.
             </div>

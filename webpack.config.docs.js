@@ -1,7 +1,7 @@
-var path = require('path');
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
-var precss = require('precss');
+var path = require('path')
+var webpack = require('webpack')
+var autoprefixer = require('autoprefixer')
+var precss = require('precss')
 
 module.exports = {
   entry: {
@@ -16,15 +16,24 @@ module.exports = {
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
-      compressor: {
+      compress: {
+        screw_ie8: true, // React doesn't support IE8
         warnings: false
+      },
+      mangle: {
+        screw_ie8: true
+      },
+      output: {
+        comments: false,
+        screw_ie8: true
       }
     })
   ],
@@ -43,6 +52,6 @@ module.exports = {
     ]
   },
   postcss: function () {
-    return [autoprefixer({ browsers: ['> 1%', 'IE 9'] }), precss];
+    return [autoprefixer({ browsers: ['> 1%', 'IE 9'] }), precss]
   }
-};
+}

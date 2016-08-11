@@ -2,8 +2,10 @@
 
 module.exports = [
   'BASE',
+  { path: '/alert', text: 'Alert', component: require('./pages/alert.jsx') },
   { path: '/button', text: 'Button', component: require('./pages/button.jsx') },
   { path: '/buttonGroup', text: 'ButtonGroup', component: require('./pages/buttonGroup.jsx') },
+  { path: '/dropdown', text: 'Dropdown', component: require('./pages/dropdown.jsx') },
   { path: '/icon', text: 'Icon', component: require('./pages/icon.jsx') },
   { path: '/tag', text: 'Tag', component: require('./pages/tag.jsx') },
   { path: '/lang', text: 'Lang', component: require('./pages/lang.jsx') },
@@ -28,7 +30,6 @@ module.exports = [
   { path: '/tree', text: 'Tree', component: require('./pages/tree.jsx') },
   { path: '/upload', text: 'Upload', component: require('./pages/upload.jsx') },
   'COMMON',
-  { path: '/alert', text: 'Alert', component: require('./pages/alert.jsx') },
   { path: '/filter', text: 'Filter', component: require('./pages/filter.jsx') },
   { path: '/pagination', text: 'Pagination', component: require('./pages/pagination.jsx') },
   { path: '/progress', text: 'Progress', component: require('./pages/progress.jsx') },

@@ -1,6 +1,8 @@
 import classnames from 'classnames'
 import PropTypes from './utils/proptypes'
 import { getGrid } from './utils/grids'
+import Nav from './Nav'
+import NavItem from './NavItem'
 
 import _styles from './styles/_card.scss'
 
@@ -36,4 +38,12 @@ Card.propTypes = {
 }
 
 Card.Header = (props) =>
-  <div className={_styles['card-header']}>{props.children}</div>
+  <div {...props} className={_styles['card-header']} />
+
+Card.Nav = (props) => (
+  <div className={_styles[`card-header-${props.type}s`]}>
+    <Nav {...props} />
+  </div>
+)
+
+Card.NavItem = NavItem
