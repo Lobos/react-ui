@@ -31,7 +31,18 @@ export default function Spin (props) {
 
 Spin.propTypes = {
   size: PropTypes.number_string,
-  type: PropTypes.string
+  type: PropTypes.oneOf([
+    'plane',
+    'double-bounce',
+    'wave',
+    'pulse',
+    'dots',
+    'three-bounce',
+    'circle',
+    'cube-grid',
+    'fading-circle',
+    'folding-cube'
+  ])
 }
 
 Spin.defaultProps = {
