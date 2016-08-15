@@ -59,6 +59,12 @@ Image.propTypes = {
   placeholder: PropTypes.element,
   src: PropTypes.string,
   style: PropTypes.object,
+  type: PropTypes.oneOf([
+    'fill',
+    'fit',
+    'stretch',
+    'center'
+  ]),
   width: PropTypes.number_string
 }
 
