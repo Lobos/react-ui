@@ -13,7 +13,7 @@ export default function ButtonGroup (props) {
 
   const btns = Children.toArray(children).map(child => {
     return cloneElement(child, {
-      className: _styles.btn,
+      className: classnames(_styles.btn, child.props.className),
       size
     })
   })

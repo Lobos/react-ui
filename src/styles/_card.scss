@@ -98,15 +98,18 @@
 //
 
 .card-header-tabs {
-  margin-right: -($card-spacer-x / 2);
-  margin-bottom: -$card-spacer-y;
-  margin-left: -($card-spacer-x / 2);
-  border-bottom: 0;
+  padding: $card-spacer-nav $card-spacer-nav 0;
+  background-color: $card-cap-bg;
+  border-bottom: $card-border-width solid $card-border-color;
+  ul {
+    border-bottom: 0;
+  }
 }
 
 .card-header-pills {
-  margin-right: -($card-spacer-x / 2);
-  margin-left: -($card-spacer-x / 2);
+  padding: $card-spacer-nav;
+  background-color: $card-cap-bg;
+  border-bottom: $card-border-width solid $card-border-color;
 }
 
 

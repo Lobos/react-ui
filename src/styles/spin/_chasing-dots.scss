@@ -1,6 +1,7 @@
 .chasing-dots {
   $animationDuration: 2.0s;
 
+  margin: auto;
   position: relative;
   text-align: center;
   animation: sk-chasingDotsRotate $animationDuration infinite linear;

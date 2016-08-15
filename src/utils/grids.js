@@ -79,6 +79,7 @@ function createStyle (text, id) {
 
   text.push(`
 .${GridClassName} {
+  position: relative;
   display: inline-block;
   zoom: 1;
   letter-spacing: normal;

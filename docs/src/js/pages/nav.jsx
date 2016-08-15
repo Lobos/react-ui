@@ -3,7 +3,7 @@
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Nav, NavItem } from '../rctui'
+import { Nav } from '../rctui'
 
 const onSelect = (key) => {
   console.log(key)
@@ -17,7 +17,7 @@ module.exports = function () {
   return (
     <div>
       <div className="header">
-        <h1>Nav & NavItem</h1>
+        <h1>Nav</h1>
       </div>
 
       <div className="content">
@@ -30,52 +30,52 @@ module.exports = function () {
                    // if you choose tab item type, default value is true
   grid={{width, offset, responsive}} // see Grid 
 />
-<NavItem 
+<Nav.Item 
   id={string}     // unique in Nav, if not set, use index
   onClick={func}  // click callback
   grid={{width, offset, responsive}} // see Grid, only effect when Nav is inline
 >
-</NavItem>
+</Nav.Item>
 `}
         </Code>
 
         <h2 className="subhead">pill</h2>
         <Example>
           <Nav active="foo" onSelect={onSelect} type="pill" grid={1 / 3}>
-            <NavItem id="foo" onClick={onClick}>foo</NavItem>
-            <NavItem id="bar">bar</NavItem>
-            <NavItem id="baz" disabled>baz</NavItem>
+            <Nav.Item id="foo" onClick={onClick}>foo</Nav.Item>
+            <Nav.Item id="bar">bar</Nav.Item>
+            <Nav.Item id="baz" disabled>baz</Nav.Item>
           </Nav>
         </Example>
         <h2 className="subhead">inline pill</h2>
         <Example>
           <Nav active="bar" onSelect={onSelect} type="pill" inline>
-            <NavItem id="foo" onClick={onClick}>foo</NavItem>
-            <NavItem id="bar">bar</NavItem>
-            <NavItem id="baz" disabled>baz</NavItem>
+            <Nav.Item id="foo" onClick={onClick}>foo</Nav.Item>
+            <Nav.Item id="bar">bar</Nav.Item>
+            <Nav.Item id="baz" disabled>baz</Nav.Item>
           </Nav>
         </Example>
         <h2 className="subhead">tab</h2>
         <Example>
           <Nav active="bar" onSelect={onSelect} type="tab">
-            <NavItem id="foo" onClick={onClick}>foo</NavItem>
-            <NavItem id="bar">bar</NavItem>
-            <NavItem id="baz" disabled>baz</NavItem>
+            <Nav.Item id="foo" onClick={onClick}>foo</Nav.Item>
+            <Nav.Item id="bar">bar</Nav.Item>
+            <Nav.Item id="baz" disabled>baz</Nav.Item>
           </Nav>
         </Example>
         <h2 className="subhead">grid custom</h2>
         <Example>
           <Nav active="foo" onSelect={onSelect} type="pill" inline>
-            <NavItem id="foo" grid={1 / 4} onClick={onClick}>foo</NavItem>
-            <NavItem id="bar" grid={1 / 4}>bar</NavItem>
-            <NavItem id="baz" grid={1 / 4} disabled>baz</NavItem>
+            <Nav.Item id="foo" grid={1 / 4} onClick={onClick}>foo</Nav.Item>
+            <Nav.Item id="bar" grid={1 / 4}>bar</Nav.Item>
+            <Nav.Item id="baz" grid={1 / 4} disabled>baz</Nav.Item>
           </Nav>
         </Example>
         <Example>
           <Nav active="baz" onSelect={onSelect} type="tab">
-            <NavItem id="foo" grid={1 / 4} onClick={onClick}>foo</NavItem>
-            <NavItem id="bar" grid={1 / 4}>bar</NavItem>
-            <NavItem id="baz" grid={1 / 4}>baz</NavItem>
+            <Nav.Item id="foo" grid={1 / 4} onClick={onClick}>foo</Nav.Item>
+            <Nav.Item id="bar" grid={1 / 4}>bar</Nav.Item>
+            <Nav.Item id="baz" grid={1 / 4}>baz</Nav.Item>
           </Nav>
         </Example>
       </div>
