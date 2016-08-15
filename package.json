@@ -97,6 +97,7 @@
     "wdio-selenium-standalone-service": "0.0.3",
     "webdriverio": "^4.0.7",
     "webpack": "~1.12.14",
+    "webpack-dashboard": "0.0.1",
     "webpack-dev-middleware": "~1.5.1",
     "webpack-hot-middleware": "~2.10.0"
   },
