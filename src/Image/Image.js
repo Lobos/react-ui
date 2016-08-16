@@ -33,18 +33,22 @@ class Image extends Component {
 
   render () {
     const { isRender } = this.state
-    const { src, width, height, placeholder, style } = this.props
+    const { src, width, height, placeholder, style, shape, type } = this.props
 
     const className = classnames(
       this.props.className,
-      _styles.img
+      _styles.img,
+      shape && _styles[`img-${shape}`],
+      type && _styles[`img-${type}`]
     )
 
     return (
       <div className={className} style={objectAssign({}, style, {width, height})}>
         {
-          isRender
-          ? <img src={src} />
+          isRender && src
+          ? type === 'fill' || type === 'fit'
+            ? <div className={_styles.inner} style={{backgroundImage: `url(${src})`}} />
+            : <div className={_styles.inner}><img src={src} /></div>
           : placeholder || _placeholder
         }
       </div>
@@ -57,6 +61,11 @@ Image.propTypes = {
   height: PropTypes.number_string,
   lazy: PropTypes.bool,
   placeholder: PropTypes.element,
+  shape: PropTypes.oneOf([
+    'rounded',
+    'circle',
+    'thumbnail'
+  ]),
   src: PropTypes.string,
   style: PropTypes.object,
   type: PropTypes.oneOf([
