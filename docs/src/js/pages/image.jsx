@@ -12,10 +12,9 @@ module.exports = function () {
       <div className="content">
         <Code>
 {`<Image
-className={string}
-style={object}
-onClose={func}      // close callback, if onClose undefined, will not show close button
-type={string}       // 'info|warning|success|danger|error', default is 'info'
+  className={string}
+  shape={string}      // one of 'rounded|circle|thumbnail'
+  type={string}       //  one of'fit|center|fill|stretch'
 />`}
         </Code>
 
