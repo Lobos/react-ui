@@ -1,16 +1,15 @@
 import { Component } from 'react'
 import classnames from 'classnames'
-import { addStack } from '../utils/lazyload'
+import { addStack, removeStack } from '../utils/lazyload'
 import PropTypes from '../utils/proptypes'
 import { objectAssign } from '../utils/objects'
-import Spin from '../Spin'
 import Mask from '../Mask'
 
 import _styles from '../styles/_images.scss'
 
 let _placeholder = (
   <Mask active background="#f2f2f2">
-    <Spin size={30} type="fading-circle" color="#ccc" />
+    <div>No Image</div>
   </Mask>
 )
 
@@ -18,13 +17,19 @@ class Image extends Component {
   constructor (props) {
     super(props)
 
-    if (props.lazy) addStack(this)
-
     this.state = {
       isRender: !props.lazy
     }
 
     this.markToRender = this.markToRender.bind(this)
+  }
+
+  componentWillMount () {
+    if (this.props.lazy) this._lazyId = addStack(this)
+  }
+
+  componentWillUnmount () {
+    if (!this.state.isRender) removeStack(this._lazyId)
   }
 
   markToRender () {
