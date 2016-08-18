@@ -33,11 +33,21 @@ module.exports = class extends Component {
 
         <div className="content">
           <Code>
-  {`<Image
-    className={string}
-    shape={string}      // one of 'rounded|circle|thumbnail'
-    type={string}       //  one of'fit|center|fill|stretch'
-  />`}
+{`<Image
+  className={string}
+  style={object}
+  shape={string}         // one of 'rounded|circle|thumbnail'
+  type={string}          // one of 'fit|center|fill|stretch'
+  width={string|number}  // style width
+  height={string|number} // if height is percentage, aspect ratio of width
+  placeholder={element}  // show before image loaded
+  src={string}           // image url
+  alt={string}           // alternate image url
+  title={string}         // image load error text
+  href={string}          // large image url
+  target={string}        // one of '_modal|_self|_blank', default value is '_modal'
+  lazy={bool}            // default value is false
+/>`}
           </Code>
 
           <h2 className="subhead">Example</h2>
