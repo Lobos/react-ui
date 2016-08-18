@@ -2,10 +2,10 @@ import { Component } from 'react'
 import Refetch from 'refetch'
 import Code from '../Code'
 import Example from '../Example'
-import { Image } from '../rctui'
+import { Grid, Image } from '../rctui'
 
-function getUrl (d) {
-  return `https://farm${d.farm}.staticflickr.com/${d.server}/${d.id}_${d.secret}_m.jpg`
+function getUrl (d, size = 'm') {
+  return `https://farm${d.farm}.staticflickr.com/${d.server}/${d.id}_${d.secret}_${size}.jpg`
 }
 
 module.exports = class extends Component {
@@ -47,9 +47,40 @@ module.exports = class extends Component {
 
           <h2 className="subhead">Shape</h2>
           <Example>
-            <Image shape="rounded" width={200} height={200} placeholder={<div style={{background: '#ccc', height: '100%', textAlign: 'center', lineHeight: '200px'}}>200 x 200</div>} />
-            <Image shape="circle" width={200} height={200} placeholder={<div style={{background: '#ccc', height: '100%', textAlign: 'center', lineHeight: '200px'}}>200 x 200</div>} />
-            <Image shape="thumbnail" width={200} height={200} placeholder={<div style={{background: '#ccc', height: '100%', textAlign: 'center', lineHeight: '200px'}}>200 x 200</div>} />
+            <Image shape="rounded" width={200} height={200} title="200 x 200" />
+            <Image shape="circle" width={200} height={200} title="200 x 200" />
+            <Image shape="thumbnail" width={200} height={200} title="200 x 200" />
+          </Example>
+
+          <h2 className="subhead">Ratio height</h2>
+          <Example>
+            <Grid width={1 / 3}>
+              <Image shape="thumbnail" type="fit" width="100%" height="120%" src="./images/image1.jpg" />
+            </Grid>
+            <Grid width={1 / 3}>
+              <Image shape="thumbnail" type="fit" width="100%" height="100%" src="./images/image2.jpg" />
+            </Grid>
+            <Grid width={1 / 3}>
+              <Image shape="thumbnail" type="fit" width="100%" height="80%" src="./images/image3.jpg" />
+            </Grid>
+          </Example>
+
+          <h2 className="subhead">Not found</h2>
+          <Example>
+            <Image src="not_exist" shape="thumbnail" type="fit" width={200} height={200} />
+            <Image src="not_exist" title="Some text" shape="thumbnail" type="fit" width={200} height={200} />
+          </Example>
+
+          <h2 className="subhead">Alternate</h2>
+          <Example>
+            <Image src="not_exist" alt="./images/image1.jpg" shape="thumbnail" type="fit" width={200} height={200} />
+          </Example>
+
+          <h2 className="subhead">Target</h2>
+          <Example>
+            <Image href="./images/image1.jpg" target="_modal" shape="thumbnail" type="fit" width={200} height={200} src="./images/image1.jpg" />
+            <Image href="./images/image2.jpg" target="_blank" shape="thumbnail" type="fit" width={200} height={200} src="./images/image2.jpg" />
+            <Image href="./images/image3.jpg" target="_self" shape="thumbnail" type="fit" width={200} height={200} src="./images/image3.jpg" />
           </Example>
 
           <h2 className="subhead">Type Fit</h2>
@@ -84,10 +115,13 @@ module.exports = class extends Component {
           <Example>
             {
               photos.map(d => (
-                <Image key={d.id} lazy shape="thumbnail" type="fit"
-                  width={200} height={200}
-                  style={{margin: '0 5px 5px 0'}}
-                  src={getUrl(d)} />
+                <Grid key={d.id} width={1 / 3}>
+                  <Image lazy shape="thumbnail" type="fit"
+                    width="100%" height="100%" title={d.title}
+                    style={{margin: '0 5px 5px 0'}}
+                    href={getUrl(d, 'b')}
+                    src={getUrl(d)} />
+                </Grid>
               ))
             }
           </Example>

@@ -1,8 +1,8 @@
 'use strict'
 
-export function on (el, type, callback) {
+export function on (el, type, callback, useCapture) {
   if (el.addEventListener) {
-    el.addEventListener(type, callback)
+    el.addEventListener(type, callback, useCapture)
   } else {
     el.attachEvent('on' + type, function () {
       callback.call(el)

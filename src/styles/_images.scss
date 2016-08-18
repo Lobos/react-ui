@@ -6,9 +6,16 @@
   position: relative;
   overflow: hidden;
 
+  & > * {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
   .inner {
-    width: 100%;
-    height: 100%;
+    color: $body-color;
+    right: 0;
+    bottom: 0;
   }
 
   img {
@@ -33,6 +40,13 @@
 
   // Keep them at most 100% wide
   @include img-fluid(inline-block);
+
+  .inner {
+    top: $thumbnail-padding;
+    right: $thumbnail-padding;
+    bottom: $thumbnail-padding;
+    left: $thumbnail-padding;
+  }
 }
 
 // Perfect circle
@@ -69,5 +83,55 @@
   img {
     width: 100%;
     height: 100%;
+  }
+}
+
+// image modal
+.img-modal {
+  display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $image-modal-bg;
+  z-index: $zindex-modal;
+
+  & > div {
+    margin: auto;
+  }
+
+  & > img {
+    margin: auto;
+    border: solid $image-modal-border-width $image-modal-border-color;
+    border-radius: $image-modal-border-radius;
+    max-width: 90%;
+    max-height: 90%;
+    animation: rctui-image-modal $image-modal-duration;
+  }
+
+  .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .error {
+    padding: 2rem;
+    margin: auto;
+    background-color: #f2f2f2;
+    border-radius: $image-modal-border-radius;
+  }
+}
+
+@keyframes rctui-image-modal {
+  0% { 
+    opacity: 0;
+    transform: scale(0.4);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
