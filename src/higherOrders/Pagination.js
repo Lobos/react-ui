@@ -70,5 +70,9 @@ export default function (Component) {
     pagination: PropTypes.element_object
   }
 
+  Pagination.defaultProps = {
+    data: []
+  }
+
   return PureRender()(Pagination)
 }

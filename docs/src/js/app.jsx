@@ -1,5 +1,7 @@
 'use strict'
 
+require('../../../src/styles/reset.scss')
+
 import * as Language from './Language'
 Language.set()
 
@@ -18,5 +20,4 @@ require('../json/form.json')
 require('../json/table.json')
 require('../json/text-value.json')
 require('../json/tree.json')
-require('../../../src/styles/reset.scss')
 require('../less/style.less')

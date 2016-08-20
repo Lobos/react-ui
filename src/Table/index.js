@@ -8,7 +8,7 @@ import Pagination from '../higherOrders/Pagination'
 import Filter from '../higherOrders/Filter'
 
 export default compose(
-  Fetch,
+  Fetch(true),
   Filter,
   Sort,
   Pagination

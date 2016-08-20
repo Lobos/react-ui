@@ -49,6 +49,6 @@ RadioGroup.propTypes = {
 
 export default compose(
   FormItem.register('radio-group', {}),
-  Fetch,
+  Fetch(false),
   TextValue(true)
 )(RadioGroup)

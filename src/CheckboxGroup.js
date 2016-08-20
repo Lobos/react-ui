@@ -57,6 +57,6 @@ CheckboxGroup.defaultProps = {
 
 export default compose(
   FormItem.register('checkbox-group', {valueType: 'array'}),
-  Fetch,
+  Fetch(false),
   TextValue(false)
 )(CheckboxGroup)

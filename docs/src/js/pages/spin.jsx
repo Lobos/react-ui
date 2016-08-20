@@ -81,6 +81,7 @@ maring={string}      // css margin
 
         <h2 className="subhead">Fading Circle</h2>
         <Example>
+          <Spin size="1rem" type="fading-circle" color="#ccc" />
           <Spin size="30px" type="fading-circle" color="#ccc" />
           <Spin size={40} type="fading-circle" color="green" />
           <Spin size="5rem" type="fading-circle" color="red" />

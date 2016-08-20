@@ -8,6 +8,8 @@ import PropTypes from '../utils/proptypes'
 import Pagination from '../Pagination'
 import { Checkbox } from '../Checkbox'
 import ValuesHolder from '../ValuesHolder'
+import { FETCH_PENDING } from '../higherOrders/Fetch'
+import Mask from '../Mask'
 
 import Header from './Header'
 import Tr from './Tr'
@@ -182,7 +184,7 @@ export default class Table extends Component {
     let tableStyle = {}
     let onBodyScroll = null
 
-    const { children, size, height, width, bordered, striped, filter } = this.props
+    const { children, size, height, width, bordered, striped, filter, fetchStatus } = this.props
     const values = this.values ? this.values.getValue() : []
     const columns = this.getColumns()
     const body = this.renderBody(values, columns)
@@ -210,6 +212,8 @@ export default class Table extends Component {
 
     return (
       <div style={this.props.style} className={className}>
+        <Mask active={fetchStatus === FETCH_PENDING} />
+
         { filter }
 
         { columns &&
@@ -243,6 +247,7 @@ Table.propTypes = {
   className: PropTypes.string,
   columns: PropTypes.array,
   data: PropTypes.array,
+  fetchStatus: PropTypes.string,
   filter: PropTypes.element,
   headers: PropTypes.array,
   height: PropTypes.number_string,

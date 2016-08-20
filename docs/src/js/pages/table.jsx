@@ -5,7 +5,7 @@ import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
 import { Cn, En } from '../Language'
-import {Button, Table, Modal, Filter, Input, Select, DatepickerRange, Checkbox, RadioGroup, ValuesHolder} from '../rctui'
+import { Button, Table, Modal, Filter, Input, Select, DatepickerRange, Checkbox, RadioGroup, ValuesHolder, Lazyload } from '../rctui'
 
 module.exports = class extends Component {
   constructor (props) {
@@ -200,124 +200,126 @@ values = valuesHolder.get(',')`}
           <div style={{marginBottom: 10}}>values: {JSON.stringify(this.state.selectedNames)}</div>
 
           <Example>
-<Button status="danger"
-  style={{marginBottom: '1rem', display: this.state.valuesHolder ? 'block' : 'none'}}
-  onClick={() => { Modal.confirm('Are you sure to delete "' + this.valuesHolder.getValue(',') + '"?', () => {}, 'Warning') }}>
-  Delete selected
-</Button>
+            <Lazyload placeholder={<div style={{height: 200}}>loading table ...</div>}>
+              <Button status="danger"
+                style={{marginBottom: '1rem', display: this.state.valuesHolder ? 'block' : 'none'}}
+                onClick={() => { Modal.confirm('Are you sure to delete "' + this.valuesHolder.getValue(',') + '"?', () => {}, 'Warning') }}>
+                Delete selected
+              </Button>
 
-<Table ref="table"
-  bordered={this.state.bordered}
-  onSelect={this.state.valuesHolder ? this.valuesHolder : this.handleSelectedName}
-  striped={this.state.striped}
-  width={this.state.width}
-  height={this.state.height}
-  size={this.state.size}
-  fetch={{url: 'json/table.json', catch: 3600}}
-  sep={null}
-  value={['Ashton Cox', 'Airi Satou']}
-  valueTpl="name"
-  filter={
-    <Filter
-      columns={2}
-      labelWidth="5rem"
-      onFilter={fs => this.setState({ filterText: JSON.stringify(fs) })}
-      items={[
-        {
-          label: 'Name:',
-          name: 'name',
-          component: <Input />,
-          filter: (value, data) => data.filter((d) => d.name.toLowerCase().indexOf(value) >= 0)
-        }, {
-          label: 'Start Date:',
-          name: 'start_date',
-          component: <DatepickerRange type="date" />,
-          filter: (value, data) => {
-            let min = value[0] ? new Date(value[0].replace('-', '/')).getTime() : 0
-            let max = value[1] ? new Date(value[1].replace('-', '/')).getTime() : Number.MAX_VALUE
-            return data.filter((d) => {
-              let startDate = new Date(d.start_date).getTime()
-              return min <= startDate && startDate <= max
-            })
-          }
-        }, {
-          label: 'Office:',
-          name: 'office',
-          component: <Select data={['Edinburgh', 'Sidney', 'London', 'Tokyo', 'San Francisco', 'New York']} />,
-          filter: (value, data) => data.filter((d) => d.office === value)
-        }
-      ]} />
-  }
-  columns={[
-    { name: 'name', sort: true, header: 'Name',
-      content: (d) => {
-        return <a onClick={() => { Modal.alert('You clicked "' + d.name + '"') }}>{d.name}</a>
-      }
-    },
-    { name: 'position', hidden: true },
-    { name: 'office', sort: true, header: 'Office' },
-    { name: 'start_date', content: '{start_date}', header: 'Start Date', sort: [
-      (a, b) => a.start_date > b.start_date ? 1 : -1,
-      (a, b) => a.start_date < b.start_date ? 1 : -1
-    ] },
-    { name: 'salary', content: '{salary}', header: 'Salary',
-      sort: (a, b) => {
-        return parseInt(a.salary.replace(/[\$,]/g, '')) > parseInt(b.salary.replace(/[\$,]/g, '')) ? 1 : -1
-      }
-    },
-    { name: 'tools', width: 60,
-      content: (d) => {
-        return (
-          <a onClick={() => {
-            Modal.confirm('Are you sure to delete "' + d.name + '"?', () => {
-              console.log('just a kidding.')
-            })
-          }}>Delete</a>
-        )
-      }
-    }
-  ]}
-  pagination={this.state.pagination ? {size: 10, small: this.state.size === 'small', position: this.state.position} : null} />
+              <Table ref="table"
+                bordered={this.state.bordered}
+                onSelect={this.state.valuesHolder ? this.valuesHolder : this.handleSelectedName}
+                striped={this.state.striped}
+                width={this.state.width}
+                height={this.state.height}
+                size={this.state.size}
+                fetch={{url: 'json/table.json', catch: 3600}}
+                sep={null}
+                value={['Ashton Cox', 'Airi Satou']}
+                valueTpl="name"
+                filter={
+                  <Filter
+                    columns={2}
+                    labelWidth="5rem"
+                    onFilter={fs => this.setState({ filterText: JSON.stringify(fs) })}
+                    items={[
+                      {
+                        label: 'Name:',
+                        name: 'name',
+                        component: <Input />,
+                        filter: (value, data) => data.filter((d) => d.name.toLowerCase().indexOf(value) >= 0)
+                      }, {
+                        label: 'Start Date:',
+                        name: 'start_date',
+                        component: <DatepickerRange type="date" />,
+                        filter: (value, data) => {
+                          let min = value[0] ? new Date(value[0].replace('-', '/')).getTime() : 0
+                          let max = value[1] ? new Date(value[1].replace('-', '/')).getTime() : Number.MAX_VALUE
+                          return data.filter((d) => {
+                            let startDate = new Date(d.start_date).getTime()
+                            return min <= startDate && startDate <= max
+                          })
+                        }
+                      }, {
+                        label: 'Office:',
+                        name: 'office',
+                        component: <Select data={['Edinburgh', 'Sidney', 'London', 'Tokyo', 'San Francisco', 'New York']} />,
+                        filter: (value, data) => data.filter((d) => d.office === value)
+                      }
+                    ]} />
+                }
+                columns={[
+                  { name: 'name', sort: true, header: 'Name',
+                    content: (d) => {
+                      return <a onClick={() => { Modal.alert('You clicked "' + d.name + '"') }}>{d.name}</a>
+                    }
+                  },
+                  { name: 'position', hidden: true },
+                  { name: 'office', sort: true, header: 'Office' },
+                  { name: 'start_date', content: '{start_date}', header: 'Start Date', sort: [
+                    (a, b) => a.start_date > b.start_date ? 1 : -1,
+                    (a, b) => a.start_date < b.start_date ? 1 : -1
+                  ] },
+                  { name: 'salary', content: '{salary}', header: 'Salary',
+                    sort: (a, b) => {
+                      return parseInt(a.salary.replace(/[\$,]/g, '')) > parseInt(b.salary.replace(/[\$,]/g, '')) ? 1 : -1
+                    }
+                  },
+                  { name: 'tools', width: 60,
+                    content: (d) => {
+                      return (
+                        <a onClick={() => {
+                          Modal.confirm('Are you sure to delete "' + d.name + '"?', () => {
+                            console.log('just a kidding.')
+                          })
+                        }}>Delete</a>
+                      )
+                    }
+                  }
+                ]}
+                pagination={this.state.pagination ? {size: 10, small: this.state.size === 'small', position: this.state.position} : null} />
+            </Lazyload>
           </Example>
 
           <h2 className="subhead">Raw html</h2>
           <Example>
-<Table bordered={this.state.bordered} size={this.state.size} striped={this.state.striped}>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Office</th>
-      <th>Start Date</th>
-      <th>Salary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Ashton Cox</td>
-      <td>San Francisco</td>
-      <td>2009/01/12</td>
-      <td>$86,000</td>
-    </tr>
-    <tr>
-      <td>Ashton Cox</td>
-      <td>San Francisco</td>
-      <td>2009/01/12</td>
-      <td>$86,000</td>
-    </tr>
-    <tr>
-      <td>Ashton Cox</td>
-      <td>San Francisco</td>
-      <td>2009/01/12</td>
-      <td>$86,000</td>
-    </tr>
-    <tr>
-      <td>Ashton Cox</td>
-      <td>San Francisco</td>
-      <td>2009/01/12</td>
-      <td>$86,000</td>
-    </tr>
-  </tbody>
-</Table>
+            <Table bordered={this.state.bordered} size={this.state.size} striped={this.state.striped}>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Office</th>
+                  <th>Start Date</th>
+                  <th>Salary</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ashton Cox</td>
+                  <td>San Francisco</td>
+                  <td>2009/01/12</td>
+                  <td>$86,000</td>
+                </tr>
+                <tr>
+                  <td>Ashton Cox</td>
+                  <td>San Francisco</td>
+                  <td>2009/01/12</td>
+                  <td>$86,000</td>
+                </tr>
+                <tr>
+                  <td>Ashton Cox</td>
+                  <td>San Francisco</td>
+                  <td>2009/01/12</td>
+                  <td>$86,000</td>
+                </tr>
+                <tr>
+                  <td>Ashton Cox</td>
+                  <td>San Francisco</td>
+                  <td>2009/01/12</td>
+                  <td>$86,000</td>
+                </tr>
+              </tbody>
+            </Table>
           </Example>
         </div>
       </div>

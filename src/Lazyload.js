@@ -1,5 +1,4 @@
-import { Component, Children } from 'react'
-import PropTypes from './utils/proptypes'
+import { Component, Children, PropTypes } from 'react'
 import { addStack, removeStack } from './utils/lazyload'
 
 export default class Lazyload extends Component {
@@ -8,7 +7,9 @@ export default class Lazyload extends Component {
     this.state = {
       isRender: false
     }
+  }
 
+  componentDidMount () {
     this._lazyId = addStack(this)
   }
 
@@ -35,6 +36,6 @@ export default class Lazyload extends Component {
 }
 
 Lazyload.propTypes = {
-  children: PropTypes.any.isRquired,
+  children: PropTypes.any.isRequired,
   placeholder: PropTypes.element.isRequired
 }

@@ -5,7 +5,7 @@ import { objectAssign } from './utils/objects'
 
 import _styles from './styles/_mask.scss'
 
-let defaultSpin = <Spin color="#ccc" size={40} type="fading-circle" />
+let defaultSpin = <Spin color="#666" size={40} type="fading-circle" />
 
 export default function Mask (props) {
   const { active, children, background, style } = props

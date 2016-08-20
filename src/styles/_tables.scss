@@ -2,6 +2,7 @@
 @import "themes/bootstrap";
 
 .table {
+  position: relative;
   margin-bottom: $spacer;
   max-width: 100%;
   overflow: hidden;

@@ -10,7 +10,7 @@ function selectAble (Component) {
 module.exports = compose(
   selectAble,
   FormItem.register('tree', { valueType: 'array' }),
-  Fetch
+  Fetch(false)
 )(Tree)
 
 module.exports.setDefaultIcons = setDefaultIcons

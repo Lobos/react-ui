@@ -1,4 +1,12 @@
-'use strict'
+let _supportsPassive = false
+try {
+  let opts = Object.defineProperty({}, 'passive', {
+    get () { _supportsPassive = true }
+  })
+  window.addEventListener('test', null, opts)
+} catch (e) {}
+
+export const supportsPassive = _supportsPassive
 
 export function on (el, type, callback, useCapture) {
   if (el.addEventListener) {

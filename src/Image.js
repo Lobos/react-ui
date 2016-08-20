@@ -6,6 +6,7 @@ import PropTypes from './utils/proptypes'
 import { objectAssign } from './utils/objects'
 import Mask from './Mask'
 import Spin from './Spin'
+import PureRender from './mixins/PureRender'
 
 import _styles from './styles/_images.scss'
 
@@ -45,8 +46,11 @@ class Image extends Component {
   }
 
   componentWillMount () {
+    if (!this.props.lazy) this.markToRender()
+  }
+
+  componentDidMount () {
     if (this.props.lazy) this._lazyId = addStack(this)
-    else this.markToRender()
   }
 
   componentWillUnmount () {
@@ -90,7 +94,7 @@ class Image extends Component {
         return placeholder
           ? <div className={_styles.inner}>{placeholder}</div>
           : <Mask active className={_styles.inner} background="#f2f2f2">
-              <div style={{padding: 20, textAlign: 'center'}}>{title || 'Loading...'}</div>
+              <div style={{padding: 20, textAlign: 'center'}}>{title || 'Loading'}{' '}<span className={_styles.ellipsis} /></div>
             </Mask>
       case SRC:
         return this.renderType(src)
@@ -171,4 +175,4 @@ Image.defaultProps = {
   target: '_modal'
 }
 
-export default Image
+export default PureRender(false)(Image)

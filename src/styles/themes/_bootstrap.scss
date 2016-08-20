@@ -993,7 +993,8 @@ $upload-remove-hover-color:                  $brand-danger;
 $card-spacer-nav:                            0.6rem;
 
 // mask ========================================================================
-$mask-backdrop-opacity:                      0.5;
+$mask-backdrop-opacity:                      0.1;
+$mask-zindex:                                900;
 
 // image =======================================================================
 $image-modal-bg:                             rgba(0, 0, 0, 0.9);

@@ -1,4 +1,4 @@
-import * as Event from './events'
+import { supportsPassive } from './events'
 import { findDOMNode } from 'react-dom'
 import { nextUid } from './strings'
 
@@ -8,12 +8,19 @@ let timeout = null
 let isLock = false
 
 export function addStack (obj) {
-  const id = nextUid()
-  components[id] = obj
-  return id
+  const rect = findDOMNode(obj).getBoundingClientRect()
+
+  if (rect.bottom < 0 || rect.top > winHeight) {
+    const id = nextUid()
+    components[id] = obj
+    return id
+  } else {
+    obj.markToRender()
+  }
 }
 
 export function removeStack (id) {
+  if (!id) return
   delete components[id]
 }
 
@@ -36,11 +43,12 @@ export function dispatch () {
   isLock = false
 }
 
-Event.on(document, 'scroll', () => {
+// scroll event
+document.addEventListener('scroll', () => {
   if (timeout) clearTimeout(timeout)
 
   timeout = setTimeout(() => {
     dispatch()
     timeout = null
   }, throttle)
-})
+}, supportsPassive ? { passive: true } : false)

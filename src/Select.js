@@ -294,7 +294,7 @@ Select.defaultProps = {
 
 export default compose(
   FormItem.register('select', {valueType: 'array'}),
-  Fetch,
+  Fetch(false),
   ClickAway
 )(Select)
 

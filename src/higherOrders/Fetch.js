@@ -3,6 +3,7 @@
 import { Component, PropTypes } from 'react'
 import Refetch from 'refetch'
 import classnames from 'classnames'
+import curry from 'curry'
 import { deepEqual, shallowEqual } from '../utils/objects'
 import clone from '../utils/clone'
 
@@ -15,7 +16,7 @@ export const FETCH_PENDING = 'pending'
 export const FETCH_SUCCESS = 'success'
 export const FETCH_FAILURE = 'failure'
 
-export default function (ComposedComponent) {
+export default curry((handleError, ComposedComponent) => {
   class Fetch extends Component {
     constructor (props) {
       super(props)
@@ -121,7 +122,7 @@ export default function (ComposedComponent) {
 
     render () {
       const { fetchStatus, error, data } = this.state
-      if (fetchStatus === FETCH_SUCCESS) {
+      if (fetchStatus === FETCH_SUCCESS || handleError) {
         return (
           <ComposedComponent {...this.props} data={data} fetchStatus={fetchStatus} />
         )
@@ -146,4 +147,4 @@ export default function (ComposedComponent) {
   }
 
   return Fetch
-}
+})

@@ -10,8 +10,9 @@ import FormControl from './FormControl'
 import Button from './Button'
 import PropTypes from './utils/proptypes'
 import { compose } from './utils/compose'
+import Mask from './Mask'
 
-import Fetch from './higherOrders/Fetch'
+import Fetch, { FETCH_PENDING } from './higherOrders/Fetch'
 import PureRender from './mixins/PureRender'
 
 import _forms from './styles/_form.scss'
@@ -175,7 +176,7 @@ class Form extends Component {
   }
 
   render () {
-    const { button, buttons, controls, children, grid, layout, ...props } = this.props
+    const { button, buttons, controls, children, grid, layout, fetchStatus, ...props } = this.props
 
     const className = classnames(
       this.props.className,
@@ -188,6 +189,7 @@ class Form extends Component {
 
     return (
       <form {...filterFormProps(props)} onSubmit={this.handleSubmit} className={className}>
+        <Mask active={fetchStatus === FETCH_PENDING} />
         {controls && this.renderControls()}
         {children}
         {btns && this.renderButtons(btns)}
@@ -206,6 +208,7 @@ Form.propTypes = {
   controls: PropTypes.array,
   data: PropTypes.object,
   disabled: PropTypes.bool,
+  fetchStatus: PropTypes.string,
   grid: PropTypes.grid,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
   labelWidth: PropTypes.number_string,
@@ -230,4 +233,7 @@ Form.childContextTypes = {
   controlProps: PropTypes.object
 }
 
-export default compose(Fetch, PureRender(true))(Form)
+export default compose(
+  Fetch(true),
+  PureRender(true)
+)(Form)

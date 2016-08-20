@@ -124,6 +124,16 @@
   }
 }
 
+.ellipsis {
+  text-align: left;
+  width: 2rem;
+  display: inline-block;
+  &::after {
+    content: '';
+    animation: rctui-ellipsis 1.5s infinite;
+  }
+}
+
 @keyframes rctui-image-modal {
   0% { 
     opacity: 0;
@@ -134,4 +144,10 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+@keyframes rctui-ellipsis {
+  0%, 100% { content: '.' }
+  33% { content: '..' }
+  66% { content: '...' }
 }

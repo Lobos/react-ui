@@ -63,13 +63,11 @@
   }
 
   .active a {
-    @include plain-hover-focus {
-      z-index: 2;
-      color: $pagination-active-color;
-      cursor: default;
-      background-color: $pagination-active-bg;
-      border-color: $pagination-active-border;
-    }
+    z-index: 2;
+    color: $pagination-active-color;
+    cursor: default;
+    background-color: $pagination-active-bg;
+    border-color: $pagination-active-border;
   }
 }
 
