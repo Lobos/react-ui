@@ -172,7 +172,8 @@ Image.propTypes = {
 
 Image.defaultProps = {
   lazy: false,
-  target: '_modal'
+  target: '_modal',
+  width: '100%'
 }
 
 export default PureRender(false)(Image)

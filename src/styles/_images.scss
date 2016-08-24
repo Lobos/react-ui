@@ -2,9 +2,9 @@
 @import 'themes/bootstrap';
 
 .img {
-  display: inline-block;
   position: relative;
   overflow: hidden;
+  display: flex;
 
   & > * {
     position: absolute;

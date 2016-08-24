@@ -37,6 +37,7 @@ module.exports = [
   { path: '/mask', text: 'Mask', component: require('./pages/mask.jsx') },
   { path: '/modal', text: 'Modal', component: require('./pages/modal.jsx') },
   { path: '/message', text: 'Message', component: require('./pages/message.jsx') },
+  { path: '/popover', text: 'Popover', component: require('./pages/popover.jsx') },
   { path: '/spin', text: 'Spin', component: require('./pages/spin.jsx') },
   { path: '/timeago', text: 'TimeAgo', component: require('./pages/timeago.jsx')},
   { path: '/tooltip', text: 'Tooltip', component: require('./pages/tooltip.jsx')},

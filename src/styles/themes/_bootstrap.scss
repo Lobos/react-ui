@@ -830,6 +830,10 @@ $pre-scrollable-max-height:   340px !default;
 
 
 // react ui overwrite ==========================================================
+$enable-shadows:                          true;
+$enable-flex:                             true;
+
+// control =====================================================================
 
 $custom-control-indicator-border:            #ddd;
 $custom-control-indicator-bg:                #fff;

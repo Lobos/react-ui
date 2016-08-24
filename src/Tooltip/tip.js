@@ -12,6 +12,11 @@ const inner = document.createElement('div')
 inner.className = _styles['tooltip-inner']
 div.appendChild(inner)
 
+function clickaway () {
+  hide()
+  document.removeEventListener('click', clickaway)
+}
+
 export function show (props) {
   const { placement, style, tip, trigger } = props
 
@@ -31,12 +36,11 @@ export function show (props) {
   inner.innerText = tip
 
   if (trigger === 'click') {
-    document.addEventListener('click', hide)
+    document.addEventListener('click', clickaway)
   }
 }
 
 export function hide () {
   div.style.display = 'none'
   div.className = ''
-  document.removeEventListener('click', hide)
 }

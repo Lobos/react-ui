@@ -1,20 +1,19 @@
 import { Component, PropTypes, cloneElement } from 'react'
 import { findDOMNode } from 'react-dom'
 import { objectAssign } from '../utils/objects'
-import ClickAway from '../higherOrders/ClickAway'
-import { show, hide } from './tip'
+import PureRender from '../mixins/PureRender'
+import * as Tip from './tip'
+import * as Popover from './popover'
 
 class Tooltip extends Component {
   constructor (props) {
     super(props)
 
-    this.state = { show: false }
-
     this.handleShow = this.handleShow.bind(this)
   }
 
   handleShow () {
-    const { placement } = this.props
+    const { content, placement } = this.props
 
     const el = findDOMNode(this)
     const rect = el.getBoundingClientRect()
@@ -42,7 +41,8 @@ class Tooltip extends Component {
     }
 
     const props = objectAssign({}, this.props, { style })
-    show(props)
+
+    content ? Popover.show(props) : Tip.show(props)
   }
 
   render () {
@@ -51,7 +51,7 @@ class Tooltip extends Component {
 
     if (trigger === 'hover') {
       props.onMouseEnter = this.handleShow
-      props.onMouseLeave = hide
+      props.onMouseLeave = Tip.hide
     } else {
       props.onClick = () => {
         setTimeout(this.handleShow, 10)
@@ -67,12 +67,13 @@ Tooltip.defaultProps = {
   trigger: 'hover'
 }
 
-Tooltip.propTypes = objectAssign({
+Tooltip.propTypes = {
+  children: PropTypes.element,
   className: PropTypes.string,
+  content: PropTypes.element,
   placement: PropTypes.oneOf(['top', 'left', 'bottom', 'right']),
-  style: PropTypes.object,
   tip: PropTypes.string,
   trigger: PropTypes.oneOf(['click', 'hover'])
-}, ClickAway.propTypes)
+}
 
-export default ClickAway(Tooltip)
+export default PureRender(false)(Tooltip)
