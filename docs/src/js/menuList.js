@@ -39,6 +39,7 @@ module.exports = [
   { path: '/message', text: 'Message', component: require('./pages/message.jsx') },
   { path: '/spin', text: 'Spin', component: require('./pages/spin.jsx') },
   { path: '/timeago', text: 'TimeAgo', component: require('./pages/timeago.jsx')},
+  { path: '/tooltip', text: 'Tooltip', component: require('./pages/tooltip.jsx')},
   { path: '/table', text: 'Table', component: require('./pages/table.jsx') },
 
   'HIGHERORDER',

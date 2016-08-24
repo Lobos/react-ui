@@ -45,6 +45,7 @@ export { default as SafeHtml } from './SafeHtml'
 export { default as Spin } from './Spin'
 export { default as Table } from './Table'
 export { default as Tag } from './Tag'
+export { default as Tooltip } from './Tooltip'
 export { default as TimeAgo } from './TimeAgo'
 
 export { default as ValuesHolder } from './ValuesHolder'
