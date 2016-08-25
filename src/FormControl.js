@@ -266,7 +266,8 @@ FormControl.defaultProps = {
 }
 
 FormControl.contextTypes = {
-  controlProps: PropTypes.object
+  controlProps: PropTypes.object,
+  formData: PropTypes.object
 }
 
 export default FormControl
