@@ -20,27 +20,44 @@ class Tooltip extends Component {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
     const scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft
 
-    const style = {}
+    let left, top
+
     switch (position) {
-      case 'top':
-        style.left = scrollLeft + rect.left + (rect.width / 2) + 'px'
-        style.top = scrollTop + rect.top + 'px'
+      case 'top-left':
+        left = scrollLeft + rect.left
+        top = scrollTop + rect.top
         break
-      case 'bottom':
-        style.left = scrollLeft + rect.left + (rect.width / 2) + 'px'
-        style.top = scrollTop + rect.top + rect.height + 'px'
+      case 'top':
+        left = scrollLeft + rect.left + (rect.width / 2)
+        top = scrollTop + rect.top
+        break
+      case 'top-right':
+        left = scrollLeft + rect.left + rect.width
+        top = scrollTop + rect.top
         break
       case 'left':
-        style.left = scrollLeft + rect.left + 'px'
-        style.top = scrollTop + rect.top + (rect.height / 2) + 'px'
+        left = scrollLeft + rect.left
+        top = scrollTop + rect.top + (rect.height / 2)
         break
       case 'right':
-        style.left = scrollLeft + rect.left + rect.width + 'px'
-        style.top = scrollTop + rect.top + (rect.height / 2) + 'px'
+        left = scrollLeft + rect.left + rect.width
+        top = scrollTop + rect.top + (rect.height / 2)
+        break
+      case 'bottom-left':
+        left = scrollLeft + rect.left
+        top = scrollTop + rect.top + rect.height
+        break
+      case 'bottom':
+        left = scrollLeft + rect.left + (rect.width / 2)
+        top = scrollTop + rect.top + rect.height
+        break
+      case 'bottom-right':
+        left = scrollLeft + rect.left + rect.width
+        top = scrollTop + rect.top + rect.height
         break
     }
 
-    const props = objectAssign({}, this.props, { style })
+    const props = objectAssign({}, this.props, { style: { left: left + 'px', top: top + 'px' } })
 
     content ? Popover.show(props) : Tip.show(props)
   }
@@ -51,7 +68,7 @@ class Tooltip extends Component {
 
     if (trigger === 'hover') {
       props.onMouseEnter = this.handleShow
-      if (!content) props.onMouseLeave = Tip.hide
+      props.onMouseLeave = content ? Popover.hide : Tip.hide
     } else {
       props.onClick = () => {
         setTimeout(this.handleShow, 10)
@@ -71,7 +88,7 @@ Tooltip.propTypes = {
   children: PropTypes.element,
   className: PropTypes.string,
   content: PropTypes.element,
-  position: PropTypes.oneOf(['top', 'left', 'bottom', 'right']),
+  position: PropTypes.oneOf(['top-left', 'top', 'top-right', 'left', 'right', 'bottom-left', 'bottom', 'bottom-right']),
   tip: PropTypes.string,
   trigger: PropTypes.oneOf(['click', 'hover'])
 }

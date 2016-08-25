@@ -4,6 +4,7 @@ import { isDescendant } from '../utils/dom'
 import _styles from '../styles/_popover.scss'
 
 const div = document.createElement('div')
+div.style.display = 'none'
 document.body.appendChild(div)
 
 const arrow = document.createElement('div')

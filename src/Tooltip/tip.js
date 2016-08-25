@@ -2,6 +2,7 @@ import classnames from 'classnames'
 import _styles from '../styles/_tooltip.scss'
 
 const div = document.createElement('div')
+div.style.display = 'none'
 document.body.appendChild(div)
 
 const arrow = document.createElement('div')

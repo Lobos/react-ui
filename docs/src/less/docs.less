@@ -178,10 +178,24 @@ header {
   }
 }
 
+.popover-demo {
+  width: 300px;
+
+  & > div {
+    display: inline-block;
+    width: 90px;
+    height: 60px;
+    line-height: 60px;
+    border: solid 1px #ccc;
+    background-color: #f2f2f2;
+    text-align: center;
+    margin: 5px;
+  }
+}
+
 @media (min-width: 768px) {
   .header, .content {
     padding-left: 4em;
     padding-right: 4em;
   }
 }
-

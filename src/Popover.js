@@ -14,12 +14,12 @@ export default function Popover (props) {
 Popover.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
   className: PropTypes.string,
-  position: PropTypes.oneOf(['top', 'left', 'bottom', 'right']),
+  position: PropTypes.oneOf(['top-left', 'top', 'top-right', 'left', 'right', 'bottom-left', 'bottom', 'bottom-right']),
   style: PropTypes.object,
   trigger: PropTypes.oneOf(['click', 'hover'])
 }
 
 Popover.defaultProps = {
-  position: top,
+  position: 'top',
   trigger: 'click'
 }

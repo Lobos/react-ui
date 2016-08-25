@@ -1,13 +1,21 @@
 @import "mixins";
 @import "themes/bootstrap";
 
+@keyframes popoverOpacity {
+  0% {
+    opacity: 0;
+  } 100% {
+    opacity: 1;
+  }
+}
+
 .popover {
   position: absolute;
   top: 0;
   left: 0;
   z-index: $zindex-popover;
   display: block;
-  max-width: $popover-max-width;
+  // max-width: $popover-max-width;
   // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
   // So reset our font and text properties to avoid inheriting weird values.
   @include reset-text();
@@ -19,11 +27,13 @@
   border: $popover-border-width solid $popover-border-color;
   @include border-radius($border-radius-lg);
   @include box-shadow($popover-box-shadow);
-
+  animation: popoverOpacity .5s ease;
 
   // Popover directions
 
-  &.popover-top {
+  &.popover-top,
+  &.popover-top-left,
+  &.popover-top-right {
     margin-top: -$popover-arrow-width;
     transform: translate(-50%, -100%);
 
@@ -31,6 +41,34 @@
       left: 50%;
       bottom: 0;
       transform: translate(-50%, 50%) rotate(135deg);
+    }
+  }
+
+  &.popover-top-left {
+    transform: translate(0, -100%);
+
+    .popover-arrow {
+      left: $popover-arrow-width * 2;
+    }
+  }
+  
+  &.popover-top-right {
+    transform: translate(-100%, -100%);
+
+    .popover-arrow {
+      left: auto;
+      right: $popover-arrow-width / 2;
+    }
+  }
+
+  &.popover-left {
+    margin-left: -$popover-arrow-width;
+    transform: translate(-100%, -50%);
+
+    .popover-arrow {
+      top: 50%;
+      right: 0;
+      transform: translate(50%, -50%) rotate(45deg);
     }
   }
 
@@ -45,7 +83,9 @@
     }
   }
 
-  &.popover-bottom {
+  &.popover-bottom-left,
+  &.popover-bottom,
+  &.popover-bottom-right {
     margin-top: $popover-arrow-width;
     transform: translateX(-50%);
 
@@ -56,14 +96,20 @@
     }
   }
 
-  &.popover-left {
-    margin-left: -$popover-arrow-width;
-    transform: translate(-100%, -50%);
+  &.popover-bottom-left {
+    transform: translateX(0);
 
     .popover-arrow {
-      top: 50%;
-      right: 0;
-      transform: translate(50%, -50%) rotate(45deg);
+      left: $popover-arrow-width * 2;
+    }
+  }
+
+  &.popover-bottom-right {
+    transform: translateX(-100%);
+
+    .popover-arrow {
+      left: auto;
+      right: $popover-arrow-width / 2;
     }
   }
 }
