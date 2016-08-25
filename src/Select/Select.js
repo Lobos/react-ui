@@ -1,33 +1,24 @@
-'use strict'
-
 import { Component } from 'react'
 import classnames from 'classnames'
-import { toArray, substitute } from './utils/strings'
-import { getOuterHeight, overView, withoutTransition } from './utils/dom'
-import { hashcode, objectAssign } from './utils/objects'
-import ClickAway from './higherOrders/ClickAway'
-import { getGrid } from './utils/grids'
-import Fetch from './higherOrders/Fetch'
-import FormItem from './higherOrders/FormItem'
-import { compose } from './utils/compose'
-import Transition from './Transition'
-import PropTypes from './utils/proptypes'
-import List from './List'
-import SafeHtml from './SafeHtml'
+import { getOuterHeight, overView, withoutTransition } from '../utils/dom'
+import { objectAssign } from '../utils/objects'
+import ClickAway from '../higherOrders/ClickAway'
+import { getGrid } from '../utils/grids'
+import Transition from '../Transition'
+import PropTypes from '../utils/proptypes'
+import List from '../List'
+import SafeHtml from '../SafeHtml'
 
-import _select from './styles/_select.scss'
-import _input from './styles/_input.scss'
+import _select from '../styles/_select.scss'
+import _input from '../styles/_input.scss'
 
-class Select extends Component {
+export default class Select extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
       filter: ''
     }
-
-    // cache, store selected status
-    this.data = []
 
     this.showOptions = this.showOptions.bind(this)
     this.handleFilter = this.handleFilter.bind(this)
@@ -76,72 +67,13 @@ class Select extends Component {
     return value
   }
 
-  formatData () {
-    let values = toArray(this.props.value, this.props.mult && this.props.sep)
-
-    let { data, filterAble, valueTpl, optionTpl, resultTpl, groupBy } = this.props
-    let noResultTpl = !resultTpl
-
-    if (!Array.isArray(data)) {
-      data = Object.keys(data).map((key) => {
-        return { text: data[key], id: key }
-      })
-    }
-
-    data = data.map((d) => {
-      if (typeof d !== 'object') {
-        d = typeof d === 'string' ? d : d.toString()
-        return {
-          $html: d,
-          $result: d,
-          $value: d,
-          $filter: d.toLowerCase(),
-          $selected: values.indexOf(d) >= 0,
-          $key: hashcode(d)
-        }
-      }
-
-      // speed filter
-      if (filterAble) {
-        d.$filter = (Object.keys(d).map((k) => d[k])).join(',').toLowerCase()
-      }
-
-      let val = substitute(valueTpl, d)
-      d.$html = substitute(optionTpl, d)
-      d.$result = noResultTpl ? d.$html : substitute(resultTpl, d)
-      d.$value = val
-      d.$selected = values.indexOf(val) >= 0
-      d.$key = d.id ? d.id : hashcode(val + d.$html)
-      return d
-    })
-
-    if (groupBy) {
-      let groups = {}
-      data.forEach((d) => {
-        let key = d[groupBy]
-        if (!groups[key]) {
-          groups[key] = []
-        }
-        groups[key].push(d)
-      })
-      data = []
-      Object.keys(groups).forEach((k) => {
-        data.push({ $group: k })
-        data = data.concat(groups[k])
-      })
-    }
-
-    this.data = data
-    return data
-  }
-
   handleChange (item) {
     let index = item.$index
     if (this.props.readOnly) {
       return
     }
 
-    let data = this.data
+    let data = this.props.data
     if (this.props.mult) {
       data[index].$selected = !data[index].$selected
     } else {
@@ -154,7 +86,7 @@ class Select extends Component {
     }
 
     let value = this.getValue(this.props.sep, data)
-    this.setState({ value, data })
+    this.setState({ value })
     if (this.props.onChange) {
       this.props.onChange(value)
     }
@@ -196,8 +128,6 @@ class Select extends Component {
     let { filter, msg, dropup } = this.state
     let result = []
 
-    data = this.formatData()
-
     className = classnames(
       _select.select,
       className,
@@ -213,18 +143,14 @@ class Select extends Component {
       d.$index = i
 
       if (d.$selected) {
-        // if (mult) {
-          result.push(
-            <a key={d.$key} className={_select.result}
-              href="javascript:;"
-              onClick={this.handleRemove.bind(this, d)}>
-              <SafeHtml>{d.$result}</SafeHtml>
-              <span className={_select.remove}>&times;</span>
-            </a>
-          )
-        // } else {
-        //  result.push(<SafeHtml key={d.$key}>{d.$result}</SafeHtml>)
-        // }
+        result.push(
+          <a key={d.$key} className={_select.result}
+            href="javascript:;"
+            onClick={this.handleRemove.bind(this, d)}>
+            <SafeHtml>{d.$result}</SafeHtml>
+            <span className={_select.remove}>&times;</span>
+          </a>
+        )
       }
 
       return d
@@ -291,10 +217,3 @@ Select.defaultProps = {
   sep: ',',
   valueTpl: '{id}'
 }
-
-export default compose(
-  FormItem.register('select', {valueType: 'array'}),
-  Fetch(false),
-  ClickAway
-)(Select)
-

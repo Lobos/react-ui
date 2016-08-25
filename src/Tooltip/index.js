@@ -13,7 +13,7 @@ class Tooltip extends Component {
   }
 
   handleShow () {
-    const { content, placement } = this.props
+    const { content, position } = this.props
 
     const el = findDOMNode(this)
     const rect = el.getBoundingClientRect()
@@ -21,7 +21,7 @@ class Tooltip extends Component {
     const scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft
 
     const style = {}
-    switch (placement) {
+    switch (position) {
       case 'top':
         style.left = scrollLeft + rect.left + (rect.width / 2) + 'px'
         style.top = scrollTop + rect.top + 'px'
@@ -46,12 +46,12 @@ class Tooltip extends Component {
   }
 
   render () {
-    const { children, trigger } = this.props
+    const { children, content, trigger } = this.props
     const props = {}
 
     if (trigger === 'hover') {
       props.onMouseEnter = this.handleShow
-      props.onMouseLeave = Tip.hide
+      if (!content) props.onMouseLeave = Tip.hide
     } else {
       props.onClick = () => {
         setTimeout(this.handleShow, 10)
@@ -63,7 +63,7 @@ class Tooltip extends Component {
 }
 
 Tooltip.defaultProps = {
-  placement: 'top',
+  position: 'top',
   trigger: 'hover'
 }
 
@@ -71,7 +71,7 @@ Tooltip.propTypes = {
   children: PropTypes.element,
   className: PropTypes.string,
   content: PropTypes.element,
-  placement: PropTypes.oneOf(['top', 'left', 'bottom', 'right']),
+  position: PropTypes.oneOf(['top', 'left', 'bottom', 'right']),
   tip: PropTypes.string,
   trigger: PropTypes.oneOf(['click', 'hover'])
 }

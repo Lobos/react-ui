@@ -18,7 +18,7 @@ function clickaway () {
 }
 
 export function show (props) {
-  const { placement, style, tip, trigger } = props
+  const { position, style, tip, trigger } = props
 
   div.style = ''
   Object.keys(style).forEach(k => {
@@ -28,7 +28,7 @@ export function show (props) {
   const className = classnames(
     _styles.tooltip,
     _styles.in,
-    _styles[`tooltip-${placement}`]
+    _styles[`tooltip-${position}`]
   )
 
   div.className = className

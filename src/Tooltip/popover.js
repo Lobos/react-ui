@@ -21,7 +21,7 @@ function clickaway (e) {
 }
 
 export function show (props) {
-  const { placement, style, content, background, border } = props
+  const { position, style, content, background, border } = props
 
   div.style = ''
   Object.keys(style).forEach(k => {
@@ -37,7 +37,7 @@ export function show (props) {
 
   const className = classnames(
     _styles.popover,
-    _styles[`popover-${placement}`]
+    _styles[`popover-${position}`]
   )
 
   div.className = className

@@ -12,9 +12,9 @@ module.exports = function () {
       <div className="content button-docs">
         <Code>
 {`<Tooltip
-placement={string}  // one of 'left|top|right|bootom', default value is 'right'
-trigger={string}    // one of 'click|hover', default value is 'hover'
-tip={string}        // tip text
+  position={string}  // one of 'left|top|right|bootom', default value is 'right'
+  trigger={string}    // one of 'click|hover', default value is 'hover'
+  tip={string}        // tip text
 >
 {ReactElement}
 </Tooltip>`}
@@ -22,38 +22,38 @@ tip={string}        // tip text
 
         <h2 className="subhead">Hover</h2>
         <Example>
-          <Tooltip placement="left" tip="some tip text">
+          <Tooltip position="left" tip="some tip text">
             <Button>Tip Left</Button>
           </Tooltip>
 
-          <Tooltip placement="top" tip="some tip text">
+          <Tooltip position="top" tip="some tip text">
             <Button>Tip Top</Button>
           </Tooltip>
 
-          <Tooltip placement="bottom" tip="some tip text">
+          <Tooltip position="bottom" tip="some tip text">
             <Button>Tip Bottom</Button>
           </Tooltip>
 
-          <Tooltip placement="right" tip="some tip text">
+          <Tooltip position="right" tip="some tip text">
             <Button>Tip Right</Button>
           </Tooltip>
         </Example>
 
         <h2 className="subhead">Click</h2>
         <Example>
-          <Tooltip trigger="click" placement="left" tip="some tip text">
+          <Tooltip trigger="click" position="left" tip="some tip text">
             <Button>Tip Left</Button>
           </Tooltip>
 
-          <Tooltip trigger="click" placement="top" tip="some tip text">
+          <Tooltip trigger="click" position="top" tip="some tip text">
             <Button>Tip Top</Button>
           </Tooltip>
 
-          <Tooltip trigger="click" placement="bottom" tip="some tip text">
+          <Tooltip trigger="click" position="bottom" tip="some tip text">
             <Button>Tip Bottom</Button>
           </Tooltip>
 
-          <Tooltip trigger="click" placement="right" tip="some tip text">
+          <Tooltip trigger="click" position="right" tip="some tip text">
             <Button>Tip Right</Button>
           </Tooltip>
         </Example>
