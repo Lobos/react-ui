@@ -82,8 +82,8 @@ export default curry((handleError, ComposedComponent) => {
       this.setState({ fetchStatus: FETCH_PENDING })
 
       if (typeof fetch === 'function') {
-        fetch.then((data) => {
-          this.setData(data)
+        fetch.then((res) => {
+          this.setData(res)
         })
         return
       }
@@ -99,8 +99,8 @@ export default curry((handleError, ComposedComponent) => {
 
       // handle response
       if (then) { request = request.then(then) }
-      request.then((data) => {
-        this.setData(data)
+      request.then((res) => {
+        this.setData(res)
       })
       .catch((err) => {
         console.warn(fetch, err)

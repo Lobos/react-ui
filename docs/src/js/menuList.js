@@ -20,6 +20,7 @@ module.exports = [
   { path: '/form', text: 'Form', component: require('./pages/form.jsx') },
   { path: '/formitem', text: 'FormItem', component: require('./pages/formItem.jsx') },
   { path: '/formControl', text: 'FormControl', component: require('./pages/formControl.jsx') },
+  { path: '/cascade', text: 'Cascade', component: require('./pages/cascade.jsx') },
   { path: '/checkbox', text: 'Checkbox', component: require('./pages/checkbox.jsx') },
   { path: '/checkboxGroup', text: 'CheckboxGroup', component: require('./pages/checkboxGroup.jsx') },
   { path: '/datepicker', text: 'Datepicker', component: require('./pages/datepicker.jsx') },

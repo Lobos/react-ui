@@ -1,0 +1,82 @@
+@import 'mixins';
+@import 'themes/bootstrap';
+
+.cascade {
+  position: relative;
+}
+
+.cascade-options {
+  display: inline-block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: $zindex-dropdown;
+  height: $cascade-options-height;
+  border: solid $cascade-border-width $cascade-border-color;
+  border-radius: $cascade-border-radius;
+  background-color: $cascade-options-bg;
+  box-shadow: $cascade-box-shadow;
+  transform-origin: 0 0;
+  transform: scaleY(0);
+  opacity: 0;
+
+  &.enter {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  & > ul {
+    display: block;
+    float: left;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    min-width: $cascade-options-width;
+    height: $cascade-options-height;
+    overflow: auto;
+    border-left: solid $cascade-border-width $cascade-border-color;
+    padding: $cascade-options-padding-y 0;
+
+    &:first-child {
+      border-right-width: 0;
+    }
+
+    li {
+      position: relative;
+      cursor: pointer;
+      display: block;
+      padding: $cascade-options-padding-y $cascade-options-padding-x;
+      color: $cascade-item-color;
+
+      &:hover {
+        color: $cascade-item-hover-color;
+        background-color: $cascade-item-hover-bg;
+      }
+
+      &.active {
+        color: $cascade-item-active-color;
+        background-color: $cascade-item-active-bg;
+
+        svg path {
+          fill: #fff;
+        }
+      }
+
+      .indicator {
+        position: absolute;
+        display: block;
+        width: $cascade-item-indicator-size;
+        height: $cascade-item-indicator-size;
+        right: $cascade-options-padding-y;
+        top: 50%;
+        transform: translateY(-50%);
+        
+        svg {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

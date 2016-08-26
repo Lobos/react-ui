@@ -96,8 +96,8 @@ module.exports = function () {
         <h2 className="subhead">BackgroundColor & BorderColor</h2>
         <Example>
           <Popover background="#ddd" border="#f00">
-            <Button>Grey background</Button>
-            <div style={{padding: '1rem'}}>
+            <Button>click me</Button>
+            <div style={{padding: '1rem', width: 300}}>
               <h4>Title</h4>
               Some quick example text to build on the card title and make up the bulk of the card's content.
             </div>
