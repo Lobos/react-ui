@@ -87,7 +87,7 @@ function updatePackage (resolve, reject) {
 
     if (options.indexOf('server') >= 0) {
       Object.keys(dependencies.server).forEach((m) => {
-        data.dependencies[m] = dependencies.server[m];
+        data.devDependencies[m] = dependencies.server[m];
         dps.push({ m, v:dependencies.server[m] });
       });
     }
@@ -134,6 +134,7 @@ function copyDemo (resolve, reject) {
   try {
     mkdir('./demo');
     copy(`${__dirname}/demo/index.js`, './demo/index.js');
+    copy(`${__dirname}/demo/index.css`, './demo/index.css');
     copy(`${__dirname}/demo/index.html`, './demo/index.html');
     console.log('add demo dir success.');
     resolve(true);

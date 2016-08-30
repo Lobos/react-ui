@@ -34,12 +34,21 @@ module.exports = {
         test: /\.(css|less)$/,
         loader: 'style-loader!css-loader!postcss-loader!less-loader'
       },
+      {
+        test: /\.scss$/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&localIdentName=[hash:base64:8]',
+          'postcss-loader',
+          'sass-loader'
+        ]
+      },
       { test: /\.(png|jpg|jpeg|gif)$/,
         loader: 'url-loader?limit=10000&name=./images/[name].[ext]'
       }
     ]
   },
   postcss: function(){
-    return [autoprefixer, precss];
+    return [autoprefixer({ browsers: ['> 1%', 'IE 9'] }), precss];
   }
 };
