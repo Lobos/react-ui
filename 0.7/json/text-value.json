@@ -1,0 +1,9 @@
+[
+  { "id": "cn", "text": "China" },
+  { "id": "us", "text": "United States" },
+  { "id": "jp", "text": "Japan" },
+  { "id": "gb", "text": "Great Britain" },
+  { "id": "fr", "text": "France" },
+  { "id": "de", "text": "Germany" },
+  { "id": "es", "text": "Spain" }
+]

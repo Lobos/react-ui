@@ -1,0 +1,72 @@
+[
+    {
+        "id": "1",
+        "text": "Parent 1",
+        "children": [
+            {
+                "id": "1.1",
+                "text": "Child 1.1",
+                "children": [
+                    {
+                        "id": "1.1.1",
+                        "text": "Grandchild 1.1.1"
+                    }
+                ]
+            },
+            {
+                "id": "1.2",
+                "text": "Child 1.2",
+                "children": [
+                    {
+                        "id": "1.2.1",
+                        "text": "Grandchild 1.2.1"
+                    },
+                    {
+                        "id": "1.2.2",
+                        "text": "Grandchild 1.2.2"
+                    }
+                ]
+            },
+            {
+                "id": "1.3",
+                "text": "Child 1.3",
+                "children": [
+                    {
+                        "id": "1.3.1",
+                        "text": "Grandchild 1.3.1"
+                    },
+                    {
+                        "id": "1.3.2",
+                        "text": "Grandchild 1.3.2"
+                    }
+                ]
+            }
+
+        ]
+    },
+
+    {
+        "id": "2",
+        "text": "Parent 2",
+        "children": [
+            {
+                "id": "2.1",
+                "text": "Child 2.1"
+            },
+            {
+                "id": "2.2",
+                "text": "Child 2.2",
+                "children": [
+                    {
+                        "id": "2.2.1",
+                        "text": "Grandchild 2.2.1"
+                    },
+                    {
+                        "id": "2.2.2",
+                        "text": "Grandchild 2.2.2"
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -1,0 +1,890 @@
+[
+  {
+    "code": "ae",
+    "en": "United Arab Emirates",
+    "country": "阿联酋",
+    "continent": "Asian"
+  },
+  {
+    "code": "af",
+    "en": "Afghanistan",
+    "country": "阿富汗",
+    "continent": "Asian"
+  },
+  {
+    "code": "al",
+    "en": "Albania",
+    "country": "阿尔巴尼亚",
+    "continent": "Asian"
+  },
+  {
+    "code": "ao",
+    "en": "Angola",
+    "country": "安哥拉",
+    "continent": "Africa"
+  },
+  {
+    "code": "ar",
+    "en": "Argentina",
+    "country": "阿根廷",
+    "continent": "South America"
+  },
+  {
+    "code": "at",
+    "en": "Austria",
+    "country": "奥地利",
+    "continent": "Europe"
+  },
+  {
+    "code": "au",
+    "en": "Australia",
+    "country": "澳大利亚",
+    "continent": "Oceania"
+  },
+  {
+    "code": "az",
+    "en": "Azerbaijan",
+    "country": "阿塞拜疆",
+    "continent": "Asian"
+  },
+  {
+    "code": "bd",
+    "en": "Bangladesh",
+    "country": "孟加拉",
+    "continent": "Asian"
+  },
+  {
+    "code": "be",
+    "en": "Belgium",
+    "country": "比利时",
+    "continent": "Europe"
+  },
+  {
+    "code": "bg",
+    "en": "Bulgaria",
+    "country": "保加利亚",
+    "continent": "Europe"
+  },
+  {
+    "code": "bh",
+    "en": "Bahrain",
+    "country": "巴林",
+    "continent": "Asian"
+  },
+  {
+    "code": "bi",
+    "en": "Burundi",
+    "country": "布隆迪",
+    "continent": "Africa"
+  },
+  {
+    "code": "bj",
+    "en": "Benin",
+    "country": "贝宁",
+    "continent": "Africa"
+  },
+  {
+    "code": "bm",
+    "en": "Bermuda",
+    "country": "百慕大",
+    "continent": "North America"
+  },
+  {
+    "code": "bn",
+    "en": "Brunei",
+    "country": "文莱",
+    "continent": "Asian"
+  },
+  {
+    "code": "bo",
+    "en": "Bolivia",
+    "country": "玻利维亚",
+    "continent": "South America"
+  },
+  {
+    "code": "br",
+    "en": "Brazil",
+    "country": "巴西",
+    "continent": "South America"
+  },
+  {
+    "code": "bs",
+    "en": "Bahamas",
+    "country": "巴哈马",
+    "continent": "North America"
+  },
+  {
+    "code": "bt",
+    "en": "Bhutan",
+    "country": "不丹",
+    "continent": "Asian"
+  },
+  {
+    "code": "bw",
+    "en": "Botswana",
+    "country": "博茨瓦纳",
+    "continent": "Africa"
+  },
+  {
+    "code": "ca",
+    "en": "Canada",
+    "country": "加拿大",
+    "continent": "North America"
+  },
+  {
+    "code": "cf",
+    "en": "Central Africa",
+    "country": "中非共和国",
+    "continent": "Africa"
+  },
+  {
+    "code": "cg",
+    "en": "Congo",
+    "country": "刚果",
+    "continent": "Africa"
+  },
+  {
+    "code": "ch",
+    "en": "Switzerland",
+    "country": "瑞士",
+    "continent": "Europe"
+  },
+  {
+    "code": "ck",
+    "en": "Cook Is.",
+    "country": "库克群岛",
+    "continent": "Oceania"
+  },
+  {
+    "code": "cl",
+    "en": "Chile",
+    "country": "智利",
+    "continent": "South America"
+  },
+  {
+    "code": "cm",
+    "en": "Cameroon",
+    "country": "喀麦隆",
+    "continent": "Africa"
+  },
+  {
+    "code": "cn",
+    "en": "China",
+    "country": "中国",
+    "continent": "Asian"
+  },
+  {
+    "code": "co",
+    "en": "Colombia",
+    "country": "哥伦比亚",
+    "continent": "South America"
+  },
+  {
+    "code": "cr",
+    "en": "Costa Rica",
+    "country": "哥斯达黎加",
+    "continent": "North America"
+  },
+  {
+    "code": "cu",
+    "en": "Cuba",
+    "country": "古巴",
+    "continent": "North America"
+  },
+  {
+    "code": "cv",
+    "en": "Cape Verde Is.",
+    "country": "佛得角群岛",
+    "continent": "Africa"
+  },
+  {
+    "code": "cy",
+    "en": "Cyprus",
+    "country": "塞浦路斯",
+    "continent": "Asian"
+  },
+  {
+    "code": "cz",
+    "en": "Czech",
+    "country": "捷克共和国",
+    "continent": "Europe"
+  },
+  {
+    "code": "de",
+    "en": "Germany",
+    "country": "德国",
+    "continent": "Europe"
+  },
+  {
+    "code": "dk",
+    "en": "Denmark",
+    "country": "丹麦",
+    "continent": "Europe"
+  },
+  {
+    "code": "dz",
+    "en": "Algeria",
+    "country": "阿尔及利亚",
+    "continent": "Africa"
+  },
+  {
+    "code": "ec",
+    "en": "Ecuador",
+    "country": "厄瓜多尔",
+    "continent": "South America"
+  },
+  {
+    "code": "ee",
+    "en": "Estonia",
+    "country": "爱沙尼亚",
+    "continent": "Europe"
+  },
+  {
+    "code": "eg",
+    "en": "Egypt",
+    "country": "埃及",
+    "continent": "Africa"
+  },
+  {
+    "code": "es",
+    "en": "Spain",
+    "country": "西班牙",
+    "continent": "Europe"
+  },
+  {
+    "code": "et",
+    "en": "Ethiopia",
+    "country": "埃塞俄比亚",
+    "continent": "Africa"
+  },
+  {
+    "code": "fi",
+    "en": "Finland",
+    "country": "芬兰",
+    "continent": "Europe"
+  },
+  {
+    "code": "fj",
+    "en": "Fiji",
+    "country": "斐济",
+    "continent": "Oceania"
+  },
+  {
+    "code": "fr",
+    "en": "France",
+    "country": "法国",
+    "continent": "Europe"
+  },
+  {
+    "code": "ga",
+    "en": "Gabon",
+    "country": "加蓬",
+    "continent": "Africa"
+  },
+  {
+    "code": "gb",
+    "en": "Great Britain",
+    "country": "英国",
+    "continent": "Europe"
+  },
+  {
+    "code": "gd",
+    "en": "Grenada",
+    "country": "格林纳达",
+    "continent": "North America"
+  },
+  {
+    "code": "gh",
+    "en": "Ghana",
+    "country": "加纳",
+    "continent": "Africa"
+  },
+  {
+    "code": "gm",
+    "en": "Gambia",
+    "country": "冈比亚",
+    "continent": "Africa"
+  },
+  {
+    "code": "gn",
+    "en": "Guinea-Bissau",
+    "country": "几内亚",
+    "continent": "Africa"
+  },
+  {
+    "code": "gq",
+    "en": "Equatorial Guinea",
+    "country": "赤道几内亚",
+    "continent": "Africa"
+  },
+  {
+    "code": "gr",
+    "en": "Greece",
+    "country": "希腊",
+    "continent": "Europe"
+  },
+  {
+    "code": "gt",
+    "en": "Guatemala",
+    "country": "危地马拉",
+    "continent": "North America"
+  },
+  {
+    "code": "gu",
+    "en": "Guam",
+    "country": "关岛",
+    "continent": "Oceania"
+  },
+  {
+    "code": "gy",
+    "en": "Guyana",
+    "country": "圭亚那",
+    "continent": "South America"
+  },
+  {
+    "code": "hk",
+    "en": "Hong kong",
+    "country": "中国香港",
+    "continent": "Asian"
+  },
+  {
+    "code": "hn",
+    "en": "Honduras",
+    "country": "洪都拉斯",
+    "continent": "North America"
+  },
+  {
+    "code": "hr",
+    "en": "Croatia",
+    "country": "克罗地亚",
+    "continent": "Europe"
+  },
+  {
+    "code": "ht",
+    "en": "Haiti",
+    "country": "海地",
+    "continent": "North America"
+  },
+  {
+    "code": "hu",
+    "en": "Hungary",
+    "country": "匈牙利",
+    "continent": "Europe"
+  },
+  {
+    "code": "id",
+    "en": "Indonesia",
+    "country": "印度尼西亚",
+    "continent": "Asian"
+  },
+  {
+    "code": "ie",
+    "en": "Ireland",
+    "country": "爱尔兰",
+    "continent": "Europe"
+  },
+  {
+    "code": "il",
+    "en": "Israel",
+    "country": "以色列",
+    "continent": "Asian"
+  },
+  {
+    "code": "in",
+    "en": "India",
+    "country": "印度",
+    "continent": "Asian"
+  },
+  {
+    "code": "iq",
+    "en": "Iraq",
+    "country": "伊拉克",
+    "continent": "Asian"
+  },
+  {
+    "code": "ir",
+    "en": "Iran",
+    "country": "伊朗",
+    "continent": "Asian"
+  },
+  {
+    "code": "is",
+    "en": "Iceland",
+    "country": "冰岛",
+    "continent": "Europe"
+  },
+  {
+    "code": "it",
+    "en": "Italy",
+    "country": "意大利",
+    "continent": "Europe"
+  },
+  {
+    "code": "jm",
+    "en": "Jamaica",
+    "country": "牙买加",
+    "continent": "North America"
+  },
+  {
+    "code": "jo",
+    "en": "Jordan",
+    "country": "约旦",
+    "continent": "Asian"
+  },
+  {
+    "code": "jp",
+    "en": "Japan",
+    "country": "日本",
+    "continent": "Asian"
+  },
+  {
+    "code": "ke",
+    "en": "Kenya",
+    "country": "肯尼亚",
+    "continent": "Africa"
+  },
+  {
+    "code": "kh",
+    "en": "Cambodia",
+    "country": "柬埔寨",
+    "continent": "Asian"
+  },
+  {
+    "code": "kp",
+    "en": "R.O.Korea",
+    "country": "韩国",
+    "continent": "Asian"
+  },
+  {
+    "code": "kr",
+    "en": "D.P.R.Korea",
+    "country": "北朝鲜",
+    "continent": "Asian"
+  },
+  {
+    "code": "kw",
+    "en": "Kuwait",
+    "country": "科威特",
+    "continent": "Asian"
+  },
+  {
+    "code": "kz",
+    "en": "Kazakhstan",
+    "country": "哈萨克斯坦",
+    "continent": "Asian"
+  },
+  {
+    "code": "la",
+    "en": "Laos",
+    "country": "老挝",
+    "continent": "Asian"
+  },
+  {
+    "code": "lb",
+    "en": "Lebanon",
+    "country": "黎巴嫩",
+    "continent": "Asian"
+  },
+  {
+    "code": "lt",
+    "en": "Lithuania",
+    "country": "立陶宛",
+    "continent": "Europe"
+  },
+  {
+    "code": "lu",
+    "en": "Luxembourg",
+    "country": "卢森堡",
+    "continent": "Asian"
+  },
+  {
+    "code": "lv",
+    "en": "Latvia",
+    "country": "拉托维亚",
+    "continent": "Europe"
+  },
+  {
+    "code": "ly",
+    "en": "Libya",
+    "country": "利比亚",
+    "continent": "Africa"
+  },
+  {
+    "code": "ma",
+    "en": "Morocco",
+    "country": "摩洛哥",
+    "continent": "Africa"
+  },
+  {
+    "code": "mc",
+    "en": "Monaco",
+    "country": "摩纳哥",
+    "continent": "Europe"
+  },
+  {
+    "code": "md",
+    "en": "Moldova",
+    "country": "摩尔多瓦",
+    "continent": "Europe"
+  },
+  {
+    "code": "mg",
+    "en": "Madagascar",
+    "country": "马达加斯加",
+    "continent": "Africa"
+  },
+  {
+    "code": "ml",
+    "en": "Mali",
+    "country": "马里",
+    "continent": "Africa"
+  },
+  {
+    "code": "mn",
+    "en": "Mongolia",
+    "country": "蒙古",
+    "continent": "Asian"
+  },
+  {
+    "code": "mo",
+    "en": "Macao",
+    "country": "中国澳门",
+    "continent": "Asian"
+  },
+  {
+    "code": "mr",
+    "en": "Mauritania",
+    "country": "毛里塔尼亚",
+    "continent": "Africa"
+  },
+  {
+    "code": "mt",
+    "en": "Malta",
+    "country": "马耳他",
+    "continent": "Europe"
+  },
+  {
+    "code": "mu",
+    "en": "Mauritius",
+    "country": "毛里求斯",
+    "continent": "Africa"
+  },
+  {
+    "code": "mv",
+    "en": "Maldives",
+    "country": "马尔代夫",
+    "continent": "Asian"
+  },
+  {
+    "code": "mx",
+    "en": "Mexico",
+    "country": "墨西哥",
+    "continent": "North America"
+  },
+  {
+    "code": "my",
+    "en": "Malaysia",
+    "country": "马来西亚",
+    "continent": "Asian"
+  },
+  {
+    "code": "mz",
+    "en": "Mozambique",
+    "country": "莫桑比克",
+    "continent": "Africa"
+  },
+  {
+    "code": "na",
+    "en": "Namibia",
+    "country": "纳米比亚",
+    "continent": "Africa"
+  },
+  {
+    "code": "ne",
+    "en": "Niger",
+    "country": "尼日尔",
+    "continent": "Africa"
+  },
+  {
+    "code": "ng",
+    "en": "Nigeria",
+    "country": "尼日利亚",
+    "continent": "Africa"
+  },
+  {
+    "code": "ni",
+    "en": "Nicaragua",
+    "country": "尼加拉瓜",
+    "continent": "North America"
+  },
+  {
+    "code": "nl",
+    "en": "Netherlands",
+    "country": "荷兰",
+    "continent": "Europe"
+  },
+  {
+    "code": "no",
+    "en": "Norway",
+    "country": "挪威",
+    "continent": "Europe"
+  },
+  {
+    "code": "np",
+    "en": "Nepal",
+    "country": "尼泊尔",
+    "continent": "Asian"
+  },
+  {
+    "code": "nz",
+    "en": "New Zealand",
+    "country": "新西兰",
+    "continent": "Oceania"
+  },
+  {
+    "code": "om",
+    "en": "Oman",
+    "country": "阿曼",
+    "continent": "Asian"
+  },
+  {
+    "code": "pa",
+    "en": "Panama",
+    "country": "巴拿马",
+    "continent": "North America"
+  },
+  {
+    "code": "pe",
+    "en": "Peru",
+    "country": "秘鲁",
+    "continent": "South America"
+  },
+  {
+    "code": "pg",
+    "en": "Papua New Guinea",
+    "country": "巴布亚新几内亚",
+    "continent": "Oceania"
+  },
+  {
+    "code": "ph",
+    "en": "Philippines",
+    "country": "菲律宾",
+    "continent": "Asian"
+  },
+  {
+    "code": "pk",
+    "en": "Pakistan",
+    "country": "巴基斯坦",
+    "continent": "Asian"
+  },
+  {
+    "code": "pl",
+    "en": "Poland",
+    "country": "波兰",
+    "continent": "Europe"
+  },
+  {
+    "code": "pt",
+    "en": "Portugal",
+    "country": "葡萄牙",
+    "continent": "Europe"
+  },
+  {
+    "code": "py",
+    "en": "Paraguay",
+    "country": "巴拉圭",
+    "continent": "South America"
+  },
+  {
+    "code": "qa",
+    "en": "Qatar",
+    "country": "卡塔尔",
+    "continent": "Asian"
+  },
+  {
+    "code": "ro",
+    "en": "Romania",
+    "country": "罗马尼亚",
+    "continent": "Europe"
+  },
+  {
+    "code": "ru",
+    "en": "Russia",
+    "country": "俄罗斯",
+    "continent": "Europe"
+  },
+  {
+    "code": "rw",
+    "en": "Rwanda",
+    "country": "卢旺达",
+    "continent": "Africa"
+  },
+  {
+    "code": "sa",
+    "en": "Saudi Arabia",
+    "country": "沙特阿拉伯",
+    "continent": "Asian"
+  },
+  {
+    "code": "sd",
+    "en": "Sudan",
+    "country": "苏丹",
+    "continent": "Africa"
+  },
+  {
+    "code": "se",
+    "en": "Sweden",
+    "country": "瑞典",
+    "continent": "Europe"
+  },
+  {
+    "code": "sg",
+    "en": "Singapore",
+    "country": "新加坡",
+    "continent": "Asian"
+  },
+  {
+    "code": "sk",
+    "en": "Slovakia",
+    "country": "斯洛伐克",
+    "continent": "Europe"
+  },
+  {
+    "code": "sm",
+    "en": "San Marino",
+    "country": "圣马力诺",
+    "continent": "Europe"
+  },
+  {
+    "code": "sn",
+    "en": "Senegal",
+    "country": "塞内加尔",
+    "continent": "Africa"
+  },
+  {
+    "code": "so",
+    "en": "Somalia",
+    "country": "索马里",
+    "continent": "Africa"
+  },
+  {
+    "code": "sy",
+    "en": "Syria",
+    "country": "叙利亚",
+    "continent": "Asian"
+  },
+  {
+    "code": "th",
+    "en": "Thailand",
+    "country": "泰国",
+    "continent": "Asian"
+  },
+  {
+    "code": "tj",
+    "en": "Tadzhikistan",
+    "country": "塔吉克斯坦",
+    "continent": "Asian"
+  },
+  {
+    "code": "tm",
+    "en": "Turkmenistan",
+    "country": "土库曼斯坦",
+    "continent": "Asian"
+  },
+  {
+    "code": "tn",
+    "en": "Tunisia",
+    "country": "突尼斯",
+    "continent": "Africa"
+  },
+  {
+    "code": "to",
+    "en": "Tonga",
+    "country": "汤加",
+    "continent": "Oceania"
+  },
+  {
+    "code": "tw",
+    "en": "Taiwan",
+    "country": "中国台湾",
+    "continent": "Asian"
+  },
+  {
+    "code": "tz",
+    "en": "Tanzania",
+    "country": "坦桑尼亚",
+    "continent": "Africa"
+  },
+  {
+    "code": "ua",
+    "en": "Ukraine",
+    "country": "乌克兰",
+    "continent": "Europe"
+  },
+  {
+    "code": "ug",
+    "en": "Uganda",
+    "country": "乌干达",
+    "continent": "Africa"
+  },
+  {
+    "code": "us",
+    "en": "United States",
+    "country": "美国",
+    "continent": "North America"
+  },
+  {
+    "code": "uy",
+    "en": "Uruguay",
+    "country": "乌拉圭",
+    "continent": "South America"
+  },
+  {
+    "code": "uz",
+    "en": "Uzbekistan",
+    "country": "乌兹别克斯坦",
+    "continent": "Asian"
+  },
+  {
+    "code": "va",
+    "en": "Vatican City",
+    "country": "梵蒂冈",
+    "continent": "Europe"
+  },
+  {
+    "code": "ve",
+    "en": "Venezuela",
+    "country": "委内瑞拉",
+    "continent": "North America"
+  },
+  {
+    "code": "vn",
+    "en": "Viet Nam",
+    "country": "越南",
+    "continent": "Asian"
+  },
+  {
+    "code": "ye",
+    "en": "Yemen",
+    "country": "也门",
+    "continent": "Asian"
+  },
+  {
+    "code": "za",
+    "en": "South Africa",
+    "country": "南非",
+    "continent": "Africa"
+  },
+  {
+    "code": "zm",
+    "en": "Zambia",
+    "country": "赞比亚",
+    "continent": "Africa"
+  },
+  {
+    "code": "zw",
+    "en": "Zimbabwe",
+    "country": "津巴布韦",
+    "continent": "Africa"
+  }
+]
