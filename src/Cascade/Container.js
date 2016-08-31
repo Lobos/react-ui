@@ -17,17 +17,24 @@ export default class Container extends Component {
   }
 
   handleClick (level, d) {
-    const path = this.props.path.slice(0, level).concat(d.$value, '')
     const isEnd = this.props.lazy
       ? (d.children && d.children.length === 0)
-      : !d.children
+      : (!d.children || d.children.length === 0)
+
+    const path = this.props.path.slice(0, level)
+    path.push(d.$value)
+    if (!isEnd) path.push('')
+
     this.props.onPathChange(path, isEnd)
   }
 
   renderItems (data, level) {
     const val = this.props.path[level]
+    const key = level === 0
+      ? 'root'
+      : this.props.path[level - 1]
     return (
-      <ul key={level}>
+      <ul key={key}>
       {
         data.map(d => (
           <Item key={d.$key}

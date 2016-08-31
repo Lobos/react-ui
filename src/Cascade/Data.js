@@ -11,16 +11,16 @@ export default curry((ComposedComponent) => {
     constructor (props) {
       super(props)
       this.state = {
-        data: this.handleData(props.data)
+        data: props.data ? this.format(clone(props.data), props) : []
       }
     }
 
     componentWillMount () {
-      this.fetchData(this.props.fetch)
+      this.props.fetch && this.fetchData(this.props.fetch)
     }
 
-    format (data) {
-      const { valueTpl, optionTpl, resultTpl } = this.props
+    format (data, props = this.props) {
+      const { valueTpl, optionTpl, resultTpl } = props
       const noResultTpl = !resultTpl
       return data.map(d => {
         let val = substitute(valueTpl, d)
@@ -28,7 +28,7 @@ export default curry((ComposedComponent) => {
         d.$result = noResultTpl ? d.$html : substitute(resultTpl, d)
         d.$value = val
         d.$key = d.id ? d.id : hashcode(val + d.$html)
-        d.children && this.format(d.children)
+        d.children && this.format(d.children, props)
         return d
       })
     }

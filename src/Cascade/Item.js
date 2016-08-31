@@ -19,7 +19,7 @@ class Item extends Component {
   renderIndicator () {
     const { data } = this.props
 
-    if (data.children) {
+    if (data.children && data.children.length > 0) {
       return <div className={_styles.indicator}>{ANGLE_RIGHT}</div>
     }
   }

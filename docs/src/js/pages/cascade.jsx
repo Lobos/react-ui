@@ -24,6 +24,18 @@ module.exports = function () {
         <Example>
           <Cascade fetch={'json/tree.json'} value={['1', '1.2', '1.2.1']} />
         </Example>
+
+        <h2 className="subhead">City</h2>
+        <Example>
+          <Cascade
+            fetch={{
+              url: 'json/districts-city.json',
+              then: (res) => res.districts
+            }}
+            valueTpl="{adcode}"
+            optionTpl="{name}"
+          />
+        </Example>
       </div>
     </div>
   )

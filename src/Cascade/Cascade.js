@@ -18,6 +18,7 @@ class Cascade extends Component {
 
     this.handlePathChange = this.handlePathChange.bind(this)
     this.showOptions = this.showOptions.bind(this)
+      console.log(props.data)
   }
 
   handlePathChange (path, isEnd) {
@@ -75,7 +76,13 @@ class Cascade extends Component {
 
 Cascade.propTypes = objectAssign({
   className: PropTypes.string,
+  data: PropTypes.array,
   value: PropTypes.array
 }, ClickAway.PropTypes)
+
+Cascade.defaultProps = {
+  data: [],
+  value: ['']
+}
 
 export default ClickAway(Cascade)
