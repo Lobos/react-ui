@@ -2,7 +2,7 @@ import React from 'react/lib/ReactWithAddons'
 import { shallow } from 'enzyme'
 import { compStatus } from '../../mock/button'
 import Button from '../../../src/Button'
-import { hashClassNameTest } from '../../testUtils'
+// import { hashClassNameTest } from '../../testUtils'
 
 describe('Button Spec', () => {
   const defaultWrapper = shallow(<Button>
@@ -16,10 +16,6 @@ describe('Button Spec', () => {
 
     it('should have type=button by default', () => {
       expect(defaultWrapper).to.have.prop('type', 'button')
-    })
-
-    it('should not apply button-[hash:base64:5] class on default', () => {
-      hashClassNameTest(defaultWrapper, 'button', true)
     })
   })
 
@@ -45,7 +41,9 @@ describe('Button Spec', () => {
           Button
         </Button>
       )
-      hashClassNameTest(wrapper, 'secondary', true)
+
+      expect(wrapper).to.have.className('secondary')
+    // hashClassNameTest(wrapper, 'secondary', true)
     })
 
     it('should be disabled', () => {
@@ -60,9 +58,13 @@ describe('Button Spec', () => {
     it('should apply [status]-[hash:base64:5] class with status attr', () => {
       compStatus.forEach((status) => {
         const wrapper = shallow(
-          <Button status={status}>Button</Button>
+          <Button status={status}>
+            Button
+          </Button>
         )
-        hashClassNameTest(wrapper, status, true)
+
+        expect(wrapper).to.have.className(status)
+      // hashClassNameTest(wrapper, status, true)
       })
     })
 

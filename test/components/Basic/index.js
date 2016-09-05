@@ -4,4 +4,5 @@ describe('Basic', function () {
   require('./IconSpec.js')
   require('./LangSpec.js')
   require('./SwitchSpec.js')
+  require('./TagSpec.js')
 })
