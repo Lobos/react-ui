@@ -20,7 +20,9 @@ app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: '/'
 }))
 
-app.use(require('webpack-hot-middleware')(compiler))
+app.use(require('webpack-hot-middleware')(compiler, {
+  log: () => {}
+}))
 
 app.use('/dist', express.static('docs/dist'))
 app.use('/images', express.static('docs/src/images'))
