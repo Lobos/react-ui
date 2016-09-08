@@ -5,6 +5,7 @@ import curry from 'curry'
 import clone from '../utils/clone'
 import { hashcode } from '../utils/objects'
 import { substitute } from '../utils/strings'
+import { objectAssign } from '../utils/objects'
 
 export default curry((ComposedComponent) => {
   class Data extends Component {
@@ -13,22 +14,26 @@ export default curry((ComposedComponent) => {
       this.state = {
         data: props.data ? this.format(clone(props.data), props) : []
       }
+
+      this.handleLazyFetch = this.handleLazyFetch.bind(this)
     }
 
     componentWillMount () {
       this.props.fetch && this.fetchData(this.props.fetch)
+      this.props.lazyFetch && this.handleLazyFetch()
     }
 
-    format (data, props = this.props) {
+    format (data, path = [], props = this.props) {
       const { valueTpl, optionTpl, resultTpl } = props
       const noResultTpl = !resultTpl
-      return data.map(d => {
+      return data.map((d, i) => {
         let val = substitute(valueTpl, d)
         d.$html = substitute(optionTpl, d)
         d.$result = noResultTpl ? d.$html : substitute(resultTpl, d)
         d.$value = val
         d.$key = d.id ? d.id : hashcode(val + d.$html)
-        d.children && this.format(d.children, props)
+        d.$path = [...path, i]
+        d.children && this.format(d.children, [...path, i], props)
         return d
       })
     }
@@ -36,22 +41,47 @@ export default curry((ComposedComponent) => {
     handleData (data, node) {
       if (!data) return []
 
-      data = this.format(clone(data))
+      data = this.format(clone(data), node && node.$path)
 
       if (node) {
-        node.children = data
-        this.setState({})
+        const parent = node.$path.slice(0, -1).reduce((s, p) => {
+          return s.children[p]
+        }, { children: this.state.data })
+
+        const index = node.$path[node.$path.length - 1]
+        parent.children = [
+          ...parent.children.slice(0, index),
+          objectAssign({}, parent.children[index], { children: data, $pending: false }),
+          ...parent.children.slice(index + 1)
+        ]
+
+        if (node.$path.length === 1) {
+          this.setState({ data: parent.children })
+        } else {
+          this.forceUpdate()
+        }
       } else {
         this.setState({ data })
       }
     }
 
-    fetchData (fetch, node) {
+    handleLazyFetch (node, callback) {
+      const { lazyFetch } = this.props
+      if (!lazyFetch) return
+
+      if (node) node.$pending = true
+      lazyFetch(node).then(data => {
+        this.handleData(data, node)
+        callback(data)
+      })
+    }
+
+    fetchData (fetch) {
       if (!fetch) return
 
       if (typeof fetch === 'function') {
         fetch.then((res) => {
-          this.handleData(res, node)
+          this.handleData(res)
         })
         return
       }
@@ -68,16 +98,21 @@ export default curry((ComposedComponent) => {
       // handle response
       if (then) request = request.then(then)
       request.then((res) => {
-        this.handleData(res, node)
+        this.handleData(res)
       })
       .catch((err) => {
         console.warn(fetch, err)
-        this.setData(new Error(), node)
+        this.setData(new Error())
       })
     }
 
     render () {
-      return <ComposedComponent {...this.props} data={this.state.data} />
+      return (
+        <ComposedComponent
+          {...this.props}
+          onLazyClick={this.props.lazyFetch ? this.handleLazyFetch : undefined}
+          data={this.state.data} />
+      )
     }
   }
 
@@ -88,6 +123,7 @@ export default curry((ComposedComponent) => {
       PropTypes.func,
       PropTypes.object
     ]),
+    lazyFetch: PropTypes.func,
     optionTpl: PropTypes.tpl,
     resultTpl: PropTypes.tpl,
     valueTpl: PropTypes.tpl

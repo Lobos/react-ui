@@ -5,6 +5,13 @@
   position: relative;
 }
 
+.cascade-result {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .cascade-options {
   display: inline-block;
   position: absolute;
@@ -19,6 +26,7 @@
   transform-origin: 0 0;
   transform: scaleY(0);
   opacity: 0;
+  white-space: nowrap;
 
   &.enter {
     transform: scaleY(1);
@@ -26,8 +34,7 @@
   }
 
   & > ul {
-    display: block;
-    float: left;
+    display: inline-block;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -64,15 +71,21 @@
 
       .indicator {
         position: absolute;
-        display: block;
+        display: flex;
         width: $cascade-item-indicator-size;
         height: $cascade-item-indicator-size;
-        right: $cascade-options-padding-y;
+        right: 0.5rem;
         top: 50%;
         transform: translateY(-50%);
+
+        & > span {
+          margin: auto;
+        }
         
         svg {
           position: absolute;
+          display: flex;
+          margin: auto;
           width: 100%;
           height: 100%;
         }

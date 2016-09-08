@@ -1,7 +1,5 @@
 'use strict'
 
-require('../../../src/styles/reset.scss')
-
 import * as Language from './Language'
 Language.set()
 

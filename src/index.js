@@ -1,4 +1,4 @@
-'use strict'
+import './styles/reset.scss'
 
 export { default as Button } from './Button'
 export { default as ButtonGroup } from './ButtonGroup'

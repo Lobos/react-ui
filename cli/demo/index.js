@@ -4,7 +4,6 @@ import { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Form, FormControl, Modal } from 'rctui'
 
-import 'rctui/styles/reset.scss'
 import './index.css'
 
 class Demo extends Component {

@@ -9,6 +9,7 @@ import Circle from './Circle'
 import CubeGrid from './CubeGrid'
 import FadingCircle from './FadingCircle'
 import FoldingCube from './FoldingCube'
+import SimpleCircle from './SimpleCircle'
 
 const spins = {
   'plane': Plane,
@@ -20,7 +21,8 @@ const spins = {
   'circle': Circle,
   'cube-grid': CubeGrid,
   'fading-circle': FadingCircle,
-  'folding-cube': FoldingCube
+  'folding-cube': FoldingCube,
+  'simple-circle': SimpleCircle
 }
 
 export default function Spin (props) {
@@ -41,10 +43,12 @@ Spin.propTypes = {
     'circle',
     'cube-grid',
     'fading-circle',
-    'folding-cube'
+    'folding-cube',
+    'simple-circle'
   ])
 }
 
 Spin.defaultProps = {
+  color: '#ccc',
   size: 40
 }

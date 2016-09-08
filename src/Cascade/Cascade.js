@@ -1,9 +1,11 @@
-import { Component, PropTypes } from 'react'
+import { Component } from 'react'
+import PropTypes from '../utils/proptypes'
 import classnames from 'classnames'
 import { objectAssign } from '../utils/objects'
 import ClickAway from '../higherOrders/ClickAway'
 import Transition from '../Transition'
 import Container from './Container'
+import { getGrid } from '../utils/grids'
 
 import _styles from '../styles/_cascade.scss'
 import _input from '../styles/_input.scss'
@@ -18,15 +20,38 @@ class Cascade extends Component {
 
     this.handlePathChange = this.handlePathChange.bind(this)
     this.showOptions = this.showOptions.bind(this)
-      console.log(props.data)
   }
 
-  handlePathChange (path, isEnd) {
-    this.setState({ path })
-    if (isEnd) {
-      this.props.onChange(path)
-      this.props.onClose()
+  handlePathChange (path, node) {
+    const { maxLevel, onLazyClick } = this.props
+
+    let isEnd
+    if (typeof node.isEnd === 'boolean') {
+      isEnd = node.isEnd
+    } else if (maxLevel <= path.length) {
+      isEnd = true
+    } else {
+      isEnd = onLazyClick
+        ? (node.children && node.children.length === 0)
+        : (!node.children || node.children.length === 0)
     }
+
+    if (isEnd) {
+      this.props.onClose()
+    } else if (onLazyClick && !node.children) {
+      onLazyClick(node, (data) => {
+        if (!data || data.length === 0) {
+          this.props.onClose()
+        } else {
+          path.push('')
+          this.setState({ path })
+        }
+      })
+    } else {
+      path.push('')
+    }
+    this.props.onChange(path)
+    this.setState({ path })
   }
 
   showOptions () {
@@ -50,16 +75,20 @@ class Cascade extends Component {
   }
 
   render () {
-    const { open } = this.props
+    const { open, grid } = this.props
 
     const className = classnames(
       this.props.className,
+      getGrid(grid),
       _styles.cascade
     )
 
     return (
       <div className={className}>
-        <div onClick={this.showOptions} className={_input.input}>{this.getResult()}</div>
+        <div onClick={this.showOptions}
+          className={classnames(_input.input, _styles['cascade-result'])}>
+          {this.getResult()}&nbsp;
+        </div>
         <Transition act={open ? 'enter' : 'leave'}
           duration={166}
           enter={_styles.enter}
@@ -77,6 +106,9 @@ class Cascade extends Component {
 Cascade.propTypes = objectAssign({
   className: PropTypes.string,
   data: PropTypes.array,
+  grid: PropTypes.grid,
+  maxLevel: PropTypes.number,
+  onLazyClick: PropTypes.func,
   value: PropTypes.array
 }, ClickAway.PropTypes)
 

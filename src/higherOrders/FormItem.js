@@ -99,7 +99,10 @@ export default function FormItem (Component) {
         value = value.target.value
       }
 
-      this.validate(value)
+      this._timeout && clearTimeout(this._timeout)
+      this._timeout = setTimeout(() => {
+        this.validate(value)
+      }, 400)
 
       // if in a form, use formData, else use state
       itemChange ? itemChange(name, value) : this.setState({ value })

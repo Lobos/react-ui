@@ -17,22 +17,17 @@ export default class Container extends Component {
   }
 
   handleClick (level, d) {
-    const isEnd = this.props.lazy
-      ? (d.children && d.children.length === 0)
-      : (!d.children || d.children.length === 0)
-
     const path = this.props.path.slice(0, level)
     path.push(d.$value)
-    if (!isEnd) path.push('')
-
-    this.props.onPathChange(path, isEnd)
+    this.props.onPathChange(path, d)
   }
 
   renderItems (data, level) {
-    const val = this.props.path[level]
+    const { path, onLazyClick, maxLevel } = this.props
+    const val = path[level]
     const key = level === 0
       ? 'root'
-      : this.props.path[level - 1]
+      : path[level - 1]
     return (
       <ul key={key}>
       {
@@ -40,7 +35,9 @@ export default class Container extends Component {
           <Item key={d.$key}
             active={val === d.$value}
             data={d}
+            lazy={!!onLazyClick}
             level={level}
+            maxLevel={maxLevel}
             onClick={this.handleClick} />
         ))
       }
@@ -71,6 +68,8 @@ export default class Container extends Component {
 Container.propTypes = {
   data: PropTypes.array,
   lazy: PropTypes.bool,
+  maxLevel: PropTypes.number,
+  onLazyClick: PropTypes.func,
   onPathChange: PropTypes.func,
   path: PropTypes.array
 }
