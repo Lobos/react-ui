@@ -10,30 +10,24 @@ requireCss('checkbox');
 class Checkbox extends Component {
   constructor (props) {
     super(props);
-    this.state = {
-      checked: !!props.checked || props.value === props.checkValue
-    };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSpareChange = this.handleSpareChange.bind(this);
   }
   
   componentWillReceiveProps (nextProps) {
-    if (nextProps.checked !== this.props.checked && nextProps.checked !== this.state.checked) {
-      this.handleChange(null, nextProps.checked);
-    }
     if (nextProps.value !== this.props.value || nextProps.checkValue !== this.props.checkValue) {
       this.setValue(nextProps.value, nextProps.checkValue);
     }
   }
 
   handleChange (event, checked) {
-    if (this.props.readOnly) {
+    if (event && this.props.readOnly) {
       return;
     }
 
     if (event) {
       checked = event.target.checked;
     }
-    this.setState({ checked });
     setTimeout(() => {
       if (this.props.onChange) {
         let value = checked ? this.props.checkValue : undefined;
@@ -42,11 +36,9 @@ class Checkbox extends Component {
     }, 0);
   }
 
-  /*
-  getValue () {
-    return this._input.checked ? (this.props.value || true) : false;
+  handleSpareChange (event) {
+    this.props.onSpareChange(event.target.value, this.props.index);
   }
-  */
 
   setValue (value, checkValue=this.props.checkValue) {
     this.setState({ checked: value === checkValue });
@@ -59,11 +51,14 @@ class Checkbox extends Component {
           type="checkbox"
           disabled={this.props.readOnly}
           onChange={this.handleChange}
-          checked={this.state.checked}
+          checked={this.props.checked}
           value={this.props.value}
         />
-        {this.props.text}
         {this.props.children}
+        {
+          this.props.inputAble &&
+          <input onChange={this.handleSpareChange} value={this.props.checkValue} />
+        }
       </label>
     );
   }
@@ -75,11 +70,12 @@ Checkbox.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   index: PropTypes.number,
+  inputAble: PropTypes.bool,
   onChange: PropTypes.func,
+  onSpareChange: PropTypes.func,
   position: PropTypes.number,
   readOnly: PropTypes.bool,
   style: PropTypes.object,
-  text: PropTypes.any,
   value: PropTypes.any
 };
 

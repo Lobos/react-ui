@@ -19,6 +19,7 @@ class CheckboxGroup extends Component {
       data: this.formatData(props.data, values)
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSpareChange = this.handleSpareChange.bind(this);
   }
  
   componentWillReceiveProps (nextProps) {
@@ -43,6 +44,18 @@ class CheckboxGroup extends Component {
     }
   }
 
+  getSpareValue (value, data) {
+    value = [...value];
+    data.forEach(d => {
+      let index = value.indexOf(d.$value);
+      if (index >= 0) {
+        value.splice(index, 1);
+      }
+    });
+
+    return value[0];
+  }
+
   formatData (data, value=this.state.value) {
     data = toTextValue(data, this.props.textTpl, this.props.valueTpl).map((d) => {
       d.$checked = value.indexOf(d.$value) >= 0;
@@ -58,6 +71,8 @@ class CheckboxGroup extends Component {
         data = [
           ...data.slice(0, position),
           {
+            readOnly: child.props.readOnly,
+            inputAble: child.props.inputAble,
             $checked: value.indexOf(child.props.checkValue) >= 0,
             $value: child.props.checkValue,
             $text: child.props.children || child.props.text,
@@ -67,6 +82,15 @@ class CheckboxGroup extends Component {
         ];
       }
     });
+
+    let spareValue = this.getSpareValue(value, data);
+    data.forEach(d => {
+      if (d.inputAble) {
+        d.$checked = !!spareValue;
+        d.$value = spareValue || '';
+      }
+    });
+
     return data;
   }
 
@@ -89,6 +113,18 @@ class CheckboxGroup extends Component {
     return value;
   }
 
+  handleSpareChange (sv, index) {
+    let { data } = this.state;
+    data[index].$value = sv;
+    data[index].$checked = true;
+    let value = this.getValue(null, data);
+    this.setState({ value, data });
+
+    if (this.props.onChange) {
+      this.props.onChange(value);
+    }
+  }
+
   handleChange (value, checked, index) {
     let data = this.state.data;
     data[index].$checked = checked;
@@ -106,12 +142,13 @@ class CheckboxGroup extends Component {
       return (
         <Checkbox key={item.$key}
           index={i}
-          readOnly={this.props.readOnly}
+          readOnly={this.props.readOnly || item.readOnly}
           checked={item.$checked}
+          inputAble={item.inputAble}
           onChange={this.handleChange}
-          text={item.$text}
+          onSpareChange={this.handleSpareChange}
           checkValue={item.$value}
-        />
+        >{item.$text}</Checkbox>
       );
     });
   }

@@ -1,0 +1,50 @@
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    border-radius: 12px;
+    background-color: #575c5e;
+}
+
+.switch input{
+  visibility: hidden;
+}
+.switch input + span.switch-item {
+    position: absolute;
+    -webkit-transition: left 300ms;
+    transition: left 300ms;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #fff;
+    left: 0;
+    z-index: 999;
+}
+
+.switch input:checked + span.switch-item {
+    position: absolute;
+    -webkit-transition: left 300ms;
+    transition: left 300ms;
+    left: 26px;
+    z-index: 999;
+}
+
+.switch .switch-mask {
+    position: absolute;
+    width: 24px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 998;
+    border-radius: 12px;
+    background-color: #1cf246;
+    transition: width 300ms;
+    -webkit-transition: width 300ms;
+}
+
+.switch input:checked + span + span.switch-mask {
+    width: 100%;
+    transition: width 300ms;
+    -webkit-transition: width 300ms;
+}

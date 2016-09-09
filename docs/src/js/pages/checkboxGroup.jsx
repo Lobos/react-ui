@@ -101,6 +101,16 @@ module.exports = class extends React.Component {
 />
           </Example>
 
+          <h2 className="subhead">InputAble</h2>
+          <Example>
+<CheckboxGroup inline={true} onChange={(value) => { console.log(value) }}
+  value={["北京", "广州"]}
+  data={["南京", "北京", "广州", "深圳", "成都", "重庆", "西安"]}
+>
+  <Checkbox inputAble>其它</Checkbox>
+</CheckboxGroup>
+          </Example>
+
           <h2 className="subhead">服务端数据</h2>
           <div>支持<a href="#/fetch">fetch</a>从服务端获取数据</div>
           <Example>
