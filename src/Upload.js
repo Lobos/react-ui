@@ -1,5 +1,3 @@
-'use strict'
-
 import classnames from 'classnames'
 import { Component, PropTypes } from 'react'
 import * as Events from './utils/events'
@@ -39,11 +37,7 @@ class Upload extends Component {
     let files = this.state.files
     const { sep } = this.props
     Object.keys(files).forEach((id) => {
-      // if (autoUpload) {
-        values.push(files[id].value)
-      // } else {
-      //  values.push(files[id].file.files[0]);
-      // }
+      values.push(files[id].value)
     })
     if (sep) {
       values = values.join(sep)

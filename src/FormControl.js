@@ -72,14 +72,16 @@ class FormControl extends Component {
 
   setChildrenHint (hints, children) {
     Children.toArray(children).forEach((child) => {
+      if (!child || !child.props) return child
+
       if (child.type && child.type.isFormItem) {
         let hint = this.getHint(child.props)
         if (hint) hints.push(hint)
 
         // set name
         this.names.push(child.props.name)
-      } else if (child.children) {
-        this.setChildrenHint(hints, children)
+      } else if (child.props.children) {
+        this.setChildrenHint(hints, child.props.children)
       }
     })
   }
@@ -119,11 +121,11 @@ class FormControl extends Component {
     if (!isEmpty(validations)) {
       // if has tip，use tip
       let text = errorText || (Object.keys(validations).map((key) => validations[key].message)).join(', ')
-      return <span key="tip" className={_forms.dangerText}>{text}</span>
+      return <small key="tip" className={_forms.dangerText}>{text}</small>
     }
 
     if (hints) {
-      return <span key="tip" className={_forms.hintText}>{hints}</span>
+      return <small key="tip" className={_forms.hintText}>{hints}</small>
     } else {
       return
     }
@@ -135,7 +137,7 @@ class FormControl extends Component {
   }
 
   renderChildren (children, grid) {
-    let newChildren = Children.toArray(children).map((child, i) => {
+    return Children.toArray(children).map((child, i) => {
       if (typeof child === 'string') {
         return <span key={i}>{child}</span>
       }
@@ -150,7 +152,6 @@ class FormControl extends Component {
       child = cloneElement(child, props)
       return child
     })
-    return newChildren
   }
 
   renderItems (grid) {

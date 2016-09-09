@@ -18,6 +18,8 @@ export default function Button (props) {
     Styles[status]
   )
 
+  if (tag === 'a') others.href = 'javascript:;'
+
   return createElement(tag, { className, ...others }, children)
 };
 

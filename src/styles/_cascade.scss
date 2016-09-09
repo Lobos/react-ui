@@ -3,10 +3,13 @@
 
 .cascade {
   position: relative;
+  cursor: pointer;
+  padding: 0;
 }
 
 .cascade-result {
   width: 100%;
+  padding: $input-padding-y $input-padding-x;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -16,6 +19,7 @@
   display: inline-block;
   position: absolute;
   top: 100%;
+  margin: 2px 0 0;
   left: 0;
   z-index: $zindex-dropdown;
   height: $cascade-options-height;

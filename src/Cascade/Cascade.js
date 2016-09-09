@@ -6,6 +6,7 @@ import ClickAway from '../higherOrders/ClickAway'
 import Transition from '../Transition'
 import Container from './Container'
 import { getGrid } from '../utils/grids'
+import { deepEqual } from '../utils/objects'
 
 import _styles from '../styles/_cascade.scss'
 import _input from '../styles/_input.scss'
@@ -22,8 +23,14 @@ class Cascade extends Component {
     this.showOptions = this.showOptions.bind(this)
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (!deepEqual(this.props.value, nextProps.value)) {
+      this.setState({ path: [...nextProps.value] })
+    }
+  }
+
   handlePathChange (path, node) {
-    const { maxLevel, onLazyClick } = this.props
+    const { halfSelect, maxLevel, onLazyClick } = this.props
 
     let isEnd
     if (typeof node.isEnd === 'boolean') {
@@ -38,10 +45,12 @@ class Cascade extends Component {
 
     if (isEnd) {
       this.props.onClose()
+      !halfSelect && this.props.onChange(path)
     } else if (onLazyClick && !node.children) {
       onLazyClick(node, (data) => {
         if (!data || data.length === 0) {
           this.props.onClose()
+          !halfSelect && this.props.onChange(path)
         } else {
           path.push('')
           this.setState({ path })
@@ -50,7 +59,7 @@ class Cascade extends Component {
     } else {
       path.push('')
     }
-    this.props.onChange(path)
+    halfSelect && this.props.onChange(path)
     this.setState({ path })
   }
 
@@ -75,19 +84,20 @@ class Cascade extends Component {
   }
 
   render () {
-    const { open, grid } = this.props
+    const { open, grid, placeholder } = this.props
 
     const className = classnames(
       this.props.className,
       getGrid(grid),
-      _styles.cascade
+      _styles.cascade,
+      _input.input
     )
 
     return (
       <div className={className}>
         <div onClick={this.showOptions}
-          className={classnames(_input.input, _styles['cascade-result'])}>
-          {this.getResult()}&nbsp;
+          className={classnames(_styles['cascade-result'])}>
+          {this.getResult() || <span className={_input.placeholder}>{placeholder}</span>}&nbsp;
         </div>
         <Transition act={open ? 'enter' : 'leave'}
           duration={166}
@@ -107,14 +117,17 @@ Cascade.propTypes = objectAssign({
   className: PropTypes.string,
   data: PropTypes.array,
   grid: PropTypes.grid,
+  halfSelect: PropTypes.bool,
   maxLevel: PropTypes.number,
   onLazyClick: PropTypes.func,
+  placeholder: PropTypes.string,
   value: PropTypes.array
 }, ClickAway.PropTypes)
 
 Cascade.defaultProps = {
   data: [],
-  value: ['']
+  value: [''],
+  maxLevel: 999
 }
 
 export default ClickAway(Cascade)

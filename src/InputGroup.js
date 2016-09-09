@@ -1,42 +1,42 @@
 'use strict'
 
-import { Children, cloneElement } from 'react'
+import { Component, Children, cloneElement } from 'react'
 import classnames from 'classnames'
 import { getGrid } from './utils/grids'
-import Input from './Input'
 import Button from './Button'
 import PropTypes from './utils/proptypes'
 
-import InputStyles from './styles/_input-group.scss'
+import _styles from './styles/_input.scss'
 
-export default function InputGroup (props) {
-  const { size, grid } = props
-  let className = classnames(
-    InputStyles.group,
-    InputStyles[size],
-    getGrid(grid)
-  )
+export default class InputGroup extends Component {
+  render () {
+    const { size, grid } = this.props
+    let className = classnames(
+      _styles.group,
+      _styles[size],
+      getGrid(grid)
+    )
 
-  const children = Children.map(props.children, (child) => {
-    let type = child ? child.type : null
+    const children = Children.map(this.props.children, (child) => {
+      let type = child ? child.type : null
 
-    if (type === Input) {
-      return cloneElement(child, {
-        size,
-        className: classnames(props.className, InputStyles.input)
-      })
-    } else if (type === Button) {
-      return cloneElement(child, {
-        tag: 'a',
-        size,
-        className: classnames(props.className, InputStyles.btn)
-      })
-    } else {
-      return <div className={classnames(InputStyles.addon, InputStyles[size])}>{child}</div>
-    }
-  })
+      if (type && type.isFormItem) {
+        return cloneElement(child, {
+          size
+        })
+      } else if (type === Button) {
+        return cloneElement(child, {
+          tag: 'a',
+          size,
+          className: classnames(this.props.className, _styles.btn)
+        })
+      } else {
+        return <div className={classnames(_styles.addon, _styles[size])}>{child}</div>
+      }
+    })
 
-  return <div className={className}>{children}</div>
+    return <div className={className}>{children}</div>
+  }
 }
 
 InputGroup.propTypes = {

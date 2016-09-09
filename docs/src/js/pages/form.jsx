@@ -4,7 +4,8 @@ import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
-import { Form, FormControl, Button, Icon, Input, InputGroup, DatepickerRange, RadioGroup, FormItem, If, Lazyload } from '../rctui'
+import { Cascade, Form, FormControl, Button, Icon, Input, InputGroup,
+  DatepickerRange, RadioGroup, FormItem, If, Lazyload, Upload } from '../rctui'
 import { Cn, En } from '../Language'
 
 const HEARTS = [
@@ -219,6 +220,12 @@ module.exports = class extends React.Component {
                   label="checkbox group"
                   type="checkbox-group" />
 
+                <FormControl label="cascade">
+                  <FormItem name="cascade">
+                    <Cascade grid={1 / 2} fetch={'json/tree.json'} />
+                  </FormItem>
+                </FormControl>
+
                 <FormControl name="radiogroup"
                   required
                   fetch={{url: 'json/text-value.json', cache: 3600}}
@@ -258,23 +265,25 @@ module.exports = class extends React.Component {
                   </FormItem>
                 </FormControl>
 
-                <FormControl name="upload"
-                  label="upload file"
-                  type="upload"
-                  grid={1 / 2}
-                  action="http://216.189.159.94:8080/upload"
-                  accept="image/*"
-                  fileSize={300}
-                  limit={3}
-                  onUpload={(res) => {
-                    var json = JSON.parse(res)
-                    if (json.success) {
-                      return json.id
-                    } else {
-                      return new Error(json.message)
-                    }
-                  }}
-                  content={<Button><Icon icon="upload" /> Choose a file</Button>} />
+                <FormControl label="upload file">
+                  <Upload name="upload"
+                    type="upload"
+                    grid={1 / 2}
+                    action="/upload"
+                    accept="image/*"
+                    fileSize={300}
+                    limit={3}
+                    onUpload={(res) => {
+                      var json = JSON.parse(res)
+                      if (json.success) {
+                        return json.id
+                      } else {
+                        return new Error(json.message)
+                      }
+                    }}>
+                    <Button><Icon icon="upload" /> Choose a file</Button>
+                  </Upload>
+                </FormControl>
 
                 <FormControl grid={{width: 18 / 24}}
                   name="textarea"

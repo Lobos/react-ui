@@ -1,5 +1,3 @@
-'use strict'
-
 function createCORSRequest (method, url) {
   var xhr = new XMLHttpRequest()
   if ('withCredentials' in xhr) {

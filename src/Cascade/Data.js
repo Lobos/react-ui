@@ -20,7 +20,18 @@ export default curry((ComposedComponent) => {
 
     componentWillMount () {
       this.props.fetch && this.fetchData(this.props.fetch)
-      this.props.lazyFetch && this.handleLazyFetch()
+
+      if (this.props.lazyFetch) {
+        this.props.value
+          ? this.initLazyData([...this.props.value])
+          : this.handleLazyFetch()
+      }
+    }
+
+    componentWillReceiveProps (nextProps) {
+      if (this.props.lazyFetch && this.props.value === undefined && Array.isArray(nextProps.value)) {
+        this.initLazyData([...nextProps.value])
+      }
     }
 
     format (data, path = [], props = this.props) {
@@ -35,6 +46,35 @@ export default curry((ComposedComponent) => {
         d.$path = [...path, i]
         d.children && this.format(d.children, [...path, i], props)
         return d
+      })
+    }
+
+    initLazyData (value, path = [], root) {
+      if (!value) return
+      const { lazyFetch } = this.props
+
+      let node = root
+        ? path.reduce((d, i) => {
+            return d.children[i]
+          }, root)
+        : undefined
+
+      lazyFetch(node).then(list => {
+        list = this.format(clone(list), path)
+
+        if (!root) root = { children: list }
+        else node.children = list
+
+        const v = value.shift()
+        list.forEach((d, i) => {
+          if (d.$value === v) path.push(i)
+        })
+
+        if (value.length > 0) {
+          this.initLazyData(value, path, root)
+        } else {
+          this.setState({ data: root.children })
+        }
       })
     }
 
@@ -126,6 +166,7 @@ export default curry((ComposedComponent) => {
     lazyFetch: PropTypes.func,
     optionTpl: PropTypes.tpl,
     resultTpl: PropTypes.tpl,
+    value: PropTypes.array,
     valueTpl: PropTypes.tpl
   }
 

@@ -88,6 +88,8 @@ export default function FormItem (Component) {
       const { name } = this.props
       const { formData } = this.context
 
+      if (name === 'address') console.log(name, formData)
+
       return formData && formData[name] !== undefined ? formData[name] : this.state.value
     }
 

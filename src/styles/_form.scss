@@ -92,6 +92,10 @@
 
 .stacked, .aligned {
   .control {
+    .hintText {
+      color: $text-muted;
+    }
+
     .dangerText, .hintText {
       display: block;
     }
