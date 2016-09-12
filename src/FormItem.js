@@ -18,8 +18,9 @@ class FormItem extends Component {
   }
 
   render () {
+    const { value = '' } = this.props
     return cloneElement(this.props.children, {
-      value: this.props.value || '',
+      value,
       onChange: this.handleChange
     })
   }

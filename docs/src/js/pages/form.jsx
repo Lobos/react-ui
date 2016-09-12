@@ -4,7 +4,7 @@ import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
-import { Cascade, Form, FormControl, Button, Icon, Input, InputGroup,
+import { Cascade, Form, FormControl, Button, Icon, Input, InputGroup, FormText,
   DatepickerRange, RadioGroup, FormItem, If, Lazyload, Upload } from '../rctui'
 import { Cn, En } from '../Language'
 
@@ -111,6 +111,10 @@ module.exports = class extends React.Component {
               <Form onSubmit={formData => this.setState({ formData })}
                 fetch={'json/form.json'}
                 buttons={{ submit: 'Submit', reset: 'Reset' }}>
+                <FormControl label="id">
+                  <FormText textTpl="{id}" />
+                </FormControl>
+
                 <FormControl name="text"
                   label="text"
                   type="text"
@@ -261,7 +265,7 @@ module.exports = class extends React.Component {
 
                 <FormControl label="raw input">
                   <FormItem name="formitem" required max={10}>
-                    <input style={{ padding: '0.5rem 0.75rem' }} type="text" />
+                    <input value="" style={{ padding: '0.5rem 0.75rem' }} type="text" />
                   </FormItem>
                 </FormControl>
 

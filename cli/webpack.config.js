@@ -1,11 +1,11 @@
-var path = require('path');
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
-var precss = require('precss');
+var path = require('path')
+var webpack = require('webpack')
+var autoprefixer = require('autoprefixer')
+var precss = require('precss')
 
 module.exports = {
   entry: {
-    'demo': "./demo/index.js"
+    'demo': './demo/index.js'
   },
   output: {
     path: path.join(__dirname, 'build'),
@@ -26,8 +26,8 @@ module.exports = {
         test: /\.jsx?$/,
         loader: 'babel',
         query: {
-          presets: ["react", "es2015"],
-          plugins: ["transform-object-rest-spread"]
+          presets: ['react', 'es2015'],
+          plugins: ['transform-object-rest-spread', 'react-require']
         }
       },
       {
@@ -48,7 +48,7 @@ module.exports = {
       }
     ]
   },
-  postcss: function(){
-    return [autoprefixer({ browsers: ['> 1%', 'IE 9'] }), precss];
+  postcss: function () {
+    return [autoprefixer({ browsers: ['> 1%', 'IE 9'] }), precss]
   }
-};
+}

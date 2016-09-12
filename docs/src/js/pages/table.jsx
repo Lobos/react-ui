@@ -5,14 +5,14 @@ import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
 import { Cn, En } from '../Language'
-import { Button, Table, Modal, Filter, Input, Select, DatepickerRange, Checkbox, RadioGroup, ValuesHolder, Lazyload } from '../rctui'
+import { Button, Table, Modal, Filter, Input, Select, DatepickerRange, Checkbox, RadioGroup, ArrayHolder, Lazyload } from '../rctui'
 
 module.exports = class extends Component {
   constructor (props) {
     super(props)
     this.state = {
       bordered: true,
-      valuesHolder: true,
+      arrayHolder: true,
       height: 'auto',
       pagination: true,
       position: 'center',
@@ -21,7 +21,7 @@ module.exports = class extends Component {
       width: 'auto'
     }
 
-    this.valuesHolder = new ValuesHolder()
+    this.arrayHolder = new ArrayHolder()
     this.getSelectedName = this.getSelectedName.bind(this)
     this.handleSelectedName = this.handleSelectedName.bind(this)
   }
@@ -35,7 +35,7 @@ module.exports = class extends Component {
   }
 
   getSelectedName () {
-    this.setState({ selectedNames: this.valuesHolder.getValue() })
+    this.setState({ selectedNames: this.arrayHolder.getValue() })
   }
 
   handleSelectedName (values) {
@@ -69,7 +69,7 @@ module.exports = class extends Component {
     onChange(int),         // 
     position: 'string'     // 位置，'left|right|center', 默认值 'center'
   }
-  onSelect={func|ValuesHolder} // 如果设置了onSelect，会自动增加checkbox列
+  onSelect={func|ArrayHolder} // 如果设置了onSelect，会自动增加checkbox列
   onSort={func(            // 自定义内置排序
     string,                // 字段名
     int                    // 0 - 正序, 1 - 倒序
@@ -107,7 +107,7 @@ columns = [{
     onChange(int),         // page change callback
     position: 'string'     // 'left|right|center', default is 'center'
   }
-  onSelect={func|ValuesHolder} // if onSelect is not undefined, auto add checkbox column
+  onSelect={func|ArrayHolder} // if onSelect is not undefined, auto add checkbox column
   onSort={func(            // sort callback
     string,                // column name
     int                    // 0 - asc, 1 - desc
@@ -152,26 +152,26 @@ columns = [{
             `}
           </Code>
 
-          <h2 className="subhead">ValuesHolder</h2>
-          <Cn>如果不想在每次选中/清除每个选项后获取值（需要用state维护状态），可以在onSelect中传入一个ValuesHolder的实例，ValuesHolder内部包含了一个add和remove方法维护选项，不过使用者不需要关心这个。只需要在需要数据的时候，调用getValue(sep)就好了</Cn>
+          <h2 className="subhead">ArrayHolder</h2>
+          <Cn>如果不想在每次选中/清除每个选项后获取值（需要用state维护状态），可以在onSelect中传入一个ArrayHolder的实例，ArrayHolder内部包含了一个add和remove方法维护选项，不过使用者不需要关心这个。只需要在需要数据的时候，调用getValue(sep)就好了</Cn>
           <En>
             There are 2 ways to get selected values.<br />
             One is set onSelect to a function, every time the checkboxes change will receive the values. <br />
-            The second is set onSelect to an instance of ValuesHolder, then when you need values, use valuesHolder.getValue(sep)
+            The second is set onSelect to an instance of ArrayHolder, then when you need values, use arrayHolder.getValue(sep)
           </En>
           <Code>
-{`let valuesHolder = new ValuesHolder()
+{`let arrayHolder = new ArrayHolder()
 ...
-<Table onSelect={valuesHolder} ... />
+<Table onSelect={arrayHolder} ... />
 ...
-values = valuesHolder.get(',')`}
+values = arrayHolder.get(',')`}
           </Code>
 
           <h2 className="subhead">Example</h2>
           <div>
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.bordered} onChange={bordered => this.setState({bordered})} text="bordered" />
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.striped} onChange={striped => this.setState({striped})} text="striped" />
-            <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.valuesHolder} onChange={valuesHolder => this.setState({valuesHolder})} text="valuesHolder" />
+            <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.arrayHolder} onChange={arrayHolder => this.setState({arrayHolder})} text="arrayHolder" />
             <Checkbox style={{marginRight: 10, display: 'inline-block'}} checked={this.state.pagination} onChange={page => this.setState({pagination: page})} text="pagination" />
           </div>
           <div>
@@ -192,7 +192,7 @@ values = valuesHolder.get(',')`}
           }
 
           {
-            this.state.valuesHolder &&
+            this.state.arrayHolder &&
             <div>
               <a onClick={this.getSelectedName}>get selected names</a>
             </div>
@@ -202,14 +202,14 @@ values = valuesHolder.get(',')`}
           <Example>
             <Lazyload placeholder={<div style={{height: 200}}>loading table ...</div>}>
               <Button status="danger"
-                style={{marginBottom: '1rem', display: this.state.valuesHolder ? 'block' : 'none'}}
-                onClick={() => { Modal.confirm('Are you sure to delete "' + this.valuesHolder.getValue(',') + '"?', () => {}, 'Warning') }}>
+                style={{marginBottom: '1rem', display: this.state.arrayHolder ? 'block' : 'none'}}
+                onClick={() => { Modal.confirm('Are you sure to delete "' + this.arrayHolder.getValue(',') + '"?', () => {}, 'Warning') }}>
                 Delete selected
               </Button>
 
               <Table ref="table"
                 bordered={this.state.bordered}
-                onSelect={this.state.valuesHolder ? this.valuesHolder : this.handleSelectedName}
+                onSelect={this.state.arrayHolder ? this.arrayHolder : this.handleSelectedName}
                 striped={this.state.striped}
                 width={this.state.width}
                 height={this.state.height}
@@ -221,7 +221,7 @@ values = valuesHolder.get(',')`}
                 filter={
                   <Filter
                     columns={2}
-                    labelWidth="5rem"
+                    labelWidth="6rem"
                     onFilter={fs => this.setState({ filterText: JSON.stringify(fs) })}
                     items={[
                       {

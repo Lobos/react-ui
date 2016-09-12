@@ -13,6 +13,10 @@
  
   .control {
     margin-left: $form-aligned-control-margin;
+
+    .text {
+      padding-top: $input-padding-y;
+    }
   }
 }
 

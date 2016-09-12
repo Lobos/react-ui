@@ -6,8 +6,9 @@ import { COMPONENTS, getValueType } from './higherOrders/FormItem'
 import merge from './utils/merge'
 import { getGrid } from './utils/grids'
 import { format } from './utils/strings'
-import { isEmpty, objectAssign, shallowEqual, partialEqual } from './utils/objects'
+import { isEmpty, objectAssign, shallowEqual, deepEqual, partialEqual } from './utils/objects'
 import PropTypes from './utils/proptypes'
+import { safeHtml } from './utils/safeHtml'
 
 import { getLang, setLang } from './lang'
 setLang('validation')
@@ -33,10 +34,17 @@ class FormControl extends Component {
   }
 
   shouldComponentUpdate (nextProps, nextState, nextContext) {
-    return !shallowEqual(this.props, nextProps) ||
+    let update = !shallowEqual(this.props, nextProps) ||
       !shallowEqual(this.state, nextState) ||
-      !partialEqual(this.context.formData, nextContext.formData, this.names) ||
       !shallowEqual(this.context.controlProps, nextContext.controlProps)
+
+    if (this.names.length > 0) {
+      update = update || !partialEqual(this.context.formData, nextContext.formData, this.names)
+    } else {
+      update = update || !deepEqual(this.context.formData, nextContext.formData)
+    }
+
+    return update
   }
 
   handleValidate (name, result) {
@@ -161,8 +169,7 @@ class FormControl extends Component {
     items = (items || []).map((props, i) => {
       i += length
       if (typeof props === 'string') {
-        // return <span key={i} dangerouslySetInnerHTML={{__html: props}} />
-        return <span key={i}>{props}</span>
+        return <span key={i} dangerouslySetInnerHTML={{__html: safeHtml(props)}} />
       }
       let component = COMPONENTS[props.type]
       if (component) {
@@ -260,10 +267,6 @@ FormControl.propTypes = {
   tip: PropTypes.element_string,
   type: PropTypes.string,
   value: PropTypes.any
-}
-
-FormControl.defaultProps = {
-  type: 'text'
 }
 
 FormControl.contextTypes = {

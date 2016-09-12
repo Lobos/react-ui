@@ -7,7 +7,7 @@ import { shallowEqual, hashcode } from '../utils/objects'
 import PropTypes from '../utils/proptypes'
 import Pagination from '../Pagination'
 import { Checkbox } from '../Checkbox'
-import ValuesHolder from '../ValuesHolder'
+import ArrayHolder from '../ArrayHolder'
 import { FETCH_PENDING } from '../higherOrders/Fetch'
 import Mask from '../Mask'
 
@@ -25,8 +25,8 @@ export default class Table extends Component {
 
     // cache for handleSelect
     if (props.onSelect) {
-      this.values = (props.onSelect instanceof ValuesHolder)
-                    ? props.onSelect : new ValuesHolder()
+      this.values = (props.onSelect instanceof ArrayHolder)
+                    ? props.onSelect : new ArrayHolder()
       this.values.init(toArray(props.value, props.sep))
     }
 
@@ -253,7 +253,7 @@ Table.propTypes = {
   height: PropTypes.number_string,
   onSelect: PropTypes.oneOfType([
     PropTypes.func,
-    PropTypes.instanceOf(ValuesHolder)
+    PropTypes.instanceOf(ArrayHolder)
   ]),
   onSort: PropTypes.func,
   pagination: PropTypes.object,

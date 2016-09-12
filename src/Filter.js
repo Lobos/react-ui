@@ -31,11 +31,15 @@ export default class Filter extends Component {
   }
 
   renderFilters () {
-    const { items } = this.props
+    const { items, columns } = this.props
 
     return items.map((f, i) => {
+      const props = {
+        label: f.label,
+        grid: f.column ? f.column / columns : undefined
+      }
       return (
-        <FormControl key={f.name} grid={f.grid} label={f.label}>
+        <FormControl key={f.name} {...props}>
           { cloneElement(f.component, {name: f.name}) }
         </FormControl>
       )

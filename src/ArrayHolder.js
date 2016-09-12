@@ -2,7 +2,7 @@
 
 import { objectAssign } from './utils/objects'
 
-export default class DataHolder {
+export default class ArrayHolder {
   constructor (values, options) {
     this.values = values || []
     this.options = objectAssign({}, options)
