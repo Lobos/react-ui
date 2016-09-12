@@ -19,6 +19,7 @@ class Range extends Component {
     super(props)
     this.firstChange = this.firstChange.bind(this)
     this.secondChange = this.secondChange.bind(this)
+    this.handleClear = this.handleClear.bind(this)
   }
 
   handleChange (val, index) {
@@ -35,6 +36,10 @@ class Range extends Component {
     this.handleChange(value, 1)
   }
 
+  handleClear () {
+    this.props.onChange([])
+  }
+
   render () {
     const { className, value, min, max, con, hasError, ...other } = this.props
 
@@ -49,6 +54,7 @@ class Range extends Component {
         <Datepicker max={max} {...other}
           min={value[0]}
           value={value[1]}
+          onClear={this.handleClear}
           onChange={this.secondChange}
         />
       </div>

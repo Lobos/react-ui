@@ -8,6 +8,10 @@
   font-size: $datepicker-font-size;
   color: $input-color;
 
+  a:hover, a:focus, a:active {
+    text-decoration: none;
+  }
+
   .control {
     min-width: 100%;
     cursor: pointer;
@@ -28,7 +32,7 @@
       image: $indicator-clear;
       repeat: no-repeat;
       position: center;
-      size: 60%;
+      size: 50%;
     }
   }
 }
@@ -57,10 +61,14 @@
   }
 
   .datepicker:first-child {
-    width: $datepicker-full-width - $input-padding-x - $datepicker-indicator-padding;
+    width: $datepicker-full-width - $datepicker-indicator-padding;
     .control {
       background: none;
       padding-right: $input-padding-x;
+    }
+
+    .clear {
+      display: none;
     }
 
     &.short {
@@ -129,7 +137,7 @@
 
   a {
     display: inline-block;
-    width: 4rem;
+    padding: 0 6px;
     text-align: center;
     vertical-align: middle;
     line-height: $datepicker-header-font-size;

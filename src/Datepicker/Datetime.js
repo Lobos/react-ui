@@ -128,6 +128,7 @@ class Datetime extends Component {
 
   handleClear () {
     this.props.onChange()
+    this.props.onClear && this.props.onClear()
   }
 
   changeDate (obj) {
@@ -274,7 +275,7 @@ class Datetime extends Component {
     const className = _datepickers.year
 
     buttons.push(
-      <a className={className} key={'prev'}
+      <a href="javascript:;" className={className} key={'prev'}
         onClick={this.pre.bind(this, 'year')}>
         {getLang('datetime.prev')}
       </a>
@@ -282,13 +283,13 @@ class Datetime extends Component {
 
     years.forEach((y, i) => {
       buttons.push(
-        <a className={className} key={y}
+        <a href="javascript:;" className={className} key={y}
           onClick={this.yearChange.bind(this, y)}>{y}</a>
       )
     }, this)
 
     buttons.push(
-      <a className={className} key={'next'}
+      <a href="javascript:;" className={className} key={'next'}
         onClick={this.next.bind(this, 'year')}>
         {getLang('datetime.next')}
       </a>
@@ -300,7 +301,7 @@ class Datetime extends Component {
   renderMonths () {
     return getLang('datetime.fullMonth').map(function (m, i) {
       return (
-        <a type="button"
+        <a type="button" href="javascript:;"
           onClick={this.monthChange.bind(this, i)}
           key={i} className={_datepickers.month}>{m}</a>
       )
@@ -382,10 +383,10 @@ class Datetime extends Component {
         <i style={{float: 'left', display}} onClick={this.pre.bind(this, 'day')}>
           {ANGLE_LEFT}
         </i>
-        <a onClick={() => { this.stageChange('year') }}>
+        <a href="javascript:;" onClick={() => { this.stageChange('year') }}>
           {datetime.getFullYear(current)}
         </a>
-        <a onClick={() => { this.stageChange('month') }}>
+        <a href="javascript:;" onClick={() => { this.stageChange('month') }}>
           {datetime.getFullMonth(current)}
         </a>
         <i style={{float: 'right', display}} onClick={this.next.bind(this, 'month')}>
