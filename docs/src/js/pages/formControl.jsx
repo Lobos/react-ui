@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+// import Refetch from 'refetch'
 import Code from '../Code'
 import Example from '../Example'
 import { FormControl, Button, Icon, Datepicker } from '../rctui'
@@ -214,13 +215,36 @@ validator = {
             <Example>
 <FormControl
   type="upload"
-  autoUpload
   grid={{ width: 1 }}
   name="test"
-  action="http://216.189.159.94:8080/upload"
+  action="/upload"
   accept="image/*"
   limit={3}
   content={<Button><Icon icon="upload" /> Choose a file</Button>} />
+            </Example>
+          </div>
+
+          <div>
+            <p><em><b>upload</b></em> => <a href="#/upload">Upload</a></p>
+            <Example>
+<FormControl
+  type="text"
+  grid={{ width: 1 }}
+  name="ajax"
+  tip="name is 'lobos'"
+  validator={{
+    async: (value, formData, callback) => {
+      setTimeout(() => {
+        callback(value === 'lobos' ? true : new Error(value + ' already exists'))
+      }, 500)
+      /* ajax example
+      Refetch.get('/validate', { name: value }).then(res => {
+        callback(res.success ? true : new Error(res.msg))
+      })
+      */
+    }
+  }}
+/>
             </Example>
           </div>
 
