@@ -130,7 +130,7 @@ export const enhance = (ComposedComponent) => {
       }
       let { itemChange, onChange } = props;
       let result = value instanceof Error ? value : this.validate(value, props);
-      this.setState({ value }, () => {
+      let callback = ()=>{
         itemChange = itemChange || this.props.itemChange;
         onChange = onChange || this.props.onChange;
         if (itemChange) {
@@ -139,7 +139,14 @@ export const enhance = (ComposedComponent) => {
         if (onChange) {
           onChange(...arguments);
         }
-      });
+      }
+      if(value instanceof Error){
+        callback();
+      }else{
+        this.setState({ value }, () => {
+          callback();
+        });
+      }
     }
 
     render () {

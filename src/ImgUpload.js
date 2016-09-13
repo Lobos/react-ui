@@ -59,17 +59,42 @@ class ImgUpload extends Component {
         this.setState({file: thefile });
         return;
       }
-      
-      thefile = {
-        file,
-        name: file.files[0].name,
-        status: autoUpload ? 1 : 0
-      };
 
-      if (autoUpload) {
-        thefile.xhr = this.uploadFile(thefile);
+      let reader=new FileReader();
+
+      reader.onload=(e)=>{
+        let data=e.target.result;
+        let image=new Image();
+
+        image.onload=()=>{
+          let width = image.width;
+          let height = image.height;
+          let size = this.props.size;
+
+          if(size){
+            size=size.split('*');
+            if(size.length === 2 && (width != size[0] || height != size[1])){
+              this.handleChange(new Error(`图片尺寸不符合${this.props.size}`));
+              thefile.status = 3; 
+              this.setState({ file:thefile });
+              return;
+            }
+          }
+
+          thefile = {
+            file,
+            name: file.files[0].name,
+            status: autoUpload ? 1 : 0
+          };
+          if (autoUpload) {
+            thefile.xhr = this.uploadFile(thefile);
+          }
+          this.setState({ file:thefile });
+        }
+
+        image.src=data;
       }
-      this.setState({ file:thefile });
+      reader.readAsDataURL(blob);
     });
   }
 
@@ -130,6 +155,7 @@ class ImgUpload extends Component {
 
   renderFiles(){
     let files=this.toArray(this.props.value);
+    console.log('files',files)
     return files.map((value,index)=>(
       <div key={index} className="uploaded imgupload-wrap" style={{
           backgroundImage:`url(${value})`,
@@ -158,7 +184,7 @@ class ImgUpload extends Component {
     if (file.status === 1){
       return (
         <div className='progress imgupload-wrap'>
-          <div className={`${file.percent>50?`right`:``} imgupload-progress`}  >
+          <div className={`${file.percent>50?'right':''} imgupload-progress`}  >
             <div className='rotate' ref={(c) => this.rotate = c} ></div>
             <div className='mask'></div>
           </div>
@@ -211,6 +237,7 @@ ImgUpload.propTypes = {
   params: PropTypes.object,
   readOnly: PropTypes.bool,
   sep: PropTypes.string,
+  size:PropTypes.string,
   style: PropTypes.object,
   withCredentials: PropTypes.bool
 };

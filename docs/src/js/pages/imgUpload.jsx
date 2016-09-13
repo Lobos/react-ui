@@ -33,6 +33,7 @@ module.exports = class extends Component {
   grid={[width, responsive]} // 宽度，详见Grid
   withCredentials={bool}  // xhr2 withCredentials
   value={string}          //支持设置默认值，多张图片用逗号分隔
+  size={string}           //图片尺寸,如100*100
 />`}
         </Code>
 
@@ -45,6 +46,7 @@ module.exports = class extends Component {
   accept="image/*"
   limit={3}
   value="https://gw.alicdn.com/tps/TB1wz4bKVXXXXb9XXXXXXXXXXXX-212-136.png,https://gw.alicdn.com/tps/TB11ASlLXXXXXXDXFXXXXXXXXXX-175-222.png"
+  size="30*30"
   onUpload={(res) => {
     var json = JSON.parse(res); // res 是返回的responseText，需要手动转为json
     if (json.success) {
