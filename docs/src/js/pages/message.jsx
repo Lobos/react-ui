@@ -15,9 +15,10 @@ module.exports = () => {
 
       <div className="content">
         <h2 className="subhead">全局方法</h2>
-        <Code>{'Message.show(content, type)'}</Code>
+        <Code>{'Message.show(content, [type, duration])'}</Code>
         <p><b>content:</b>内容，必填，值为 <em>string</em> 或 <em>element</em></p>
         <p><b>type:</b>样式，会增加一个class <em>messsage-[type]</em>，默认值为 <em>info</em></p>
+        <p><b>duration:</b>持续时间，必须是数字，单位为 <em>ms</em></p>
 
         <h2 className="subhead">Example</h2>
         <Example>
@@ -25,7 +26,15 @@ module.exports = () => {
         </Example>
 
         <Example>
+<a onClick={() => Message.show("Info message disappear after 2000ms.",2000)}>info message disappear after 2000ms</a>
+        </Example>
+
+        <Example>
 <a onClick={() => Message.show("error message.", "error")}>error message</a>
+        </Example>
+
+        <Example>
+<a onClick={() => Message.show("error message disappear after 2000ms.", "error",2000)}>error message disappear after 2000ms</a>
         </Example>
 
         <Example>

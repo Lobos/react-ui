@@ -14,6 +14,7 @@ export const Rating = require('./Rating');
 export const Select = require('./Select');
 export const Tree = require('./Tree');
 export const Upload = require('./Upload');
+export const ImgUpload = require('./ImgUpload');
 export const Button = require('./Button');
 export const Switch = require('./Switch');
 

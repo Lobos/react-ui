@@ -33,6 +33,13 @@ app.get('/formBuilder.html', function(req, res) {
   res.sendFile(path.join(__dirname, 'standalone/formBuilder/formBuilder.html'));
 });
 
+app.post('/upload', function (req, res) {
+  res.send({success: true, id: Date.now().toString()})
+})
+app.post('/uploadimg', function (req, res) {
+  res.send({success: true, id: 'https://gw.alicdn.com/tps/TB16sK8LpXXXXbGaXXXXXXXXXXX-156-154.png'})
+})
+
 app.listen(3001, 'localhost', function(err) {
   if (err) {
     console.log(err);

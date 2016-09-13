@@ -22,6 +22,7 @@ module.exports = [
   { path: '/select', text: 'Select', component: require('./pages/select.jsx') },
   { path: '/tree', text: 'Tree', component: require('./pages/tree.jsx') },
   { path: '/upload', text: 'Upload', component: require('./pages/upload.jsx') },
+  { path: '/imgUpload', text: 'ImgUpload', component: require('./pages/imgUpload.jsx') },
   '常用',
   { path: '/table', text: 'Table', component: require('./pages/table.jsx') },
   { path: '/filter', text: 'Filter', component: require('./pages/filter.jsx') },

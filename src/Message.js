@@ -4,6 +4,8 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import classnames from 'classnames';
 import Overlay from './Overlay';
+import CheckType from './utils/type';
+
 //import { forEach } from './utils/objects'
 import PubSub from 'pubsub-js';
 
@@ -97,15 +99,26 @@ Message.propTypes = {
   messages: PropTypes.array
 };
 
-Message.show = function (content, type) {
+Message.show = function (content, type,duration) {
   if (!containerDOM) {
     containerDOM = document.createElement('div');
     document.body.appendChild(containerDOM);
+  }
+  if(CheckType(type) === 'number'){
+    duration = type;
+    type = undefined;
   }
   PubSub.publishSync(ADD_MESSAGE, {
     content,
     type: type || 'info'
   });
+  
+  if(duration){
+    setTimeout(()=>{
+      PubSub.publishSync(CLEAR_MESSAGE)
+    },duration);
+  }
+
   return containerElement;
 };
 
