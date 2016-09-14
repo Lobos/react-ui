@@ -88,8 +88,6 @@ export default function FormItem (Component) {
       const { name } = this.props
       const { formData } = this.context
 
-      if (name === 'address') console.log(name, formData)
-
       return formData && formData[name] !== undefined ? formData[name] : this.state.value
     }
 
@@ -106,8 +104,10 @@ export default function FormItem (Component) {
         this.validate(value)
       }, 400)
 
-      // if in a form, use formData, else use state
-      itemChange ? itemChange(name, value) : this.setState({ value })
+      if (!(value instanceof Error)) {
+        // if in a form, use formData, else use state
+        itemChange ? itemChange(name, value) : this.setState({ value })
+      }
       onChange && onChange(...arguments)
     }
 
