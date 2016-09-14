@@ -33,6 +33,7 @@ class ImgUpload extends Component {
       onChange(value);
     }
   }
+
   toArray(value){
     if(!value){
       return [];
@@ -155,7 +156,6 @@ class ImgUpload extends Component {
 
   renderFiles(){
     let files=this.toArray(this.props.value);
-    console.log('files',files)
     return files.map((value,index)=>(
       <div key={index} className="uploaded imgupload-wrap" style={{
           backgroundImage:`url(${value})`,

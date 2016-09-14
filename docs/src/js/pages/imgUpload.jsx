@@ -45,7 +45,7 @@ module.exports = class extends Component {
   action="/uploadimg"
   accept="image/*"
   limit={3}
-  value="https://gw.alicdn.com/tps/TB1wz4bKVXXXXb9XXXXXXXXXXXX-212-136.png,https://gw.alicdn.com/tps/TB11ASlLXXXXXXDXFXXXXXXXXXX-175-222.png"
+  value="images/image1.jpg,images/image2.jpg"
   size="30*30"
   onUpload={(res) => {
     var json = JSON.parse(res); // res 是返回的responseText，需要手动转为json
