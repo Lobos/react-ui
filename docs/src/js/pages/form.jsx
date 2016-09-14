@@ -128,6 +128,26 @@ module.exports = class extends React.Component {
                 </InputGroup>
               </FormControl>
 
+              <FormControl
+                label="remote check"
+                type="text"
+                grid={{ width: 1 / 2 }}
+                name="ajax"
+                tip="name is 'lobos'"
+                validator={{
+                  async: (value, formData, callback) => {
+                    setTimeout(() => {
+                      callback(value === 'lobos' ? true : new Error(value + ' already exists'))
+                    }, 500)
+                    /* ajax example
+                    Refetch.get('/validate', { name: value }).then(res => {
+                      callback(res.success ? true : new Error(res.msg))
+                    })
+                    */
+                  }
+                }}
+              />
+
               <FormControl grid={{width: 13 / 24}}
                 name="alpha"
                 label="alpha"
@@ -194,7 +214,7 @@ module.exports = class extends React.Component {
                 text="show if" />
 
               <If predicate={(formData) => formData.checkbox === 1}>
-                <FormControl label="if" name="if" />
+                <FormControl label="if" type="text" name="if" />
               </If>
 
               <FormControl name="datetime"

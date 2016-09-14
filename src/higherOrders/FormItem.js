@@ -23,6 +23,7 @@ export default function FormItem (Component) {
 
       this.handleChange = this.handleChange.bind(this)
       this.validate = this.validate.bind(this)
+      this.setResult = this.setResult.bind(this)
     }
 
     componentWillMount () {
@@ -67,19 +68,28 @@ export default function FormItem (Component) {
       onValidate && onValidate(name, true)
     }
 
-    validate (value) {
+    setResult (result) {
+      const { name, onValidate } = this.props
+      this.setState({ result })
+      onValidate && onValidate(name, result)
+    }
+
+    validate (value, useState) {
+      if (useState && this.state.result !== undefined) {
+        return this.state.result
+      }
+
       value = value || this.getValue()
       const { formData } = this.context
-      const { onValidate, name, type } = this.props
+      const { type } = this.props
 
       // component's inner validate
       const validate = getValidate(type)
 
       const result = validate ? validate(value, this.props, formData)
-        : Validation.validate(value, getValueType(type), formData, this.props)
+        : Validation.validate(value, getValueType(type), formData, this.props, this.setResult)
 
-      this.setState({ result })
-      onValidate && onValidate(name, result)
+      this.setResult(result)
 
       return result
     }

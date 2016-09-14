@@ -92,12 +92,10 @@ class Form extends Component {
 
   validate () {
     const { data } = this.state
-    let suc = true
-    Object.keys(this.items).forEach(key => {
-      if (this.items[key].validate(data[key]) !== true) suc = false
-    })
 
-    return suc
+    return Object.keys(this.items).reduce((suc, key) => {
+      return suc && (this.items[key].validate(data[key], true) === true)
+    }, true)
   }
 
   handleSubmit (event) {

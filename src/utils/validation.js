@@ -16,19 +16,9 @@ function handleError (label, value, key, tip) {
   return new Error(text)
 }
 
-export function validate (value, valueType, formData, {
-  label,
-  name,
-  required,
-  min,
-  max,
-  readOnly,
-  sep,
-  tip,
-  type,
-  validator,
-  onValidate
-}) {
+export function validate (value, valueType, formData, props, callback) {
+  const { label, required, min, max, readOnly, sep, tip, type, validator } = props
+
   let len = 0
 
   if (readOnly) {
@@ -45,14 +35,14 @@ export function validate (value, valueType, formData, {
   // custom validator
   if (validator) {
     if (typeof validator === 'function') {
-      validator = { func: validator }
+      return validator(value, formData)
     }
     if (validator.func) {
       return validator.func(value, formData)
     }
     if (validator.async) {
       validator.async(value, formData, (result) => {
-        onValidate(name, result)
+        callback(result)
       })
       return new Warning(<span style={{color: '#f0ad4e'}}>{getLang('validation.checking')}</span>)
     }
