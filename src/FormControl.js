@@ -202,7 +202,7 @@ class FormControl extends Component {
 
     let className = classnames(
       this.props.className,
-      _forms.group,
+      _forms['form-group'],
       !isEmpty(this.state.validations) && _forms.hasError
     )
 

@@ -26,7 +26,7 @@
     clear: both;
   }
 
- .group {
+ .form-group {
     display: inline-block;
     margin-right: $form-inline-group-margin;
     vertical-align: middle;
@@ -106,7 +106,7 @@
   }
 }
 
-.group {
+.form-group {
   position: relative;
   margin-bottom: $form-group-margin-bottom;
 }

@@ -96,6 +96,7 @@
   }
 }
 
+/*
 .addon,
 .btn,
 .input {
@@ -107,15 +108,8 @@
     @include border-radius(0);
   }
 }
+*/
 
-.btn,
-.addon {
-  @if not $enable-flex {
-    width: 1%;
-  }
-  white-space: nowrap;
-  vertical-align: middle; // Match the inputs
-}
 
 //
 // Text input groups
@@ -158,6 +152,15 @@
 // Reset rounded corners
 //
 .group {
+  .btn,
+  .addon {
+    @if not $enable-flex {
+      width: 1%;
+    }
+    white-space: nowrap;
+    vertical-align: middle; // Match the inputs
+  }
+
   .input:not(:last-child),
   .addon:not(:last-child),
   .btn:not(:last-child),

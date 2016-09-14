@@ -61,13 +61,12 @@ withCredentials={bool}  // xhr2 withCredentials
         <h2 className="subhead">Example</h2>
         <Example>
 <ImgUpload
-  grid={1 / 2}
   name="test"
   action="/upload"
   accept="image/*"
   limit={3}
   params={{ arg: 'test' }}
-  value="../../images/image1.jpg,../../images/image2.jpg"
+  value="images/image1.jpg,images/image2.jpg"
   size="160*107"
   onUpload={(res) => {
     var json = JSON.parse(res)

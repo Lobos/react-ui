@@ -17,7 +17,7 @@ export default function FormItem (Component) {
       super(props)
 
       this.state = {
-        hasError: false,
+        result: undefined,
         value: props.value || props.defaultValue
       }
 
@@ -78,7 +78,7 @@ export default function FormItem (Component) {
       const result = validate ? validate(value, this.props, formData)
         : Validation.validate(value, getValueType(type), formData, this.props)
 
-      this.setState({ hasError: result !== true })
+      this.setState({ result })
       onValidate && onValidate(name, result)
 
       return result
@@ -93,22 +93,24 @@ export default function FormItem (Component) {
 
     handleChange (value) {
       const { itemChange } = this.context
-      const { name, onChange } = this.props
+      const { name, onChange, onValidate } = this.props
 
       if (typeof value === 'object' && value.nativeEvent) {
         value = value.target.value
       }
 
       this._timeout && clearTimeout(this._timeout)
-      this._timeout = setTimeout(() => {
-        this.validate(value)
-      }, 400)
 
-      if (!(value instanceof Error)) {
+      if (value instanceof Error) {
+        onValidate && onValidate(name, value)
+      } else {
+        this._timeout = setTimeout(() => {
+          this.validate(value)
+        }, 400)
         // if in a form, use formData, else use state
         itemChange ? itemChange(name, value) : this.setState({ value })
+        onChange && onChange(...arguments)
       }
-      onChange && onChange(...arguments)
     }
 
     render () {
@@ -117,7 +119,7 @@ export default function FormItem (Component) {
 
       className = classnames(
         className,
-        this.state.hasError && _inputs.dangerInput
+        (this.state.result instanceof Error) && _inputs.dangerInput
       )
 
       // remove defaultValue,  use controlled value
@@ -125,7 +127,7 @@ export default function FormItem (Component) {
 
       return (
         <Component {...props}
-          hasError={this.state.hasError}
+          hasError={this.state.result instanceof Error}
           onChange={this.handleChange}
           style={style}
           value={value}

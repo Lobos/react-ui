@@ -13,7 +13,6 @@ export default class InputGroup extends Component {
     const { size, grid } = this.props
     let className = classnames(
       _styles.group,
-      _styles[size],
       getGrid(grid)
     )
 
