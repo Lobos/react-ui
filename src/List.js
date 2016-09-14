@@ -7,6 +7,8 @@ import * as Events from './utils/events'
 import SafeHtml from './SafeHtml'
 
 import _lists from './styles/_list.scss'
+import { getLang, setLang } from './lang'
+setLang('fetch')
 
 export default class List extends Component {
   constructor (props) {
@@ -22,7 +24,7 @@ export default class List extends Component {
     setTimeout(() => {
       const wrap = this.refs.wrap
       this._optionHeight = wrap.querySelector('ul li').clientHeight
-      wrap.querySelector('ul').style.height = (this._optionHeight * this.props.data.length) + 'px'
+      wrap.querySelector('ul').style.height = (this._optionHeight * (this.props.data.length || 1)) + 'px'
       this.toggleScroll('on')
     }, 0)
   }
@@ -69,41 +71,45 @@ export default class List extends Component {
 
     if (scrolledOptCount < 0) scrolledOptCount = 0
 
-    options = options.map((d, i) => {
-      let optionClass = classnames(
-        _lists.item,
-        d.$selected && _lists.active
-      )
-
-      let groupClass = _lists.group
-
-      let optionStyle = {}
-      if (data.length > maxShowCount && this._optionHeight > 0) {
-        optionClass += ' ' + _lists.absolute
-        groupClass += ' ' + _lists.absolute
-        optionStyle.top = this._optionHeight * (i + scrolledOptCount)
-      }
-
-      if (d.$group) {
-        return (
-          <span key={`g-${d.$group}`} style={optionStyle} className={groupClass}>
-            {d.$group}
-          </span>
+    if (options.length === 0) {
+      options = <li><span className={_lists.group}>{getLang('fetch.noData')}</span></li>
+    } else {
+      options = options.map((d, i) => {
+        let optionClass = classnames(
+          _lists.item,
+          d.$selected && _lists.active
         )
-      } else {
-        return (
-          <li key={d.$key} style={optionStyle}
-            onClick={onChange.bind(this, d)}
-            className={ optionClass }>
-            <SafeHtml>{d.$html}</SafeHtml>
-          </li>
-        )
-      }
-    })
+
+        let groupClass = _lists.group
+
+        let optionStyle = {}
+        if (data.length > maxShowCount && this._optionHeight > 0) {
+          optionClass += ' ' + _lists.absolute
+          groupClass += ' ' + _lists.absolute
+          optionStyle.top = this._optionHeight * (i + scrolledOptCount)
+        }
+
+        if (d.$group) {
+          return (
+            <span key={`g-${d.$group}`} style={optionStyle} className={groupClass}>
+              {d.$group}
+            </span>
+          )
+        } else {
+          return (
+            <li key={d.$key} style={optionStyle}
+              onClick={onChange.bind(this, d)}
+              className={ optionClass }>
+              <SafeHtml>{d.$html}</SafeHtml>
+            </li>
+          )
+        }
+      })
+    }
 
     return (
       <div className={classnames(className, _lists.wrap)} ref="wrap">
-        <ul style={{height: this._optionHeight * data.length}}>{options}</ul>
+        <ul style={{height: this._optionHeight * (data.length || 1)}}>{options}</ul>
       </div>
     )
   }

@@ -4,6 +4,7 @@ module.exports = {
       pending: '数据加载中...',
       failure: '数据加载失败.',
       success: ''
-    }
+    },
+    noData: '暂无数据'
   }
 }
