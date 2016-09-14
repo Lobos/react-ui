@@ -38,7 +38,7 @@ app.get('/formBuilder.html', function (req, res) {
 })
 
 app.post('/upload', function (req, res) {
-  res.send({success: true, id: Date.now().toString()})
+  res.send({success: true, id: Date.now().toString(), img: '../../images/image3.jpg'})
 })
 
 app.get('/validate', function (req, res) {
