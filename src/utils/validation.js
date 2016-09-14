@@ -1,24 +1,24 @@
-'use strict';
+import Regs from './regs'
+import { format, toArray } from './strings'
+import Warning from './warning'
 
-import Regs from './regs';
-import { format, toArray } from './strings';
+import { getLang, setLang } from '../lang'
+setLang('validation')
 
-import { getLang, setLang } from '../lang';
-setLang('validation');
-
-function handleError(label, value, key, tip) {
+function handleError (label, value, key, tip) {
   // handle error
-  let text = getLang('validation.tips.' + key, null);
+  let text = getLang('validation.tips.' + key, null)
   if (text) {
-    text = (label || '') + format(text, value);
+    text = format(text, label || '', value)
   } else {
-    text = tip;
+    text = tip
   }
-  return new Error(text);
+  return new Error(text)
 }
 
-export function validate(value, valueType, {
+export function validate (value, valueType, formData, {
   label,
+  name,
   required,
   min,
   max,
@@ -27,66 +27,74 @@ export function validate(value, valueType, {
   tip,
   type,
   validator,
-  formData
+  onValidate
 }) {
-  let len = 0;
+  let len = 0
 
   if (readOnly) {
-     return true;
+     return true
   }
 
   // validate required
   if (required && (value === undefined || value === null || value.length === 0)) {
-    return handleError(label, value, 'required', tip);
+    return handleError(label, value, 'required', tip)
   }
 
-  let reg = Regs[type];
+  let reg = Regs[type]
 
   // custom validator
   if (validator) {
     if (typeof validator === 'function') {
-      validator = { func: validator };
+      validator = { func: validator }
     }
     if (validator.func) {
-      return validator.func(value, formData);
+      return validator.func(value, formData)
+    }
+    if (validator.async) {
+      validator.async(value, formData, (result) => {
+        onValidate(name, result)
+      })
+      return new Warning(<span style={{color: '#f0ad4e'}}>{getLang('validation.checking')}</span>)
     }
     if (validator.reg) {
-      reg = validator.reg;
+      reg = validator.reg
       if (typeof reg === 'string') {
-        reg = new RegExp(reg);
+        reg = new RegExp(reg)
       }
     }
   }
 
   // skip empty value
   if (value === undefined || value === null || value === '') {
-    return true;
+    return true
   }
 
   // validate type
   if (reg && !reg.test(value)) {
-    return handleError(label, value, type, tip);
+    return handleError(label, value, type, tip)
   }
 
-  switch(valueType) {
+  switch (valueType) {
     case 'array':
-      len = toArray(value, sep).length;
-    break;
+      len = toArray(value, sep).length
+    break
     case 'number':
-      len = parseFloat(value);
-    break;
+      len = parseFloat(value)
+    break
     default:
-      len = value.length;
-    break;
+      len = value.length
+    break
   }
 
-  if (max && len > max) {
-    return handleError(label, max, `max.${valueType}`, tip);
+  if (len > 0) {
+    if (max && len > max) {
+      return handleError(label, max, `max.${valueType}`, tip)
+    }
+
+    if (min && len < min) {
+      return handleError(label, min, `min.${valueType}`, tip)
+    }
   }
 
-  if (min && len < min) {
-    return handleError(label, min, `min.${valueType}`, tip);
-  }
-
-  return true;
-};
+  return true
+}

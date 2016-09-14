@@ -44,6 +44,8 @@ module.exports = {
       password: 'The {0} field is not valid.',
       url: 'The {0} field is not valid.',
       fileSize: 'The {0} file size must less than {1} KB'
-    }
+    },
+
+    checking: 'checking'
   }
 }

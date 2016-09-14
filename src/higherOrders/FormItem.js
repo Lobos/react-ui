@@ -70,13 +70,13 @@ export default function FormItem (Component) {
     validate (value) {
       value = value || this.getValue()
       const { formData } = this.context
-      const { onValidate, name, ...other } = this.props
+      const { onValidate, name, type } = this.props
 
       // component's inner validate
-      const validate = getValidate(other.type)
+      const validate = getValidate(type)
 
-      const result = validate ? validate(value, other, formData)
-        : Validation.validate(value, getValueType(other.type), formData, other)
+      const result = validate ? validate(value, this.props, formData)
+        : Validation.validate(value, getValueType(type), formData, this.props)
 
       this.setState({ hasError: result !== true })
       onValidate && onValidate(name, result)
@@ -87,8 +87,6 @@ export default function FormItem (Component) {
     getValue () {
       const { name } = this.props
       const { formData } = this.context
-
-      if (name === 'address') console.log(name, formData)
 
       return formData && formData[name] !== undefined ? formData[name] : this.state.value
     }

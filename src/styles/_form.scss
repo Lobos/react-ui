@@ -60,11 +60,11 @@
     position: relative;
   }
 
-  .hintText {
+  .hint-text {
     display: none;
   }
 
-  .dangerText {
+  .danger-text {
     display: block;
     position: absolute;
     padding: 0.5rem 1rem;
@@ -96,11 +96,11 @@
 
 .stacked, .aligned {
   .control {
-    .hintText {
+    .hint-text {
       color: $text-muted;
     }
 
-    .dangerText, .hintText {
+    .danger-text, .hint-text {
       display: block;
     }
   }
@@ -130,10 +130,10 @@
   margin-right: $form-inline-control-margin;
 }
 
-.dangerText, .hintText {
+.danger-text, .hint-text {
   display: block;
 }
 
-.dangerText {
+.danger-text {
   color: $brand-danger;
 }

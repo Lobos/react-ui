@@ -128,12 +128,14 @@ class FormControl extends Component {
 
     if (!isEmpty(validations)) {
       // if has tip，use tip
-      let text = errorText || (Object.keys(validations).map((key) => validations[key].message)).join(', ')
-      return <small key="tip" className={_forms.dangerText}>{text}</small>
+      let text = errorText || (Object.keys(validations).map((key) => {
+        return <span key={key}>{validations[key].message}</span>
+      }))
+      return <small key="tip" className={_forms['danger-text']}>{text}</small>
     }
 
     if (hints) {
-      return <small key="tip" className={_forms.hintText}>{hints}</small>
+      return <small key="tip" className={_forms['hint-text']}>{hints}</small>
     } else {
       return
     }
