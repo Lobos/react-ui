@@ -19,6 +19,7 @@ function handleError (label, value, key, tip) {
 
 export function validate (value, valueType, formData, {
   label,
+  name,
   required,
   min,
   max,
@@ -26,7 +27,8 @@ export function validate (value, valueType, formData, {
   sep,
   tip,
   type,
-  validator
+  validator,
+  onValidate
 }) {
   let len = 0
 
@@ -48,6 +50,12 @@ export function validate (value, valueType, formData, {
     }
     if (validator.func) {
       return validator.func(value, formData)
+    }
+    if (validator.async) {
+      validator.async(value, formData, (result) => {
+        onValidate(name, result)
+      })
+      return new Error('pending...')
     }
     if (validator.reg) {
       reg = validator.reg

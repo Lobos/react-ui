@@ -41,6 +41,14 @@ app.post('/upload', function (req, res) {
   res.send({success: true, id: Date.now().toString(), img: '../../images/image3.jpg'})
 })
 
+app.get('/validate', function (req, res) {
+  if (req.query.name === 'lobos') {
+    res.send({ success: true })
+  } else {
+    res.send({ success: false, msg: 'name already exists.' })
+  }
+})
+
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'docs/src/index.html'))
 })
