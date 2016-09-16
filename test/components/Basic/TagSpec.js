@@ -1,4 +1,3 @@
-import React from 'react/lib/ReactWithAddons'
 import { shallow } from 'enzyme'
 import Tag from '../../../src/Tag'
 

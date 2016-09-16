@@ -1,6 +1,4 @@
-import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
-// import { compClass, compData, compSelector } from '../../mock/input.js'
 import Textarea from '../../../src/Textarea'
 import { gridClassName } from '../../testUtils'
 

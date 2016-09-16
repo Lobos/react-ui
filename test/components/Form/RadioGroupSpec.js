@@ -1,8 +1,6 @@
-import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
 import { compClass, compData, compSelector } from '../../mock/radio'
 import RadioGroup from '../../../src/RadioGroup'
-// import { hashClassNameTest } from '../../testUtils.js'
 
 describe('RadioGroup Spec', function () {
   const _defaultRadioGroup1 = mount(<RadioGroup data={compData.dataList1} />),

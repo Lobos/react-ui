@@ -1,4 +1,3 @@
-import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
 
 import Icon from '../../../src/Icon.js'
