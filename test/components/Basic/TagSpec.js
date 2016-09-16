@@ -20,11 +20,11 @@ describe('Tag Spec', () => {
       )
 
       const wrapper2 = shallow(
-        <Tag style={{width: '10px'}} />
+        <Tag style={{foo: 'bar'}} />
       )
 
       expect(wrapper1).to.have.className('foo')
-      expect(wrapper2).to.have.style('width', '10px')
+      expect(wrapper2).to.have.style('foo', 'bar')
     })
 
     it('should render by pill prop', () => {
