@@ -20,6 +20,17 @@ describe('Dropdown Spec', () => {
   })
 
   describe('Custom', () => {
+    it('should render <hr/> tag as divided placeholder', () => {
+      const wrapper1 = mount(
+        <Dropdown>
+          <a>foo</a>
+          <hr/>
+          <a>bar</a>
+        </Dropdown>
+      )
+
+      expect(wrapper1.find('.dropdown-divider').length).to.be.equal(1)
+    })
 
     it('should render by right prop', () => {
       const wrapper1 = mount(
@@ -68,7 +79,7 @@ describe('Dropdown Spec', () => {
       expect(wrapper2).to.have.style('foo', 'bar')
     })
 
-    it('should render by onClick prop as split mode', () => {
+    it('should render onClick prop as split mode', () => {
       const cb = () => {
       }
       const wrapper1 = mount(
