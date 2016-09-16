@@ -34,11 +34,11 @@ describe('Input Spec', () => {
     })
 
     it('should validate input data by type prop', () => {
-      const wrapper = shallow(<Input type='integer' trigger='change' />)
+      const wrapper = mount(<Input type='integer' trigger='change' />)
 
       wrapper.simulate('change', {target: {value: 'foo'}, nativeEvent: true})
 
-      expect(wrapper).to.have.className('dangerInput')
+      expect(wrapper).to.have.value('')
     })
   })
 
