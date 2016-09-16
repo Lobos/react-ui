@@ -1,5 +1,6 @@
 describe('Layout', function () {
-  require('./GridSpec.js')
-  require('./NavSpec.js')
-  require('./BreadcrumbSpec.js')
+  require('./GridSpec')
+  require('./NavSpec')
+  require('./BreadcrumbSpec')
+  require('./CardSpec')
 })
