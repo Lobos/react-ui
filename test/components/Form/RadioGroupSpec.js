@@ -1,5 +1,5 @@
 import { shallow, mount } from 'enzyme'
-import { compClass, compData, compSelector } from '../../mock/radio'
+import { compData, compSelector } from '../../mock/radio'
 import RadioGroup from '../../../src/RadioGroup'
 
 describe('RadioGroup Spec', function () {

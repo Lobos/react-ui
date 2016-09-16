@@ -1,5 +1,4 @@
 import { shallow, mount } from 'enzyme'
-// import { compClass, compData, compSelector } from '../../mock/input.js'
 import Input from '../../../src/Input'
 import { gridClassName } from '../../testUtils'
 
