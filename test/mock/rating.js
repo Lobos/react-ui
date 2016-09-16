@@ -1,4 +1,3 @@
-import React from 'react/lib/ReactWithAddons'
 import Icon from '../../src/Icon'
 
 const stars = [

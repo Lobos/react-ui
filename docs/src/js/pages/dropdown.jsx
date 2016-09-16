@@ -24,7 +24,7 @@ module.exports = function () {
 
         <h2 className="subhead">Example</h2>
         <Example>
-          <Dropdown text="Dropdown">
+          <Dropdown text="Dropdown" className='foo' style={{width:'100px'}}>
             <a target="_blank" href="http://github.com">Github</a>
             <a onClick={() => console.log('dropdown clicked.')}>Action</a>
             <hr />

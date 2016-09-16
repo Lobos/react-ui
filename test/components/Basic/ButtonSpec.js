@@ -1,8 +1,6 @@
-import React from 'react/lib/ReactWithAddons'
 import { shallow } from 'enzyme'
 import { compStatus } from '../../mock/button'
 import Button from '../../../src/Button'
-// import { hashClassNameTest } from '../../testUtils'
 
 describe('Button Spec', () => {
   const defaultWrapper = shallow(<Button>

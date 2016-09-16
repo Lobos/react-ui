@@ -1,6 +1,4 @@
-import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
-// import { compClass, compData, compSelector } from '../../mock/input.js'
 import Input from '../../../src/Input'
 import { gridClassName } from '../../testUtils'
 
@@ -35,11 +33,11 @@ describe('Input Spec', () => {
     })
 
     it('should validate input data by type prop', () => {
-      const wrapper = shallow(<Input type='integer' trigger='change' />)
+      const wrapper = mount(<Input type='integer' trigger='change' />)
 
       wrapper.simulate('change', {target: {value: 'foo'}, nativeEvent: true})
 
-      expect(wrapper).to.have.className('dangerInput')
+      expect(wrapper).to.have.value('')
     })
   })
 
