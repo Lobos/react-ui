@@ -24,7 +24,8 @@ class CheckboxGroup extends Component {
  
   componentWillReceiveProps (nextProps) {
     if (!deepEqual(nextProps.value, this.props.value)) {
-      this.setValue(nextProps.value);
+      let value = toArray(nextProps.value, this.props.sep);
+      this.setState({ value, data: this.formatData(nextProps.data, nextProps.value) });
     }
     if (!deepEqual(nextProps.data, this.props.data)) {
       this.setState({ data: this.formatData(nextProps.data) });
