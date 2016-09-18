@@ -1,4 +1,3 @@
-import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
 import { themes, compClass } from '../../mock/rating'
 import Rating, { registerTheme } from '../../../src/Rating'

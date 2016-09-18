@@ -1,8 +1,11 @@
 describe('Basic', function () {
-  require('./ButtonSpec.js')
-  require('./ButtonGroupSpec.js')
-  require('./IconSpec.js')
-  require('./LangSpec.js')
-  require('./SwitchSpec.js')
-  require('./TagSpec.js')
+  require('./AlertSpec')
+  require('./ButtonSpec')
+  require('./ButtonGroupSpec')
+  require('./DropdownSpec')
+  require('./IconSpec')
+  // Todo ImageSpec
+  require('./LangSpec')
+  require('./SwitchSpec')
+  require('./TagSpec')
 })

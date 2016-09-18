@@ -1,4 +1,3 @@
-import React from 'react/lib/ReactWithAddons'
 import { shallow, mount } from 'enzyme'
 import Alert from '../../../src/Alert'
 
