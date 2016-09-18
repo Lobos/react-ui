@@ -33,7 +33,7 @@ Button.propTypes = {
   size: PropTypes.size,
   status: PropTypes.oneOf(['primary', 'secondary', 'success', 'warning', 'danger', 'error', 'info', 'link']),
   style: PropTypes.object,
-  type: PropTypes.oneOf(['submit', 'button'])
+  type: PropTypes.oneOf(['submit', 'button', 'reset'])
 }
 
 Button.defaultProps = {

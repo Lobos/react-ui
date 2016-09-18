@@ -5,7 +5,7 @@ import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
 import { Cascade, Form, FormControl, Button, Icon, Input, InputGroup, FormText,
-  DatepickerRange, RadioGroup, FormItem, If, Upload } from '../rctui'
+  DatepickerRange, RadioGroup, FormItem, If, Upload, Grid } from '../rctui'
 import { Cn, En } from '../Language'
 
 const HEARTS = [
@@ -32,52 +32,54 @@ module.exports = class extends React.Component {
         <div className="content">
           <Cn>
             <Code>
-  {`<Form
-    button='string'       //  只有submit按钮，可以使用button
-    buttons={
-      submit: 'string',   // submit 按钮文字
-      reset: 'string',    // reset 按钮文字
-      cancel: 'string'    // cancel 按钮文字
-    }                     
-    data={object}         // 数据，object
-    fetch={object}        // 获取服务端表单数据，如果传入了data，fetch无效
-    hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
-                             layout 为 stacked, aligned 时，默认为 "block"
-                             layout 为 inline 时，默认为 "pop"
-                             会被 FormControl 的 hintType 覆盖
-    layout={string}       // 布局，可选值为 "aligned", "stacked", "inline"，默认为 "aligned"
-    onSubmit={function(   // 点击提交按钮，数据验证成功后回调函数
-      data:object
-    )}
-    onCancel={function}   // 点击cancel按钮回调函数
-    onReset={function}    // 点击reset按钮回调函数
-    >
-    {children}
-  </Form>`}
+{`<Form
+  button='string'       //  只有submit按钮，可以使用button
+  buttons={
+    submit: 'string',   // submit 按钮文字
+    reset: 'string',    // reset 按钮文字
+    cancel: 'string'    // cancel 按钮文字
+  }                     
+  data={object}         // 数据，object
+  fetch={object}        // 获取服务端表单数据，如果传入了data，fetch无效
+  hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
+                           layout 为 stacked, aligned 时，默认为 "block"
+                           layout 为 inline 时，默认为 "pop"
+                           会被 FormControl 的 hintType 覆盖
+  labelWidth={string}   // label 宽度，默认值为'10rem'
+  layout={string}       // 布局，可选值为 "aligned", "stacked", "inline"，默认为 "aligned"
+  onSubmit={function(   // 点击提交按钮，数据验证成功后回调函数
+    data:object
+  )}
+  onCancel={function}   // 点击cancel按钮回调函数
+  onReset={function}    // 点击reset按钮回调函数
+  >
+  {children}
+</Form>`}
             </Code>
           </Cn>
           <En>
             <Code>
-  {`<Form
-    buttons={
-      submit: 'string',   // submit button text
-      reset: 'string',    // reset button text
-      cancel: 'string'    // cancel button text
-    }                     
-    data={object}         // 
-    fetch={object}        // if data set, fetch will be ignored
-    hintType={string}     // 'block|pop|inline|none'
-                             if layout is 'stacked' or 'aligned', default is 'block'
-                             if layout is 'inline', default is 'pop'
-    layout={string}       // 'aligned|stacked|inline', default is 'aligned'
-    onSubmit={function(
-      data:object
-    )}
-    onCancel={function}
-    onReset={function}
-    >
-    {children}
-  </Form>`}
+{`<Form
+  buttons={
+    submit: 'string',   // submit button text
+    reset: 'string',    // reset button text
+    cancel: 'string'    // cancel button text
+  }                     
+  data={object}         // 
+  fetch={object}        // if data set, fetch will be ignored
+  hintType={string}     // 'block|pop|inline|none'
+                           if layout is 'stacked' or 'aligned', default is 'block'
+                           if layout is 'inline', default is 'pop'
+  labelWidth={string}   // default value is '10rem'
+  layout={string}       // 'aligned|stacked|inline', default is 'aligned'
+  onSubmit={function(
+    data:object
+  )}
+  onCancel={function}
+  onReset={function}
+  >
+  {children}
+</Form>`}
             </Code>
           </En>
           <p><a href="#/fetch">fetch see here</a></p>
@@ -98,7 +100,7 @@ module.exports = class extends React.Component {
   <FormControl label="name">
     <Input name="name" style={{width: '10rem'}} type="text" min={2} max={6} />
   </FormControl>
-  <FormControl name="email" placeholder="email" type="email" />
+  <FormControl grid={1 / 3} name="email" placeholder="email" type="email" />
   <FormControl name="nationality" label="nationality" type="select"
     data={['Chinese', 'American', 'Russian', 'Japanese', 'English', 'Spainish']} />
 </Form>
@@ -133,11 +135,11 @@ module.exports = class extends React.Component {
                 type="text"
                 grid={{ width: 1 / 2 }}
                 name="ajax"
-                tip="name is 'lobos'"
+                tip="value is 'lobos'"
                 validator={{
                   async: (value, formData, callback) => {
                     setTimeout(() => {
-                      callback(value === 'lobos' ? true : new Error(value + ' already exists'))
+                      callback((value === 'lobos' || !value) ? true : new Error(value + ' already exists'))
                     }, 500)
                     /* ajax example
                     Refetch.get('/validate', { name: value }).then(res => {
@@ -148,29 +150,37 @@ module.exports = class extends React.Component {
                 }}
               />
 
-              <FormControl grid={{width: 13 / 24}}
-                name="alpha"
-                label="alpha"
-                required
-                type="alpha" />
+              <Grid width={1 / 2}>
+                <FormControl grid={1}
+                  name="alpha"
+                  label="alpha"
+                  required
+                  type="alpha" />
+              </Grid>
 
-              <FormControl grid={{width: 14 / 24}}
-                name="alphanum"
-                label="alphanum"
-                type="alphanum" />
+              <Grid width={1 / 2}>
+                <FormControl grid={1}
+                  name="alphanum"
+                  label="alphanum"
+                  type="alphanum" />
+              </Grid>
 
-              <FormControl grid={{width: 15 / 24}}
-                name="integer"
-                min={120}
-                max={3200}
-                label="integer"
-                defaultValue={1234}
-                type="integer" />
+              <Grid width={1 / 2}>
+                <FormControl grid={1}
+                  name="integer"
+                  min={120}
+                  max={3200}
+                  label="integer"
+                  defaultValue={1234}
+                  type="integer" />
+              </Grid>
 
-              <FormControl grid={{width: 16 / 24}}
-                name="number"
-                label="number"
-                type="number" />
+              <Grid width={1 / 2}>
+                <FormControl grid={1}
+                  name="number"
+                  label="number"
+                  type="number" />
+              </Grid>
 
               <FormControl grid={{width: 16 / 24}}
                 name="password"
@@ -185,7 +195,7 @@ module.exports = class extends React.Component {
                 ignore
                 label="repeat password"
                 type="password"
-                tip="same as the password."
+                tip=""
                 validator={
                   (value, formData) => {
                     let password = formData.password
@@ -264,7 +274,7 @@ module.exports = class extends React.Component {
                 tip=""
                 type="rating" />
 
-              <FormControl grid={{width: 12 / 24}}
+              <FormControl
                 name="select"
                 label="select"
                 type="select"

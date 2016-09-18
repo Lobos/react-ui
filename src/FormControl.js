@@ -1,5 +1,3 @@
-'use strict'
-
 import { Component, cloneElement, Children } from 'react'
 import classnames from 'classnames'
 import { COMPONENTS, getValueType } from './higherOrders/FormItem'
@@ -212,10 +210,9 @@ class FormControl extends Component {
         getGrid(grid || (columns ? 1 / columns : undefined)),
         columns && columns > 0 && _forms.columned
       )
-      grid = columns && columns > 0 ? 1 : undefined
+      grid = grid ? 1 : undefined
     }
 
-    // set this.required
     const items = this.renderItems(grid)
 
     // label =================================================
