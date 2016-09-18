@@ -9,8 +9,7 @@ import CheckType from './utils/type';
 //import { forEach } from './utils/objects'
 import PubSub from 'pubsub-js';
 
-import { requireCss } from './themes';
-requireCss('message');
+import './themes/mui/message.less';
 
 const ADD_MESSAGE = 'EB3A79637B40';
 const REMOVE_MESSAGE = '73D4EF15DF50';

@@ -4,8 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { forEach } from './utils/objects';
 
-import { requireCss } from './themes';
-requireCss('pagination');
+import './themes/mui/pagination.less';
 
 class Pagination extends Component {
   constructor (props) {

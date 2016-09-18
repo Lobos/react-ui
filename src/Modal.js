@@ -8,8 +8,7 @@ import Button from './Button';
 import Overlay from './Overlay';
 import { nextUid } from './utils/strings';
 
-import { requireCss } from './themes';
-requireCss('modal');
+import './themes/mui/modal.less';
 
 import {getLang, setLang} from './lang';
 setLang('buttons');

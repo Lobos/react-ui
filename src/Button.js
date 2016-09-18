@@ -3,8 +3,8 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { getGrid } from './utils/grids';
-import { requireCss } from './themes';
-requireCss('buttons');
+
+import './themes/mui/buttons.less';
 
 class Button extends Component {
   constructor (props) {

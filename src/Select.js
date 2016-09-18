@@ -11,9 +11,8 @@ import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { register } from './higherOrders/FormItem';
 import { getLang } from './lang';
 
-import { requireCss } from './themes';
-requireCss('select');
-requireCss('form-control');
+import './themes/mui/select.less';
+import './themes/mui/form-control.less';
 
 class Select extends ClickAway(Component) {
   constructor (props) {

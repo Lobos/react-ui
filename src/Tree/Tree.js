@@ -11,8 +11,8 @@ import { forEach, deepEqual, hashcode } from '../utils/objects';
 import { fetchEnhance, FETCH_SUCCESS } from '../higherOrders/Fetch';
 import { register } from '../higherOrders/FormItem';
 import { getLang } from '../lang';
-import { requireCss } from '../themes';
-requireCss('tree');
+
+import '../themes/mui/tree.less';
 
 import Item from './Item';
 

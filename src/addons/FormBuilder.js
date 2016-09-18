@@ -9,9 +9,6 @@ import ControlBuilder from './ControlBuilder';
 import ItemBuilder from './ItemBuilder';
 import clone from '../utils/clone';
 
-import { requireCss } from '../themes';
-// requireCss('form-builder');
-
 class FormBuilder extends React.Component {
   constructor (props) {
     super(props);

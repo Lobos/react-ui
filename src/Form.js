@@ -10,8 +10,7 @@ import FormSubmit from './FormSubmit';
 import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
 import { getLang } from './lang';
 
-import { requireCss } from './themes';
-requireCss('form');
+import './themes/mui/form.less';
 
 class Form extends Component {
   constructor (props) {

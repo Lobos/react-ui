@@ -2,8 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 
-import { requireCss } from './themes';
-requireCss('checkbox');
+import './themes/mui/checkbox.less';
 
 class Radio extends Component {
   constructor (props) {

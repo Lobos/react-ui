@@ -8,8 +8,7 @@ import { getGrid } from './utils/grids';
 import upload from './utils/upload';
 import { register } from './higherOrders/FormItem';
 
-import { requireCss } from './themes';
-requireCss('upload');
+import './themes/mui/upload.less';
 
 import { getLang, setLang } from './lang';
 setLang('validation', 'buttons');

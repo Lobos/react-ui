@@ -10,8 +10,7 @@ import upload from './utils/upload';
 
 import { register } from './higherOrders/FormItem';
 
-import { requireCss } from './themes';
-requireCss('imgupload');
+import './themes/mui/imgupload.less';
 
 import { getLang, setLang } from './lang';
 setLang('validation', 'buttons');

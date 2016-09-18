@@ -4,8 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import { register } from './higherOrders/FormItem';
 
-import { requireCss } from './themes';
-requireCss('checkbox');
+import './themes/mui/checkbox.less';
 
 class Checkbox extends Component {
   constructor (props) {

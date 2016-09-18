@@ -7,8 +7,7 @@ import { deepEqual, hashcode } from './utils/objects';
 import TableHeader from './TableHeader';
 import { fetchEnhance } from './higherOrders/Fetch';
 
-import { requireCss } from './themes';
-requireCss('tables');
+import './themes/mui/tables.less';
 
 class Table extends Component {
   constructor (props) {

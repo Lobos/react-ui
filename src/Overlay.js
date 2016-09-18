@@ -3,8 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 
-import { requireCss } from './themes';
-requireCss('overlay');
+import './themes/mui/overlay.less';
 
 class Overlay extends Component {
   render () {

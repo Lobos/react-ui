@@ -4,9 +4,6 @@ import React, { Component, PropTypes } from 'react';
 import ClickAway from './mixins/ClickAway';
 import classnames from 'classnames';
 
-import { requireCss } from './themes';
-requireCss('tip');
-
 class Tip extends ClickAway(Component) {
 
   constructor (props) {

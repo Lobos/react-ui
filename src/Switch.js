@@ -3,8 +3,7 @@
 import React,{ Component,PropTypes } from 'react'
 import classnames from 'classnames';
 
-import { requireCss } from './themes';
-requireCss('switch');
+import './themes/mui/switch.less';
 
 class Switch extends Component {
   constructor(props){

@@ -8,8 +8,7 @@ import ClickAway from '../mixins/ClickAway';
 import TimeSet from './TimeSet';
 import Clock from './Clock';
 
-import { requireCss } from '../themes';
-requireCss('datetime');
+import '../themes/mui/datetime.less';
 
 import { getLang, setLang } from '../lang';
 setLang('datetime');

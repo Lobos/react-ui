@@ -6,9 +6,8 @@ import Regs from './utils/regs';
 import { getGrid } from './utils/grids';
 import { register } from './higherOrders/FormItem';
 
-import { requireCss } from './themes';
-requireCss('input');
-requireCss('form-control');
+import './themes/mui/input.less';
+import './themes/mui/form-control.less';
 
 class Input extends Component {
   constructor (props) {

@@ -4,8 +4,7 @@ import React, { Component, PropTypes, cloneElement } from 'react';
 import classnames from 'classnames';
 import { register } from './higherOrders/FormItem';
 
-import { requireCss } from './themes';
-requireCss('rating');
+import './themes/mui/rating.less';
 
 let themes = {
   // "star": [Icon, Icon],

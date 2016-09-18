@@ -6,8 +6,7 @@ import Button from './Button';
 import FilterItem from './FilterItem';
 import ClickAway from './mixins/ClickAway';
 
-import { requireCss } from './themes';
-requireCss('filter');
+import './themes/mui/filter.less';
 
 import {getLang, setLang} from './lang';
 setLang('buttons');
