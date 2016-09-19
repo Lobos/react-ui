@@ -157,6 +157,7 @@ base::-moz-progress-bar, // Absurd-but-syntactically-valid selector to make thes
   border-radius: $progress-border-radius;
   margin-bottom: 0.35rem;
   transform: translateX(-50%);
+  white-space: nowrap;
   
   &:after {
     content: ' ';
