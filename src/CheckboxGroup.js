@@ -46,7 +46,7 @@ class CheckboxGroup extends Component {
   }
 
   getSpareValue (value, data) {
-    value = [...value];
+    value = [...toArray(value, this.props.sep)];
     data.forEach(d => {
       let index = value.indexOf(d.$value);
       if (index >= 0) {
