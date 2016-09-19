@@ -105,7 +105,7 @@ class Pagination extends Component {
       <li key="previous"
         onClick={currentPage <= 1 ? null : this.handleChange.bind(this, currentPage - 1)}
         className={classnames(PagiStyles.previous, { disabled: currentPage <= 1 })}>
-        <a>&nbsp;{ANGLE_LEFT}</a>
+        <a href="javascript:;">&nbsp;{ANGLE_LEFT}</a>
       </li>
     )
 
@@ -129,7 +129,7 @@ class Pagination extends Component {
             <li key={i}
               onClick={this.handleChange.bind(this, i)}
               className={classnames(i === currentPage && PagiStyles.active)}>
-              <a>{i}</a>
+              <a href="javascript:;">{i}</a>
             </li>
           )
         }
@@ -141,7 +141,7 @@ class Pagination extends Component {
       <li key="next"
         onClick={currentPage >= max ? null : this.handleChange.bind(this, currentPage + 1)}
         className={classnames(PagiStyles.next, { disabled: currentPage >= max })}>
-        <a>&nbsp;{ANGLE_RIGHT}</a>
+        <a href="javascript:;">&nbsp;{ANGLE_RIGHT}</a>
       </li>
     )
 

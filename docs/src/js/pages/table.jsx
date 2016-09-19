@@ -164,7 +164,7 @@ columns = [{
 ...
 <Table onSelect={arrayHolder} ... />
 ...
-values = arrayHolder.get(',')`}
+values = arrayHolder.getValue(',')`}
           </Code>
 
           <h2 className="subhead">Example</h2>

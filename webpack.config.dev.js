@@ -10,14 +10,6 @@ module.exports = {
       'webpack-hot-middleware/client',
       './docs/src/js/app.jsx',
       './docs/src/less/style.less'
-    ],
-    Form: [
-      'webpack-hot-middleware/client',
-      './standalone/form/index.js'
-    ],
-    formBuilder: [
-      'webpack-hot-middleware/client',
-      './standalone/formBuilder/index.js'
     ]
   },
   output: {
@@ -32,6 +24,12 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
+  resolve: {
+    alias: {
+      rctui: './src'
+    },
+    extensions: ['', '.js', '.jsx']
+  },
   module: {
     loaders: [
       { test: /\.jsx?$/, loader: 'babel', include: [

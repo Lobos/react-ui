@@ -5,8 +5,7 @@ var precss = require('precss')
 
 module.exports = {
   entry: {
-    app: './docs/src/js/app.jsx',
-    Form: './standalone/form/index.js'
+    app: './docs/src/js/app.jsx'
   },
   output: {
     path: path.join(__dirname, 'docs/dist'),
