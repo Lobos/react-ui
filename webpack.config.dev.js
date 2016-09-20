@@ -21,12 +21,11 @@ module.exports = {
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM', 'react-router': 'ReactRouter'},
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
     alias: {
-      rctui: './src'
+      rctui: path.resolve(__dirname, 'src')
     },
     extensions: ['', '.js', '.jsx']
   },

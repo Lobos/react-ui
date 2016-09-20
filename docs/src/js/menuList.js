@@ -46,5 +46,8 @@ module.exports = [
   { path: '/table', text: 'Table', component: require('./pages/table.jsx') },
 
   'HIGHERORDER',
-  { path: '/fetch', text: 'Fetch', component: require('./pages/fetch.jsx') }
+  { path: '/fetch', text: 'Fetch', component: require('./pages/fetch.jsx') },
+
+  'ADDONS',
+  { path: '/editor', text: 'Editor', component: require('./pages/editor.jsx').default }
 ]

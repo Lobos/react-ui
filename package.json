@@ -29,7 +29,7 @@
     "autoprefixer": "~6.3.4",
     "babel": "^6.5.2",
     "babel-core": "~6.7.2",
-    "babel-eslint": "~6.1.2",
+    "babel-eslint": "^6.1.2",
     "babel-loader": "~6.2.4",
     "babel-plugin-react-require": "^2.1.0",
     "babel-plugin-react-transform": "~2.0.2",
@@ -104,6 +104,7 @@
   "dependencies": {
     "classnames": "^2.2.3",
     "curry": "^1.2.0",
+    "quill": "^1.0.4",
     "refetch": "^0.2.1"
   }
 }

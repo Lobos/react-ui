@@ -32,11 +32,11 @@ module.exports = class extends React.Component {
             <Code>
 {`<Switch
   className={string}  // class
-  text="string"       // 
+  text="string"       //
   value={bool}        // default value is false
   checked={bool}      // default value is false
   readOnly={bool}     // default value is false
-  onChange={function} // 
+  onChange={function} //
 />`}
             </Code>
           </En>
