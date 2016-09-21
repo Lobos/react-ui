@@ -55,11 +55,8 @@ class Form extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (!deepEqual(this.props.data, nextProps.data)) {
-      this.setState({ data: clone(nextProps.data) })
-
-      // if data changed, clear validation
-      forEach(this.items, (item) => {
-        delete item.$validation
+      this.setState({ data: clone(nextProps.data) }, () => {
+        this.validate()
       })
     }
   }

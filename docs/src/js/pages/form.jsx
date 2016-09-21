@@ -5,7 +5,8 @@ import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
 import { Cascade, Form, FormControl, Button, Icon, Input, InputGroup, FormText,
-  DatepickerRange, RadioGroup, FormItem, If, Upload, Grid } from '../rctui'
+  DatepickerRange, RadioGroup, FormItem, If, Upload, Grid } from 'rctui'
+import Editor from 'rctui/addons/Editor'
 import { Cn, En } from '../Language'
 
 const HEARTS = [
@@ -38,7 +39,7 @@ module.exports = class extends React.Component {
     submit: 'string',   // submit 按钮文字
     reset: 'string',    // reset 按钮文字
     cancel: 'string'    // cancel 按钮文字
-  }                     
+  }
   data={object}         // 数据，object
   fetch={object}        // 获取服务端表单数据，如果传入了data，fetch无效
   hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
@@ -64,8 +65,8 @@ module.exports = class extends React.Component {
     submit: 'string',   // submit button text
     reset: 'string',    // reset button text
     cancel: 'string'    // cancel button text
-  }                     
-  data={object}         // 
+  }
+  data={object}         //
   fetch={object}        // if data set, fetch will be ignored
   hintType={string}     // 'block|pop|inline|none'
                            if layout is 'stacked' or 'aligned', default is 'block'
@@ -325,6 +326,10 @@ module.exports = class extends React.Component {
                 rows={5}
                 max={100}
                 type="textarea" />
+
+              <FormControl label="editor">
+                <Editor name="editor" />
+              </FormControl>
             </Form>
           </Example>
         </div>

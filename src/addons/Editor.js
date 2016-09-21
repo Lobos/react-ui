@@ -5,6 +5,29 @@ import { compose } from '../utils/compose'
 
 import 'quill/dist/quill.snow.css'
 
+(function () {
+  let BlockEmbed = Quill.import('blots/block/embed')
+
+  class ImageBlot extends BlockEmbed {
+    static create (value) {
+      let node = super.create()
+      node.setAttribute('alt', value.alt)
+      node.setAttribute('src', value.url)
+      return node
+    }
+
+    static value (node) {
+      return {
+        alt: node.getAttribute('alt'),
+        url: node.getAttribute('src')
+      }
+    }
+  }
+  ImageBlot.blotName = 'image-blot'
+  ImageBlot.tagName = 'img'
+  Quill.register(ImageBlot)
+})()
+
 class Editor extends Component {
   constructor (props) {
     super(props)
@@ -13,15 +36,26 @@ class Editor extends Component {
   }
 
   componentDidMount () {
-    const { theme, placeholder, modules } = this.props
+    const { value, theme, placeholder, readOnly, toolbar, getEditor } = this.props
 
     let editor = this.editor = new Quill(this.refs.editor, {
-      modules,
+      modules: { toolbar },
       placeholder,
+      readOnly,
       theme
     })
 
+    if (value) editor.clipboard.dangerouslyPasteHTML(value)
+
     editor.on('text-change', this.handleChange)
+
+    getEditor && getEditor(editor)
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.value !== this.value) {
+      this.editor.clipboard.dangerouslyPasteHTML(nextProps.value)
+    }
   }
 
   componentWillUnmount () {
@@ -29,7 +63,8 @@ class Editor extends Component {
   }
 
   handleChange () {
-    this.props.onChange(this.editor.root.innerHTML)
+    this.value = this.editor.root.innerHTML
+    this.props.onChange(this.value)
   }
 
   render () {
@@ -40,15 +75,23 @@ class Editor extends Component {
 }
 
 Editor.propTypes = {
-  modules: PropTypes.object,
+  getEditor: PropTypes.func,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  readOnly: PropTypes.bool,
   style: PropTypes.object,
-  theme: PropTypes.string
+  theme: PropTypes.string,
+  toolbar: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+    PropTypes.object
+  ]),
+  value: PropTypes.string
 }
 
 Editor.defaultProps = {
-  theme: 'snow'
+  theme: 'snow',
+  style: { height: 200 }
 }
 
 export default compose(

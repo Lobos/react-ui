@@ -46,4 +46,8 @@ Card.Nav = (props) => (
   </div>
 )
 
+Card.Nav.propTypes = {
+  type: PropTypes.string
+}
+
 Card.NavItem = NavItem
