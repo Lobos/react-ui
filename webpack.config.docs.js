@@ -13,7 +13,7 @@ module.exports = {
     library: '[name]',
     filename: 'js/[name].js'
   },
-  externals: {'react': 'React', 'react-dom': 'ReactDOM'},
+  externals: {'react': 'React', 'react-dom': 'ReactDOM', 'quill': 'Quill'},
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
@@ -36,6 +36,12 @@ module.exports = {
       }
     })
   ],
+  resolve: {
+    alias: {
+      rctui: path.resolve(__dirname, 'src')
+    },
+    extensions: ['', '.js', '.jsx']
+  },
   module: {
     loaders: [
       { test: /\.jsx?$/, loaders: ['babel'] },
