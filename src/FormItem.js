@@ -1,5 +1,3 @@
-'use strict'
-
 import { Component, cloneElement, PropTypes } from 'react'
 import Enhance from './higherOrders/FormItem'
 
@@ -18,9 +16,7 @@ class FormItem extends Component {
   }
 
   render () {
-    const { value = '' } = this.props
     return cloneElement(this.props.children, {
-      value,
       onChange: this.handleChange
     })
   }

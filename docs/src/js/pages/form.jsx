@@ -98,7 +98,7 @@ module.exports = class extends React.Component {
 <Form button="Submit" layout={this.state.layout}>
   <FormControl grid={1 / 4} label="name" name="name" type="text" min={2} max={6} />
   <FormControl grid={1 / 4} name="email" placeholder="email" type="email" />
-  <FormControl name="nationality" label="nationality" type="select"
+  <FormControl grid={1 / 3} name="nationality" label="nationality" type="select"
     data={['Chinese', 'American', 'Russian', 'Japanese', 'English', 'Spainish']} />
 </Form>
           </Example>
@@ -251,9 +251,7 @@ module.exports = class extends React.Component {
                 type="checkbox-group" />
 
               <FormControl label="cascade">
-                <FormItem name="cascade">
-                  <Cascade grid={1 / 2} fetch={'json/tree.json'} />
-                </FormItem>
+                <Cascade name="cascade" grid={1 / 2} fetch={'json/tree.json'} />
               </FormControl>
 
               <FormControl name="radiogroup"
