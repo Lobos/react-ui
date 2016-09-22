@@ -204,11 +204,13 @@ class FormControl extends Component {
       !isEmpty(this.state.validations) && _forms.hasError
     )
 
+    if (!grid && columns) grid = 1 / columns
+
     if (isInline) {
       className = classnames(
         className,
-        getGrid(grid || (columns ? 1 / columns : undefined)),
-        columns && columns > 0 && _forms.columned
+        getGrid(grid),
+        grid && _forms.columned
       )
       grid = grid ? 1 : undefined
     }

@@ -1,5 +1,3 @@
-'use strict'
-
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
@@ -98,10 +96,8 @@ module.exports = class extends React.Component {
   onChange={layout => this.setState({ layout })} />
 
 <Form button="Submit" layout={this.state.layout}>
-  <FormControl label="name">
-    <Input name="name" style={{width: '10rem'}} type="text" min={2} max={6} />
-  </FormControl>
-  <FormControl grid={1 / 3} name="email" placeholder="email" type="email" />
+  <FormControl grid={1 / 4} label="name" name="name" type="text" min={2} max={6} />
+  <FormControl grid={1 / 4} name="email" placeholder="email" type="email" />
   <FormControl name="nationality" label="nationality" type="select"
     data={['Chinese', 'American', 'Russian', 'Japanese', 'English', 'Spainish']} />
 </Form>
@@ -276,6 +272,7 @@ module.exports = class extends React.Component {
                 type="rating" />
 
               <FormControl
+                grid={2 / 3}
                 name="select"
                 label="select"
                 type="select"
@@ -328,7 +325,7 @@ module.exports = class extends React.Component {
                 type="textarea" />
 
               <FormControl label="editor">
-                <Editor name="editor" />
+                <Editor grid={3 / 4} name="editor" />
               </FormControl>
             </Form>
           </Example>

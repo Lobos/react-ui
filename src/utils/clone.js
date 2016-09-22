@@ -23,7 +23,9 @@ export default function clone (obj) {
     case 'object':
       let copy = {}
       Object.keys(obj).forEach((key) => {
-        copy[key] = clone(obj[key])
+        if (key.charAt(0) !== '$') {
+          copy[key] = clone(obj[key])
+        }
       })
       return copy
 

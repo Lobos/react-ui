@@ -62,6 +62,8 @@ export default class Select extends Component {
       value = values.join(sep)
     } else if (typeof sep === 'function') {
       value = sep(raw)
+    } else if (!this.props.mult) {
+      value = value[0]
     }
 
     return value

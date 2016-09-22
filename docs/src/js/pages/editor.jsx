@@ -2,8 +2,8 @@ import { Component } from 'react'
 import Example from '../Example'
 import Code from '../Code'
 import { Cn, En } from '../Language'
-import Editor, { EditorButton } from 'rctui/addons/Editor'
-import { Modal, Form, FormControl } from 'rctui'
+import Editor from 'rctui/addons/Editor'
+import { Modal, Form, FormControl, Icon } from 'rctui'
 
 class Page extends Component {
   constructor (props) {
@@ -34,7 +34,6 @@ class Page extends Component {
               style={object}
               readOnly={bool}
               onChange={func(value)}
-              getEditor={func(editor)} // hook, get quill eidtor instance
             />
           `}
           </Code>
@@ -67,13 +66,22 @@ class Page extends Component {
             </div>
           </Example>
 
-          <h2 className="subhead">Custom toolbar</h2>
+          <h2 className="subhead">Custom Button</h2>
+          <Cn>提供了一个Editor.Button，用来自定义扩展。<a href="http://quilljs.com/guides/cloning-medium-with-parchment/" target="_blank">api见这里</a></Cn>
+          <Code>
+          {`
+            <Editor.Button onClick={(editor instance) => { do something. }>
+              {children} // text or reactElement
+            </Editor.Button>
+          `}
+          </Code>
+
           <Example>
             <Editor toolbar={[
               'bold',
               'italic',
               'underline',
-              <EditorButton key="image" onClick={(editor, quill) => {
+              <Editor.Button key="image-blot" onClick={(editor) => {
                 let mid = Modal.open({
                   header: 'Image',
                   content: (
@@ -92,10 +100,38 @@ class Page extends Component {
                     'sumbit': 'submit'
                   }
                 })
-              }}>img</EditorButton>
-            ]}
+                }}><Icon style={{fontSize: 20}} icon="image" /></Editor.Button>
+              ]}
             />
           </Example>
+          <Code>
+          {`
+            // Just show the code.
+            // Eidtor has registered an internal image-blot.
+            let BlockEmbed = Quill.import('blots/block/embed')
+
+            class ImageBlot extends BlockEmbed {
+              static create (value) {
+                let node = super.create()
+                node.setAttribute('alt', value.alt)
+                node.setAttribute('src', value.url)
+                return node
+              }
+
+              static value (node) {
+                return {
+                  alt: node.getAttribute('alt'),
+                  url: node.getAttribute('src')
+                }
+              }
+            }
+
+            ImageBlot.blotName = 'image-blot'
+            ImageBlot.tagName = 'img'
+
+            Quill.register(ImageBlot)
+          `}
+          </Code>
         </div>
       </div>
     )

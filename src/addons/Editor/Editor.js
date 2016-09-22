@@ -1,6 +1,8 @@
-import { Component, PropTypes, isValidElement } from 'react'
+import { Component, isValidElement } from 'react'
+import PropTypes from '../../utils/proptypes'
 import Quill from 'quill'
 import { nextUid } from '../../utils/strings'
+import { getGrid } from '../../utils/grids'
 
 export default class Editor extends Component {
   constructor (props) {
@@ -50,13 +52,13 @@ export default class Editor extends Component {
     this.props.onChange(this.value)
   }
 
-  renderToolbar (toolbar) {
+  renderToolbar (toolbar, index) {
     if (typeof toolbar === 'string') {
       return <button key={toolbar} className={`ql-${toolbar}`} />
     }
 
     if (Array.isArray(toolbar)) {
-      return toolbar.map(child => this.renderToolbar(child))
+      return <span key={index}>{toolbar.map((child, i) => this.renderToolbar(child, i))}</span>
     }
 
     if (isValidElement(toolbar)) return toolbar
@@ -67,21 +69,23 @@ export default class Editor extends Component {
 
       if (Array.isArray(value)) {
         return (
-          <select value={false} className={`ql-${key}`}>
+          <select key={`${key}-${index}`} value={false} className={`ql-${key}`}>
           { value.map(v => <option key={v} value={v} />) }
           </select>
         )
       } else {
-        return <button className={`ql-${key}`} value={value} />
+        return <button key={`${key}-${index}`} className={`ql-${key}`} value={value} />
       }
     }
   }
 
   render () {
-    const { style, toolbar, height } = this.props
+    const { style, toolbar, grid, height } = this.props
+
+    let className = getGrid(grid)
 
     return (
-      <div style={style}>
+      <div style={style} className={className}>
         <div id={this.id}>
           {this.renderToolbar(toolbar)}
         </div>
@@ -92,26 +96,26 @@ export default class Editor extends Component {
 }
 
 Editor.propTypes = {
-  height: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]),
+  grid: PropTypes.grid,
+  height: PropTypes.number_string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   style: PropTypes.object,
   theme: PropTypes.string,
-  toolbar: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-    PropTypes.object
-  ]),
+  toolbar: PropTypes.array_element_object,
   value: PropTypes.string
 }
 
 Editor.defaultProps = {
   height: 200,
-  theme: 'snow'
+  theme: 'snow',
+  toolbar: [
+    [{ header: ['1', '2', '3', false] }],
+    ['bold', 'italic', 'underline', 'link'],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    ['clean']
+  ]
 }
 
 Editor.childContextTypes = {

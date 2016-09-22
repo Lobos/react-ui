@@ -10,7 +10,7 @@
     top: 0;
     line-height: $form-group-label-line-height;
   }
- 
+
   .control {
     margin-left: $form-aligned-control-margin;
 
@@ -24,11 +24,15 @@
   &::after {
     content: ' ';
     clear: both;
+    display: block;
+    height: 0;
+    overflow: hidden;
   }
 
   .form-group {
-    display: inline-block;
-    margin-right: $form-inline-group-margin;
+    display: flex;
+    float: left;
+    padding-right: $form-inline-group-margin;
     vertical-align: middle;
   }
 
@@ -41,23 +45,18 @@
     margin-left: $form-inline-control-margin;
   }
 
-  .columned {
+  .control {
     display: inline-block;
-    margin-right: 0;
-    display: flex;
-    float: left;
-    padding-right: 1rem;
+    position: relative;
+    width: 100%;
+  }
 
+  .columned {
     .control {
       flex: 1;
       margin-bottom: 0;
       position: relative;
     }
-  }
-
-  .control {
-    display: inline-block;
-    position: relative;
   }
 
   .hint-text {

@@ -1,5 +1,3 @@
-'use strict'
-
 let uid = Date.now()
 export function nextUid () {
   return (uid++).toString(36)
@@ -39,7 +37,7 @@ export function toArray (value, sep) {
   if (typeof value === 'string' && sep) {
     value = value.split(sep)
   } else if (!(value instanceof Array)) {
-    value = [value.toString()]
+    value = [sep ? value.toString() : value]
   } else if (sep) {
     // if use sep, convert every value to string
     value = value.map((v) => v.toString())

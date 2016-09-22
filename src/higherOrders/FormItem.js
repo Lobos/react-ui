@@ -1,5 +1,3 @@
-'use strict'
-
 import React, { createElement } from 'react'
 import classnames from 'classnames'
 import curry from 'curry'
@@ -18,7 +16,7 @@ export default function FormItem (Component) {
 
       this.state = {
         result: undefined,
-        value: props.value || props.defaultValue
+        value: props.value !== undefined ? props.value : props.defaultValue
       }
 
       this.handleChange = this.handleChange.bind(this)
@@ -98,7 +96,9 @@ export default function FormItem (Component) {
       const { name } = this.props
       const { formData } = this.context
 
-      return formData && formData[name] !== undefined ? formData[name] : this.state.value
+      if (!name || !formData) return this.state.value
+
+      return formData[name] !== undefined ? formData[name] : this.state.value
     }
 
     handleChange (value) {

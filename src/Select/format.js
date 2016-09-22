@@ -6,7 +6,7 @@ import PureRender from '../mixins/PureRender'
 
 export default curry(function (Component) {
   const Format = function (props) {
-    let values = toArray(props.value, props.mult && props.sep)
+    let values = toArray(props.value, props.sep)
 
     let { data, filterAble, valueTpl, optionTpl, resultTpl, groupBy } = props
     let noResultTpl = !resultTpl

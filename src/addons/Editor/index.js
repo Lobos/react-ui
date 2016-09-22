@@ -9,8 +9,10 @@ import 'quill/dist/quill.snow.css'
 
 Quill.register(ImageBlot)
 
-export const EditorButton = Button
-
-export default compose(
+const Component = compose(
   FormItem.register('editor', {})
 )(Editor)
+
+Component.Button = Button
+
+export default Component
