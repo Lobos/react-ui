@@ -8,8 +8,7 @@ import { isEmpty, objectAssign, shallowEqual, deepEqual, partialEqual } from './
 import PropTypes from './utils/proptypes'
 import { safeHtml } from './utils/safeHtml'
 
-import { getLang, setLang } from './lang'
-setLang('validation')
+import { getLang } from './lang'
 
 import _forms from './styles/_form.scss'
 

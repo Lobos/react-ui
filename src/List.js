@@ -7,8 +7,7 @@ import * as Events from './utils/events'
 import SafeHtml from './SafeHtml'
 
 import _lists from './styles/_list.scss'
-import { getLang, setLang } from './lang'
-setLang('fetch')
+import { getLang } from './lang'
 
 export default class List extends Component {
   constructor (props) {
@@ -21,8 +20,8 @@ export default class List extends Component {
 
   componentDidMount () {
     // get one option height, set option wrapper height
+    const wrap = this.refs.wrap
     setTimeout(() => {
-      const wrap = this.refs.wrap
       this._optionHeight = wrap.querySelector('ul li').clientHeight
       wrap.querySelector('ul').style.height = (this._optionHeight * (this.props.data.length || 1)) + 'px'
       this.toggleScroll('on')

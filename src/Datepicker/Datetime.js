@@ -15,8 +15,7 @@ import PropTypes from '../utils/proptypes'
 import _datepickers from '../styles/_datepicker.scss'
 import _inputs from '../styles/_input.scss'
 
-import { getLang, setLang } from '../lang'
-setLang('datetime')
+import { getLang } from '../lang'
 
 const DATETIME = 'datetime'
 const DATE = 'date'
@@ -299,7 +298,7 @@ class Datetime extends Component {
   }
 
   renderMonths () {
-    return getLang('datetime.fullMonth').map(function (m, i) {
+    return getLang('datetime.fullMonth', []).map(function (m, i) {
       return (
         <a type="button" href="javascript:;"
           onClick={this.monthChange.bind(this, i)}
@@ -402,7 +401,7 @@ class Datetime extends Component {
   renderInner () {
     switch (this.state.stage) {
       case 'day':
-        let weeks = getLang('datetime.weekday').map(function (w, i) {
+        let weeks = getLang('datetime.weekday', []).map(function (w, i) {
           return <div key={i} className={_datepickers.week}>{w}</div>
         })
         return <div className={_datepickers.dayInner}>{weeks}{this.renderDays()}</div>

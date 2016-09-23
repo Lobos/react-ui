@@ -6,8 +6,7 @@ import PropTypes from './utils/proptypes'
 import Form from './Form'
 import FormControl from './FormControl'
 
-import { getLang, setLang } from './lang'
-setLang('buttons')
+import { getLang } from './lang'
 
 export default class Filter extends Component {
   constructor (props) {

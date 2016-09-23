@@ -1,7 +1,6 @@
 'use strict'
 
-import { getLang, setLang } from '../lang'
-setLang('datetime')
+import { getLang } from '../lang'
 
 export function clone (d) {
   return new Date(d.getTime())

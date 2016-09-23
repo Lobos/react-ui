@@ -7,8 +7,7 @@ import { nextUid } from '../utils/strings'
 import Container from './Container'
 import fakeModal from './Fake'
 
-import {getLang, setLang} from '../lang'
-setLang('buttons', 'modal')
+import {getLang} from '../lang'
 
 // create container ===================================================
 

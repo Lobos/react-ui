@@ -9,7 +9,8 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'build'),
-    filename: '[name].js'
+    filename: '[name].js',
+    chunkFilename: 'chunk/[name].js'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},
   plugins: [

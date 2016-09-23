@@ -19,11 +19,14 @@ export default function compare (x, y) {
   // Works in case when functions are created in constructor.
   // Comparing dates is a common scenario. Another built-ins?
   // We can even handle functions passed across iframes
-  if ((typeof x === 'function' && typeof y === 'function') ||
-    (x instanceof RegExp && y instanceof RegExp) ||
+  if (typeof x === 'function' && typeof y === 'function') {
+    if ((x instanceof RegExp && y instanceof RegExp) ||
     (x instanceof String || y instanceof String) ||
     (x instanceof Number || y instanceof Number)) {
-    return x.toString() === y.toString()
+      return x.toString() === y.toString()
+    } else {
+      return false
+    }
   }
 
   if (x instanceof Date && y instanceof Date) {

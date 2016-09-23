@@ -100,8 +100,7 @@ module.exports = class extends Component {
             <Input type="text" grid={1 / 2} />
           </Example>
 
-          <Cn tag="h2" className="subhead">任意等分</Cn>
-          <En tag="h2" className="subhead">Any Decile</En>
+          <h2 className="subhead">Example</h2>
           <Select data={options} value={this.state.grid} onChange={this.gridChange.bind(this)} />
 
           <div style={{ marginTop: 10 }}>
@@ -120,8 +119,8 @@ module.exports = class extends Component {
             <Grid width={1 / 2} offset={1 / 6} style={borderGridStyle}>offset 1/6</Grid>
           </Example>
 
-          <Cn tag="h2" className="subhead">嵌套</Cn>
-          <En tag="h2" className="subhead">Nested</En>
+          <Cn><h2 className="subhead">嵌套</h2></Cn>
+          <En><h2 className="subhead">Nested</h2></En>
           <Example>
             <Grid style={{background: '#eee'}} width={ 1 / 2 }>
               <div style={{ textAlign: 'center', lineHeight: '30px' }}>1/2</div>

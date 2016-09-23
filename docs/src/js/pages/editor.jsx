@@ -138,4 +138,4 @@ class Page extends Component {
   }
 }
 
-export default Page
+module.exports = Page

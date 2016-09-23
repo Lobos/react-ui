@@ -2,8 +2,7 @@ import Regs from './regs'
 import { format, toArray } from './strings'
 import Warning from './warning'
 
-import { getLang, setLang } from '../lang'
-setLang('validation')
+import { getLang } from '../lang'
 
 function handleError (label, value, key, tip) {
   // handle error

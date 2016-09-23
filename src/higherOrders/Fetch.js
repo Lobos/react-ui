@@ -7,8 +7,7 @@ import curry from 'curry'
 import { deepEqual, shallowEqual } from '../utils/objects'
 import clone from '../utils/clone'
 
-import { setLang, getLang } from '../lang'
-setLang('fetch')
+import { getLang } from '../lang'
 
 import FormStyles from '../styles/_form.scss'
 

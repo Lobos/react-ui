@@ -17,7 +17,8 @@ module.exports = {
     filename: 'js/[name].js',
     libraryTarget: 'umd',
     library: '[name]',
-    publicPath: '/'
+    publicPath: '/',
+    chunkFilename: 'js/chunk/[name].js'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM', 'react-router': 'ReactRouter'},
   plugins: [

@@ -1,4 +1,5 @@
-let pureRender = false
+let pureRender = true
+let location = 'zh-cn'
 
 const config = {
   get pureRender () {
@@ -7,6 +8,14 @@ const config = {
 
   set pureRender (val) {
     pureRender = val
+  },
+
+  get location () {
+    return location
+  },
+
+  set location (val) {
+    location = val
   }
 }
 

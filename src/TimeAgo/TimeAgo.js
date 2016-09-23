@@ -1,13 +1,9 @@
-'use strict'
-
 import { Component } from 'react'
+import classnames from 'classnames'
 import PropTypes from '../utils/proptypes'
-import { getLang, setLang } from '../lang'
+import { getLang } from '../lang'
 import { format } from '../utils/strings'
 import * as Datetime from '../utils/datetime'
-
-setLang('timeago')
-import classnames from 'classnames'
 
 export default class TimeAgo extends Component {
   count (current) {

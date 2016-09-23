@@ -35,7 +35,10 @@ class NavList extends Component {
       } else if (r.path) {
         return (
           <li key={i} className="pure-menu-item">
-            <a onClick={this.pathChange.bind(this, r.path)} className={this.getClasses('pure-menu-link', r.path)}>{r.text}</a>
+            <a onClick={this.pathChange.bind(this, r.path)}
+              className={this.getClasses('pure-menu-link', r.path)}>
+              {r.path.replace('/', '').replace(/^[a-z]/, (s) => s.toUpperCase())}
+            </a>
           </li>
         )
       }

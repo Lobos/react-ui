@@ -8,8 +8,7 @@ import FormItem from './higherOrders/FormItem'
 
 import _uploads from './styles/_upload.scss'
 
-import { getLang, setLang } from './lang'
-setLang('validation', 'buttons')
+import { getLang } from './lang'
 
 class Upload extends Component {
   constructor (props) {

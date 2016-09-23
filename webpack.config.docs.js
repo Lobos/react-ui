@@ -11,7 +11,8 @@ module.exports = {
     path: path.join(__dirname, 'docs/dist'),
     libraryTarget: 'umd',
     library: '[name]',
-    filename: 'js/[name].js'
+    filename: 'js/[name].js',
+    chunkFilename: 'js/chunk/[name].js'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM', 'quill': 'Quill'},
   plugins: [

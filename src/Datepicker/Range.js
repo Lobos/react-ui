@@ -9,8 +9,7 @@ import FormItem from '../higherOrders/FormItem'
 import { compose } from '../utils/compose'
 import { format } from '../utils/strings'
 
-import { getLang, setLang } from '../lang'
-setLang('validation')
+import { getLang } from '../lang'
 
 import _datepickers from '../styles/_datepicker.scss'
 
