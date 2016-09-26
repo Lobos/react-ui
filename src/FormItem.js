@@ -16,10 +16,14 @@ class FormItem extends Component {
   }
 
   render () {
-    const { children } = this.props
+    const { children, readOnly } = this.props
     let value = this.props.value
-    if (value === undefined && children && typeof children.type === 'object' && children.type.defaultProps) {
-      value = children.type.defaultProps.vlaue
+
+    if (value === undefined && children &&
+      typeof children.type === 'object' &&
+      children.type.defaultProps
+    ) {
+      value = children.type.defaultProps.value
     }
 
     if (value === undefined && children.props) {
@@ -28,6 +32,7 @@ class FormItem extends Component {
 
     return cloneElement(children, {
       value,
+      readOnly,
       onChange: this.handleChange
     })
   }
@@ -36,6 +41,7 @@ class FormItem extends Component {
 FormItem.propTypes = {
   children: PropTypes.element,
   onChange: PropTypes.func,
+  readOnly: PropTypes.bool,
   value: PropTypes.any
 }
 

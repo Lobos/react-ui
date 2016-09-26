@@ -83,6 +83,9 @@ class Form extends Component {
         ds.forEach((d) => this.items[d].validate())
       }
     })
+
+    // handle form data change
+    this.props.onChange && this.props.onChange(data)
   }
 
   validate () {
@@ -158,12 +161,13 @@ class Form extends Component {
     }
 
     const { submit, reset, cancel } = buttons
+    const { disabled } = this.props
 
     return (
       <FormControl key="buttons" columns={null}>
-        { submit && <Button className={_forms.button} type="submit" status="primary">{submit}</Button> }
-        { reset && <Button onClick={this.handleReset} className={_forms.button}>{reset}</Button> }
-        { cancel && <Button onClick={this.props.onCancel} className={_forms.button}>{cancel}</Button> }
+        { submit && <Button className={_forms.button} disabled={disabled} type="submit" status="primary">{submit}</Button> }
+        { reset && <Button onClick={this.handleReset} disabled={disabled} className={_forms.button}>{reset}</Button> }
+        { cancel && <Button onClick={this.props.onCancel} disabled={disabled} className={_forms.button}>{cancel}</Button> }
       </FormControl>
     )
   }
@@ -207,6 +211,7 @@ Form.propTypes = {
   labelWidth: PropTypes.number_string,
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
   onCancel: PropTypes.func,
+  onChange: PropTypes.func,
   onReset: PropTypes.func,
   onSubmit: PropTypes.func,
   style: PropTypes.object

@@ -103,7 +103,7 @@ export default function FormItem (Component) {
 
     handleChange (value) {
       const { itemChange } = this.context
-      const { name, onChange, onValidate } = this.props
+      const { name, onChange } = this.props
 
       if (typeof value === 'object' && value.nativeEvent) {
         value = value.target.value
@@ -112,25 +112,30 @@ export default function FormItem (Component) {
       this._timeout && clearTimeout(this._timeout)
 
       if (value instanceof Error) {
-        onValidate && onValidate(name, value)
+        this.setResult(value)
       } else {
         this._timeout = setTimeout(() => {
           this.validate(value)
         }, 400)
+
         // if in a form, use formData, else use state
-        itemChange ? itemChange(name, value) : this.setState({ value })
+        itemChange && name ? itemChange(name, value) : this.setState({ value })
         onChange && onChange(...arguments)
       }
     }
 
     render () {
-      let { className, value, style, ...props } = this.props
-      value = this.getValue()
+      let { readOnly, ...props } = this.props
+      const { controlProps } = this.context
 
-      className = classnames(
-        className,
+      let value = this.getValue()
+
+      let className = classnames(
+        this.props.className,
         (this.state.result instanceof Error) && _inputs.dangerInput
       )
+
+      if (controlProps && controlProps.disabled) readOnly = true
 
       // remove defaultValue,  use controlled value
       delete props['defaultValue']
@@ -139,8 +144,8 @@ export default function FormItem (Component) {
         <Component {...props}
           hasError={this.state.result instanceof Error}
           onChange={this.handleChange}
-          style={style}
           value={value}
+          readOnly={readOnly}
           className={className}
         />
       )
@@ -160,6 +165,7 @@ export default function FormItem (Component) {
     name: PropTypes.string,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
+    readOnly: PropTypes.bool,
     sep: PropTypes.string,
     style: PropTypes.object_string,
     type: PropTypes.string,
@@ -171,7 +177,8 @@ export default function FormItem (Component) {
     formData: PropTypes.object,
     itemBind: PropTypes.func,
     itemChange: PropTypes.func,
-    itemUnbind: PropTypes.func
+    itemUnbind: PropTypes.func,
+    controlProps: PropTypes.object
   }
 
   FormItem.defaultProps = {

@@ -39,6 +39,7 @@ module.exports = class extends React.Component {
     cancel: 'string'    // cancel 按钮文字
   }
   data={object}         // 数据，object
+  disabled={bool}
   fetch={object}        // 获取服务端表单数据，如果传入了data，fetch无效
   hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
                            layout 为 stacked, aligned 时，默认为 "block"
@@ -65,6 +66,7 @@ module.exports = class extends React.Component {
     cancel: 'string'    // cancel button text
   }
   data={object}         //
+  disabled={bool}
   fetch={object}        // if data set, fetch will be ignored
   hintType={string}     // 'block|pop|inline|none'
                            if layout is 'stacked' or 'aligned', default is 'block'

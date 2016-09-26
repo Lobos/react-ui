@@ -74,6 +74,7 @@
     "mkdirp": "~0.5.1",
     "mocha": "^2.3.4",
     "mocha-loader": "^0.7.1",
+    "multer": "^1.2.0",
     "node-sass": "^3.6.0",
     "object-assign": "^4.0.1",
     "phantomjs": "~2.1.3",

@@ -90,8 +90,8 @@ validator = {
           <En>
             <Code>
 {`<FormControl
-  min={int}       // if value type is 'string' or 'array', value length must great than min; if value type if 'number', value must great than min; 
-  max={int}       // if value type is 'string' or 'array', value length must less than max; if value type if 'number', value must less than max;  
+  min={int}       // if value type is 'string' or 'array', value length must great than min; if value type if 'number', value must great than min;
+  max={int}       // if value type is 'string' or 'array', value length must less than max; if value type if 'number', value must less than max;
   required={bool} // default is false
   tip={string}    // if tip is undefined, use generated text
   type={string}   // email,integer,number,alpha,alphanum,tel,url
@@ -111,7 +111,7 @@ validator = {
           <div>
             <p><em><b>text</b></em> => <a href="#/input">Input</a></p>
             <Example>
-<FormControl required grid={{width: 1 / 4}} type="text" min={2} max={10} />
+              <FormControl required grid={{width: 1 / 4}} type="text" min={2} max={10} />
             </Example>
           </div>
 
@@ -130,97 +130,97 @@ validator = {
           <div>
             <p><em><b>textarea</b></em> => <a href="#/input">Input</a></p>
             <Example>
-<FormControl type="textarea" rows={5} />
+              <FormControl type="textarea" rows={5} />
             </Example>
           </div>
 
           <div>
             <p><em><b>select</b></em> => <a href="#/select">Select</a></p>
             <Example>
-<FormControl
-  type="select"
-  required
-  fetch={{ url: 'json/countries.json', cache: 3600 }}
-  filterAble
-  optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
-  valueTpl="{country}-{en}"
-  mult
-  min={2}
-  max={6}
- />
+              <FormControl
+                type="select"
+                required
+                fetch={{ url: 'json/countries.json', cache: 3600 }}
+                filterAble
+                optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
+                valueTpl="{country}-{en}"
+                mult
+                min={2}
+                max={6}
+               />
              </Example>
           </div>
 
           <div>
             <p><em><b>tree</b></em> => <a href="#/tree">Tree</a></p>
             <Example>
-<FormControl
-  type="tree"
-  checkAble
-  fetch={{ url: 'json/tree.json', cache: 3600 }}
-  textTpl="{text}({id})"
-  valueTpl="{id}"
- />
+              <FormControl
+                type="tree"
+                checkAble
+                fetch={{ url: 'json/tree.json', cache: 3600 }}
+                textTpl="{text}({id})"
+                valueTpl="{id}"
+               />
             </Example>
           </div>
 
           <div>
             <p><em><b>checkbox</b></em> => <a href="#/checkbox">Checkbox</a></p>
             <Example>
-<FormControl type="checkbox" text="I'm a checkbox" />
+              <FormControl type="checkbox" text="I'm a checkbox" />
             </Example>
           </div>
 
           <div>
             <p><em><b>checkbox-group</b></em> => <a href="#/checkbox-group">CheckboxGroup</a></p>
             <Example>
-<FormControl
-  type="checkbox-group"
-  fetch={{ url: 'json/text-value.json', cache: 3600 }}
-  textTpl="{text}"
-  valueTpl="{id}"
-  min={2}
-  max={4}
- />
+              <FormControl
+                type="checkbox-group"
+                fetch={{ url: 'json/text-value.json', cache: 3600 }}
+                textTpl="{text}"
+                valueTpl="{id}"
+                min={2}
+                max={4}
+               />
             </Example>
           </div>
 
           <div>
             <p><em><b>radio-group</b></em> => <a href="#/radio-group">RadioGroup</a></p>
             <Example>
-<FormControl
-  type="radio-group"
-  fetch={{ url: 'json/text-value.json', cache: 3600 }}
-  textTpl="{text}"
-  valueTpl="{id}"
- />
+              <FormControl
+                type="radio-group"
+                fetch={{ url: 'json/text-value.json', cache: 3600 }}
+                textTpl="{text}"
+                valueTpl="{id}"
+               />
             </Example>
           </div>
 
           <div>
             <p><em><b>rating</b></em> => <a href="#/rating">Rating</a></p>
             <Example>
-<FormControl
-  type="rating"
-  maxValue={10}
-  tip="亲，给个好评吧"
-  required
-  icons={[<Icon key={0} icon="favorite-outline" style={{color: 'red'}} />, <Icon key={1} icon="favorite" style={{color: 'red'}} />]}
- />
+              <FormControl
+                type="rating"
+                maxValue={10}
+                tip="亲，给个好评吧"
+                required
+                icons={[<Icon key={0} icon="favorite-outline" style={{color: 'red'}} />, <Icon key={1} icon="favorite" style={{color: 'red'}} />]}
+               />
             </Example>
           </div>
 
           <div>
             <p><em><b>upload</b></em> => <a href="#/upload">Upload</a></p>
             <Example>
-<FormControl
-  type="upload"
-  grid={{ width: 1 }}
-  name="test"
-  action="/upload"
-  accept="image/*"
-  limit={3}
-  content={<Button><Icon icon="upload" /> Choose a file</Button>} />
+              <FormControl
+                type="upload"
+                grid={{ width: 1 }}
+                name="test"
+                action="/upload"
+                accept="image/*"
+                limit={3}
+                content={<Button><Icon icon="upload" /> Choose a file</Button>} />
             </Example>
           </div>
 
@@ -251,16 +251,16 @@ validator = {
           <h2 className="subhead">Children</h2>
           <Cn>0.6 可以任意使用已注册的表单组件</Cn>
           <Example>
-<FormControl label="two items">
-  <Datepicker type="date"
-    min="2016-1-22"
-    required
-    placeholder="startTime" />
-  -
-  <Datepicker type="date"
-    max="2017-1-22"
-    placeholder="endTime" />
-</FormControl>
+            <FormControl label="two items">
+              <Datepicker type="date"
+                min="2016-1-22"
+                required
+                placeholder="startTime" />
+              -
+              <Datepicker type="date"
+                max="2017-1-22"
+                placeholder="endTime" />
+            </FormControl>
           </Example>
         </div>
       </div>

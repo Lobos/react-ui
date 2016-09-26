@@ -41,6 +41,9 @@ export default class Editor extends Component {
     if (nextProps.value !== this.value) {
       this.editor.clipboard.dangerouslyPasteHTML(nextProps.value)
     }
+    if (nextProps.readOnly !== this.props.readOnly) {
+      this.editor.enable(!nextProps.readOnly)
+    }
   }
 
   componentWillUnmount () {

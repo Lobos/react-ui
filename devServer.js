@@ -1,10 +1,11 @@
-'use strict'
-
 var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
 var Dashboard = require('webpack-dashboard')
 var DashboardPlugin = require('webpack-dashboard/plugin')
+var multer = require('multer')
+
+var upload = multer({})
 
 var config = require('./webpack.config.dev.js')
 
@@ -29,16 +30,15 @@ app.use('/images', express.static('docs/src/images'))
 app.use('/json', express.static('docs/src/json'))
 app.use('/lib', express.static('docs/lib'))
 
-app.get('/form.html', function (req, res) {
-  res.sendFile(path.join(__dirname, 'standalone/form/index.html'))
-})
-
-app.get('/formBuilder.html', function (req, res) {
-  res.sendFile(path.join(__dirname, 'standalone/formBuilder/formBuilder.html'))
-})
-
-app.post('/upload', function (req, res) {
-  res.send({success: true, id: Date.now().toString(), img: '../../images/image3.jpg'})
+app.post('/upload', upload.single('file'), function (req, res) {
+  res.send({
+    success: true,
+		model: {
+			id: Date.now().toString(),
+			name: req.file.originalname,
+			content: req.file.buffer.toString('base64')
+		}
+  })
 })
 
 app.get('/validate', function (req, res) {

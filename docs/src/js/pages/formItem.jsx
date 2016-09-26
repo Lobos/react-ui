@@ -36,11 +36,12 @@ module.exports = () => {
   min={int}               // 值类型为 string 时，最小长度；为 number 时，最小值；为 array 时，最少选项数
   max={int}               // 值类型为 string 时，最大长度；为 number 时，最大值；为 array 时，最多选项数
   required={bool}         // 是否必填，默认为 false
+  dispatch={[name]}       // 联动校验，当前FormItem改变会触发指定name的组件校验
   tip={string}            // 额外提示信息，如果设置，会替换自动生成提示信息
   validator={             // 自定义校验
     func: (value, form), // 指定一个方法校验。value为当前选中值，form为整个form表单数据
     reg: {string},       // 指定一个正则表达式，和func 二选一
-    bind: [string]       // 当form内其他控件数据变化时，触发校验，参数为控件name
+    async: (value, formData, callback) // 异步校验，callback 返回结果
   }
 >
   {element}               // 只能接受一个element
@@ -53,14 +54,15 @@ module.exports = () => {
   className="string"
   name={string}           // filed name, unique in the form
   type={string}           // 'email|integer|number|alpha|alphanum|tel|url'
-  min={int}               // if value type is 'string' or 'array', value length must great than min; if value type if 'number', value must great than min; 
-  max={int}               // if value type is 'string' or 'array', value length must less than max; if value type if 'number', value must less than max;  
+  min={int}               // if value type is 'string' or 'array', value length must great than min; if value type if 'number', value must great than min;
+  max={int}               // if value type is 'string' or 'array', value length must less than max; if value type if 'number', value must less than max;
   required={bool}         // default is false
+  dispatch={[name]}       // when this value change, dispatch other item (form[name]) validate
   tip={string}            // tip text, overwrite generated tip text
   validator={             // custom validation
     func: (value, form),  // first argument is the filed value, second is the form data
     reg: {string},        // regular expressions, if func was set, reg will ignore
-    bind: [string]        // bind to other FormItem (by name) in the form, if the other FormItem value change, execute this validate
+    async: (value, formData, callback) //
   }
 >
   {element}               // only one element accept
