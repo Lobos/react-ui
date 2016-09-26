@@ -21,7 +21,7 @@ export default class List extends Component {
   componentDidMount () {
     // get one option height, set option wrapper height
     const wrap = this.refs.wrap
-    setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this._optionHeight = wrap.querySelector('ul li').clientHeight
       wrap.querySelector('ul').style.height = (this._optionHeight * (this.props.data.length || 1)) + 'px'
       this.toggleScroll('on')
@@ -29,6 +29,7 @@ export default class List extends Component {
   }
 
   componentWillUnmount () {
+    this.timeout && clearTimeout(this.timeout)
     this.toggleScroll('off')
   }
 
