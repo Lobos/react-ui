@@ -13,11 +13,10 @@ export function setLang () {
 }
 
 export function setLocation (location = config.location) {
-  LangData = {}
   if (location === 'zh-cn') {
-    require.ensure([], require => setLang(require('./zh-cn')), 'zh-cn')
+    LangData = require('./zh-cn')
   } else {
-    require.ensure([], require => setLang(require('./en')), 'en')
+    LangData = require('./en')
   }
 }
 

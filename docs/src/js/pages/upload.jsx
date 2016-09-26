@@ -59,7 +59,7 @@ withCredentials={bool}  // xhr2 withCredentials
         <Example>
 <Upload
   grid={1 / 2}
-  name="test"
+  name="file"
   action="/upload"
   accept="image/*"
   limit={3}
@@ -67,7 +67,7 @@ withCredentials={bool}  // xhr2 withCredentials
   onUpload={(res) => {
     var json = JSON.parse(res)
     if (json.success) {
-      return json.id
+      return json.model
     } else {
       return new Error(json.message)
     }

@@ -18,7 +18,7 @@ export { default as Select } from './Select'
 export { default as Switch } from './Switch'
 export { default as Textarea } from './Textarea'
 export { default as Tree } from './Tree'
-export { default as Upload } from './Upload'
+export { default as Upload } from './Upload/FileUpload'
 export { default as ImgUpload } from './ImgUpload'
 
 export { default as FormControl } from './FormControl'

@@ -84,18 +84,19 @@ class Cascade extends Component {
   }
 
   render () {
-    const { open, grid, placeholder } = this.props
+    const { open, grid, placeholder, readOnly } = this.props
 
     const className = classnames(
       this.props.className,
       getGrid(grid),
       _styles.cascade,
-      _input.input
+      _input.input,
+      readOnly && _input.disabled
     )
 
     return (
       <div className={className}>
-        <div onClick={this.showOptions}
+        <div onClick={readOnly ? undefined : this.showOptions}
           className={classnames(_styles['cascade-result'])}>
           {this.getResult() || <span className={_input.placeholder}>{placeholder}</span>}&nbsp;
         </div>
@@ -121,6 +122,7 @@ Cascade.propTypes = objectAssign({
   maxLevel: PropTypes.number,
   onLazyClick: PropTypes.func,
   placeholder: PropTypes.string,
+  readOnly: PropTypes.bool,
   value: PropTypes.array
 }, ClickAway.PropTypes)
 

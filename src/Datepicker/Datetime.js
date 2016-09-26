@@ -423,7 +423,7 @@ class Datetime extends Component {
       this.props.className,
       _datepickers.datepicker,
       type !== DATETIME && _datepickers.short,
-      readOnly ? _inputs.disabled : (open && _datepickers.open),
+      readOnly ? _datepickers.disabled : (open && _datepickers.open),
       type === TIME && _datepickers.timepicker,
       dropup && _datepickers.dropup
     )

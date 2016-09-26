@@ -22,6 +22,11 @@
     white-space: nowrap;
   }
 
+  &.disabled, &.disabled .control {
+    cursor: $cursor-disabled;
+    background-color: $input-bg-disabled;
+  }
+
   .clear {
     display: block;
     position: absolute;
