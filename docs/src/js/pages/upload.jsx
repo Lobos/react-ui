@@ -1,5 +1,3 @@
-'use strict'
-
 import Code from '../Code'
 import Example from '../Example'
 import { Button, Icon, Upload } from '../rctui'
@@ -11,10 +9,10 @@ module.exports = function () {
       <div className="header">
         <h1>Upload</h1>
         <Cn tag="h2">文件上传</Cn>
-        <Cn>使用了 formdata 进行数据传输，IE10以下暂不支持，慎用。</Cn>
       </div>
 
       <div className="content">
+        <Cn>使用了 formdata 进行数据传输，IE10以下暂不支持，慎用。</Cn>
         <Cn>
           <Code>
 {`<Upload
@@ -38,20 +36,22 @@ withCredentials={bool}  // xhr2 withCredentials
         <En>
           <Code>
 {`<Upload
-accept={string}         // input accept
-action={string}         // required
-className={string}      //
-disabled={bool}         // default is false
-fileSize={number}       // single file size, unit KB
-limit={number}          // default is 1
-name={string}           // field name, required
-onUpload={func}         // handle server result
-readOnly={bool}         // default false
-params={object}
-style={object}
-grid={[width, responsive]} // see Grid
-withCredentials={bool}  // xhr2 withCredentials
->{children}</Upload>`}
+  accept={string}         // input accept
+  action={string}         // required
+  className={string}      //
+  disabled={bool}         // default is false
+  fileSize={number}       // single file size, unit KB
+  limit={number}          // default is 1
+  name={string}           // field name, required
+  onUpload={func}         // handle server result
+  readOnly={bool}         // default false
+  params={object}
+  style={object}
+  grid={[width, responsive]} // see Grid
+  withCredentials={bool}  // xhr2 withCredentials
+>
+  {children}            // button or something
+</Upload>`}
           </Code>
         </En>
 
@@ -63,6 +63,8 @@ withCredentials={bool}  // xhr2 withCredentials
   action="/upload"
   accept="image/*"
   limit={3}
+  onChange={(value) => console.log(value)}
+  value={[{ name: 'init.txt' }]}
   params={{ arg: 'test' }}
   onUpload={(res) => {
     var json = JSON.parse(res)

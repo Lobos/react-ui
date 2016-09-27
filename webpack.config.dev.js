@@ -4,7 +4,7 @@ var autoprefixer = require('autoprefixer')
 var precss = require('precss')
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   entry: {
     app: [
       'webpack-hot-middleware/client',
@@ -32,13 +32,17 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.jsx?$/, loader: 'babel', include: [
-        path.resolve(__dirname, 'standalone'),
-        path.resolve(__dirname, 'src'),
-        path.resolve(__dirname, 'docs'),
-        path.resolve(__dirname, 'node_modules/refetch'),
-        path.resolve(__dirname, 'node_modules/react-language')
-      ] },
+      {
+        test: /\.jsx?$/,
+        loader: 'babel',
+        include: [
+          path.resolve(__dirname, 'standalone'),
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'docs'),
+          path.resolve(__dirname, 'node_modules/refetch'),
+          path.resolve(__dirname, 'node_modules/react-language')
+        ]
+      },
       { test: /\.(css|less)$/, loaders: ['style-loader', 'css-loader?localIdentName=[local]-[hash:base64:5]', 'postcss-loader', 'less-loader'] },
       { test: /\.scss$/, loaders: ['style-loader', 'css-loader?modules&localIdentName=[local]-[hash:base64:5]', 'postcss-loader', 'sass-loader'] },
       { test: /\.(ttf|eot|woff|woff2|otf|svg)/, loader: 'file-loader?name=./font/[name].[ext]' },

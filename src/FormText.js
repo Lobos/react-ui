@@ -1,19 +1,22 @@
-import { substitute } from './utils/strings'
+import { isValidElement } from 'react'
 import PropTypes from './utils/proptypes'
 
 import _styles from './styles/_form.scss'
 
 export default function FormText (props, context) {
-  const { textTpl } = props
+  const { children } = props
   const { formData } = context
 
-  return (
-    <div className={_styles.text}>{substitute(textTpl, formData)}</div>
-  )
+  let item = children(formData)
+  if (!isValidElement(item)) {
+    item = <div className={_styles.text}>{item}</div>
+  }
+
+  return item
 }
 
 FormText.propTypes = {
-  textTpl: PropTypes.string
+  children: PropTypes.func
 }
 
 FormText.contextTypes = {

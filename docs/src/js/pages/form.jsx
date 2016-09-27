@@ -112,7 +112,7 @@ module.exports = class extends React.Component {
               fetch={'json/form.json'}
               buttons={{ submit: 'Submit', reset: 'Reset' }}>
               <FormControl label="id">
-                <FormText textTpl="{id}" />
+                <FormText>{d => d.id}</FormText>
               </FormControl>
 
               <FormControl name="text"
@@ -170,7 +170,7 @@ module.exports = class extends React.Component {
                   min={120}
                   max={3200}
                   label="integer"
-                  defaultValue={1234}
+                  defaultValue={123}
                   type="integer" />
               </Grid>
 
@@ -180,6 +180,10 @@ module.exports = class extends React.Component {
                   label="number"
                   type="number" />
               </Grid>
+
+              <FormControl label="number - integer">
+                <FormText>{(d) => <Input readOnly value={(d.number - d.integer).toFixed(2)} /> }</FormText>
+              </FormControl>
 
               <FormControl grid={{width: 16 / 24}}
                 name="password"

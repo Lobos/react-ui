@@ -2,6 +2,7 @@ import { Component } from 'react'
 import objectAssign from 'object-assign'
 import PropTypes from '../utils/proptypes'
 import { nextUid, format } from '../utils/strings'
+import { deepEqual } from '../utils/objects'
 import { getLang } from '../lang'
 import ajax from './ajax'
 import { UPLOADING, ERROR } from './status'
@@ -20,23 +21,17 @@ export default function (Origin) {
       this.removeValue = this.removeValue.bind(this)
     }
 
-    getValue () {
-      let values = []
-      let files = this.state.files
-      const { sep } = this.props
-      Object.keys(files).forEach((id) => {
-        values.push(files[id].value)
-      })
-      if (sep) {
-        values = values.join(sep)
+    componentWillReceiveProps (nextProps) {
+      if (!deepEqual(nextProps.value, this.props.value) &&
+          !deepEqual(nextProps.value, this.state.value)) {
+        this.setState({ value: nextProps.value })
       }
-      return values
     }
 
     handleChange (value) {
       if (value === undefined) {
         if (Object.keys(this.state.files).length === 0) {
-          value = this.getValue()
+          value = this.state.value
         } else {
           value = new Error('')
         }
@@ -60,7 +55,7 @@ export default function (Origin) {
         }
 
         let id = nextUid()
-        files = objectAssign({}, {
+        files = objectAssign({}, files, {
           [id]: {
             file: input,
             name: input.files[0].name,
@@ -93,17 +88,15 @@ export default function (Origin) {
           if (value instanceof Error) {
             files[id].status = ERROR
             files[id].name = value.message
-            this.setState({ files })
+            this.setState({ files }, this.handleChange)
           } else {
             // remove file
-            this.removeFile(id)
+            delete this.state.files[id]
             // add value
             this.setState({
               value: [...this.state.value, value]
-            })
+            }, this.handleChange)
           }
-
-          this.handleChange()
         },
         onError () {
           let files = this.state.files
@@ -131,8 +124,7 @@ export default function (Origin) {
         ...this.state.value.slice(0, index),
         ...this.state.value.slice(index + 1)
       ]
-      this.setState({ value })
-      this.handleChange()
+      this.setState({ value }, this.handleChange)
     }
 
     render () {

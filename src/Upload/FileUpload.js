@@ -17,8 +17,10 @@ class FileUpload extends Component {
   }
 
   addFile () {
-    this.props.onFileAdd((id) => {
-      console.log(id)
+    let ul = this.refs.ul
+    this.props.onFileAdd((id, e) => {
+      let progress = ul.querySelector(`#up_pr_${id}`)
+      progress.style.backgroundSize = (e.loaded / e.total) * 100 + '%' + ' 2px'
     })
   }
 
@@ -43,7 +45,7 @@ class FileUpload extends Component {
       const file = files[k]
       let className = classnames(file.status === ERROR && _styles['has-error'])
       return (
-        <li key={k} id={k} className={className}>
+        <li key={k} id={`up_pr_${k}`} className={className}>
           <span>{file.name}</span>
           <a className={_styles.remove}
             onClick={() => removeFile(k)}>
@@ -68,7 +70,7 @@ class FileUpload extends Component {
     return (
       <div className={className} style={style}>
         { allowAdd && <div onClick={this.addFile}>{children}</div> }
-        <ul>
+        <ul ref="ul">
           { this.renderValues() }
           { this.renderFiles() }
         </ul>
