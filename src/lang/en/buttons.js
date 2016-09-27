@@ -9,6 +9,7 @@ module.exports = {
     ok: 'Ok',
     refresh: 'Refresh',
     reset: 'Reset',
-    save: 'Save'
+    save: 'Save',
+    remove: 'Remove'
   }
 }

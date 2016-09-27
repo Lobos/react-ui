@@ -41,19 +41,18 @@ size={string}           //图片尺寸,如100*100
         <En>
           <Code>
 {`<ImgUpload
-accept={string}         // input accept
-action={string}         // required
-className={string}      //
-disabled={bool}         // default is false
-fileSize={number}       // single file size, unit KB
-limit={number}          // default is 1
-name={string}           // field name, required
-onUpload={func}         // handle server result
-readOnly={bool}         // default false
-params={object}
-style={object}
-grid={[width, responsive]} // see Grid
-withCredentials={bool}  // xhr2 withCredentials
+  accept={string}         // input accept
+  action={string}         // required
+  className={string}      //
+  disabled={bool}         // default is false
+  fileSize={number}       // single file size, unit KB
+  limit={number}          // default is 1
+  name={string}           // field name, required
+  onUpload={func}         // handle server result
+  readOnly={bool}         // default false
+  params={object}
+  style={object}
+  withCredentials={bool}  // xhr2 withCredentials
 >{children}</ImgUpload>`}
           </Code>
         </En>
@@ -66,7 +65,8 @@ withCredentials={bool}  // xhr2 withCredentials
   accept="image/*"
   limit={3}
   params={{ arg: 'test' }}
-  value="images/image1.jpg,images/image2.jpg"
+  value={['images/image1.jpg', 'images/image2.jpg']}
+  srcTpl={d => d}
   size="160*107"
   onUpload={(res) => {
     var json = JSON.parse(res)

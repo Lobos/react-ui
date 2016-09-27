@@ -1,24 +1,54 @@
-.imgupload-container {
+.imgupload {
   overflow: hidden;
-  &>div {
-    float: left;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      border: 1px dashed #999;
+      margin-right: 10px;
+      position: relative;
+      cursor: pointer;
+      text-align: center;
+      overflow: hidden;
+
+      .img {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+
+        a {
+          text-decoration: none;
+          display: none;
+          width: 100%;
+          height: 100%;
+          color: #fff;
+          font-size: 80%;
+          background: rgba(0, 0, 0, 0.8);
+
+          span {
+            margin: auto;
+          }
+        }
+
+        &:hover a {
+          display: flex;
+        }
+      }
+    }
   }
 }
 
-.imgupload-wrap {
-  width: 90px;
-  height: 90px;
-  border: 1px dashed #999;
-  margin-right: 10px;
-  position: relative;
-  cursor: pointer;
-  text-align: center;
-  line-height: 83px;
-}
-
-.imgupload:before {
+.imgupload-add:before {
   content: '+';
-  display: inline-block;
+  display: flex;
+  margin: auto;
   font-size: 30px;
 }
 

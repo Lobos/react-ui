@@ -50,7 +50,7 @@ export default function (Origin) {
       input.addEventListener('change', () => {
         let blob = input.files[0]
         if (blob.size / 1024 > fileSize) {
-          this.handleChange(new Error(format(getLang('validation.tips.fileSize'), fileSize)))
+          this.handleChange(new Error(format(getLang('validation.tips.fileSize'), '', fileSize)))
           return
         }
 
@@ -70,6 +70,7 @@ export default function (Origin) {
 
     uploadFile (id, file, onProgress) {
       let { onUpload, action, name, cors, params, withCredentials } = this.props
+
       return ajax({
         url: action,
         name,
@@ -98,9 +99,10 @@ export default function (Origin) {
             }, this.handleChange)
           }
         },
-        onError () {
+        onError: () => {
           let files = this.state.files
           files[id].status = ERROR
+          files[id].name = getLang('fetch.status.error')
           this.setState({ files })
           this.handleChange()
         }

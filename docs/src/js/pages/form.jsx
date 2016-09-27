@@ -301,7 +301,7 @@ module.exports = class extends React.Component {
               </FormControl>
 
               <FormControl label="upload file">
-                <Upload name="upload"
+                <Upload name="file"
                   type="upload"
                   grid={1 / 2}
                   action="/upload"
@@ -311,7 +311,7 @@ module.exports = class extends React.Component {
                   onUpload={(res) => {
                     var json = JSON.parse(res)
                     if (json.success) {
-                      return json.id
+                      return json.model
                     } else {
                       return new Error(json.message)
                     }

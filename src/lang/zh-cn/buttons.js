@@ -9,6 +9,7 @@ module.exports = {
     ok: '确定',
     refresh: '刷新',
     reset: '重置',
-    save: '保存'
+    save: '保存',
+    remove: '删除'
   }
 }

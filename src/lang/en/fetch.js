@@ -3,7 +3,8 @@ module.exports = {
     status: {
       pending: 'Loading data ...',
       failure: 'Loading failed.',
-      success: ''
+      success: '',
+      error: 'Remote server error.'
     },
     noData: 'no data'
   }
