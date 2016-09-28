@@ -60,7 +60,7 @@ size={string}           //图片尺寸,如100*100
         <h2 className="subhead">Example</h2>
         <Example>
 <ImgUpload
-  name="test"
+  name="file"
   action="/upload"
   accept="image/*"
   limit={3}
@@ -70,9 +70,8 @@ size={string}           //图片尺寸,如100*100
   size="160*107"
   onUpload={(res) => {
     var json = JSON.parse(res)
-    console.log('json', json)
     if (json.success) {
-      return json.img
+      return json.model.data
     } else {
       return new Error(json.message)
     }

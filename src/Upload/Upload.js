@@ -39,7 +39,7 @@ export default function (Origin) {
       this.props.onChange(value)
     }
 
-    addFile (onProgress) {
+    addFile (onProgress, handle) {
       const { accept, fileSize } = this.props
 
       let files = this.state.files
@@ -64,7 +64,13 @@ export default function (Origin) {
           }
         })
 
-        this.setState({ files })
+        if (handle) {
+          handle(files[id], blob, (file) => {
+            this.setState({ files })
+          })
+        } else {
+          this.setState({ files })
+        }
       })
     }
 

@@ -19,10 +19,42 @@ class ImgUpload extends Component {
 
   addFile () {
     let ul = this.refs.ul
-    this.props.onFileAdd((id, e) => {
-      let progress = ul.querySelector(`#up_pr_${id}`)
-      progress.style.backgroundSize = (e.loaded / e.total) * 100 + '%' + ' 2px'
-    })
+    this.props.onFileAdd(
+      (id, e) => {
+        let progress = ul.querySelector(`#up_mask_${id}`)
+        progress.style.height = (1 - e.loaded / e.total) * 100 + '%'
+      },
+      (file, blob, callback) => {
+        let reader = new FileReader()
+
+        reader.onload = (e) => {
+          let data = e.target.result
+            /*
+          let image = new Image()
+
+          image.onload = () => {
+            let width = image.width + ''
+            let height = image.height + ''
+            let size = this.props.size
+
+            if (size) {
+              size = size.split('*')
+              if (size.length === 2 && (width !== size[0] || height !== size[1])) {
+                this.handleChange(new Error(`图片尺寸不符合${this.props.size}`))
+                file.status = 3
+                return
+              }
+            }
+          }
+
+          image.src = data
+            */
+          file.url = data
+          callback(file)
+        }
+        reader.readAsDataURL(blob)
+      }
+    )
   }
 
   renderValues () {
@@ -42,19 +74,19 @@ class ImgUpload extends Component {
   }
 
   renderFiles () {
-    const { files, removeFile } = this.props
-    this.files = {}
+    const { files, removeFile, width, height } = this.props
 
     return Object.keys(files).map(k => {
       const file = files[k]
       let className = classnames(file.status === ERROR && _styles['has-error'])
       return (
-        <li key={k} id={`up_pr_${k}`} className={className}>
-          <span>{file.name}</span>
-          <a className={_styles.remove}
-            onClick={() => removeFile(k)}>
-            &times;
-          </a>
+        <li key={k} style={{width, height}} className={className}>
+          <div className={_styles.img} style={{backgroundImage: `url(${file.url})`}}>
+            <div className={_styles.mask} id={`up_mask_${k}`} />
+            <a href="javascript:;" onClick={() => removeFile(k)}>
+              <span>{getLang('buttons.remove')} &times;</span>
+            </a>
+          </div>
         </li>
       )
     })

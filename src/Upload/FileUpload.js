@@ -39,7 +39,6 @@ class FileUpload extends Component {
 
   renderFiles () {
     const { files, removeFile } = this.props
-    this.files = {}
 
     return Object.keys(files).map(k => {
       const file = files[k]
