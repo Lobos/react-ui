@@ -7,11 +7,11 @@ import Home from './pages/home.jsx'
 let menulist = []
 
 require('./menuList').forEach(function (menu, index) {
-  if (typeof menu === 'object' && menu.getComponent) {
+  if (typeof menu === 'object' && menu.component) {
     menulist.push(
       <Route key={index}
         path={menu.path}
-        getComponent={menu.getComponent} />
+        component={menu.component} />
     )
   }
 })

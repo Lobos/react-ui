@@ -1,0 +1,205 @@
+
+// react ui overwrite ==========================================================
+$enable-shadows:                          true;
+$enable-flex:                             true;
+
+$small-font-size:                         85%;
+
+// control =====================================================================
+
+$custom-control-indicator-border:            #ddd;
+$custom-control-indicator-bg:                #fff;
+$custom-control-indicator-box-shadow:        none;
+$custom-control-checked-indicator-border:    $custom-control-checked-indicator-bg;
+$custom-control-disabled-indicator-bg:       #ddd;
+$custom-control-hover-indicator-border:      #aaa;
+$custom-control-hover-indicator-bg:          #fff;
+$custom-checkbox-checked-icon:               url('data:image/svg+xml,%3Csvg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.015625, 0.015625)"%3E%3Cpath d="M952.448527 347.935692 806.785274 202.272439 430.747604 578.309086 243.760259 391.322765 98.095983 536.987041 430.727138 869.618196 439.078323 861.268034 439.097766 861.286453Z" fill="%23ffffff"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+$custom-checkbox-indeterminate-icon:         url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16 '%3E%3Cpath fill='%23fff' d='M2 6 14 6 14 10 2 10 2 6Z'/%3E%3C/svg%3E");
+$custom-radio-checked-icon:                  url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='2' fill='%23fff'/%3E%3C/svg%3E");
+
+// switch ======================================================================
+
+$switch-width:                               6rem;
+$switch-width-sm:                            5rem;
+$switch-width-lg:                            8rem;
+$switch-height:                              $input-padding-y * 2 + $input-line-height;
+$switch-height-sm:                           $input-padding-y-sm * 2 + $input-line-height;
+$switch-height-lg:                           $input-padding-y-lg * 2 + $input-line-height;
+$switch-indicator-color:                     #fff;
+$switch-on-color:                            #fff;
+$switch-on-bg:                               $brand-primary;
+$switch-off-color:                           #333;
+$switch-off-bg:                              #eee;
+$switch-disabled-color:                      #fff;
+$switch-disabled-bg:                         #ddd;
+$switch-fontsize-lg:                          1.25rem;
+
+// select ======================================================================
+
+$select-option-padding-x:                    0.75rem;
+$select-options-max-height:                  20rem;
+$select-filter-icon:                         url('data:image/svg+xml,%3Csvg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.0625, 0.0625)"%3E%3Cpath d="M955.984 936.854l-23.628 19.267-74.192-5.365L683.063 771.888c-63.678 45.089-141.338 71.861-225.394 71.861-215.204 0-389.654-173.665-389.654-387.948 0-214.229 174.45-387.921 389.654-387.921 215.205 0 389.656 173.691 389.656 387.921 0 85.247-27.91 163.828-74.761 227.831L954.9 865.155 955.984 936.854zM460.38 196.292c-148.438 0-268.748 119.797-268.748 267.584 0 147.732 120.311 267.556 268.748 267.556s268.775-119.823 268.775-267.556C729.155 316.089 608.817 196.292 460.38 196.292z" fill="%23666"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+$select-options-height:                      2rem;
+
+// datepicker ==================================================================
+
+$datepicker-full-width:                      14rem;
+$datepicker-short-width:                     9rem;
+$datepicker-indicator:                       url('data:image/svg+xml,%3Csvg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.03125, 0.03125)"%3E%3Cpath d="M779.009751 854.726735 250.996033 854.726735c-48.599881 0-88.002286-39.446407-88.002286-88.002286L162.993746 238.709707c0-48.641837 39.402405-88.002286 88.002286-88.002286l0 44.001143 0 44.001143c0 24.278963 19.72218 44.001143 44.001143 44.001143l88.002286 0c24.27794 0 44.001143-19.72218 44.001143-44.001143l0-44.001143 0-44.001143 176.004573 0 0 44.001143 0 44.001143c0 24.278963 19.723204 44.001143 44.001143 44.001143l88.002286 0c24.278963 0 44.001143-19.72218 44.001143-44.001143l0-44.001143 0-44.001143c48.598858 0 88.00331 39.36045 88.00331 88.002286l0 528.014742C867.013061 815.280328 827.608609 854.726735 779.009751 854.726735zM779.009751 414.715303c0-24.321942-19.72218-44.001143-44.001143-44.001143l-440.011432 0c-24.278963 0-44.001143 19.679202-44.001143 44.001143L250.996033 722.723306c0 24.27794 19.72218 44.001143 44.001143 44.001143l440.011432 0c24.278963 0 44.001143-19.723204 44.001143-44.001143L779.009751 414.715303zM603.004155 590.719876l88.002286 0 0 88.002286-88.002286 0L603.004155 590.719876zM603.004155 458.716446l88.002286 0 0 88.002286-88.002286 0L603.004155 458.716446zM471.001749 590.719876l88.002286 0 0 88.002286-88.002286 0L471.001749 590.719876zM471.001749 458.716446l88.002286 0 0 88.002286-88.002286 0L471.001749 458.716446zM338.998319 590.719876l88.002286 0 0 88.002286-88.002286 0L338.998319 590.719876zM338.998319 458.716446l88.002286 0 0 88.002286-88.002286 0L338.998319 458.716446zM647.006322 150.70742l88.002286 0 0 88.002286-88.002286 0L647.006322 150.70742zM294.997176 150.70742l88.002286 0 0 88.002286-88.002286 0L294.997176 150.70742z" fill="%23777"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+$datepicker-time-indicator:                  url('data:image/svg+xml,%3Csvg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.03125, 0.03125)"%3E%3Cpath d="M514.007843 120.470588C299.168627 120.470588 126.494118 293.145098 126.494118 507.984314c0 214.839216 172.67451 387.513725 387.513725 387.513725s387.513725-172.67451 387.513725-387.513725C901.521569 293.145098 726.839216 120.470588 514.007843 120.470588L514.007843 120.470588zM514.007843 843.294118c-184.721569 0-335.309804-150.588235-335.309804-335.309804 0-184.721569 150.588235-335.309804 335.309804-335.309804 184.721569 0 335.309804 150.588235 335.309804 335.309804C849.317647 692.705882 698.729412 843.294118 514.007843 843.294118L514.007843 843.294118zM680.658824 534.086275l-168.658824 0 0-168.658824c0-8.031373-6.023529-12.047059-12.047059-12.047059l-26.101961 0c-8.031373 0-12.047059 6.023529-12.047059 12.047059l0 180.705882 0 26.101961c0 8.031373 6.023529 12.047059 12.047059 12.047059l206.807843 0c8.031373 0 12.047059-6.023529 12.047059-12.047059l0-26.101961C694.713725 538.101961 688.690196 534.086275 680.658824 534.086275L680.658824 534.086275zM680.658824 534.086275" fill="%23777"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+$datepicker-indicator-padding:               1rem;
+$datepicker-indicator-padding-x:             0.4rem;
+$datepicker-font-size:                       0.85rem;
+$datepicker-bg:                              $input-bg;
+$datepicker-bg-size:                         1.5rem;
+$datepicker-picker-bg:                       $input-bg;
+$datepicker-picker-border:                   $input-border-color;
+$datepicker-picker-border-radius:            $border-radius;
+$datepicker-picker-padding:                  0.5rem;
+
+$datepicker-day-color:                       #666;
+$datepicker-day-size:                        2rem;
+$datepicker-day-bg:                          #f5f5f5;
+$datepicker-day-border-radius:               $border-radius-sm;
+$datepicker-day-border-width:                1px;
+$datepicker-day-border-color:                #f5f5f5;
+
+$datepicker-day-hover-color:                 $brand-primary;
+$datepicker-day-hover-bg:                    #f5f5f5;
+$datepicker-day-hover-border-color:          $brand-primary;
+
+$datepicker-day-today-color:                 $brand-primary;
+$datepicker-day-today-bg:                    #f5f5f5;
+$datepicker-day-today-border-color:          $brand-primary;
+
+$datepicker-day-active-color:                #fff;
+$datepicker-day-active-bg:                   $brand-primary;
+$datepicker-day-active-border-color:         $brand-primary;
+
+$datepicker-day-disable-color:               #ccc;
+
+$datepicker-header-margin:                   0.5rem 0;
+$datepicker-header-color:                    #999;
+$datepicker-header-font-size:                1rem;
+$datepicker-header-hover-color:              $brand-primary;
+$datepicker-header-indicator-width:          1.2rem;
+$datepicker-header-indicator-height:         1.6rem;
+
+$datepicker-time-padding:                    0.5rem;
+
+$clock-bg-color:                             #333;
+$clock-border-color:                         #fff;
+$clock-border-width:                         0.14285rem;
+$clock-padding:                              0.3rem;
+$clock-overlay-bg:                           rgba(0, 0, 0, 0.3);
+
+$clock-inner-size:                           9rem;
+$clock-inner-padding:                        1rem;
+
+$clock-set-size:                             2rem;
+$clock-set-font-size:                        1rem;
+$clock-set-color:                            #ccc;
+$clock-set-hover-bg:                         $brand-primary;
+$clock-set-hover-color:                      #fff;
+
+$clock-pointer-origin:                       0.7rem;
+$clock-pointer-color:                        #fff;
+$clock-pointer-active-color:                 $brand-primary;
+
+$clock-size:                                 $clock-inner-size + ($clock-border-width * 2) + $clock-set-size + ($clock-padding * 2);
+
+$clock-indicator-width:                      3rem;
+$clock-indicator-height:                     2rem;
+$clock-indicator-bottom:                     -0.5rem;
+$clock-indicator-border-radius:              1rem;
+
+$clock-close-size:                           2.2rem;
+$clock-close-margin:                         0.5rem;
+
+$timeset-width:                              4rem;
+$timeset-height:                             2rem;
+$timeset-margin:                             0 0.25rem;
+$timeset-bg:                                 $input-bg;
+$timeset-color:                              $input-color;
+$timeset-border-width:                       1px;
+$timeset-border-color:                       $input-border-color;
+$timeset-border-radius:                      $input-border-radius-sm;
+$timeset-padding:                            1.6rem;
+$timeset-indicator-up:                       url('data:image/svg+xml,%3Csvg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.03125, 0.03125)"%3E%3Cpath d="M797.110857 676.571429q0 7.460571-5.705143 13.165714l-28.598857 28.598857q-5.705143 5.705143-13.165714 5.705143t-13.165714-5.705143l-224.548571-224.548571-224.548571 224.548571q-5.705143 5.705143-13.165714 5.705143t-13.165714-5.705143l-28.598857-28.598857q-5.705143-5.705143-5.705143-13.165714t5.705143-13.165714l266.313143-266.313143q5.705143-5.705143 13.165714-5.705143t13.165714 5.705143l266.313143 266.313143q5.705143 5.705143 5.705143 13.165714z" fill="%23777777"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+$timeset-indicator-down:                     url('data:image/svg+xml,%3Csvg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.03125, 0.03125)"%3E%3Cpath d="M797.110857 420.571429q0 7.460571-5.705143 13.165714l-266.313143 266.313143q-5.705143 5.705143-13.165714 5.705143t-13.165714-5.705143l-266.313143-266.313143q-5.705143-5.705143-5.705143-13.165714t5.705143-13.165714l28.598857-28.598857q5.705143-5.705143 13.165714-5.705143t13.165714 5.705143l224.548571 224.548571 224.548571-224.548571q5.705143-5.705143 13.165714-5.705143t13.165714 5.705143l28.598857 28.598857q5.705143 5.705143 5.705143 13.165714z" fill="%23777777"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+
+
+// form ========================================================================
+
+$form-group-label-line-height:               2.4rem;
+$form-group-no-input-padding:                0.3rem;
+$form-aligned-control-margin:                1rem;
+$form-inline-group-margin:                   1rem;
+$form-inline-control-margin:                 0.5rem;
+
+$tree-line-height:                           1.5714rem;
+$tree-line-color:                            #666;
+$tree-icon-width:                            1.35rem;
+
+$tree-indicator-size:                        9px;
+$tree-indicator-border-width:                1px;
+$tree-line-icon-mv:                          url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Cg fill='none' stroke='%23999999' stroke-width='1'%3E%3Cpath  stroke-dasharray='1,1' d='M10 0 l0 22'/%3E%3C/g%3E%3C/svg%3E");
+$tree-line-icon-mh:                          url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Cg fill='none' stroke='%23999999' stroke-width='1'%3E%3Cpath  stroke-dasharray='1,1' d='M10 0 l0 22 M10 11 l10 0'/%3E%3C/g%3E%3C/svg%3E");
+$tree-line-icon-ml:                          url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Cg fill='none' stroke='%23999999' stroke-width='1'%3E%3Cpath  stroke-dasharray='1,1' d='M10 0 l0 10 M10 11 l10 0'/%3E%3C/g%3E%3C/svg%3E");
+
+// modal =======================================================================
+$modal-close-size:                           1rem;
+$modal-close-padding:                        $modal-title-padding;
+
+$pagination-padding-x:                       0.9rem;
+$pagination-padding-x-sm:                    0.6rem;
+
+// upload ======================================================================
+$upload-margin:                              0.5rem;
+$upload-progress-width:                      2px;
+$upload-file-bg:                             $gray-lightest;
+$upload-file-padding-x:                      $input-padding-x;
+$upload-file-padding-y:                      $input-padding-y;
+$upload-file-border-radius:                  $border-radius-sm;
+$upload-remove-color:                        $gray;
+$upload-remove-hover-color:                  $brand-danger;
+
+// card ========================================================================
+$card-spacer-nav:                            0.6rem;
+
+// mask ========================================================================
+$mask-backdrop-opacity:                      0.1;
+$mask-zindex:                                900;
+
+// image =======================================================================
+$image-modal-bg:                             rgba(0, 0, 0, 0.9);
+$image-modal-border-width:                   0.5rem;
+$image-modal-border-color:                   #fff;
+$image-modal-border-radius:                  $border-radius;
+$image-modal-duration:                       0.4s;
+
+
+// indicator ===================================================================
+$indicator-trash:                            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z' fill='#777'/%3E%3C/svg%3E");
+$indicator-clear:                            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='scale(0.03125, 0.03125)'%3E%3Cpath d='M824.4 438.8c0-37.6-30-67.6-67.6-67.6l-135.2 0L621.6 104.8c0-37.6-30-67.6-67.6-67.6-37.6 0-67.6 30-67.6 67.6l0 266.4L358.8 371.2c-37.6 0-67.6 30-67.6 67.6l0 67.6L828 506.4l0-67.6L824.4 438.8 824.4 438.8zM824.4 574c-11.2 0-536.8 0-536.8 0S250 972 88.4 972L280 972c75.2 0 108.8-217.6 108.8-217.6s33.6 195.2 3.6 217.6l105.2 0c-3.6 0 0 0 11.2 0 52.4-7.6 60-247.6 60-247.6s52.4 244 45.2 244c-26.4 0-78.8 0-105.2 0l0 0 154 0c-7.6 0 0 0 11.2 0 48.8-11.2 52.4-187.6 52.4-187.6s22.4 187.6 15.2 187.6c-18.8 0-48.8 0-67.6 0l-3.6 0 90 0C895.6 972 903.2 784.4 824.4 574L824.4 574z' fill='#777'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+
+// cascade =====================================================================
+$cascade-options-width:                      12rem;
+$cascade-options-height:                     20rem;
+$cascade-options-padding-x:                  .75rem;
+$cascade-options-padding-y:                  .375rem;
+$cascade-options-bg:                         #fff !default;
+$cascade-box-shadow:                         0 6px 12px rgba(0,0,0,.175) !default;
+$cascade-border-width:                       $input-btn-border-width !default;
+$cascade-border-color:                       $input-border-color !default;
+$cascade-border-radius:                      $border-radius !default;
+
+$cascade-item-color:                         $gray-dark !default;
+$cascade-item-hover-color:                   darken($gray-dark, 5%) !default;
+$cascade-item-hover-bg:                      #f5f5f5 !default;
+
+$cascade-item-active-color:                  $component-active-color !default;
+$cascade-item-active-bg:                     $component-active-bg !default;
+$cascade-item-indicator-size:                1.4rem;
+

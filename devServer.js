@@ -36,7 +36,7 @@ app.post('/upload', upload.single('file'), function (req, res) {
 		model: {
 			id: Date.now().toString(),
 			name: req.file.originalname,
-			content: req.file.buffer.toString('base64')
+			content: 'data:' + req.file.mimetype + ';base64,' + req.file.buffer.toString('base64')
 		}
   })
 })

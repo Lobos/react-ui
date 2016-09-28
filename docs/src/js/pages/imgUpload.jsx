@@ -1,5 +1,3 @@
-'use strict'
-
 import Code from '../Code'
 import Example from '../Example'
 import { Button, Icon, ImgUpload } from '../rctui'
@@ -71,7 +69,7 @@ size={string}           //图片尺寸,如100*100
   onUpload={(res) => {
     var json = JSON.parse(res)
     if (json.success) {
-      return json.model.data
+      return '' + json.model.content
     } else {
       return new Error(json.message)
     }

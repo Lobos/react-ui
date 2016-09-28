@@ -40,13 +40,21 @@ export default function (Origin) {
     }
 
     addFile (onProgress, handle) {
+      if (this.locked) return
+      this.locked = true
+
       const { accept, fileSize } = this.props
 
       let files = this.state.files
       let input = document.createElement('input')
       input.type = 'file'
       input.accept = accept
-      input.click()
+      input.style.position = 'absolute'
+      input.style.left = '-1000px'
+      input.style.top = '-1000px'
+
+      document.body.appendChild(input)
+
       input.addEventListener('change', () => {
         let blob = input.files[0]
         if (blob.size / 1024 > fileSize) {
@@ -72,9 +80,16 @@ export default function (Origin) {
           this.setState({ files })
         }
       })
+
+      input.click()
+
+      setTimeout(() => {
+        // prevent mult upload
+        this.locked = false
+      }, 800)
     }
 
-    uploadFile (id, file, onProgress) {
+    uploadFile (id, input, onProgress) {
       let { onUpload, action, name, cors, params, withCredentials } = this.props
 
       return ajax({
@@ -83,8 +98,9 @@ export default function (Origin) {
         cors,
         params,
         withCredentials,
-        file: file.files[0],
+        file: input.files[0],
         onProgress,
+
         onLoad: (e) => {
           let files = this.state.files
           let value = e.currentTarget.responseText
@@ -104,13 +120,17 @@ export default function (Origin) {
               value: [...this.state.value, value]
             }, this.handleChange)
           }
+
+          document.body.removeChild(input)
         },
+
         onError: () => {
           let files = this.state.files
           files[id].status = ERROR
-          files[id].name = getLang('fetch.status.error')
+          files[id].message = getLang('fetch.status.error')
           this.setState({ files })
           this.handleChange()
+          document.body.removeChild(input)
         }
       })
     }
@@ -161,11 +181,13 @@ export default function (Origin) {
     params: PropTypes.object,
     readOnly: PropTypes.bool,
     sep: PropTypes.func_string,
+    srcTpl: PropTypes.func_string,
     value: PropTypes.array_string,
     withCredentials: PropTypes.bool
   }
 
   Upload.defaultProps = {
+    srcTpl: d => d,
     value: []
   }
 

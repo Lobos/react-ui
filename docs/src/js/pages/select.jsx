@@ -1,5 +1,3 @@
-'use strict'
-
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
@@ -124,8 +122,9 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 <Select grid={{width: 1 / 2}}
   placeholder="Single Select"
   filterAble
+  sep={null}
   optionTpl={imageTpl}
-  valueTpl="{en}"
+  valueTpl={d => d}
   onChange={ this.handleCountry }
   value={this.state.country}
   fetch={"json/countries.json"} />

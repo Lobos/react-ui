@@ -51,6 +51,7 @@ export default function FormItem (Component) {
       }
 
       if (shallowEqual(this.context, nextContext)) return false
+      if (!shallowEqual(this.context.controlProps, nextContext.controlProps)) return true
 
       const { formData } = nextContext
       const { name } = nextProps
@@ -104,6 +105,8 @@ export default function FormItem (Component) {
     handleChange (value) {
       const { itemChange } = this.context
       const { name, onChange } = this.props
+
+      console.log(value)
 
       if (typeof value === 'object' && value.nativeEvent) {
         value = value.target.value

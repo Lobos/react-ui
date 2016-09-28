@@ -184,6 +184,9 @@ class Form extends Component {
 
     const btns = buttons || button
 
+    // remove form.onChange
+    delete props.onChange
+
     return (
       <form {...filterFormProps(props)} onSubmit={this.handleSubmit} className={className}>
         <Mask active={fetchStatus === FETCH_PENDING} />

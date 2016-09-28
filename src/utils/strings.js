@@ -1,3 +1,5 @@
+import objectAssign from 'object-assign'
+
 let uid = Date.now()
 export function nextUid () {
   return (uid++).toString(36)
@@ -26,7 +28,11 @@ export function substitute (str, obj) {
       })
     }
   } else if (typeof str === 'function') {
-    return str(obj)
+    let val = str(obj)
+    if (val === obj && typeof val === 'object') {
+      val = objectAssign({}, obj)
+    }
+    return val
   }
 }
 

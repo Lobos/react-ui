@@ -1,6 +1,6 @@
 import curry from 'curry'
 import { toArray, substitute } from '../utils/strings'
-import { hashcode } from '../utils/objects'
+import { hashcode, deepEqual, objectAssign } from '../utils/objects'
 import PropTypes from '../utils/proptypes'
 import PureRender from '../mixins/PureRender'
 
@@ -17,7 +17,7 @@ export default curry(function (Component) {
       })
     }
 
-    data = data.map((d) => {
+    data = data.map((d, i) => {
       if (typeof d !== 'object') {
         d = typeof d === 'string' ? d : d.toString()
         return {
@@ -30,17 +30,23 @@ export default curry(function (Component) {
         }
       }
 
+      d = objectAssign({}, d)
+      let val = substitute(valueTpl, d)
+
       // speed filter
       if (filterAble) {
         d.$filter = (Object.keys(d).map((k) => d[k])).join(',').toLowerCase()
       }
 
-      let val = substitute(valueTpl, d)
       d.$html = substitute(optionTpl, d)
       d.$result = noResultTpl ? d.$html : substitute(resultTpl, d)
       d.$value = val
-      d.$selected = values.indexOf(val) >= 0
-      d.$key = d.id ? d.id : hashcode(val + d.$html)
+      if (typeof val === 'string') {
+        d.$selected = values.indexOf(val) >= 0
+      } else {
+        d.$selected = !!values.find(v => val === v || deepEqual(v, val))
+      }
+      d.$key = d.id ? d.id : i
       return d
     })
 

@@ -22,7 +22,9 @@ class ImgUpload extends Component {
     this.props.onFileAdd(
       (id, e) => {
         let progress = ul.querySelector(`#up_mask_${id}`)
-        progress.style.height = (1 - e.loaded / e.total) * 100 + '%'
+        if (progress) {
+          progress.style.height = (1 - e.loaded / e.total) * 100 + '%'
+        }
       },
       (file, blob, callback) => {
         let reader = new FileReader()
@@ -79,12 +81,15 @@ class ImgUpload extends Component {
     return Object.keys(files).map(k => {
       const file = files[k]
       let className = classnames(file.status === ERROR && _styles['has-error'])
+
+      let text = file.status === ERROR ? file.message : getLang('buttons.remove')
+
       return (
         <li key={k} style={{width, height}} className={className}>
           <div className={_styles.img} style={{backgroundImage: `url(${file.url})`}}>
             <div className={_styles.mask} id={`up_mask_${k}`} />
             <a href="javascript:;" onClick={() => removeFile(k)}>
-              <span>{getLang('buttons.remove')} &times;</span>
+              <span>{text} &times;</span>
             </a>
           </div>
         </li>
@@ -121,6 +126,7 @@ class ImgUpload extends Component {
 }
 
 ImgUpload.propTypes = {
+  accept: PropTypes.string,
   children: PropTypes.any,
   className: PropTypes.string,
   disabled: PropTypes.bool,
@@ -139,7 +145,7 @@ ImgUpload.propTypes = {
 }
 
 ImgUpload.defaultProps = {
-  srcTpl: '{src}',
+  accept: 'image/*',
   height: '6rem',
   width: '6rem'
 }

@@ -45,7 +45,7 @@ class FileUpload extends Component {
       let className = classnames(file.status === ERROR && _styles['has-error'])
       return (
         <li key={k} id={`up_pr_${k}`} className={className}>
-          <span>{file.name}</span>
+          <span>{file.status === ERROR ? file.message : file.name}</span>
           <a className={_styles.remove}
             onClick={() => removeFile(k)}>
             &times;
