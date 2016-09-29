@@ -1,5 +1,4 @@
 import { Component } from 'react'
-import objectAssign from 'object-assign'
 import PropTypes from '../utils/proptypes'
 import { nextUid, format } from '../utils/strings'
 import { deepEqual } from '../utils/objects'
@@ -51,20 +50,23 @@ export default function (Origin) {
       }
 
       let id = nextUid()
-      files = objectAssign({}, files, {
-        [id]: {
-          file: input,
-          name: input.files[0].name,
-          status: UPLOADING,
-          xhr: this.uploadFile(id, input, onProgress.bind(null, id))
-        }
-      })
+      let file = {
+        file: input,
+        name: input.files[0].name,
+        status: UPLOADING
+      }
+
+      files = {...files, [id]: file}
 
       if (handle) {
-        handle(files[id], blob, (file) => {
+        handle(files[id], blob, (f) => {
+          if (f.status !== ERROR) {
+            f.xhr = this.uploadFile(id, input, onProgress.bind(this, id))
+          }
           this.setState({ files })
         })
       } else {
+        file.xhr = this.uploadFile(id, input, onProgress.bind(this, id))
         this.setState({ files })
       }
     }

@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import PropTypes from '../utils/proptypes'
 import { getGrid } from '../utils/grids'
 import { compose } from '../utils/compose'
-import { substitute } from '../utils/strings'
+import { substitute, format } from '../utils/strings'
 import FormItem from '../higherOrders/FormItem'
 import { getLang } from '../lang'
 import Upload from './Upload'
@@ -26,6 +26,7 @@ class ImgUpload extends Component {
   handleFileChange (e) {
     const input = e.target
     let ul = this.refs.ul
+
     this.props.onFileAdd(
       input,
 
@@ -41,28 +42,30 @@ class ImgUpload extends Component {
 
         reader.onload = (e) => {
           let data = e.target.result
-            /*
-          let image = new Image()
-
-          image.onload = () => {
-            let width = image.width + ''
-            let height = image.height + ''
-            let size = this.props.size
-
-            if (size) {
-              size = size.split('*')
-              if (size.length === 2 && (width !== size[0] || height !== size[1])) {
-                this.handleChange(new Error(`图片尺寸不符合${this.props.size}`))
-                file.status = 3
-                return
-              }
-            }
-          }
-
-          image.src = data
-            */
           file.url = data
-          callback(file)
+
+          const { imgWidth, imgHeight } = this.props
+          if (imgWidth || imgHeight) {
+            let image = new Image()
+
+            image.onload = () => {
+              let error = []
+              console.log()
+              if (imgWidth && image.width !== imgWidth) error.push(format(getLang('validation.img.width'), imgWidth))
+              if (imgHeight && image.height !== imgHeight) error.push(format(getLang('validation.img.height'), imgHeight))
+
+              if (error.length > 0) {
+                file.status = ERROR
+                file.message = error.join(',')
+              }
+
+              callback(file)
+            }
+
+            image.src = data
+          } else {
+            callback(file)
+          }
         }
         reader.readAsDataURL(blob)
       }
@@ -144,6 +147,8 @@ ImgUpload.propTypes = {
   files: PropTypes.object,
   grid: PropTypes.grid,
   height: PropTypes.number_string,
+  imgHeight: PropTypes.number,
+  imgWidth: PropTypes.number,
   limit: PropTypes.number,
   onFileAdd: PropTypes.func,
   readOnly: PropTypes.bool,

@@ -46,6 +46,11 @@ module.exports = {
       fileSize: 'The {0} file size must less than {1} KB'
     },
 
+    img: {
+      width: 'image width must be {0}px',
+      height: 'image height must be {0}px'
+    },
+
     checking: 'checking'
   }
 }

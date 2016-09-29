@@ -1,6 +1,6 @@
 import Code from '../Code'
 import Example from '../Example'
-import { Button, Icon, ImgUpload } from '../rctui'
+import { ImgUpload } from '../rctui'
 import { Cn, En } from '../Language'
 
 module.exports = function () {
@@ -17,22 +17,24 @@ module.exports = function () {
         <Cn>
           <Code>
 {`<ImgUpload
-accept={string}         // input accept
-action={string}         // 服务端地址，必填
-className={string}      //
-content={element}       // 显示内容
-disabled={bool}         // 禁用，默认为 false
-fileSize={number}       // 单个文件最大尺寸，单位 KB
-limit={number}          // 最大上传文件个数，默认为 1
-name={string}           // field name，必填
-onUpload={func}         // 处理服务端返回的数据
-readOnly={bool}         // 只读，默认为 false
-params={object}
-style={object}
-grid={[width, responsive]} // 宽度，详见Grid
-withCredentials={bool}  // xhr2 withCredentials
-value={string}          //支持设置默认值，多张图片用逗号分隔
-size={string}           //图片尺寸,如100*100
+  accept={string}         // input accept
+  action={string}         // 服务端地址，必填
+  className={string}      //
+  content={element}       // 显示内容
+  disabled={bool}         // 禁用，默认为 false
+  fileSize={number}       // 单个文件最大尺寸，单位 KB
+  imgWidth={number}       // px, 上传图片宽度
+  imgHeight={number}      // px, 上传图片高度
+  limit={number}          // 最大上传文件个数，默认为 1
+  name={string}           // field name，必填
+  onUpload={func}         // 处理服务端返回的数据
+  readOnly={bool}         // 只读，默认为 false
+  params={object}
+  style={object}
+  withCredentials={bool}  // xhr2 withCredentials
+  value={string}          // 支持设置默认值，多张图片用逗号分隔
+  width={string}          // 缩略图宽度
+  height={string}         // 缩略图高度
 />`}
           </Code>
         </Cn>
@@ -44,12 +46,16 @@ size={string}           //图片尺寸,如100*100
   className={string}      //
   disabled={bool}         // default is false
   fileSize={number}       // single file size, unit KB
+  imgWidth={number}       // px, image width
+  imgHeight={number}      // px, image height
   limit={number}          // default is 1
   name={string}           // field name, required
   onUpload={func}         // handle server result
   readOnly={bool}         // default false
   params={object}
   style={object}
+  width={string}          // thumbnail width
+  height={string}         // thumbnail height
   withCredentials={bool}  // xhr2 withCredentials
 >{children}</ImgUpload>`}
           </Code>
@@ -65,7 +71,6 @@ size={string}           //图片尺寸,如100*100
   params={{ arg: 'test' }}
   value={['images/image1.jpg', 'images/image2.jpg']}
   srcTpl={d => d}
-  size="160*107"
   onUpload={(res) => {
     var json = JSON.parse(res)
     if (json.success) {
@@ -73,9 +78,7 @@ size={string}           //图片尺寸,如100*100
     } else {
       return new Error(json.message)
     }
-  }}>
-  <Button><Icon icon="upload" /> Choose a file</Button>
-</ImgUpload>
+  }} />
         </Example>
       </div>
     </div>

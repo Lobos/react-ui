@@ -52,6 +52,11 @@ module.exports = {
       fileSize: '{0} 最大上传文件大小不能超过 {1} KB'
     },
 
+    img: {
+      width: '图片宽度必须为 {0}px',
+      height: '图片高度必须为 {0}px'
+    },
+
     checking: '校验中'
   }
 }
