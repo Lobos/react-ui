@@ -8,6 +8,7 @@ import FormItem from '../higherOrders/FormItem'
 import { getLang } from '../lang'
 import Upload from './Upload'
 import { ERROR } from './status'
+import InputFile from './InputFile'
 
 import _styles from '../styles/_imgupload.scss'
 
@@ -15,17 +16,26 @@ class ImgUpload extends Component {
   constructor (props) {
     super(props)
     this.addFile = this.addFile.bind(this)
+    this.handleFileChange = this.handleFileChange.bind(this)
   }
 
   addFile () {
+    this.refs.input.click()
+  }
+
+  handleFileChange (e) {
+    const input = e.target
     let ul = this.refs.ul
     this.props.onFileAdd(
+      input,
+
       (id, e) => {
         let progress = ul.querySelector(`#up_mask_${id}`)
         if (progress) {
           progress.style.height = (1 - e.loaded / e.total) * 100 + '%'
         }
       },
+
       (file, blob, callback) => {
         let reader = new FileReader()
 
@@ -98,7 +108,7 @@ class ImgUpload extends Component {
   }
 
   render () {
-    const { grid, limit, style, disabled, readOnly, width, height, value, files } = this.props
+    const { accept, grid, limit, style, disabled, readOnly, width, height, value, files } = this.props
 
     let className = classnames(
       this.props.className,
@@ -116,6 +126,7 @@ class ImgUpload extends Component {
           {
             allowAdd &&
             <li style={{width, height}}>
+              <InputFile ref="input" accept={accept} onChange={this.handleFileChange} />
               <div onClick={this.addFile} className={classnames(_styles['imgupload-add'], _styles['img'])} />
             </li>
           }

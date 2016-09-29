@@ -39,54 +39,34 @@ export default function (Origin) {
       this.props.onChange(value)
     }
 
-    addFile (onProgress, handle) {
-      if (this.locked) return
-      this.locked = true
-
-      const { accept, fileSize } = this.props
+    addFile (input, onProgress, handle) {
+      const { fileSize } = this.props
 
       let files = this.state.files
-      let input = document.createElement('input')
-      input.type = 'file'
-      input.accept = accept
-      input.style.position = 'absolute'
-      input.style.left = '-1000px'
-      input.style.top = '-1000px'
 
-      document.body.appendChild(input)
+      let blob = input.files[0]
+      if (blob.size / 1024 > fileSize) {
+        this.handleChange(new Error(format(getLang('validation.tips.fileSize'), '', fileSize)))
+        return
+      }
 
-      input.addEventListener('change', () => {
-        let blob = input.files[0]
-        if (blob.size / 1024 > fileSize) {
-          this.handleChange(new Error(format(getLang('validation.tips.fileSize'), '', fileSize)))
-          return
-        }
-
-        let id = nextUid()
-        files = objectAssign({}, files, {
-          [id]: {
-            file: input,
-            name: input.files[0].name,
-            status: UPLOADING,
-            xhr: this.uploadFile(id, input, onProgress.bind(null, id))
-          }
-        })
-
-        if (handle) {
-          handle(files[id], blob, (file) => {
-            this.setState({ files })
-          })
-        } else {
-          this.setState({ files })
+      let id = nextUid()
+      files = objectAssign({}, files, {
+        [id]: {
+          file: input,
+          name: input.files[0].name,
+          status: UPLOADING,
+          xhr: this.uploadFile(id, input, onProgress.bind(null, id))
         }
       })
 
-      input.click()
-
-      setTimeout(() => {
-        // prevent mult upload
-        this.locked = false
-      }, 800)
+      if (handle) {
+        handle(files[id], blob, (file) => {
+          this.setState({ files })
+        })
+      } else {
+        this.setState({ files })
+      }
     }
 
     uploadFile (id, input, onProgress) {
@@ -120,8 +100,6 @@ export default function (Origin) {
               value: [...this.state.value, value]
             }, this.handleChange)
           }
-
-          document.body.removeChild(input)
         },
 
         onError: () => {
@@ -130,7 +108,6 @@ export default function (Origin) {
           files[id].message = getLang('fetch.status.error')
           this.setState({ files })
           this.handleChange()
-          document.body.removeChild(input)
         }
       })
     }

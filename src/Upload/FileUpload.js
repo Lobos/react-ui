@@ -7,6 +7,7 @@ import { substitute } from '../utils/strings'
 import FormItem from '../higherOrders/FormItem'
 import Upload from './Upload'
 import { ERROR } from './status'
+import InputFile from './InputFile'
 
 import _styles from '../styles/_upload.scss'
 
@@ -14,11 +15,16 @@ class FileUpload extends Component {
   constructor (props) {
     super(props)
     this.addFile = this.addFile.bind(this)
+    this.handleFileChange = this.handleFileChange.bind(this)
   }
 
   addFile () {
+    this.refs.input.click()
+  }
+
+  handleFileChange (e) {
     let ul = this.refs.ul
-    this.props.onFileAdd((id, e) => {
+    this.props.onFileAdd(e.target, (id, e) => {
       let progress = ul.querySelector(`#up_pr_${id}`)
       progress.style.backgroundSize = (e.loaded / e.total) * 100 + '%' + ' 2px'
     })
@@ -56,7 +62,7 @@ class FileUpload extends Component {
   }
 
   render () {
-    const { grid, limit, style, children, disabled, readOnly, value, files } = this.props
+    const { accept, grid, limit, style, children, disabled, readOnly, value, files } = this.props
 
     let className = classnames(
       this.props.className,
@@ -68,7 +74,13 @@ class FileUpload extends Component {
 
     return (
       <div className={className} style={style}>
-        { allowAdd && <div onClick={this.addFile}>{children}</div> }
+        {
+          allowAdd &&
+          <div onClick={this.addFile}>
+            {children}
+            <InputFile ref="input" accept={accept} onChange={this.handleFileChange} />
+          </div>
+        }
         <ul ref="ul">
           { this.renderValues() }
           { this.renderFiles() }
@@ -79,6 +91,7 @@ class FileUpload extends Component {
 }
 
 FileUpload.propTypes = {
+  accept: PropTypes.string,
   children: PropTypes.any,
   className: PropTypes.string,
   disabled: PropTypes.bool,
