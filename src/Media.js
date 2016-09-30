@@ -5,7 +5,7 @@ import _styles from './styles/_media.scss'
 function MediaLeft (props) {
   let classNames = classnames(_styles['media-left'], _styles[`media-${props.align}`])
   return (
-    <div className={classNames}>
+    <div style={props.style} className={classNames}>
     {props.children}
     </div>
   )
@@ -13,7 +13,7 @@ function MediaLeft (props) {
 function MediaRight (props) {
   let classNames = classnames(_styles['media-right'], _styles[`media-${props.align}`])
   return (
-    <div className={classNames}>
+    <div style={props.style} className={classNames}>
     {props.children}
     </div>
   )
@@ -21,14 +21,14 @@ function MediaRight (props) {
 function MediaBody (props) {
   let classNames = classnames(_styles['media-body'], _styles[`media-${props.align}`])
   return (
-    <div className={classNames}>
+    <div style={props.style} className={classNames}>
     {props.children}
     </div>
   )
 }
 function MediaHead (props) {
   return (
-    <div className={_styles['media-heading']}>
+    <div style={props.style} className={_styles['media-heading']}>
     {props.children}
     </div>
   )
