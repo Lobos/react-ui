@@ -7,6 +7,7 @@ import ImageBlot from './ImageBlot'
 
 import 'quill/dist/quill.snow.css'
 
+
 Quill.register(ImageBlot)
 
 const Component = compose(

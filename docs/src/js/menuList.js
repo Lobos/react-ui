@@ -60,6 +60,11 @@ module.exports = [
   },
 
   {
+    path: '/media',
+    component: require('./pages/media.jsx')
+  },
+
+  {
     path: '/nav',
     component: require('./pages/nav.jsx')
   },
