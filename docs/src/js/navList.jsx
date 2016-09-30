@@ -1,5 +1,3 @@
-'use strict'
-
 import { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import menuList from './menuList'
@@ -8,8 +6,22 @@ class NavList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      active: true
+      fixed: false
     }
+  }
+
+  componentDidMount () {
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset >= 50) {
+        if (!this.state.fixed) this.setFixed(true)
+      } else {
+        if (this.state.fixed) this.setFixed(false)
+      }
+    })
+  }
+
+  setFixed (fixed) {
+    this.setState({ fixed })
   }
 
   getClasses (name, path) {
@@ -28,15 +40,15 @@ class NavList extends Component {
     let list = menuList.map(function (r, i) {
       if (typeof r === 'string') {
         return (
-          <li key={i} className="pure-menu-item">
+          <li key={i}>
             <span className="menu-group-label">{r}</span>
           </li>
         )
       } else if (r.path) {
         return (
-          <li key={i} className="pure-menu-item">
+          <li key={i}>
             <a onClick={this.pathChange.bind(this, r.path)}
-              className={this.getClasses('pure-menu-link', r.path)}>
+              className={this.getClasses('', r.path)}>
               {r.path.replace('/', '').replace(/^[a-z]/, (s) => s.toUpperCase())}
             </a>
           </li>
@@ -48,8 +60,16 @@ class NavList extends Component {
   }
 
   render () {
+    let className = classnames(
+      'nav',
+      {
+        active: this.props.navShow,
+        fixed: this.state.fixed
+      }
+    )
+
     return (
-      <div className={classnames('nav', {active: this.state.active})}>
+      <div className={className}>
         <div className="nav-inner">
           <div ref="list" className="nav-list">
             {this.renderRouteList()}
@@ -61,6 +81,7 @@ class NavList extends Component {
 }
 
 NavList.propTypes = {
+  navShow: PropTypes.bool,
   onToggle: PropTypes.func
 }
 

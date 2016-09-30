@@ -34,8 +34,9 @@ export default function (Component) {
       this.imeLock = true
     }
 
-    handleCompositionEnd () {
+    handleCompositionEnd (event) {
       this.imeLock = false
+      this.handleChange(event.target.value, event)
     }
 
     handleTrigger (event) {

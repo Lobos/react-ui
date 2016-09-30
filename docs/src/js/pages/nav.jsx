@@ -22,15 +22,15 @@ module.exports = function () {
 
       <div className="content">
         <Code>
-{`<Nav 
+{`<Nav
   active={string}  // active id
   onSelect={func}  // select callback
   type='tab|pill'  // item style type, default is tab
   inline={bool}    // inline style for items, default value is false
                    // if you choose tab item type, default value is true
-  grid={{width, offset, responsive}} // see Grid 
+  grid={{width, offset, responsive}} // see Grid
 />
-<Nav.Item 
+<Nav.Item
   id={string}     // unique in Nav, if not set, use index
   onClick={func}  // click callback
   grid={{width, offset, responsive}} // see Grid, only effect when Nav is inline
@@ -69,13 +69,6 @@ module.exports = function () {
             <Nav.Item id="foo" grid={1 / 4} onClick={onClick}>foo</Nav.Item>
             <Nav.Item id="bar" grid={1 / 4}>bar</Nav.Item>
             <Nav.Item id="baz" grid={1 / 4} disabled>baz</Nav.Item>
-          </Nav>
-        </Example>
-        <Example>
-          <Nav active="baz" onSelect={onSelect} type="tab">
-            <Nav.Item id="foo" grid={1 / 4} onClick={onClick}>foo</Nav.Item>
-            <Nav.Item id="bar" grid={1 / 4}>bar</Nav.Item>
-            <Nav.Item id="baz" grid={1 / 4}>baz</Nav.Item>
           </Nav>
         </Example>
       </div>

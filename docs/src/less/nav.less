@@ -1,74 +1,63 @@
 .nav {
-  width: 220px;
+  width: 25%;
   min-height: 100%;
   position: absolute;
-  left: -220px;
-  background-color: #fafafa;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: #fff;
+
+  &.fixed {
+    display: fixed;
+  }
 
   .nav-inner {
-    padding: 20px 0;
+    position: absolute;
+    padding: 2rem 0;
+    overflow: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 
-    a { 
+    a {
       position: relative;
       color: #777;
-
-      &:hover, &:focus {
-        color: #333;
-      }
-
-      &.active {
-        color: #1f8dd6;
-        background-color: #fff;
-      }
-    }
-
-    .nav-handler {
-      position: absolute;
-      bottom: 100%;
-      left: 0;
-      padding: 0;
-      width: 50px;
-      height: 50px;
-      line-height: 50px;
-      text-align: center;
-      font-size: 20px;
-      border-right: solid 1px #ccc;
-      transition: 0.4s;
-
-      &:hover {
-        color: #fff;
-        background-color: #181818;
-      }
-
-      i {
-        margin-top: -4px;
-      }
     }
 
     .nav-list {
+      float: right;
+      max-width: 14rem;
+      margin-right: 2rem;
       transition: opacity 0.4s;
       box-sizing: border-box;
-    }
 
-    .pure-menu-link {
-      padding: 5px 20px 5px 30px;
-    }
-
-    .pure-menu-list {
-      hr {
+      ul {
+        list-style: none;
+        padding: 0;
         margin: 0;
-        border: solid 0px #333;
-        border-bottom-width: 1px;
-      }
 
-      .pure-menu-item {
-        height: auto;
+        a {
+          display: block;
+          padding: 0.2rem 1rem;
+          color: #777;
+
+          &:hover {
+            color: #000;
+          }
+
+          &.active {
+            color: #1f8dd6;
+          }
+
+        }
       }
     }
 
     .menu-group-label {
-      padding: 5px 20px;
-      font-size: 12px;
+      display: block;
+      padding: 0.6rem 0 0.3rem;
+      font-size: 80%;
       color: #aaa;
     }
   }
@@ -84,3 +73,15 @@
   }
 }
 
+@media (min-width: 960px) {
+  .nav .nav-inner .nav-list {
+    margin-right: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    position: fixed;
+    left: -100%;
+  }
+}

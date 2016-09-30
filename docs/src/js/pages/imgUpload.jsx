@@ -9,19 +9,16 @@ module.exports = function () {
       <div className="header">
         <h1>ImgUpload</h1>
         <Cn tag="h2">文件上传</Cn>
-        <Cn>使用了 formdata 进行数据传输，IE10以下暂不支持，慎用。</Cn>
-        <Cn>图片上传组件基于Upload进一步封装，提供上传图片后的显示图片功能。</Cn>
       </div>
 
       <div className="content">
+        <Cn>使用了 formdata 进行数据传输，IE10以下暂不支持，慎用。</Cn>
         <Cn>
           <Code>
 {`<ImgUpload
   accept={string}         // input accept
   action={string}         // 服务端地址，必填
   className={string}      //
-  content={element}       // 显示内容
-  disabled={bool}         // 禁用，默认为 false
   fileSize={number}       // 单个文件最大尺寸，单位 KB
   imgWidth={number}       // px, 上传图片宽度
   imgHeight={number}      // px, 上传图片高度
@@ -44,7 +41,6 @@ module.exports = function () {
   accept={string}         // input accept
   action={string}         // required
   className={string}      //
-  disabled={bool}         // default is false
   fileSize={number}       // single file size, unit KB
   imgWidth={number}       // px, image width
   imgHeight={number}      // px, image height

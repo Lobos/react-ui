@@ -10,6 +10,7 @@ html * {
 body {
   color: #555;
   line-height: 1.6;
+  height: 100%;
 }
 
 @font-face {
@@ -33,14 +34,11 @@ a {
 }
 
 header {
-  line-height: 50px;
-  height: 50px;
+  line-height: 3.5rem;
+  height: 3.5rem;
   background-color: #1f8dd6;
-  box-shadow: 0px 2px 5px 0px rgba(31,141,214,0.5);
-  position: fixed;
   width: 100%;
-  z-index: 1000;
-  padding: 0 20px;
+  padding: 0 1.5rem;
   box-sizing: border-box;
 
   a {
@@ -48,19 +46,17 @@ header {
   }
 
   .logo {
-    font-size: 20px;
+    font-size: 1.5rem;
   }
 
   .link-github, .link-lang {
     float: right;
-    margin-left: 10px;
+    margin-left: 1rem;
   }
 }
 
 .wrapper {
-  padding-top: 50px;
   position: relative;
-  border-left: solid #fafafa 220px;
 }
 
 .hero {
@@ -69,7 +65,6 @@ header {
   .hero-title {
     padding: 0 1em;
     margin: 4em auto 2em;
-    max-width: 768px;
     color: #555;
     h1 {
       font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -106,6 +101,10 @@ header {
     color: #999;
     letter-spacing: -0.02em;
   }
+}
+
+.main {
+  margin-left: 25%;
 }
 
 .content {
@@ -197,5 +196,11 @@ header {
   .header, .content {
     padding-left: 4em;
     padding-right: 4em;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    margin-left: 0;
   }
 }
