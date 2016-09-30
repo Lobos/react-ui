@@ -62,7 +62,7 @@ class FileUpload extends Component {
   }
 
   render () {
-    const { accept, grid, limit, style, children, disabled, readOnly, value, files } = this.props
+    const { accept, grid, limit, multiple, style, children, disabled, readOnly, value, files } = this.props
 
     let className = classnames(
       this.props.className,
@@ -78,7 +78,7 @@ class FileUpload extends Component {
           allowAdd &&
           <div onClick={this.addFile}>
             {children}
-            <InputFile ref="input" accept={accept} onChange={this.handleFileChange} />
+            <InputFile ref="input" multiple={multiple} accept={accept} onChange={this.handleFileChange} />
           </div>
         }
         <ul ref="ul">
@@ -98,6 +98,7 @@ FileUpload.propTypes = {
   files: PropTypes.object,
   grid: PropTypes.grid,
   limit: PropTypes.number,
+  multiple: PropTypes.bool,
   onFileAdd: PropTypes.func,
   readOnly: PropTypes.bool,
   removeFile: PropTypes.func,

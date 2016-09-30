@@ -2,13 +2,14 @@
   width: 25%;
   min-height: 100%;
   position: absolute;
-  top: 0;
+  top: 3.5rem;
   left: 0;
   bottom: 0;
   background: #fff;
 
   &.fixed {
-    display: fixed;
+    top: 0;
+    position: fixed;
   }
 
   .nav-inner {
@@ -81,7 +82,15 @@
 
 @media (max-width: 768px) {
   .nav {
+    width: 200px;
     position: fixed;
+    transition: 0.5s;
     left: -100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+
+    &.active {
+      left: 0;
+    }
   }
 }

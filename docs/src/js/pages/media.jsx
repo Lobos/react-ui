@@ -23,26 +23,22 @@ module.exports = class extends Component {
           <Cn>可以实现左右布局（定宽+自适应宽度的布局）</Cn>
           <En>It is support for left and right aligned content, content alignment options, nesting, and more.</En>
 
-          <Cn>
-            <Code>
-{`<Media></Media>                                //Media容器
-  <Media.Left align={string}>{定宽元素}</Media.Left>       //align垂直对齐，可选值为'top|bottom|middle'
-  <Media.Body align={string}>{自适应宽度元素}</Media.Body>  
-  <Media.Right align={string}>{定宽元素}</Media.Right>
-  `
-}
-            </Code>
-          </Cn>
-          <En>
-            <Code>
-{`<Media></Media>                                         //Media Container
-  <Media.Left align={string}>{定宽元素}</Media.Left>       //align option:'top|bottom'
-  <Media.Body align={string}>{自适应宽度元素}</Media.Left>  
-  <Media.Right align={string}>{定宽元素}</Media.Right>
-  `
-}
-            </Code>
-          </En>
+          <Code>
+            {`
+              // align is one of 'top|middle|bottom', default value is 'top'
+              <Media>
+                <Media.Left align={string}>
+                  {string || element}
+                </Media.Left>
+                <Media.Body align={string}>
+                  {string || element}
+                </Media.Body>
+                <Media.Right align={string}>
+                  {string || element}
+                </Media.Right>
+              </Media>
+            `}
+          </Code>
 
           <h2 className="subhead">Example</h2>
 
@@ -62,7 +58,8 @@ module.exports = class extends Component {
             </Media>
           </Example>
 
-          <h2 className="subhead">支持嵌套</h2>
+          <Cn><h2 className="subhead">支持嵌套</h2></Cn>
+          <En><h2 className="subhead">Nested</h2></En>
 
           <Example>
             <Media>

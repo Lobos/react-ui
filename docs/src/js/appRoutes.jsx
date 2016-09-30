@@ -16,8 +16,13 @@ require('./menuList').forEach(function (menu, index) {
   }
 })
 
+function scrollTop () {
+  const width = (window.innerWidth > 0) ? window.innerWidth : screen.width
+  window.scrollTo(0, width >= 768 ? 50 : 0)
+}
+
 const AppRoutes = (
-  <Router onUpdate={() => window.scrollTo(0, 50)} history={hashHistory}>
+  <Router onUpdate={scrollTop} history={hashHistory}>
     <Route path="/" indexRoute={{component: Home}} component={Master}>
       <Route path="/home" component={Home} />
       {menulist}

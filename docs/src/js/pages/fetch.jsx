@@ -17,6 +17,14 @@ const request = Refetch.create({
   })
 })
 
+const fetchData = Refetch.get('./json/select.json').then((res) => {
+  if (res.success) {
+    return res.list
+  } else {
+    return new Error(res.message)
+  }
+})
+
 module.exports = class extends Component {
   render () {
     return (
@@ -114,7 +122,7 @@ module.exports = class extends Component {
     if (res.success) {
       return res.list;
     } else {
-      return new Error(res.message); 
+      return new Error(res.message);
     }
   })
 });`}
@@ -131,20 +139,19 @@ module.exports = class extends Component {
           <h2 className="subhead">Promise</h2>
           <Cn>第二种用法，传入一个Promise对象。</Cn>
           <Code>
-{'fetch = Refetch.get(\'/example/url\', ...)'}
+{`
+const fetchData = Refetch.get('./json/select.json').then((res) => {
+  if (res.success) {
+    return res.list
+  } else {
+    return new Error(res.message)
+  }
+})
+`}
+
           </Code>
           <Example>
-<RadioGroup
-  fetch={
-    Refetch.get('./json/select.json').then((res) => {
-      if (res.success) {
-        return res.list
-      } else {
-        return new Error(res.message)
-      }
-    })
-  }
-/>
+            <RadioGroup fetch={fetchData} />
           </Example>
 
           <Cn><h2 className="subhead">简单的示意图</h2></Cn>

@@ -4,14 +4,17 @@ class InputFile extends Component {
   click () {
     if (this.locked) return
     this.locked = true
+
+    this.refs.input.value = ''
     this.refs.input.click()
 
-    setTimeout(() => { this.locked = false }, 500)
+    setTimeout(() => { this.locked = false }, 200)
   }
 
   render () {
     return (
       <input type="file" ref="input"
+        multiple={this.props.multiple}
         accept={this.props.accept}
         style={{
           position: 'absolute',
@@ -28,9 +31,12 @@ class InputFile extends Component {
 
 InputFile.propTypes = {
   accept: PropTypes.string,
+  multiple: PropTypes.bool,
   onChange: PropTypes.func
 }
 
-InputFile.defaultProps = {}
+InputFile.defaultProps = {
+  multiple: false
+}
 
 export default InputFile

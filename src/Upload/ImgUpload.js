@@ -44,22 +44,29 @@ class ImgUpload extends Component {
           let data = e.target.result
           file.url = data
 
-          const { imgWidth, imgHeight } = this.props
+          const { imgWidth, imgHeight, imgValidator } = this.props
           if (imgWidth || imgHeight) {
             let image = new Image()
 
             image.onload = () => {
-              let error = []
-              console.log()
-              if (imgWidth && image.width !== imgWidth) error.push(format(getLang('validation.img.width'), imgWidth))
-              if (imgHeight && image.height !== imgHeight) error.push(format(getLang('validation.img.height'), imgHeight))
+              if (imgValidator) {
+                let result = imgValidator(image)
+                if (result !== true) {
+                  file.status = ERROR
+                  file.message = result.message
+                }
+              } else {
+                let error = []
+                if (imgWidth && image.width !== imgWidth) error.push(format(getLang('validation.img.width'), imgWidth))
+                if (imgHeight && image.height !== imgHeight) error.push(format(getLang('validation.img.height'), imgHeight))
 
-              if (error.length > 0) {
-                file.status = ERROR
-                file.message = error.join(',')
+                if (error.length > 0) {
+                  file.status = ERROR
+                  file.message = error.join(',')
+                }
+
+                callback(file)
               }
-
-              callback(file)
             }
 
             image.src = data
@@ -111,7 +118,7 @@ class ImgUpload extends Component {
   }
 
   render () {
-    const { accept, grid, limit, style, disabled, readOnly, width, height, value, files } = this.props
+    const { accept, grid, limit, style, disabled, multiple, readOnly, width, height, value, files } = this.props
 
     let className = classnames(
       this.props.className,
@@ -129,7 +136,7 @@ class ImgUpload extends Component {
           {
             allowAdd &&
             <li style={{width, height}}>
-              <InputFile ref="input" accept={accept} onChange={this.handleFileChange} />
+              <InputFile ref="input" multiple={multiple} accept={accept} onChange={this.handleFileChange} />
               <div onClick={this.addFile} className={classnames(_styles['imgupload-add'], _styles['img'])} />
             </li>
           }
@@ -148,8 +155,10 @@ ImgUpload.propTypes = {
   grid: PropTypes.grid,
   height: PropTypes.number_string,
   imgHeight: PropTypes.number,
+  imgValidator: PropTypes.func,
   imgWidth: PropTypes.number,
   limit: PropTypes.number,
+  multiple: PropTypes.bool,
   onFileAdd: PropTypes.func,
   readOnly: PropTypes.bool,
   removeFile: PropTypes.func,

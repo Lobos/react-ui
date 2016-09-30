@@ -31,6 +31,7 @@ class NavList extends Component {
   }
 
   pathChange (path) {
+    this.props.onToggle()
     if (!this.context.history.isActive(path)) {
       this.context.history.pushState(null, path)
     }

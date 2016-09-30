@@ -41,37 +41,38 @@ export default function (Origin) {
     addFile (input, onProgress, handle) {
       const { fileSize } = this.props
 
-      let files = this.state.files
+      let files = {...this.state.files}
 
-      let blob = input.files[0]
-      if (blob.size / 1024 > fileSize) {
-        this.handleChange(new Error(format(getLang('validation.tips.fileSize'), '', fileSize)))
-        return
-      }
+      for (let i = 0; i < input.files.length; i++) {
+        let blob = input.files[i]
+        if (blob.size / 1024 > fileSize) {
+          this.handleChange(new Error(format(getLang('validation.tips.fileSize'), '', fileSize)))
+          return
+        }
 
-      let id = nextUid()
-      let file = {
-        file: input,
-        name: input.files[0].name,
-        status: UPLOADING
-      }
+        let id = nextUid()
+        let file = {
+          name: blob.name,
+          status: UPLOADING
+        }
 
-      files = {...files, [id]: file}
+        files[id] = file
 
-      if (handle) {
-        handle(files[id], blob, (f) => {
-          if (f.status !== ERROR) {
-            f.xhr = this.uploadFile(id, input, onProgress.bind(this, id))
-          }
+        if (handle) {
+          handle(files[id], blob, (f) => {
+            if (f.status !== ERROR) {
+              f.xhr = this.uploadFile(id, blob, onProgress.bind(this, id))
+            }
+            this.setState({ files })
+          })
+        } else {
+          file.xhr = this.uploadFile(id, blob, onProgress.bind(this, id))
           this.setState({ files })
-        })
-      } else {
-        file.xhr = this.uploadFile(id, input, onProgress.bind(this, id))
-        this.setState({ files })
+        }
       }
     }
 
-    uploadFile (id, input, onProgress) {
+    uploadFile (id, file, onProgress) {
       let { onUpload, action, name, cors, params, withCredentials } = this.props
 
       return ajax({
@@ -80,7 +81,7 @@ export default function (Origin) {
         cors,
         params,
         withCredentials,
-        file: input.files[0],
+        file,
         onProgress,
 
         onLoad: (e) => {

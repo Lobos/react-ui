@@ -26,17 +26,15 @@ class Page extends Component {
 
   render () {
     return (
-      <div>
+      <div style={{height: '100vh'}}>
         <header>
           <a className="menu" href="javascript:;" onClick={this.navToggle}>menu</a>
           <a className="logo" href="#/home">React UI</a>
           <a className="link-github" href="https://github.com/Lobos/react-ui"><Icon icon="github" /> github</a>
-          <a onClick={this.langToggle} className="link-lang">{this.state.lang === 'zh-cn' ? 'English' : '中文'}</a>
+          <a href="javascript:;" onClick={this.langToggle} className="link-lang">{this.state.lang === 'zh-cn' ? 'English' : '中文'}</a>
         </header>
-        <div className="wrapper">
-          <NavList onToggle={this.navToggle} navShow={this.navShow} />
-          <div className="main">{this.props.children}</div>
-        </div>
+        <NavList onToggle={this.navToggle} navShow={this.state.navShow} />
+        <div className="main">{this.props.children}</div>
       </div>
     )
   }

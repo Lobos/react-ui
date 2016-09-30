@@ -160,12 +160,13 @@ class Form extends Component {
       buttons = { 'submit': buttons }
     }
 
-    const { submit, reset, cancel } = buttons
+    const { submit, primary, reset, cancel } = buttons
     const { disabled } = this.props
 
     return (
       <FormControl key="buttons" columns={null}>
         { submit && <Button className={_forms.button} disabled={disabled} type="submit" status="primary">{submit}</Button> }
+        { primary && <Button className={_forms.button} disabled={disabled} onClick={this.handleSubmit} status="primary">{primary}</Button> }
         { reset && <Button onClick={this.handleReset} disabled={disabled} className={_forms.button}>{reset}</Button> }
         { cancel && <Button onClick={this.props.onCancel} disabled={disabled} className={_forms.button}>{cancel}</Button> }
       </FormControl>

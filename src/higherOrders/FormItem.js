@@ -106,8 +106,6 @@ export default function FormItem (Component) {
       const { itemChange } = this.context
       const { name, onChange } = this.props
 
-      console.log(value)
-
       if (typeof value === 'object' && value.nativeEvent) {
         value = value.target.value
       }

@@ -16,7 +16,7 @@ class Code extends Component {
 
     return (
       <div className="code">
-        <pre className="prettyprint">
+        <pre className="prettyprint linenums">
           {lines.join('\n')}
         </pre>
       </div>

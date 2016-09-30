@@ -10,6 +10,7 @@ function MediaLeft (props) {
     </div>
   )
 }
+
 function MediaRight (props) {
   let classNames = classnames(_styles['media-right'], _styles[`media-${props.align}`])
   return (
@@ -18,6 +19,7 @@ function MediaRight (props) {
     </div>
   )
 }
+
 function MediaBody (props) {
   let classNames = classnames(_styles['media-body'], _styles[`media-${props.align}`])
   return (
@@ -26,6 +28,7 @@ function MediaBody (props) {
     </div>
   )
 }
+
 function MediaHead (props) {
   return (
     <div style={props.style} className={_styles['media-heading']}>
@@ -33,10 +36,6 @@ function MediaHead (props) {
     </div>
   )
 }
-Media.Left = MediaLeft
-Media.Body = MediaBody
-Media.Head = MediaHead
-Media.Right = MediaRight
 
 export default function Media (props) {
   return (
@@ -44,5 +43,10 @@ export default function Media (props) {
     {props.children}
     </div>
   )
-};
+}
+
+Media.Left = MediaLeft
+Media.Body = MediaBody
+Media.Head = MediaHead
+Media.Right = MediaRight
 
