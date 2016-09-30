@@ -35,6 +35,7 @@ module.exports = class extends React.Component {
   button='string'       //  只有submit按钮，可以使用button
   buttons={
     submit: 'string',   // submit 按钮文字
+    primary: 'string',  // 和 submit 按钮相同，区别是不会触发 enter 提交
     reset: 'string',    // reset 按钮文字
     cancel: 'string'    // cancel 按钮文字
   }
@@ -62,6 +63,7 @@ module.exports = class extends React.Component {
 {`<Form
   buttons={
     submit: 'string',   // submit button text
+    primary: 'string',  // like submit, prevent 'enter' key submit
     reset: 'string',    // reset button text
     cancel: 'string'    // cancel button text
   }
@@ -110,7 +112,7 @@ module.exports = class extends React.Component {
           <Example>
             <Form onSubmit={formData => console.log(formData)}
               fetch={'json/form.json'}
-              buttons={{ submit: 'Submit', reset: 'Reset' }}>
+              buttons={{ primary: 'Submit', reset: 'Reset' }}>
               <FormControl label="id">
                 <FormText>{d => d.id}</FormText>
               </FormControl>
