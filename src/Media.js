@@ -40,7 +40,7 @@ Media.Right = MediaRight
 
 export default function Media (props) {
   return (
-    <div className={_styles.media}>
+    <div style={props.style} className={_styles.media}>
     {props.children}
     </div>
   )
