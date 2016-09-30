@@ -28,7 +28,9 @@ class Page extends Component {
     return (
       <div style={{height: '100vh'}}>
         <header>
-          <a className="menu" href="javascript:;" onClick={this.navToggle}>menu</a>
+          <a className="menu" href="javascript:;" onClick={this.navToggle}>
+            <Icon icon="menu" style={{fontSize: '1.5rem'}} />
+          </a>
           <a className="logo" href="#/home">React UI</a>
           <a className="link-github" href="https://github.com/Lobos/react-ui"><Icon icon="github" /> github</a>
           <a href="javascript:;" onClick={this.langToggle} className="link-lang">{this.state.lang === 'zh-cn' ? 'English' : '中文'}</a>

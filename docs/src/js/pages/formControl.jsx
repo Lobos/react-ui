@@ -1,5 +1,3 @@
-'use strict'
-
 import React from 'react'
 // import Refetch from 'refetch'
 import Code from '../Code'
@@ -224,29 +222,25 @@ validator = {
             </Example>
           </div>
 
-          <div>
-            <p><em><b>upload</b></em> => <a href="#/upload">Upload</a></p>
-            <Example>
-              <FormControl
-                type="text"
-                grid={{ width: 1 }}
-                name="ajax"
-                tip="name is 'lobos'"
-                validator={{
-                  async: (value, formData, callback) => {
-                    setTimeout(() => {
-                      callback(value === 'lobos' ? true : new Error(value + ' already exists'))
-                    }, 500)
-                    /* ajax example
-                    Refetch.get('/validate', { name: value }).then(res => {
-                      callback(res.success ? true : new Error(res.msg))
-                    })
-                    */
-                  }
-                }}
-              />
-            </Example>
-          </div>
+          <h2 className="subhead">Remote validate</h2>
+          <Example>
+            <FormControl
+              type="text"
+              tip="name is 'lobos'"
+              validator={{
+                async: (value, formData, callback) => {
+                  setTimeout(() => {
+                    callback(value === 'lobos' ? true : new Error(value + ' already exists'))
+                  }, 500)
+                  /* ajax example
+                  Refetch.get('/validate', { name: value }).then(res => {
+                    callback(res.success ? true : new Error(res.msg))
+                  })
+                  */
+                }
+              }}
+            />
+          </Example>
 
           <h2 className="subhead">Children</h2>
           <Cn>0.6 可以任意使用已注册的表单组件</Cn>
