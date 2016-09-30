@@ -1,5 +1,3 @@
-'use strict'
-
 import { Component } from 'react'
 import Code from '../Code'
 import { getLang } from '../../../../src/lang'
@@ -31,9 +29,15 @@ module.exports = class extends Component {
           <Cn>所有提示文字信息都放在 <em>lang</em> 下。</Cn>
           <En>Language package, include tip text, button text...</En>
 
-          <h2 className="subhead">Lang.setLocation('zh-cn|en')</h2>
+          <h2 className="subhead">Set location</h2>
           <Cn>设置语言包，默认为'zh-cn'</Cn>
           <En>Static method, set current location, there are 2 language packages in the folder, 'zh-cn' and 'en', default is 'zh-cn'. If you want other language, use setLang.</En>
+          <Code>
+            {`
+              const config from 'rctui/config'
+              config.location = 'en|zh-cn'
+            `}
+          </Code>
 
           <h2 className="subhead">Lang.setLang(map[,map2...])</h2>
           <Cn>更新或者增加。</Cn>
@@ -50,8 +54,8 @@ module.exports = class extends Component {
             <div>{JSON.stringify(getLang(this.state.path), null, 4) || 'undefined'}</div>
           </div>
 
-          <Cn tag="h2" className="subhead">当前信息</Cn>
-          <En tag="h2" className="subhead">Current Message</En>
+          <Cn><h2 className="subhead">当前信息</h2></Cn>
+          <En><h2 className="subhead">Current Message</h2></En>
           <Code>{JSON.stringify(getLang(), null, 4)}</Code>
         </div>
       </div>
