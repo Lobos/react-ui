@@ -1,5 +1,5 @@
 @import 'mixins';
-@import 'themes/bootstrap';
+@import 'themes/default';
 
 //
 // Progress animations
@@ -158,7 +158,7 @@ base::-moz-progress-bar, // Absurd-but-syntactically-valid selector to make thes
   margin-bottom: 0.35rem;
   transform: translateX(-50%);
   white-space: nowrap;
-  
+
   &:after {
     content: ' ';
     position: absolute;

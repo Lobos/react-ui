@@ -1,5 +1,5 @@
 @import "mixins";
-@import "themes/bootstrap";
+@import "themes/default";
 
 .select {
   position: relative;
@@ -71,7 +71,7 @@
   background-color: $dropdown-bg;
   background-clip: padding-box;
   border: $dropdown-border-width solid $dropdown-border-color;
-  @include border-radius($border-radius);
+  @include border-radius($select-options-border-radius);
   @include box-shadow($dropdown-box-shadow);
   margin: $dropdown-margin-top 0 0;
   transform-origin: 0 0;

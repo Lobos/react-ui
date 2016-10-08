@@ -1,5 +1,5 @@
 @import "mixins";
-@import "themes/bootstrap";
+@import "themes/default";
 
 .placeholder {
   color: $input-color-placeholder;
@@ -125,18 +125,18 @@
   text-align: center;
   background-color: $input-group-addon-bg;
   border: $input-btn-border-width solid $input-group-addon-border-color;
-  @include border-radius($border-radius);
+  @include border-radius($input-border-radius);
 
   // Sizing
   &.small {
     padding: $input-padding-y-sm $input-padding-x-sm;
     font-size: $font-size-sm;
-    @include border-radius($border-radius-sm);
+    @include border-radius($input-border-radius-sm);
   }
   &.large {
     padding: $input-padding-y-lg $input-padding-x-lg;
     font-size: $font-size-lg;
-    @include border-radius($border-radius-lg);
+    @include border-radius($input-border-radius-lg);
   }
 
   // scss-lint:disable QualifyingElement

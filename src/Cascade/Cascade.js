@@ -30,7 +30,7 @@ class Cascade extends Component {
   }
 
   handlePathChange (path, node) {
-    const { halfSelect, maxLevel, onLazyClick } = this.props
+    const { hastily, maxLevel, onLazyClick } = this.props
 
     let isEnd
     if (typeof node.isEnd === 'boolean') {
@@ -45,12 +45,12 @@ class Cascade extends Component {
 
     if (isEnd) {
       this.props.onClose()
-      !halfSelect && this.props.onChange(path)
+      !hastily && this.props.onChange(path)
     } else if (onLazyClick && !node.children) {
       onLazyClick(node, (data) => {
         if (!data || data.length === 0) {
           this.props.onClose()
-          !halfSelect && this.props.onChange(path)
+          !hastily && this.props.onChange(path)
         } else {
           path.push('')
           this.setState({ path })
@@ -59,7 +59,7 @@ class Cascade extends Component {
     } else {
       path.push('')
     }
-    halfSelect && this.props.onChange(path)
+    hastily && this.props.onChange(path)
     this.setState({ path })
   }
 
@@ -118,7 +118,7 @@ Cascade.propTypes = objectAssign({
   className: PropTypes.string,
   data: PropTypes.array,
   grid: PropTypes.grid,
-  halfSelect: PropTypes.bool,
+  hastily: PropTypes.bool,
   maxLevel: PropTypes.number,
   onLazyClick: PropTypes.func,
   placeholder: PropTypes.string,

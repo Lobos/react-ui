@@ -26,8 +26,8 @@ module.exports = class extends Component {
 {`<Cascade
   data={array}          // same as Tree
   fetch={object}
-  halfSelect={bool}     // if halfSelect is true, click parent node will trigger onChange
-  maxLevel={integer}    // 
+  hastily={bool}        // if hastily is true, click parent node will trigger onChange
+  maxLevel={integer}    //
   value={array}
   optionTpl={string}    // option template, default is "{text}"
   resultTpl={string}    // result template, default is same as optionTpl
@@ -44,7 +44,7 @@ module.exports = class extends Component {
   data={array}          // 格式和tree相同
   fetch={object}
   lazyFetch={promise}
-  halfSelect={bool}     // 如果halfSelect为true，点击父节点也会触发onChange事件
+  hastily={bool}        // 如果hastily为true，点击父节点也会触发onChange事件
   maxLevel={integer}    // 最多展示多少级选项
   value={array}
   optionTpl={string}    // 选项模板，默认为 {text}
@@ -62,9 +62,9 @@ module.exports = class extends Component {
             <Cascade fetch={'json/tree.json'} value={['1', '1.2', '1.2.1']} />
           </Example>
 
-          <h2 className="subhead">halfSelect</h2>
+          <h2 className="subhead">hastily</h2>
           <Example>
-            <Cascade fetch={'json/tree.json'} halfSelect />
+            <Cascade fetch={'json/tree.json'} hastily />
           </Example>
 
           <h2 className="subhead">City</h2>

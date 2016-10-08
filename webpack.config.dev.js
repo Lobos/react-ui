@@ -50,7 +50,7 @@ module.exports = {
       { test: /\.(png|jpg|jpeg|gif)$/, loader: 'url-loader?limit=10000&name=./images/[name].[ext]' }
     ],
     preLoaders: [
-      { test: /\.scss$/, loader: 'rctui-theme-loader?theme=' },
+      { test: /\.scss$/, loader: 'rctui-theme-loader?theme=mui' },
       { test: /\.jsx?$/, loader: 'rctui-example-loader', include: [path.resolve(__dirname, 'docs')] }
     ]
   },

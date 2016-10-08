@@ -1,5 +1,5 @@
 @import 'mixins';
-@import 'themes/bootstrap';
+@import 'themes/default';
 
 .img {
   position: relative;
@@ -135,7 +135,7 @@
 }
 
 @keyframes rctui-image-modal {
-  0% { 
+  0% {
     opacity: 0;
     transform: scale(0.4);
   }

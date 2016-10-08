@@ -1,5 +1,5 @@
 @import "mixins";
-@import "themes/bootstrap";
+@import "themes/default";
 
 // Base styles
 
@@ -28,6 +28,10 @@
   }
   &:focus {
     text-decoration: none;
+  }
+
+  &:hover {
+    @include box-shadow($btn-hover-box-shadow);
   }
 
   &:active {
@@ -86,6 +90,7 @@
     border-color: transparent;
   }
   @include hover {
+    box-shadow: none;
     border-color: transparent;
   }
   @include hover-focus {

@@ -1,5 +1,5 @@
 @import "mixins";
-@import "themes/bootstrap";
+@import "themes/default";
 
 .datepicker {
   display: inline-block;
@@ -41,10 +41,6 @@
       size: 50%;
     }
   }
-}
-
-.open .control {
-  background-image: none;
 }
 
 .short {
@@ -332,51 +328,37 @@
     border: $clock-border-width solid $clock-border-color;
     background-color: $clock-bg-color;
 
-    .am, .pm {
+    .am {
       position: absolute;
       text-align: center;
-      width: $clock-indicator-width;
-      height: $clock-indicator-height;
-      line-height: $clock-indicator-height - $clock-border-width * 2;
+      right: -0.7rem;
       bottom: $clock-indicator-bottom;
+      padding: $clock-indicator-padding;
       cursor: pointer;
       font-weight: bold;
       border-radius: $clock-indicator-border-radius;
       border: $clock-border-width solid $clock-border-color;
+      color: $clock-indicator-color;
       background-color: $clock-bg-color;
-      color: $clock-set-color;
 
-      &:hover, &.active {
-        background-color: $clock-set-hover-bg;
-        color: $clock-set-hover-color;
+      .active {
+        color: $clock-indicator-hover-color;
       }
-    }
-
-    .am {
-      left: 0 - $clock-indicator-width / 2;
-    }
-
-    .pm {
-      right: 0 - $clock-indicator-width / 2;
     }
   }
 
   .close {
     position: absolute;
     cursor: pointer;
-    right: $clock-close-margin;
-    top: $clock-close-margin;
     height: $clock-close-size;
     width: $clock-close-size;
-    text-align: center;
-    border-radius: 50%;
-    border: $clock-border-width solid $clock-border-color;
-    background-color: $clock-bg-color;
+    right: 50%;
+    bottom: 50%;
+    transform: translate($clock-size / 2, -$clock-size / 2);
 
     svg {
-      width: 80%;
-      height: 100%;
-      border-radius: 50%;
+      width: 100%;
+      height:: 100%;
     }
   }
 
@@ -439,3 +421,8 @@
     }
   }
 }
+
+.open .control {
+  background-image: none;
+}
+

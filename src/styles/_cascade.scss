@@ -1,5 +1,5 @@
 @import 'mixins';
-@import 'themes/bootstrap';
+@import 'themes/default';
 
 .cascade {
   position: relative;
@@ -20,7 +20,8 @@
   position: absolute;
   top: 100%;
   margin: 2px 0 0;
-  left: 0;
+  max-width: 10000px;
+  left: -1px;
   z-index: $zindex-dropdown;
   height: $cascade-options-height;
   border: solid $cascade-border-width $cascade-border-color;
@@ -40,6 +41,7 @@
   & > ul {
     display: inline-block;
     list-style-type: none;
+    vertical-align: top;
     margin: 0;
     padding: 0;
     min-width: $cascade-options-width;
@@ -49,7 +51,7 @@
     padding: $cascade-options-padding-y 0;
 
     &:first-child {
-      border-right-width: 0;
+      border-left-width: 0;
     }
 
     li {
@@ -85,7 +87,7 @@
         & > span {
           margin: auto;
         }
-        
+
         svg {
           position: absolute;
           display: flex;

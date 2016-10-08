@@ -1,5 +1,5 @@
 @import 'mixins';
-@import 'themes/bootstrap';
+@import 'themes/default';
 
 //
 // Base styles
@@ -13,6 +13,7 @@
   // border: $card-border-width solid $card-border-color;
   @include border-radius($card-border-radius);
   border: $card-border-width solid $card-border-color;
+  @include box-shadow($card-box-shadow);
 }
 
 .card-block {
@@ -75,6 +76,8 @@
   padding: $card-spacer-y $card-spacer-x;
   background-color: $card-cap-bg;
   border-bottom: $card-border-width solid $card-border-color;
+  font-size: $card-header-font-size;
+  font-weight: $card-header-font-weight;
 
   &:first-child {
     @include border-radius($card-border-radius-inner $card-border-radius-inner 0 0);

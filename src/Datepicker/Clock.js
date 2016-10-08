@@ -1,5 +1,3 @@
-'use strict'
-
 import { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import Styles from '../styles/_datepicker.scss'
@@ -70,15 +68,10 @@ class Clock extends Component {
 
   renderIndicator () {
     return (
-      <div>
-        <div onClick={() => { this.setState({ am: true }) }}
-          className={classnames(Styles.am, this.state.am && Styles.active)}>
-          AM
-        </div>
-        <div onClick={() => { this.setState({ am: false }) }}
-          className={classnames(Styles.pm, !this.state.am && Styles.active)}>
-          PM
-        </div>
+      <div onClick={() => { this.setState({ am: !this.state.am }) }}
+        className={Styles.am}>
+        <small className={this.state.am ? Styles.active : ''}>AM</small>
+        <small className={!this.state.am ? Styles.active : ''}>PM</small>
       </div>
     )
   }

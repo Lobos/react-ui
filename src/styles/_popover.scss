@@ -1,5 +1,5 @@
 @import "mixins";
-@import "themes/bootstrap";
+@import "themes/default";
 
 @keyframes popoverOpacity {
   0% {
@@ -51,7 +51,7 @@
       left: $popover-arrow-width * 2;
     }
   }
-  
+
   &.popover-top-right {
     transform: translate(-100%, -100%);
 

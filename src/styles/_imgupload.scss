@@ -1,5 +1,5 @@
 @import 'mixins';
-@import 'themes/bootstrap';
+@import 'themes/default';
 
 .imgupload {
   overflow: hidden;
@@ -17,6 +17,7 @@
       cursor: pointer;
       text-align: center;
       overflow: hidden;
+      background: #fff;
 
       .img {
         width: 100%;

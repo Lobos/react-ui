@@ -7,6 +7,11 @@
   $active-background: darken($background, 10%);
   $active-border: darken($border, 12%);
 
+  @if $btn-lighten {
+    $active-background: lighten($background, 10%);
+    $active-border: lighten($border, 12%);
+  }
+
   color: $color;
   background-color: $background;
   border-color: $border;

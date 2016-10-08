@@ -1,5 +1,5 @@
 @import 'mixins';
-@import 'themes/bootstrap';
+@import 'themes/default';
 
 .breadcrumb {
   padding: $breadcrumb-padding-y $breadcrumb-padding-x;
@@ -36,5 +36,6 @@
 
   &.active {
     color: $breadcrumb-active-color;
+    font-weight: bold;
   }
 }
