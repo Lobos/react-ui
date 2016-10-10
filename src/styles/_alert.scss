@@ -40,6 +40,8 @@
   opacity: 0.4;
 
   &:hover {
+    text-decoration: none;
+    color: inherit;
     opacity: 1;
   }
 }

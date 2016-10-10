@@ -17,6 +17,7 @@
     text-align: left;
     vertical-align: bottom;
     border-bottom: (2 * $table-border-width) solid $table-border-color;
+    background-color: $table-bg-head;
   }
 
   th,
@@ -79,7 +80,10 @@
 
 .striped {
   tbody tr:nth-of-type(odd) {
-    background-color: $table-bg-accent;
+    background-color: $table-bg-odd;
+  }
+  tbody tr:nth-of-type(even) {
+    background-color: $table-bg-even;
   }
 }
 

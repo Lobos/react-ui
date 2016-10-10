@@ -1,5 +1,7 @@
 import merge from '../utils/merge'
 import config from '../config'
+import CN from './zh-cn'
+import EN from './en'
 
 let LangData = null
 
@@ -13,19 +15,10 @@ export function setLang () {
 }
 
 export function setLocation (location = config.location) {
-  if (location === 'zh-cn') {
-    LangData = require('./zh-cn')
-  } else {
-    LangData = require('./en')
-  }
+  LangData = location === 'zh-cn' ? CN : EN
 }
 
 export function getLang (path, def = '') {
-  if (LangData === null) {
-    setLocation()
-    return def
-  }
-
   let result = LangData
 
   if (path === undefined) {
@@ -52,3 +45,4 @@ export function getLang (path, def = '') {
   return result
 }
 
+setLocation()

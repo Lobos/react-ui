@@ -34,6 +34,11 @@
   padding-right: 0.25rem;
   color: $input-color;
 
+  &:hover, &:active, &:focus {
+    color: $input-color;
+    text-decoration: none;
+  }
+
   .remove {
     display: inline-block;
     width: 1rem;

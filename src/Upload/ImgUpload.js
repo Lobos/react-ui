@@ -45,7 +45,7 @@ class ImgUpload extends Component {
           file.url = data
 
           const { imgWidth, imgHeight, imgValidator } = this.props
-          if (imgWidth || imgHeight) {
+          if (imgWidth || imgHeight || imgValidator) {
             let image = new Image()
 
             image.onload = () => {
@@ -57,16 +57,21 @@ class ImgUpload extends Component {
                 }
               } else {
                 let error = []
-                if (imgWidth && image.width !== imgWidth) error.push(format(getLang('validation.img.width'), imgWidth))
-                if (imgHeight && image.height !== imgHeight) error.push(format(getLang('validation.img.height'), imgHeight))
+                if (imgWidth && image.width !== imgWidth) {
+                  error.push(format(getLang('validation.img.width'), imgWidth))
+                }
+
+                if (imgHeight && image.height !== imgHeight) {
+                  error.push(format(getLang('validation.img.height'), imgHeight))
+                }
 
                 if (error.length > 0) {
                   file.status = ERROR
                   file.message = error.join(',')
                 }
-
-                callback(file)
               }
+
+              callback(file)
             }
 
             image.src = data

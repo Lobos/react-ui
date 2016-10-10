@@ -61,9 +61,12 @@
     animation: tooltipOpacity .3s ease, tooltipTop .3s cubic-bezier(.71,1.7,.77,1.24);
 
     .tooltip-arrow {
-      bottom: 0;
+      top: 100%;
       left: 50%;
-      transform: translate(-50%, 50%) rotate(45deg);
+      border-left: $tooltip-arrow-width solid transparent;
+      border-right: $tooltip-arrow-width solid transparent;
+      border-top: $tooltip-arrow-width solid $tooltip-bg;
+      transform: translate(-50%, 0);
     }
   }
   &.tooltip-right {
@@ -73,8 +76,11 @@
 
     .tooltip-arrow {
       top: 50%;
-      left: 0;
-      transform: translate(-50%, -50%) rotate(45deg);
+      right: 100%;
+      border-top: $tooltip-arrow-width solid transparent;
+      border-bottom: $tooltip-arrow-width solid transparent;
+      border-right: $tooltip-arrow-width solid $tooltip-bg;
+      transform: translateY(-50%);
     }
   }
   &.tooltip-bottom {
@@ -85,7 +91,10 @@
     .tooltip-arrow {
       top: 0;
       left: 50%;
-      transform: translate(-50%, -50%) rotate(45deg);
+      border-left: $tooltip-arrow-width solid transparent;
+      border-right: $tooltip-arrow-width solid transparent;
+      border-bottom: $tooltip-arrow-width solid $tooltip-bg;
+      transform: translate(-50%, -100%);
     }
   }
   &.tooltip-left {
@@ -95,8 +104,11 @@
 
     .tooltip-arrow {
       top: 50%;
-      right: 0;
-      transform: translate(50%, -50%) rotate(45deg);
+      left: 100%;
+      border-top: $tooltip-arrow-width solid transparent;
+      border-bottom: $tooltip-arrow-width solid transparent;
+      border-left: $tooltip-arrow-width solid $tooltip-bg;
+      transform: translateY(-50%);
     }
   }
 }
@@ -118,9 +130,7 @@
   position: absolute;
   width: 0;
   height: 0;
-  padding: $tooltip-arrow-width * 0.7;
   display: inline-block;
-  background-color: $tooltip-bg;
   z-index: 1;
 }
 

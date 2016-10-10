@@ -8,7 +8,7 @@ import PureRender from './mixins/PureRender'
 import PropTypes from './utils/proptypes'
 import { ANGLE_LEFT, ANGLE_RIGHT } from './svgs'
 
-import PagiStyles from './styles/_pagination.scss'
+import _styles from './styles/_pagination.scss'
 
 class Pagination extends Component {
   constructor (props) {
@@ -104,7 +104,7 @@ class Pagination extends Component {
     items.push(
       <li key="previous"
         onClick={currentPage <= 1 ? null : this.handleChange.bind(this, currentPage - 1)}
-        className={classnames(PagiStyles.previous, { disabled: currentPage <= 1 })}>
+        className={classnames(_styles.previous, { disabled: currentPage <= 1 })}>
         <a href="javascript:;">&nbsp;{ANGLE_LEFT}</a>
       </li>
     )
@@ -123,13 +123,15 @@ class Pagination extends Component {
     } else {
       forEach(pages, function (i) {
         if (i === '<..' || i === '..>') {
-          items.push(<li key={i} className={PagiStyles.sep}><span>...</span></li>)
+          items.push(<li key={i} className={_styles.sep}><span>...</span></li>)
         } else {
           items.push(
             <li key={i}
               onClick={this.handleChange.bind(this, i)}
-              className={classnames(i === currentPage && PagiStyles.active)}>
-              <a href="javascript:;">{i}</a>
+              className={classnames(i === currentPage && _styles.active)}>
+              {
+                i === currentPage ? <span>{i}</span> : <a href="javascript:;">{i}</a>
+              }
             </li>
           )
         }
@@ -140,17 +142,17 @@ class Pagination extends Component {
     items.push(
       <li key="next"
         onClick={currentPage >= max ? null : this.handleChange.bind(this, currentPage + 1)}
-        className={classnames(PagiStyles.next, { disabled: currentPage >= max })}>
+        className={classnames(_styles.next, { disabled: currentPage >= max })}>
         <a href="javascript:;">&nbsp;{ANGLE_RIGHT}</a>
       </li>
     )
 
     let className = classnames(
       this.props.className,
-      PagiStyles.pagination,
-      mini && PagiStyles.mini,
-      large && PagiStyles.large,
-      small && PagiStyles.small
+      _styles.pagination,
+      mini && _styles.mini,
+      large && _styles.large,
+      small && _styles.small
     )
     return (
       <ul className={className}>

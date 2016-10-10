@@ -25,6 +25,24 @@ $btn-lighten:                                false !default;
 
 $custom-control-checked-indicator-border:    $custom-control-checked-indicator-bg !default;
 
+// pagination
+$pagination-margin-right:                    0 !default;
+$pagination-border-radius:                   $border-radius !default;
+$pagination-line-height:                     2.3rem !default;
+
+$pagination-border-radius-lg:                $border-radius-lg !default;
+$pagination-line-height-lg:                  3.5rem !default;
+
+$pagination-border-radius-sm:                $border-radius-sm !default;
+$pagination-line-height-sm:                  1.8rem !default;
+
+$pagination-padding-x:                       0.9rem !default;
+$pagination-padding-x-sm:                    0.6rem !default;
+
+$table-bg-head:                              #fff !default;
+$table-bg-odd:                               rgba(0,0,0,.05) !default;
+$table-bg-even:                              #fff !default;
+
 // switch ======================================================================
 
 $switch-width:                               6rem !default;
@@ -160,9 +178,8 @@ $tree-line-icon-ml:                          url("data:image/svg+xml;charset=utf
 // modal =======================================================================
 $modal-close-size:                           1rem !default;
 $modal-close-padding:                        $modal-title-padding !default;
-
-$pagination-padding-x:                       0.9rem !default;
-$pagination-padding-x-sm:                    0.6rem !default;
+$modal-border-radius:                        $border-radius-lg !default;
+$modal-header-bg:                            transparent !default;
 
 // upload ======================================================================
 $upload-margin:                              0.5rem !default;

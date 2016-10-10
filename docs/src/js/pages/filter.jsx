@@ -38,7 +38,7 @@ module.exports = class extends React.Component {
       filter: func(               // 如果使用内部筛选，需要传入筛选方法，返回值是array
         value,                    // 第一个参数，component的value
         data                      // 第二个参数，筛选的源数据
-      )   
+      )
     }]}
   />`}
             </Code>
@@ -61,7 +61,7 @@ module.exports = class extends React.Component {
       filter: func(               // array result
         value,                    // item value
         data                      // origin data
-      )   
+      )
     }]}
   />`}
             </Code>

@@ -19,18 +19,25 @@
       margin-left: -1px;
       box-sizing: border-box;
       text-align: center;
-      padding: $pagination-padding-y $pagination-padding-x;
-      line-height: $input-line-height;
+      padding: 0 $pagination-padding-x;
+      min-width: $pagination-line-height;
+      line-height: $pagination-line-height;
+      height: $pagination-line-height;
+      overflow: hidden;
       text-decoration: none;
     }
 
     a {
       color: $pagination-color;
-      @include hover-focus {
+      @include hover {
         color: $pagination-hover-color;
         background-color: $pagination-hover-bg;
         border-color: $pagination-hover-border;
       }
+    }
+
+    svg path {
+      fill: $pagination-color;
     }
 
     span {
@@ -38,13 +45,23 @@
     }
   }
 
-  li:first-child a {
-    margin-left: 0;
-    @include border-left-radius($border-radius);
-  }
+  @if $pagination-margin-right > 0 {
+    li {
+      margin-right: $pagination-margin-right;
+      a, & > span {
+        @include border-radius($pagination-border-radius);
+        margin-left: 0;
+      }
+    }
+  } else {
+    li:first-child a {
+      margin-left: 0;
+      @include border-left-radius($pagination-border-radius);
+    }
 
-  li:last-child a {
-    @include border-right-radius($border-radius);
+    li:last-child a {
+      @include border-right-radius($pagination-border-radius);
+    }
   }
 
   .previous, .next {
@@ -56,16 +73,11 @@
       top: 50%;
       transform: translate(-50%, -50%);
     }
-
-    a:hover svg path {
-      fill: $brand-primary;
-    }
   }
 
-  .active a {
+  .active span {
     z-index: 2;
     color: $pagination-active-color;
-    cursor: default;
     background-color: $pagination-active-bg;
     border-color: $pagination-active-border;
   }
@@ -87,9 +99,9 @@
 }
 
 .large {
-  @include pagination-size($pagination-padding-y-lg, $pagination-padding-x-lg, $font-size-lg, $line-height-lg, $border-radius-lg);
+  @include pagination-size($pagination-padding-y-lg, $pagination-padding-x-lg, $font-size-lg, $pagination-line-height-lg, $pagination-border-radius-lg, $pagination-margin-right);
 }
 
 .small {
-  @include pagination-size($pagination-padding-y-sm, $pagination-padding-x-sm, $font-size-sm, $line-height-sm, $border-radius-sm);
+  @include pagination-size($pagination-padding-y-sm, $pagination-padding-x-sm, $font-size-sm, $pagination-line-height-sm, $pagination-border-radius-sm, $pagination-margin-right);
 }

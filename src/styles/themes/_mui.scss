@@ -56,6 +56,40 @@ $custom-checkbox-indeterminate-icon:         url("data:image/svg+xml;charset=utf
 $custom-radio-checked-icon:                  url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='2' fill='%23333'/%3E%3C/svg%3E") !default;
 
 // Progress
-$progress-bar-color:          $brand-primary;
+$progress-bar-color:                        $brand-primary;
+
+// Pagination
+$pagination-margin-right:                   0.8rem;
+$pagination-border-radius:                  0;
+$pagination-border-radius-lg:               0;
+$pagination-border-radius-sm:               0;
+
+$pagination-color:                          #000;
+$pagination-bg:                             #f5f5f5;
+$pagination-border-border:                  #333;
+
+$pagination-hover-color:                    #000;
+$pagination-hover-bg:                       #f5f5f5;
+$pagination-hover-border:                   #666;
+
+$pagination-active-color:                   #fff;
+$pagination-active-bg:                      #666;
+$pagination-active-border:                  #666;
+
+$pagination-padding-x:                      .3rem;
+$pagination-padding-x-sm:                   .1rem;
+$pagination-padding-x-lg:                   .5rem;
+
+// Table
+$table-bg-head:                             #f9f9f9;
+$table-bg-odd:                              #fff;
+$table-bg-even:                             #f9f9f9;
+
+// Modal
+$modal-border-radius:                       0;
+$modal-footer-border-width:                 0;
+$modal-header-bg:                           #f9f9f9;
+$modal-close-size:                          1.5rem;
+$modal-close-padding:                       1.4rem;
 
 @import "default";
