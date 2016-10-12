@@ -1,10 +1,8 @@
-'use strict'
-
-import { Component, PropTypes, cloneElement } from 'react'
+import React, { PropTypes, cloneElement } from 'react'
 import { findDOMNode } from 'react-dom'
 import { addClass, removeClass } from './utils/dom'
 
-export default class Transition extends Component {
+export default class Transition extends React.Component {
   componentDidMount () {
     this.element = findDOMNode(this)
     this.element.display = 'none'

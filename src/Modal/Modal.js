@@ -1,6 +1,4 @@
-'use strict'
-
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import classnames from 'classnames'
 import Button from '../Button'

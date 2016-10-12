@@ -1,6 +1,4 @@
-'use strict'
-
-import { Component } from 'react'
+import React, { Component } from 'react'
 import classnames from 'classnames'
 import Regs from './utils/regs'
 import { filterInputProps } from './utils/propsFilter'

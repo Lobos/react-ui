@@ -1,5 +1,3 @@
-'use strict'
-
 import { createElement } from 'react'
 import classnames from 'classnames'
 import PropTypes from './utils/proptypes'

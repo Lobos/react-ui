@@ -1,4 +1,4 @@
-import { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import { compose } from './utils/compose'
 import FormItem from './higherOrders/FormItem'

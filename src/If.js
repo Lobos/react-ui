@@ -1,5 +1,3 @@
-'use strict'
-
 import { Children, createElement, DOM } from 'react'
 import PropTypes from './utils/proptypes'
 

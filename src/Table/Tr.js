@@ -1,6 +1,4 @@
-'use strict'
-
-import { Component } from 'react'
+import React, { Component } from 'react'
 import PropTypes from '../utils/proptypes'
 import { substitute } from '../utils/strings'
 import { Checkbox } from '../Checkbox'

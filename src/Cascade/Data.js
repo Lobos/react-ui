@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import PropTypes from '../utils/proptypes'
 import Refetch from 'refetch'
 import curry from 'curry'

@@ -1,6 +1,4 @@
-'use strict'
-
-import { Component, Children, cloneElement } from 'react'
+import React, { Component, Children, cloneElement } from 'react'
 import classnames from 'classnames'
 import { getGrid } from './utils/grids'
 import Button from './Button'

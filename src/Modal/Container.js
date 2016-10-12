@@ -1,6 +1,4 @@
-'use strict'
-
-import { Component } from 'react'
+import React, { Component } from 'react'
 import classnames from 'classnames'
 import Modal from './Modal'
 import { isEmpty } from '../utils/objects'

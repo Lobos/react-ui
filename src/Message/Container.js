@@ -1,6 +1,4 @@
-'use strict'
-
-import { Component, DOM } from 'react'
+import React, { Component, DOM } from 'react'
 import Message from './Message'
 import { isEmpty } from '../utils/objects'
 

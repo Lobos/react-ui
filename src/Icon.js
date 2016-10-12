@@ -1,16 +1,13 @@
-'use strict'
-
 import classnames from 'classnames'
 import { objectAssign } from './utils/objects'
 import PropTypes from './utils/proptypes'
+import config from './config'
 
 import Styles from './styles/_icon.scss'
 
-let PREFIX = 'icon'
-
 export default function Icon (props) {
   let { style, prefix, font, spin, size, icon } = props
-  prefix = prefix || PREFIX
+  prefix = prefix || config.iconPrefix
 
   let classes = [`${prefix}`]
 
@@ -60,10 +57,3 @@ Icon.propTypes = {
 Icon.defaultProps = {
   font: 'iconfont'
 }
-
-export const setPrefix = function (pre) {
-  PREFIX = pre
-}
-
-// old Api
-Icon.setPrefix = setPrefix

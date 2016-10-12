@@ -1,6 +1,4 @@
-'use strict'
-
-import { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import Refetch from 'refetch'
 import classnames from 'classnames'
 import curry from 'curry'

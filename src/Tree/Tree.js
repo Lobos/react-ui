@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import classnames from 'classnames'
 import { toArray, substitute } from '../utils/strings'

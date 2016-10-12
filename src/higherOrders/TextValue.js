@@ -1,5 +1,3 @@
-'use strict'
-
 import React, { Children } from 'react'
 import curry from 'curry'
 import { toArray } from '../utils/strings'

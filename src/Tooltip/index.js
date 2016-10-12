@@ -1,11 +1,11 @@
-import { Component, PropTypes, cloneElement } from 'react'
+import React, { PropTypes, cloneElement } from 'react'
 import { findDOMNode } from 'react-dom'
 import { objectAssign } from '../utils/objects'
 import PureRender from '../mixins/PureRender'
 import * as Tip from './tip'
 import * as Popover from './popover'
 
-class Tooltip extends Component {
+class Tooltip extends React.Component {
   constructor (props) {
     super(props)
 

@@ -10,6 +10,8 @@
 
   li {
     display: inline-block;
+    vertical-align: middle;
+
     a, & > span {
       position: relative;
       cursor: pointer;
@@ -23,7 +25,6 @@
       min-width: $pagination-line-height;
       line-height: $pagination-line-height;
       height: $pagination-line-height;
-      overflow: hidden;
       text-decoration: none;
     }
 
@@ -87,7 +88,7 @@
   li {
     margin-right: 0.5rem;
     a {
-      @include border-radius($border-radius);
+      @include border-radius($pagination-border-radius);
     }
   }
 

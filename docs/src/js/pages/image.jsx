@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import Refetch from 'refetch'
 import Code from '../Code'
 import Example from '../Example'

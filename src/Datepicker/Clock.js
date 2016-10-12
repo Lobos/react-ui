@@ -1,4 +1,4 @@
-import { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import Styles from '../styles/_datepicker.scss'
 import { CLOSE } from '../svgs'

@@ -4,6 +4,7 @@ import curry from 'curry'
 import { shallowEqual } from '../utils/objects'
 import * as Validation from '../utils/validation'
 import PropTypes from '../utils/proptypes'
+import Popover from '../Tooltip/FormItemPopover'
 
 import _inputs from '../styles/_input.scss'
 
@@ -126,8 +127,9 @@ export default function FormItem (Component) {
     }
 
     render () {
-      let { readOnly, ...props } = this.props
+      let { readOnly, popover, ...props } = this.props
       const { controlProps } = this.context
+      const { result } = this.state
 
       let value = this.getValue()
 
@@ -141,7 +143,7 @@ export default function FormItem (Component) {
       // remove defaultValue,  use controlled value
       delete props['defaultValue']
 
-      return (
+      let el = (
         <Component {...props}
           hasError={this.state.result instanceof Error}
           onChange={this.handleChange}
@@ -150,6 +152,18 @@ export default function FormItem (Component) {
           className={className}
         />
       )
+
+      if (popover) {
+        return (
+          <Popover position={popover}
+            type={'danger'}
+            content={result instanceof Error ? result.message : undefined}>
+            {el}
+          </Popover>
+        )
+      } else {
+        return el
+      }
     }
   }
 
@@ -166,6 +180,7 @@ export default function FormItem (Component) {
     name: PropTypes.string,
     onChange: PropTypes.func,
     onValidate: PropTypes.func,
+    popover: PropTypes.string,
     readOnly: PropTypes.bool,
     sep: PropTypes.string,
     style: PropTypes.object_string,

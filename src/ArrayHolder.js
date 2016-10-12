@@ -1,5 +1,3 @@
-'use strict'
-
 import { objectAssign } from './utils/objects'
 
 export default class ArrayHolder {

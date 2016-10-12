@@ -1,4 +1,4 @@
-import { Component, isValidElement } from 'react'
+import React, { Component, isValidElement } from 'react'
 import PropTypes from '../../utils/proptypes'
 import Quill from 'quill'
 import { nextUid } from '../../utils/strings'

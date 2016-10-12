@@ -1,5 +1,3 @@
-'use strict'
-
 import { createElement } from 'react'
 import { safeHtml } from './utils/safeHtml'
 import PropTypes from './utils/proptypes'

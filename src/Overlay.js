@@ -1,5 +1,3 @@
-'use strict'
-
 import { PropTypes } from 'react'
 import classnames from 'classnames'
 

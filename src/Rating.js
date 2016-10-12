@@ -1,6 +1,4 @@
-'use strict'
-
-import { Component, cloneElement } from 'react'
+import React, { Component, cloneElement } from 'react'
 import classnames from 'classnames'
 import FormItem from './higherOrders/FormItem'
 import PropTypes from './utils/proptypes'

@@ -1,6 +1,4 @@
-'use strict'
-
-import { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import Alert from '../Alert'
 
 import Styles from '../styles/_message.scss'

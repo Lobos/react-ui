@@ -1,6 +1,4 @@
-'use strict'
-
-import { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { findDOMNode } from 'react-dom'
 import classnames from 'classnames'
 import { forEach, isEmpty, deepEqual } from '../utils/objects'

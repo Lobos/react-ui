@@ -1,6 +1,4 @@
-'use strict'
-
-import { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import Styles from '../styles/_datepicker.scss'
 
 class TimeSet extends Component {

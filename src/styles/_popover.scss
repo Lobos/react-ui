@@ -11,8 +11,6 @@
 
 .popover {
   position: absolute;
-  top: 0;
-  left: 0;
   z-index: $zindex-popover;
   display: block;
   // max-width: $popover-max-width;
@@ -150,4 +148,17 @@
   border-width: 1px 1px 0 0;
   background-color: $popover-bg;
   z-index: 1;
+}
+
+.popover-danger {
+  border-color: $alert-danger-border;
+  color: $alert-danger-text;
+
+  .popover-arrow {
+    border-color: $alert-danger-border;
+  }
+
+  .popover-arrow, .popover-content {
+    background-color: $alert-danger-bg;
+  }
 }

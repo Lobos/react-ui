@@ -1,7 +1,7 @@
-import { Component, cloneElement, PropTypes } from 'react'
+import React, { cloneElement, PropTypes } from 'react'
 import Enhance from './higherOrders/FormItem'
 
-class FormItem extends Component {
+class FormItem extends React.Component {
   constructor (props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)

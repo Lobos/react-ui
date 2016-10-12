@@ -1,4 +1,4 @@
-import { Component, Children, PropTypes } from 'react'
+import React, { Component, Children, PropTypes } from 'react'
 import { addStack, removeStack } from './utils/lazyload'
 
 export default class Lazyload extends Component {

@@ -1,5 +1,3 @@
-'use strict'
-
 import TimeAgo from './TimeAgo'
 import { compose } from '../utils/compose'
 import PureRender from '../mixins/PureRender'

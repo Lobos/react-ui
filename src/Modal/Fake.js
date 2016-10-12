@@ -1,11 +1,9 @@
-'use strict'
-
-import { Component, DOM } from 'react'
+import React, { DOM } from 'react'
 import { nextUid } from '../utils/strings'
 import PropTypes from '../utils/proptypes'
 
 export default function (open, close) {
-  class Modal extends Component {
+  class Modal extends React.Component {
     constructor (props) {
       super(props)
       this.id = nextUid()

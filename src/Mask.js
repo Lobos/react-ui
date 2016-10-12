@@ -1,4 +1,4 @@
-import { PropTypes, DOM } from 'react'
+import React, { PropTypes, DOM } from 'react'
 import classnames from 'classnames'
 import Spin from './Spin'
 import { objectAssign } from './utils/objects'

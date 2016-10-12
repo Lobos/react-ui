@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import PropTypes from '../utils/proptypes'
 import { nextUid, format } from '../utils/strings'
 import { deepEqual } from '../utils/objects'

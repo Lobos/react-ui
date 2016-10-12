@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import classnames from 'classnames'
 import { getOuterHeight, overView, withoutTransition } from '../utils/dom'
 import { objectAssign } from '../utils/objects'
@@ -126,7 +126,7 @@ export default class Select extends Component {
   }
 
   render () {
-    let { className, grid, open, readOnly, maxShowCount, data, mult, placeholder, style } = this.props
+    let { className, grid, open, readOnly, maxShowCount, data, mult, placeholder, style, hasError } = this.props
     let { filter, msg, dropup } = this.state
     let result = []
 
@@ -167,7 +167,7 @@ export default class Select extends Component {
 
     return (
       <div ref="container" onClick={this.showOptions} style={style} className={className}>
-        <div className={classnames(_select.control, _input.input, readOnly && _input.disabled)}>
+        <div className={classnames(_select.control, _input.input, readOnly && _input.disabled, hasError && _input.hasError)}>
         {
           result.length > 0
             ? result
@@ -197,6 +197,7 @@ Select.propTypes = objectAssign({
   filterAble: PropTypes.bool,
   grid: PropTypes.grid,
   groupBy: PropTypes.string,
+  hasError: PropTypes.bool,
   maxShowCount: PropTypes.number,
   mult: PropTypes.bool,
   onChange: PropTypes.func,

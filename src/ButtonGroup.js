@@ -1,4 +1,4 @@
-import { Children, cloneElement } from 'react'
+import React, { Children, cloneElement } from 'react'
 import classnames from 'classnames'
 import PropTypes from './utils/proptypes'
 import _styles from './styles/_button-group.scss'

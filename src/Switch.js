@@ -1,5 +1,3 @@
-'use strict'
-
 import classnames from 'classnames'
 import { Checkbox } from './Checkbox'
 import PropTypes from './utils/proptypes'

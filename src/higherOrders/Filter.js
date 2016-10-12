@@ -1,5 +1,3 @@
-'use strict'
-
 import React, { cloneElement } from 'react'
 import PropTypes from '../utils/proptypes'
 import Filter from '../Filter'

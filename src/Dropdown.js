@@ -1,4 +1,4 @@
-import { Component, Children, cloneElement } from 'react'
+import React, { Component, Children, cloneElement } from 'react'
 import classnames from 'classnames'
 import PropTypes from './utils/proptypes'
 import Transition from './Transition'

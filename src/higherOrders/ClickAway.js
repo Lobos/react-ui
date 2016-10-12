@@ -1,5 +1,3 @@
-'use strict'
-
 import React, { PropTypes } from 'react'
 import { findDOMNode } from 'react-dom'
 import * as Events from '../utils/events'

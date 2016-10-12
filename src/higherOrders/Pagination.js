@@ -1,5 +1,3 @@
-'use strict'
-
 import React from 'react'
 import { objectAssign } from '../utils/objects'
 import PropTypes from '../utils/proptypes'

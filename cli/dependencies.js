@@ -29,6 +29,7 @@ module.exports = {
     'node-sass': '~3.8.0',
     'postcss-loader': '~0.11.0',
     'precss': '~1.4.0',
+    'rctui-theme-loader': '^0.1.3',
     'react': '~15.3.1',
     'react-dom': '~15.3.1',
     'sass-loader': '~4.0.0',
