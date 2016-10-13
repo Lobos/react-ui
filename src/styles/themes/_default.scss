@@ -17,6 +17,20 @@ $custom-checkbox-checked-icon:               url('data:image/svg+xml,%3Csvg view
 $custom-checkbox-indeterminate-icon:         url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16 '%3E%3Cpath fill='%23fff' d='M2 6 14 6 14 10 2 10 2 6Z'/%3E%3C/svg%3E") !default;
 $custom-radio-checked-icon:                  url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='2' fill='%23fff'/%3E%3C/svg%3E") !default;
 
+// carousel =====================================================================
+$carousel-duration:                          0.4s !default;
+$carousel-indicator-size:                    10px !default;
+$carousel-indicator-number-size:             14px !default;
+$carousel-indicator-font-size:               12px !default;
+$carousel-indicator-bg:                      #666 !default;
+$carousel-indicator-border:                  #fff !default;
+$carousel-indicator-color:                   #fff !default;
+$carousel-indicator-active-bg:               #fff !default;
+$carousel-indicator-active-color:            #000 !default;
+$carousel-indicator-opacity:                 .8 !default;
+$carousel-indicator-position:                1rem !default;
+$carousel-indicator-margin-right:            6px !default;
+
 // import bootstrap
 @import 'bootstrap';
 

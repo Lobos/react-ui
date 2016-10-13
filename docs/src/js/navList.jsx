@@ -73,6 +73,7 @@ class NavList extends Component {
       <div className={className}>
         <div className="nav-inner">
           <div ref="list" className="nav-list">
+            <a href="//lobos.github.io/react-ui/0.6/">0.6 docs</a>
             {this.renderRouteList()}
           </div>
         </div>

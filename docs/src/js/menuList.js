@@ -218,6 +218,11 @@ module.exports = [
   'ADDONS',
 
   {
+    path: '/carousel',
+    component: require('./pages/carousel.jsx')
+  },
+
+  {
     path: '/editor',
     component: require('./pages/editor.jsx')
   }
