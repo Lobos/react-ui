@@ -1,6 +1,6 @@
 import Code from '../Code'
 import Example from '../Example'
-import { Popover, Button, Image } from '../rctui'
+import { Popover, Button, Image } from 'rctui'
 
 module.exports = function () {
   return (

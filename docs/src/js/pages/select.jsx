@@ -2,7 +2,7 @@ import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import { TplDataDesc } from '../CommDocs'
-import { Select, Button } from '../rctui'
+import { Select, Button } from 'rctui'
 import { Cn, En } from '../Language'
 
 const bigData = []

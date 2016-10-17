@@ -1,10 +1,8 @@
-'use strict'
-
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import { En, Cn } from '../Language'
-import { Input, Icon, Button, InputGroup } from '../rctui'
+import { Input, Icon, Button, InputGroup } from 'rctui'
 
 module.exports = () => {
   return (
@@ -25,7 +23,7 @@ module.exports = () => {
   onChange={func}      // callback on trigger
   size="string"        // 'large|middle|small', default value is 'middle'
   value={string}       // initial value
-  grid={{width, offset, responsive}} // see Grid 
+  grid={{width, offset, responsive}} // see Grid
 />`}
         </Code>
         <Cn>0.6 textarea 不再包含在Input中</Cn>

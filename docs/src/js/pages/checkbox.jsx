@@ -1,7 +1,7 @@
 import Code from '../Code'
 import Example from '../Example'
 import { Cn, En } from '../Language'
-import { Checkbox } from '../rctui'
+import { Checkbox } from 'rctui'
 
 module.exports = function () {
   return (
@@ -17,7 +17,7 @@ module.exports = function () {
 {`<Checkbox
 block={bool}        // 为 true 时，diplay=block。默认为 false
 className={string}  // class
-value={any}         // 
+value={any}         //
 defaultValue={any}  // 默认值
 checked={bool}      // 是否选中，默认为 false
 readOnly={bool}     // 是否只读，默认为 false

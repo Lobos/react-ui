@@ -1,7 +1,7 @@
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Textarea } from '../rctui'
+import { Textarea } from 'rctui'
 import { Cn, En } from '../Language'
 
 module.exports = function () {
@@ -17,12 +17,12 @@ module.exports = function () {
           <Code>
 {`<Textarea
 autoHeight={bool}     // 根据输入文字长度自动调整高度，默认为false
-className={string}    // 
+className={string}    //
 grid={object}         // 默认宽度为1，也就是 100%
 onChange={func}       // 回调方法
 placeholder={string}
 rows={int}            // 行高，当autoHeight为true时，rows为最小行高
-style={object}        // 
+style={object}        //
 value={string}        // 初始值
 />`}
           </Code>
@@ -32,12 +32,12 @@ value={string}        // 初始值
 {`<Textarea
 autoHeight={bool}     // default value is false
 className={string}    // 加class
-grid={object}         // 
-onChange={func}       // 
+grid={object}         //
+onChange={func}       //
 placeholder={string}
 rows={int}            // if autoHeight === true，rows === minHeight
-style={object}        // 
-value={string}        // 
+style={object}        //
+value={string}        //
 />`}
           </Code>
         </En>

@@ -1,7 +1,7 @@
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Form, FormControl, FormItem, Select, Input } from '../rctui'
+import { Form, FormControl, FormItem, Select, Input } from 'rctui'
 import { Cn, En } from '../Language'
 
 module.exports = class extends React.Component {

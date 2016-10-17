@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { Icon } from '../rctui'
+import { Icon } from 'rctui'
 import { Cn, En } from '../Language'
 
 module.exports = class Home extends React.Component {

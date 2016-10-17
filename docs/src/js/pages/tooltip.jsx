@@ -1,6 +1,6 @@
 import Code from '../Code'
 import Example from '../Example'
-import { Tooltip, Button } from '../rctui'
+import { Tooltip, Button } from 'rctui'
 
 module.exports = function () {
   return (

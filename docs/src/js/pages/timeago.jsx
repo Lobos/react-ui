@@ -1,9 +1,7 @@
-'use strict'
-
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { TimeAgo } from '../rctui'
+import { TimeAgo } from 'rctui'
 
 const now = new Date()
 const secondDemo = new Date(now.setSeconds(now.getSeconds() - 10))
@@ -26,7 +24,7 @@ module.exports = function () {
   className={string}
   onClick={func}      // click callback, when func exists, the timeago text wrapped by <a> tag
   base={date}         // the time base for timeago('required')
-  mode={string}       // the strategy of counter 
+  mode={string}       // the strategy of counter
                              'default|least|most', default is 'default'
 />`}
       </Code>
@@ -46,7 +44,7 @@ module.exports = function () {
 <div>yearDemo: {yearDemo.toLocaleString()}</div>
 <TimeAgo base={yearDemo} />
 <div>yearDemo: {yearDemo.toLocaleString()}</div>
-<TimeAgo base={yearDemo} mode='least'/>
+<TimeAgo base={yearDemo} mode="least"/>
       </Example>
     </div>
   </div>

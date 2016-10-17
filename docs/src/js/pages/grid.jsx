@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Grid, Select, Input } from '../rctui'
+import { Grid, Select, Input } from 'rctui'
 import { Cn, En } from '../Language'
 
 const borderGridStyle = { border: 'solid 1px #ccc', lineHeight: '30px', textAlign: 'center'}

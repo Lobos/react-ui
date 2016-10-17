@@ -1,6 +1,6 @@
 import Code from '../Code'
 import Example from '../Example'
-import { Button, Icon, Upload } from '../rctui'
+import { Button, Icon, Upload } from 'rctui'
 import { Cn, En } from '../Language'
 
 module.exports = function () {

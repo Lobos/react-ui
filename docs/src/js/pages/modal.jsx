@@ -1,10 +1,8 @@
-'use strict'
-
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import { Cn, En } from '../Language'
-import { Button, Modal, Form, FormControl } from '../rctui'
+import { Button, Modal, Form, FormControl } from 'rctui'
 
 module.exports = class extends Component {
   constructor (props) {
@@ -130,7 +128,7 @@ module.exports = class extends Component {
   padding: {int|string},
   onClose: function,
   buttons: {
-    {text}: bool|func|string 
+    {text}: bool|func|string
   }
 }
 var id = Modal.open(options);

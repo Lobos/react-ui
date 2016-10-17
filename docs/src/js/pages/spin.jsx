@@ -1,7 +1,7 @@
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Spin } from '../rctui'
+import { Spin } from 'rctui'
 
 module.exports = function () {
   return (

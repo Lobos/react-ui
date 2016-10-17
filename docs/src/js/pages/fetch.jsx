@@ -4,7 +4,7 @@ import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
-import { Select, RadioGroup } from '../rctui'
+import { Select, RadioGroup } from 'rctui'
 import { Cn, En } from '../Language'
 
 const request = Refetch.create({

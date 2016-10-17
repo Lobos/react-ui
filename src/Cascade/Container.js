@@ -22,12 +22,13 @@ export default class Container extends Component {
     this.props.onPathChange(path, d)
   }
 
-  renderItems (data, level) {
-    const { path, onLazyClick, maxLevel } = this.props
+  renderItems (data, level, checked) {
+    const { path, onLazyClick, maxLevel, onSelect, value } = this.props
     const val = path[level]
     const key = level === 0
       ? 'root'
       : path[level - 1]
+
     return (
       <ul key={key}>
       {
@@ -38,6 +39,8 @@ export default class Container extends Component {
             lazy={!!onLazyClick}
             level={level}
             maxLevel={maxLevel}
+            onSelect={onSelect}
+            value={value}
             onClick={this.handleClick} />
         ))
       }
@@ -71,7 +74,9 @@ Container.propTypes = {
   maxLevel: PropTypes.number,
   onLazyClick: PropTypes.func,
   onPathChange: PropTypes.func,
-  path: PropTypes.array
+  onSelect: PropTypes.func,
+  path: PropTypes.array,
+  value: PropTypes.array
 }
 
 Container.defaultProps = {

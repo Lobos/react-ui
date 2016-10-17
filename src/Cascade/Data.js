@@ -3,16 +3,16 @@ import PropTypes from '../utils/proptypes'
 import Refetch from 'refetch'
 import curry from 'curry'
 import clone from '../utils/clone'
-import { hashcode } from '../utils/objects'
+import { hashcode, deepEqual } from '../utils/objects'
 import { substitute } from '../utils/strings'
 import { objectAssign } from '../utils/objects'
 
-export default curry((ComposedComponent) => {
+export default curry((mult, ComposedComponent) => {
   class Data extends Component {
     constructor (props) {
       super(props)
       this.state = {
-        data: props.data ? this.format(clone(props.data), props) : []
+        data: props.data ? this.format(clone(props.data), [], props) : []
       }
 
       this.handleLazyFetch = this.handleLazyFetch.bind(this)
@@ -22,15 +22,22 @@ export default curry((ComposedComponent) => {
       this.props.fetch && this.fetchData(this.props.fetch)
 
       if (this.props.lazyFetch) {
-        this.props.value
+        this.props.value && !mult
           ? this.initLazyData([...this.props.value])
           : this.handleLazyFetch()
       }
     }
 
     componentWillReceiveProps (nextProps) {
-      if (this.props.lazyFetch && this.props.value === undefined && Array.isArray(nextProps.value)) {
-        this.initLazyData([...nextProps.value])
+      if (this.props.lazyFetch &&
+        this.props.value === undefined &&
+        !mult &&
+        Array.isArray(nextProps.value)) {
+          this.initLazyData([...nextProps.value])
+        }
+
+      if (!deepEqual(nextProps.data, this.props.data)) {
+        this.format(clone(nextProps.data), [], nextProps)
       }
     }
 
@@ -45,6 +52,7 @@ export default curry((ComposedComponent) => {
         d.$key = d.id ? d.id : hashcode(val + d.$html)
         d.$path = [...path, i]
         d.children && this.format(d.children, [...path, i], props)
+
         return d
       })
     }

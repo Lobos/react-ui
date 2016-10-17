@@ -1,10 +1,8 @@
-'use strict'
-
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
-import { Tree, Checkbox, RadioGroup, Icon } from '../rctui'
+import { Tree, Checkbox, RadioGroup, Icon } from 'rctui'
 import { Cn, En } from '../Language'
 
 Tree.setDefaultIcons([
@@ -61,7 +59,7 @@ module.exports = class extends Component {
                          2 - 如果父节点所有子节点都选中，只返回父节点数据
                          3 - 只返回选中的子节点数据，不含父节点
   className={string}  // class
-  data={array}        // 
+  data={array}        //
   fetch={object}
   sep={string|null}   // 返回值分隔字符，默认值为 ","。为 "" 或 null 时，返回值类型为 array
   greedy              // is deprecated

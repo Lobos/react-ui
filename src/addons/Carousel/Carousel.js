@@ -36,12 +36,12 @@ class Carousel extends Component {
   }
 
   setNext (next) {
-    const { duration } = this.props
-    if (duration && duration > 0) {
+    const { interval } = this.props
+    if (interval && interval > 0) {
       if (this._timeout) clearTimeout(this._timeout)
       this._timeout = setTimeout(() => {
         this.moveTo(next)
-      }, duration)
+      }, interval)
     }
   }
 
@@ -62,6 +62,8 @@ class Carousel extends Component {
       position: 'center',
       type: 'circle'
     }, this.props.indicator)
+
+    console.log(indicator, this.props.indicator)
 
     let className = classnames(
       _styles['carousel-indicator'],
@@ -109,11 +111,11 @@ Carousel.propTypes = {
     PropTypes.element
   ]),
   className: PropTypes.string,
-  duration: PropTypes.number,
   indicator: PropTypes.shape({
     position: PropTypes.oneOf(['left', 'center', 'right']),
     type: PropTypes.oneOf(['number', 'circle'])
   }),
+  interval: PropTypes.number,
   style: PropTypes.object
 }
 

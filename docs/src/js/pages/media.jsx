@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Media } from '../rctui'
+import { Media } from 'rctui'
 import { Cn, En } from '../Language'
 
 

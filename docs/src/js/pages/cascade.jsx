@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Cascade, Icon, InputGroup, Select } from '../rctui'
+import { Cascade, MultCascade, Icon, InputGroup, Select } from 'rctui'
 import { Cn, En } from '../Language'
 import Refetch from 'refetch'
 
@@ -109,6 +109,14 @@ module.exports = class extends Component {
                 optionTpl="{name}"
               />
             </InputGroup>
+          </Example>
+
+          <h2 className="subhead">MultCascade</h2>
+          <Example>
+            <MultCascade fetch={'json/tree.json'} value={[
+              {value: '1.2', text: 'Child 1.2'},
+              {value: '2.2.1', text: 'Grandchild 2.2.1'}
+            ]} />
           </Example>
         </div>
       </div>

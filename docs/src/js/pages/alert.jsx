@@ -1,6 +1,6 @@
 import Code from '../Code'
 import Example from '../Example'
-import { Alert } from '../rctui'
+import { Alert } from 'rctui'
 
 module.exports = function () {
   return (

@@ -1,10 +1,8 @@
-'use strict'
-
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import { TplDataDesc } from '../CommDocs'
-import { RadioGroup, Radio, Icon } from '../rctui'
+import { RadioGroup, Radio, Icon } from 'rctui'
 import { Cn, En } from '../Language'
 
 import { createKeyValue } from '../data/mock'
@@ -30,7 +28,7 @@ module.exports = class extends Component {
           <Cn>
             <Code>
 {`<RadioGroup
-  block={bool}           // 为 true 时，各选项单行排列。默认为 false 
+  block={bool}           // 为 true 时，各选项单行排列。默认为 false
   className={string}     // class
   data={array|object}    // 数据, array 或者 object
   fetch={object}

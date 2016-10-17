@@ -1,6 +1,6 @@
 import Code from '../Code'
 import Example from '../Example'
-import { ImgUpload } from '../rctui'
+import { ImgUpload } from 'rctui'
 import { Cn, En } from '../Language'
 
 module.exports = function () {

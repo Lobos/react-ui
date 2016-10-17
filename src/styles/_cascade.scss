@@ -13,6 +13,38 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+
+  a {
+    display: inline-block;
+    padding-right: 0.25rem;
+    color: $input-color;
+
+    &:hover, &:active, &:focus {
+      color: $input-color;
+      text-decoration: none;
+    }
+
+    .remove {
+      display: inline-block;
+      width: 1rem;
+      text-align: center;
+      visibility: hidden;
+      color: $brand-danger;
+    }
+  }
+}
+
+.cascade-mult .cascade-result {
+  overflow: visible;
+  white-space: normal;
+}
+
+.cascade-open {
+  .cascade-result a:hover {
+    .remove {
+      visibility: visible;
+    }
+  }
 }
 
 .cascade-options {
@@ -60,6 +92,7 @@
       display: block;
       padding: $cascade-options-padding-y $cascade-options-padding-x;
       color: $cascade-item-color;
+      border-left: $cascade-item-border-width solid transparent;
 
       &:hover {
         color: $cascade-item-hover-color;
@@ -69,9 +102,10 @@
       &.active {
         color: $cascade-item-active-color;
         background-color: $cascade-item-active-bg;
+        border-color: $cascade-item-active-border;
 
         svg path {
-          fill: #fff;
+          fill: $cascade-item-active-color;
         }
       }
 

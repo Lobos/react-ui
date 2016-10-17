@@ -1,9 +1,7 @@
-'use strict'
-
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Switch } from '../rctui'
+import { Switch } from 'rctui'
 import { En, Cn } from '../Language'
 
 module.exports = class extends React.Component {

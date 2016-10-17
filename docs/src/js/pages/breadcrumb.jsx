@@ -1,6 +1,6 @@
 import Code from '../Code'
 import Example from '../Example'
-import { Breadcrumb } from '../rctui'
+import { Breadcrumb } from 'rctui'
 
 module.exports = function () {
   return (

@@ -1,10 +1,8 @@
-'use strict'
-
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import { Cn, En } from '../Language'
-import { Message, Icon } from '../rctui'
+import { Message, Icon } from 'rctui'
 
 module.exports = () => {
   return (

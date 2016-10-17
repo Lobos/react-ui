@@ -5,7 +5,7 @@ import Code from '../Code'
 import Example from '../Example'
 import { TplDataDesc } from '../CommDocs'
 import { Cn, En } from '../Language'
-import { CheckboxGroup, Checkbox, Icon } from '../rctui'
+import { CheckboxGroup, Checkbox, Icon } from 'rctui'
 
 import { createKeyValue } from '../data/mock'
 const data1000 = createKeyValue(1000)
@@ -23,7 +23,7 @@ module.exports = class extends React.Component {
           <Cn>
             <Code>
   {`<CheckboxGroup
-    block={bool}            // 为 true 时，各选项单行排列。默认为 false 
+    block={bool}            // 为 true 时，各选项单行排列。默认为 false
     className={string}
     data={array|object}     // 数据，默认值为[]
     fetch={object}

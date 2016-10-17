@@ -2,7 +2,7 @@ import React from 'react'
 // import Refetch from 'refetch'
 import Code from '../Code'
 import Example from '../Example'
-import { FormControl, Button, Icon, Datepicker } from '../rctui'
+import { FormControl, Button, Icon, Datepicker } from 'rctui'
 import { Cn, En } from '../Language'
 
 module.exports = class extends React.Component {

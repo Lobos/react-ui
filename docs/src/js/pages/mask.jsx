@@ -1,6 +1,6 @@
 import Code from '../Code'
 import Example from '../Example'
-import { Mask, Grid, Spin } from '../rctui'
+import { Mask, Grid, Spin } from 'rctui'
 
 module.exports = function () {
   return (

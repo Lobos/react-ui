@@ -1,9 +1,7 @@
-'use strict'
-
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Rating, Icon, RadioGroup, Input, Checkbox } from '../rctui'
+import { Rating, Icon, RadioGroup, Input, Checkbox } from 'rctui'
 import { Cn, En } from '../Language'
 
 const STARS = [

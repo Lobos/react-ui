@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import NavList from '../navList.jsx'
-import { Icon } from '../rctui'
+import { Icon } from 'rctui'
 import * as Language from '../Language'
 
 class Page extends Component {

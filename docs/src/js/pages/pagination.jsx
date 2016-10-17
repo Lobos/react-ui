@@ -1,10 +1,8 @@
-'use strict'
-
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import { Cn, En } from '../Language'
-import { Pagination, RadioGroup, Input, Checkbox } from '../rctui'
+import { Pagination, RadioGroup, Input, Checkbox } from 'rctui'
 
 module.exports = class extends Component {
   constructor (props) {

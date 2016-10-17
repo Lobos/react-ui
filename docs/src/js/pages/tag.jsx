@@ -1,7 +1,7 @@
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Tag } from '../rctui'
+import { Tag } from 'rctui'
 
 module.exports = function () {
   return (

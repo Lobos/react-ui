@@ -1,7 +1,7 @@
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Dropdown } from '../rctui'
+import { Dropdown } from 'rctui'
 
 module.exports = function () {
   return (
@@ -24,7 +24,7 @@ module.exports = function () {
 
         <h2 className="subhead">Example</h2>
         <Example>
-          <Dropdown text="Dropdown" className='foo' style={{width:'100px'}}>
+          <Dropdown text="Dropdown" className="foo" style={{width: '100px'}}>
             <a target="_blank" href="http://github.com">Github</a>
             <a onClick={() => console.log('dropdown clicked.')}>Action</a>
             <hr />

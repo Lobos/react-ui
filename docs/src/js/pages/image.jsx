@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import Refetch from 'refetch'
 import Code from '../Code'
 import Example from '../Example'
-import { Grid, Image } from '../rctui'
+import { Grid, Image } from 'rctui'
 
 function getUrl (d, size = 'm') {
   return `https://farm${d.farm}.staticflickr.com/${d.server}/${d.id}_${d.secret}_${size}.jpg`

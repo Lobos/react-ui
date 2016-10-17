@@ -1,6 +1,6 @@
 import Code from '../Code'
 import Example from '../Example'
-import { Progress } from '../rctui'
+import { Progress } from 'rctui'
 
 module.exports = function () {
   return (

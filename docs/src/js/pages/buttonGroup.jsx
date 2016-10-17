@@ -1,7 +1,7 @@
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Button, ButtonGroup } from '../rctui'
+import { Button, ButtonGroup } from 'rctui'
 
 module.exports = function () {
   return (

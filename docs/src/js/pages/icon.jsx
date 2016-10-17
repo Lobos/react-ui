@@ -3,7 +3,7 @@
 import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
-import { Icon } from '../rctui'
+import { Icon } from 'rctui'
 import { Cn, En } from '../Language'
 
 module.exports = () => {

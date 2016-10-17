@@ -4,7 +4,7 @@ import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import { Cn, En } from '../Language'
-import { Datepicker, DatepickerRange } from '../rctui'
+import { Datepicker, DatepickerRange } from 'rctui'
 
 const _now = new Date()
 
@@ -51,7 +51,7 @@ module.exports = class extends Component {
     min={string|long|Date} // min value, string, unixtimestamp, Date
     max={string|long|Date} // max value, string, unixtimestamp, Date
     unixtime={bool}        // if true, onChange return unixtimestamp type value
-    placeholder={string}   // 
+    placeholder={string}   //
     onChange={function(
       value
     )}
@@ -72,7 +72,7 @@ module.exports = class extends Component {
           <h2 className="subhead">date</h2>
           <Example>
 <Datepicker type="date"
-  onChange={(value) => this.setState({ dateValue: value })} 
+  onChange={(value) => this.setState({ dateValue: value })}
   value={_now}
   />
 <span>{this.state.dateValue}</span>
@@ -118,7 +118,7 @@ module.exports = class extends Component {
           <h2 className="subhead">unixtime</h2>
           <Example>
 <Datepicker unixtime
-  onChange={(value) => this.setState({ unixtimeValue: value })} 
+  onChange={(value) => this.setState({ unixtimeValue: value })}
   value={_now}
   />
 <span>{this.state.unixtimeValue}</span>

@@ -4,7 +4,7 @@ import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import { Cn, En } from '../Language'
-import { Filter, Input, Select, DatepickerRange } from '../rctui'
+import { Filter, Input, Select, DatepickerRange } from 'rctui'
 
 module.exports = class extends React.Component {
   constructor (props) {

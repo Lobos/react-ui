@@ -1,11 +1,9 @@
-'use strict'
-
 import { Component } from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import Refetch from 'refetch'
 import { Cn, En } from '../Language'
-import { Button, Table, Modal, Filter, Input, Select, DatepickerRange, Checkbox, RadioGroup, ArrayHolder, Lazyload } from '../rctui'
+import { Button, Table, Modal, Filter, Input, Select, DatepickerRange, Checkbox, RadioGroup, ArrayHolder, Lazyload } from 'rctui'
 
 module.exports = class extends Component {
   constructor (props) {
@@ -66,7 +64,7 @@ module.exports = class extends Component {
     page: int,             // 当前页码
     total: int,            // 总条目数，默认值data.length
     range: int,            // 显示的分页按钮数
-    onChange(int),         // 
+    onChange(int),         //
     position: 'string'     // 位置，'left|right|center', 默认值 'center'
   }
   onSelect={func|ArrayHolder} // 如果设置了onSelect，会自动增加checkbox列
@@ -97,7 +95,7 @@ columns = [{
   striped={bool}           // default value is false
   width={number}           // default value is 100%
   height={number}          // body height, default is 'auto'
-  data={array}             // 
+  data={array}             //
   fetch={object}
   pagination={             // internal pagination
     size: int,             // how many items per page, default is 20

@@ -1,6 +1,6 @@
 import Code from '../Code'
 import Example from '../Example'
-import { Card, Nav } from '../rctui'
+import { Card, Nav } from 'rctui'
 
 module.exports = function () {
   return (

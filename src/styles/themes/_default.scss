@@ -243,7 +243,9 @@ $cascade-item-color:                         $gray-dark !default;
 $cascade-item-hover-color:                   darken($gray-dark, 5%) !default;
 $cascade-item-hover-bg:                      #f5f5f5 !default;
 
-$cascade-item-active-color:                  $component-active-color !default;
-$cascade-item-active-bg:                     $component-active-bg !default;
+$cascade-item-active-color:                  darken($gray-dark, 5%) !default;
+$cascade-item-active-bg:                     #f2f2f2 !default;
 $cascade-item-indicator-size:                1.4rem !default;
 
+$cascade-item-active-border:                 $brand-primary !default;
+$cascade-item-border-width:                  2px !default;
