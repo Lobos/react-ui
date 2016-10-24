@@ -126,7 +126,7 @@ export default class Select extends Component {
   }
 
   render () {
-    let { className, grid, open, readOnly, maxShowCount, data, mult, placeholder, style, hasError } = this.props
+    let { className, grid, open, readOnly, maxShowCount, data, mult, placeholder, style, hasError, required } = this.props
     let { filter, msg, dropup } = this.state
     let result = []
 
@@ -141,6 +141,9 @@ export default class Select extends Component {
 
     let filterText = filter ? filter.toLowerCase() : null
 
+    let hideRemove = true
+    if (!mult && required) hideRemove = false
+
     let options = data.map((d, i) => {
       d.$index = i
 
@@ -148,9 +151,9 @@ export default class Select extends Component {
         result.push(
           <a key={d.$key} className={_select.result}
             href="javascript:;"
-            onClick={this.handleRemove.bind(this, d)}>
+            onClick={hideRemove ? undefined : this.handleRemove.bind(this, d)}>
             <SafeHtml>{d.$result}</SafeHtml>
-            <span className={_select.remove}>&times;</span>
+            {hideRemove && <span className={_select.remove}>&times;</span>}
           </a>
         )
       }

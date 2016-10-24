@@ -10,7 +10,7 @@ export default function Breadcrumb (props) {
   )
 
   return (
-    <ol className={className}>
+    <ol style={props.style} className={className}>
     {
       props.data.map((d, i) => {
         let content = d.text
@@ -34,7 +34,8 @@ export default function Breadcrumb (props) {
 
 Breadcrumb.propTypes = {
   className: PropTypes.string,
-  data: PropTypes.array
+  data: PropTypes.array,
+  style: PropTypes.style
 }
 
 Breadcrumb.defaultProps = {

@@ -190,7 +190,7 @@ Modal.close(id)
 </Button>
           </Example>
 
-          <h2 className="subhead">Modal.confirm(content, header, callback)</h2>
+          <h2 className="subhead">Modal.confirm(content, callback, header)</h2>
           <Cn>快捷方式， <em>content</em> 为 <em>string</em> 或者 <em>ReactElement</em>。 <em>callback</em> 为 <em>function </em>，点击确定后回调。</Cn>
           <Example>
 <Button status="primary" onClick={() => Modal.confirm(

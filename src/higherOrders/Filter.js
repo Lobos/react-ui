@@ -16,6 +16,8 @@ export default function (Component) {
     }
 
     filterData (data) {
+      if (!Array.isArray(data)) return data
+
       let { filters } = this.state
       if (!filters) return data
       return compose(...filters)(data)
@@ -38,7 +40,7 @@ export default function (Component) {
   }
 
   FilterEnhance.propTypes = {
-    data: PropTypes.array,
+    data: PropTypes.array_string,
     filter: PropTypes.oneOfType([Filter])
   }
 

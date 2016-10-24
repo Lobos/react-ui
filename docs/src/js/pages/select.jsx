@@ -95,6 +95,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   data={[]} />
 <Select grid={{width: 1 / 3}}
   placeholder="City"
+  required
   data={['Beijing', 'Tokyo', 'New York', 'Edinburgh', 'San Francisco', 'Sidney']} />
 <Select grid={{width: 1 / 3}}
   mult

@@ -8,6 +8,7 @@ import { Checkbox } from '../Checkbox'
 import ArrayHolder from '../ArrayHolder'
 import { FETCH_PENDING } from '../higherOrders/Fetch'
 import Mask from '../Mask'
+import { getLang } from '../lang'
 
 import Header from './Header'
 import Tr from './Tr'
@@ -90,13 +91,17 @@ export default class Table extends Component {
   renderBody (values, columns) {
     if (!columns) return
 
-    const { data, onSelect, valueTpl } = this.props
+    let { data, onSelect, valueTpl } = this.props
+
+    if (Array.isArray(data) && data.length === 0) {
+      data = getLang('fetch.noData')
+    }
 
     if (!Array.isArray(data)) {
       return (
         <tbody>
           <tr>
-            <td colSpan={columns.length + (onSelect ? 1 : 0)}>{data}</td>
+            <td style={{textAlign: 'center'}} colSpan={columns.length + (onSelect ? 1 : 0)}>{data}</td>
           </tr>
         </tbody>
       )
@@ -244,7 +249,7 @@ Table.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   columns: PropTypes.array,
-  data: PropTypes.array,
+  data: PropTypes.array_string,
   fetchStatus: PropTypes.string,
   filter: PropTypes.element,
   headers: PropTypes.array,

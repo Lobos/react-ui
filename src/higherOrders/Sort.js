@@ -28,6 +28,7 @@ export default function (Component) {
     }
 
     sort (data, { key, asc, fn }) {
+      if (!Array.isArray(data)) return data
       return data.sort(typeof fn === 'function' ? fn : defaultSort(key, asc))
     }
 
@@ -46,7 +47,7 @@ export default function (Component) {
   }
 
   Sort.propTypes = {
-    data: PropTypes.array,
+    data: PropTypes.array_string,
     onSort: PropTypes.func
   }
 

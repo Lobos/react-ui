@@ -34,7 +34,7 @@ export default function (Component) {
     }
 
     getPagination (pagination) {
-      if (!pagination) return
+      if (!pagination || !Array.isArray(this.props.data)) return
 
       let props = objectAssign(
         {
@@ -64,7 +64,7 @@ export default function (Component) {
   }
 
   Pagination.propTypes = {
-    data: PropTypes.array,
+    data: PropTypes.array_string,
     pagination: PropTypes.element_object
   }
 
