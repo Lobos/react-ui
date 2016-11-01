@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes, isValidElement } from 'react'
 import Refetch from 'refetch'
 import classnames from 'classnames'
 import curry from 'curry'
@@ -66,6 +66,8 @@ export default curry((handleError, ComposedComponent) => {
             this.setState({ data: clone(res) })
           }
         })()
+      } else if (isValidElement(data)) {
+        this.setState({ data, fetchStatus: FETCH_SUCCESS })
       } else {
         this.setState({ data: clone(data), fetchStatus: FETCH_SUCCESS })
       }

@@ -40,7 +40,7 @@ export default function (Component) {
   }
 
   FilterEnhance.propTypes = {
-    data: PropTypes.array_string,
+    data: PropTypes.array_element_string,
     filter: PropTypes.oneOfType([Filter])
   }
 
