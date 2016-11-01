@@ -24,7 +24,7 @@ class Item extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!deepEqual(nextProps.value, this.props.value)) {
+    if (!deepEqual(nextProps.value, this.props.value) || !deepEqual(this.props.data, nextProps.data)) {
       this.setState({status: nextProps.data.$status})
     }
   }

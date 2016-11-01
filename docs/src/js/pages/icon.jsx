@@ -17,7 +17,7 @@ module.exports = () => {
       <div className="content">
         <p>
           Support <a href="http://fontawesome.io/">font-awesome</a> and <a href="http://zavoloklom.github.io/material-design-iconic-font/">material-design-iconic-font</a><br />
-          <Cn>或者，在<a href="http://iconfont.cn/">iconfont.cn</a>生成自己的icon字库。个人比较推荐这种方式，可以定制化，文件大小比较容易控制。可选的图标也更多。</Cn>
+          Or create your icon fonts at <a href="http://fontastic.me/">fontastic.me</a>
         </p>
 
         <Cn>
@@ -26,7 +26,7 @@ module.exports = () => {
         <Code>
 {`icon.less|scss // iconfont生成的代码，copy过来即可
   @font-face {
-  font-family: 'iconfont';
+  font-family: '...';
   src: ...
 }
 
@@ -44,20 +44,20 @@ module.exports = () => {
 
         <h2 className="subhead">iconfont</h2>
         <Example>
-          <Icon>&#xe601;</Icon>
-          <Icon style={{color: 'red'}}>&#xe602;</Icon>
+          <Icon>a</Icon>
+          <Icon style={{color: 'red'}}>b</Icon>
           <span style={{color: 'green', fontSize: '2rem'}}>
-            <Icon>&#xe603;</Icon>
+            <Icon>c</Icon>
           </span>
 
           <br />
 
-          <Icon size={0.7}>&#xe601;</Icon>
-          <Icon size={1}>&#xe601;</Icon>
-          <Icon size={1.2}>&#xe601;</Icon>
-          <Icon size={1.5}>&#xe601;</Icon>
-          <Icon size={2.0}>&#xe601;</Icon>
-          <Icon size={2.5}>&#xe601;</Icon>
+          <Icon size={0.7}>a</Icon>
+          <Icon size={1}>a</Icon>
+          <Icon size={1.2}>a</Icon>
+          <Icon size={1.5}>a</Icon>
+          <Icon size={2.0}>a</Icon>
+          <Icon size={2.5}>a</Icon>
         </Example>
         </Cn>
 

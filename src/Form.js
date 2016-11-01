@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
-import { forEach, deepEqual, hashcode, objectAssign } from './utils/objects'
+import { forEach, deepEqual, hashcode, objectAssign, isEmpty } from './utils/objects'
 import clone from './utils/clone'
 import { getGrid } from './utils/grids'
 import { filterFormProps } from './utils/propsFilter'
@@ -48,6 +48,12 @@ class Form extends Component {
         layout,
         columns
       }
+    }
+  }
+
+  componentDidMount () {
+    if (!isEmpty(this.state.data) && this.props.initValidate) {
+      this.validate()
     }
   }
 
@@ -160,15 +166,16 @@ class Form extends Component {
       buttons = { 'submit': buttons }
     }
 
-    const { submit, primary, reset, cancel } = buttons
+    const { submit, primary, reset, cancel, others } = buttons
     const { disabled } = this.props
 
     return (
       <FormControl key="buttons" columns={null}>
         { submit && <Button className={_forms.button} disabled={disabled} type="submit" status="primary">{submit}</Button> }
         { primary && <Button className={_forms.button} disabled={disabled} onClick={this.handleSubmit} status="primary">{primary}</Button> }
-        { reset && <Button onClick={this.handleReset} disabled={disabled} className={_forms.button}>{reset}</Button> }
+        { reset && <Button type="reset" disabled={disabled} className={_forms.button}>{reset}</Button> }
         { cancel && <Button onClick={this.props.onCancel} disabled={disabled} className={_forms.button}>{cancel}</Button> }
+        { others }
       </FormControl>
     )
   }
@@ -185,11 +192,11 @@ class Form extends Component {
 
     const btns = buttons || button
 
-    // remove form.onChange
-    delete props.onChange
-
     return (
-      <form {...filterFormProps(props)} onSubmit={this.handleSubmit} className={className}>
+      <form {...filterFormProps(props)}
+        onReset={this.handleReset}
+        onSubmit={this.handleSubmit}
+        className={className}>
         <Mask active={fetchStatus === FETCH_PENDING} />
         {controls && this.renderControls()}
         {children}
@@ -212,6 +219,7 @@ Form.propTypes = {
   fetchStatus: PropTypes.string,
   grid: PropTypes.grid,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
+  initValidate: PropTypes.bool,
   labelWidth: PropTypes.number_string,
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
   onCancel: PropTypes.func,

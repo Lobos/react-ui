@@ -30,6 +30,7 @@
   max-width: 30rem;
   @include box-shadow($dropdown-box-shadow);
   animation: fade-in .3s ease-out;
+  padding: $message-padding;
 }
 
 .countdown {

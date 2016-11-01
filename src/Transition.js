@@ -27,6 +27,10 @@ export default class Transition extends React.Component {
   }
 
   enter () {
+    if (this.leaving) {
+      clearTimeout(this.leaving)
+    }
+
     const { enter, leave } = this.props
     let el = this.element
     el.style.display = ''
@@ -41,7 +45,7 @@ export default class Transition extends React.Component {
     let el = this.element
     addClass(el, leave)
     removeClass(el, enter)
-    setTimeout(() => {
+    this.leaving = setTimeout(() => {
       el.style.display = 'none'
     }, this.props.duration)
   }

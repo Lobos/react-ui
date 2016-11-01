@@ -47,7 +47,7 @@ export default function (Component) {
   }
 
   Sort.propTypes = {
-    data: PropTypes.array_string,
+    data: PropTypes.array_element_string,
     onSort: PropTypes.func
   }
 

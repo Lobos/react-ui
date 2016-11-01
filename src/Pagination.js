@@ -102,7 +102,7 @@ class Pagination extends Component {
     items.push(
       <li key="previous"
         onClick={currentPage <= 1 ? null : this.handleChange.bind(this, currentPage - 1)}
-        className={classnames(_styles.previous, { disabled: currentPage <= 1 })}>
+        className={classnames(_styles.previous, currentPage <= 1 && _styles.disabled)}>
         <a href="javascript:;">&nbsp;{ANGLE_LEFT}</a>
       </li>
     )
@@ -140,7 +140,7 @@ class Pagination extends Component {
     items.push(
       <li key="next"
         onClick={currentPage >= max ? null : this.handleChange.bind(this, currentPage + 1)}
-        className={classnames(_styles.next, { disabled: currentPage >= max })}>
+        className={classnames(_styles.next, currentPage >= max && _styles.disabled)}>
         <a href="javascript:;">&nbsp;{ANGLE_RIGHT}</a>
       </li>
     )

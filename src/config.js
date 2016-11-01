@@ -1,6 +1,7 @@
 let pureRender = true
 let location = 'zh-cn'
 let iconPrefix = 'icon'
+let iconfont = 'iconfont'
 
 const config = {
   get pureRender () {
@@ -25,6 +26,14 @@ const config = {
 
   set iconPrefix (val) {
     iconPrefix = val
+  },
+
+  get iconfont () {
+    return iconfont
+  },
+
+  set iconfont (val) {
+    iconfont = val
   }
 }
 

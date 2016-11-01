@@ -64,7 +64,7 @@ export default function (Component) {
   }
 
   Pagination.propTypes = {
-    data: PropTypes.array_string,
+    data: PropTypes.array_element_string,
     pagination: PropTypes.element_object
   }
 

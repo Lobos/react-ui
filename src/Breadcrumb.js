@@ -35,7 +35,7 @@ export default function Breadcrumb (props) {
 Breadcrumb.propTypes = {
   className: PropTypes.string,
   data: PropTypes.array,
-  style: PropTypes.style
+  style: PropTypes.object
 }
 
 Breadcrumb.defaultProps = {

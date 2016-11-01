@@ -197,7 +197,7 @@ Modal.close(id)
   <div>
     <p>Some text.</p>
   </div>,
-  () => { Modal.alert('Clicked the ok button.') },
+  () => { setTimeout(() => Modal.alert('Clicked the ok button.'), 0) },
   'Warning'
 )}
 >confirm example</Button>

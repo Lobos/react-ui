@@ -40,9 +40,9 @@ export function validate (value, valueType, formData, props, callback) {
       return validator.func(value, formData)
     }
     if (validator.async) {
-      validator.async(value, formData, (result) => {
-        callback(result)
-      })
+      setTimeout(() => {
+        validator.async(value, formData, callback)
+      }, 0)
       return new Warning(<span style={{color: '#f0ad4e'}}>{getLang('validation.checking')}</span>)
     }
     if (validator.reg) {

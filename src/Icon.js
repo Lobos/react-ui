@@ -8,6 +8,7 @@ import Styles from './styles/_icon.scss'
 export default function Icon (props) {
   let { style, prefix, font, spin, size, icon } = props
   prefix = prefix || config.iconPrefix
+  font = font || config.iconfont
 
   let classes = [`${prefix}`]
 
@@ -54,6 +55,3 @@ Icon.propTypes = {
   style: PropTypes.object
 }
 
-Icon.defaultProps = {
-  font: 'iconfont'
-}

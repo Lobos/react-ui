@@ -30,45 +30,44 @@ module.exports = class extends React.Component {
 
           <h2 className="subhead">Normal</h2>
           <Example>
-<Button status="primary">Primary Button</Button>
-<Button>Default Button</Button>
+            <Button status="primary">Primary Button</Button>
+            <Button>Default Button</Button>
           </Example>
 
           <h2 className="subhead">Button with Icon</h2>
           <Example>
-<Button><Icon icon="home" /> Home</Button>
-<Button><Icon>&#xe601;</Icon> Home</Button>
+            <Button><Icon icon="home" />Home</Button>
           </Example>
 
           <h2 className="subhead">Status</h2>
           <Example>
-<Button status="primary">Primary</Button>
-<Button status="success">Success</Button>
-<Button status="warning">Warning</Button>
-<Button status="danger">Danger</Button>
-<Button status="error">Error</Button>
-<Button status="info">Info</Button>
-<Button>Normal</Button>
-<Button status="link">Link</Button>
+            <Button status="primary">Primary</Button>
+            <Button status="success">Success</Button>
+            <Button status="warning">Warning</Button>
+            <Button status="danger">Danger</Button>
+            <Button status="error">Error</Button>
+            <Button status="info">Info</Button>
+            <Button>Normal</Button>
+            <Button status="link">Link</Button>
           </Example>
 
           <h2 className="subhead">Size</h2>
           <Example>
-<Button size="large">Large Button</Button>
-<Button>Middle Button</Button>
-<Button size="small">Small Button</Button>
+            <Button size="large">Large Button</Button>
+            <Button>Middle Button</Button>
+            <Button size="small">Small Button</Button>
           </Example>
 
           <h2 className="subhead">disabled</h2>
           <Example>
-<Button disabled status="primary">Primary</Button>
-<Button disabled status="success">Success</Button>
-<Button disabled status="warning">Warning</Button>
-<Button disabled status="danger">Danger</Button>
-<Button disabled status="error">Error</Button>
-<Button disabled status="info">Info</Button>
-<Button disabled>Normal</Button>
-<Button disabled status="link">Link</Button>
+            <Button disabled status="primary">Primary</Button>
+            <Button disabled status="success">Success</Button>
+            <Button disabled status="warning">Warning</Button>
+            <Button disabled status="danger">Danger</Button>
+            <Button disabled status="error">Error</Button>
+            <Button disabled status="info">Info</Button>
+            <Button disabled>Normal</Button>
+            <Button disabled status="link">Link</Button>
           </Example>
         </div>
       </div>

@@ -24,6 +24,6 @@ export function filterTextareaProps () {
 export function filterFormProps () {
   return filter(
     [...arguments],
-    ['fetchStatus', 'fetch', 'columns', 'labelWidth']
+    ['fetchStatus', 'fetch', 'columns', 'labelWidth', 'onChange', 'initValidate']
   )
 }

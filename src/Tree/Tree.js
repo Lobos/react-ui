@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import classnames from 'classnames'
 import { toArray, substitute } from '../utils/strings'
+import clone from '../utils/clone'
 import { forEach, deepEqual, hashcode } from '../utils/objects'
 import { removeClass } from '../utils/dom'
 import PropTypes from '../utils/proptypes'
@@ -33,7 +34,7 @@ export class Tree extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!deepEqual(nextProps.data, this.props.data)) {
+    if (!deepEqual(nextProps.data, this.props.data) || !deepEqual(nextProps.value, this.props.value)) {
       this.formatData(nextProps)
     }
 
@@ -82,15 +83,14 @@ export class Tree extends Component {
   }
 
   formatData (props) {
-    let { data } = props
+    const data = clone(props.data)
+    const values = toArray(props.value, props.sep)
 
     if (data.length === 0) {
       return
     }
 
-    this.setTpl(props.data, props.textTpl, props.valueTpl)
-
-    let values = toArray(props.value, props.sep)
+    this.setTpl(data, props.textTpl, props.valueTpl)
 
     let getStatus = function (d, last, deep) {
       let val = d.$value
@@ -128,6 +128,7 @@ export class Tree extends Component {
     for (let i = 0, count = data.length; i < count; i++) {
       getStatus(data[i], i === (count - 1))
     }
+
     this.setState({ data })
   }
 
@@ -156,6 +157,7 @@ export class Tree extends Component {
 
     const { value, data } = this.state
 
+    // console.log(JSON.stringify(data, null, 2))
     let items = data.map(function (item, i) {
       return (
         <Item ref={i}

@@ -3,12 +3,12 @@ import classnames from 'classnames'
 import { getGrid } from './utils/grids'
 
 export default function Grid (props) {
-  let { className, width = 1, offset, responsive, style, stretch, children } = props
+  let { className, width = 1, offset, responsive, style, stretch, children, ...other } = props
 
   let autoCount = 0
   let settleWidth = 0
   Children.toArray(children).forEach(child => {
-    if (child.type === Grid) {
+    if (child.type && child.type.isGrid) {
       if (child.props.width) settleWidth += child.props.width
       else autoCount++
     }
@@ -21,10 +21,10 @@ export default function Grid (props) {
     getGrid({ width, offset, responsive })
   )
   return (
-    <div style={style} className={className}>
+    <div style={style} className={className} {...other}>
     {
       Children.toArray(children).map(child => {
-        if (child.type === Grid) {
+        if (child.type && child.type.isGrid) {
           if (child.props.width && !stretch) return child
 
           let pps = {}
@@ -40,6 +40,8 @@ export default function Grid (props) {
     </div>
   )
 };
+
+Grid.isGrid = true
 
 Grid.propTypes = {
   children: PropTypes.any,

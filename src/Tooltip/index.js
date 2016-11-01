@@ -1,4 +1,4 @@
-import React, { PropTypes, cloneElement } from 'react'
+import React, { PropTypes } from 'react'
 import { findDOMNode } from 'react-dom'
 import { objectAssign } from '../utils/objects'
 import PureRender from '../mixins/PureRender'
@@ -10,6 +10,10 @@ class Tooltip extends React.Component {
     super(props)
 
     this.handleShow = this.handleShow.bind(this)
+  }
+
+  componentWillUnmount () {
+    this.props.content ? Popover.hide() : Tip.hide()
   }
 
   handleShow () {
@@ -63,7 +67,7 @@ class Tooltip extends React.Component {
   }
 
   render () {
-    const { children, content, trigger } = this.props
+    const { children, content, trigger, style } = this.props
     const props = {}
 
     if (trigger === 'hover') {
@@ -75,7 +79,9 @@ class Tooltip extends React.Component {
       }
     }
 
-    return cloneElement(children, props)
+    let newStyle = objectAssign({display: 'inline-block'}, style)
+
+    return <span {...props} style={newStyle}>{children}</span>
   }
 }
 
@@ -89,6 +95,7 @@ Tooltip.propTypes = {
   className: PropTypes.string,
   content: PropTypes.element,
   position: PropTypes.oneOf(['top-left', 'top', 'top-right', 'left', 'right', 'bottom-left', 'bottom', 'bottom-right']),
+  style: PropTypes.object,
   tip: PropTypes.string,
   trigger: PropTypes.oneOf(['click', 'hover'])
 }

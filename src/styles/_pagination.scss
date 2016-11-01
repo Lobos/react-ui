@@ -54,13 +54,13 @@
         margin-left: 0;
       }
     }
-  } else {
-    li:first-child a {
+  } @else {
+    .previous a {
       margin-left: 0;
       @include border-left-radius($pagination-border-radius);
     }
 
-    li:last-child a {
+    .next a {
       @include border-right-radius($pagination-border-radius);
     }
   }
@@ -81,6 +81,19 @@
     color: $pagination-active-color;
     background-color: $pagination-active-bg;
     border-color: $pagination-active-border;
+  }
+
+  .disabled a {
+    cursor: default;
+    border-color: $pagination-disabled-border;
+
+    &:hover {
+      background-color: $pagination-disabled-bg;
+    }
+
+    svg path {
+      fill: $pagination-disabled-color;
+    }
   }
 }
 

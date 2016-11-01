@@ -36,7 +36,8 @@ module.exports = class extends React.Component {
     submit: 'string',   // submit 按钮文字
     primary: 'string',  // 和 submit 按钮相同，区别是不会触发 enter 提交
     reset: 'string',    // reset 按钮文字
-    cancel: 'string'    // cancel 按钮文字
+    cancel: 'string',   // cancel 按钮文字
+    others: [Button]    // 其他自定义按钮
   }
   data={object}         // 数据，object
   disabled={bool}       // 如果 form 设置为disabled，所有的表单组件全部变为 readOnly
@@ -45,6 +46,7 @@ module.exports = class extends React.Component {
                            layout 为 stacked, aligned 时，默认为 "block"
                            layout 为 inline 时，默认为 "pop"
                            会被 FormControl 的 hintType 覆盖
+  initValidate={bool}   // 在Form加载时校验data，默认值为 false
   labelWidth={string}   // label 宽度，默认值为'10rem'
   layout={string}       // 布局，可选值为 "aligned", "stacked", "inline"，默认为 "aligned"
   onSubmit={function(   // 点击提交按钮，数据验证成功后回调函数
@@ -70,10 +72,11 @@ module.exports = class extends React.Component {
   disabled={bool}       // if form is disabled, all formitem's prop readOnly will be true
   fetch={object}        // if data set, fetch will be ignored
   hintType={string}     // 'block|pop|inline|none'
-                           if layout is 'stacked' or 'aligned', default is 'block'
+                           if layout is 'stacked' or 'aligned', default value is 'block'
                            if layout is 'inline', default is 'pop'
+  initValidate={bool}   // validate data when Form mount, default value is false
   labelWidth={string}   // default value is '10rem'
-  layout={string}       // 'aligned|stacked|inline', default is 'aligned'
+  layout={string}       // 'aligned|stacked|inline', default value is 'aligned'
   onSubmit={function(
     data:object
   )}
@@ -111,7 +114,7 @@ module.exports = class extends React.Component {
           <Example>
             <Form onSubmit={formData => console.log(formData)}
               fetch={'json/form.json'}
-              buttons={{ primary: 'Submit', reset: 'Reset' }}>
+              buttons={{ primary: 'Submit', reset: 'Reset', others: [<Button key="test">test</Button>] }}>
               <FormControl label="id">
                 <FormText>{d => d.id}</FormText>
               </FormControl>
@@ -289,6 +292,7 @@ module.exports = class extends React.Component {
 
               <FormControl name="tree"
                 selectAble
+                capture={3}
                 label="tree"
                 type="tree"
                 fetch={ Refetch.get('json/tree.json') }

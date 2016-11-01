@@ -53,6 +53,7 @@ export default class extends Component {
 
   renderModals () {
     const { modals } = this.state
+
     return Object.keys(modals).map((key, i) => {
       return <Modal key={key} {...modals[key]} index={i} onClose={this.removeModal} />
     })

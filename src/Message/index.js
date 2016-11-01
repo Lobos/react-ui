@@ -21,7 +21,7 @@ function create (type) {
     msg.content = content
     msg.duration = msg.duration !== undefined
       ? msg.duration
-      : (msg.type === 'error' || msg.type === 'danger') ? 0 : 6
+      : (msg.type === 'error' || msg.type === 'danger') ? 0 : 5
     container.addMessage(msg)
   }
 }

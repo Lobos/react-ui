@@ -249,7 +249,7 @@ Table.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
   columns: PropTypes.array,
-  data: PropTypes.array_string,
+  data: PropTypes.array_element_string,
   fetchStatus: PropTypes.string,
   filter: PropTypes.element,
   headers: PropTypes.array,

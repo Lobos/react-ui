@@ -40,6 +40,10 @@
     border-top: 0;
   }
 
+  .body {
+    border-bottom: $table-border-width solid $table-border-color;
+  }
+
   &.small {
     td, th {
       padding: $table-sm-cell-padding;

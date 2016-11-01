@@ -141,8 +141,8 @@ export default class Select extends Component {
 
     let filterText = filter ? filter.toLowerCase() : null
 
-    let hideRemove = true
-    if (!mult && required) hideRemove = false
+    let hideRemove = false
+    if (!mult && required) hideRemove = true
 
     let options = data.map((d, i) => {
       d.$index = i
@@ -153,7 +153,7 @@ export default class Select extends Component {
             href="javascript:;"
             onClick={hideRemove ? undefined : this.handleRemove.bind(this, d)}>
             <SafeHtml>{d.$result}</SafeHtml>
-            {hideRemove && <span className={_select.remove}>&times;</span>}
+            {!hideRemove && <span className={_select.remove}>&times;</span>}
           </a>
         )
       }
