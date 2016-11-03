@@ -15,7 +15,7 @@
   "formitem": "form item",
   "select": "China,Cuba",
   "textarea": "long text",
-  "tree": "user_edit",
+  "tree": "1.1.1",
   "dateRange": ["2016-03-12", "2016-07-22"],
   "cascade": ["1", "1.2", "1.2.1"],
   "editor": "<p>editor text<br />second line.</p>"
