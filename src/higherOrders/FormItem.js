@@ -26,14 +26,14 @@ export default function FormItem (Component) {
     }
 
     componentWillMount () {
-      const { name, defaultValue, dispatch, disabled, ignore } = this.props
+      const { name, value, defaultValue, dispatch, disabled, ignore } = this.props
       const { itemBind } = this.context
 
       if (itemBind) {
         itemBind({
           name,
           dispatch,
-          value: defaultValue,
+          value: value || defaultValue,
           disabled: disabled || ignore,
           validate: this.validate
         })

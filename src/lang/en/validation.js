@@ -4,6 +4,7 @@ module.exports = {
       alpha: 'alpha-numeric characters, underscores, and dashes',
       alphanum: 'alpha-numeric characters and underscores',
       integer: 'integer',
+      json: 'json format',
       max: {
         array: 'less than {0} choices',
         number: 'less than {0}',
@@ -27,6 +28,7 @@ module.exports = {
       alphanum: 'The {0} field must only contain alpha-numeric characters.',
       email: 'The {0} field should be a valid email.',
       integer: 'The {0} field should be a valid integer.',
+      json: 'The {0} field not a valid json.',
       required: 'The {0} field is required.',
       max: {
         array: 'The {0} must select not exceed {1} choices.',

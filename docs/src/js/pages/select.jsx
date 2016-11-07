@@ -52,6 +52,7 @@ module.exports = class extends Component {
   mult={bool}           // 是否多选，默认为 false
   onChange={function}   // 值改变时触发事，参数为 value
   optionTpl={string}    // 选项模板，默认为 {text}
+  required={bool}       // 如果mult为false时，设置required为true，将不会显示删除，默认值为false
   resultTpl={string}    // 选中项显示模板，如果不填使用 optionTpl
   valueTpl={string}     // 返回值模板，默认为 {value}
   value={string}        // 初始值
@@ -125,9 +126,9 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   filterAble
   sep={null}
   optionTpl={imageTpl}
-  valueTpl={d => d}
+  valueTpl={d => d.code}
   onChange={ this.handleCountry }
-  value={this.state.country}
+  value={'ar'}
   fetch={"json/countries.json"} />
 <Button style={{ marginLeft: 10 }} onClick={ () => this.setState({ country: '' }) }>Clear</Button>
           </Example>

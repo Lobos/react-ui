@@ -40,15 +40,10 @@ export default function (Origin) {
 
     addFile (input, onProgress, handle) {
       const { fileSize } = this.props
-
       let files = {...this.state.files}
 
       for (let i = 0; i < input.files.length; i++) {
         let blob = input.files[i]
-        if (blob.size / 1024 > fileSize) {
-          this.handleChange(new Error(format(getLang('validation.tips.fileSize'), '', fileSize)))
-          return
-        }
 
         let id = nextUid()
         let file = {
@@ -57,6 +52,15 @@ export default function (Origin) {
         }
 
         files[id] = file
+
+        if (blob.size / 1024 > fileSize) {
+          let message = format(getLang('validation.tips.fileSize'), '', fileSize)
+          file.status = ERROR
+          file.message = message
+          file.name = message
+          this.setState({ files })
+          return
+        }
 
         if (handle) {
           handle(files[id], blob, (f) => {
@@ -94,6 +98,7 @@ export default function (Origin) {
           if (value instanceof Error) {
             files[id].status = ERROR
             files[id].name = value.message
+            files[id].message = value.message
             this.setState({ files }, this.handleChange)
           } else {
             // remove file

@@ -66,6 +66,7 @@ module.exports = function () {
   action="/upload"
   accept="image/*"
   limit={3}
+  fileSize={100}
   onChange={(value) => console.log(value)}
   value={[{ name: 'init.txt' }]}
   params={{ arg: 'test' }}

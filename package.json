@@ -26,6 +26,7 @@
     "url": "https://github.com/lobos/react-ui/issues"
   },
   "devDependencies": {
+    "babel-plugin-transform-es2015-classes": "^6.18.0",
     "chai": "~3.5.0",
     "chai-enzyme": "^0.4.2",
     "cross-env": "^2.0.1",

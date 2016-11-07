@@ -91,7 +91,7 @@ Textarea.defaultProps = {
 }
 
 export default compose(
-  FormItem.register(['textarea'], {}),
+  FormItem.register(['textarea', 'json'], {}),
   Trigger
 )(Textarea)
 

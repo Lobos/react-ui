@@ -126,9 +126,16 @@ validator = {
           {this.renderExample('datetime', 'Datepicker')}
 
           <div>
-            <p><em><b>textarea</b></em> => <a href="#/input">Input</a></p>
+            <p><em><b>textarea</b></em> => <a href="#/textarea">Textarea</a></p>
             <Example>
               <FormControl type="textarea" rows={5} />
+            </Example>
+          </div>
+
+          <div>
+            <p><em><b>json</b></em> => <a href="#/input">Textarea</a></p>
+            <Example>
+              <FormControl grid={1 / 2} type="json" rows={5} />
             </Example>
           </div>
 

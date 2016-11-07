@@ -21,8 +21,8 @@ class Page extends Component {
         </div>
 
         <div className="content">
-          <Cn>Editor是在 <a href="https://github.com/editorjs/quill" target="_blank">Quill</a> 基础上进行的封装</Cn>
-          <En>Base on <a href="https://github.com/editorjs/quill" target="_blank">Quill</a></En>
+          <Cn>Editor是在 <a href="https://github.com/quilljs/quill" target="_blank">Quill</a> 基础上进行的封装</Cn>
+          <En>Base on <a href="https://github.com/quilljs/quill" target="_blank">Quill</a></En>
           <Code>
           {`
             import Editor from 'rctui/addons/Editor'

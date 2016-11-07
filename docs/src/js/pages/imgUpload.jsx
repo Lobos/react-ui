@@ -22,6 +22,7 @@ module.exports = function () {
   fileSize={number}       // 单个文件最大尺寸，单位 KB
   imgWidth={number}       // px, 上传图片宽度
   imgHeight={number}      // px, 上传图片高度
+  imgValidator={func(img)}  // 选择图片后触发，用来校验图片长宽等属性
   limit={number}          // 最大上传文件个数，默认为 1
   name={string}           // field name，必填
   onUpload={func}         // 处理服务端返回的数据
@@ -44,6 +45,7 @@ module.exports = function () {
   fileSize={number}       // single file size, unit KB
   imgWidth={number}       // px, image width
   imgHeight={number}      // px, image height
+  imgValidator={func(img)}  // validate image on file input change
   limit={number}          // default is 1
   name={string}           // field name, required
   onUpload={func}         // handle server result
@@ -64,9 +66,14 @@ module.exports = function () {
   action="/upload"
   accept="image/*"
   limit={3}
+  fileSize={100}
   params={{ arg: 'test' }}
   value={['images/image1.jpg', 'images/image2.jpg']}
   srcTpl={d => d}
+  imgValidator={(img) => {
+    if (img.width === 200) return true
+    else return new Error('invalid image width')
+  }}
   onUpload={(res) => {
     var json = JSON.parse(res)
     if (json.success) {

@@ -109,9 +109,12 @@ export default class Table extends Component {
 
     this.allSelected = true
     let trs = data.map((d, i) => {
-      if (!d.$value) d.$value = substitute(valueTpl, d)
-      let checked = values.indexOf(d.$value) >= 0
-      this.allSelected = this.allSelected && checked
+      let checked = false
+      if (onSelect) {
+        if (!d.$value) d.$value = substitute(valueTpl, d)
+        let checked = values.indexOf(d.$value) >= 0
+        this.allSelected = this.allSelected && checked
+      }
 
       return (
         <Tr key={d.id || hashcode(d)}
