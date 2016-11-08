@@ -73,6 +73,7 @@ module.exports = function () {
   onUpload={(res) => {
     var json = JSON.parse(res)
     if (json.success) {
+    console.log(json.model)
       return json.model
     } else {
       return new Error(json.message)

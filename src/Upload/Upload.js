@@ -77,11 +77,11 @@ export default function (Origin) {
     }
 
     uploadFile (id, file, onProgress) {
-      let { onUpload, action, name, cors, params, withCredentials } = this.props
+      let { onUpload, action, name, inputName, cors, params, withCredentials } = this.props
 
       return ajax({
         url: action,
-        name,
+        name: inputName || name,
         cors,
         params,
         withCredentials,
@@ -160,6 +160,7 @@ export default function (Origin) {
     cors: PropTypes.bool,
     disabled: PropTypes.bool,
     fileSize: PropTypes.number,
+    inputName: PropTypes.string,
     name: PropTypes.string,
     onChange: PropTypes.func,
     onUpload: PropTypes.func,

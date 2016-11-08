@@ -77,11 +77,11 @@ module.exports = class extends React.Component {
   tip={string}    // 额外提示信息，如果设置，会替换自动生成提示信息
   type={string}   // 自动验证以下type: email,integer,number,alpha,alphanum,tel,url
   validator       // 自定义校验
+  dispatch={[name]} // 触发Form内其他组件校验
 />
 validator = {
   func: (value, form), // 指定一个方法校验。value为当前选中值，form为整个form表单数据
-  reg: {string},       // 指定一个正则表达式，和func 二选一
-  bind: [string]       // 当form内其他控件数据变化时，触发校验，参数为控件name
+  reg: {string}        // 指定一个正则表达式，和func 二选一
 }`}
             </Code>
           </Cn>
@@ -94,12 +94,12 @@ validator = {
   tip={string}    // if tip is undefined, use generated text
   type={string}   // email,integer,number,alpha,alphanum,tel,url
   validator       // custom validator
+  dispatch={[name]} // dispatch other component validate with the name
 />
 // =========================
 validator = {
   func: (value, formData), // custom validate function
-  reg: {string},           // if func set, reg will be ignored
-  bind: ['name']           // bind other FormItem with 'name' in the same Form, if the FormItem value changed, execute this validate
+  reg: {string}            // if func set, reg will be ignored
 }`}
             </Code>
           </En>
