@@ -61,10 +61,14 @@
 
 .header {
   padding: $modal-title-padding;
+  padding-right: $modal-title-padding * 2 + $modal-close-size;
   border-bottom: $modal-header-border-width solid $modal-header-border-color;
   background: $modal-header-bg;
   font-size: $font-size-h5;
   font-weight: $headings-font-weight;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   @include clearfix;
 }
 

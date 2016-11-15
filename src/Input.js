@@ -69,6 +69,6 @@ Input.defaultProps = {
 }
 
 export default compose(
-  FormItem.register(['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number'], {}),
+  FormItem.register(['text', 'tel', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number'], {}),
   Trigger
 )(Input)

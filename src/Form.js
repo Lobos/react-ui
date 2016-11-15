@@ -58,7 +58,7 @@ class Form extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!deepEqual(this.props.data, nextProps.data)) {
+    if (!deepEqual(this.props.data, nextProps.data) && !deepEqual(nextProps.data, this.state.data)) {
       this.setState({ data: objectAssign({}, this.state.data, nextProps.data) }, () => {
         this.validate()
       })

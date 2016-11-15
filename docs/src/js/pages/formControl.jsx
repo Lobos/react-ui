@@ -117,6 +117,7 @@ validator = {
           {this.renderExample('alpha')}
           {this.renderExample('alphanum')}
           {this.renderExample('url')}
+          {this.renderExample('tel')}
           {this.renderExample('integer')}
           {this.renderExample('number')}
           {this.renderExample('password')}

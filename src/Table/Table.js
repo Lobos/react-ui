@@ -47,9 +47,9 @@ export default class Table extends Component {
   }
 
   setHeaderWidth () {
-    let body = this.refs.body
-    if (!body) {
-      this.isWidthSetted = true
+    const { header, body } = this.refs
+
+    if (!body || !header) {
       return
     }
 
@@ -62,7 +62,7 @@ export default class Table extends Component {
     this.isWidthSetted = true
 
     let bodyCgs = body.querySelectorAll('col')
-    let headCgs = this.refs.header.querySelectorAll('col')
+    let headCgs = header.querySelectorAll('col')
 
     for (let i = 0, count = tds.length; i < count; i++) {
       let width = tds[i].offsetWidth + 'px'
@@ -216,34 +216,54 @@ export default class Table extends Component {
       striped && _tables.striped
     )
 
-    return (
-      <div style={this.props.style} className={className}>
-        <Mask active={fetchStatus === FETCH_PENDING} />
+    if (height !== 'auto') {
+      return (
+        <div style={this.props.style} className={className}>
+          <Mask active={fetchStatus === FETCH_PENDING} />
 
-        { filter }
+          { filter }
 
-        { columns &&
-          <div className={_tables.header}>
-            <div ref="headerContainer" style={headerStyle}>
-              <table ref="header">
-                { this.renderColgroup(columns) }
-                { this.renderHeader(columns) }
-              </table>
+          { columns &&
+            <div className={_tables.header}>
+              <div ref="headerContainer" style={headerStyle}>
+                <table ref="header">
+                  { this.renderColgroup(columns) }
+                  { this.renderHeader(columns) }
+                </table>
+              </div>
             </div>
+          }
+
+          <div className={_tables.body} onScroll={onBodyScroll} style={bodyStyle}>
+            <table style={tableStyle} ref="body">
+              { children }
+              { columns && this.renderColgroup(columns) }
+              { columns && body }
+            </table>
           </div>
-        }
 
-        <div className={_tables.body} onScroll={onBodyScroll} style={bodyStyle}>
-          <table style={tableStyle} ref="body">
-            { children }
-            { columns && this.renderColgroup(columns) }
-            { columns && body }
-          </table>
+          {this.renderPagination()}
         </div>
+      )
+    } else {
+      return (
+        <div style={this.props.style} className={className}>
+          <Mask active={fetchStatus === FETCH_PENDING} />
 
-        {this.renderPagination()}
-      </div>
-    )
+          { filter }
+
+          <div className={_tables.body} style={bodyStyle}>
+            <table style={tableStyle} ref="body">
+              { columns && this.renderColgroup(columns) }
+              { columns && this.renderHeader(columns) }
+              { columns && body }
+            </table>
+          </div>
+
+          {this.renderPagination()}
+        </div>
+      )
+    }
   }
 }
 
