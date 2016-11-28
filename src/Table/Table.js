@@ -216,7 +216,7 @@ export default class Table extends Component {
       striped && _tables.striped
     )
 
-    if (height !== 'auto') {
+    if (height && height !== 'auto') {
       return (
         <div style={this.props.style} className={className}>
           <Mask active={fetchStatus === FETCH_PENDING} />

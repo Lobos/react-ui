@@ -29,6 +29,11 @@ export function validate (value, valueType, formData, props, callback) {
     return handleError(label, value, 'required', tip)
   }
 
+  // skip empty value
+  if (value === undefined || value === null || value === '') {
+    return true
+  }
+
   let reg = Regs[type]
 
   // custom validator
@@ -51,11 +56,6 @@ export function validate (value, valueType, formData, props, callback) {
         reg = new RegExp(reg)
       }
     }
-  }
-
-  // skip empty value
-  if (value === undefined || value === null || value === '') {
-    return true
   }
 
   // validate type

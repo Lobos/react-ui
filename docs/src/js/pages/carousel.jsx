@@ -18,7 +18,7 @@ module.exports = class extends Component {
     return (
       <div>
         <div className="header">
-          <h1>Alert</h1>
+          <h1>Carousel</h1>
         </div>
 
         <div className="content">

@@ -105,7 +105,7 @@ export default function FormItem (Component) {
 
     handleChange (value) {
       const { itemChange } = this.context
-      const { name, onChange } = this.props
+      const { name, onChange, beforeChange } = this.props
 
       if (typeof value === 'object' && value.nativeEvent) {
         value = value.target.value
@@ -120,9 +120,10 @@ export default function FormItem (Component) {
           this.validate(value)
         }, 400)
 
+        if (beforeChange) value = beforeChange(value)
         // if in a form, use formData, else use state
         itemChange && name ? itemChange(name, value) : this.setState({ value })
-        onChange && onChange(...arguments)
+        onChange && onChange(value)
       }
     }
 
@@ -172,6 +173,7 @@ export default function FormItem (Component) {
   FormItem.isFormItem = true
 
   FormItem.propTypes = {
+    beforeChange: PropTypes.func,
     className: PropTypes.string,
     defaultValue: PropTypes.any,
     disabled: PropTypes.bool,

@@ -63,8 +63,6 @@ class Carousel extends Component {
       type: 'circle'
     }, this.props.indicator)
 
-    console.log(indicator, this.props.indicator)
-
     let className = classnames(
       _styles['carousel-indicator'],
       _styles[`carousel-indicator-${indicator.position}`],
