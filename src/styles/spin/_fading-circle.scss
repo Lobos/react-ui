@@ -1,0 +1,40 @@
+.fading-circle {
+  $circleCount: 12;
+  $animationDuration: 1.2s;
+
+  position: relative;
+  margin: auto;
+
+  .circle {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .circle span {
+    display: block;
+    margin: 0 auto;
+    line-height: 0;
+    overflow: hidden;
+    width: 15%;
+    height: 15%;
+    border-radius: 100%;
+    animation: sk-circleFadeDelay $animationDuration infinite ease-in-out both;
+  }
+
+  @for $i from 2 through $circleCount {
+    .circle#{$i} { transform: rotate(360deg / $circleCount * ($i - 1)); }
+  }
+
+  @for $i from 2 through $circleCount {
+    .circle#{$i} span { animation-delay: - $animationDuration + $animationDuration / $circleCount * ($i - 1); }
+  }
+
+}
+
+@keyframes sk-circleFadeDelay {
+  0%, 39%, 100% { opacity: 0 }
+  40% { opacity: 1 }
+}

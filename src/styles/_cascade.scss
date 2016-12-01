@@ -1,0 +1,135 @@
+@import 'mixins';
+@import 'themes/default';
+
+.cascade {
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+}
+
+.cascade-result {
+  width: 100%;
+  padding: $input-padding-y $input-padding-x;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  a {
+    display: inline-block;
+    padding-right: 0.25rem;
+    color: $input-color;
+
+    &:hover, &:active, &:focus {
+      color: $input-color;
+      text-decoration: none;
+    }
+
+    .remove {
+      display: inline-block;
+      width: 1rem;
+      text-align: center;
+      visibility: hidden;
+      color: $brand-danger;
+    }
+  }
+}
+
+.cascade-mult .cascade-result {
+  overflow: visible;
+  white-space: normal;
+}
+
+.cascade-open {
+  .cascade-result a:hover {
+    .remove {
+      visibility: visible;
+    }
+  }
+}
+
+.cascade-options {
+  display: inline-block;
+  position: absolute;
+  top: 100%;
+  margin: 2px 0 0;
+  max-width: 10000px;
+  left: -1px;
+  z-index: $zindex-dropdown;
+  height: $cascade-options-height;
+  border: solid $cascade-border-width $cascade-border-color;
+  border-radius: $cascade-border-radius;
+  background-color: $cascade-options-bg;
+  box-shadow: $cascade-box-shadow;
+  transform-origin: 0 0;
+  transform: scaleY(0);
+  opacity: 0;
+  white-space: nowrap;
+
+  &.enter {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  & > ul {
+    display: inline-block;
+    list-style-type: none;
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+    min-width: $cascade-options-width;
+    height: $cascade-options-height;
+    overflow: auto;
+    border-left: solid $cascade-border-width $cascade-border-color;
+    padding: $cascade-options-padding-y 0;
+
+    &:first-child {
+      border-left-width: 0;
+    }
+
+    li {
+      position: relative;
+      cursor: pointer;
+      display: block;
+      padding: $cascade-options-padding-y $cascade-options-padding-x;
+      color: $cascade-item-color;
+      border-left: $cascade-item-border-width solid transparent;
+
+      &:hover {
+        color: $cascade-item-hover-color;
+        background-color: $cascade-item-hover-bg;
+      }
+
+      &.active {
+        color: $cascade-item-active-color;
+        background-color: $cascade-item-active-bg;
+        border-color: $cascade-item-active-border;
+
+        svg path {
+          fill: $cascade-item-active-color;
+        }
+      }
+
+      .indicator {
+        position: absolute;
+        display: flex;
+        width: $cascade-item-indicator-size;
+        height: $cascade-item-indicator-size;
+        right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+
+        & > span {
+          margin: auto;
+        }
+
+        svg {
+          position: absolute;
+          display: flex;
+          margin: auto;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

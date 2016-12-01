@@ -1,63 +1,57 @@
-'use strict';
+import classnames from 'classnames'
+import { objectAssign } from './utils/objects'
+import PropTypes from './utils/proptypes'
+import config from './config'
 
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-let prefix = 'icon';
+import Styles from './styles/_icon.scss'
 
-class Icon extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      spin: props.spin
-    };
-  }
+export default function Icon (props) {
+  let { style, prefix, font, spin, size, icon } = props
+  prefix = prefix || config.iconPrefix
+  font = font || config.iconfont
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({ spin: nextProps.spin });
-  }
+  let classes = [`${prefix}`]
 
-  render () {
-    let classes = [`${prefix}`];
-    let { style, font, size, icon } = this.props;
-
-    if (this.state.spin) {
-      classes.push(`${prefix}-spin`);
-    }
-
-    if (icon) {
-      classes.push(`${prefix}-${icon}`);
-    }
-
-    if (font) {
-      style.fontFamily = font;
-    }
+  if (icon) {
+    classes.push(`${prefix}-${icon}`)
 
     if (size) {
       if (typeof size === 'number' || size.length === 1) {
-        size = size + 'x';
+        size = size + 'x'
       }
-      classes.push(`${prefix}-${size}`);
+      classes.push(`${prefix}-${size}`)
     }
 
-    return (
-      <i style={style} className={classnames(...classes)}>
-        {this.props.children}
-      </i>
-    );
+    classes.push(spin && `${prefix}-spin`)
+  } else {
+    classes = [Styles.icon]
+    classes.push(spin && Styles.spin)
+
+    if (size > 0) {
+      size += 'rem'
+      size = {
+        fontSize: size,
+        width: size,
+        height: size
+      }
+    }
+    style = objectAssign({}, { fontFamily: font }, size || {}, style)
   }
+
+  return (
+    <i style={style} className={classnames(...classes)}>
+      {props.children}
+    </i>
+  )
 }
 
 Icon.propTypes = {
   children: PropTypes.any,
   font: PropTypes.string,
   icon: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  prefix: PropTypes.string,
+  size: PropTypes.number_string,
   spin: PropTypes.bool,
   style: PropTypes.object
-};
+}
 
-Icon.setPrefix = function (pre) {
-  prefix = pre;
-};
-
-module.exports = Icon;

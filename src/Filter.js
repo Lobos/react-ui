@@ -1,198 +1,88 @@
-'use strict';
+import React, { Component, cloneElement } from 'react'
+import curry from 'curry'
+import PropTypes from './utils/proptypes'
+import Form from './Form'
+import FormControl from './FormControl'
 
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-import Button from './Button';
-import FilterItem from './FilterItem';
-import ClickAway from './mixins/ClickAway';
+import { getLang } from './lang'
 
-import { requireCss } from './themes';
-requireCss('filter');
-
-import {getLang, setLang} from './lang';
-setLang('buttons');
-
-class Filter extends ClickAway(Component) {
+export default class Filter extends Component {
   constructor (props) {
-    super(props);
-    this.state = {
-      active: false,
-      filters: []
-    };
-
-    this.addFilter = this.addFilter.bind(this);
-    this.clearFilter = this.clearFilter.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onFilter = this.onFilter.bind(this);
-    this.open = this.open.bind(this);
-    this.removeFilter = this.removeFilter.bind(this);
+    super(props)
+    this.filters = []
+    this.handleFilter = this.handleFilter.bind(this)
   }
 
-  componentWillMount () {
-    this.initData(this.props.options);
-  }
-
-  componentDidMount () {
-    this.registerClickAway(this.close);
-  }
-
-  initData (options) {
-    options = options.map((d, i) => {
-      d.optionsIndex = i;
-      return d;
-    });
-    this.setState({ options });
-  }
-
-  onSearch () {
-    if (this.props.onSearch) {
-      this.props.onSearch();
-    }
-  }
-
-  open () {
-    if (this.state.active) {
-      return;
-    }
-    this.bindClickAway();
-    let options = this.refs.options;
-    options.style.display = 'block';
-    setTimeout(() => {
-      this.setState({ active: true });
-    }, 0);
-    setTimeout(() => {
-      options.parentNode.style.overflow = 'visible';
-    }, 450);
-  }
-
-  close () {
-    let options = this.refs.options;
-    options.parentNode.style.overflow = 'hidden';
-    this.setState({ active: false });
-    this.unbindClickAway();
-    setTimeout(() => {
-      options.style.display = 'none';
-    }, 450);
-  }
-
-  addFilter () {
-    let filters = this.state.filters;
-    filters.push({});
-    this.setState({ filters });
-  }
-
-  removeFilter (index) {
-    let filters = this.state.filters;
-    filters.splice(index, 1);
-    this.setState({ filters });
-  }
-
-  clearFilter () {
-    this.setState({ filters: [], resultText: '' });
-    this.close();
-    if (this.props.onFilter) {
-      this.props.onFilter([]);
-    }
-  }
-
-  onChange (index, filter) {
-    let filters = this.state.filters,
-        f = filters[index];
-    Object.keys(filter).forEach((k) => {
-      f[k] = filter[k];
-    });
-    this.setState({ filters });
-  }
-
-  onFilter () {
-    this.close();
-    let filters = this.state.filters,
-        local = this.props.local;
-    this.setState({ resultText: this.formatText(filters) });
-    if (this.props.onFilter) {
-      let novs = [];
-      filters.forEach((f, i) => {
-        if (f.op && f.value) {
-          let nov = { name: f.name, op: f.op, value: f.value };
-          if (local) {
-            nov.func = this.refs[`fi${i}`].getFunc();
-          }
-          novs.push(nov);
+  handleFilter (data) {
+    const { items, onFilter, innerFilter } = this.props
+    onFilter && onFilter(data)
+    if (innerFilter) {
+      let filters = []
+      items.forEach((item) => {
+        if (data[item.name] && item.filter) {
+          filters.push(curry(item.filter)(data[item.name]))
         }
-      });
-      this.props.onFilter(novs);
+      })
+      innerFilter(filters)
     }
-  }
-
-  formatText (filters) {
-    let text = [];
-    filters.forEach((f) => {
-      if (f.op && f.value) {
-        text.push(`${f.label} ${f.op} '${f.value}'`);
-      }
-    });
-    return text.join(', ');
   }
 
   renderFilters () {
-    let filters = this.state.filters.map((f, i) => {
+    const { items, columns } = this.props
+
+    return items.map((f, i) => {
+      const props = {
+        label: f.label,
+        grid: f.column ? f.column / columns : undefined
+      }
       return (
-        <FilterItem ref={`fi${i}`}
-          onChange={this.onChange}
-          removeFilter={this.removeFilter}
-          index={i}
-          key={i}
-          {...f}
-          options={this.state.options} />
-      );
-    });
-    return filters;
+        <FormControl key={f.name} {...props}>
+          { cloneElement(f.component, {name: f.name}) }
+        </FormControl>
+      )
+    })
   }
 
   render () {
-    let className = classnames(
-      this.props.className,
-      'rct-filter',
-      'rct-form-control',
-      this.state.active ? 'active' : ''
-    );
+    const { style, className, columns, data, buttons, labelWidth } = this.props
+
     return (
-      <div style={this.props.style} className={className}>
-        <div onClick={this.open} className="rct-filter-result">
-          {this.state.resultText}
-          <i className="search" />
-        </div>
-
-        <div className="rct-filter-options-wrap">
-          <div ref="options" className="rct-filter-options">
-
-            {this.renderFilters()}
-
-            <div>
-              <Button status="success" onClick={this.addFilter}>+</Button>
-              <Button style={{marginLeft: 10}} onClick={this.clearFilter}>{getLang('buttons.clear')}</Button>
-              <Button style={{marginLeft: 10}} status="primary" onClick={this.onFilter}>{getLang('buttons.ok')}</Button>
-            </div>
-
-          </div>
-        </div>
+      <div style={style} className={className}>
+        <Form data={data}
+          buttons={buttons}
+          columns={columns}
+          labelWidth={labelWidth}
+          layout="inline"
+          onReset={this.handleFilter}
+          onSubmit={this.handleFilter}>
+          { this.renderFilters() }
+        </Form>
       </div>
-    );
+    )
   }
 }
 
 Filter.propTypes = {
+  buttons: PropTypes.object,
   className: PropTypes.string,
-  local: PropTypes.bool,
+  columns: PropTypes.number,
+  data: PropTypes.object,
+  innerFilter: PropTypes.func,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    component: PropTypes.element,
+    filter: PropTypes.func,
+    label: PropTypes.string,
+    name: PropTypes.string.isRequired
+  })),
+  labelWidth: PropTypes.number_string,
   onFilter: PropTypes.func,
-  onSearch: PropTypes.func,
-  options: PropTypes.array,
-  style: PropTypes.object,
-  type: PropTypes.string
-};
+  style: PropTypes.object
+}
 
 Filter.defaultProps = {
-  options: []
-};
-
-module.exports = Filter;
+  buttons: {
+    submit: getLang('buttons.filter'),
+    reset: getLang('buttons.reset')
+  },
+  items: []
+}

@@ -1,0 +1,46 @@
+@import "mixins";
+@import "themes/default";
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translate(0, -25%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes countdown {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: $zindex-tooltip;
+}
+
+.message {
+  position: relative;
+  margin: 0.5rem auto 0;
+  max-width: 30rem;
+  @include box-shadow($dropdown-box-shadow);
+  animation: fade-in .3s ease-out;
+  padding: $message-padding;
+}
+
+.countdown {
+  right: 0;
+  top: 0;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: inherit;
+  animation-name: countdown;
+  animation-timing-function: linear;
+  z-index: 0;
+}

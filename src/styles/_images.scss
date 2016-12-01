@@ -1,0 +1,153 @@
+@import 'mixins';
+@import 'themes/default';
+
+.img {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+
+  & > * {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .inner {
+    color: $body-color;
+    right: 0;
+    bottom: 0;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+// Rounded corners
+.img-rounded {
+  @include border-radius($border-radius-lg);
+}
+
+// Image thumbnails
+.img-thumbnail {
+  padding: $thumbnail-padding;
+  background-color: $thumbnail-bg;
+  border: $thumbnail-border-width solid $thumbnail-border-color;
+  @include border-radius($thumbnail-border-radius);
+  transition: all .2s ease-in-out;
+  @include box-shadow($thumbnail-box-shadow);
+
+  // Keep them at most 100% wide
+  @include img-fluid(inline-block);
+
+  .inner {
+    top: $thumbnail-padding;
+    right: $thumbnail-padding;
+    bottom: $thumbnail-padding;
+    left: $thumbnail-padding;
+  }
+}
+
+// Perfect circle
+.img-circle {
+  border-radius: 50%;
+}
+
+.img-fill, .img-fit {
+  .inner {
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+}
+
+.img-fill .inner {
+  background-size: cover;
+}
+
+.img-fit .inner {
+  background-size: contain;
+}
+
+.img-center {
+  .inner {
+    display: flex;
+
+    img {
+      margin: auto;
+    }
+  }
+}
+
+.img-stretch {
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// image modal
+.img-modal {
+  display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $image-modal-bg;
+  z-index: $zindex-modal;
+
+  & > div {
+    margin: auto;
+  }
+
+  & > img {
+    margin: auto;
+    border: solid $image-modal-border-width $image-modal-border-color;
+    border-radius: $image-modal-border-radius;
+    max-width: 90%;
+    max-height: 90%;
+    animation: rctui-image-modal $image-modal-duration;
+  }
+
+  .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .error {
+    padding: 2rem;
+    margin: auto;
+    background-color: #f2f2f2;
+    border-radius: $image-modal-border-radius;
+  }
+}
+
+.ellipsis {
+  text-align: left;
+  width: 2rem;
+  display: inline-block;
+  &::after {
+    content: '';
+    animation: rctui-ellipsis 1.5s infinite;
+  }
+}
+
+@keyframes rctui-image-modal {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rctui-ellipsis {
+  0%, 100% { content: '.' }
+  33% { content: '..' }
+  66% { content: '...' }
+}

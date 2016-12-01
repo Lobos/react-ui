@@ -1,0 +1,136 @@
+@import 'mixins';
+@import 'themes/default';
+
+@keyframes tooltipOpacity {
+  0% {
+    opacity: 0;
+  } 100% {
+    opacity: 1;
+  }
+}
+
+@keyframes tooltipTop {
+  0% {
+    transform: translate(-50%, -85%);
+  } 100% {
+    transform: translate(-50%, -100%);
+  }
+}
+
+@keyframes tooltipBottom {
+  0% {
+    transform: translate(-50%, -15%);
+  } 100% {
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes tooltipLeft {
+  0% {
+    transform: translate(-85%, -50%);
+  } 100% {
+    transform: translate(-100%, -50%);
+  }
+}
+
+@keyframes tooltipRight {
+  0% {
+    transform: translate(-15%, -50%);
+  } 100% {
+    transform: translate(0, -50%);
+  }
+}
+
+
+// Base class
+.tooltip {
+  position: absolute;
+  z-index: $zindex-tooltip;
+  display: block;
+  // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
+  // So reset our font and text properties to avoid inheriting weird values.
+  @include reset-text();
+  font-size: $font-size-sm;
+  // Allow breaking very long words so they don't overflow the tooltip's bounds
+  word-wrap: break-word;
+  transition: opacity 0.3 ease, transform 0.3s cubic-bezier(.71,1.7,.77,1.24);
+
+  &.tooltip-top {
+    margin-top: -$tooltip-margin - $tooltip-arrow-width;
+    transform: translate(-50%, -100%);
+    animation: tooltipOpacity .3s ease, tooltipTop .3s cubic-bezier(.71,1.7,.77,1.24);
+
+    .tooltip-arrow {
+      top: 100%;
+      left: 50%;
+      border-left: $tooltip-arrow-width solid transparent;
+      border-right: $tooltip-arrow-width solid transparent;
+      border-top: $tooltip-arrow-width solid $tooltip-bg;
+      transform: translate(-50%, 0);
+    }
+  }
+  &.tooltip-right {
+    margin-left: $tooltip-margin + $tooltip-arrow-width;
+    transform: translate(0, -50%);
+    animation: tooltipOpacity .3s ease, tooltipRight .3s cubic-bezier(.71,1.7,.77,1.24);
+
+    .tooltip-arrow {
+      top: 50%;
+      right: 100%;
+      border-top: $tooltip-arrow-width solid transparent;
+      border-bottom: $tooltip-arrow-width solid transparent;
+      border-right: $tooltip-arrow-width solid $tooltip-bg;
+      transform: translateY(-50%);
+    }
+  }
+  &.tooltip-bottom {
+    margin-top: $tooltip-margin + $tooltip-arrow-width;
+    transform: translateX(-50%);
+    animation: tooltipOpacity .3s ease, tooltipBottom .3s cubic-bezier(.71,1.7,.77,1.24);
+
+    .tooltip-arrow {
+      top: 0;
+      left: 50%;
+      border-left: $tooltip-arrow-width solid transparent;
+      border-right: $tooltip-arrow-width solid transparent;
+      border-bottom: $tooltip-arrow-width solid $tooltip-bg;
+      transform: translate(-50%, -100%);
+    }
+  }
+  &.tooltip-left {
+    margin-left: -$tooltip-margin - $tooltip-arrow-width;
+    transform: translate(-100%, -50%);
+    animation: tooltipOpacity .3s ease, tooltipLeft .3s cubic-bezier(.71,1.7,.77,1.24);
+
+    .tooltip-arrow {
+      top: 50%;
+      left: 100%;
+      border-top: $tooltip-arrow-width solid transparent;
+      border-bottom: $tooltip-arrow-width solid transparent;
+      border-left: $tooltip-arrow-width solid $tooltip-bg;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+// Wrapper for the tooltip content
+.tooltip-inner {
+  position: relative;
+  z-index: 2;
+  max-width: $tooltip-max-width;
+  padding: $tooltip-padding-y $tooltip-padding-x;
+  color: $tooltip-color;
+  text-align: center;
+  background-color: $tooltip-bg;
+  @include border-radius($border-radius);
+}
+
+// Arrows
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  display: inline-block;
+  z-index: 1;
+}
+

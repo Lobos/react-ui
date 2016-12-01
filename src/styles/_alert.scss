@@ -1,0 +1,76 @@
+@import 'mixins';
+@import 'themes/default';
+
+//
+// Base styles
+//
+
+.alert {
+  position: relative;
+  padding: $alert-padding;
+  padding-right: $alert-padding + 20px;
+  margin-bottom: $spacer-y;
+  border: $alert-border-width solid transparent;
+  @include border-radius($alert-border-radius);
+
+  a {
+    color: inherit;
+    font-weight: $alert-link-font-weight;
+  }
+}
+
+.dismissed {
+  transition: .3s ease-out;
+  opacity: 0;
+}
+
+// Provide class for links that match alerts
+.link {
+  font-weight: $alert-link-font-weight;
+}
+
+.close {
+  display: none;
+  font-size: ($font-size-base * 1.5);
+  font-weight: $close-font-weight;
+  position: absolute;
+  top: -4px;
+  right: 8px;
+  color: inherit;
+  opacity: 0.4;
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+    opacity: 1;
+  }
+}
+
+// Dismissible alerts
+//
+// Expand the right padding and account for the close button's positioning.
+
+.dismissible {
+  // Adjust close link position
+  .close {
+    display: inline-block;
+  }
+}
+
+
+// Alternate styles
+//
+// Generate contextual modifier classes for colorizing the alert.
+
+.success {
+  @include alert-variant($alert-success-bg, $alert-success-border, $alert-success-text);
+}
+.info {
+  @include alert-variant($alert-info-bg, $alert-info-border, $alert-info-text);
+}
+.warning {
+  @include alert-variant($alert-warning-bg, $alert-warning-border, $alert-warning-text);
+}
+.danger, .error {
+  @include alert-variant($alert-danger-bg, $alert-danger-border, $alert-danger-text);
+}

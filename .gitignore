@@ -14,3 +14,5 @@ publish
 /components
 typings
 jsconfig.json
+/errorShots
+.sass-cache

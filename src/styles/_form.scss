@@ -1,0 +1,138 @@
+@import "mixins";
+@import "themes/default";
+
+.aligned {
+  .label {
+    display: inline-block;
+    position: absolute;
+    text-align: right;
+    left: 0;
+    top: 0;
+    line-height: $form-group-label-line-height;
+  }
+
+  .control {
+    margin-left: $form-aligned-control-margin;
+
+    .text {
+      padding-top: $input-padding-y;
+    }
+  }
+}
+
+.inline {
+  &::after {
+    content: ' ';
+    clear: both;
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .form-group {
+    display: flex;
+    float: left;
+    padding-right: $form-inline-group-margin;
+    vertical-align: middle;
+  }
+
+  .label {
+    display: inline-block;
+    margin: auto;
+  }
+
+  .label ~ .control {
+    margin-left: $form-inline-control-margin;
+  }
+
+  .control {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+  }
+
+  .columned {
+    .control {
+      flex: 1;
+      margin-bottom: 0;
+      position: relative;
+    }
+  }
+
+  .hint-text {
+    display: none;
+  }
+
+  .danger-text {
+    display: block;
+    position: absolute;
+    padding: 0.5rem 1rem;
+    color: $state-danger-text;
+    background: $state-danger-bg;
+    border: solid 1px $state-danger-border;
+    border-radius: 0.4rem;
+    width: 15rem;
+    left: 0;
+    bottom: 100%;
+    margin-bottom: 0.6rem;
+    z-index: $zindex-dropdown-backdrop;
+    @include box-shadow($thumbnail-box-shadow);
+
+    &::before {
+      content: '';
+      border: inherit;
+      background: inherit;
+      padding: 0.3rem;
+      transform: rotate(45deg);
+      position: absolute;
+      left: 1rem;
+      bottom: -0.4rem;
+      border-top: 0;
+      border-left: 0;
+    }
+  }
+}
+
+.stacked, .aligned {
+  .control {
+    .hint-text {
+      color: $text-muted;
+    }
+
+    .danger-text, .hint-text {
+      display: block;
+    }
+  }
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: $form-group-margin-bottom;
+}
+
+.required::before {
+  content: '*';
+  display: inline-block;
+  font-family: SimSun;
+  margin-right: $form-group-no-input-padding;
+  color: $brand-danger;
+}
+
+.control {
+  & > span {
+    display: inline-block;
+    padding-top: $form-group-no-input-padding;
+  }
+}
+
+.button {
+  margin-right: $form-inline-control-margin;
+}
+
+.danger-text, .hint-text {
+  display: block;
+}
+
+.danger-text {
+  color: $brand-danger;
+}

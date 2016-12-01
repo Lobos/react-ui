@@ -20,17 +20,18 @@ const compData = {
 }
 
 const compClass = {
-  select: '.rct-select',
-  options: '.rct-select-options',
+  select: '.select',
+  options: '.options',
   placeholder: '.placeholder',
-  show: '.show',
-  filter: '.filter'
+  hidden: '.hidden',
+  filter: '.filter',
+  result: '.result'
 }
 
 const compSelector = {
   filterContainer: 'div.filter',
-  showItem: 'li.show',
-  multSelectResultContainer: 'div.rct-select-result',
+  showItem: 'li',
+  multSelectResultContainer: 'div.control'
 }
 
 export { compClass, compData, compSelector }

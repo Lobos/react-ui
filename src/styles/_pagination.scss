@@ -1,0 +1,121 @@
+@import "mixins";
+@import "themes/default";
+
+.pagination {
+  display: inline-block;
+  padding-left: 0;
+  margin-top: $spacer-y;
+  margin-bottom: $spacer-y;
+  @include border-radius();
+
+  li {
+    display: inline-block;
+    vertical-align: middle;
+
+    a, & > span {
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+      background-color: $pagination-bg;
+      border: $pagination-border-width solid $pagination-border-color;
+      margin-left: -1px;
+      box-sizing: border-box;
+      text-align: center;
+      padding: 0 $pagination-padding-x;
+      min-width: $pagination-line-height;
+      line-height: $pagination-line-height;
+      height: $pagination-line-height;
+      text-decoration: none;
+    }
+
+    a {
+      color: $pagination-color;
+      @include hover {
+        color: $pagination-hover-color;
+        background-color: $pagination-hover-bg;
+        border-color: $pagination-hover-border;
+      }
+    }
+
+    svg path {
+      fill: $pagination-color;
+    }
+
+    span {
+      cursor: default;
+    }
+  }
+
+  @if $pagination-margin-right > 0 {
+    li {
+      margin-right: $pagination-margin-right;
+      a, & > span {
+        @include border-radius($pagination-border-radius);
+        margin-left: 0;
+      }
+    }
+  } @else {
+    .previous a {
+      margin-left: 0;
+      @include border-left-radius($pagination-border-radius);
+    }
+
+    .next a {
+      @include border-right-radius($pagination-border-radius);
+    }
+  }
+
+  .previous, .next {
+    a svg {
+      position: absolute;
+      width: 1rem * $input-line-height;
+      height: 1rem * $input-line-height;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .active span {
+    z-index: 2;
+    color: $pagination-active-color;
+    background-color: $pagination-active-bg;
+    border-color: $pagination-active-border;
+  }
+
+  .disabled a {
+    cursor: default;
+    border-color: $pagination-disabled-border;
+
+    &:hover {
+      background-color: $pagination-disabled-bg;
+    }
+
+    svg path {
+      fill: $pagination-disabled-color;
+    }
+  }
+}
+
+.mini {
+  li {
+    margin-right: 0.5rem;
+    a {
+      @include border-radius($pagination-border-radius);
+    }
+  }
+
+  input {
+    width: 2rem;
+    text-align: center;
+    box-sizing: content-box;
+  }
+}
+
+.large {
+  @include pagination-size($pagination-padding-y-lg, $pagination-padding-x-lg, $font-size-lg, $pagination-line-height-lg, $pagination-border-radius-lg, $pagination-margin-right);
+}
+
+.small {
+  @include pagination-size($pagination-padding-y-sm, $pagination-padding-x-sm, $font-size-sm, $pagination-line-height-sm, $pagination-border-radius-sm, $pagination-margin-right);
+}

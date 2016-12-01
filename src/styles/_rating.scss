@@ -1,0 +1,33 @@
+@import "mixins";
+@import "themes/default";
+
+.rating {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+
+  .front {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    overflow: hidden;
+
+    .inner {
+      width: 1000rem;
+    }
+
+    .handle {
+      display: inline-block;
+      opacity: 0.01;
+    }
+
+    .active {
+      opacity: 1;
+    }
+
+    .half {
+      opacity: 0.3;
+    }
+  }
+}

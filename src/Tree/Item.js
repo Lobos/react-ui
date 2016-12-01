@@ -1,149 +1,174 @@
-'use strict';
+import React, { Component, PropTypes } from 'react'
+import { findDOMNode } from 'react-dom'
+import classnames from 'classnames'
+import { forEach, isEmpty, deepEqual } from '../utils/objects'
+import { addClass } from '../utils/dom'
+import { Checkbox } from '../Checkbox'
+import PureRender from '../mixins/PureRender'
 
-import { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-import { forEach, isEmpty } from '../utils/objects';
+import TreeStyles from '../styles/_tree.scss'
 
 class Item extends Component {
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
       open: props.open,
       status: props.data.$status || 0
-    };
+    }
 
-    this.onClick = this.onClick.bind(this);
-    this.updateStatus = this.updateStatus.bind(this);
-    this.toggle = this.toggle.bind(this);
-    this.check = this.check.bind(this);
+    this.updateStatus = this.updateStatus.bind(this)
+    this.toggle = this.toggle.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleCheck = this.handleCheck.bind(this)
   }
-  
+
   componentWillReceiveProps (nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setState({status: this.props.data.$status});
+    if (!deepEqual(nextProps.value, this.props.value) || !deepEqual(this.props.data, nextProps.data)) {
+      this.setState({status: nextProps.data.$status})
     }
   }
 
   toggle () {
-    let open = !this.state.open;
-    this.setState({open});
+    let open = !this.state.open
+    this.setState({open})
+    const { onToggle, data } = this.props
+    onToggle && onToggle(data, open)
   }
 
   toggleAll (open) {
-    this.setState({open});
+    this.setState({open})
     forEach(this.refs, function (ref) {
-      ref.toggleAll(open);
-    });
+      ref.toggleAll(open)
+    })
   }
 
-  check () {
+  handleCheck () {
     if (this.props.readOnly) {
-      return;
+      return
     }
 
-    let status = this.state.status;
-    status = status < 2 ? 2 : 0;
-    this.setStatus(status);
+    let status = this.state.status
+    status = status < 2 ? 2 : 0
+    this.setStatus(status)
 
     // setTimeout wait state changed
     setTimeout(() => {
-      this.props.onStatusChange();
-    }, 0);
+      this.props.onStatusChange()
+    }, 0)
   }
 
   setStatus (status) {
-    this.setState({ status });
+    this.setState({ status })
 
     forEach(this.refs, function (ref) {
-      ref.setStatus(status);
-    });
+      ref.setStatus(status)
+    })
   }
 
   getStatus () {
-    return this.state.status;
+    return this.state.status
   }
 
-  onClick (data) {
+  handleClick (data) {
     // check if event
-    data = data.hasOwnProperty('_dispatchListeners') ? this.props.data : data;
-    if (this.props.onClick) {
-      this.props.onClick(data);
+    let isEvent = data.hasOwnProperty('_dispatchListeners')
+    if (isEvent) {
+      data = this.props.data
+    }
+
+    this.props.onClick(data)
+    if (isEvent) {
+      addClass(findDOMNode(this).querySelector('div'), TreeStyles.active)
     }
   }
 
   updateStatus () {
-    let status;
+    let status
     for (let k in this.refs) {
       if (this.refs.hasOwnProperty(k)) {
-        let s = this.refs[k].getStatus();
+        let s = this.refs[k].getStatus()
         if (status === undefined) {
-          status = s;
+          status = s
           if (status === 1) {
-            break;
+            break
           }
         } else if (s === 1 || s !== status) {
-          status = 1;
-          break;
+          status = 1
+          break
         }
       }
     }
-    this.setState({ status });
-    this.props.onStatusChange();
+    this.setState({ status })
+    this.props.onStatusChange()
   }
 
-  getChecked (list, greedy) {
-    let checked = greedy ? 1 : 2;
+  /** capture
+  * 0 - return checked item data, include parent and child
+  * 1 - contains indeterminate item data, include parent and child
+  * 2 - if parent all children checked, renturn parent only
+  * 3 - return checked child data only, without parent data
+  */
+  getChecked (list, capture) {
+    let checked = (capture === 1) ? 1 : 2
     if (this.state.status >= checked) {
-      list.push(this.props.data);
+      if (capture !== 3 || isEmpty(this.props.data.children)) {
+        list.push(this.props.data)
+      }
+
+      // parent only
+      if (capture === 2) return
     }
     forEach(this.refs, function (ref) {
-      ref.getChecked(list, greedy);
-    });
+      ref.getChecked(list, capture)
+    })
   }
 
   renderCheckbox () {
-    let { selectAble } = this.props;
+    let { selectAble, readOnly } = this.props
     if (!selectAble) {
-      return;
+      return
     }
 
-    let { status } = this.state;
-    let check = ['unchecked', 'half-checked', 'checked'][status];
-    let className = classnames(
-      'check-handle',
-      ['', 'half-checked', 'checked'][status]
-    );
+    let { status } = this.state
 
     return (
-      <a className={className} onClick={this.check}>
-        <i className={'tree-icon ' + check} />
-      </a>
-    );
+      <Checkbox onChange={this.handleCheck}
+        checked={status === 2}
+        indeterminate={status === 1}
+        isIndicator
+        readOnly={readOnly} />
+    )
   }
 
   renderMarks () {
-    let className;
-    let { $deep, children } = this.props.data;
-    let noChild = isEmpty(children);
-    let count = $deep.length;
+    let className
+    let { $deep, children } = this.props.data
+    let noChild = isEmpty(children)
+    let count = $deep.length
 
     return $deep.map((deep, i) => {
-      className = classnames('marks', {
-        'marks-h': deep > 1 || (noChild && count - 1 === i),
-        'marks-v': deep === 1,
-        'marks-l': deep === 2
-      });
-      return <span key={i} className={className}>&nbsp;</span>;
-    });
+      let mark
+      if (deep === 2) {
+        mark = TreeStyles.ml
+      } else if (noChild && count - 1 === i) {
+        mark = TreeStyles.mh
+      } else if (deep === 1) {
+        mark = TreeStyles.mv
+      }
+
+      className = classnames(TreeStyles.marks, mark)
+      return <span key={i} className={className}>&nbsp;</span>
+    })
   }
 
   render () {
-    let { data, selectAble, readOnly, open, value, icons } = this.props;
+    let { data, selectAble, readOnly, onToggle, value, icons } = this.props
 
+    let open = this.state.open
     let children,
         handle,
-        icon;
+        icon
 
     if (data.children) {
       let items = data.children.map(function (item, i) {
@@ -151,40 +176,41 @@ class Item extends Component {
           <Item ref={i}
             key={item.$key}
             icons={icons}
-            open={open}
+            open={this.props.open}
+            onToggle={onToggle}
             readOnly={readOnly}
             value={value}
             selectAble={selectAble}
             data={item}
-            onClick={this.onClick}
+            onClick={this.handleClick}
             onStatusChange={this.updateStatus}
           />
-        );
-      }, this);
+        )
+      }, this)
 
-      children = <ul className={classnames({open: this.state.open})}>{items}</ul>;
-      icon = this.state.open ? icons[1] : icons[0];
+      children = <ul className={classnames(open && TreeStyles.open)}>{items}</ul>
+      icon = open ? icons[1] : icons[0]
       handle = (
-        <a onClick={this.toggle} className="handle">
-          <i className={'tree-icon ' + (this.state.open ? 'minus' : 'plus')} />
+        <a onClick={this.toggle} className={TreeStyles.handle}>
+          <i className={classnames(TreeStyles.icon, open ? TreeStyles.minus : TreeStyles.plus)} />
         </a>
-      );
+      )
     } else {
-      icon = icons[2];
+      icon = icons[2]
     }
 
     return (
       <li>
-        <label>
+        <div className={TreeStyles.label}>
           {this.renderMarks()}
           {handle}
-          {icon}
+          {icon && <span className={TreeStyles.handle}>{icon}</span>}
           {this.renderCheckbox()}
-          <span onClick={this.onClick} className="text">{data.$text}</span>
-        </label>
+          <span onClick={this.handleClick} className={TreeStyles.text}>{data.$text}</span>
+        </div>
         {children}
       </li>
-    );
+    )
   }
 }
 
@@ -193,10 +219,11 @@ Item.propTypes = {
   icons: PropTypes.array,
   onClick: PropTypes.func,
   onStatusChange: PropTypes.func,
+  onToggle: PropTypes.func,
   open: PropTypes.bool,
   readOnly: PropTypes.bool,
   selectAble: PropTypes.bool,
   value: PropTypes.any
-};
+}
 
-module.exports = Item;
+module.exports = PureRender(true)(Item)

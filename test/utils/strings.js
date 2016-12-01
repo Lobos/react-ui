@@ -21,6 +21,9 @@ describe('utils strings', function () {
     var raw = '1,2,3';
     _(raw, ',').should.deep.equal(['1', '2', '3']);
 
+    var raw = '1|2,3';
+    _(raw, '|').should.deep.equal(['1', '2,3']);
+
     raw = '1,2,3';
     _(raw).should.deep.equal(['1,2,3']);
 
@@ -29,6 +32,12 @@ describe('utils strings', function () {
 
     raw = [1, 2, 3];
     _(raw).should.deep.equal([1, 2, 3]);
+
+    raw = 123;
+    _(raw).should.deep.equal(['123']);
+
+    raw = '123';
+    _(raw).should.deep.equal(['123']);
 
     _(null).should.deep.equal([]);
     _(undefined).should.deep.equal([]);

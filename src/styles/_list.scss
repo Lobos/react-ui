@@ -1,0 +1,47 @@
+@import "mixins";
+@import "themes/default";
+
+.item {
+  display: block;
+  width: 100%;
+  padding: 0 $select-option-padding-x;
+  clear: both;
+  font-weight: normal;
+  color: $dropdown-link-color;
+  cursor: default;
+  white-space: nowrap; // prevent links from randomly breaking onto new lines
+  line-height: $select-options-height;
+  height: $select-options-height;
+
+  @include hover-focus {
+    color: $dropdown-link-hover-color;
+    text-decoration: none;
+    background-color: $dropdown-link-hover-bg;
+  }
+
+  // Active state
+  &.active {
+    @include plain-hover-focus {
+      color: $dropdown-link-active-color;
+      text-decoration: none;
+      background-color: $dropdown-link-active-bg;
+      outline: 0;
+    }
+  }
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.group {
+  display: block;
+  white-space: nowrap;
+  padding: 3px $select-option-padding-x;
+  color: $input-color-placeholder;
+}
+
+.absolute {
+  position: absolute;
+  left: 0;
+}

@@ -1,0 +1,428 @@
+@import "mixins";
+@import "themes/default";
+
+.datepicker {
+  display: inline-block;
+  position: relative;
+  width: $datepicker-full-width;
+  font-size: $datepicker-font-size;
+  color: $input-color;
+  vertical-align: middle;
+
+  a:hover, a:focus, a:active {
+    text-decoration: none;
+  }
+
+  .control {
+    min-width: 100%;
+    cursor: pointer;
+    padding: $input-padding-y ($input-padding-x * 2 + $datepicker-indicator-padding) $input-padding-y $input-padding-x;
+    background: $datepicker-bg $datepicker-indicator no-repeat right $datepicker-indicator-padding-x center;
+    background-size: $datepicker-bg-size;
+    white-space: nowrap;
+  }
+
+  &.disabled, &.disabled .control {
+    cursor: $cursor-disabled;
+    background-color: $input-bg-disabled;
+  }
+
+  .clear {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: $input-padding-y * 2 + $input-line-height;
+    height: $input-padding-y * 2 + $input-line-height;
+    background: {
+      image: $indicator-clear;
+      repeat: no-repeat;
+      position: center;
+      size: 50%;
+    }
+  }
+}
+
+.short {
+  width: $datepicker-short-width;
+}
+
+.range {
+  display: inline-block;
+  border: $input-btn-border-width solid $input-border-color;
+  @include border-radius($input-border-radius);
+  @include box-shadow($input-box-shadow);
+  .control {
+    border: none;
+    box-shadow: none;
+    text-align: center;
+  }
+
+  &.danger {
+    border-color: $brand-danger;
+  }
+
+  .datepicker:first-child {
+    width: $datepicker-full-width - $datepicker-indicator-padding;
+    .control {
+      background: none;
+      padding-right: $input-padding-x;
+    }
+
+    .clear {
+      display: none;
+    }
+
+    &.short {
+      width: $datepicker-short-width - $input-padding-x - $datepicker-indicator-padding;
+    }
+  }
+
+  .datepicker:last-child {
+    .picker {
+      right: 0;
+      left: auto;
+    }
+  }
+}
+
+.dropup {
+  .picker {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: $dropdown-margin-top;
+  }
+}
+
+.picker {
+  background-color: $datepicker-picker-bg;
+  border: $dropdown-border-width solid $dropdown-border-color;
+  width: $datepicker-day-size * 7 + $datepicker-picker-padding * 2 + 1rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: $zindex-dropdown;
+  @include border-radius($datepicker-picker-border-radius);
+  @include box-shadow($dropdown-box-shadow);
+  margin: $dropdown-margin-top 0 0;
+  transition-property: opacity;
+
+  &.enter {
+    opacity: 1;
+  }
+
+  &.leave {
+    opacity: 0;
+  }
+}
+
+.inner, .dayInner, .monthInner, .yearInner {
+  clear: both;
+  text-align: center;
+  padding-bottom: $datepicker-picker-padding;
+}
+
+.yearInner, .monthInner {
+  padding: $datepicker-picker-padding 0;
+}
+
+.inner {
+  height: $clock-size + 2rem;
+}
+
+.header {
+  position: relative;
+  text-align: center;
+  margin: $datepicker-header-margin 0;
+  font-size: $datepicker-header-font-size;
+  padding: 0 $datepicker-picker-padding;
+
+  a {
+    display: inline-block;
+    padding: 0 6px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: $datepicker-header-font-size;
+    color: $datepicker-header-color;
+
+    &:hover {
+      color: $datepicker-header-hover-color;
+    }
+  }
+
+  i {
+    display: inline-block;
+    vertical-align: middle;
+    width: $datepicker-header-indicator-width;
+    height: $datepicker-header-indicator-height;
+    cursor: pointer;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      path {
+        fill: $datepicker-header-color;
+      }
+    }
+
+    &:hover svg path {
+      fill: $datepicker-header-hover-color;
+    }
+  }
+
+  &:after {
+    content: ' ';
+    clear: both;
+  }
+}
+
+.week, .day {
+  display: inline-block;
+  width: $datepicker-day-size;
+  height: $datepicker-day-size;
+  line-height: $datepicker-day-size;
+  margin: 1px;
+}
+
+.year, .month, .day {
+  cursor: pointer;
+  display: inline-block;
+  line-height: $datepicker-day-size;
+  color: $datepicker-day-color;
+  background: $datepicker-day-bg;
+  border-radius: $datepicker-day-border-radius;
+  border: $datepicker-day-border-width solid transparent;
+  margin: 1px;
+
+  &:hover {
+    color: $datepicker-day-hover-color;
+    border-color: $datepicker-day-hover-border-color;
+    background-color: $datepicker-day-hover-bg;
+  }
+}
+
+.year {
+  width: $datepicker-day-size * 1.85;
+  height: $datepicker-day-size;
+}
+
+.month {
+  width: $datepicker-day-size * 2.4;
+  height: $datepicker-day-size * 1.2;
+  line-height: $datepicker-day-size * 1.2;
+}
+
+.day {
+  width: $datepicker-day-size;
+  height: $datepicker-day-size;
+
+  &.today {
+    color: $datepicker-day-today-color;
+    border-color: $datepicker-day-today-border-color;
+    background-color: $datepicker-day-today-bg;
+  }
+
+  &.active {
+    color: $datepicker-day-active-color;
+    border-color: $datepicker-day-active-border-color;
+    background-color: $datepicker-day-active-bg;
+  }
+
+  &.disabled {
+    cursor: $cursor-disabled;
+    color: $datepicker-day-disable-color;
+
+    &:hover {
+      border-color: transparent;
+    }
+  }
+}
+
+.gray {
+  color: $datepicker-day-disable-color;
+  background-color: transparent;
+}
+
+.timepicker {
+  .control {
+    background-image: $datepicker-time-indicator;
+  }
+
+  .picker {
+    min-height: $clock-size + $timeset-height + $datepicker-time-padding * 2;
+  }
+}
+
+.timeContainer {
+  text-align: center;
+  padding-bottom: $datepicker-time-padding;
+
+  .timeSet {
+    position: relative;
+    width: $timeset-width;
+    display: inline-block;
+    height: $timeset-height;
+    line-height: $timeset-height;
+    //font-family: Arial;
+    margin: $timeset-margin;
+    background-color: $timeset-bg;
+    border: solid $timeset-border-width $timeset-border-color;
+    padding-right: $timeset-padding;
+    border-radius: $timeset-border-radius;
+
+    .add, .sub {
+      position: absolute;
+      width: $timeset-padding;
+      height: $timeset-height / 2;
+      text-align: center;
+      display: block;
+      border-left: solid $timeset-border-width $timeset-border-color;
+      background-color: $datepicker-day-bg;
+      right: 0;
+    }
+
+    .add {
+      top: 0;
+      background: $datepicker-day-bg $timeset-indicator-up no-repeat center center;
+      background-size: 100% 100%;
+    }
+
+    .sub {
+      bottom: 0;
+      background: $datepicker-day-bg $timeset-indicator-down no-repeat center center;
+      background-size: 100% 100%;
+    }
+  }
+}
+
+.clockWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  visibility: hidden;
+  opacity: 0;
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .overlay {
+    width: 100%;
+    height: 100%;
+    background-color: $clock-overlay-bg;
+  }
+
+  .clock {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 0 - $timeset-height / 2 - $datepicker-time-padding;
+    width: $clock-size;
+    height: $clock-size;
+    padding: $clock-padding;
+    border-radius: 50%;
+    border: $clock-border-width solid $clock-border-color;
+    background-color: $clock-bg-color;
+
+    .am {
+      position: absolute;
+      text-align: center;
+      right: -0.7rem;
+      bottom: $clock-indicator-bottom;
+      padding: $clock-indicator-padding;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: $clock-indicator-border-radius;
+      border: $clock-border-width solid $clock-border-color;
+      color: $clock-indicator-color;
+      background-color: $clock-bg-color;
+
+      .active {
+        color: $clock-indicator-hover-color;
+      }
+    }
+  }
+
+  .close {
+    position: absolute;
+    cursor: pointer;
+    height: $clock-close-size;
+    width: $clock-close-size;
+    right: 50%;
+    bottom: 50%;
+    transform: translate($clock-size / 2, -$clock-size / 2);
+
+    svg {
+      width: 100%;
+      height:: 100%;
+    }
+  }
+
+  .clockInner {
+    width: $clock-inner-size;
+    height: $clock-inner-size;
+    padding: $clock-inner-padding;
+    position: relative;
+
+    .clockSet {
+      position: absolute;
+      width: $clock-set-size;
+      height: $clock-set-size;
+      line-height: $clock-set-size;
+      text-align: center;
+      color: $clock-set-color;
+      font-weight: bold;
+      font-size: $clock-set-font-size;
+      border-radius: 50%;
+      cursor: pointer;
+
+      &:hover, &:focus {
+        background-color: $clock-set-hover-bg;
+        color: $clock-set-hover-color;
+      }
+
+    }
+  }
+
+  .pointer {
+    .hour, .minute, .second {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      background-color: $clock-pointer-color;
+      transform-origin: $clock-pointer-origin 50%;
+      transition: 0.3s;
+    }
+
+    .active {
+      background-color: $clock-pointer-active-color;
+    }
+
+    .hour {
+      width: 3.2rem;
+      height: 4px;
+      margin: -2px 0 0 0-$clock-pointer-origin;
+    }
+
+    .minute {
+      width: 3.8rem;
+      height: 3px;
+      margin: -1px 0 0 0-$clock-pointer-origin;
+    }
+
+    .second {
+      width: 4.5rem;
+      height: 2px;
+      margin: -1px 0 0 0-$clock-pointer-origin;
+    }
+  }
+}
+
+.open .control {
+  background-image: none;
+}
+

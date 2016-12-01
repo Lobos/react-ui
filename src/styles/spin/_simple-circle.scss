@@ -1,0 +1,9 @@
+@import '../mixins';
+
+.simple-circle {
+  margin: auto;
+  border-color: #f2f2f2;
+  border-style: solid;
+  border-radius: 50%;
+  @include spin(1s);
+}

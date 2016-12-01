@@ -1,14 +1,16 @@
-//@import "../../../node_modules/font-awesome/less/font-awesome.less";
-//@fa-css-prefix: icon;
-
 @import "../../../node_modules/material-design-iconic-font/less/material-design-iconic-font.less";
 @zmdi-css-prefix: icon;
 @zmdi-icon-prefix: icon;
 @zmdi-font-path: "../dist/fonts";
-// fix material-design-iconic-font
-.icon {
-//  line-height: 1;
-//  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('../fonts/iconfont.eot');
+  src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/iconfont.woff') format('woff'),
+  url('../fonts/iconfont.ttf') format('truetype'),
+  url('../fonts/iconfont.svg#iconfont') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
+

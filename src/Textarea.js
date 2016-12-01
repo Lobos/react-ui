@@ -1,126 +1,97 @@
-'use strict';
+import React, { Component } from 'react'
+import classnames from 'classnames'
+import { objectAssign } from './utils/objects'
+import { getGrid } from './utils/grids'
+import { filterTextareaProps } from './utils/propsFilter'
+import FormItem from './higherOrders/FormItem'
+import Trigger from './higherOrders/Trigger'
+import { cloneShadow } from './utils/dom'
+import PropTypes from './utils/proptypes'
+import { compose } from './utils/compose'
 
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-import { getGrid } from './utils/grids';
-import { register } from './higherOrders/FormItem';
-import { computedStyle, getLineHeight } from './utils/dom';
+import _inputs from './styles/_input.scss'
 
 class Textarea extends Component {
   constructor (props) {
-    super(props);
-    this.state = {
-      value : props.value,
-      rows: props.rows
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleTrigger = this.handleTrigger.bind(this);
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  componentDidMount (){
-    let el = this.element;
+  componentDidMount () {
+    if (this.props.autoHeight) {
+      let el = this.refs.element
 
-    if(this.props.autoHeight){
-      this.lineHeight = getLineHeight(el);
-      this.paddingHeight = parseInt(computedStyle(el, 'paddingTop')) + parseInt(computedStyle(el, 'paddingBottom'));
+      // wait css
+      setTimeout(() => {
+        this.minHeight = el.clientHeight
+        this.shadow = cloneShadow(el)
+      })
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    let value = nextProps.value;
-    if (value !== this.props.value && value !== this.state.value) {
-      this.setState({ value });
+  componentWillUnmount () {
+    if (this.shadow) {
+      this.refs.element.parentNode.removeChild(this.shadow)
     }
   }
 
-  handleChange (event){
-    this.props.autoHeight && this.autoHeight();
-
-    let value = event.target.value;
-    this.setState({ value });
-
-    if (this.props.trigger === 'change') {
-      this.handleTrigger(event);
+  handleChange (event) {
+    let value = event.target.value
+    if (this.props.autoHeight) {
+      this.shadow.value = value
+      this.refs.element.style.height = Math.max(this.minHeight, this.shadow.scrollHeight) + 'px'
     }
-  }
-
-  handleTrigger (event) {
-    let value = event.target.value;
-    this.props.onChange(value, event);
-  }
-
-  autoHeight () {
-    let el = this.element;
-    let scrH;
-    let rows;
-
-    el.style.height = '1px';
-    scrH = el.scrollHeight - this.paddingHeight;
-    rows = Math.floor( scrH / this.lineHeight);
-
-    if( rows >= this.props.rows ){
-      this.setState({
-        rows
-      });
-    }
-    el.style.height = 'auto';
+    this.props.onChange(event.target.value, event)
   }
 
   render () {
-    let { className, grid, style, autoHeight, trigger, ...other } = this.props;
-    const { rows, value } = this.state;
+    let { className, grid, autoHeight, readOnly, ...other } = this.props
 
-    style.minHeight = 'auto';
+    let style = {}
     if (autoHeight) {
-      style.resize = 'none';
+      style.resize = 'none'
+      style.overflowY = 'hidden'
     }
 
     const props = {
       className: classnames(
         className,
         getGrid(grid),
-        'rct-form-control'
+        readOnly && _inputs.disabled,
+        _inputs.input
       ),
-      onChange: this.handleChange,
-      style,
-      rows,
-      value
-    };
-
-    if (trigger !== 'change') {
-      let handle = 'on' + trigger.charAt(0).toUpperCase() + trigger.slice(1);
-      props[handle] = this.handleTrigger;
+      onChange: readOnly ? undefined : this.handleChange,
+      style: objectAssign({}, this.props.style, style),
+      readOnly
     }
 
     return (
-      <textarea ref={ (c) => this.element = c } { ...other } { ...props } />
-    );
+      <textarea ref="element" { ...filterTextareaProps(other, props) } />
+    )
   }
 }
 
 Textarea.propTypes = {
   autoHeight: PropTypes.bool,
   className: PropTypes.string,
-  grid: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.object
-  ]),
+  grid: PropTypes.grid,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  readOnly: PropTypes.bool,
   rows: PropTypes.number,
   style: PropTypes.object,
-  trigger: PropTypes.string,
   value: PropTypes.any
-};
+}
 
 Textarea.defaultProps = {
   style: {},
   grid: 1,
   rows: 10,
-  trigger: 'blur',
   value: ''
-};
+}
 
-module.exports = register(Textarea, ['textarea']);
+export default compose(
+  FormItem.register(['textarea', 'json'], {}),
+  Trigger
+)(Textarea)
 

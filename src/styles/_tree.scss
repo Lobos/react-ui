@@ -1,0 +1,118 @@
+@import "mixins";
+@import "themes/default";
+
+.tree {
+  &, ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    display: none;
+  }
+
+  .open {
+    display: block;
+  }
+}
+
+.label {
+  display: block;
+  line-height: $tree-line-height;
+  overflow: hidden;
+  white-space: nowrap;
+
+  > * {
+    vertical-align: top;
+  }
+
+  &.active {
+    span {
+      font-weight: bold;
+    }
+  }
+
+  .text {
+    display: inline-block;
+  }
+}
+
+.marks {
+  width: $tree-icon-width;
+  height: $tree-line-height + 0.05rem;
+  display: inline-block;
+  position: relative;
+
+  &:before {
+    content: ' ';
+    width: 100%;
+    height: 10rem;
+    display: block;
+    position: absolute;
+    background: {
+      position: center 0;
+    }
+  }
+}
+
+.mv:before {
+  background-image: $tree-line-icon-mv;
+}
+
+.ml:before {
+  height: 100%;
+  background-repeat: no-repeat;
+  background-image: $tree-line-icon-ml;
+}
+
+.mh:before {
+  background-image: $tree-line-icon-mh;
+}
+
+.handle {
+  display: inline-block;
+  vertical-align: middle;
+  width: $tree-icon-width;
+  text-align: center;
+}
+
+.icon {
+  width:$tree-icon-width;
+  text-align: center;
+  vertical-align: middle;
+  display: block;
+  margin: 0 auto;
+}
+
+.minus, .plus {
+  border: solid $tree-indicator-border-width $tree-line-color;
+  height: $tree-indicator-size;
+  width: $tree-indicator-size;
+  border-radius: $tree-indicator-border-width;
+  position: relative;
+
+  &:after {
+    content: '';
+    display: block;
+    height: $tree-indicator-border-width;
+    width: 100%;
+    background: $tree-line-color;
+    position: absolute;
+    top: ($tree-indicator-size - $tree-indicator-border-width * 3) / 2;
+  }
+}
+
+.plus:before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: $tree-indicator-border-width;
+  left: ($tree-indicator-size - $tree-indicator-border-width * 3) / 2;
+  background: $tree-line-color;
+  position: absolute;
+}
+
+.active .span {
+  font-weight: bold;
+}

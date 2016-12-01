@@ -1,0 +1,19 @@
+@import 'mixins';
+@import 'themes/default';
+
+.overlay {
+  position: fixed;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1050;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.4s;
+
+  &.active {
+    left: 0;
+    opacity: 1;
+  }
+}

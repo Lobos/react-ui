@@ -1,0 +1,103 @@
+@import "mixins";
+@import "themes/default";
+
+.select {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  min-width: 4rem;
+  max-width: 100%;
+
+  .control {
+    padding: $input-padding-y ($custom-select-padding-x + $custom-select-indicator-padding) $input-padding-y $custom-select-padding-x;
+    vertical-align: middle;
+    background: {
+      image: $custom-select-indicator;
+      repeat: no-repeat;
+      position: right $custom-select-padding-x center;
+      size: $custom-select-bg-size;
+    }
+  }
+}
+
+.dropup {
+  .options {
+    top: auto;
+    bottom: 100%;
+    transform-origin: 0 100%;
+    margin-bottom: $dropdown-margin-top;
+  }
+}
+
+.result {
+  display: inline-block;
+  padding-right: 0.25rem;
+  color: $input-color;
+
+  &:hover, &:active, &:focus {
+    color: $input-color;
+    text-decoration: none;
+  }
+
+  .remove {
+    display: inline-block;
+    width: 1rem;
+    text-align: center;
+    visibility: hidden;
+    color: $brand-danger;
+  }
+}
+
+.open .result .remove {
+  visibility: visible;
+}
+
+.filter {
+  padding: $select-option-padding-x $select-option-padding-x 0;
+  input {
+    width: 100%;
+    //background-color: $input-bg-disabled;
+    padding: $input-padding-y-sm $input-padding-x-sm;
+    box-shadow: none;
+    background: $select-filter-icon no-repeat right 0.25rem center;
+    background-size: $input-height-sm * 0.6;
+  }
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: $zindex-dropdown;
+  min-width: 100%;
+  font-size: $font-size-base;
+  color: $body-color;
+  text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  background-color: $dropdown-bg;
+  background-clip: padding-box;
+  border: $dropdown-border-width solid $dropdown-border-color;
+  @include border-radius($select-options-border-radius);
+  @include box-shadow($dropdown-box-shadow);
+  margin: $dropdown-margin-top 0 0;
+  transform-origin: 0 0;
+  transform: scaleY(0);
+  opacity: 0;
+
+  &.enter {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  .optionsWrap {
+    max-height: $select-options-max-height;
+    overflow: auto;
+    padding: $dropdown-padding-y 0;
+  }
+
+  ul {
+    position: relative;
+    list-style: none;
+    padding: 0;
+    margin: 0; // override default ul
+  }
+}

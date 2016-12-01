@@ -1,24 +1,11 @@
-'use strict';
+'use strict'
 
-import React from 'react';
-import Datetime from './Datetime';
-import { shallowEqual } from '../utils/objects';
-import { register } from '../higherOrders/FormItem';
+import Datetime from './Datetime'
+import FormItem from '../higherOrders/FormItem'
+import { compose } from '../utils/compose'
+import PureRender from '../mixins/PureRender'
 
-class Datepicker extends React.Component {
-  constructor (props) {
-    super(props);
-  }
-
-  shouldComponentUpdate (nextProps) {
-    return !shallowEqual(this.props, nextProps);
-  }
-
-  render () {
-    return (
-      <Datetime { ...this.props } />
-    );
-  }
-}
-
-module.exports = register(Datepicker, ['datetime', 'time', 'date'], {valueType: 'datetime'});
+export default compose(
+  FormItem.register(['datetime', 'time', 'date'], {valueType: 'datetime'}),
+  PureRender()
+)(Datetime)

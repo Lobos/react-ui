@@ -1,23 +1,35 @@
-'use strict';
+'use strict'
 
-import { Component, PropTypes } from 'react';
+import { Component, PropTypes } from 'react'
+import { findDOMNode } from 'react-dom'
 
-const Code = class extends Component {
-  constructor (props) {
-    super(props);
-  }
-
+class Code extends Component {
   componentDidMount () {
-    window.prettyPrint(null, this.code);
+    window.prettyPrint(null, findDOMNode(this.code))
   }
 
   render () {
-    return (<div className="code" ref={(c) => this.code = c}><pre className="prettyprint">{this.props.children}</pre></div>);
-  }
-}
+    let lines = this.props.children.split('\n').filter(l => l.length > 0)
+    const length = lines[0] ? /^(\s*)/.exec(lines[0])[1].length : 0
+    const reg = new RegExp('^(\\s{' + length + '})')
+    lines = lines.map(line => line.replace(reg, ''))
 
-Code.propTypes = {
-  children: PropTypes.any
+    return (
+      <div className="code">
+        <pre className="prettyprint linenums">
+          {lines.join('\n')}
+        </pre>
+      </div>
+    )
+  }
 };
 
-module.exports = Code;
+Code.propTypes = {
+  children: PropTypes.string
+}
+
+Code.defaultProps = {
+  children: ''
+}
+
+export default Code

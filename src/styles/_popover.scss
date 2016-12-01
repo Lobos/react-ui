@@ -1,0 +1,164 @@
+@import "mixins";
+@import "themes/default";
+
+@keyframes popoverOpacity {
+  0% {
+    opacity: 0;
+  } 100% {
+    opacity: 1;
+  }
+}
+
+.popover {
+  position: absolute;
+  z-index: $zindex-popover;
+  display: block;
+  // max-width: $popover-max-width;
+  // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
+  // So reset our font and text properties to avoid inheriting weird values.
+  @include reset-text();
+  font-size: $font-size-sm;
+  // Allow breaking very long words so they don't overflow the popover's bounds
+  word-wrap: break-word;
+  background-color: $popover-bg;
+  background-clip: padding-box;
+  border: $popover-border-width solid $popover-border-color;
+  @include border-radius($border-radius-lg);
+  @include box-shadow($popover-box-shadow);
+  animation: popoverOpacity .5s ease;
+
+  // Popover directions
+
+  &.popover-top,
+  &.popover-top-left,
+  &.popover-top-right {
+    margin-top: -$popover-arrow-width;
+    transform: translate(-50%, -100%);
+
+    .popover-arrow {
+      left: 50%;
+      bottom: 0;
+      transform: translate(-50%, 50%) rotate(135deg);
+    }
+  }
+
+  &.popover-top-left {
+    transform: translate(0, -100%);
+
+    .popover-arrow {
+      left: $popover-arrow-width * 2;
+    }
+  }
+
+  &.popover-top-right {
+    transform: translate(-100%, -100%);
+
+    .popover-arrow {
+      left: auto;
+      right: $popover-arrow-width / 2;
+    }
+  }
+
+  &.popover-left {
+    margin-left: -$popover-arrow-width;
+    transform: translate(-100%, -50%);
+
+    .popover-arrow {
+      top: 50%;
+      right: 0;
+      transform: translate(50%, -50%) rotate(45deg);
+    }
+  }
+
+  &.popover-right {
+    margin-left: $popover-arrow-width;
+    transform: translateY(-50%);
+
+    .popover-arrow {
+      top: 50%;
+      left: 0;
+      transform: translate(-50%, -50%) rotate(225deg);
+    }
+  }
+
+  &.popover-bottom-left,
+  &.popover-bottom,
+  &.popover-bottom-right {
+    margin-top: $popover-arrow-width;
+    transform: translateX(-50%);
+
+    .popover-arrow {
+      left: 50%;
+      top: 0;
+      transform: translate(-50%, -50%) rotate(315deg);
+    }
+  }
+
+  &.popover-bottom-left {
+    transform: translateX(0);
+
+    .popover-arrow {
+      left: $popover-arrow-width * 2;
+    }
+  }
+
+  &.popover-bottom-right {
+    transform: translateX(-100%);
+
+    .popover-arrow {
+      left: auto;
+      right: $popover-arrow-width / 2;
+    }
+  }
+}
+
+
+// Offset the popover to account for the popover arrow
+.popover-title {
+  padding: $popover-title-padding-y $popover-title-padding-x;
+  margin: 0; // reset heading margin
+  font-size: $font-size-base;
+  background-color: $popover-title-bg;
+  border-bottom: $popover-border-width solid darken($popover-title-bg, 5%);
+  $offset-border-width: ($border-width / $font-size-root);
+  @include border-radius(($border-radius-lg - $offset-border-width) ($border-radius-lg - $offset-border-width) 0 0);
+
+  &:empty {
+    display: none;
+  }
+}
+
+.popover-content {
+  border-radius: inherit;
+  position: relative;
+  background-color: $popover-bg;
+  z-index: 2;
+}
+
+
+// Arrows
+//
+// .popover-arrow is outer, .popover-arrow::after is inner
+
+.popover-arrow {
+  padding: $popover-arrow-width * 0.7;
+  border: 1px solid $popover-arrow-outer-color;
+  display: inline-block;
+  position: absolute;
+  border-width: 1px 1px 0 0;
+  background-color: $popover-bg;
+  z-index: 1;
+}
+
+.popover-danger {
+  border-color: $alert-danger-border;
+  color: $alert-danger-text;
+
+  .popover-arrow {
+    border-color: $alert-danger-border;
+  }
+
+  .popover-arrow, .popover-content {
+    background-color: $alert-danger-bg;
+  }
+}

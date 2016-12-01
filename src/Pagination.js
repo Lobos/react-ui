@@ -1,197 +1,182 @@
-'use strict';
+import React, { Component } from 'react'
+import classnames from 'classnames'
+import { forEach } from './utils/objects'
+import Input from './Input'
+import PureRender from './mixins/PureRender'
+import PropTypes from './utils/proptypes'
+import { ANGLE_LEFT, ANGLE_RIGHT } from './svgs'
 
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-import { forEach } from './utils/objects';
-
-import { requireCss } from './themes';
-requireCss('pagination');
+import _styles from './styles/_pagination.scss'
 
 class Pagination extends Component {
   constructor (props) {
-    super(props);
-    this.state = {
-      index: props.index
-    };
-    this.setInput = this.setInput.bind(this);
+    super(props)
+    this.handleInput = this.handleInput.bind(this)
+    this.handleKeyUp = this.handleKeyUp.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.index !== this.props.index) {
-      this.setState({ index: nextProps.index });
+  handleInput (value) {
+    value = parseInt(value)
+    let page = this.getCurrentPage()
+
+    if (!(isNaN(value) || value < 1) && value !== page) {
+      this.handleChange(value)
     }
   }
 
-  getIndex () {
-    return this.state.index;
+  handleKeyUp (event) {
+    if (event.keyCode === 13) this.handleInput(event.target.value)
   }
 
-  setIndex (index) {
-    index = parseInt(index);
-    this.setState({index});
-  }
-
-  setInput (event) {
-    event.preventDefault();
-
-    let value = this.refs.input.value;
-    value = parseInt(value);
-    if (isNaN(value)) {
-      return;
-    }
-    if (value < 1) {
-      this.handleChange(1);
-      return;
-    }
-
-    this.setIndex(value);
+  handleChange (value) {
     if (this.props.onChange) {
-      this.props.onChange(value);
+      this.props.onChange(value)
     }
   }
 
-  handleChange (index) {
-    this.setIndex(index);
-    if (this.refs.input) {
-      this.refs.input.value = index;
-    }
-    if (this.props.onChange) {
-      this.props.onChange(index);
-    }
+  getRange () {
+    return this.props.range || this.props.pages || 10
+  }
+
+  getCurrentPage () {
+    return this.props.page || this.props.index || 1
   }
 
   getPages () {
-    let { total, size, index, pages } = this.props;
-    let max = Math.ceil(total / size),
-        left,
-        right,
-        span = pages || 10;
+    let { total = 0, size } = this.props
+    let max = Math.ceil(total / size)
+    let left
+    let right
+    let range = this.getRange()
+    let pages = []
+    let currentPage = this.getCurrentPage()
 
-    // bad thing...
-    pages = [];
-
-    if (index > max) {
-      index = max;
+    if (currentPage > max) {
+      currentPage = max
     }
 
-    left = index - Math.floor(span / 2) + 1;
+    left = currentPage - Math.floor(range / 2) + 1
     if (left < 1) {
-      left = 1;
+      left = 1
     }
-    right = left + span - 2;
+    right = left + range - 2
     if (right >= max) {
-      right = max;
-      left = right - span + 2;
+      right = max
+      left = right - range + 2
       if (left < 1) {
-        left = 1;
+        left = 1
       }
     } else {
-      right -= left > 1 ? 1 : 0;
+      right -= left > 1 ? 1 : 0
     }
 
     // push first
     if (left > 1) {
-      pages.push(1);
+      pages.push(1)
     }
     if (left > 2) {
-      pages.push('<..');
+      pages.push('<..')
     }
     for (let i = left; i < right + 1; i++) {
-      pages.push(i);
+      pages.push(i)
     }
     if (right < max - 1) {
-      pages.push('..>');
+      pages.push('..>')
     }
     // push last
     if (right < max) {
-      pages.push(max);
+      pages.push(max)
     }
 
-    return {pages, max};
+    return {pages, max}
   }
 
   render () {
-    let index = this.state.index,
-        {mini} = this.props,
-        {pages, max} = this.getPages(),
-        items = [];
+    let { mini, large, small } = this.props
+    let { pages, max } = this.getPages()
+    let items = []
+    let currentPage = this.getCurrentPage()
 
     // Previous
     items.push(
-      <li key="previous" onClick={index <= 1 ? null : this.handleChange.bind(this, index - 1)} className={classnames('previous', { disabled: index <= 1 })}>
-        <a><span>&nbsp;</span></a>
+      <li key="previous"
+        onClick={currentPage <= 1 ? null : this.handleChange.bind(this, currentPage - 1)}
+        className={classnames(_styles.previous, currentPage <= 1 && _styles.disabled)}>
+        <a href="javascript:;">&nbsp;{ANGLE_LEFT}</a>
       </li>
-    );
+    )
 
     if (mini) {
       items.push(
-        <form key="i" onSubmit={this.setInput}>
-          <input ref="input" defaultValue={this.state.index} type="text" className="rct-form-control" />
-        </form>
-      );
-      items.push(<span key="s"> / {max}</span>);
+        <li key="input">
+          <Input type="integer"
+            value={currentPage}
+            onChange={this.handleInput}
+            onKeyUp={this.handleKeyUp}
+            trigger="blur" />
+        </li>
+      )
+      items.push(<li key="s"> / {max}</li>)
     } else {
       forEach(pages, function (i) {
         if (i === '<..' || i === '..>') {
-          items.push(<li key={i} className="sep"><span>...</span></li>);
+          items.push(<li key={i} className={_styles.sep}><span>...</span></li>)
         } else {
           items.push(
-            <li onClick={this.handleChange.bind(this, i)} className={classnames({ active: i === index })} key={i}>
-              <a>{i}</a>
+            <li key={i}
+              onClick={this.handleChange.bind(this, i)}
+              className={classnames(i === currentPage && _styles.active)}>
+              {
+                i === currentPage ? <span>{i}</span> : <a href="javascript:;">{i}</a>
+              }
             </li>
-          );
+          )
         }
-      }, this);
+      }, this)
     }
 
     // Next
     items.push(
-      <li key="next" onClick={index >= max ? null : this.handleChange.bind(this, index + 1)} className={classnames('next', { disabled: index >= max })}>
-        <a><span>&nbsp;</span></a>
+      <li key="next"
+        onClick={currentPage >= max ? null : this.handleChange.bind(this, currentPage + 1)}
+        className={classnames(_styles.next, currentPage >= max && _styles.disabled)}>
+        <a href="javascript:;">&nbsp;{ANGLE_RIGHT}</a>
       </li>
-    );
+    )
 
     let className = classnames(
       this.props.className,
-      'rct-pagination-wrap',
-      { 'rct-pagination-mini': mini }
-    );
+      _styles.pagination,
+      mini && _styles.mini,
+      large && _styles.large,
+      small && _styles.small
+    )
     return (
-      <div style={this.props.style} className={className}>
-        <ul className="rct-pagination">
-          {items}
-        </ul>
-        {
-          this.props.jumper && !mini &&
-          <form onSubmit={this.setInput}>
-            <div className="rct-input-group">
-              <input ref="input" defaultValue={this.state.index} type="text" className="rct-form-control" />
-              <span onClick={this.setInput} className="addon">go</span>
-            </div>
-          </form>
-        }
-      </div>
-    );
+      <ul className={className}>
+        {items}
+      </ul>
+    )
   }
 }
 
 Pagination.propTypes = {
   className: PropTypes.string,
   index: PropTypes.number,
-  jumper: PropTypes.bool,
+  large: PropTypes.bool,
   mini: PropTypes.bool,
   onChange: PropTypes.func,
+  page: PropTypes.number,
   pages: PropTypes.number,
+  range: PropTypes.number,
   size: PropTypes.number,
+  small: PropTypes.bool,
   style: PropTypes.object,
   total: PropTypes.number
-};
+}
 
 Pagination.defaultProps = {
-  index: 1,
-  pages: 10,
-  size: 20,
-  total: 0
-};
+  size: 20
+}
 
-module.exports = Pagination;
+export default PureRender()(Pagination)

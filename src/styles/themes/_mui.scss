@@ -1,0 +1,95 @@
+$gray-dark:                 #333;
+$gray:                      #666;
+$gray-light:                #999;
+$gray-lighter:              #eceeef;
+$gray-lightest:             #f9f9f9;
+
+$brand-primary:             #dd2727;
+$brand-success:             #59c828;
+$brand-info:                #388be8;
+$brand-warning:             #f9c12a;
+$brand-danger:              #dd2727;
+
+$link-color:                #388be8;
+
+$border-radius:             2px;
+$border-radius-lg:          4px;
+$border-radius-sm:          1px;
+
+
+// Buttons
+$btn-box-shadow:            none;
+$btn-hover-box-shadow:      0 4px 4px 0 rgba(0,0,0,.1);
+$btn-active-box-shadow:     none;
+$btn-lighten:               true;
+$btn-padding-y-lg:          0.9rem;
+
+// Breadcrumbs
+$breadcrumb-divider:        ">";
+$breadcrumb-active-color:   #000000;
+$breadcrumb-bg:             #fff;
+
+// Cards
+$card-header-font-size:     1.4rem;
+$card-header-font-weight:   bold;
+$card-border-color:         $gray-lighter;
+$card-box-shadow:           0 4px 4px rgba(0, 0, 0, 0.1);
+
+// Forms
+$input-box-shadow:          none;
+$input-border-color:        #ccc;
+$input-border-radius:       0;
+$input-border-radius-lg:    0;
+$input-border-radius-sm:    0;
+$form-group-margin-bottom:  1.5rem;
+
+$cascade-border-radius:          0;
+$select-options-border-radius:   0;
+
+// Checkbox
+$custom-control-checked-indicator-bg:        #fff;
+$custom-control-focus-indicator-box-shadow:  0 0 0 .075rem #fff, 0 0 0 .2rem #fff;
+$custom-checkbox-indeterminate-bg:           #fff;
+$custom-control-checked-indicator-border:    #ddd;
+$custom-checkbox-checked-icon:               url('data:image/svg+xml,%3Csvg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.015625, 0.015625)"%3E%3Cpath d="M952.448527 347.935692 806.785274 202.272439 430.747604 578.309086 243.760259 391.322765 98.095983 536.987041 430.727138 869.618196 439.078323 861.268034 439.097766 861.286453Z" fill="%23333"%3E%3C/path%3E%3C/g%3E%3C/svg%3E') !default;
+$custom-checkbox-indeterminate-icon:         url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16 '%3E%3Cpath fill='%23333' d='M2 6 14 6 14 10 2 10 2 6Z'/%3E%3C/svg%3E") !default;
+$custom-radio-checked-icon:                  url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='2' fill='%23333'/%3E%3C/svg%3E") !default;
+
+// Progress
+$progress-bar-color:                        $brand-primary;
+
+// Pagination
+$pagination-margin-right:                   0.8rem;
+$pagination-border-radius:                  0;
+$pagination-border-radius-lg:               0;
+$pagination-border-radius-sm:               0;
+
+$pagination-color:                          #000;
+$pagination-bg:                             #f5f5f5;
+$pagination-border-border:                  #333;
+
+$pagination-hover-color:                    #000;
+$pagination-hover-bg:                       #f5f5f5;
+$pagination-hover-border:                   #666;
+
+$pagination-active-color:                   #fff;
+$pagination-active-bg:                      #666;
+$pagination-active-border:                  #666;
+
+$pagination-padding-x:                      .3rem;
+$pagination-padding-x-sm:                   .1rem;
+$pagination-padding-x-lg:                   .5rem;
+
+// Table
+$table-bg-head:                             #f9f9f9;
+$table-bg-odd:                              #fff;
+$table-bg-even:                             #f9f9f9;
+
+// Modal
+$modal-border-radius:                       0;
+$modal-footer-border-width:                 0;
+$modal-header-bg:                           #f9f9f9;
+$modal-close-size:                          1.5rem;
+$modal-close-padding:                       1.4rem;
+
+@import "default";

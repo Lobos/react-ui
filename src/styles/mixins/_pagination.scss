@@ -1,0 +1,28 @@
+// Pagination
+
+@mixin pagination-size($padding-y, $padding-x, $font-size, $line-height, $border-radius, $pagination-margin-right) {
+  li a, li > span {
+    padding: 0 $padding-x;
+    font-size: $font-size;
+    line-height: $line-height;
+    min-width: $line-height;
+    height: $line-height;
+  }
+
+  @if $pagination-margin-right > 0 {
+    li {
+      a, & > span {
+        @include border-radius($border-radius);
+      }
+    }
+  } else {
+    li:first-child a {
+      margin-left: 0;
+      @include border-left-radius($border-radius);
+    }
+
+    li:last-child a {
+      @include border-right-radius($border-radius);
+    }
+  }
+}

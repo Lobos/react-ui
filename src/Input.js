@@ -1,104 +1,74 @@
-'use strict';
+import React, { Component } from 'react'
+import classnames from 'classnames'
+import Regs from './utils/regs'
+import { filterInputProps } from './utils/propsFilter'
+import { getGrid } from './utils/grids'
+import FormItem from './higherOrders/FormItem'
+import Trigger from './higherOrders/Trigger'
+import PropTypes from './utils/proptypes'
+import { compose } from './utils/compose'
 
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-import Regs from './utils/regs';
-import { getGrid } from './utils/grids';
-import { register } from './higherOrders/FormItem';
-
-import { requireCss } from './themes';
-requireCss('input');
-requireCss('form-control');
+import _inputs from './styles/_input.scss'
 
 class Input extends Component {
   constructor (props) {
-    super(props);
-    this.state = {
-      value: props.value
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleTrigger = this.handleTrigger.bind(this);
-  }
+    super(props)
 
-  componentWillReceiveProps (nextProps) {
-    let value = nextProps.value;
-    if (value !== this.props.value && value !== this.state.value) {
-      this.setState({ value });
-    }
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange (event) {
-    const { readOnly, type, trigger } = this.props;
+    const { type } = this.props
 
-    if (readOnly) {
-      return;
-    }
-
-    let value = event.target.value;
-
+    let value = event.target.value
     if (value && (type === 'integer' || type === 'number')) {
-      if (!Regs[type].test(value)) {
-        value = this.state.value || '';
-      }
+      if (!Regs[type].test(value)) return
     }
 
-    this.setState({ value });
-
-    if (trigger === 'change') {
-      this.handleTrigger(event);
-    }
-  }
-
-  handleTrigger (event) {
-    let value = event.target.value;
-    this.props.onChange(value, event);
+    this.props.onChange(value)
   }
 
   render () {
-    const { className, grid, type, trigger, ...other } = this.props;
+    const { className, grid, type, size, readOnly, ...other } = this.props
     const props = {
       className: classnames(
         className,
-        'rct-form-control',
+        _inputs.input,
+        _inputs[size],
+        readOnly && _inputs.disabled,
         getGrid(grid)
       ),
-      onChange: this.handleChange,
-      type: type === 'password' ? 'password' : 'text',
-      value: this.state.value
-    };
-
-    if (trigger !== 'change') {
-      let handle = 'on' + trigger.charAt(0).toUpperCase() + trigger.slice(1);
-      props[handle] = this.handleTrigger;
+      readOnly,
+      onChange: readOnly ? undefined : this.handleChange,
+      type: type === 'password' ? 'password' : 'text'
     }
 
-    return (<input {...other} {...props} />);
+    return (<input {...filterInputProps(other, props)} />)
   }
 }
 
 Input.propTypes = {
   className: PropTypes.string,
   defaultValue: PropTypes.string,
-  grid: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.object
-  ]),
+  grid: PropTypes.grid,
   id: PropTypes.string,
-  onBlur: PropTypes.func,
   onChange: PropTypes.func,
-  onFocus: PropTypes.func,
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   rows: PropTypes.number,
+  size: PropTypes.size,
   style: PropTypes.object,
-  trigger: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.any
-};
+}
 
 Input.defaultProps = {
-  trigger: 'blur',
+  size: 'middle',
+  trigger: 'change',
   value: ''
-};
+}
 
-module.exports = register(Input, ['text', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number']);
+export default compose(
+  FormItem.register(['text', 'tel', 'email', 'alpha', 'alphanum', 'password', 'url', 'integer', 'number'], {}),
+  Trigger
+)(Input)

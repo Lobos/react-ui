@@ -1,0 +1,167 @@
+@import 'mixins';
+@import 'themes/default';
+
+// Base class
+//
+// Kickstart any navigation component with a set of style resets. Works with
+// `<nav>`s or `<ul>`s.
+
+.nav {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.link {
+  display: inline-block;
+  transition: background 0.5s;
+
+  @include hover-focus {
+    text-decoration: none;
+  }
+
+  // Disabled state lightens text and removes hover/tab effects
+  &.disabled {
+    color: $nav-disabled-link-color;
+
+    @include plain-hover-focus {
+      color: $nav-disabled-link-hover-color;
+      cursor: $cursor-disabled;
+      background-color: $nav-disabled-link-hover-bg;
+    }
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+
+// Nav inline
+
+.inline {
+  .item {
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .item + .item,
+  .link + .link {
+    margin-left: $nav-item-inline-spacer;
+  }
+}
+
+
+//
+// Tabs
+//
+
+.tabs {
+  border-bottom: $nav-tabs-border-width solid $nav-tabs-border-color;
+  @include clearfix();
+
+  .item {
+    float: left;
+    cursor: pointer;
+    // Make the list-items overlay the bottom border
+    margin-bottom: -$nav-tabs-border-width;
+
+    + .item {
+      margin-left: $nav-item-margin;
+    }
+  }
+
+  .link {
+    display: block;
+    padding: $nav-link-padding;
+    border: $nav-tabs-border-width solid transparent;
+    @include border-top-radius($nav-tabs-border-radius);
+
+    @include hover-focus {
+      border-color: $nav-tabs-link-hover-border-color $nav-tabs-link-hover-border-color $nav-tabs-border-color;
+    }
+
+    &.disabled {
+      @include plain-hover-focus {
+        color: $nav-disabled-link-color;
+        background-color: transparent;
+        border-color: transparent;
+      }
+    }
+  }
+
+  .link.active,
+  .item.open .link {
+    @include plain-hover-focus {
+      color: $nav-tabs-active-link-hover-color;
+      background-color: $nav-tabs-active-link-hover-bg;
+      border-color: $nav-tabs-active-link-hover-border-color $nav-tabs-active-link-hover-border-color transparent;
+    }
+  }
+
+  .dropdown-menu {
+    // Make dropdown border overlap tab border
+    margin-top: -$nav-tabs-border-width;
+    // Remove the top rounded corners here since there is a hard edge above the menu
+    @include border-top-radius(0);
+  }
+}
+
+
+//
+// Pills
+//
+
+.pills {
+  @include clearfix();
+
+  .item {
+    float: left;
+
+    + .item {
+      margin-left: $nav-item-margin;
+    }
+  }
+
+  .link {
+    display: block;
+    padding: $nav-link-padding;
+    @include border-radius($nav-pills-border-radius);
+  }
+
+  .link.active,
+  .item.open .link {
+    @include plain-hover-focus {
+      color: $nav-pills-active-link-color;
+      cursor: default;
+      background-color: $nav-pills-active-link-bg;
+    }
+  }
+}
+
+.stacked {
+  .item {
+    display: block;
+    float: none;
+
+    + .item {
+      margin-top: $nav-item-margin;
+      margin-left: 0;
+    }
+  }
+}
+
+
+//
+// Tabbable tabs
+//
+
+// Hide tabbable panes to start, show them when `.active`
+.tab-content {
+  > .tab-pane {
+    display: none;
+  }
+  > .active {
+    display: block;
+  }
+}

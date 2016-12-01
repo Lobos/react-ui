@@ -1,15 +1,19 @@
-'use strict';
+'use strict'
 
-import { PropTypes } from 'react';
+import { PropTypes } from 'react'
+import classnames from 'classnames'
 
 const Example = (props) => {
   return (
-    <div className="docs-example">{props.children}</div>
-  );
-};
+    <div className={classnames('docs-example', props.className)}>
+      {props.children}
+    </div>
+  )
+}
 
 Example.propTypes = {
-  children: PropTypes.any
-};
+  children: PropTypes.any,
+  className: PropTypes.string
+}
 
-module.exports = Example;
+module.exports = Example

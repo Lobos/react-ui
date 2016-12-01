@@ -1,10 +1,17 @@
-@import "../../../src/themes/mixins/mixins";
+html {
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height: 100%;
+}
+
+html * {
+  box-sizing: border-box;
+}
 
 body {
-  font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
   color: #555;
   line-height: 1.6;
+  min-height: 100vh;
 }
 
 @font-face {
@@ -28,42 +35,38 @@ a {
 }
 
 header {
-  line-height: 50px;
-  height: 50px;
+  line-height: 3.5rem;
+  height: 3.5rem;
   background-color: #1f8dd6;
-  box-shadow: 0px 2px 5px 0px rgba(31,141,214,0.5);
-  position: fixed;
   width: 100%;
-  z-index: 1000;
-  padding: 0 20px;
+  padding: 0 1.5rem;
   box-sizing: border-box;
+  position: relative;
 
-  a {
+  a, a:hover, a:active, a:focus, a.visited {
     color: #fff;
+    text-decoration: none;
+  }
+
+  .menu {
+    display: none;
   }
 
   .logo {
-    font-size: 20px;
+    font-size: 1.5rem;
   }
 
-  .link-github {
+  .link-github, .link-lang {
     float: right;
+    margin-left: 1rem;
   }
-}
-
-.wrapper {
-  padding-top: 50px;
-  position: relative;
-  border-left: solid #fafafa 220px;
 }
 
 .hero {
   text-align: center;
 
   .hero-title {
-    padding: 0 1em;
-    margin: 4em auto 2em;
-    max-width: 768px;
+    padding: 4em 1em 2em;
     color: #555;
     h1 {
       font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -102,6 +105,11 @@ header {
   }
 }
 
+.main {
+  margin-left: 25%;
+  padding-top: 1.5rem;
+}
+
 .content {
   padding: 0 3em 4em;
   max-width: 900px;
@@ -118,6 +126,7 @@ header {
   .subhead {
     margin: 2em 0 1em 0;
     font-weight: 300;
+    font-size: 1.6rem;
     color: #888;
     position: relative;
   }
@@ -126,7 +135,7 @@ header {
     & > div {
       padding: 0 10px;
       margin-bottom: 20px;
-      .box-sizing(border-box);
+      box-sizing: border-box;
     }
     .prettyprint {
       margin: 0;
@@ -155,9 +164,31 @@ header {
       margin: 0;
     }
   }
+}
 
-  pre {
-    padding: 9px 14px;
+.tree-example {
+  a {
+    margin-left: 10px;
+    visibility: hidden;
+  }
+
+  &:hover a {
+    visibility: visible;
+  }
+}
+
+.popover-demo {
+  width: 300px;
+
+  div {
+    display: inline-block;
+    width: 90px;
+    height: 60px;
+    line-height: 60px;
+    border: solid 1px #ccc;
+    background-color: #f2f2f2;
+    text-align: center;
+    margin: 5px;
   }
 }
 
@@ -168,3 +199,25 @@ header {
   }
 }
 
+@media (max-width: 768px) {
+  header {
+    position: fixed;
+    z-index: 1000;
+
+    .logo {
+      position: absolute;
+      margin: auto;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .main {
+    margin-left: 0;
+    padding-top: 5rem;
+  }
+
+  header .menu {
+    display: inline-block;
+  }
+}

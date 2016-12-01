@@ -1,245 +1,249 @@
-'use strict';
+import React, { Component } from 'react'
+import classnames from 'classnames'
+import { forEach, deepEqual, hashcode, objectAssign, isEmpty } from './utils/objects'
+import clone from './utils/clone'
+import { getGrid } from './utils/grids'
+import { filterFormProps } from './utils/propsFilter'
+import FormControl from './FormControl'
+import Button from './Button'
+import PropTypes from './utils/proptypes'
+import { compose } from './utils/compose'
+import Mask from './Mask'
 
-import React, { Children, Component, PropTypes, cloneElement } from 'react';
-import classnames from 'classnames';
-import { forEach, deepEqual, hashcode } from './utils/objects';
-import clone from './utils/clone';
-import { getGrid } from './utils/grids';
-import FormControl from './FormControl';
-import FormSubmit from './FormSubmit';
-import { fetchEnhance, FETCH_SUCCESS } from './higherOrders/Fetch';
-import { getLang } from './lang';
+import Fetch, { FETCH_PENDING } from './higherOrders/Fetch'
+import PureRender from './mixins/PureRender'
 
-import { requireCss } from './themes';
-requireCss('form');
+import _forms from './styles/_form.scss'
 
 class Form extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
-      data: props.data
-    };
+      data: clone(props.data)
+    }
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.submit = this.submit.bind(this);
+    this.handleReset = this.handleReset.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.submit = this.submit.bind(this)
 
-    this.items = {};
-    this.validationPools = {};
+    this.itemBind = this.itemBind.bind(this)
+    this.itemUnbind = this.itemUnbind.bind(this)
+    this.itemChange = this.itemChange.bind(this)
 
-    this.itemBind = (item) => {
-      this.items[item.id] =item;
-
-      let data = this.state.data;
-      data[item.name] = item.value;
-      this.setState({ data });
-
-      // bind triger item
-      if (item.valiBind) {
-        item.valiBind.forEach((vb) => {
-          this.validationPools[vb] = (this.validationPools[vb] || []).concat(item.validate);
-        });
-      }
-    };
-
-    this.itemUnbind = (id, name) => {
-      let data = this.state.data;
-      delete this.items[id];
-      delete data[name];
-      // remove valiBind
-      delete this.validationPools[name];
-      this.setState({ data });
-    };
-
-    this.itemChange = (id, value, err) => {
-      let data = this.state.data;
-      const name = this.items[id].name;
-
-      // don't use merge or immutablejs
-      //data = merge({}, data, {[name]: value});
-
-      if (data[name] !== value) {
-        data[name] = value;
-        // setState only triger render, data was changed
-        this.setState({ data });
-      }
-
-      let valiBind = this.validationPools[name];
-      if (valiBind) {
-        valiBind.forEach((validate) => {
-          if (validate) {
-            validate();
-          }
-        });
-      }
-
-      this.items[id].$validation = err;
-    };
+    this.items = {}
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (!deepEqual(this.props.data, nextProps.data)) {
-      this.setState({ data: nextProps.data });
+  getChildContext () {
+    const { columns, disabled, labelWidth, layout, hintType } = this.props
 
-      // if data changed, clear validation
-      forEach(this.items, (item) => {
-        delete item.$validation;
-      });
+    return {
+      formData: this.state.data,
+      itemBind: this.itemBind,
+      itemUnbind: this.itemUnbind,
+      itemChange: this.itemChange,
+      controlProps: {
+        hintType,
+        labelWidth,
+        disabled,
+        layout,
+        columns
+      }
     }
   }
 
-  validate () {
-    let success = true;
-    forEach(this.items, (item) => {
-      let suc = item.$validation;
-      if (suc === undefined) {
-        suc = item.validate();
-        this.items[item.id].$validation = suc;
+  componentDidMount () {
+    if (!isEmpty(this.state.data) && this.props.initValidate) {
+      this.validate()
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (!deepEqual(this.props.data, nextProps.data) && !deepEqual(nextProps.data, this.state.data)) {
+      this.setState({ data: objectAssign({}, this.state.data, nextProps.data) }, () => {
+        this.validate()
+      })
+    }
+  }
+
+  itemBind (item) {
+    const { name, value } = item
+    this.items[name] = item
+    let { data } = this.state
+    if (value && !data[name]) {
+      data = objectAssign({}, data, {[name]: value})
+      this.setState({ data })
+    }
+  }
+
+  itemUnbind (name) {
+    delete this.items[name]
+    delete this.state.data[name]
+  }
+
+  itemChange (name, value) {
+    const item = this.items[name]
+    const data = objectAssign({}, this.state.data, {[name]: value})
+    this.setState({ data }, () => {
+      if (item.dispatch) {
+        const ds = Array.isArray(item.dispatch) ? item.dispatch : [item.dispatch]
+        ds.forEach((d) => this.items[d].validate())
       }
-      success = success && (suc === true);
-    });
-    return success;
+    })
+
+    // handle form data change
+    this.props.onChange && this.props.onChange(data)
+  }
+
+  validate () {
+    const { data } = this.state
+
+    return Object.keys(this.items).reduce((suc, key) => {
+      return suc && (this.items[key].validate(data[key], true) === true)
+    }, true)
   }
 
   handleSubmit (event) {
     if (this.props.disabled) {
-      return;
+      return
     }
 
-    event.preventDefault();
-    this.submit();
+    event.preventDefault()
+    this.submit()
+  }
+
+  handleReset () {
+    const { onReset, data } = this.props
+    this.setState({ data: clone(data) })
+
+    onReset && onReset(data)
   }
 
   submit () {
-    let success = this.validate();
+    let success = this.validate()
     if (success && this.props.beforeSubmit) {
-      success = this.props.beforeSubmit();
+      success = this.props.beforeSubmit()
     }
 
     if (!success) {
-      return;
+      return
     }
 
     if (this.props.onSubmit) {
       // send clone data
-      let data = clone(this.state.data);
+      let data = clone(this.state.data)
 
-      // remove ignore value
+      // remove disabled value
       forEach(this.items, (item) => {
-        if (item.ignore) {
-          delete data[item.name];
+        if (item.disabled) {
+          delete data[item.name]
         }
-      });
+      })
 
-      this.props.onSubmit(data);
+      this.props.onSubmit(data)
     }
 
-    return true;
+    return true
   }
 
   renderControls () {
-    const { data } = this.state;
-    const { hintType, controls, disabled, layout } = this.props;
+    const { hintType, controls, disabled, layout } = this.props
 
-    return clone(controls).map((control, i) => {
+    return clone(controls).map((control) => {
       if (typeof control !== 'object') {
-        return control;
+        return control
       } else {
-        control.key = control.key || control.name || hashcode(control);
-        control.hintType = control.hintType || hintType;
-        control.readOnly = control.readOnly || disabled;
-        control.layout = layout;
-        control.itemBind = this.itemBind;
-        control.itemUnbind = this.itemUnbind;
-        control.itemChange = this.itemChange;
-        control.formData = data;
-        return <FormControl { ...control } />;
+        control.key = control.key || control.name || hashcode(control)
+        control.hintType = control.hintType || hintType
+        control.readOnly = control.readOnly || disabled
+        control.layout = layout
+        return <FormControl { ...control } />
       }
-    });
+    })
   }
 
-  renderChildren (children) {
-    let { data } = this.state;
-    let { fetchStatus, disabled } = this.props;
+  renderButtons (buttons) {
+    if (typeof buttons === 'string') {
+      buttons = { 'submit': buttons }
+    }
 
-    return Children.map(children, (child) => {
-      if (!child) { return null; }
-      if (typeof child === 'string') { return child; }
-      let { hintType, readOnly } = child.props;
-      let props = {
-        hintType: hintType || this.props.hintType,
-        readOnly: readOnly || disabled,
-        layout: this.props.layout,
-      };
-      if (child.type === FormControl || child.type.displayName === 'FormItem') {
-        props.itemBind = this.itemBind;
-        props.itemUnbind = this.itemUnbind;
-        props.itemChange = this.itemChange;
-        props.formData = data;
-      } else if (child.type === FormSubmit) {
-        props.disabled = disabled;
-        if (fetchStatus !== FETCH_SUCCESS) {
-          props.children = getLang('fetch.status')[fetchStatus];
-        }
-      } else if (child.props.children) {
-        props.children = this.renderChildren(child.props.children);
-      }
+    const { submit, primary, reset, cancel, others } = buttons
+    const { disabled } = this.props
 
-      return cloneElement(child, props);
-    });
-  }
-
-  renderButton (text) {
-    return <FormSubmit disabled={this.props.disabled}>{text}</FormSubmit>;
+    return (
+      <FormControl key="buttons" columns={null}>
+        { submit && <Button className={_forms.button} disabled={disabled} type="submit" status="primary">{submit}</Button> }
+        { primary && <Button className={_forms.button} disabled={disabled} onClick={this.handleSubmit} status="primary">{primary}</Button> }
+        { reset && <Button type="reset" disabled={disabled} className={_forms.button}>{reset}</Button> }
+        { cancel && <Button onClick={this.props.onCancel} disabled={disabled} className={_forms.button}>{cancel}</Button> }
+        { others }
+      </FormControl>
+    )
   }
 
   render () {
-    let { button, controls, fetchStatus, children, className, onSubmit, grid, layout, ...props } = this.props;
+    const { button, buttons, controls, children, grid, layout, fetchStatus, ...props } = this.props
 
-    className = classnames(
-      className,
+    const className = classnames(
+      this.props.className,
       getGrid(grid),
-      'rct-form',
-      {
-        'rct-form-aligned': layout === 'aligned',
-        'rct-form-inline': layout === 'inline',
-        'rct-form-stacked': layout === 'stacked'
-      }
-    );
+      _forms.form,
+      _forms[layout]
+    )
+
+    const btns = buttons || button
 
     return (
-      <form onSubmit={this.handleSubmit} className={className} {...props}>
+      <form {...filterFormProps(props)}
+        onReset={this.handleReset}
+        onSubmit={this.handleSubmit}
+        className={className}>
+        <Mask active={fetchStatus === FETCH_PENDING} />
         {controls && this.renderControls()}
-        {this.renderChildren(children)}
-        {button && this.renderButton(button)}
-        {fetchStatus !== FETCH_SUCCESS && <div className="rct-form-mask" />}
+        {children}
+        {btns && this.renderButtons(btns)}
       </form>
-    );
+    )
   }
 }
 
 Form.propTypes = {
   beforeSubmit: PropTypes.func,
   button: PropTypes.string,
+  buttons: PropTypes.object,
   children: PropTypes.any,
   className: PropTypes.string,
+  columns: PropTypes.number,
   controls: PropTypes.array,
   data: PropTypes.object,
   disabled: PropTypes.bool,
   fetchStatus: PropTypes.string,
-  grid: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.object
-  ]),
+  grid: PropTypes.grid,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
+  initValidate: PropTypes.bool,
+  labelWidth: PropTypes.number_string,
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
+  onCancel: PropTypes.func,
+  onChange: PropTypes.func,
+  onReset: PropTypes.func,
   onSubmit: PropTypes.func,
   style: PropTypes.object
-};
+}
 
 Form.defaultProps = {
   data: {},
   layout: 'aligned',
   disabled: false
-};
+}
 
-module.exports = fetchEnhance(Form);
+Form.childContextTypes = {
+  formData: PropTypes.object,
+  itemBind: PropTypes.func,
+  itemChange: PropTypes.func,
+  itemUnbind: PropTypes.func,
+  controlProps: PropTypes.object
+}
+
+export default compose(
+  Fetch(true),
+  PureRender(true)
+)(Form)

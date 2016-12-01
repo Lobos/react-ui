@@ -1,0 +1,203 @@
+@import "mixins";
+@import "themes/default";
+
+.group {
+  padding: $form-group-no-input-padding 0;
+}
+
+.checkbox, .radio {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  padding-right: 1rem;
+  margin-bottom: 0;
+
+  &.noPadding {
+    padding: 0;
+    vertical-align: inherit;
+
+    .indicator {
+      padding-right: 0;
+    }
+  }
+
+  input[type=checkbox], input[type=radio] {
+    position: absolute;
+    clip: rect(0,0,0,0);
+  }
+
+  & > span {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .indicator {
+    width: $custom-control-indicator-size;
+    height: $custom-control-indicator-size;
+    border: 1px solid $custom-control-indicator-border;
+    position: relative;
+    user-select: none;
+    margin-right: 0.25rem;
+    background: {
+      color: $custom-control-indicator-bg;
+      repeat: no-repeat;
+      position: center center;
+      size: $custom-control-indicator-bg-size;
+    }
+    @include box-shadow($custom-control-indicator-box-shadow);
+    box-sizing: border-box;
+    transition: 0.1s ease-in-out;
+  }
+
+  &:hover .indicator {
+    background-color: $custom-control-hover-indicator-bg;
+    border-color: $custom-control-hover-indicator-border;
+  }
+
+  input:checked ~ .indicator,
+  &.checked .indicator,
+  .input:indeterminate ~ .indicator,
+  &.indeterminate .indicator {
+    border-color: $custom-control-checked-indicator-border;
+    background: {
+      size: 100%;
+      repeat: no-repeat;
+      color: $custom-control-checked-indicator-bg;
+    }
+  }
+
+  input:disabled ~ .indicator,
+  &.disabled .indicator {
+    cursor: $cursor-disabled;
+    border-color: $custom-control-indicator-border;
+    background-color: $custom-control-disabled-indicator-bg;
+  }
+}
+
+.checkbox {
+  .indicator {
+    @include border-radius($custom-checkbox-radius);
+  }
+
+  input:checked ~ .indicator,
+  &.checked .indicator {
+    background-image: $custom-checkbox-checked-icon;
+  }
+
+  .input:indeterminate ~ .indicator,
+  &.indeterminate .indicator {
+    background-image: $custom-checkbox-indeterminate-icon;
+  }
+}
+
+.radio {
+  .indicator {
+    @include border-radius($custom-radio-radius);
+  }
+
+  input:checked ~ .indicator {
+    background-image: $custom-radio-checked-icon;
+  }
+}
+
+.disabled {
+  color: $custom-control-disabled-description-color;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.switch {
+  display: inline-block;
+  border: $input-btn-border-width solid $input-border-color;
+  white-space: nowrap;
+  overflow: hidden;
+
+  .checkbox {
+    text-align: center;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+    margin-left: -1px;
+  }
+
+  .on, .off {
+    width: 50%;
+    position: absolute;
+    display: inline-block;
+  }
+
+  .on {
+    left: 0;
+    color: $switch-on-color;
+    background-color: $switch-on-bg;
+  }
+
+  .off {
+    right: 0;
+    color: $switch-off-color;
+    background-color: $switch-off-bg;
+  }
+
+  .indicator {
+    background: $switch-indicator-color;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    z-index: 1;
+  }
+
+  input:checked ~ .indicator,
+  input:disabled ~ .indicator,
+  &.disabled .indicator,
+  &.checked .indicator {
+    background: #fff;
+  }
+
+  &.disabled {
+    .checkbox {
+      cursor: $cursor-disabled;
+    }
+    border-color: $custom-control-indicator-border;
+
+    .on, .off {
+      color: $switch-disabled-color;
+      background-color: $switch-disabled-bg;
+    }
+  }
+
+  @include switch-size($switch-width, $switch-height, $switch-width / 2, $input-border-radius);
+
+  &.small {
+    @include switch-size($switch-width-sm, $switch-height-sm, $switch-width-sm / 2, $input-border-radius-sm);
+  }
+
+  &.large {
+    @include switch-size($switch-width-lg, $switch-height-lg, $switch-width-lg / 2, $input-border-radius-lg);
+  }
+}
+
+.round {
+  @include switch-size($switch-width, $switch-height, $switch-height, $switch-height / 2);
+
+  .indicator {
+    border-radius: 50%;
+  }
+
+  &.small {
+    @include switch-size($switch-width-sm, $switch-height-sm, $switch-height-sm, $switch-height-sm / 2);
+  }
+
+  &.large {
+    @include switch-size($switch-width-lg, $switch-height-lg, $switch-height-lg, $switch-height-lg / 2);
+  }
+}
+
+.large {
+  font-size: $switch-fontsize-lg;
+}
+

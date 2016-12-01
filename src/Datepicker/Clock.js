@@ -1,134 +1,139 @@
-'use strict';
+import React, { Component, PropTypes } from 'react'
+import classnames from 'classnames'
+import Styles from '../styles/_datepicker.scss'
+import { CLOSE } from '../svgs'
 
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-
-const poslist = require('../utils/circle').getPositions(12, 50, -90);
+const poslist = require('../utils/circle').getPositions(12, 50, -90)
 
 class Clock extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
-      current: props.current,
-      stage: props.stage || 'clock',
-      active: props.active,
       am: props.current.getHours() < 12
-    };
-    this.close = this.close.bind(this);
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.current !== this.props.current) {
-      this.setState({ current: nextProps.current, am: nextProps.current.getHours() < 12 });
     }
-  }
-
-  changeTimeStage (stage) {
-    this.setState({ stage, active: true });
   }
 
   setValue (value) {
-    let d = {};
-    d[this.state.stage] = value;
-    this.props.onTimeChange(d);
-  }
-
-  close () {
-    if (!this.props.timeOnly) {
-      this.setState({ active: false });
-    }
+    this.props.onTimeChange({[this.props.stage]: value})
   }
 
   getRotate (type) {
-    let current = this.state.current,
-        value,
-        max = type === 'hour' ? 12 : 60;
+    let current = this.props.current
+    let value
+    let max = type === 'hour' ? 12 : 60
 
     switch (type) {
       case 'hour':
-        value = current.getHours() + current.getMinutes() / 60;
-        break;
+        value = current.getHours() + current.getMinutes() / 60
+        break
       case 'minute':
-        value = current.getMinutes() + current.getSeconds() / 60;
-        break;
+        value = current.getMinutes() + current.getSeconds() / 60
+        break
       case 'second':
-        value = current.getSeconds();
-        break;
+        value = current.getSeconds()
+        break
     }
 
-    value = value * 360 / max - 90;
-    return 'rotate(' + value + 'deg)';
+    value = value * 360 / max - 90
+    return 'rotate(' + value + 'deg)'
   }
 
   renderPointer () {
-    let stage = this.state.stage;
+    const stage = this.props.stage
 
-    let pointer = function (type, context) {
-      let rotate = context.getRotate(type);
+    const pointer = (type) => {
+      let rotate = this.getRotate(type)
+      let className = classnames(
+        Styles[type],
+        stage === type && Styles.active
+      )
       return (
-        <div style={{transform: rotate, WebkitTransform: rotate }} className={classnames(type, {active: stage === type})}></div>
-      );
-    };
+        <div className={className}
+          style={{
+            transform: rotate,
+            WebkitTransform: rotate
+          }}
+        />
+      )
+    }
 
     return (
-      <div className="pointer">
-        {pointer('hour', this)}
-        {pointer('minute', this)}
-        {pointer('second', this)}
+      <div className={Styles.pointer}>
+        {pointer('hour')}
+        {pointer('minute')}
+        {pointer('second')}
       </div>
-    );
+    )
+  }
+
+  renderIndicator () {
+    return (
+      <div onClick={() => { this.setState({ am: !this.state.am }) }}
+        className={Styles.am}>
+        <small className={this.state.am ? Styles.active : ''}>AM</small>
+        <small className={!this.state.am ? Styles.active : ''}>PM</small>
+      </div>
+    )
   }
 
   render () {
-    let steps = [],
-        //current = this.state.current,
-        stage = this.state.stage,
-        step = (stage === 'hour' || stage === 'clock') ? 1 : 5;
+    const { stage, onClose } = this.props
+    let steps = []
+    let step = (stage === 'hour' || stage === 'clock') ? 1 : 5
 
     for (let i = 0, s; i < 12; i++) {
-      s = i * step;
+      s = i * step
       if (!this.state.am && stage === 'hour') {
-        s += 12;
+        s += 12
       }
-      steps.push(s);
+      steps.push(s)
     }
 
-    let sets = steps.map(function (s, i) {
-      let pos = poslist[i],
-          left = pos[0] + '%',
-          top = pos[1] + '%';
+    let sets = steps.map((s, i) => {
+      let pos = poslist[i]
+      let left = pos[0] + '%'
+      let top = pos[1] + '%'
       return (
-        <div onClick={() => { this.setValue(s); }} className={classnames('clock-set')} key={i} style={{left, top}}>{s}</div>
-      );
-    }, this);
+        <div key={i}
+          className={Styles.clockSet}
+          onClick={this.setValue.bind(this, s)}
+          style={{left, top}}>{s}</div>
+      )
+    })
 
-    let className = classnames('clock-wrapper', { active: this.state.active });
+    let className = classnames(
+      Styles.clockWrapper,
+      this.props.active && Styles.active
+    )
 
     return (
       <div className={className}>
-        <div onClick={this.close} className="clock-overlay" />
-        {!this.props.timeOnly && <div onClick={this.close} className="clock-close"><i className="icon close" /></div>}
-        <div className="clock">
-          <div className="clock-inner">
+        <div onClick={onClose} className={Styles.overlay} />
+        {onClose && <div onClick={onClose} className={Styles.close}>{CLOSE}</div>}
+        <div className={Styles.clock}>
+          <div className={Styles.clockInner}>
             {sets}
           </div>
           {this.renderPointer()}
-          {stage === 'hour' && <div>
-            <div onClick={() => { this.setState({ am: true }); }} className={classnames('time-am', { active: this.state.am })}>AM</div>
-            <div onClick={() => { this.setState({ am: false }); }} className={classnames('time-pm', { active: !this.state.am })}>PM</div>
-          </div>}
+
+          {stage === 'hour' && this.renderIndicator()}
         </div>
       </div>
-    );
+    )
   }
 }
 
 Clock.propTypes = {
   active: PropTypes.bool,
   current: PropTypes.instanceOf(Date),
+  onClose: PropTypes.func,
   onTimeChange: PropTypes.func,
   stage: PropTypes.string,
   timeOnly: PropTypes.bool
-};
+}
 
-export default Clock;
+Clock.defaultProps = {
+  stage: 'clock'
+}
+
+export default Clock

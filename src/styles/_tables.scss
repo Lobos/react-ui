@@ -1,0 +1,175 @@
+@import "mixins";
+@import "themes/default";
+
+.table {
+  position: relative;
+  margin-bottom: $spacer;
+  max-width: 100%;
+  overflow: hidden;
+
+  table {
+    width: 100%;
+    background-color: $body-bg;
+  }
+
+  thead th {
+    position: relative;
+    text-align: left;
+    vertical-align: bottom;
+    border-bottom: (2 * $table-border-width) solid $table-border-color;
+    background-color: $table-bg-head;
+  }
+
+  th,
+  td {
+    padding: $table-cell-padding;
+    vertical-align: top;
+    border-top: $table-border-width solid $table-border-color;
+
+    &.checkbox {
+      width: $custom-control-indicator-size;
+      text-align: center;
+    }
+  }
+
+  tbody + tbody {
+    border-top: (2 * $table-border-width) solid $table-border-color;
+  }
+
+  tbody tr:first-child td {
+    border-top: 0;
+  }
+
+  .body {
+    border-bottom: $table-border-width solid $table-border-color;
+  }
+
+  &.small {
+    td, th {
+      padding: $table-sm-cell-padding;
+    }
+  }
+}
+
+// Bordered version
+//
+// Add borders all around the table and between all the columns.
+
+.bordered {
+  .body {
+    border-bottom: $table-border-width solid $table-border-color;
+  }
+
+  th,
+  td {
+    border: $table-border-width solid $table-border-color;
+  }
+
+  thead {
+    th,
+    td {
+      border-bottom-width: (2 * $table-border-width);
+    }
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+
+// Zebra-striping
+//
+// Default zebra-stripe styles (alternating gray and transparent backgrounds)
+
+.striped {
+  tbody tr:nth-of-type(odd) {
+    background-color: $table-bg-odd;
+  }
+  tbody tr:nth-of-type(even) {
+    background-color: $table-bg-even;
+  }
+}
+
+@mixin sort-indicator {
+  border-style: solid;
+  content: ' ';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  opacity: 0.2;
+  transition: 0.2s;
+}
+
+.sort-up, .sort-down, .sort-one {
+  position: absolute;
+  display: block;
+  width: 1rem;
+  right: 0;
+  top: 50%;
+
+  &:hover, &.active {
+    &::before, &::after {
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    cursor: default;
+  }
+}
+
+.sort-up, .sort-down {
+  height: 1rem;
+
+  &::before {
+    @include sort-indicator();
+  }
+}
+
+.sort-up {
+  margin-top: -0.6rem;
+  &::before {
+    border-color: transparent transparent #333;
+    border-width: 0 .3rem .5rem .3rem;
+  }
+}
+
+.sort-down {
+  margin-top: 0.1rem;
+  &::before {
+    border-color: #333 transparent transparent;
+    border-width: .5rem .3rem 0 .3rem;
+  }
+}
+
+.sort-one {
+  height: 2rem;
+  transform: translateY(-50%);
+
+  &::before, &::after {
+    @include sort-indicator();
+    top: 50%;
+  }
+
+  &::before {
+    margin-top: -0.6rem;
+    border-color: transparent transparent #333;
+    border-width: 0 .3rem .5rem .3rem;
+  }
+
+  &::after {
+    margin-top: 0.1rem;
+    border-color: #333 transparent transparent;
+    border-width: .5rem .3rem 0 .3rem;
+  }
+}
+
+.pagi-center {
+  text-align: center;
+}
+
+.pagi-right {
+  text-align: right;
+}

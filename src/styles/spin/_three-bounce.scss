@@ -1,0 +1,29 @@
+.three-bounce {
+  $animationDuration: 1.4s;
+  $delayRange: 0.32s;
+  // margin: $spinkit-spinner-margin;
+  // width: $spinkit-size * 2;
+  text-align: center;
+  margin: auto;
+
+  .child {
+    // width: $spinkit-size / 2;
+    // height: $spinkit-size / 2;
+    // background-color: $spinkit-spinner-color;
+
+    border-radius: 100%;
+    display: inline-block;
+    animation: sk-three-bounce $animationDuration ease-in-out 0s infinite both;
+  }
+
+  .bounce1 { animation-delay: -$delayRange; }
+  .bounce2 { animation-delay: -$delayRange / 2; }
+}
+
+@keyframes sk-three-bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  } 40% {
+    transform: scale(1.0);
+  }
+}

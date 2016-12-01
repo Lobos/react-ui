@@ -1,0 +1,106 @@
+@import "mixins";
+@import "themes/default";
+
+.container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $zindex-modal;
+  overflow: hidden;
+  // Prevent Chrome on Windows from adding a focus outline. For details, see
+  // https://github.com/twbs/bootstrap/pull/10951.
+  outline: 0;
+  -webkit-overflow-scrolling: touch;
+  background: rgba(0,0,0,$modal-backdrop-opacity);
+
+  &.enter {
+    opacity: 1;
+  }
+
+  &.leave {
+    opacity: 0;
+  }
+
+  .inner {
+    width: 100%;
+    height: 100%;
+    padding: 5rem;
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
+  }
+}
+
+.modal {
+  position: relative;
+  top: -2rem;
+  margin: auto;
+  background-color: $modal-content-bg;
+  background-clip: padding-box;
+  border: $modal-content-border-width solid $modal-content-border-color;
+  @include border-radius($modal-border-radius);
+  @include box-shadow($modal-content-xs-box-shadow);
+  // Remove focus outline from opened modal
+  outline: 0;
+  transition: {
+    duration: 0.25s;
+    timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  opacity: 0;
+  transition: transform .3s ease-out;
+  transform: translate(0, -25%);
+}
+
+.in .modal {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.header {
+  padding: $modal-title-padding;
+  padding-right: $modal-title-padding * 2 + $modal-close-size;
+  border-bottom: $modal-header-border-width solid $modal-header-border-color;
+  background: $modal-header-bg;
+  font-size: $font-size-h5;
+  font-weight: $headings-font-weight;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  @include clearfix;
+}
+
+.content {
+  min-height: 6rem;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: $modal-close-padding;
+  svg {
+    width: $modal-close-size;
+    height: $modal-close-size;
+
+    path {
+      fill: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &:hover svg path {
+    fill: $brand-primary;
+  }
+}
+
+.footer {
+  padding: $modal-inner-padding;
+  text-align: right; // right align buttons
+  border-top: $modal-footer-border-width solid $modal-footer-border-color;
+
+  button {
+    margin-left: .5rem;
+  }
+}

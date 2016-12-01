@@ -1,0 +1,36 @@
+@mixin switch-size($width, $height, $indicator-width, $border-radius) {
+  width: $width / 2 + $indicator-width;
+  @include border-radius($border-radius);
+
+  .checkbox {
+    width: $width + $indicator-width;
+    height: $height;
+    margin: 0 0 0 -1px;
+    left: 0 - $width / 2;
+
+    &.checked {
+      left: 0;
+    }
+  }
+
+  .on, .off {
+    height: $height;
+    line-height: $height;
+  }
+
+  .on {
+    padding-right: $indicator-width / 2;
+  }
+
+  .off {
+    padding-left: $indicator-width / 2;
+  }
+
+  .indicator {
+    width: $indicator-width;
+    height: $height;
+  }
+}
+
+@mixin switch-round-size($width, $heigth) {
+}

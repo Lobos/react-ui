@@ -1,0 +1,255 @@
+// react ui overwrite ==========================================================
+$enable-shadows:                          true !default;
+$enable-flex:                             true !default;
+
+$small-font-size:                         85% !default;
+
+// control =====================================================================
+
+$custom-control-indicator-border:            #ddd !default;
+$custom-control-indicator-bg:                #fff !default;
+$custom-control-indicator-box-shadow:        none !default;
+$custom-control-disabled-indicator-bg:       #ddd !default;
+$custom-control-hover-indicator-border:      #aaa !default;
+$custom-control-hover-indicator-bg:          #fff !default;
+$custom-checkbox-checked-icon:               url('data:image/svg+xml,%3Csvg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.015625, 0.015625)"%3E%3Cpath d="M952.448527 347.935692 806.785274 202.272439 430.747604 578.309086 243.760259 391.322765 98.095983 536.987041 430.727138 869.618196 439.078323 861.268034 439.097766 861.286453Z" fill="%23ffffff"%3E%3C/path%3E%3C/g%3E%3C/svg%3E') !default;
+$custom-checkbox-indeterminate-icon:         url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16 '%3E%3Cpath fill='%23fff' d='M2 6 14 6 14 10 2 10 2 6Z'/%3E%3C/svg%3E") !default;
+$custom-radio-checked-icon:                  url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='2' fill='%23fff'/%3E%3C/svg%3E") !default;
+
+// carousel =====================================================================
+$carousel-duration:                          0.4s !default;
+$carousel-indicator-size:                    10px !default;
+$carousel-indicator-number-size:             14px !default;
+$carousel-indicator-font-size:               12px !default;
+$carousel-indicator-bg:                      #666 !default;
+$carousel-indicator-border:                  #fff !default;
+$carousel-indicator-color:                   #fff !default;
+$carousel-indicator-active-bg:               #fff !default;
+$carousel-indicator-active-color:            #000 !default;
+$carousel-indicator-opacity:                 .8 !default;
+$carousel-indicator-position:                1rem !default;
+$carousel-indicator-margin-right:            6px !default;
+
+// modal =======================================================================
+$modal-title-padding:                        1rem;
+
+// import bootstrap
+@import 'bootstrap';
+
+// button ======================================================================
+$btn-hover-box-shadow:                       inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075) !default;
+$btn-lighten:                                false !default;
+
+$custom-control-checked-indicator-border:    $custom-control-checked-indicator-bg !default;
+
+// pagination
+$pagination-margin-right:                    0 !default;
+$pagination-border-radius:                   $border-radius !default;
+$pagination-line-height:                     2.3rem !default;
+
+$pagination-border-radius-lg:                $border-radius-lg !default;
+$pagination-line-height-lg:                  3.5rem !default;
+
+$pagination-border-radius-sm:                $border-radius-sm !default;
+$pagination-line-height-sm:                  1.8rem !default;
+
+$pagination-padding-x:                       0.9rem !default;
+$pagination-padding-x-sm:                    0.6rem !default;
+
+$table-bg-head:                              #fff !default;
+$table-bg-odd:                               rgba(0,0,0,.05) !default;
+$table-bg-even:                              #fff !default;
+
+// switch ======================================================================
+
+$switch-width:                               6rem !default;
+$switch-width-sm:                            5rem !default;
+$switch-width-lg:                            8rem !default;
+$switch-height:                              $input-padding-y * 2 + $input-line-height !default;
+$switch-height-sm:                           $input-padding-y-sm * 2 + $input-line-height !default;
+$switch-height-lg:                           $input-padding-y-lg * 2 + $input-line-height !default;
+$switch-indicator-color:                     #fff !default;
+$switch-on-color:                            #fff !default;
+$switch-on-bg:                               $brand-primary !default;
+$switch-off-color:                           #333 !default;
+$switch-off-bg:                              #eee !default;
+$switch-disabled-color:                      #fff !default;
+$switch-disabled-bg:                         #ddd !default;
+$switch-fontsize-lg:                         1.25rem !default;
+
+// select ======================================================================
+
+$select-option-padding-x:                    0.75rem !default;
+$select-options-max-height:                  20rem !default;
+$select-filter-icon:                         url('data:image/svg+xml,%3Csvg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.0625, 0.0625)"%3E%3Cpath d="M955.984 936.854l-23.628 19.267-74.192-5.365L683.063 771.888c-63.678 45.089-141.338 71.861-225.394 71.861-215.204 0-389.654-173.665-389.654-387.948 0-214.229 174.45-387.921 389.654-387.921 215.205 0 389.656 173.691 389.656 387.921 0 85.247-27.91 163.828-74.761 227.831L954.9 865.155 955.984 936.854zM460.38 196.292c-148.438 0-268.748 119.797-268.748 267.584 0 147.732 120.311 267.556 268.748 267.556s268.775-119.823 268.775-267.556C729.155 316.089 608.817 196.292 460.38 196.292z" fill="%23666"%3E%3C/path%3E%3C/g%3E%3C/svg%3E') !default;
+$select-options-height:                      2rem !default;
+$select-options-border-radius:               $border-radius !default;
+
+// datepicker ==================================================================
+
+$datepicker-full-width:                      14rem !default;
+$datepicker-short-width:                     9rem !default;
+$datepicker-indicator:                       url('data:image/svg+xml,%3Csvg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.03125, 0.03125)"%3E%3Cpath d="M779.009751 854.726735 250.996033 854.726735c-48.599881 0-88.002286-39.446407-88.002286-88.002286L162.993746 238.709707c0-48.641837 39.402405-88.002286 88.002286-88.002286l0 44.001143 0 44.001143c0 24.278963 19.72218 44.001143 44.001143 44.001143l88.002286 0c24.27794 0 44.001143-19.72218 44.001143-44.001143l0-44.001143 0-44.001143 176.004573 0 0 44.001143 0 44.001143c0 24.278963 19.723204 44.001143 44.001143 44.001143l88.002286 0c24.278963 0 44.001143-19.72218 44.001143-44.001143l0-44.001143 0-44.001143c48.598858 0 88.00331 39.36045 88.00331 88.002286l0 528.014742C867.013061 815.280328 827.608609 854.726735 779.009751 854.726735zM779.009751 414.715303c0-24.321942-19.72218-44.001143-44.001143-44.001143l-440.011432 0c-24.278963 0-44.001143 19.679202-44.001143 44.001143L250.996033 722.723306c0 24.27794 19.72218 44.001143 44.001143 44.001143l440.011432 0c24.278963 0 44.001143-19.723204 44.001143-44.001143L779.009751 414.715303zM603.004155 590.719876l88.002286 0 0 88.002286-88.002286 0L603.004155 590.719876zM603.004155 458.716446l88.002286 0 0 88.002286-88.002286 0L603.004155 458.716446zM471.001749 590.719876l88.002286 0 0 88.002286-88.002286 0L471.001749 590.719876zM471.001749 458.716446l88.002286 0 0 88.002286-88.002286 0L471.001749 458.716446zM338.998319 590.719876l88.002286 0 0 88.002286-88.002286 0L338.998319 590.719876zM338.998319 458.716446l88.002286 0 0 88.002286-88.002286 0L338.998319 458.716446zM647.006322 150.70742l88.002286 0 0 88.002286-88.002286 0L647.006322 150.70742zM294.997176 150.70742l88.002286 0 0 88.002286-88.002286 0L294.997176 150.70742z" fill="%23777"%3E%3C/path%3E%3C/g%3E%3C/svg%3E') !default;
+$datepicker-time-indicator:                  url('data:image/svg+xml,%3Csvg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.03125, 0.03125)"%3E%3Cpath d="M514.007843 120.470588C299.168627 120.470588 126.494118 293.145098 126.494118 507.984314c0 214.839216 172.67451 387.513725 387.513725 387.513725s387.513725-172.67451 387.513725-387.513725C901.521569 293.145098 726.839216 120.470588 514.007843 120.470588L514.007843 120.470588zM514.007843 843.294118c-184.721569 0-335.309804-150.588235-335.309804-335.309804 0-184.721569 150.588235-335.309804 335.309804-335.309804 184.721569 0 335.309804 150.588235 335.309804 335.309804C849.317647 692.705882 698.729412 843.294118 514.007843 843.294118L514.007843 843.294118zM680.658824 534.086275l-168.658824 0 0-168.658824c0-8.031373-6.023529-12.047059-12.047059-12.047059l-26.101961 0c-8.031373 0-12.047059 6.023529-12.047059 12.047059l0 180.705882 0 26.101961c0 8.031373 6.023529 12.047059 12.047059 12.047059l206.807843 0c8.031373 0 12.047059-6.023529 12.047059-12.047059l0-26.101961C694.713725 538.101961 688.690196 534.086275 680.658824 534.086275L680.658824 534.086275zM680.658824 534.086275" fill="%23777"%3E%3C/path%3E%3C/g%3E%3C/svg%3E') !default;
+$datepicker-indicator-padding:               1rem !default;
+$datepicker-indicator-padding-x:             0.4rem !default;
+$datepicker-font-size:                       0.85rem !default;
+$datepicker-bg:                              $input-bg !default;
+$datepicker-bg-size:                         1.5rem !default;
+$datepicker-picker-bg:                       $input-bg !default;
+$datepicker-picker-border:                   $input-border-color !default;
+$datepicker-picker-border-radius:            $border-radius !default;
+$datepicker-picker-padding:                  0.5rem !default;
+
+$datepicker-day-color:                       #666 !default;
+$datepicker-day-size:                        2rem !default;
+$datepicker-day-bg:                          #f5f5f5 !default;
+$datepicker-day-border-radius:               $border-radius-sm !default;
+$datepicker-day-border-width:                1px !default;
+$datepicker-day-border-color:                #f5f5f5 !default;
+
+$datepicker-day-hover-color:                 $brand-primary !default;
+$datepicker-day-hover-bg:                    #f5f5f5 !default;
+$datepicker-day-hover-border-color:          $brand-primary !default;
+
+$datepicker-day-today-color:                 $brand-primary !default;
+$datepicker-day-today-bg:                    #f5f5f5 !default;
+$datepicker-day-today-border-color:          $brand-primary !default;
+
+$datepicker-day-active-color:                #fff !default;
+$datepicker-day-active-bg:                   $brand-primary !default;
+$datepicker-day-active-border-color:         $brand-primary !default;
+
+$datepicker-day-disable-color:               #ccc !default;
+
+$datepicker-header-margin:                   0.5rem 0 !default;
+$datepicker-header-color:                    #999 !default;
+$datepicker-header-font-size:                1rem !default;
+$datepicker-header-hover-color:              $brand-primary !default;
+$datepicker-header-indicator-width:          1.2rem !default;
+$datepicker-header-indicator-height:         1.6rem !default;
+
+$datepicker-time-padding:                    0.5rem !default;
+
+$clock-bg-color:                             #333 !default;
+$clock-border-color:                         #fff !default;
+$clock-border-width:                         0.14285rem !default;
+$clock-padding:                              0.3rem !default;
+$clock-overlay-bg:                           rgba(0, 0, 0, 0.6) !default;
+
+$clock-inner-size:                           9rem !default;
+$clock-inner-padding:                        1rem !default;
+
+$clock-set-size:                             2rem !default;
+$clock-set-font-size:                        1rem !default;
+$clock-set-color:                            #ccc !default;
+$clock-set-hover-bg:                         $brand-primary !default;
+$clock-set-hover-color:                      #fff !default;
+
+$clock-pointer-origin:                       0.7rem !default;
+$clock-pointer-color:                        #fff !default;
+$clock-pointer-active-color:                 $brand-primary !default;
+
+$clock-size:                                 $clock-inner-size + ($clock-border-width * 2) + $clock-set-size + ($clock-padding * 2) !default;
+
+$clock-indicator-color:                      #777 !default;
+$clock-indicator-padding:                    0 .2rem !default;
+$clock-indicator-bottom:                     -1rem !default;
+$clock-indicator-border-radius:              $border-radius !default;
+$clock-indicator-hover-color:                $brand-primary !default;
+
+$clock-close-size:                           1rem !default;
+$clock-close-margin:                         0.5rem !default;
+
+$timeset-width:                              4rem !default;
+$timeset-height:                             2rem !default;
+$timeset-margin:                             0 0.25rem !default;
+$timeset-bg:                                 $input-bg !default;
+$timeset-color:                              $input-color !default;
+$timeset-border-width:                       1px !default;
+$timeset-border-color:                       $input-border-color !default;
+$timeset-border-radius:                      $input-border-radius-sm !default;
+$timeset-padding:                            1.6rem !default;
+$timeset-indicator-up:                       url('data:image/svg+xml,%3Csvg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.03125, 0.03125)"%3E%3Cpath d="M797.110857 676.571429q0 7.460571-5.705143 13.165714l-28.598857 28.598857q-5.705143 5.705143-13.165714 5.705143t-13.165714-5.705143l-224.548571-224.548571-224.548571 224.548571q-5.705143 5.705143-13.165714 5.705143t-13.165714-5.705143l-28.598857-28.598857q-5.705143-5.705143-5.705143-13.165714t5.705143-13.165714l266.313143-266.313143q5.705143-5.705143 13.165714-5.705143t13.165714 5.705143l266.313143 266.313143q5.705143 5.705143 5.705143 13.165714z" fill="%23777777"%3E%3C/path%3E%3C/g%3E%3C/svg%3E') !default;
+$timeset-indicator-down:                     url('data:image/svg+xml,%3Csvg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"%3E%3Cg transform="scale(0.03125, 0.03125)"%3E%3Cpath d="M797.110857 420.571429q0 7.460571-5.705143 13.165714l-266.313143 266.313143q-5.705143 5.705143-13.165714 5.705143t-13.165714-5.705143l-266.313143-266.313143q-5.705143-5.705143-5.705143-13.165714t5.705143-13.165714l28.598857-28.598857q5.705143-5.705143 13.165714-5.705143t13.165714 5.705143l224.548571 224.548571 224.548571-224.548571q5.705143-5.705143 13.165714-5.705143t13.165714 5.705143l28.598857 28.598857q5.705143 5.705143 5.705143 13.165714z" fill="%23777777"%3E%3C/path%3E%3C/g%3E%3C/svg%3E') !default;
+
+
+// form ========================================================================
+
+$form-group-label-line-height:               2.4rem !default;
+$form-group-no-input-padding:                0.3rem !default;
+$form-aligned-control-margin:                1rem !default;
+$form-inline-group-margin:                   1rem !default;
+$form-inline-control-margin:                 0.5rem !default;
+
+$tree-line-height:                           1.5714rem !default;
+$tree-line-color:                            #666 !default;
+$tree-icon-width:                            1.4rem !default;
+
+$tree-indicator-size:                        9px !default;
+$tree-indicator-border-width:                1px !default;
+$tree-line-icon-mv:                          url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Cg fill='none' stroke='%23999999' stroke-width='1'%3E%3Cpath  stroke-dasharray='1,1' d='M10 0 l0 22'/%3E%3C/g%3E%3C/svg%3E") !default;
+$tree-line-icon-mh:                          url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Cg fill='none' stroke='%23999999' stroke-width='1'%3E%3Cpath  stroke-dasharray='1,1' d='M10 0 l0 22 M10 11 l10 0'/%3E%3C/g%3E%3C/svg%3E") !default;
+$tree-line-icon-ml:                          url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 22'%3E%3Cg fill='none' stroke='%23999999' stroke-width='1'%3E%3Cpath  stroke-dasharray='1,1' d='M10 0 l0 10 M10 11 l10 0'/%3E%3C/g%3E%3C/svg%3E") !default;
+
+// modal =======================================================================
+$modal-close-size:                           1rem !default;
+$modal-close-padding:                        $modal-title-padding !default;
+$modal-border-radius:                        $border-radius-lg !default;
+$modal-header-bg:                            transparent !default;
+
+// upload ======================================================================
+$upload-margin:                              0.5rem !default;
+$upload-progress-width:                      2px !default;
+$upload-file-bg:                             $gray-lightest !default;
+$upload-file-padding-x:                      $input-padding-x !default;
+$upload-file-padding-y:                      $input-padding-y !default;
+$upload-file-border-radius:                  $border-radius-sm !default;
+$upload-remove-color:                        $gray !default;
+$upload-remove-hover-color:                  $brand-danger !default;
+
+// card ========================================================================
+$card-spacer-nav:                            0.6rem !default;
+$card-header-font-weight:                    normal !default;
+$card-header-font-size:                      1.2rem !default;
+$card-box-shadow:                            none !default;
+
+// mask ========================================================================
+$mask-backdrop-opacity:                      0.1 !default;
+$mask-zindex:                                900 !default;
+
+// image =======================================================================
+$image-modal-bg:                             rgba(0, 0, 0, 0.9) !default;
+$image-modal-border-width:                   0.5rem !default;
+$image-modal-border-color:                   #fff !default;
+$image-modal-border-radius:                  $border-radius !default;
+$image-modal-duration:                       0.4s !default;
+
+
+// indicator ===================================================================
+$indicator-trash:                            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath d='M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z' fill='#777'/%3E%3C/svg%3E") !default;
+$indicator-clear:                            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='scale(0.03125, 0.03125)'%3E%3Cpath d='M824.4 438.8c0-37.6-30-67.6-67.6-67.6l-135.2 0L621.6 104.8c0-37.6-30-67.6-67.6-67.6-37.6 0-67.6 30-67.6 67.6l0 266.4L358.8 371.2c-37.6 0-67.6 30-67.6 67.6l0 67.6L828 506.4l0-67.6L824.4 438.8 824.4 438.8zM824.4 574c-11.2 0-536.8 0-536.8 0S250 972 88.4 972L280 972c75.2 0 108.8-217.6 108.8-217.6s33.6 195.2 3.6 217.6l105.2 0c-3.6 0 0 0 11.2 0 52.4-7.6 60-247.6 60-247.6s52.4 244 45.2 244c-26.4 0-78.8 0-105.2 0l0 0 154 0c-7.6 0 0 0 11.2 0 48.8-11.2 52.4-187.6 52.4-187.6s22.4 187.6 15.2 187.6c-18.8 0-48.8 0-67.6 0l-3.6 0 90 0C895.6 972 903.2 784.4 824.4 574L824.4 574z' fill='#777'%3E%3C/path%3E%3C/g%3E%3C/svg%3E") !default;
+
+// cascade =====================================================================
+$cascade-options-width:                      12rem !default;
+$cascade-options-height:                     20rem !default;
+$cascade-options-padding-x:                  .75rem !default;
+$cascade-options-padding-y:                  .375rem !default;
+$cascade-options-bg:                         #fff !default;
+$cascade-box-shadow:                         0 6px 12px rgba(0,0,0,.175) !default;
+$cascade-border-width:                       $input-btn-border-width !default;
+$cascade-border-color:                       $input-border-color !default;
+$cascade-border-radius:                      $border-radius !default;
+
+$cascade-item-color:                         $gray-dark !default;
+$cascade-item-hover-color:                   darken($gray-dark, 5%) !default;
+$cascade-item-hover-bg:                      #f5f5f5 !default;
+
+$cascade-item-active-color:                  darken($gray-dark, 5%) !default;
+$cascade-item-active-bg:                     #f2f2f2 !default;
+$cascade-item-indicator-size:                1.4rem !default;
+
+$cascade-item-active-border:                 $brand-primary !default;
+$cascade-item-border-width:                  2px !default;
+
+$message-padding:                            0.5rem 1rem;

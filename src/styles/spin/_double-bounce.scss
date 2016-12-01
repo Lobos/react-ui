@@ -1,0 +1,24 @@
+.double-bounce {
+  position: relative;
+  margin: auto;
+
+  .child {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: sk-doubleBounce 2.0s infinite ease-in-out;
+  }
+
+  .bounce2 {
+    animation-delay: -1.0s;
+  }
+}
+
+@keyframes sk-doubleBounce {
+  0%, 100% { transform: scale(0) }
+  50% { transform: scale(1.0) }
+}

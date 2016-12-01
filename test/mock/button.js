@@ -1,13 +1,7 @@
 const compData = {}
 
-const compClass = {
-  info: 'rct-button-info',
-  primary: 'rct-button-primary',
-  success: 'rct-button-success',
-  error: 'rct-button-error',
-  warning: 'rct-button-warning'
-}
+const compStatus = ['primary', 'info', 'link', 'secondary', 'success', 'danger', 'error', 'warning']
 
 const compSelector = {}
 
-export { compClass, compData, compSelector }
+export { compData, compStatus, compSelector }

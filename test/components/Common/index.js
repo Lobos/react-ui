@@ -1,3 +1,3 @@
-describe('Common', () => {
-  require('./basic')
+describe('Common', function () {
+  require('./TimeAgoSpec.js')
 })

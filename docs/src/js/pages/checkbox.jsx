@@ -1,44 +1,68 @@
-"use strict";
+import Code from '../Code'
+import Example from '../Example'
+import { Cn, En } from '../Language'
+import { Checkbox } from 'rctui'
 
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-const {Checkbox} = global.uiRequire();
+module.exports = function () {
+  return (
+    <div>
+      <div className="header">
+        <h1>Checkbox</h1>
+        <Cn tag="h2">复选框</Cn>
+      </div>
 
-module.exports = class extends React.Component {
-  render () {
-    return (
-      <div>
-        <div className="header">
-          <h1>Checkbox</h1>
-          <h2>复选框</h2>
-        </div>
-
-        <div className="content">
-
+      <div className="content">
+        <Cn>
           <Code>
 {`<Checkbox
-  className={string}  // class
-  checkValue={any}    // 选中后得到的值，默认值为 true
-  text="string"       // 显示的文字信息
-  value={any}         // 传入校验是否选中的值
-  checked={bool}      // 是否选中，默认为 false
-  readOnly={bool}     // 是否只读，默认为 false
-  onChange={function} // 状态改变回调事件
-/>`}
+block={bool}        // 为 true 时，diplay=block。默认为 false
+className={string}  // class
+value={any}         //
+defaultValue={any}  // 默认值
+checked={bool}      // 是否选中，默认为 false
+readOnly={bool}     // 是否只读，默认为 false
+onChange={function( // 状态改变回调事件
+  value,            // 第一个参数，value
+  bool              // 状态
+)}
+>
+{children}            // any
+</Checkbox>`}
           </Code>
+        </Cn>
+        <En>
+          <Code>
+{`<Checkbox
+block={bool}        // if block is true, 'display: block', default is false
+className={string}  // class
+value={any}
+defaultValue={any}
+checked={bool}      // default is false
+readOnly={bool}     // default is false
+onChange={function( // check callback
+  value,            // value
+  checked           // bool
+)}
+>
+{children}            // any
+</Checkbox>`}
+          </Code>
+        </En>
+        <Cn>
+          0.7 移除内部state，变为dumb组件
+        </Cn>
 
-          <h2 className="subhead">Example</h2>
-          <Example>
-<Checkbox text="checkbox" />
-          </Example>
+        <h2 className="subhead">Example</h2>
+        <Example>
+<Checkbox value="1">somt text</Checkbox>
+        </Example>
 
-          <h2 className="subhead">Readonly</h2>
-          <Example>
-<Checkbox checked={true} readOnly={true} text="readonly checkbox" />
-          </Example>
-        </div>
+        <h2 className="subhead">Readonly</h2>
+        <Example>
+<Checkbox checked readOnly>ReadOnly checked</Checkbox>
+<Checkbox readOnly>ReadOnly</Checkbox>
+        </Example>
       </div>
-    );
-  }
+    </div>
+  )
 }

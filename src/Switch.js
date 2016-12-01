@@ -1,57 +1,42 @@
-'use strict';
+import classnames from 'classnames'
+import { Checkbox } from './Checkbox'
+import PropTypes from './utils/proptypes'
+import FormItem from './higherOrders/FormItem'
 
-import React,{ Component,PropTypes } from 'react'
-import classnames from 'classnames';
+import _styles from './styles/_radio-checkbox.scss'
 
-import { requireCss } from './themes';
-requireCss('switch');
+function Switch (props) {
+  const className = classnames(
+    _styles.switch,
+    _styles[props.size],
+    props.round && _styles.round,
+    (props.readOnly || props.disabled) && _styles.disabled,
+    props.className
+  )
 
-class Switch extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      checked:props.checked
-    }
-    this.handleChange = this.handleChange.bind(this)
-  }
+  const text = props.text.split('|')
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.checked !== this.props.checked) {
-      this.setState({ checked: nextProps.checked });
-    }
-  }
-
-  render(){
-    const { status } = this.props
-    const className = classnames(
-    	'switch',
-    	this.props.className
-    );
-    return(
-      <label className={className}>
-        <input type="checkbox" checked={this.state.checked} onChange={this.handleChange}/>
-        <span className="switch-item"></span>
-        <span className="switch-mask"></span>
-      </label>
-    );
-  }
-
-  handleChange(ev){
-    this.setState({'checked':!this.state.checked})
-    if(this.props.onSwitch){
-      this.props.onSwitch(ev.target.checked)
-    }
-  }
+  return (
+    <div className={className}>
+      <Checkbox {...props} isIndicator block>
+        <span className={_styles.on}>{text[0] || 'On'}</span>
+        <span className={_styles.off}>{text[1] || 'Off'}</span>
+      </Checkbox>
+    </div>
+  )
 }
 
-Switch.PropTypes = {
+Switch.propTypes = {
   className: PropTypes.string,
-  checked:PropTypes.bool,
-  onSwitch:PropTypes.func
+  disabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  round: PropTypes.bool,
+  size: PropTypes.size,
+  text: PropTypes.string
 }
 
 Switch.defaultProps = {
-  checked: false
+  text: 'On|Off'
 }
 
-module.exports = Switch;
+export default FormItem.register('switch', {}, Switch)

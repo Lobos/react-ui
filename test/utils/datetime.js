@@ -61,11 +61,12 @@ describe('utils datetime', function () {
     t = t.toString();
     eql(_(t), d1).should.be.true;
 
-    eqld(_(), new Date()).should.be.true;
+    should.not.exist(_())
+    should.not.exist(_('hehehe'))
+
     eql(_(null, d1), d1).should.be.true;
     eql(_(d1), d1).should.be.true;
     eqld(_('2015-6-20'), new Date(2015, 5, 20)).should.be.true;
-    eqld(_('hehehe'), new Date()).should.be.true;
   });
 
   it('getFirstDayOfMonth', () => {

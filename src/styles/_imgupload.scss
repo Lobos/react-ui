@@ -1,0 +1,95 @@
+@import 'mixins';
+@import 'themes/default';
+
+.imgupload {
+  overflow: hidden;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      border: 1px dashed #999;
+      margin-right: .5rem;
+      position: relative;
+      cursor: pointer;
+      text-align: center;
+      overflow: hidden;
+      background: #fff;
+
+      .img {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+
+        .mask {
+          transition: 0.4s;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        a {
+          padding: 0.5rem;
+          text-decoration: none;
+          display: none;
+          width: 100%;
+          height: 100%;
+          color: #fff;
+          font-size: 80%;
+          background: rgba(0, 0, 0, 0.8);
+          z-index: 10;
+
+          span {
+            margin: auto;
+          }
+        }
+
+        &:hover a {
+          display: flex;
+        }
+      }
+    }
+
+    .has-error {
+      border-color: $brand-danger;
+
+      .img a {
+        display: flex;
+        color: #fff;
+        background: $brand-danger;
+      }
+    }
+  }
+
+  .imgupload-add {
+    position: relative;
+
+    &:before,
+    &:after {
+      position: absolute;
+      content: ' ';
+      width: 2rem;
+      height: 0.25rem;
+      background: $gray;
+      margin: auto;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    &:after {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+

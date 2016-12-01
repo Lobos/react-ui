@@ -1,16 +1,23 @@
-'use strict';
+import React from 'react'
+import Code from '../Code'
+import Example from '../Example'
+import Refetch from 'refetch'
+import { Cascade, Form, FormControl, Button, Icon, Input, InputGroup, FormText,
+  DatepickerRange, RadioGroup, FormItem, If, Upload, Grid } from 'rctui'
+import Editor from 'rctui/addons/Editor'
+import { Cn, En } from '../Language'
 
-import React from 'react';
-import Code from '../Code';
-import Example from '../Example';
-const {Form, FormControl, Button, FormSubmit, Icon, Input, Datepicker, DatepickerPair, RadioGroup, FormItem, Refetch} = global.uiRequire();
+const HEARTS = [
+  <Icon size={2} key={1} icon="favorite-outline" style={{color: 'red'}} />,
+  <Icon size={2} key={2} icon="favorite" style={{color: 'red'}} />
+]
 
 module.exports = class extends React.Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       layout: 'inline'
-    };
+    }
   }
 
   render () {
@@ -18,247 +25,321 @@ module.exports = class extends React.Component {
       <div>
         <div className="header">
           <h1>Form</h1>
-          <h2>表单</h2>
+          <Cn tag="h2">表单</Cn>
         </div>
 
         <div className="content">
-          <Code>
+          <Cn>
+            <Code>
 {`<Form
-  button={string}       // submit按钮文字，和FormSubmit二选一
+  buttons={
+    submit: 'string',   // submit 按钮文字
+    primary: 'string',  // 和 submit 按钮相同，区别是不会触发 enter 提交
+    reset: 'string',    // reset 按钮文字
+    cancel: 'string',   // cancel 按钮文字
+    others: [Button]    // 其他自定义按钮
+  }
   data={object}         // 数据，object
-  fetch={object}        // 获取服务端表单数据
+  disabled={bool}       // 如果 form 设置为disabled，所有的表单组件全部变为 readOnly
+  fetch={object}        // 获取服务端表单数据，如果传入了data，fetch无效
   hintType={string}     // 信息提示方式，可选值为 "block", "pop", "inline"，"none"
                            layout 为 stacked, aligned 时，默认为 "block"
                            layout 为 inline 时，默认为 "pop"
                            会被 FormControl 的 hintType 覆盖
+  initValidate={bool}   // 在Form加载时校验data，默认值为 false
+  labelWidth={string}   // label 宽度，默认值为'10rem'
   layout={string}       // 布局，可选值为 "aligned", "stacked", "inline"，默认为 "aligned"
-  onSubmit={function}>  // 数据验证成功后回调事件
+  onSubmit={function(   // 点击提交按钮，数据验证成功后回调函数
+    data:object
+  )}
+  onCancel={function}   // 点击cancel按钮回调函数
+  onReset={function}    // 点击reset按钮回调函数
+  >
   {children}
 </Form>`}
-          </Code>
-          <p><a href="#/fetch">fetch 属性参见这里</a></p>
-          <p>
+            </Code>
+          </Cn>
+          <En>
+            <Code>
+{`<Form
+  buttons={
+    submit: 'string',   // submit button text
+    primary: 'string',  // like submit, prevent 'enter' key submit
+    reset: 'string',    // reset button text
+    cancel: 'string'    // cancel button text
+  }
+  data={object}         //
+  disabled={bool}       // if form is disabled, all formitem's prop readOnly will be true
+  fetch={object}        // if data set, fetch will be ignored
+  hintType={string}     // 'block|pop|inline|none'
+                           if layout is 'stacked' or 'aligned', default value is 'block'
+                           if layout is 'inline', default is 'pop'
+  initValidate={bool}   // validate data when Form mount, default value is false
+  labelWidth={string}   // default value is '10rem'
+  layout={string}       // 'aligned|stacked|inline', default value is 'aligned'
+  onSubmit={function(
+    data:object
+  )}
+  onCancel={function}
+  onReset={function}
+  >
+  {children}
+</Form>`}
+            </Code>
+          </En>
+          <p><a href="#/fetch">fetch see here</a></p>
+          <Cn>
             0.6 版更新，data不再支持dataSource，改用fetch<br />
             0.3 版更新，From 不再提供内置 Ajax 提交功能，需要在onSubmit中进行提交
-          </p>
+          </Cn>
 
           <h2 className="subhead">layout</h2>
-          <div>
-            <span>layout: </span>
-            <RadioGroup
-              grid={{width:16/24}}
-              inline={true}
-              data={['inline', 'aligned', 'stacked']}
-              value={this.state.layout}
-              onChange={layout => this.setState({ layout })} />
-          </div>
-          <br />
+
           <Example>
-<Form layout={this.state.layout}>
-  <FormControl name="text" label="text" type="text" grid={{width:6/24}} responsive="sm" min={2} max={6} />
-  <FormControl name="email" label="email" type="email" />
-  <FormControl name="select" label="select" data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} type="select" />
-  <FormSubmit>
-    <span>提交</span>
-  </FormSubmit>
+<RadioGroup style={{ marginBottom: '2rem', borderBottom: 'solid 1px #ddd' }}
+  data={['inline', 'aligned', 'stacked']}
+  value={this.state.layout}
+  onChange={layout => this.setState({ layout })} />
+
+<Form button="Submit" layout={this.state.layout}>
+  <FormControl grid={1 / 4} label="name" name="name" type="text" min={2} max={6} />
+  <FormControl grid={1 / 4} name="email" placeholder="email" type="email" />
+  <FormControl grid={1 / 3} name="nationality" label="nationality" type="select"
+    data={['Chinese', 'American', 'Russian', 'Japanese', 'English', 'Spainish']} />
 </Form>
           </Example>
 
-          <h2 className="subhead">获取 / 提交数据</h2>
+          <h2 className="subhead">fetch / post data</h2>
 
           <Example>
-<Form onSubmit={formData => this.setState({ formData })} fetch={'json/form.json'}>
-  <FormControl name="text"
-    label="text"
-    type="text"
-    grid={{width:12/24}}
-    min={2}
-    max={6} />
+            <Form onSubmit={formData => console.log(formData)}
+              fetch={'json/form.json'}
+              buttons={{ primary: 'Submit', reset: 'Reset', others: [<Button key="test">test</Button>] }}>
+              <FormControl label="id">
+                <FormText>{d => d.id}</FormText>
+              </FormControl>
 
-  <FormControl label="email">
-    <span className="rct-input-group">
-      <span className="addon"><Icon icon="email" /></span>
-      <Input name="email" type="email" />
-    </span>
-  </FormControl>
+              <FormControl name="text"
+                label="text"
+                type="text"
+                grid={{width: 12 / 24}}
+                min={2}
+                max={6} />
 
-  <FormControl grid={{width:13/24}}
-    name="alpha"
-    label="alpha"
-    required
-    type="alpha" />
+              <FormControl label="email">
+                <InputGroup grid={1 / 2}>
+                  <Icon icon="email" />
+                  <Input name="email" type="email" />
+                </InputGroup>
+              </FormControl>
 
-  <FormControl grid={{width:14/24}}
-    name="alphanum"
-    label="alphanum"
-    type="alphanum" />
+              <FormControl
+                label="remote check"
+                type="text"
+                grid={{ width: 1 / 2 }}
+                name="ajax"
+                tip="value is 'lobos'"
+                validator={{
+                  async: (value, formData, callback) => {
+                    setTimeout(() => {
+                      callback((value === 'lobos' || !value) ? true : new Error(value + ' already exists'))
+                    }, 500)
+                    /* ajax example
+                    Refetch.get('/validate', { name: value }).then(res => {
+                      callback(res.success ? true : new Error(res.msg))
+                    })
+                    */
+                  }
+                }}
+              />
 
-  <FormControl grid={{width:15/24}}
-    name="integer"
-    min={120}
-    max={3200}
-    label="integer"
-    type="integer" />
+              <Grid width={1 / 2}>
+                <FormControl grid={1}
+                  name="alpha"
+                  label="alpha"
+                  required
+                  type="alpha" />
+              </Grid>
 
-  <FormControl grid={{width:16/24}}
-    name="number"
-    label="number"
-    type="number" />
+              <Grid width={1 / 2}>
+                <FormControl grid={1}
+                  name="alphanum"
+                  label="alphanum"
+                  type="alphanum" />
+              </Grid>
 
-  <FormControl grid={{width:16/24}}
-    name="password"
-    min={6}
-    max={20}
-    label="password"
-    type="password" />
+              <Grid width={1 / 2}>
+                <FormControl grid={1}
+                  name="integer"
+                  min={120}
+                  max={3200}
+                  label="integer"
+                  defaultValue={123}
+                  type="integer" />
+              </Grid>
 
-  <FormControl grid={{width:16/24}}
-    name="repassword"
-    ignore={true}
-    label="repeat password"
-    type="password"
-    tip="必须与password相同"
-    validator={
-      {
-        func: (value, formData) => {
-          let password = formData.password;
-          if (!value ? !password : value === password) {
-            return true;
-          } else {
-            return new Error('两次输入密码不一致');
-          }
-        },
-        bind: ['password']
-      }
-    } />
+              <Grid width={1 / 2}>
+                <FormControl grid={1}
+                  name="number"
+                  label="number"
+                  type="number" />
+              </Grid>
 
-  <FormControl grid={{width:17/24}}
-    name="url"
-    label="url"
-    type="url" />
+              <FormControl label="number - integer">
+                <FormText>{(d) => <Input readOnly value={(d.number - d.integer).toFixed(2)} /> }</FormText>
+              </FormControl>
 
-  <FormControl grid={{width:17/24}}
-    name="readonly"
-    readOnly={true}
-    label="readonly"
-    type="text" />
+              <FormControl grid={{width: 16 / 24}}
+                name="password"
+                min={6}
+                max={20}
+                label="password"
+                dispatch={['repassword']}
+                type="password" />
 
-  <FormControl name="checkbox"
-    type="checkbox"
-    checkValue={1}
-    text="It's a checkbox" />
+              <FormControl grid={{width: 16 / 24}}
+                name="repassword"
+                ignore
+                label="repeat password"
+                type="password"
+                tip=""
+                validator={
+                  (value, formData) => {
+                    let password = formData.password
+                    if (!value ? !password : value === password) {
+                      return true
+                    } else {
+                      return new Error('This value should be the same as the password.')
+                    }
+                  }
+                } />
 
-  <FormControl name="datetime"
-    type="datetime"
-    label="datetime" />
+              <FormControl grid={{width: 17 / 24}}
+                name="url"
+                label="url"
+                type="url" />
 
-  <FormControl label="datetime pair">
-    <DatepickerPair type="date" min="2016-03-03" max="2016-08-21" names={["startTime", "endTime"]} />
-  </FormControl>
+              <FormControl grid={{width: 17 / 24}}
+                name="readonly"
+                readOnly
+                label="readonly"
+                type="text" />
 
-  <FormControl label="mult input" tip="每个输入框可以输入数字和字符，长度为5">
-    <Input name="mult1" type="alphanum" min={5} max={5} grid={1/6} />-
-    <Input name="mult2" type="alphanum" min={5} max={5} grid={1/6} />-
-    <Input name="mult3" type="alphanum" min={5} max={5} grid={1/6} />-
-    <Input name="mult4" type="alphanum" min={5} max={5} grid={1/6} />
-  </FormControl>
+              <FormControl name="checkbox"
+                type="checkbox"
+                checkValue={1}
+                text="show if" />
 
-  <FormControl name="checkboxgroup"
-    required
-    min={2}
-    fetch={{url: "json/text-value.json", cache: 3600}}
-    label="checkbox group"
-    type="checkbox-group" />
+              <If predicate={(formData) => formData.checkbox === 1}>
+                <FormControl label="if" type="text" name="if" />
+              </If>
 
-  <FormControl name="radiogroup"
-    required
-    fetch={{url: "json/text-value.json", cache: 3600}}
-    label="radio group"
-    inline={false}
-    type="radio-group" />
+              <FormControl name="datetime"
+                type="datetime"
+                label="datetime" />
 
-  <FormControl name="rating"
-    label="rating"
-    required
-    maxValue={10}
-    tip="亲，给个好评吧"
-    errorText="必须给一个评分哦"
-    type="rating" />
+              <FormControl label="datetime range">
+                <DatepickerRange type="date" min="2016-03-03" max="2016-08-21"
+                  required name="dateRange" />
+              </FormControl>
 
-  <FormControl grid={{width:12/24}}
-    name="select"
-    label="select"
-    type="select"
-    fetch={{url:"json/countries.json", cache:3600}}
-    mult={true}
-    filterAble={true}
-    optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
-    valueTpl="{en}" />
+              <FormControl label="mult input" tip="each field require 5 alphanumeric characters">
+                <Input name="mult1" type="alphanum" min={5} max={5} grid={1 / 6} />
+                <span>-</span>
+                <Input name="mult2" type="alphanum" min={5} max={5} grid={1 / 6} />
+                <span>-</span>
+                <Input name="mult3" type="alphanum" min={5} max={5} grid={1 / 6} />
+                <span>-</span>
+                <Input name="mult4" type="alphanum" min={5} max={5} grid={1 / 6} />
+              </FormControl>
 
-  <FormControl name="tree"
-    selectAble={true}
-    label="tree"
-    type="tree"
-    fetch={ Refetch.get('json/tree.json') }
-    textTpl='{text}({id})'
-    valueTpl="{id}" />
+              <FormControl name="checkboxgroup"
+                required
+                min={2}
+                fetch={{url: 'json/text-value.json', cache: 3600}}
+                label="checkbox group"
+                type="checkbox-group" />
 
-  <FormControl label="FormItem">
-    <FormItem name="formitem" required max={10}>
-      <input className="rct-form-control" type="text" />
-    </FormItem>
-  </FormControl>
+              <FormControl label="cascade">
+                <Cascade name="cascade" grid={1 / 2} fetch={'json/tree.json'} />
+              </FormControl>
 
-  <FormControl name="upload"
-    label="upload file"
-    type="upload"
-    grid={1/2}
-    action="http://216.189.159.94:8080/upload"
-    accept="image/*"
-    fileSize={300}
-    limit={3}
-    content={<Button><Icon icon="upload" /> 选择文件</Button>} />
+              <FormControl name="radiogroup"
+                required
+                fetch={{url: 'json/text-value.json', cache: 3600}}
+                label="radio group"
+                inline={false}
+                type="radio-group" />
 
-  <FormControl grid={{width:18/24}}
-    name="textarea"
-    label="textarea"
-    autoHeight
-    rows={5}
-    max={100}
-    type="textarea" />
-  
-  <FormSubmit>
-    <span>提交</span>
-    <span>处理中</span>
-  </FormSubmit>
-</Form>
+              <FormControl name="rating"
+                label="rating"
+                required
+                icons={HEARTS}
+                maxValue={10}
+                tip=""
+                type="rating" />
 
-{ this.state.formData && <Code>提交表单数据:<br />{JSON.stringify(this.state.formData, null, 4)}</Code> }
-          </Example>
+              <FormControl
+                grid={2 / 3}
+                name="select"
+                label="select"
+                type="select"
+                fetch={{url: 'json/countries.json', cache: 3600}}
+                mult
+                filterAble
+                optionTpl='<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
+                valueTpl="{en}" />
 
-          <h2 className="subhead">json方式使用</h2>
-          <div>
-            controls属性等于FormControls的props，items属性等于FormItem的props<br />
-            默认使用name作为key，如果没有name，为提高性能，建议指定一个唯一的key(不能和name重复)
-          </div>
-          <Example>
-<Form button="确定" fetch={'json/form.json'} controls={[
-  { name: 'text', type: 'text', min: 3, max: 12, label: 'text', grid: 1/3 },
-  { name: 'datetime', required: true, type: 'datetime', label: 'datetime', tip: '自定义tip文字' },
-  { label: 'two items', key: 'twoitem', items: [
-    { name: 'startTime', type: 'date' },
-    '-',
-    { name: 'endTime', type: 'date' }
-  ] },
-  {
-    name: 'select', type: 'select', label: 'select', grid: 1/2, fetch: {url:"json/countries.json", cache:3600},
-    mult: true, filterAble: true, valueTpl: "{en}",
-    optionTpl: '<img src="//lobos.github.io/react-ui/images/flags/{code}.png" /> {country}-{en}'
-  }
-]} />
+              <FormControl name="tree"
+                selectAble
+                capture={3}
+                label="tree"
+                type="tree"
+                fetch={ Refetch.get('json/tree.json') }
+                textTpl="{text}({id})"
+                valueTpl="{id}" />
+
+              <FormControl label="raw input">
+                <FormItem name="formitem" required max={10}>
+                  <input value="" style={{ padding: '0.5rem 0.75rem' }} type="text" />
+                </FormItem>
+              </FormControl>
+
+              <FormControl label="upload file">
+                <Upload name="file"
+                  type="upload"
+                  grid={1 / 2}
+                  action="/upload"
+                  accept="image/*"
+                  fileSize={300}
+                  limit={3}
+                  onUpload={(res) => {
+                    var json = JSON.parse(res)
+                    if (json.success) {
+                      return json.model
+                    } else {
+                      return new Error(json.message)
+                    }
+                  }}>
+                  <Button><Icon icon="upload" /> Choose a file</Button>
+                </Upload>
+              </FormControl>
+
+              <FormControl grid={{width: 18 / 24}}
+                name="textarea"
+                label="textarea"
+                autoHeight
+                rows={5}
+                max={100}
+                type="textarea" />
+
+              <FormControl label="editor">
+                <Editor grid={3 / 4} name="editor" />
+              </FormControl>
+            </Form>
           </Example>
         </div>
       </div>
-    );
+    )
   }
 }

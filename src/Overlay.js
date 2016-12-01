@@ -1,32 +1,22 @@
-'use strict';
+import { PropTypes } from 'react'
+import classnames from 'classnames'
 
-import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
+import Styles from './styles/_overlay.scss'
 
-import { requireCss } from './themes';
-requireCss('overlay');
+export default function Overlay (props) {
+  let className = classnames(
+    props.className,
+    Styles.overlay
+  )
 
-class Overlay extends Component {
-  render () {
-    let className = classnames(
-      this.props.className,
-      'rct-overlay'
-    );
-
-    return (
-      <div className={className} style={this.props.style} onClick={this.props.onClick} />
-    );
-  }
+  return (
+    <div {...props} className={className} />
+  )
 }
 
 Overlay.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
   style: PropTypes.object
-};
+}
 
-Overlay.defaultProps = {
-  onClick: () => {}
-};
-
-module.exports = Overlay;
