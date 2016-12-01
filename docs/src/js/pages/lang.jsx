@@ -34,7 +34,7 @@ module.exports = class extends Component {
           <En>Static method, set current location, there are 2 language packages in the folder, 'zh-cn' and 'en', default is 'zh-cn'. If you want other language, use setLang.</En>
           <Code>
             {`
-              const config from 'rctui/config'
+              import config from 'rctui/config'
               config.location = 'en|zh-cn'
             `}
           </Code>
