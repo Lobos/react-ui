@@ -13,6 +13,7 @@ export default function (Component) {
       this.handleTrigger = this.handleTrigger.bind(this)
       this.handleCompositionStart = this.handleCompositionStart.bind(this)
       this.handleCompositionEnd = this.handleCompositionEnd.bind(this)
+      this.handleCompositionUpdate = this.handleCompositionUpdate.bind(this)
     }
 
     componentWillReceiveProps (nextProps) {
@@ -26,6 +27,8 @@ export default function (Component) {
       if (!this.imeLock && trigger === 'change') {
         this.props.onChange(value, event)
       }
+
+      if (this.imeLock) this.imeLock = false
     }
 
     handleCompositionStart () {
@@ -37,6 +40,10 @@ export default function (Component) {
       this.handleChange(event.target.value, event)
     }
 
+    handleCompositionUpdate () {
+      this.imeLock = true
+    }
+
     handleTrigger (event) {
       this.props.onChange(event.target.value, event)
     }
@@ -46,6 +53,7 @@ export default function (Component) {
       const props = {
         ...this.props,
         onCompositionStart: this.handleCompositionStart,
+        onCompositionUpdate: this.handleCompositionUpdate,
         onCompositionEnd: this.handleCompositionEnd,
         onChange: this.handleChange
       }

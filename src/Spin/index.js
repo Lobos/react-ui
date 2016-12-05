@@ -10,6 +10,7 @@ import CubeGrid from './CubeGrid'
 import FadingCircle from './FadingCircle'
 import FoldingCube from './FoldingCube'
 import SimpleCircle from './SimpleCircle'
+import ChaseCircle from './ChaseCircle'
 
 const spins = {
   'plane': Plane,
@@ -22,7 +23,8 @@ const spins = {
   'cube-grid': CubeGrid,
   'fading-circle': FadingCircle,
   'folding-cube': FoldingCube,
-  'simple-circle': SimpleCircle
+  'simple-circle': SimpleCircle,
+  'chase-circle': ChaseCircle
 }
 
 export default function Spin (props) {
@@ -44,7 +46,8 @@ Spin.propTypes = {
     'cube-grid',
     'fading-circle',
     'folding-cube',
-    'simple-circle'
+    'simple-circle',
+    'chase-circle'
   ])
 }
 

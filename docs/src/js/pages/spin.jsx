@@ -102,6 +102,13 @@ maring={string}      // css margin
           <Spin margin="3rem" size="4rem" type="folding-cube" color="red" />
         </Example>
 
+        <h2 className="subhead">Chase Circle</h2>
+        <Example>
+          <Spin size="1rem" type="chase-circle" />
+          <Spin size="30px" type="chase-circle" />
+          <Spin size={40} type="chase-circle" color="green" />
+          <Spin size="5rem" type="chase-circle" color="red" />
+        </Example>
       </div>
     </div>
   )

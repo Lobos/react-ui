@@ -112,7 +112,7 @@ export default class Table extends Component {
       let checked = false
       if (onSelect) {
         if (!d.$value) d.$value = substitute(valueTpl, d)
-        let checked = values.indexOf(d.$value) >= 0
+        checked = values.indexOf(d.$value) >= 0
         this.allSelected = this.allSelected && checked
       }
 

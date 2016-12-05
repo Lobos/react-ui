@@ -17,8 +17,7 @@ require('./menuList').forEach(function (menu, index) {
 })
 
 function scrollTop () {
-  const width = (window.innerWidth > 0) ? window.innerWidth : screen.width
-  window.scrollTo(0, width >= 768 ? 50 : 0)
+  window.scrollTo(0, 0)
 }
 
 const AppRoutes = (

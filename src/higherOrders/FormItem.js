@@ -40,6 +40,13 @@ export default function FormItem (Component) {
       }
     }
 
+    componentDidMount () {
+      const { validator } = this.props
+      if (validator && validator.async) {
+        this.validate()
+      }
+    }
+
     componentWillReceiveProps (nextProps) {
       if (this.props.value !== nextProps.value) {
         this.setState({ value: nextProps.value })

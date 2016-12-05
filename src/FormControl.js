@@ -150,9 +150,10 @@ class FormControl extends Component {
       }
 
       let props = grid ? { grid } : {}
+
       if (child.type.isFormItem) {
         this.propsExtend(props)
-      } else if (child.props && child.props.children === 'object') {
+      } else if (child.props && typeof child.props.children === 'object') {
         props.children = this.renderChildren(child.props.children, grid)
       }
 
