@@ -16,7 +16,7 @@ export default function Button (props) {
     Styles[status]
   )
 
-  if (tag === 'a') others.href = 'javascript:;'
+  if (others.href) tag = 'a'
 
   return createElement(tag, { className, ...others }, children)
 };

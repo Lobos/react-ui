@@ -254,6 +254,7 @@ export default class Table extends Component {
 
           <div className={_tables.body} style={bodyStyle}>
             <table style={tableStyle} ref="body">
+              { children }
               { columns && this.renderColgroup(columns) }
               { columns && this.renderHeader(columns) }
               { columns && body }

@@ -70,8 +70,11 @@ class Form extends Component {
     this.items[name] = item
     let { data } = this.state
     if (value && !data[name]) {
-      data = objectAssign({}, data, {[name]: value})
-      this.setState({ data })
+      // data = objectAssign({}, data, {[name]: value})
+      // this.setState({ data })
+
+      // initial data, don't use setState
+      data[name] = value
     }
   }
 
