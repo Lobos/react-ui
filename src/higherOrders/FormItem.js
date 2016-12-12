@@ -130,7 +130,11 @@ export default function FormItem (Component) {
         if (beforeChange) value = beforeChange(value)
         // if in a form, use formData, else use state
         itemChange && name ? itemChange(name, value) : this.setState({ value })
-        onChange && onChange(value)
+
+        // arguments handle
+        let args = Array.prototype.slice.call(arguments)
+        args[0] = value
+        onChange && onChange(...args)
       }
     }
 

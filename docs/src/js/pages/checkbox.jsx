@@ -54,13 +54,13 @@ onChange={function( // check callback
 
         <h2 className="subhead">Example</h2>
         <Example>
-<Checkbox value="1">somt text</Checkbox>
+          <Checkbox onChange={(v, c) => console.log(v, c)} value="1">somt text</Checkbox>
         </Example>
 
         <h2 className="subhead">Readonly</h2>
         <Example>
-<Checkbox checked readOnly>ReadOnly checked</Checkbox>
-<Checkbox readOnly>ReadOnly</Checkbox>
+          <Checkbox checked readOnly>ReadOnly checked</Checkbox>
+          <Checkbox readOnly>ReadOnly</Checkbox>
         </Example>
       </div>
     </div>
