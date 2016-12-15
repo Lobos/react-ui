@@ -2,6 +2,7 @@ let pureRender = true
 let location = 'zh-cn'
 let iconPrefix = 'icon'
 let iconfont = 'iconfont'
+let imageNotFound = 'Image not found'
 
 const config = {
   get pureRender () {
@@ -34,6 +35,14 @@ const config = {
 
   set iconfont (val) {
     iconfont = val
+  },
+
+  get imageNotFound () {
+    return imageNotFound
+  },
+
+  set imageNotFound (val) {
+    imageNotFound = val
   }
 }
 

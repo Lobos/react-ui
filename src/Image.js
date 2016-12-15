@@ -7,6 +7,7 @@ import { objectAssign } from './utils/objects'
 import Mask from './Mask'
 import Spin from './Spin'
 import PureRender from './mixins/PureRender'
+import config from './config'
 
 import _styles from './styles/_images.scss'
 
@@ -27,7 +28,7 @@ function imagePop (src) {
 
   const img = new window.Image()
   img.onload = () => ReactDOM.render(<img src={src} />, div)
-  img.onerror = () => ReactDOM.render(<div className={_styles['error']}>Image not found.</div>, div)
+  img.onerror = () => ReactDOM.render(<div className={_styles['error']}>{config.imageNotFound}</div>, div)
   img.src = src
   ReactDOM.render(<Spin color="#f2f2f2" type="fading-circle" />, div)
 }
@@ -94,7 +95,7 @@ class Image extends Component {
         return placeholder
           ? <div className={_styles.inner}>{placeholder}</div>
           : <Mask active className={_styles.inner} background="#f2f2f2">
-              <div style={{padding: 20, textAlign: 'center'}}>{title || 'Loading'}{' '}<span className={_styles.ellipsis} /></div>
+              <div style={{padding: 10, textAlign: 'center'}}>{title || 'Loading'}{' '}<span className={_styles.ellipsis} /></div>
             </Mask>
       case SRC:
         return this.renderType(src)
@@ -103,7 +104,7 @@ class Image extends Component {
       case ERROR:
         return (
           <Mask active className={_styles.inner} background="#f2f2f2">
-            <div style={{padding: 20, textAlign: 'center'}}>{title || 'Image not found.'}</div>
+            <div style={{padding: 20, textAlign: 'center'}}>{title || config.imageNotFound}</div>
           </Mask>
         )
     }
