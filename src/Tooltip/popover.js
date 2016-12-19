@@ -15,16 +15,24 @@ const inner = document.createElement('div')
 inner.className = _styles['popover-content']
 div.appendChild(inner)
 
+let _tm = null
+
+div.addEventListener('mouseenter', function () {
+  if (!_tm) return
+  clearTimeout(_tm)
+  document.addEventListener('click', clickaway)
+})
+
 function clickaway (e) {
   if (isDescendant(div, e.target)) return
-  hide()
+  hide(0)
   document.removeEventListener('click', clickaway)
 }
 
 export function show (props) {
-  const { position, style, content, background, border } = props
+  const { position, style, content, background, border, noArrow } = props
 
-  div.style = ''
+  div.style.cssText = 'display: none'
   Object.keys(style).forEach(k => {
     div.style[k] = style[k]
   })
@@ -41,14 +49,23 @@ export function show (props) {
     _styles[`popover-${position}`]
   )
 
-  div.className = className
+  arrow.style.display = noArrow ? 'none' : 'block'
+
+  // fix safari
+  setTimeout(() => {
+    div.style.display = 'block'
+    div.className = className
+  }, 0)
 
   ReactDOM.render(content, inner)
 
   document.addEventListener('click', clickaway)
 }
 
-export function hide () {
-  div.style.display = 'none'
-  div.className = ''
+export function hide (delay) {
+  delay = typeof delay === 'number' ? delay : 400
+  _tm = setTimeout(() => {
+    div.style.display = 'none'
+    div.className = ''
+  }, delay)
 }

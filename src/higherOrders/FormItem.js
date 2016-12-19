@@ -29,7 +29,7 @@ export default function FormItem (Component) {
       const { name, value, defaultValue, dispatch, disabled, ignore } = this.props
       const { itemBind } = this.context
 
-      if (itemBind) {
+      if (itemBind && name) {
         itemBind({
           name,
           dispatch,

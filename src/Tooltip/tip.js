@@ -21,7 +21,7 @@ function clickaway () {
 export function show (props) {
   const { position, style, tip, trigger } = props
 
-  div.style = ''
+  div.style.cssText = 'display: none'
   Object.keys(style).forEach(k => {
     div.style[k] = style[k]
   })
@@ -32,7 +32,11 @@ export function show (props) {
     _styles[`tooltip-${position}`]
   )
 
-  div.className = className
+  // fix safari
+  setTimeout(() => {
+    div.style.display = 'block'
+    div.className = className
+  }, 0)
 
   inner.innerText = tip
 

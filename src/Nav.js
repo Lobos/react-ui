@@ -32,6 +32,7 @@ class Nav extends Component {
     const { children } = this.props
     const { activeId } = this.state
     const items = Children.map(children, (child, i) => {
+      if (!child) return
       const id = child.props.id || i.toString()
       const props = {
         active: activeId === id,
@@ -65,7 +66,7 @@ class Nav extends Component {
 
 Nav.propTypes = {
   active: PropTypes.string,
-  children: PropTypes.arrayOf(PropTypes.object),
+  children: PropTypes.array_element,
   className: PropTypes.string,
   grid: PropTypes.grid,
   inline: PropTypes.bool,

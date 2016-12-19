@@ -24,6 +24,7 @@ module.exports = class extends React.Component {
                           default value is 'secondary'
   onClick={function}>
   {string|element}     // string or ReactElement
+  throttle={number}    // millisecond, default value is undefined
 </Button>`}
           </Code>
           <Cn>0.7 删除了once, enable(), disable(), 用props.disabled吧.</Cn>
@@ -56,6 +57,11 @@ module.exports = class extends React.Component {
             <Button size="large">Large Button</Button>
             <Button>Middle Button</Button>
             <Button size="small">Small Button</Button>
+          </Example>
+
+          <h2 className="subhead">Throttle</h2>
+          <Example>
+            <Button onClick={() => { console.log(1111) }} throttle={3000}>Button</Button>
           </Example>
 
           <h2 className="subhead">disabled</h2>

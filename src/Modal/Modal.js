@@ -83,7 +83,7 @@ class Modal extends Component {
             }
           }
         }
-      return <Button status={status} key={i} onClick={handle}>{content}</Button>
+      return <Button throttle={3000} status={status} key={i} onClick={handle}>{content}</Button>
     })
 
     return <div className={ModalStyles.footer}>{btns}</div>

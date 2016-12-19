@@ -95,7 +95,7 @@ class Image extends Component {
         return placeholder
           ? <div className={_styles.inner}>{placeholder}</div>
           : <Mask active className={_styles.inner} background="#f2f2f2">
-              <div style={{padding: 10, textAlign: 'center'}}>{title || 'Loading'}{' '}<span className={_styles.ellipsis} /></div>
+              <div style={{padding: '0 10px', textAlign: 'center'}}>{title || 'Loading'}{' '}<span className={_styles.ellipsis} /></div>
             </Mask>
       case SRC:
         return this.renderType(src)
@@ -104,7 +104,7 @@ class Image extends Component {
       case ERROR:
         return (
           <Mask active className={_styles.inner} background="#f2f2f2">
-            <div style={{padding: 20, textAlign: 'center'}}>{title || config.imageNotFound}</div>
+            <div style={{padding: '0 10px', textAlign: 'center'}}>{title || config.imageNotFound}</div>
           </Mask>
         )
     }
