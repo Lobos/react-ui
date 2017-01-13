@@ -51,6 +51,10 @@
   }
 }
 
+.button + .button {
+   margin-left: $spacer-x * 3 / 4;
+}
+
 .primary {
   @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
 }

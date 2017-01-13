@@ -9,7 +9,7 @@
 
   @if $btn-lighten {
     $active-background: lighten($background, 10%);
-    $active-border: lighten($border, 12%);
+    $active-border: $border;
   }
 
   color: $color;

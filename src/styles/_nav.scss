@@ -57,14 +57,15 @@
 //
 
 .tabs {
-  border-bottom: $nav-tabs-border-width solid $nav-tabs-border-color;
+  border-bottom: $nav-tabs-border-bottom-width solid $nav-tabs-border-color;
   @include clearfix();
+  background-color: $nav-tabs-bg;
 
   .item {
     float: left;
     cursor: pointer;
     // Make the list-items overlay the bottom border
-    margin-bottom: -$nav-tabs-border-width;
+    margin-bottom: -$nav-tabs-border-bottom-width;
 
     + .item {
       margin-left: $nav-item-margin;
@@ -72,6 +73,7 @@
   }
 
   .link {
+    position: relative;
     display: block;
     padding: $nav-link-padding;
     border: $nav-tabs-border-width solid transparent;
@@ -96,6 +98,19 @@
       color: $nav-tabs-active-link-hover-color;
       background-color: $nav-tabs-active-link-hover-bg;
       border-color: $nav-tabs-active-link-hover-border-color $nav-tabs-active-link-hover-border-color transparent;
+    }
+
+    @if $nav-tabs-indicator {
+      &:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        height: $nav-tabs-indicator;
+        background: $brand-primary;
+      }
     }
   }
 

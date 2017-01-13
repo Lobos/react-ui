@@ -73,7 +73,7 @@ export default class Editor extends Component {
       if (Array.isArray(value)) {
         return (
           <select key={`${key}-${index}`} value={false} className={`ql-${key}`}>
-          { value.map(v => <option key={v} value={v} />) }
+          { value.map((v, i) => v === false ? <option key={i} /> : <option key={i} value={v} />) }
           </select>
         )
       } else {

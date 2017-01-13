@@ -226,7 +226,7 @@ export default class Table extends Component {
           { columns &&
             <div className={_tables.header}>
               <div ref="headerContainer" style={headerStyle}>
-                <table ref="header">
+                <table style={{transform: 'translateZ(0)'}} ref="header">
                   { this.renderColgroup(columns) }
                   { this.renderHeader(columns) }
                 </table>

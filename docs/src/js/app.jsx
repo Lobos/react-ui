@@ -19,3 +19,5 @@ require('../json/tree.json')
 require('../json/select.json')
 require('../json/photos.json')
 require('../less/style.less')
+
+module.hot && module.hot.accept()

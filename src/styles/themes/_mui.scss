@@ -23,6 +23,9 @@ $btn-hover-box-shadow:      0 4px 4px 0 rgba(0,0,0,.1);
 $btn-active-box-shadow:     none;
 $btn-lighten:               true;
 $btn-padding-y-lg:          0.9rem;
+$btn-secondary-border:      #ccc;
+$btn-secondary-bg:          #f9f9f9;
+$btn-secondary-color:       #8a8a8a;
 
 // Breadcrumbs
 $breadcrumb-divider:        ">";
@@ -31,9 +34,9 @@ $breadcrumb-bg:             #fff;
 
 // Cards
 $card-header-font-size:     1.4rem;
-$card-header-font-weight:   bold;
+$card-header-font-weight:   normal;
 $card-border-color:         $gray-lighter;
-$card-box-shadow:           0 4px 4px rgba(0, 0, 0, 0.1);
+$card-box-shadow:           0 2px 4px rgba(0, 0, 0, 0.1);
 
 // Forms
 $input-box-shadow:          none;
@@ -93,5 +96,20 @@ $modal-close-size:                          1.5rem;
 $modal-close-padding:                       1.4rem;
 
 $popover-border-radius:                     0;
+
+// Breadcrumbs ================================================================
+$breadcrumb-bg:                             transparent;
+$breadcrumb-padding-y:                      0;
+$breadcrumb-padding-x:                      0;
+$breadcrumb-fontsize:                       0.86rem;
+
+// Nav =======================================================================
+$nav-tabs-bg:                               #f9f9f9;
+$nav-item-margin:                           0;
+$nav-tabs-active-link-hover-color:          $brand-primary;
+$nav-tabs-border-radius:                    0;
+$nav-tabs-border-width:                     0;
+$nav-tabs-indicator:                        4px;
+$nav-link-padding:                          1rem 2rem;
 
 @import "default";

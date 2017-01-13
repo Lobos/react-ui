@@ -20,6 +20,10 @@ class Carousel extends Component {
     this.setNext(1)
   }
 
+  componentWillUnmount () {
+    if (this._timeout) clearTimeout(this._timeout)
+  }
+
   moveTo (next) {
     if (next === current) return
 
