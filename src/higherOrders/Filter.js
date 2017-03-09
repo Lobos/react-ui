@@ -1,6 +1,5 @@
 import React, { cloneElement } from 'react'
 import PropTypes from '../utils/proptypes'
-import Filter from '../Filter'
 import { compose } from '../utils/compose'
 
 export default function (Component) {
@@ -41,7 +40,7 @@ export default function (Component) {
 
   FilterEnhance.propTypes = {
     data: PropTypes.array_element_string,
-    filter: PropTypes.oneOfType([Filter])
+    filter: PropTypes.object
   }
 
   return FilterEnhance

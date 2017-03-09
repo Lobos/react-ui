@@ -152,7 +152,7 @@ module.exports = class extends Component {
           </En>
 
           <Example>
-<DatepickerRange min="2016-03-16" max="2016-08-21" type="datetime" name="times" value={['2016-03-20', '2016-07-21']} />
+            <DatepickerRange min="2016-03-16" max="2016-08-21" type="datetime" name="times" value={['2016-03-20', '2016-07-21']} />
           </Example>
         </div>
       </div>

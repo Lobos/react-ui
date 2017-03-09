@@ -149,7 +149,8 @@ class FormControl extends Component {
         return <span key={i}>{child}</span>
       }
 
-      let props = grid ? { grid } : {}
+      const props = {...(child.props || {})}
+      if (grid) props.grid = grid
 
       if (child.type.isFormItem) {
         this.propsExtend(props)

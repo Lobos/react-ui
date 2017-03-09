@@ -77,9 +77,18 @@ export default class Table extends Component {
   }
 
   handleSelect (d, e, checked) {
-    const { onSelect, data, sep } = this.props
+    const { onSelect, data, sep, disableCheck } = this.props
 
-    let value = d === 'all' ? data.map(d => d.$value) : d.$value
+    let value
+    if (d === 'all') {
+      value = data.filter(d => {
+        if (disableCheck) return disableCheck(d) === false
+        return true
+      }).map(d => d.$value)
+    } else {
+      value = d.$value
+    }
+
     this.values[checked ? 'add' : 'remove'](value)
 
     if (typeof onSelect === 'function') {
@@ -91,7 +100,7 @@ export default class Table extends Component {
   renderBody (values, columns) {
     if (!columns) return
 
-    let { data, onSelect, valueTpl } = this.props
+    let { data, onSelect, valueTpl, disableCheck } = this.props
 
     if (Array.isArray(data) && data.length === 0) {
       data = getLang('fetch.noData')
@@ -108,12 +117,19 @@ export default class Table extends Component {
     }
 
     this.allSelected = true
+    let checkedLength = 0
     let trs = data.map((d, i) => {
       let checked = false
       if (onSelect) {
         if (!d.$value) d.$value = substitute(valueTpl, d)
-        checked = values.indexOf(d.$value) >= 0
-        this.allSelected = this.allSelected && checked
+
+        let disabled = disableCheck ? disableCheck(d) : false
+
+        if (!disabled) {
+          checked = values.indexOf(d.$value) >= 0
+          if (checked) checkedLength++
+          this.allSelected = this.allSelected && checked
+        }
       }
 
       return (
@@ -121,9 +137,12 @@ export default class Table extends Component {
           columns={columns}
           data={d}
           checked={checked}
+          disableCheck={disableCheck}
           onSelect={onSelect && this.handleSelect} />
       )
     })
+
+    if (checkedLength === 0) this.allSelected = false
 
     return <tbody>{trs}</tbody>
   }
@@ -274,6 +293,7 @@ Table.propTypes = {
   className: PropTypes.string,
   columns: PropTypes.array,
   data: PropTypes.array_element_string,
+  disableCheck: PropTypes.func,
   fetchStatus: PropTypes.string,
   filter: PropTypes.element,
   headers: PropTypes.array,

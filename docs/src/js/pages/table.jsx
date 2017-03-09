@@ -54,6 +54,7 @@ module.exports = class extends Component {
 {`<Table
   bordered={bool}          // 是否显示边框，默认值 false
   selectAble={bool}        // 已废除，会根据onSelect自动判断是否可筛选
+  disableCheck={func(d)}   // 是否禁止单行数据选项，参数为单条数据，返回结果为true，禁止选择
   striped={bool}           // 是否交替显示背景，默认值 false
   width={number}           // 表格宽度，默认值 100%
   height={number}          // 表格高度（body部分），默认值 auto
@@ -207,6 +208,7 @@ values = arrayHolder.getValue(',')`}
 
               <Table ref="table"
                 bordered={this.state.bordered}
+                disableCheck={(d) => d.start_date > '2011/01/01'}
                 onSelect={this.state.arrayHolder ? this.arrayHolder : this.handleSelectedName}
                 striped={this.state.striped}
                 width={this.state.width}

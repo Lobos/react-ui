@@ -90,6 +90,8 @@ export function validate (value, valueType, formData, props, callback) {
     }
   }
 
+  if (valueType === 'datetime') return true
+
   switch (valueType) {
     case 'array':
       len = toArray(value, sep).length

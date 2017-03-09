@@ -54,7 +54,7 @@ module.exports = class extends Component {
   optionTpl={string}    // 选项模板，默认为 {text}
   required={bool}       // 如果mult为false时，设置required为true，将不会显示删除，默认值为false
   resultTpl={string}    // 选中项显示模板，如果不填使用 optionTpl
-  valueTpl={string}     // 返回值模板，默认为 {value}
+  valueTpl={string}     // 返回值模板，默认为 {id}
   value={string}        // 初始值
 />
 模板使用 "{key}" 形式的字符串进行格式化。
@@ -129,7 +129,7 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   valueTpl={d => d.code}
   onChange={ this.handleCountry }
   value={'ar'}
-  fetch={"json/countries.json"} />
+  fetch={'json/countries.json'} />
 <Button style={{ marginLeft: 10 }} onClick={ () => this.setState({ country: '' }) }>Clear</Button>
           </Example>
 

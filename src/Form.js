@@ -110,7 +110,7 @@ class Form extends Component {
       return
     }
 
-    event.preventDefault && event.preventDefault()
+    event && event.preventDefault()
     this.submit()
   }
 

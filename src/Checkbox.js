@@ -52,7 +52,7 @@ export class Checkbox extends Component {
           checked={checked}
           value={checkValue}
         />
-        <span className={_styles.indicator}></span>
+        <span className={_styles.indicator} />
         {(text && !isIndicator) && <span>{text}</span>}
         {children}
       </label>
@@ -99,6 +99,6 @@ function assetCheck (Component) {
 
 export default compose(
   assetCheck,
-  FormItem.register('checkbox', {}),
+  FormItem.register('checkbox', {allowEmpty: true}),
   PureRender()
 )(Checkbox)

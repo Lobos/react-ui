@@ -18,6 +18,7 @@ module.exports = function () {
 block={bool}        // 为 true 时，diplay=block。默认为 false
 className={string}  // class
 value={any}         //
+checkValue={any}    // 如果选中，返回checkValue，如果未选中，返回undefined
 defaultValue={any}  // 默认值
 checked={bool}      // 是否选中，默认为 false
 readOnly={bool}     // 是否只读，默认为 false
@@ -36,6 +37,7 @@ onChange={function( // 状态改变回调事件
 block={bool}        // if block is true, 'display: block', default is false
 className={string}  // class
 value={any}
+checkValue={any}    // if checked is true, return checkValue, else return undefined
 defaultValue={any}
 checked={bool}      // default is false
 readOnly={bool}     // default is false

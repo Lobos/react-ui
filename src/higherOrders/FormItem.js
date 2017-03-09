@@ -102,10 +102,13 @@ export default function FormItem (Component) {
     }
 
     getValue () {
-      const { name } = this.props
+      const { name, type } = this.props
       const { formData } = this.context
 
       if (!name || !formData) return this.state.value
+
+      const comp = COMPONENTS[type]
+      if (comp && comp.allowEmpty) return formData[name]
 
       return formData[name] !== undefined ? formData[name] : this.state.value
     }
@@ -236,7 +239,7 @@ FormItem.register = curry((types, options, component) => {
       return
     }
 
-    let { valueType, render, validate } = options
+    let { valueType, render, validate, allowEmpty } = options
     if (!valueType) {
       valueType = ['integer', 'number'].indexOf(type) > -1 ? 'number' : 'string'
     }
@@ -245,7 +248,7 @@ FormItem.register = curry((types, options, component) => {
       render = (props) => createElement(newComponent, props)
     }
 
-    COMPONENTS[type] = { render, valueType, component, validate }
+    COMPONENTS[type] = { render, valueType, component, validate, allowEmpty }
   })
 
   return newComponent

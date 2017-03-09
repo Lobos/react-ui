@@ -228,6 +228,7 @@ module.exports = class extends React.Component {
               <FormControl name="checkbox"
                 type="checkbox"
                 checkValue={1}
+                defaultValue={1}
                 text="show if" />
 
               <If predicate={(formData) => formData.checkbox === 1}>

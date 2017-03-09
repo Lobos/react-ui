@@ -8,7 +8,12 @@ import _tables from '../styles/_tables.scss'
 
 class Tr extends Component {
   render () {
-    const { columns, data, checked, onSelect } = this.props
+    const { columns, data, checked, onSelect, disableCheck } = this.props
+
+    let disabled
+    if (disableCheck) {
+      disabled = disableCheck(data)
+    }
 
     let tds = []
     if (onSelect) {
@@ -16,6 +21,7 @@ class Tr extends Component {
         <td className={_tables.checkbox} key="checkbox">
           <Checkbox isIndicator
             checked={checked}
+            readOnly={disabled}
             onChange={onSelect.bind(this, data)} />
         </td>
       )
@@ -41,6 +47,7 @@ Tr.propTypes = {
   checked: PropTypes.bool,
   columns: PropTypes.array,
   data: PropTypes.object,
+  disableCheck: PropTypes.func,
   onSelect: PropTypes.func
 }
 

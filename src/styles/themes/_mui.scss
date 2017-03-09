@@ -112,4 +112,7 @@ $nav-tabs-border-width:                     0;
 $nav-tabs-indicator:                        4px;
 $nav-link-padding:                          1rem 2rem;
 
+$dropdown-link-active-color:                darken($gray-dark, 5%);
+$dropdown-link-active-bg:                   #f5f5f5;
+
 @import "default";

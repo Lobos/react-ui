@@ -40,11 +40,14 @@ class Range extends Component {
   render () {
     const { className, value, min, max, con, hasError, ...other } = this.props
 
+    const type = other.type.replace('-range', '')
+
     return (
       <div className={classnames(_datepickers.range, className, hasError && _datepickers.danger)}>
         <Datepicker min={min} {...other}
           max={value[1]}
           value={value[0]}
+          type={type}
           onChange={this.firstChange}
         />
         {con}
@@ -52,6 +55,7 @@ class Range extends Component {
           min={value[0]}
           value={value[1]}
           onClear={this.handleClear}
+          type={type}
           onChange={this.secondChange}
         />
       </div>
@@ -75,6 +79,7 @@ Range.propTypes = {
 Range.defaultProps = {
   con: '-',
   names: [],
+  type: 'datetime',
   value: []
 }
 
@@ -86,6 +91,6 @@ function validate (value = [], args) {
 }
 
 export default compose(
-  FormItem.register('datetime-range', { valueType: 'array', validate }),
+  FormItem.register(['datetime-range', 'date-range', 'time-range'], { valueType: 'datetime', validate }),
   PureRender()
 )(Range)
