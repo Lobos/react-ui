@@ -226,4 +226,4 @@ Item.propTypes = {
   value: PropTypes.any
 }
 
-module.exports = PureRender(true)(Item)
+export default PureRender(true)(Item)

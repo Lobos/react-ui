@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   fetch: {
     status: {
       pending: 'Loading data ...',

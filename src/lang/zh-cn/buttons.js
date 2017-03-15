@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   buttons: {
     add: '新建',
     back: '返回',

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   modal: {
     alert: 'Alert',
     confirm: 'Confirm'

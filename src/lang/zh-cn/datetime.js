@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   datetime: {
     year: '年',
     month: '月',

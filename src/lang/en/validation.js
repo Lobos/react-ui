@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   validation: {
     hints: {
       alpha: 'alpha-numeric characters, underscores, and dashes',

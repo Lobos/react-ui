@@ -7,5 +7,5 @@ import modal from './modal'
 import timeago from './timeago'
 import validation from './validation'
 
-module.exports = objectAssign({}, buttons, datetime, fetch, modal, timeago, validation)
+export default objectAssign({}, buttons, datetime, fetch, modal, timeago, validation)
 

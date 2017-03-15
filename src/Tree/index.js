@@ -1,5 +1,5 @@
 import { compose } from '../utils/compose'
-import { Tree, setDefaultIcons } from './Tree'
+import { Tree as component, setDefaultIcons } from './Tree'
 import Fetch from '../higherOrders/Fetch'
 import FormItem from '../higherOrders/FormItem'
 
@@ -7,11 +7,13 @@ function selectAble (Component) {
   return (props) => <Component {...props} selectAble={!!props.onChange} />
 }
 
-module.exports = compose(
+const Tree = compose(
   selectAble,
   FormItem.register('tree', { valueType: 'array' }),
   Fetch(false)
-)(Tree)
+)(component)
 
-module.exports.setDefaultIcons = setDefaultIcons
+Tree.setDefaultIcons = setDefaultIcons
+
+export default Tree
 

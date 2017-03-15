@@ -26,7 +26,7 @@ function create (type) {
   }
 }
 
-module.exports = {
+export default {
   show: create(),
   success: create('success'),
   info: create('info'),

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   year: '年',
   month: '月',
   week: '周',

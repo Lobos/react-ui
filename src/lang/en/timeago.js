@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   year: ' year{0}',
   month: ' month{0}',
   week: ' week{0}',
