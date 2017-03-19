@@ -17,7 +17,7 @@ export function filterInputProps () {
 export function filterTextareaProps () {
   return filter(
     [...arguments],
-    ['onValidate', 'sep', 'hasError', 'trigger']
+    ['onValidate', 'sep', 'hasError', 'trigger', 'tip', 'validator', 'hasError', 'trigger']
   )
 }
 
