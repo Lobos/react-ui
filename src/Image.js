@@ -82,7 +82,7 @@ class Image extends Component {
     const { title, type } = this.props
 
     return type === 'fill' || type === 'fit'
-      ? <div className={_styles.inner} title={title} style={{backgroundImage: `url(${src})`}} />
+      ? <div className={_styles.inner} title={title} style={{backgroundImage: `url("${src}")`}} />
       : <div className={_styles.inner} title={title}><img src={src} /></div>
   }
 

@@ -20,6 +20,24 @@ var FormControl = require('rctui/FormControl')
 import Input from 'rctui/Input'
 ```
 
+If you don't want compile the file or encounter any compile problems, you can use the built file
+```
+import { Form } from 'rctui/dist'
+
+```
+or use unpkg cdn
+```
+// html
+<script src="https://unpkg.com/rctui/dist/index.js"></script>
+// webpack config
+externals: {'react': 'React', 'react-dom': 'ReactDOM', 'rctui': 'rctui'},
+// jsx
+import { Form } from 'rctui'
+...
+
+```
+
+
 # cli
 There is a internal cli command, help you easy start you app.
 

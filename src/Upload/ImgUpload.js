@@ -90,7 +90,7 @@ class ImgUpload extends Component {
       let url = substitute(srcTpl, v)
       return (
         <li key={i} style={{width, height}}>
-          <div className={_styles.img} style={{backgroundImage: `url(${url})`}}>
+          <div className={_styles.img} style={{backgroundImage: `url("${url}")`}}>
             <a href="javascript:;" onClick={() => removeValue(i)}>
               <span>{getLang('buttons.remove')} &times;</span>
             </a>
