@@ -54,7 +54,7 @@ export class Checkbox extends Component {
         />
         <span className={_styles.indicator} />
         {(text && !isIndicator) && <span>{text}</span>}
-        {children}
+        <span>{children}</span>
       </label>
     )
   }
