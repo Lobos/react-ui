@@ -6,12 +6,12 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: {
-    ReactUI: './src/index'
+    index: './src/index'
   },
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'dist'),
     libraryTarget: 'umd',
-    library: '[name]',
+    library: 'rctui',
     filename: '[name].js'
   },
   externals: {'react': 'React', 'react-dom': 'ReactDOM'},
@@ -36,15 +36,13 @@ module.exports = {
         screw_ie8: true
       }
     }),
-    new ExtractTextPlugin('build/[name].css')
+    new ExtractTextPlugin('[name].css')
   ],
   module: {
     loaders: [
       { test: /\.jsx?$/, loaders: ['babel'] },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', ['css?modules&localIdentName=[hash:base64:8]', 'postcss', 'sass']) }
-    ],
-    preLoaders: [
-      { test: /\.scss$/, loader: 'rctui-theme-loader?theme=' }
+      { test: /\.scss$/, loaders: ['style-loader', 'css-loader?modules&localIdentName=[name]-[local]', 'postcss-loader', 'sass-loader'] }
+      // { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', ['css?modules&localIdentName=[hash:base64:8]', 'postcss', 'sass']) }
     ]
   },
   postcss: function () {
