@@ -46,7 +46,7 @@ export default class Radio extends Component {
         />
         <span className={Styles.indicator} />
         <span>{text}</span>
-        { children }
+        <span>{ children }</span>
       </label>
     )
   }
