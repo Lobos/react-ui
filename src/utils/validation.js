@@ -37,28 +37,6 @@ export function validate (value, valueType, formData, props, callback) {
 
   let reg = Regs[type]
 
-  // custom validator
-  if (validator) {
-    if (typeof validator === 'function') {
-      return validator(value, formData)
-    }
-    if (validator.func) {
-      return validator.func(value, formData)
-    }
-    if (validator.async) {
-      setTimeout(() => {
-        validator.async(value, formData, callback)
-      }, 0)
-      return new Warning(<span style={{color: '#f0ad4e'}}>{getLang('validation.checking')}</span>)
-    }
-    if (validator.reg) {
-      reg = validator.reg
-      if (typeof reg === 'string') {
-        reg = new RegExp(reg)
-      }
-    }
-  }
-
   // validate type
   if (reg && !reg.test(value)) {
     return handleError(label, value, type, tip)
@@ -110,6 +88,32 @@ export function validate (value, valueType, formData, props, callback) {
 
   if (min && len < min) {
     return handleError(label, min, `min.${valueType}`, tip)
+  }
+
+  // custom validator
+  if (validator) {
+    if (typeof validator === 'function') {
+      return validator(value, formData)
+    }
+    if (validator.func) {
+      return validator.func(value, formData)
+    }
+    if (validator.async) {
+      setTimeout(() => {
+        validator.async(value, formData, callback)
+      }, 0)
+      return new Warning(<span style={{color: '#f0ad4e'}}>{getLang('validation.checking')}</span>)
+    }
+    if (validator.reg) {
+      reg = validator.reg
+      if (typeof reg === 'string') {
+        reg = new RegExp(reg)
+      }
+
+      if (!reg.test(value)) {
+        return handleError(label, value, type, tip)
+      }
+    }
   }
 
   return true

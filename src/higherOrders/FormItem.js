@@ -42,7 +42,8 @@ export default function FormItem (Component) {
 
     componentDidMount () {
       const { validator } = this.props
-      if (validator && validator.async) {
+      const value = this.getValue()
+      if (validator && validator.async && value !== undefined) {
         this.validate()
       }
     }
