@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, isValidElement } from 'react'
+import React, { Component, isValidElement } from 'react'
+import PropTypes from '../utils/proptypes'
 import Refetch from 'refetch'
 import classnames from 'classnames'
 import curry from 'curry'
@@ -76,7 +77,7 @@ export default curry((handleError, ComposedComponent) => {
     }
 
     getSelected () {
-      return this.component.getSelected(...arguments);
+      return this.component.getSelected(...arguments)
     }
 
     fetchData (fetch) {

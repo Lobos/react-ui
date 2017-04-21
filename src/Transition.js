@@ -1,5 +1,6 @@
-import React, { PropTypes, cloneElement } from 'react'
+import React, { cloneElement } from 'react'
 import { findDOMNode } from 'react-dom'
+import PropTypes from './utils/proptypes'
 import { addClass, removeClass } from './utils/dom'
 
 export default class Transition extends React.Component {

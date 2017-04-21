@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from '../utils/proptypes'
 import Item from './Item'
 
 import _styles from '../styles/_cascade.scss'

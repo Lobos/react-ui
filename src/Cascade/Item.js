@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import classnames from 'classnames'
+import PropTypes from '../utils/proptypes'
 import SafeHtml from '../SafeHtml'
 import PureRender from '../mixins/PureRender'
 import { ANGLE_RIGHT } from '../svgs'

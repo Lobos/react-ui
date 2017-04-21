@@ -1,5 +1,6 @@
-import { PropTypes } from 'react'
+import React from 'react'
 import classnames from 'classnames'
+import PropTypes from './utils/proptypes'
 import Fetch from './higherOrders/Fetch'
 import FormItem from './higherOrders/FormItem'
 import Radio from './Radio'

@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
+import PropTypes from '../utils/proptypes'
 
 export default function (Component) {
   class Trigger extends React.Component {

@@ -1,4 +1,5 @@
-import { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from './utils/proptypes'
 import Tooltip from './Tooltip'
 
 export default function Popover (props) {

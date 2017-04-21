@@ -1,4 +1,5 @@
-import React, { PropTypes, Children, cloneElement } from 'react'
+import React, { Children, cloneElement } from 'react'
+import PropTypes from './utils/proptypes'
 import classnames from 'classnames'
 import { getGrid } from './utils/grids'
 

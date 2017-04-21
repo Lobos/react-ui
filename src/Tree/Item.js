@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import classnames from 'classnames'
+import PropTypes from '../utils/proptypes'
 import { forEach, isEmpty, deepEqual } from '../utils/objects'
 import { addClass } from '../utils/dom'
 import { Checkbox } from '../Checkbox'

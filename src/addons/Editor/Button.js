@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from '../../utils/proptypes'
 
 export default class Button extends Component {
   constructor (props) {

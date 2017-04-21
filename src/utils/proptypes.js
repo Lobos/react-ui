@@ -1,6 +1,6 @@
 'use strict'
 
-import { PropTypes } from 'react'
+import PropTypes from 'prop-types'
 import { combine } from './array'
 
 const TYPES = ['array', 'bool', 'element', 'func', 'number', 'object', 'string']

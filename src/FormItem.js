@@ -1,4 +1,5 @@
-import React, { cloneElement, PropTypes } from 'react'
+import React, { cloneElement } from 'react'
+import PropTypes from './utils/proptypes'
 import Enhance from './higherOrders/FormItem'
 
 class FormItem extends React.Component {

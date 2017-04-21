@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, Children } from 'react'
+import React, { Component, Children } from 'react'
+import PropTypes from '../../utils/proptypes'
 import classnames from 'classnames'
 import objectAssign from 'object-assign'
 import { range } from '../../utils/numbers'

@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import classnames from 'classnames'
+import PropTypes from './utils/proptypes'
 import { shallowEqual } from './utils/objects'
 
 import Styles from './styles/_radio-checkbox.scss'

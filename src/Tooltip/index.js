@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { findDOMNode } from 'react-dom'
+import PropTypes from '../utils/proptypes'
 import { objectAssign } from '../utils/objects'
 import PureRender from '../mixins/PureRender'
 import * as Tip from './tip'

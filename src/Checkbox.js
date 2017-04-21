@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import classnames from 'classnames'
+import PropTypes from './utils/proptypes'
 import { compose } from './utils/compose'
 import FormItem from './higherOrders/FormItem'
 import PureRender from './mixins/PureRender'

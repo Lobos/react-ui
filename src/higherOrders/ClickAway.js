@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from '../utils/proptypes'
 import { findDOMNode } from 'react-dom'
 import * as Events from '../utils/events'
 import { isDescendant } from '../utils/dom'

@@ -1,4 +1,5 @@
-import { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from './utils/proptypes'
 import classnames from 'classnames'
 
 import Styles from './styles/_overlay.scss'

@@ -1,6 +1,6 @@
 'use strict'
 
-import { Component, PropTypes } from 'react'
+import { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 
 class Code extends Component {
@@ -23,10 +23,6 @@ class Code extends Component {
     )
   }
 };
-
-Code.propTypes = {
-  children: PropTypes.string
-}
 
 Code.defaultProps = {
   children: ''

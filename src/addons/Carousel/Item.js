@@ -1,4 +1,4 @@
-import { PropTypes } from 'react'
+import PropTypes from '../../utils/proptypes'
 import classnames from 'classnames'
 
 import _styles from '../../styles/_carousel.scss'

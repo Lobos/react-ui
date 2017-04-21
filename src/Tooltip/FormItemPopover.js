@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import objectAssign from 'object-assign'
 import classnames from 'classnames'
+import PropTypes from '../utils/proptypes'
 import _styles from '../styles/_popover.scss'
 
 export default function FormItemPopover (props) {
