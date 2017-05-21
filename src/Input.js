@@ -29,7 +29,7 @@ class Input extends Component {
   }
 
   render () {
-    const { className, grid, type, size, readOnly, ...other } = this.props
+    const { className, grid, type, size, readOnly, value, ...other } = this.props
     const props = {
       className: classnames(
         className,
@@ -43,7 +43,7 @@ class Input extends Component {
       type: type === 'password' ? 'password' : 'text'
     }
 
-    return (<input {...filterInputProps(other, props)} />)
+    return (<input {...filterInputProps(other, props)} value={value} />)
   }
 }
 

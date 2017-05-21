@@ -69,7 +69,7 @@ class Form extends Component {
     const { name, value } = item
     this.items[name] = item
     let { data } = this.state
-    if (value && !data[name]) {
+    if (value !== undefined && !data[name]) {
       // data = objectAssign({}, data, {[name]: value})
       // this.setState({ data })
 

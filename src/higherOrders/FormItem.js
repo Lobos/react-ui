@@ -49,8 +49,11 @@ export default function FormItem (Component) {
     }
 
     componentWillReceiveProps (nextProps) {
+      const { itemChange } = this.context
       if (this.props.value !== nextProps.value) {
-        this.setState({ value: nextProps.value })
+        itemChange && nextProps.name
+          ? itemChange(nextProps.name, nextProps.value)
+          : this.setState({ value: nextProps.value })
       }
     }
 

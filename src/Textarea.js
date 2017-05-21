@@ -45,7 +45,7 @@ class Textarea extends Component {
   }
 
   render () {
-    let { className, grid, autoHeight, readOnly, ...other } = this.props
+    let { className, grid, autoHeight, readOnly, value, ...other } = this.props
 
     let style = {}
     if (autoHeight) {
@@ -66,7 +66,7 @@ class Textarea extends Component {
     }
 
     return (
-      <textarea ref="element" { ...filterTextareaProps(other, props) } />
+      <textarea ref="element" { ...filterTextareaProps(other, props) } value={value} />
     )
   }
 }
@@ -91,7 +91,7 @@ Textarea.defaultProps = {
 }
 
 export default compose(
-  FormItem.register(['textarea', 'json'], {}),
+  FormItem.register(['textarea'], {}),
   Trigger
 )(Textarea)
 

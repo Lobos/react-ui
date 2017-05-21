@@ -18,5 +18,6 @@
   "tree": "1.1.1",
   "dateRange": ["2016-03-12", "2016-07-22"],
   "cascade": ["1", "1.2", "1.2.1"],
-  "editor": "<p>editor text<br />second line.</p>"
+  "editor": "<p>editor text<br />second line.</p>",
+  "json": { "a": 1, "b": 2, "c": ["1", "2"] }
 }

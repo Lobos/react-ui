@@ -88,7 +88,7 @@ module.exports = class extends Component {
 
           <h2 className="subhead">min & max</h2>
           <Example>
-<Datepicker min="2016-01-12" max="2016-02-14 14:23:00" />
+<Datepicker min="2017-05-12 10:00:00" max="2017-05-19 14:23:00" />
           </Example>
 
           <Example>

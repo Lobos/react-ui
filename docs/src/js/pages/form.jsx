@@ -300,6 +300,14 @@ module.exports = class extends React.Component {
                 textTpl="{text}({id})"
                 valueTpl="{id}" />
 
+              <FormControl
+                label="json"
+                type="json"
+                name="json"
+                rows={12}
+                valueType="object"
+              />
+
               <FormControl label="raw input">
                 <FormItem name="formitem" required max={10}>
                   <input value="" style={{ padding: '0.5rem 0.75rem' }} type="text" />

@@ -29,13 +29,13 @@ class Nav extends Component {
   }
 
   renderItems () {
-    const { children } = this.props
+    const { active, stateLess, children } = this.props
     const { activeId } = this.state
     const items = Children.map(children, (child, i) => {
       if (!child) return
       const id = child.props.id || i.toString()
       const props = {
-        active: activeId === id,
+        active: stateLess ? active === id : activeId === id,
         id,
         onChoose: this.handleChoose.bind(this, id)
       }
@@ -71,6 +71,7 @@ Nav.propTypes = {
   grid: PropTypes.grid,
   inline: PropTypes.bool,
   onSelect: PropTypes.func,
+  stateLess: PropTypes.bool,
   type: PropTypes.string
 }
 

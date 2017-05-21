@@ -37,13 +37,10 @@ export function validate (value, valueType, formData, props, callback) {
 
   let reg = Regs[type]
 
-  // validate type
-  if (reg && !reg.test(value)) {
-    return handleError(label, value, type, tip)
-  }
-
   // json type
   if (type === 'json') {
+    if (typeof value === 'object') return true
+
     // In the second stage, we run the text against
     // regular expressions that look for non-JSON patterns. We are especially
     // concerned with '()' and 'new' because they can cause invocation, and '='
@@ -66,6 +63,11 @@ export function validate (value, valueType, formData, props, callback) {
     } else {
       return handleError(label, value, type, tip)
     }
+  }
+
+  // validate type
+  if (reg && !reg.test(value)) {
+    return handleError(label, value, type, tip)
   }
 
   if (valueType === 'datetime') return true

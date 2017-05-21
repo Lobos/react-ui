@@ -14,11 +14,11 @@ export class Checkbox extends Component {
   }
 
   handleChange (event, checked) {
-    const { readOnly, onChange, checkValue, index } = this.props
+    const { readOnly, onChange, checkValue, uncheckValue, index } = this.props
 
     if (!readOnly && onChange) {
       checked = event ? event.target.checked : checked
-      const value = checked ? checkValue : undefined
+      const value = checked ? checkValue : uncheckValue
       onChange(value, checked, index)
     }
   }
@@ -75,6 +75,7 @@ Checkbox.propTypes = {
   readOnly: PropTypes.bool,
   style: PropTypes.object,
   text: PropTypes.any,
+  uncheckValue: PropTypes.any,
   value: PropTypes.any
 }
 

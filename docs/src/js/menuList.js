@@ -122,6 +122,11 @@ module.exports = [
   },
 
   {
+    path: '/json',
+    component: require('./pages/json.jsx')
+  },
+
+  {
     path: '/radioGroup',
     component: require('./pages/radioGroup.jsx')
   },
