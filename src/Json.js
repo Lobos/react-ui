@@ -31,8 +31,10 @@ class Json extends Component {
     const { valueType, onChange } = this.props
 
     try {
-      value = JSON.parse(value)
-      if (valueType === 'string') value = JSON.stringify(value, null, 4)
+      if (value) {
+        value = JSON.parse(value)
+        if (valueType === 'string') value = JSON.stringify(value, null, 4)
+      }
       onChange(value)
     } catch (e) {
       onChange(new Error(format(getLang('validation.tips.json'), '')))
