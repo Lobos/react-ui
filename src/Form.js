@@ -62,6 +62,8 @@ class Form extends Component {
         this.setState({ data });
       }
 
+      this.props.onChange && this.props.onChange(data);
+
       let valiBind = this.validationPools[name];
       if (valiBind) {
         valiBind.forEach((validate) => {
@@ -231,6 +233,7 @@ Form.propTypes = {
   ]),
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
   layout: PropTypes.oneOf(['aligned', 'stacked', 'inline']),
+  onChange: PropTypes.func,
   onSubmit: PropTypes.func,
   style: PropTypes.object
 };

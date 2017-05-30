@@ -29,7 +29,7 @@ class RadioGroup extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
   }
-  
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setValue(nextProps.value);
@@ -95,7 +95,7 @@ class RadioGroup extends Component {
     className = classnames(
       className,
       'rct-radio-group',
-      { 'rct-inline': inline }
+      { 'rct-inline': inline, 'rct-block': !inline }
     );
     let items = this.state.data.map(function (item) {
       return (

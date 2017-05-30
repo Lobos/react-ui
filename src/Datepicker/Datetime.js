@@ -49,7 +49,7 @@ class Datetime extends ClickAway(Component) {
   componentDidMount () {
     this.registerClickAway(this.close, this.refs.datepicker);
   }
-  
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setState({ value: datetime.convert(nextProps.value) });
@@ -338,12 +338,12 @@ class Datetime extends ClickAway(Component) {
       let disabled = false,
           speedTime = d.getTime();
       if (min > 0) {
-        disabled = speedTime < min;
+        disabled = speedTime + 86399000 < min;
       }
       if (!disabled && max > 0) {
         disabled = speedTime > max;
       }
-      
+
       return (
         <button type="button" disabled={disabled}
           onClick={() => { this.dayChange(d); }} key={i}
@@ -404,7 +404,7 @@ class Datetime extends ClickAway(Component) {
       case 'year':
         return <div className="inner year-inner">{this.renderYears()}</div>;
       case 'clock':
-        return <div className="inner empty"></div>;
+        return <div className="inner empty" />;
     }
     return null;
   }
