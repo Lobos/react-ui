@@ -94,8 +94,14 @@ export default function FormItem (Component) {
       const { formData } = this.context
       const { type } = this.props
 
+      let validate
+
       // component's inner validate
-      const validate = getValidate(type)
+      if (Component.isFormBlock) {
+        if (this._el) validate = this._el.validate.bind(this._el)
+      } else {
+        validate = getValidate(type)
+      }
 
       const result = validate ? validate(value, this.props, formData)
         : Validation.validate(value, getValueType(type), formData, this.props, this.setResult)
@@ -164,6 +170,7 @@ export default function FormItem (Component) {
 
       let el = (
         <Component {...props}
+          ref={(el) => { this._el = el }}
           hasError={this.state.result instanceof Error}
           onChange={this.handleChange}
           value={value}

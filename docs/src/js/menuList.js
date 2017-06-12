@@ -92,6 +92,11 @@ module.exports = [
   },
 
   {
+    path: '/formBlock',
+    component: require('./pages/formBlock.jsx')
+  },
+
+  {
     path: '/cascade',
     component: require('./pages/cascade.jsx')
   },

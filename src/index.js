@@ -27,6 +27,7 @@ export { default as FormSubmit } from './FormSubmit'
 export { default as Form } from './Form'
 export { default as FormItem } from './FormItem'
 export { default as FormText } from './FormText'
+export { default as FormBlock } from './FormBlock'
 export { default as If } from './If'
 
 export { default as Alert } from './Alert'
