@@ -13,6 +13,7 @@ class FormBlock extends Component {
     this.itemChange = this.itemChange.bind(this)
 
     this.items = {}
+    this.initData = {}
   }
 
   getChildContext () {
@@ -33,14 +34,17 @@ class FormBlock extends Component {
     }
   }
 
+  componentDidMount () {
+    this.props.onChange(this.initData)
+  }
+
   itemBind (item) {
     const { name, value } = item
-    const data = {...this.props.value}
+    const data = { ...this.props.value }
     this.items[name] = item
     if (value !== undefined && !data[name]) {
-      data[name] = value
+      this.initData[name] = value
     }
-    this.props.onChange(data)
   }
 
   itemUnbind (name) {
