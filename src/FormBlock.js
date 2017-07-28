@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import classnames from 'classnames'
 import PropTypes from './utils/proptypes'
 import { objectAssign } from './utils/objects'
 import Enhance from './higherOrders/FormItem'
+
+import _forms from './styles/_form.scss'
 
 class FormBlock extends Component {
   constructor (props) {
@@ -35,7 +38,7 @@ class FormBlock extends Component {
   }
 
   componentDidMount () {
-    this.props.onChange(this.initData)
+    this.props.onChange(objectAssign({}, this.props.value, this.initData))
   }
 
   itemBind (item) {
@@ -67,8 +70,9 @@ class FormBlock extends Component {
 
   render () {
     const { className, children } = this.props
+
     return (
-      <div className={className}>
+      <div className={classnames(className, _forms[this.props.layout])}>
         {children}
       </div>
     )

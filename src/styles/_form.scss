@@ -38,7 +38,10 @@
 
   .label {
     display: inline-block;
+    position: relative;
+    text-align: left;
     margin: auto;
+    white-space: nowrap;
   }
 
   .label ~ .control {

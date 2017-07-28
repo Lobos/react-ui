@@ -38,7 +38,7 @@ module.exports = class extends React.Component {
                 <FormControl required label="email" name="email" type="email" />
                 <FormControl required label="nickname" name="nickname" type="text" />
               </FormBlock>
-              <FormBlock layout="inline" name="extra" value={{
+              <FormBlock name="extra" value={{
                 avatar: '',
                 birthday: '1980-01-01',
                 city: 'nanjing'
