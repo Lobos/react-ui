@@ -16,3 +16,4 @@ typings
 jsconfig.json
 /errorShots
 .sass-cache
+yarn.lock

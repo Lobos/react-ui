@@ -1,4 +1,4 @@
-import React, { DOM } from 'react'
+import React from 'react'
 import { nextUid } from '../utils/strings'
 import PropTypes from '../utils/proptypes'
 
@@ -40,7 +40,7 @@ export default function (open, close) {
     }
 
     render () {
-      return DOM.noscript()
+      return null
     }
   }
 

@@ -1,4 +1,4 @@
-import React, { DOM } from 'react'
+import React from 'react'
 import PropTypes from './utils/proptypes'
 import classnames from 'classnames'
 import Spin from './Spin'
@@ -11,7 +11,7 @@ let defaultSpin = <Spin color="#666" size={40} type="fading-circle" />
 export default function Mask (props) {
   const { active, children, background, style } = props
 
-  if (!active) return DOM.noscript()
+  if (!active) return null
 
   const className = classnames(
     props.className,

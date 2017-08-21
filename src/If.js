@@ -1,4 +1,4 @@
-import { Children, createElement, DOM } from 'react'
+import { Children, createElement } from 'react'
 import PropTypes from './utils/proptypes'
 
 function If (props, context) {
@@ -7,7 +7,7 @@ function If (props, context) {
   const suc = predicate(context.formData)
 
   if (!suc) {
-    return DOM.noscript()
+    return null
   }
 
   if (Array.isArray(children)) {

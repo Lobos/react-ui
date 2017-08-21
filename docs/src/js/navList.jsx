@@ -1,4 +1,6 @@
-import { Component, PropTypes } from 'react'
+import { Component } from 'react'
+import PropTypes from 'prop-types'
+import { NavLink } from 'react-router-dom'
 import classnames from 'classnames'
 import menuList from './menuList'
 
@@ -26,15 +28,11 @@ class NavList extends Component {
 
   getClasses (name, path) {
     return classnames(name, {
-      active: this.context.history.isActive(path)
     })
   }
 
   pathChange (path) {
     this.props.onToggle()
-    if (!this.context.history.isActive(path)) {
-      this.context.history.pushState(null, path)
-    }
   }
 
   renderRouteList () {
@@ -48,10 +46,9 @@ class NavList extends Component {
       } else if (r.path) {
         return (
           <li key={i}>
-            <a onClick={this.pathChange.bind(this, r.path)}
-              className={this.getClasses('', r.path)}>
+            <NavLink activeClassName="active" to={r.path}>
               {r.path.replace('/', '').replace(/^[a-z]/, (s) => s.toUpperCase())}
-            </a>
+            </NavLink>
           </li>
         )
       }
@@ -85,10 +82,6 @@ class NavList extends Component {
 NavList.propTypes = {
   navShow: PropTypes.bool,
   onToggle: PropTypes.func
-}
-
-NavList.contextTypes = {
-  history: PropTypes.object.isRequired
 }
 
 module.exports = NavList

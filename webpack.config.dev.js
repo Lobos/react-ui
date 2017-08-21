@@ -20,7 +20,7 @@ module.exports = {
     publicPath: '/',
     chunkFilename: 'js/chunk/[name].js'
   },
-  externals: {'react': 'React', 'react-dom': 'ReactDOM', 'react-router': 'ReactRouter'},
+  externals: {'react': 'React', 'react-dom': 'ReactDOM'},
   plugins: [
     new webpack.HotModuleReplacementPlugin()
   ],

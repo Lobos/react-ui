@@ -2,10 +2,10 @@ import * as Language from './Language'
 Language.set()
 
 import ReactDOM from 'react-dom'
-const AppRoutes = require('./appRoutes.jsx')
+import Master from './master'
 
 ReactDOM.render(
-  AppRoutes,
+  <Master />,
   document.getElementById('body')
 )
 

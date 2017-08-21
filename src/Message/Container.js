@@ -32,7 +32,7 @@ export default class extends Component {
     const messages = this.state.messages
 
     if (isEmpty(messages)) {
-      return DOM.noscript()
+      return null
     } else {
       return (
         <div className={Styles.container}>
