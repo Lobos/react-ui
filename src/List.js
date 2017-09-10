@@ -46,7 +46,7 @@ export default class List extends Component {
   }
 
   render () {
-    const { className, onChange, maxShowCount, data } = this.props
+    const { className, onChange, maxShowCount, data, size } = this.props
     let { scrollTop } = this.state
 
     let options = data
@@ -106,7 +106,7 @@ export default class List extends Component {
     }
 
     return (
-      <div className={classnames(className, _lists.wrap)} ref="wrap">
+      <div className={classnames(className, _lists.wrap, _lists[size])} ref="wrap">
         <ul style={{height: this._optionHeight * (data.length || 1)}}>{options}</ul>
       </div>
     )
@@ -117,10 +117,12 @@ List.propTypes = {
   className: PropTypes.string,
   data: PropTypes.array,
   maxShowCount: PropTypes.number,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  size: PropTypes.string
 }
 
 List.defaultProps = {
   maxShowCount: 60,
-  onChange: function () {}
+  onChange: function () {},
+  size: 'middle'
 }

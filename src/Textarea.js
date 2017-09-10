@@ -45,7 +45,7 @@ class Textarea extends Component {
   }
 
   render () {
-    let { className, grid, autoHeight, readOnly, value, ...other } = this.props
+    let { className, grid, autoHeight, readOnly, value, size, ...other } = this.props
 
     let style = {}
     if (autoHeight) {
@@ -58,6 +58,7 @@ class Textarea extends Component {
         className,
         getGrid(grid),
         readOnly && _inputs.disabled,
+        size && _inputs[size],
         _inputs.input
       ),
       onChange: readOnly ? undefined : this.handleChange,
@@ -79,6 +80,7 @@ Textarea.propTypes = {
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   rows: PropTypes.number,
+  size: PropTypes.string,
   style: PropTypes.object,
   value: PropTypes.any
 }
@@ -87,6 +89,7 @@ Textarea.defaultProps = {
   style: {},
   grid: 1,
   rows: 10,
+  size: 'middle',
   value: ''
 }
 

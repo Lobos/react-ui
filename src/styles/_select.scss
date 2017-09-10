@@ -20,6 +20,18 @@
   }
 }
 
+.small {
+  .control {
+    padding: $input-padding-y-sm ($input-padding-x-sm + $custom-select-indicator-padding) $input-padding-y-sm $input-padding-x-sm;
+  }
+}
+
+.large {
+  .control {
+    padding: $input-padding-y-lg ($input-padding-x-lg + $custom-select-indicator-padding) $input-padding-y-lg $input-padding-x-lg;
+  }
+}
+
 .dropup {
   .options {
     top: auto;

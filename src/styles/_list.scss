@@ -34,6 +34,13 @@
   }
 }
 
+.small .item {
+  line-height: $select-options-height-sm;
+  height: $select-options-height-sm;
+  padding: 0 $select-option-padding-x-sm;
+  font-size: $font-size-sm;
+}
+
 .group {
   display: block;
   white-space: nowrap;

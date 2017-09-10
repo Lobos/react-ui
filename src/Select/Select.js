@@ -126,7 +126,7 @@ export default class Select extends Component {
   }
 
   render () {
-    let { className, grid, open, readOnly, maxShowCount, data, mult, placeholder, style, hasError, required } = this.props
+    let { className, grid, open, readOnly, maxShowCount, data, mult, placeholder, style, hasError, required, size } = this.props
     let { filter, msg, dropup } = this.state
     let result = []
 
@@ -134,6 +134,7 @@ export default class Select extends Component {
       _select.select,
       className,
       getGrid(grid),
+      _select[size],
       open && _select.open,
       dropup && _select.dropup,
       !mult && _select.single
@@ -170,7 +171,7 @@ export default class Select extends Component {
 
     return (
       <div ref="container" onClick={this.showOptions} style={style} className={className}>
-        <div className={classnames(_select.control, _input.input, readOnly && _input.disabled, hasError && _input.hasError)}>
+        <div className={classnames(_select.control, _input.input, _input[size], readOnly && _input.disabled, hasError && _input.hasError)}>
         {
           result.length > 0
             ? result
@@ -184,7 +185,7 @@ export default class Select extends Component {
           tf="ease-out">
           <div ref="options" className={_select.options}>
             {this.renderFilter()}
-            <List data={options} maxShowCount={maxShowCount} onChange={this.handleChange} className={_select.optionsWrap} />
+            <List data={options} size={size} maxShowCount={maxShowCount} onChange={this.handleChange} className={_select.optionsWrap} />
           </div>
         </Transition>
       </div>
@@ -210,6 +211,7 @@ Select.propTypes = objectAssign({
   responsive: PropTypes.string,
   resultTpl: PropTypes.tpl,
   sep: PropTypes.string,
+  size: PropTypes.string,
   style: PropTypes.object,
   value: PropTypes.any,
   valueTpl: PropTypes.tpl,
@@ -221,5 +223,6 @@ Select.defaultProps = {
   maxShowCount: 30,
   optionTpl: '{text}',
   sep: ',',
+  size: 'middle',
   valueTpl: '{id}'
 }

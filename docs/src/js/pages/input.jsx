@@ -2,7 +2,7 @@ import React from 'react'
 import Code from '../Code'
 import Example from '../Example'
 import { En, Cn } from '../Language'
-import { Input, Icon, Button, InputGroup } from 'rctui'
+import { Input, Icon, Button, InputGroup, Integer } from 'rctui'
 
 module.exports = () => {
   return (
@@ -108,6 +108,12 @@ module.exports = () => {
   <Input placeholder="small input" />
   <Button status="primary">button</Button>
 </InputGroup>
+        </Example>
+
+        <Example>
+          <Integer style={{width: 80}} unit="px" size="small" />
+          <Integer style={{width: 80}} unit="px" size="middle" />
+          <Integer style={{width: 80}} size="large" />
         </Example>
 
         <Cn>更多示例见 <a href="#/formControl">FormControl</a></Cn>

@@ -183,3 +183,129 @@
     border-left: 0;
   }
 }
+
+.integer {
+  padding: 0 1.5rem 0 0;
+  position: relative;
+
+  .flex {
+    width: 100%;
+    display: flex;
+  }
+
+  input {
+    padding: $input-padding-y 0.2rem $input-padding-y $input-padding-x;
+    min-width: 0;
+    flex: 1;
+    font-size: $font-size-base;
+    display: flex;
+    outline: none;
+    border-width: 0;
+    text-align: right;
+    background: transparent;
+  }
+
+  span {
+    padding: $input-padding-y 0;
+    display: inline-block;
+    line-height: $input-line-height;
+  }
+
+  .up, .down {
+    position: absolute;
+    right: 0;
+    width: 1.5rem;
+    height: ($input-padding-y * 2 + $input-line-height) / 2;
+    top: 0;
+
+    &:before {
+      content: ' ';
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      overflow: hidden;
+      border-style: solid;
+    }
+  }
+
+  .up {
+    &:before {
+      bottom: 0.2rem;
+      border-width: 0 5px 5px 5px;
+      border-color: transparent transparent #999 transparent;
+    }
+
+    &:hover:before {
+      border-bottom-color: $link-color;
+    }
+  }
+
+  .down {
+    top: 50%;
+
+    &:before {
+      top: 0.2rem;
+      border-width: 5px 5px 0 5px;
+      border-color: #999 transparent transparent transparent;
+    }
+
+    &:hover:before {
+      border-top-color: $link-color;
+    }
+  }
+
+
+  &.small {
+    padding-right: 1.2rem;
+    input {
+      padding: $input-padding-y-sm 0.1rem $input-padding-y-sm $input-padding-x-sm;
+      font-size: $font-size-sm;
+    }
+
+    span {
+      padding: $input-padding-y-sm 0;
+      line-height: 1;
+    }
+
+    .up, .down {
+      width: 1.2rem;
+      height: ($input-padding-y-sm * 2 + $input-line-height) / 2;
+    }
+
+    .up:before {
+      border-width: 0 4px 4px 4px;
+    }
+
+    .down:before {
+      border-width: 4px 4px 0 4px;
+    }
+  }
+
+  &.large {
+    padding-right: 1.8rem;
+    input {
+      padding: $input-padding-y-lg 0.3rem $input-padding-y-lg $input-padding-x-lg;
+      font-size: $font-size-lg;
+    }
+
+    span {
+      padding: $input-padding-y-lg 0;
+    }
+
+    .up, .down {
+      width: 1.8rem;
+      height: ($input-padding-y-lg * 2 + $input-line-height) / 2;
+    }
+
+    .up:before {
+      border-width: 0 6px 6px 6px;
+    }
+
+    .down:before {
+      border-width: 6px 6px 0 6px;
+    }
+  }
+}

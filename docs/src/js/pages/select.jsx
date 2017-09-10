@@ -91,16 +91,35 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
 
           <h2 className="subhead">Simple Array</h2>
           <Example>
-<Select grid={{width: 1 / 3}}
-  placeholder="no data"
-  data={[]} />
-<Select grid={{width: 1 / 3}}
-  placeholder="City"
-  required
-  data={['Beijing', 'Tokyo', 'New York', 'Edinburgh', 'San Francisco', 'Sidney']} />
-<Select grid={{width: 1 / 3}}
-  mult
-  data={['Beijing', 'Tokyo', 'New York', 'Edinburgh', 'San Francisco', 'Sidney']} />
+            <Select grid={{width: 1 / 3}}
+              placeholder="no data"
+              data={[]} />
+            <Select grid={{width: 1 / 3}}
+              placeholder="City"
+              required
+              data={['Beijing', 'Tokyo', 'New York', 'Edinburgh', 'San Francisco', 'Sidney']} />
+            <Select grid={{width: 1 / 3}}
+              mult
+              data={['Beijing', 'Tokyo', 'New York', 'Edinburgh', 'San Francisco', 'Sidney']} />
+          </Example>
+
+          <h2 className="subhead">Size</h2>
+          <Example>
+            <Select grid={{width: 1 / 3}}
+              placeholder="small"
+              size="small"
+              required
+              data={['Beijing', 'Tokyo', 'New York', 'Edinburgh', 'San Francisco', 'Sidney']} />
+            <Select grid={{width: 1 / 3}}
+              placeholder="middle"
+              size="middle"
+              required
+              data={['Beijing', 'Tokyo', 'New York', 'Edinburgh', 'San Francisco', 'Sidney']} />
+            <Select grid={{width: 1 / 3}}
+              placeholder="large"
+              size="large"
+              required
+              data={['Beijing', 'Tokyo', 'New York', 'Edinburgh', 'San Francisco', 'Sidney']} />
           </Example>
 
           <h2 className="subhead">Object</h2>
