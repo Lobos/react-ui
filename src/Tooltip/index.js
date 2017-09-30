@@ -14,7 +14,7 @@ class Tooltip extends React.Component {
   }
 
   componentWillUnmount () {
-    this.props.content ? Popover.hide() : Tip.hide()
+    this.props.content ? Popover.hide(this.props.delay) : Tip.hide()
   }
 
   handleShow () {
@@ -68,12 +68,12 @@ class Tooltip extends React.Component {
   }
 
   render () {
-    const { children, content, trigger, style } = this.props
+    const { children, content, delay, trigger, style } = this.props
     const props = {}
 
     if (trigger === 'hover') {
       props.onMouseEnter = this.handleShow
-      props.onMouseLeave = content ? Popover.hide : Tip.hide
+      props.onMouseLeave = () => { content ? Popover.hide(delay) : Tip.hide }
     } else {
       props.onClick = () => {
         setTimeout(this.handleShow, 10)
@@ -95,6 +95,7 @@ Tooltip.propTypes = {
   children: PropTypes.element,
   className: PropTypes.string,
   content: PropTypes.element,
+  delay: PropTypes.number,
   position: PropTypes.oneOf(['top-left', 'top', 'top-right', 'left', 'right', 'bottom-left', 'bottom', 'bottom-right']),
   style: PropTypes.object,
   tip: PropTypes.string,
