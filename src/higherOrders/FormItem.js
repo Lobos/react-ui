@@ -53,7 +53,7 @@ export default function FormItem (Component) {
       if (this.props.value !== nextProps.value) {
         itemChange && nextProps.name
           ? itemChange(nextProps.name, nextProps.value)
-          : this.setState({ value: nextProps.value })
+          : this._setState({ value: nextProps.value })
       }
     }
 
@@ -71,6 +71,7 @@ export default function FormItem (Component) {
     }
 
     componentWillUnmount () {
+      this._isUnmounted = true
       const { name, onValidate } = this.props
       const { itemUnbind } = this.context
       itemUnbind && itemUnbind(name)
@@ -79,9 +80,15 @@ export default function FormItem (Component) {
       onValidate && onValidate(name, true)
     }
 
+    _setState (state) {
+      if (!this._isUnmounted) {
+        this.setState(state)
+      }
+    }
+
     setResult (result) {
       const { name, onValidate } = this.props
-      this.setState({ result })
+      this._setState({ result })
       onValidate && onValidate(name, result)
     }
 
@@ -142,7 +149,7 @@ export default function FormItem (Component) {
 
         if (beforeChange) value = beforeChange(value)
         // if in a form, use formData, else use state
-        itemChange && name ? itemChange(name, value) : this.setState({ value })
+        itemChange && name ? itemChange(name, value) : this._setState({ value })
 
         // arguments handle
         let args = Array.prototype.slice.call(arguments)

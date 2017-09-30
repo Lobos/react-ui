@@ -15,18 +15,20 @@ module.exports = () => {
       <div className="content">
         <h2 className="subhead">Global method</h2>
         <Code>
-{`Message[info|show|warning|success|error|danger](content, { duration })
+{`Message[info|show|warning|success|error|danger](content, { duration, exclusive })
 info === show
 error === danger`}
         </Code>
 
         <Cn>
           <b>content:</b>消息内容，必填，值为 <em>string</em> 或 <em>ReactElement</em><br />
-          <b>duration:</b>显示时长，单位为秒。当 duration > 0 时，Message会在显示duration秒后自动关闭，否则，会显示一个关闭按钮，需要手动关闭。默认值：当type为'danger'或者'error'时，默认值为 0，其它为 6
+          <b>duration:</b>显示时长，单位为秒。当 duration > 0 时，Message会在显示duration秒后自动关闭，否则，会显示一个关闭按钮，需要手动关闭。默认值：当type为'danger'或者'error'时，默认值为 0，其它为 6<br />
+          <b>exclusive:</b>独占消息区，默认为 <em>false</em>。当exclusive === true 时，会清除其他所有消息，只显示当前消息。
         </Cn>
         <En>
           <b>content:</b> required, string or ReactElement<br />
-          <b>duration:</b> seconds, number. if duration > 0, message will auto close after 'duration' seconds, else show a close button. message type === 'danger|error', default 'duration' is 0, else default 'duration' is 6 seconds.
+          <b>duration:</b> seconds, number. if duration > 0, message will auto close after 'duration' seconds, else show a close button. message type === 'danger|error', default 'duration' is 0, else default 'duration' is 6 seconds.<br />
+          <b>exclusive:</b> bool, default value is <em>false</em>。if exclusive === true, remove other messages.
         </En>
 
         <h2 className="subhead">info</h2>
@@ -48,6 +50,11 @@ error === danger`}
   )}>
   click me
 </a>
+        </Example>
+
+        <h2 className="subhead">exclusive</h2>
+        <Example>
+<a onClick={() => Message.error('This is an error message.', { exclusive: true })}>click me</a>
         </Example>
 
         <h2 className="subhead">with element</h2>

@@ -22,7 +22,11 @@ function create (type) {
     msg.duration = msg.duration !== undefined
       ? msg.duration
       : (msg.type === 'error' || msg.type === 'danger') ? 0 : 5
-    container.addMessage(msg)
+    if (msg.exclusive) {
+      container.showMessage(msg)
+    } else {
+      container.addMessage(msg)
+    }
   }
 }
 

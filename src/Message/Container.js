@@ -1,4 +1,4 @@
-import React, { Component, DOM } from 'react'
+import React, { Component } from 'react'
 import Message from './Message'
 import { isEmpty } from '../utils/objects'
 
@@ -20,6 +20,10 @@ export default class extends Component {
     let messages = this.state.messages
     messages[msg.id] = msg
     this.setState({ messages })
+  }
+
+  showMessage (msg) {
+    this.setState({ messages: { [msg.id]: msg } })
   }
 
   removeMessage (id) {

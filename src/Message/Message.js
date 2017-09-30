@@ -31,7 +31,7 @@ export default class Message extends Component {
   }
 
   render () {
-    const { content, ...props } = this.props
+    const { content, exclusive, ...props } = this.props
     const { duration } = this.state
 
     delete props.duration

@@ -5,8 +5,8 @@ import { Rating, Icon, RadioGroup, Input, Checkbox } from 'rctui'
 import { Cn, En } from '../Language'
 
 const STARS = [
-  <Icon key="f" size={2} style={{color: 'gold'}}>&#xe607;</Icon>,
-  <Icon key="b" size={2} style={{color: 'gold'}}>&#xe606;</Icon>
+  <Icon key="f" size={2} style={{color: 'gold'}} icon="star-outline" />,
+  <Icon key="b" size={2} style={{color: 'gold'}} icon="star" />
 ]
 
 const HEARTS = [
@@ -101,7 +101,7 @@ const HEARTS = [
 </div>
 
 <div>
-  <Checkbox value="readOnly" onChange={readOnly => this.setState({ readOnly })} text={'readOnly'} />
+  <Checkbox onChange={readOnly => this.setState({ readOnly })} text={'readOnly'} />
 </div>
 
 <div style={{marginBottom: 10}}>

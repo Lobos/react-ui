@@ -268,7 +268,6 @@
 
     span {
       padding: $input-padding-y-sm 0;
-      line-height: 1;
     }
 
     .up, .down {
@@ -277,10 +276,12 @@
     }
 
     .up:before {
+      bottom: 0.15rem;
       border-width: 0 4px 4px 4px;
     }
 
     .down:before {
+      top: 0.15rem;
       border-width: 4px 4px 0 4px;
     }
   }

@@ -44,7 +44,13 @@ class FormControl extends Component {
     return update
   }
 
+  componentWillUnmount () {
+    this._isUnmounted = true
+  }
+
   handleValidate (name, result) {
+    if (this._isUnmounted) return
+
     let { validations } = this.state
     if (result === true) {
       delete validations[name]

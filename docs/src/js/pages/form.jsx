@@ -186,7 +186,7 @@ module.exports = class extends React.Component {
               </Grid>
 
               <FormControl label="number - integer">
-                <FormText>{(d) => <Input readOnly value={d.number - d.integer} /> }</FormText>
+                <FormText>{(d) => d.number ? <Input readOnly value={d.number - d.integer} /> : <span /> }</FormText>
               </FormControl>
 
               <FormControl grid={{width: 16 / 24}}

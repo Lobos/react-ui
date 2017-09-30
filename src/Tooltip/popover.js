@@ -32,6 +32,8 @@ function clickaway (e) {
 export function show (props) {
   const { position, style, content, background, border, noArrow } = props
 
+  if (_tm) clearTimeout(_tm)
+
   div.style.cssText = 'display: none'
   Object.keys(style).forEach(k => {
     div.style[k] = style[k]

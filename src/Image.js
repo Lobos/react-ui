@@ -131,7 +131,7 @@ class Image extends Component {
 
     return (
       <Tag href={href}
-        onClick={href && target === '_modal' && this.handleClick}
+        onClick={(href && target === '_modal') ? this.handleClick : undefined}
         target={target}
         className={className}
         style={objectAssign({}, style, {width, paddingBottom: height})}

@@ -38,6 +38,7 @@ class Integer extends Component {
 
   handleValue (val) {
     let value = parseInt(val, 10)
+    if (isNaN(value)) value = min
 
     const { max, min } = this.props
     if (max !== undefined && value > max) value = max
@@ -159,7 +160,7 @@ Integer.defaultProps = {
   size: 'middle',
   style: {},
   unit: '',
-  value: 0
+  value: undefined
 }
 
 export default compose(
