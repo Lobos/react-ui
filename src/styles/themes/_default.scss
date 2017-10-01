@@ -37,6 +37,9 @@ $modal-title-padding:                        1rem;
 $dropdown-link-active-color:                #000000 !default;
 $dropdown-link-active-bg:                   #f5f5f5 !default;
 
+// custom-select
+$custom-select-bg-size:                     10px 10px !default; // In pixels because image dimensions
+$custom-select-indicator:                   url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2048 1024'%3E%3Cpath fill='%23666' d='M2048 1.024 1025.024 1024 2.048 1.024 2048 1.024z'/%3E%3C/svg%3E") !default;
 
 // import bootstrap
 @import 'bootstrap';
