@@ -100,7 +100,7 @@ class Integer extends Component {
   }
 
   render () {
-    const { className, grid, unit, value, style, size } = this.props
+    const { className, grid, unit, value, style, size, autoFocus } = this.props
 
     const cls = classnames(
       className,
@@ -114,6 +114,7 @@ class Integer extends Component {
       <div className={cls} onMouseUp={this.handleFocus} style={style}>
         <div className={_styles.flex}>
           <input
+            autoFocus={autoFocus}
             ref={this.setTextElement}
             type="text"
             onKeyDown={this.handleKeyDown}
@@ -143,6 +144,7 @@ class Integer extends Component {
 }
 
 Integer.propTypes = {
+  autoFocus: PropTypes.bool,
   className: PropTypes.string,
   grid: PropTypes.grid,
   max: PropTypes.number,
@@ -155,6 +157,7 @@ Integer.propTypes = {
 }
 
 Integer.defaultProps = {
+  autoFocus: false,
   max: undefined,
   min: undefined,
   size: 'middle',

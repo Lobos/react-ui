@@ -23,12 +23,20 @@
 .small {
   .control {
     padding: $input-padding-y-sm ($input-padding-x-sm + $custom-select-indicator-padding) $input-padding-y-sm $input-padding-x-sm;
+    background: {
+      position: right $custom-select-padding-x-sm center;
+      size: $custom-select-bg-size-sm;
+    }
   }
 }
 
 .large {
   .control {
     padding: $input-padding-y-lg ($input-padding-x-lg + $custom-select-indicator-padding) $input-padding-y-lg $input-padding-x-lg;
+    background: {
+      position: right $custom-select-padding-x-bg center;
+      size: $custom-select-bg-size-bg;
+    }
   }
 }
 
