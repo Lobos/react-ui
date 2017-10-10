@@ -68,12 +68,12 @@ module.exports = function () {
   action="/upload"
   accept="image/*"
   limit={3}
-  fileSize={100}
+  fileSize={400}
   params={{ arg: 'test' }}
   value={['images/image1.jpg', 'images/image2.jpg']}
   srcTpl={d => d}
   imgValidator={(img) => {
-    if (img.width === 200) return true
+    if (img.width >= 200) return true
     else return new Error('invalid image width')
   }}
   onUpload={(res) => {

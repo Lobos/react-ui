@@ -12,10 +12,15 @@ export default class Alert extends Component {
     this.handleClose = this.handleClose.bind(this)
   }
 
+  componentWillUnmount () {
+    this._isUnmounted = true
+  }
+
   handleClose () {
     this.setState({ dismissed: true })
     setTimeout(() => {
-      this.refs.element.style.display = 'none'
+      if (this._isUnmounted) return
+      this.element.style.display = 'none'
       this.props.onClose && this.props.onClose()
     }, 300)
   }
@@ -25,7 +30,7 @@ export default class Alert extends Component {
     const { dismissed } = this.state
 
     return (
-      <div ref="element" {...others} className={
+      <div ref={ (el) => { this.element = el }} {...others} className={
         classnames(
           Styles.alert,
           Styles[type],

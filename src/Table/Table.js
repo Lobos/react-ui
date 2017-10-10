@@ -47,7 +47,8 @@ export default class Table extends Component {
   }
 
   setHeaderWidth () {
-    const { header, body } = this.refs
+    const header = this.header
+    const body = this.body
 
     if (!body || !header) {
       return
@@ -72,8 +73,7 @@ export default class Table extends Component {
   }
 
   onBodyScroll (e) {
-    let hc = this.refs.headerContainer
-    hc.style.marginLeft = (0 - e.target.scrollLeft) + 'px'
+    this.headerContainer.style.marginLeft = (0 - e.target.scrollLeft) + 'px'
   }
 
   handleSelect (d, e, checked) {
@@ -244,8 +244,8 @@ export default class Table extends Component {
 
           { columns &&
             <div className={_tables.header}>
-              <div ref="headerContainer" style={headerStyle}>
-                <table style={{transform: 'translateZ(0)'}} ref="header">
+              <div ref={(el) => { this.headerContainer = el }} style={headerStyle}>
+                <table style={{transform: 'translateZ(0)'}} ref={(el) => { this.header = el }}>
                   { this.renderColgroup(columns) }
                   { this.renderHeader(columns) }
                 </table>
@@ -254,7 +254,7 @@ export default class Table extends Component {
           }
 
           <div className={_tables.body} onScroll={onBodyScroll} style={bodyStyle}>
-            <table style={tableStyle} ref="body">
+            <table style={tableStyle} ref={(el) => { this.body = el }}>
               { children }
               { columns && this.renderColgroup(columns) }
               { columns && body }
@@ -272,7 +272,7 @@ export default class Table extends Component {
           { filter }
 
           <div className={_tables.body} style={bodyStyle}>
-            <table style={tableStyle} ref="body">
+            <table style={tableStyle} ref={(el) => { this.body = el }}>
               { children }
               { columns && this.renderColgroup(columns) }
               { columns && this.renderHeader(columns) }

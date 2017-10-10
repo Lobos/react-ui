@@ -37,7 +37,7 @@ export default class Radio extends Component {
 
     return (
       <label style={style} className={labelClass}>
-        <input ref="input"
+        <input
           type="radio"
           disabled={readOnly}
           onChange={this.handleChange}

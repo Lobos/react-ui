@@ -18,7 +18,7 @@ export default class List extends Component {
 
   componentDidMount () {
     // get one option height, set option wrapper height
-    const wrap = this.refs.wrap
+    const wrap = this.element
     this.timeout = setTimeout(() => {
       this._optionHeight = wrap.querySelector('ul li').clientHeight
       wrap.querySelector('ul').style.height = (this._optionHeight * (this.props.data.length || 1)) + 'px'
@@ -32,7 +32,7 @@ export default class List extends Component {
   }
 
   toggleScroll (sw) {
-    Events[sw](this.refs.wrap, 'scroll', this.handleOptionsScroll)
+    Events[sw](this.element, 'scroll', this.handleOptionsScroll)
   }
 
   handleOptionsScroll (e) {
@@ -106,7 +106,7 @@ export default class List extends Component {
     }
 
     return (
-      <div className={classnames(className, _lists.wrap, _lists[size])} ref="wrap">
+      <div className={classnames(className, _lists.wrap, _lists[size])} ref={(el) => { this.element = el }}>
         <ul style={{height: this._optionHeight * (data.length || 1)}}>{options}</ul>
       </div>
     )

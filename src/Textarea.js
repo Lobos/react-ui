@@ -19,7 +19,7 @@ class Textarea extends Component {
 
   componentDidMount () {
     if (this.props.autoHeight) {
-      let el = this.refs.element
+      let el = this.element
 
       // wait css
       setTimeout(() => {
@@ -31,7 +31,7 @@ class Textarea extends Component {
 
   componentWillUnmount () {
     if (this.shadow) {
-      this.refs.element.parentNode.removeChild(this.shadow)
+      this.element.parentNode.removeChild(this.shadow)
     }
   }
 
@@ -39,7 +39,7 @@ class Textarea extends Component {
     let value = event.target.value
     if (this.props.autoHeight) {
       this.shadow.value = value
-      this.refs.element.style.height = Math.max(this.minHeight, this.shadow.scrollHeight) + 'px'
+      this.element.style.height = Math.max(this.minHeight, this.shadow.scrollHeight) + 'px'
     }
     this.props.onChange(event.target.value, event)
   }
@@ -67,7 +67,7 @@ class Textarea extends Component {
     }
 
     return (
-      <textarea ref="element" { ...filterTextareaProps(other, props) } value={value} />
+      <textarea ref={(el) => { this.element = el }} { ...filterTextareaProps(other, props) } value={value} />
     )
   }
 }

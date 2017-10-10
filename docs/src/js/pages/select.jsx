@@ -149,7 +149,6 @@ data 为简单数组(如["中国", "美国", "俄罗斯", "德国"])，时，所
   onChange={ this.handleCountry }
   value={'ar'}
   fetch={'json/countries.json'} />
-<Button style={{ marginLeft: 10 }} onClick={ () => this.setState({ country: '' }) }>Clear</Button>
           </Example>
 
           <h2 className="subhead">Large Options</h2>

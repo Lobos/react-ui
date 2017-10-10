@@ -19,13 +19,12 @@ class FileUpload extends Component {
   }
 
   addFile () {
-    this.refs.input.click()
+    this.input.click()
   }
 
   handleFileChange (e) {
-    let ul = this.refs.ul
     this.props.onFileAdd(e.target, (id, e) => {
-      let progress = ul.querySelector(`#up_pr_${id}`)
+      let progress = this.ul.querySelector(`#up_pr_${id}`)
       progress.style.backgroundSize = (e.loaded / e.total) * 100 + '%' + ' 2px'
     })
   }
@@ -78,10 +77,10 @@ class FileUpload extends Component {
           allowAdd &&
           <div onClick={this.addFile}>
             {children || content}
-            <InputFile ref="input" multiple={multiple} accept={accept} onChange={this.handleFileChange} />
+            <InputFile ref={(input) => { this.input = input }} multiple={multiple} accept={accept} onChange={this.handleFileChange} />
           </div>
         }
-        <ul ref="ul">
+        <ul ref={(ul) => { this.ul = ul }}>
           { this.renderValues() }
           { this.renderFiles() }
         </ul>

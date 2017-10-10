@@ -18,9 +18,9 @@ require('./menuList').forEach(function (menu, index) {
   }
 })
 
-function scrollTop () {
+window.addEventListener('hashchange', () => {
   window.scrollTo(0, 0)
-}
+})
 
 class Master extends Component {
   constructor (props) {
@@ -45,7 +45,7 @@ class Master extends Component {
 
   render () {
     return (
-      <Router onUpdate={scrollTop}>
+      <Router>
         <div style={{height: '100vh'}}>
           <header>
             <a className="menu" href="javascript:;" onClick={this.navToggle}>

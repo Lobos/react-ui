@@ -6,15 +6,16 @@ class InputFile extends Component {
     if (this.locked) return
     this.locked = true
 
-    this.refs.input.value = ''
-    this.refs.input.click()
+    this.input.value = ''
+    this.input.click()
 
     setTimeout(() => { this.locked = false }, 200)
   }
 
   render () {
     return (
-      <input type="file" ref="input"
+      <input type="file"
+        ref={(el) => { this.input = el }}
         multiple={this.props.multiple}
         accept={this.props.accept}
         style={{

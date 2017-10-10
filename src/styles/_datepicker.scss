@@ -30,15 +30,16 @@
   .clear {
     display: block;
     position: absolute;
-    right: 0;
-    top: 0;
-    width: $input-padding-y * 2 + $input-line-height;
-    height: $input-padding-y * 2 + $input-line-height;
+    right: $input-padding-y;
+    top: $input-padding-y;
+    width: $input-line-height * 1rem;
+    height: $input-line-height * 1rem;
     background: {
-      image: $indicator-clear;
+      image: $indicator-trash;
+      color: $datepicker-bg;
       repeat: no-repeat;
       position: center;
-      size: 50%;
+      size: 80%;
     }
   }
 }
@@ -358,7 +359,7 @@
 
     svg {
       width: 100%;
-      height:: 100%;
+      height: 100%;
     }
   }
 
@@ -422,7 +423,7 @@
   }
 }
 
-.open .control {
-  background-image: none;
-}
+// .open .control {
+  // background-image: none;
+// }
 

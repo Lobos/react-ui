@@ -25,7 +25,7 @@ export default class Editor extends Component {
   componentDidMount () {
     const { value, theme, placeholder, readOnly } = this.props
 
-    let editor = this.editor = new Quill(this.refs.editor, {
+    let editor = this.editor = new Quill(this.element, {
       modules: { toolbar: `#${this.id}` },
       placeholder,
       readOnly,
@@ -92,7 +92,7 @@ export default class Editor extends Component {
         <div id={this.id}>
           {this.renderToolbar(toolbar)}
         </div>
-        <div ref="editor" style={{ height }} />
+        <div ref={(el) => { this.element = el }} style={{ height }} />
       </div>
     )
   }

@@ -31,7 +31,7 @@ class Modal extends Component {
   }
 
   clickaway (event) {
-    if (event.target === this.refs.element) {
+    if (event.target === this.element) {
       this.handleClose()
     }
   }
@@ -99,7 +99,7 @@ class Modal extends Component {
     const clickaway = this.props.clickaway ? this.clickaway : undefined
 
     return (
-      <div ref="element" className={ModalStyles.inner} onClick={clickaway} style={{ zIndex: ZINDEX + index }}>
+      <div ref={(el) => { this.element = el }} className={ModalStyles.inner} onClick={clickaway} style={{ zIndex: ZINDEX + index }}>
         <div style={{width: width || '35rem'}} className={className}>
           <a className={ModalStyles.close} onClick={this.handleClose}>{CLOSE}</a>
           {this.renderHeader()}

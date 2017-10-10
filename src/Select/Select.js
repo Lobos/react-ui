@@ -26,7 +26,7 @@ export default class Select extends Component {
   }
 
   componentDidMount () {
-    if (!this.props.mult) this.props.registerTarget(this.refs.options)
+    if (!this.props.mult) this.props.registerTarget(this.options)
   }
 
   showOptions () {
@@ -36,9 +36,9 @@ export default class Select extends Component {
 
     this.props.onOpen()
     this.setState({ filter: '' }, () => {
-      let offset = getOuterHeight(this.refs.options) + 5
+      let offset = getOuterHeight(this.options) + 5
 
-      let el = this.refs.container
+      let el = this.container
       let dropup = overView(el, offset)
 
       withoutTransition(el, () => {
@@ -170,7 +170,7 @@ export default class Select extends Component {
     }
 
     return (
-      <div ref="container" onClick={this.showOptions} style={style} className={className}>
+      <div ref={(el) => { this.container = el }} onClick={this.showOptions} style={style} className={className}>
         <div className={classnames(_select.control, _input.input, _input[size], readOnly && _input.disabled, hasError && _input.hasError)}>
         {
           result.length > 0
@@ -183,7 +183,7 @@ export default class Select extends Component {
           enter={_select.enter}
           leave={_select.leave}
           tf="ease-out">
-          <div ref="options" className={_select.options}>
+          <div ref={(el) => { this.options = el }} className={_select.options}>
             {this.renderFilter()}
             <List data={options} size={size} maxShowCount={maxShowCount} onChange={this.handleChange} className={_select.optionsWrap} />
           </div>

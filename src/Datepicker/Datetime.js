@@ -50,7 +50,7 @@ class Datetime extends Component {
   }
 
   componentDidMount () {
-    this.props.registerTarget(this.refs.datepicker)
+    this.props.registerTarget(this.datepicker)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -114,12 +114,12 @@ class Datetime extends Component {
     today = new Date(today.getFullYear(), today.getMonth(), today.getDate())
 
     let isTime = this.props.type === TIME
-    let height = getOuterHeight(this.refs.datepicker)
+    let height = getOuterHeight(this.datepicker)
 
     this.setState({
       current: this.state.value || today,
       timeStage: isTime ? 'hour' : '',
-      dropup: overView(this.refs.datetime, height)
+      dropup: overView(this.datetime, height)
     })
   }
 
@@ -429,19 +429,19 @@ class Datetime extends Component {
     let text = value ? this.formatValue(value) : ''
 
     return (
-      <div ref="datetime" onClick={this.handleOpen} className={className}>
+      <div ref={ (el) => { this.datetime = el }} onClick={this.handleOpen} className={className}>
         <div className={classnames(_datepickers.control, _inputs.input, hasError && _inputs.dangerInput)}>
           {
             text ? <span>{text}</span>
               : <span className={_inputs.placeholder}>{placeholder}&nbsp;</span>
           }
           {
-            open &&
+            open && value &&
             <a className={_datepickers.clear} onClick={this.handleClear} href="javascript:;" />
           }
         </div>
         <Transition duration={333} enter={_datepickers.enter} leave={_datepickers.leave} tf="ease-out" act={open ? 'enter' : 'leave'}>
-          <div ref="datepicker" className={_datepickers.picker}>
+          <div ref={ (el) => { this.datepicker = el }} className={_datepickers.picker}>
             {this.renderHeader()}
             {this.renderInner()}
             {(stage === 'day' || stage === 'clock') && type !== DATE && this.renderTime()}

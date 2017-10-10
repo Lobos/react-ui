@@ -20,18 +20,17 @@ class ImgUpload extends Component {
   }
 
   addFile () {
-    this.refs.input.click()
+    this.input.click()
   }
 
   handleFileChange (e) {
     const input = e.target
-    let ul = this.refs.ul
 
     this.props.onFileAdd(
       input,
 
       (id, e) => {
-        let progress = ul.querySelector(`#up_mask_${id}`)
+        let progress = this.ul.querySelector(`#up_mask_${id}`)
         if (progress) {
           progress.style.height = (1 - e.loaded / e.total) * 100 + '%'
         }
@@ -135,13 +134,13 @@ class ImgUpload extends Component {
 
     return (
       <div className={className} style={style}>
-        <ul ref="ul">
+        <ul ref={(ul) => { this.ul = ul }}>
           { this.renderValues() }
           { this.renderFiles() }
           {
             allowAdd &&
             <li style={{width, height}}>
-              <InputFile ref="input" multiple={multiple} accept={accept} onChange={this.handleFileChange} />
+              <InputFile ref={(el) => { this.input = el }} multiple={multiple} accept={accept} onChange={this.handleFileChange} />
               <div onClick={this.addFile} className={classnames(_styles['imgupload-add'], _styles['img'])} />
             </li>
           }
