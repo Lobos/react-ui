@@ -23,6 +23,7 @@ export default function FormItem (Component) {
       this.handleChange = this.handleChange.bind(this)
       this.validate = this.validate.bind(this)
       this.setResult = this.setResult.bind(this)
+      this.bindElement = this.bindElement.bind(this)
     }
 
     componentWillMount () {
@@ -80,6 +81,10 @@ export default function FormItem (Component) {
       onValidate && onValidate(name, true)
     }
 
+    bindElement (el) {
+      this.inputElement = el
+    }
+
     _setState (state) {
       if (!this._isUnmounted) {
         this.setState(state)
@@ -105,7 +110,7 @@ export default function FormItem (Component) {
 
       // component's inner validate
       if (Component.isFormBlock) {
-        if (this._el) validate = this._el.validate.bind(this._el)
+        if (this.inputElement) validate = this.inputElement.validate.bind(this.inputElement)
       } else {
         validate = getValidate(type)
       }
@@ -177,7 +182,7 @@ export default function FormItem (Component) {
 
       let el = (
         <Component {...props}
-          ref={(el) => { this._el = el }}
+          ref={this.bindElement}
           hasError={this.state.result instanceof Error}
           onChange={this.handleChange}
           value={value}
