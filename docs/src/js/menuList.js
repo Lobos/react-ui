@@ -179,6 +179,11 @@ module.exports = [
   },
 
   {
+    path: '/circleProgress',
+    component: require('./pages/circleProgress.jsx')
+  },
+
+  {
     path: '/mask',
     component: require('./pages/mask.jsx')
   },

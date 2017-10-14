@@ -6,6 +6,7 @@ import { compose } from '../utils/compose'
 import { substitute, format } from '../utils/strings'
 import FormItem from '../higherOrders/FormItem'
 import { getLang } from '../lang'
+import CircleProgress from '../CircleProgress'
 import Upload from './Upload'
 import { ERROR } from './status'
 import InputFile from './InputFile'
@@ -28,13 +29,6 @@ class ImgUpload extends Component {
 
     this.props.onFileAdd(
       input,
-
-      (id, e) => {
-        let progress = this.ul.querySelector(`#up_mask_${id}`)
-        if (progress) {
-          progress.style.height = (1 - e.loaded / e.total) * 100 + '%'
-        }
-      },
 
       (file, blob, callback) => {
         let reader = new FileReader()
@@ -111,7 +105,24 @@ class ImgUpload extends Component {
       return (
         <li key={k} style={{width, height}} className={className}>
           <div className={_styles.img} style={{backgroundImage: `url(${file.url})`}}>
-            <div className={_styles.mask} id={`up_mask_${k}`} />
+            <svg style={{position: 'absolute'}} width="100%" height="100%">
+              <defs>
+                <mask id="mask3">
+                  <rect x="0" y="0" width="100%" height="100%"
+                    style={{stroke: 'none', fill: '#aaa'}} />
+                  <circle cx="40" cy="40" r="25" style={{fill: '#000'}} />
+                </mask>
+              </defs>
+              <rect x="0" y="0" width="100%" height="100%"
+                style={{stroke: 'none', fill: '#000', mask: 'url(#mask3)'}} />
+            </svg>
+            <CircleProgress
+              size={50}
+              width={50}
+              style={{ position: 'absolute', left: 15, top: 15, zIndex: 10 }}
+              background="transparent"
+              color="rgba(0,0,0,0.6)"
+              value={file.process} />
             <a href="javascript:;" onClick={() => removeFile(k)}>
               <span>{text} &times;</span>
             </a>

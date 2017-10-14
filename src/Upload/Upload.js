@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from '../utils/proptypes'
 import { nextUid, format } from '../utils/strings'
-import { deepEqual } from '../utils/objects'
+import { deepEqual, objectAssign } from '../utils/objects'
 import { getLang } from '../lang'
 import ajax from './ajax'
 import { UPLOADING, ERROR } from './status'
@@ -38,7 +38,7 @@ export default function (Origin) {
       this.props.onChange(value)
     }
 
-    addFile (input, onProgress, handle) {
+    addFile (input, handle) {
       const { fileSize } = this.props
       let files = {...this.state.files}
 
@@ -48,6 +48,7 @@ export default function (Origin) {
         let id = nextUid()
         let file = {
           name: blob.name,
+          process: 0,
           status: UPLOADING
         }
 
@@ -65,18 +66,18 @@ export default function (Origin) {
         if (handle) {
           handle(files[id], blob, (f) => {
             if (f.status !== ERROR) {
-              f.xhr = this.uploadFile(id, blob, onProgress.bind(this, id))
+              f.xhr = this.uploadFile(id, blob)
             }
             this.setState({ files })
           })
         } else {
-          file.xhr = this.uploadFile(id, blob, onProgress.bind(this, id))
+          file.xhr = this.uploadFile(id, blob)
           this.setState({ files })
         }
       }
     }
 
-    uploadFile (id, file, onProgress) {
+    uploadFile (id, file) {
       let { onUpload, action, name, inputName, cors, params, withCredentials } = this.props
 
       return ajax({
@@ -86,7 +87,16 @@ export default function (Origin) {
         params,
         withCredentials,
         file,
-        onProgress,
+        onProgress: (e) => {
+          const percentage = (e.loaded / e.total) * 100
+
+          const { files } = this.state
+          this.setState({
+            files: objectAssign({}, files, {
+              [id]: objectAssign({}, files[id], { process: percentage })
+            })
+          })
+        },
 
         onLoad: (e) => {
           let files = this.state.files

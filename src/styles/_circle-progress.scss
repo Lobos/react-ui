@@ -1,0 +1,10 @@
+.progress {
+  position: relative;
+  display: inline-block;
+
+  .inner {
+    display: inline-block;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+}

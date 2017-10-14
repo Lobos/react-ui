@@ -23,10 +23,7 @@ class FileUpload extends Component {
   }
 
   handleFileChange (e) {
-    this.props.onFileAdd(e.target, (id, e) => {
-      let progress = this.ul.querySelector(`#up_pr_${id}`)
-      progress.style.backgroundSize = (e.loaded / e.total) * 100 + '%' + ' 2px'
-    })
+    this.props.onFileAdd(e.target)
   }
 
   renderValues () {
@@ -49,7 +46,7 @@ class FileUpload extends Component {
       const file = files[k]
       let className = classnames(file.status === ERROR && _styles['has-error'])
       return (
-        <li key={k} id={`up_pr_${k}`} className={className}>
+        <li key={k} style={{backgroundSize: `${file.process}% 2px`}} id={`up_pr_${k}`} className={className}>
           <span>{file.status === ERROR ? file.message : file.name}</span>
           <a className={_styles.remove}
             onClick={() => removeFile(k)}>

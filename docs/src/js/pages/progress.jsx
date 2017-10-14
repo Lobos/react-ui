@@ -12,8 +12,11 @@ module.exports = function () {
       <div className="content">
         <Code>
 {`<Progress
-className={string}
-type={string}       // 'info|warning|success|danger', default is 'info'
+  className={string}
+  value={number}      // default value is 0
+  max={number}        // default value is 100
+  striped={bool}      // default value is false
+  type={string}       // 'info|warning|success|danger', default is 'info'
 />`}
         </Code>
 
