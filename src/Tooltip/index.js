@@ -73,7 +73,7 @@ class Tooltip extends React.Component {
 
     if (trigger === 'hover') {
       props.onMouseEnter = this.handleShow
-      props.onMouseLeave = () => { content ? Popover.hide(delay) : Tip.hide }
+      props.onMouseLeave = () => { content ? Popover.hide(delay) : Tip.hide() }
     } else {
       props.onClick = () => {
         setTimeout(this.handleShow, 10)

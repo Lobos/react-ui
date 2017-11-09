@@ -34,9 +34,10 @@ class Form extends Component {
   }
 
   getChildContext () {
-    const { columns, disabled, labelWidth, layout, hintType } = this.props
+    const { columns, disabled, errors, labelWidth, layout, hintType } = this.props
 
     return {
+      errors,
       formData: this.state.data,
       itemBind: this.itemBind,
       itemUnbind: this.itemUnbind,
@@ -219,6 +220,7 @@ Form.propTypes = {
   controls: PropTypes.array,
   data: PropTypes.object,
   disabled: PropTypes.bool,
+  errors: PropTypes.object,
   fetchStatus: PropTypes.string,
   grid: PropTypes.grid,
   hintType: PropTypes.oneOf(['block', 'none', 'pop', 'inline']),
@@ -234,11 +236,13 @@ Form.propTypes = {
 
 Form.defaultProps = {
   data: {},
+  errors: {},
   layout: 'aligned',
   disabled: false
 }
 
 Form.childContextTypes = {
+  errors: PropTypes.object,
   formData: PropTypes.object,
   itemBind: PropTypes.func,
   itemChange: PropTypes.func,

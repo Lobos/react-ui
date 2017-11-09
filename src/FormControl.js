@@ -33,7 +33,8 @@ class FormControl extends Component {
   shouldComponentUpdate (nextProps, nextState, nextContext) {
     let update = !shallowEqual(this.props, nextProps) ||
       !shallowEqual(this.state, nextState) ||
-      !shallowEqual(this.context.controlProps, nextContext.controlProps)
+      !shallowEqual(this.context.controlProps, nextContext.controlProps) ||
+      !shallowEqual(this.context.errors, nextContext.errors)
 
     if (this.names.length > 0) {
       update = update || !partialEqual(this.context.formData, nextContext.formData, this.names)
@@ -126,7 +127,12 @@ class FormControl extends Component {
 
   renderTip (hints) {
     let { tip, errorText } = this.props
-    let { validations } = this.state
+    let validations = { ...this.state.validations }
+    const { errors } = this.context
+    this.names.forEach(name => {
+      if (errors[name]) validations[name] = { message: errors[name] }
+    })
+
     hints = tip || hints
 
     if (!isEmpty(validations)) {
@@ -142,6 +148,19 @@ class FormControl extends Component {
     } else {
       return
     }
+  }
+
+  hasError () {
+    const { validations } = this.state
+    const { errors } = this.context
+    if (!isEmpty(validations)) return true
+
+    for (let i = 0; i < this.names.length; i++) {
+      const name = this.names[i]
+      if (errors[name]) return true
+    }
+
+    return false
   }
 
   propsExtend (props) {
@@ -208,7 +227,7 @@ class FormControl extends Component {
     let className = classnames(
       this.props.className,
       _forms['form-group'],
-      !isEmpty(this.state.validations) && _forms.hasError
+      this.hasError() && _forms.hasError
     )
 
     if (!grid && columns) grid = 1 / columns
@@ -279,6 +298,7 @@ FormControl.propTypes = {
 
 FormControl.contextTypes = {
   controlProps: PropTypes.object,
+  errors: PropTypes.object,
   formData: PropTypes.object
 }
 

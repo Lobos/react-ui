@@ -49,7 +49,7 @@ export default function FormItem (Component) {
       }
     }
 
-    componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps (nextProps, nextContext) {
       const { itemChange } = this.context
       if (this.props.value !== nextProps.value) {
         itemChange && nextProps.name
@@ -64,6 +64,7 @@ export default function FormItem (Component) {
       }
 
       if (shallowEqual(this.context, nextContext)) return false
+      if (!shallowEqual(this.context.errors, nextContext.errors)) return true
       if (!shallowEqual(this.context.controlProps, nextContext.controlProps)) return true
 
       const { formData } = nextContext
@@ -164,15 +165,20 @@ export default function FormItem (Component) {
     }
 
     render () {
-      let { readOnly, popover, ...props } = this.props
-      const { controlProps } = this.context
+      let { name, readOnly, popover, ...props } = this.props
+      const { controlProps, errors } = this.context
       const { result } = this.state
 
       let value = this.getValue()
 
+      let hasError = this.state.result instanceof Error
+      if (!hasError && errors && name) {
+        hasError = !!errors[name]
+      }
+
       let className = classnames(
         this.props.className,
-        (this.state.result instanceof Error) && _inputs.dangerInput
+        hasError && _inputs.dangerInput
       )
 
       if (controlProps && controlProps.disabled) readOnly = true
@@ -183,7 +189,8 @@ export default function FormItem (Component) {
       let el = (
         <Component {...props}
           ref={this.bindElement}
-          hasError={this.state.result instanceof Error}
+          name={name}
+          hasError={hasError}
           onChange={this.handleChange}
           value={value}
           readOnly={readOnly}
@@ -229,6 +236,7 @@ export default function FormItem (Component) {
   }
 
   FormItem.contextTypes = {
+    errors: PropTypes.object,
     formData: PropTypes.object,
     itemBind: PropTypes.func,
     itemChange: PropTypes.func,
