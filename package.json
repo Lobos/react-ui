@@ -97,7 +97,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "curry": "^1.2.0",
-    "node-sass": "^4.5.2",
+    "node-sass": "^4.7.2",
     "object-assign": "^4.0.1",
     "prop-types": "^15.5.8",
     "quill": "^1.0.4",

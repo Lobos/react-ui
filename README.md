@@ -51,3 +51,5 @@ options:
     - webpack    webpack.config.js !warning: will overwrite your webpack.config.js file
 ```
 
+# Start Kit
+如果配置仍然有问题的话，可以尝试使用这个 [Start Kit](https://github.com/Lobos/ogier-react).
