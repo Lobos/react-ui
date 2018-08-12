@@ -333,7 +333,8 @@ class Datetime extends Component {
       let disabled = false
       let speedTime = d.getTime()
       if (min > 0) {
-        disabled = speedTime + 86399000 < min
+        // disabled = speedTime + 86399000 < min
+        disabled = speedTime < min
       }
       if (!disabled && max > 0) {
         disabled = speedTime > max
