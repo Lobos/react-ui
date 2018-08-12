@@ -1,7 +1,7 @@
 {
   "name": "rctui",
   "author": "lobos841@gmail.com",
-  "version": "0.7.20",
+  "version": "0.7.21",
   "description": "a collection of components for React",
   "main": "./src/index.js",
   "scripts": {
@@ -72,6 +72,7 @@
     "mocha": "^2.3.4",
     "mocha-loader": "^0.7.1",
     "multer": "^1.2.0",
+    "node-sass": "^4.9.3",
     "phantomjs": "~2.1.3",
     "postcss-loader": "~0.8.2",
     "precss": "~1.4.0",
@@ -97,7 +98,6 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "curry": "^1.2.0",
-    "node-sass": "^4.7.2",
     "object-assign": "^4.0.1",
     "prop-types": "^15.5.8",
     "quill": "^1.0.4",

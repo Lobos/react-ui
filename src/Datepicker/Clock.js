@@ -14,6 +14,14 @@ class Clock extends Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    const ca = this.props.current.getHours() < 12
+    const na = nextProps.current.getHours() < 12
+    if (ca !== na && na !== this.state.am) {
+      this.setState({ am: na })
+    }
+  }
+
   setValue (value) {
     this.props.onTimeChange({[this.props.stage]: value})
   }

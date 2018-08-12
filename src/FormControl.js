@@ -129,9 +129,11 @@ class FormControl extends Component {
     let { tip, errorText } = this.props
     let validations = { ...this.state.validations }
     const { errors } = this.context
-    this.names.forEach(name => {
-      if (errors[name]) validations[name] = { message: errors[name] }
-    })
+    if (errors) {
+      this.names.forEach(name => {
+        if (errors[name]) validations[name] = { message: errors[name] }
+      })
+    }
 
     hints = tip || hints
 
@@ -155,9 +157,11 @@ class FormControl extends Component {
     const { errors } = this.context
     if (!isEmpty(validations)) return true
 
-    for (let i = 0; i < this.names.length; i++) {
-      const name = this.names[i]
-      if (errors[name]) return true
+    if (errors) {
+      for (let i = 0; i < this.names.length; i++) {
+        const name = this.names[i]
+        if (errors[name]) return true
+      }
     }
 
     return false
