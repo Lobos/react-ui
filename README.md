@@ -1,3 +1,9 @@
+>## This Project Is Deprecated
+
+>Try another component library [Shineout](https://github.com/sheinsight/shineout)
+
+>此项目已经暂停维护，已发布一个新的轻量，性能更优化的组件库 [Shineout](https://github.com/sheinsight/shineout)，欢迎移步使用。
+
 A collection of components for React, base on bootstrap 4.0. [Docs](http://lobos.github.io/react-ui/0.7)
 
 # Usage
